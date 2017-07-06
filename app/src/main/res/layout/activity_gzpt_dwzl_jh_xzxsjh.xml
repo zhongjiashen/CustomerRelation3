@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:id="@+id/jhname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/jh_xsjh"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <ImageButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/save" />
+    </RelativeLayout>
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_jhbh" />
+
+        <EditText
+            android:id="@+id/jhbh_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_kssj" />
+
+        <EditText
+            android:id="@+id/kssj_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_khmc" />
+
+        <EditText
+            android:id="@+id/khmc_edittext"
+            style="@style/edittext_bj"
+             />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_lxr" />
+
+        <EditText
+            android:id="@+id/lxr_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_lxdh" />
+
+        <EditText
+            android:id="@+id/lxdh_edittext"
+            style="@style/edittext_bj"
+            android:inputType="phone"
+            />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_jhmc" />
+
+        <EditText
+            android:id="@+id/jhmc_edittext"
+            style="@style/edittext_bj"
+             />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_jhly" />
+
+        <EditText
+            android:id="@+id/jhly_edittext"
+            style="@style/edittext_bj" 
+            android:editable="false"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_dqjd" />
+
+        <EditText
+            android:id="@+id/dqjd_edittext"
+            style="@style/edittext_bj" 
+            android:editable="false"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_jbr" />
+
+        <EditText
+            android:id="@+id/jbr_edittext"
+            style="@style/edittext_bj" 
+            android:editable="false"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jh_bz" />
+
+        <EditText
+            android:id="@+id/bz_edittext"
+            style="@style/edittext_bj" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+</LinearLayout>

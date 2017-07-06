@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageButton
+        android:id="@+id/plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/xsd_plus2"
+        android:clickable="true"
+        android:focusable="true"/>
+    <EditText
+        android:id="@+id/spsl" 
+        android:layout_width="60dip"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:text="0"
+        android:maxLength="6"
+        android:layout_gravity="bottom"
+        android:inputType="numberDecimal"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="#444851"
+      	android:cursorVisible="true"
+        android:enabled="true"
+        />
+    <ImageButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/xsd_add2"
+        android:clickable="true"
+        android:focusable="true" />
+</LinearLayout>

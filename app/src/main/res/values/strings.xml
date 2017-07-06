@@ -1,0 +1,551 @@
+<resources>
+    <string name="app_name">恒视CRM_IT企业版</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!--设置  -->
+    <string name="hscrm">恒视CRM_IT企业版</string>
+    <string name="ip">I P:</string>
+    <string name="dk">端 口:</string>
+
+    <!-- 登录 -->
+    <string name="jzbhhmm">记住编号和密码</string>
+
+    <!-- index主界面 -->
+    <string name="mstx">秘书提醒</string>
+    <string name="wdgz">呼叫中心</string>
+    <string name="jhzj">计划总结</string>
+    <string name="gzpt">工作平台</string>
+    <string name="tjfx">统计分析</string>
+    <string name="cggl">采购管理</string>
+    <string name="xsgl">销售管理</string>
+    <string name="ckgl">仓库管理</string>
+    <string name="jxc">进销存</string>
+    <string name="xjyh">现金银行</string>
+    <string name="fk">反馈</string>
+    <string name="gy">关于</string>
+    <string name="tc">退出</string>
+    <string name="khgxbb">客户关系报表</string>
+    <string name="cwtj">财务统计</string>
+
+    <string name="bjdw">编辑单位</string>
+
+    <!-- 关于页面 -->
+    <string name="gy_hscrm">恒视CRM</string>
+    <string name="tgb">IT企业版V1.0</string>
+    <string name="gs">公司：河南恒视软件科技有限公司</string>
+    <string name="wz">网站：www.hengshicrm.com</string>
+    <string name="dh">电话：0371-63575118/128</string>
+    <string name="qq"></string>
+    <string name="copyrite">Copyright  河南恒视</string>
+    <string name="allright">All Right Reserved</string>
+
+    <!-- 反馈页面 -->
+    <string name="lx">类型</string>
+    <string name="nr">内容</string>
+    <string name="fkjy">反馈建议</string>
+    <string-array name="lx">
+        <item>建议</item>
+        <item>投诉</item>
+    </string-array>
+
+    <!-- 秘书提醒-->
+    <string name="gztx">工作提醒</string>
+    <string name="gsgg">公司公告</string>
+    <string name="grrc">个人日程</string>
+    <string name="ksqd">开始签到</string>
+    <string name="qdjl">签到记录</string>
+    <string name="bt">标题</string>
+    <!-- <string name="nr">内容</string> --><!-- 引用反馈页面 -->
+    <string name="sftx">是否提醒</string>
+    <string name="zq">周期</string>
+    <string name="zq2">提醒周期</string>
+    <string name="qssj">起始时间</string>
+    <string name="tz">通知</string>
+    <string name="tx">提醒</string>
+
+    <!-- 新增签到 -->
+    <string name="xzqd">新增签到</string>
+    <string name="dd2">地点</string>
+    <string name="pz">拍照</string>
+    <string name="qxzkh">请选择客户</string>
+    <string name="djkspz">点击开始拍照</string>
+    <string name="sdsmb">说点什么吧！</string>
+    <string name="dhhm">电话号码</string>
+
+    <!-- 秘书提醒详情 -->
+    <string name="jrkhgl">进入客户管理</string>
+
+    <string name="xxzdw">选择单位</string>
+    <string name="xxzlxr">选择联系人</string>
+
+    <!-- 工作平台 -呼叫中心-->
+    <string name="cong">从：</string>
+    <string name="dao">到：</string>
+    <string name="jqxzdw">近期新增单位</string>
+    <string name="xzjh">选择计划</string>
+    <string name="hjzx">呼叫中心</string>
+    <string name="bf">拜访</string>
+    <string name="zj">最近</string>
+    <string name="xm">项目</string>
+    <string name="wh">维护</string>
+    <string name="cjjl">成交</string>
+    <string name="xh">序号</string>
+    <string name="jhmc">计划名称</string>
+    <string name="qsrq">起始日期</string>
+    <string name="jzrq">截止日期</string>
+    <string name="srxmhdw">输入姓名或单位</string>
+    <string name="srwpbhhmc">输入物品编号或名称</string>
+    <string name="srdjbhhmc">输入单据编号或单位名称</string>
+    <string name="qxzrq">请选择日期</string>
+    <string name="xzlm">选择类目</string>
+    <string name="xmmc">项目名称</string>
+    <string name="xmjd">项目进度</string>
+    <string name="bfnr">拜访内容</string>
+    <string name="bfrq">拜访日期</string>
+    <string name="rq">日期</string>
+    <string name="rq2">日期：</string>
+    <string name="sbmc">设备名称</string>
+    <string name="djbh">编号</string>
+    <string name="whjd">维护进度</string>
+    <string name="bxrq">保修日期</string>
+    <string name="je">金额</string>
+    <string name="je2">金额:</string>
+    <string name="lxr">联系人</string>
+    <string name="zt">状态</string>
+    <string name="zt2">状态:</string>
+    <string name="dwmc">单位名称</string>
+    <string name="dwmchbh">单位名称或编号</string>
+    <string name="frdb">法人代表</string>
+    <string name="khdj">客户等级</string>
+    <string name="xb">性别</string>
+    <string name="dq">地区</string>
+    <string name="dqs">省</string>
+    <string name="dqs2">市</string>
+    <string name="dqq">区</string>
+    <string name="hylx">行业类型</string>
+    <string name="khly">客户来源</string>
+    <string name="khlx">客户类型</string>
+    <string name="gh1">固话1</string>
+    <string name="gh2">固话2</string>
+    <string name="sj1">手机1</string>
+    <string name="sj2">手机2</string>
+    <string name="qq1">QQ1</string>
+    <string name="qq2">QQ2</string>
+    <string name="yx1">邮箱1</string>
+    <string name="yx2">邮箱2</string>
+    <string name="dwzz">单位住址</string>
+    <string name="jtzz">家庭住址</string>
+    <string name="bflr">拜访录入</string>
+    <string name="bfjl">拜访记录</string>
+    <string name="khzl">客户资料</string>
+    <string name="bjlxr">编辑联系人</string>
+    <string name="xzlxr">新增联系人</string>
+    <string name="xzxsd">新增销售单</string>
+    <string name="xzdw">新增单位</string>
+    <!-- 工作平台-预约拜访 -->
+    <string name="ybf">已拜访</string>
+    <string name="qbjl">全部记录</string>
+    <string name="wbf">未拜访</string>
+    <string name="yybf">预约拜访</string>
+    <!-- 售后回访 -->
+    <string name="shhf">售后回访</string>
+    <!-- 客户管理 -->
+    <string name="khgl_dw">单&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;位</string>
+    <string name="khgl_xm">联&#160;&#160;系&#160;&#160;人</string>
+    <string name="khgl_dh">电&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;话</string>
+    <string name="khgl_qq">Q&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Q</string>
+    <string name="khgl_xmjd">进度</string>
+    <string name="khgl_jxsyjd">仅显示有项目进度</string>
+    <string name="khgl_lx">类&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;型</string>
+    <string name="khgl">客户管理</string>
+    <string name="jxsyjhjd">仅显示有机会阶段</string>
+    <string name="abf">按拜访</string>
+    <string name="jsrq">结束日期</string>
+    <string name="khgl_qb">全部</string>
+    <string name="khgl_yx">有效</string>
+    <string name="khgl_wx">无效</string>
+    <!-- 销售单据 -->
+    <string name="xsdj">销售单据</string>
+    <string name="xzrq">选择日期</string>
+    <string name="xsd">销售单</string>
+
+    <!-- 计划总结-日计划 -->
+    <string name="rjh">日计划</string>
+    <string name="xmsl">项目数量</string>
+    <string name="xzxm">新增项目</string>
+    <string name="jhxm2">计划项目</string>
+    <string name="zxxm">执行项目</string>
+    <string name="xxzxm">选择项目</string>
+    <string name="xmnr">项目内容</string>
+    <string name="cl">执行策略</string>
+    <string name="cl2">策略</string>
+    <string name="jrzj">今日总结</string>
+    <string name="bzzj">本周总结</string>
+    <string name="dyzj">当月总结</string>
+    <string name="rzj">日总结</string>
+    <string name="yzj">月总结</string>
+    <string name="zdyzj">自定义总结</string>
+    <string name="jhrq">计划日期</string>
+    <string name="zxqk">执行情况</string>
+    <string name="zxjg">执行结果</string>
+    <string name="yyfx">原因分析</string>
+    <string name="sfsy">是否顺延</string>
+    <string name="syrq">顺延日期</string>
+
+    <!-- 周计划 -->
+    <string name="nd">年度：</string>
+    <string name="qn">全年</string>
+    <string name="zhou">&#160;&#160;&#160;&#160;周：</string>
+
+    <!-- 新增来电 -->
+    <string name="xzld">新增来电</string>
+    <string name="ldlr">来电录入</string>
+    <!-- 销售单 -->
+    <string name="xsd_djbh">单据编号：</string>
+    <string name="xsd_hkfs">回款方式：</string>
+    <string name="xsd_hkrq">回款日期：</string>
+    <string name="xsd_lxr">联系人：</string>
+    <string name="xsd_sj">手机：</string>
+    <string name="xsd_dh">电话：</string>
+    <string name="xsd_shdz">送货地址：</string>
+    <string name="xsd_djrq">单据日期：</string>
+    <string name="xsd_dwmc">单位名称：</string>
+    <string name="xsd_hjje">合计金额：</string>
+
+    <!-- 选择产品 -->
+    <string name="dj">单价</string>
+    <string name="sl">数量</string>
+    <string name="t">套</string>
+    <string name="xzcp">选择产品</string>
+    <!-- 拜访录入 -->
+    <string name="bffs">拜访方式</string>
+    <string name="xcj">新成交</string>
+    <string name="yy">预约</string>
+    <string name="yyrq">预约日期</string>
+    <!-- 拜访录入-新增项目 -->
+    <string name="jhlx">计划类型</string>
+    <string name="jhxm">项目名称</string>
+    <string name="jhnr">项目内容</string>
+    <!-- 新增单位 -->
+    <string name="wz2">网址</string>
+    <string name="yx">邮箱</string>
+    <string name="dz">地址</string>
+
+
+    <!-- 确定 -->
+    <string name="qd">确定</string>
+    <string name="qsrczddwmc">请输入要查找的单位名称</string>
+    <string name="qsrczdlxrmc">请输入要查找的联系人名称</string>
+
+    <!-- 采购订单 -->
+    <string name="cgdd">采购订单</string>
+    <string name="ddsh">订单审核</string>
+    <string name="djsh">单据审核</string>
+    <string name="djbhdwmc">单据编号、单位名称</string>
+    <string name="dwbhdwmc">单位编码、单位名称</string>
+    <string name="srlxr">输入联系人</string>
+    <string name="sjd">时间段</string>
+    <string name="qr">起&#160;&#160;&#160;&#160;日</string>
+    <string name="zr">止&#160;&#160;&#160;&#160;日</string>
+    <string name="sh">审&#160;&#160;&#160;&#160;核</string>
+    <string name="gys">供应商</string>
+    <string name="srdwmc">输入单位名称</string>
+    <string name="srdjbh">输入单据编号</string>
+    <string name="jhdz">交货地址</string>
+    <string name="lxdh">联系电话</string>
+    <string name="jhsp">进货商品</string>
+    <string name="xzsp">选择商品</string>
+    <string name="bhmcgg">编号&#160;&#160;&#160;&#160;名称&#160;&#160;&#160;&#160;规格&#160;&#160;&#160;&#160;HV001</string>
+    <string name="hjje">合计金额</string>
+    <string name="hjje2">合计金额：</string>
+    <string name="djrq">单据日期</string>
+    <string name="jbr">业务员</string>
+    <string name="cx">查询</string>
+    <string name="zdr">制单人</string>
+    <string name="ywy">经办人</string>
+    <string name="ywy2">业务员</string>
+    <string name="sd">删单</string>
+    <string name="bzxx">备注信息</string>
+    <string name="fwzj">服务总结</string>
+    <string name="gldjcg">关联单据</string>
+    <string name="xzxsdd">选择销售订单</string>
+    <string name="xzxskd">选择销售开单</string>
+    <string name="xzcgd">选择采购单</string>
+    <string name="xzshd">选择收货单</string>
+    <string name="xzxsdd2">新增销售订单</string>
+    <string name="spmcbmtm">商品编码、名称、规格、型号</string>
+    <string name="spmcbmtm2">商品编码、名称、规格、型号</string>
+    <string name="xzsp_dj">单价(元)</string>
+    <string name="xzsp_dw">单位</string>
+    <string name="xzsp_zkl">折扣率</string>
+    <string name="xzsp_sl">数量</string>
+    <string name="xzsp_cpph">产品批号</string>
+    <string name="xzsp_scrq">生产日期</string>
+    <string name="xzsp_yxqz">有效期至</string>
+    <string name="xzsp_bfh">%</string>
+    <string name="xzsp_zj">总价</string>
+    <string name="sh_shjb">级别</string>
+    <string name="sh_bm">部门</string>
+    <string name="sh_shr">审核人</string>
+    <string name="sh_shzt">状态</string>
+    <string name="sh_shrq">日期</string>
+    <string name="sc">删除</string>
+    <string name="spxq">商品详情</string>
+    <string name="xzcgdd">新增采购订单</string>
+
+    <!-- 采购收货 -->
+    <string name="cgsh">采购收货</string>
+    <string name="rkck">入库仓库</string>
+    <string name="gysqk">供应商欠款</string>
+    <string name="fkje">付款金额</string>
+    <string name="fklx">付款类型</string>
+    <string name="jsfs">结算方式</string>
+    <string name="zjzh">资金账户</string>
+
+    <!-- 采购退货 -->
+    <string name="cgth">采购退货</string>
+    <string name="shsp">收货商品</string>
+    <string name="zzcxsp">组装/拆卸商品</string>
+    <string name="bdsp">变动商品</string>
+    <string name="thsp">退货商品</string>
+    <string name="ckck">出库仓库</string>
+    <string name="tkje">退款金额</string>
+    <string name="ysje">预收金额</string>
+    <string name="tklx">退款类型</string>
+
+    <!-- 采购付款 -->
+    <string name="cgfk">采购付款</string>
+    <string name="jbxx">基本信息</string>
+    <string name="yydhxx">引用单号信息</string>
+    <string name="xzyydh">选择引用单号</string>
+    <string name="dqyf">当前预付</string>
+    <string name="dqyf2">当前应付</string>
+    <string name="cyfje">冲预付金额</string>
+    <string name="sfje">实付金额</string>
+    <string name="xzyy">选择引用</string>
+    <string name="yyxq">引用详情</string>
+    <string name="bcjs">本次结算</string>
+    <string name="yyxx">应用信息</string>
+    <string name="yyxx2">引用信息</string>
+
+    <!-- 销售收款 -->
+    <string name="xsdd">销售订单</string>
+    <string name="xssk">销售收款</string>
+    <string name="kh">客户</string>
+    <string name="khmc">客户名称</string>
+    <string name="sklx">收款类型</string>
+    <string name="dqys">当前预收</string>
+    <string name="dqys2">当前应收</string>
+    <string name="skje">收款金额</string>
+    <string name="cysje">冲预收金额</string>
+    <string name="ssje">实收金额</string>
+
+    <!-- 销售开单 -->
+    <string name="xskd">销售开单</string>
+    <string name="khqk">客户欠款</string>
+
+    <!-- 销售退货 -->
+    <string name="xsth">销售退货</string>
+
+    <!-- 仓库调拨 -->
+    <string name="ckdb">仓库调拨</string>
+    <string name="xzdb">新增调拨</string>
+    <string name="dbsp">调拨商品</string>
+
+    <!-- 存货调价 -->
+    <string name="chtj">存货调价</string>
+    <string name="wjph">文件批号</string>
+    <string name="tjsp">调价商品</string>
+    <string name="tqdj">调前单价：</string>
+    <string name="tqje">调前金额：</string>
+    <string name="thdj">调后单价：</string>
+    <string name="thje">调后金额：</string>
+    <string name="tzje">调整金额：</string>
+    <string name="tjxx">调价信息：</string>
+
+    <!-- 仓库变动 -->
+    <string name="kcbd">库存变动</string>
+    <string name="bdlx">变动类型</string>
+    <string name="bdck">变动仓库</string>
+    <string name="bdxx">变动信息</string>
+
+    <!-- 库存盘点 -->
+    <string name="kcpd">库存盘点</string>
+    <string name="pdkc">盘点库存</string>
+    <string name="pdck">盘点仓库</string>
+    <string name="zmsl">账面数量</string>
+    <string name="spsl">实盘数量</string>
+    <string name="yksl">盈亏数量</string>
+    <string name="pdsp">盘点商品</string>
+    <string name="pdxx">盘点信息</string>
+
+    <!-- 组装拆卸 -->
+    <string name="zzcx">组装拆卸</string>
+    <string name="djlx">单据类型</string>
+    <string name="ck">仓库</string>
+    <string name="zzcxbjxx">组装/拆卸部件信息</string>
+
+    <!--费用支出  -->
+    <string name="fyzc">费用支出</string>
+    <string name="yhcq">银行存取</string>
+    <string name="fkd">付款单</string>
+    <string name="skd">收款单</string>
+
+    <!-- 其他收入 -->
+    <string name="qtsr">其他收入</string>
+
+    <!-- 统计分析 -->
+    <string name="kcbb">库存报表</string>
+    <string name="jyzk">经营状况</string>
+    <string name="ysyf">应收应付</string>
+
+    <!-- 公用模块 -->
+    <string name="xzjbr">选择经办人</string>
+    <string name="xzywy">选择业务员</string>
+    <string name="xzzjh">选择周计划</string>
+    <string name="xzkh">选择客户</string>
+    <string name="xzph">选择批号</string>
+    <string name="xzjh2">选择机会</string>
+    <string name="jhmc2">机会名称</string>
+    <string name="xzlxr2">选择联系人</string>
+    <string name="xzgys">选择供应商</string>
+    <string name="ygbhxm">员工编码，员工名称</string>
+    <string name="xzsplb">选择商品类别</string>
+
+    <!-- 客户服务 -->
+    <string name="khfw">客户服务</string>
+    <string name="djzt">单据状态</string>
+    <string name="sqr">申请人</string>
+    <string name="ksrq">开始日期</string>
+    <string name="fwfs">服务方式</string>
+    <string name="fwcp">服务产品</string>
+    <string name="tjfwcp">添加服务产品</string>
+    <string name="xzfwcp">新增服务产品</string>
+    <string name="bjfwcp">编辑服务产品</string>
+    <string name="cpbh">产品编号</string>
+    <string name="gg">规格</string>
+    <string name="xh2">型号</string>
+    <string name="cd">产地</string>
+    <string name="cpmc">产品名称</string>
+    <string name="shcd">损坏程度</string>
+    <string name="pj">配件</string>
+    <string name="fwfy">服务费用</string>
+    <string name="fwnr">服务内容</string>
+    <string name="jjfa">解决方案</string>
+    <string name="fwry">服务人员</string>
+    <string name="wxdw">外修单位</string>
+    <string name="sfbzqn">是否保质期内</string>
+    <string name="fwjd">服务进度</string>
+    <string name="fwzt">服务状态</string>
+    <string name="yy2">原因</string>
+    <string name="wcrq">完成日期</string>
+    <string name="myd">满意度</string>
+
+    <!-- 工作平台-单位资料 -->
+    <string name="dw">单位</string>
+    <string name="jh">机会</string>
+    <string name="fw">服务</string>
+    <string name="dd">订单</string>
+    <string name="xzfwd">新增服务单</string>
+    <string name="xzxsjh">新增销售机会</string>
+    <!-- 工作平台-单位资料-单位 -->
+    <string name="dw_khbm">编&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;号</string>
+    <string name="dw_khlb">客户类别</string>
+    <string name="dw_khmc">单&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;位</string>
+    <string name="dw_khdj">客户等级</string>
+    <string name="dw_khlx">客户类型</string>
+    <string name="dw_hylx">行业类型</string>
+    <string name="dw_khly">客户来源</string>
+    <string name="dw_dq">地&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;区</string>
+    <string name="dw_frdb">法人代表</string>
+    <string name="dw_cz">传&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;真</string>
+    <string name="dw_dz">地&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;址</string>
+    <string name="dw_wz">网&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;站</string>
+    <string name="dw_bz">备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注</string>
+    <string name="dw_lxfs">联系方式</string>
+    <string name="dw_dwxx">单位信息</string>
+    <string name="xzxx">选择信息</string>
+
+    <!-- 工作平台-单位资料-联系人 -->
+    <string name="lxr_xm">姓&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;名</string>
+    <string name="lxr_xb">性&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;别</string>
+    <string name="lxr_bm">部&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;门</string>
+    <string name="lxr_zw">职&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;务</string>
+    <string name="lxr_csrq">出生日期</string>
+    <string name="lxr_zlxr">主联系人</string>
+    <string name="lxr_jtzz">家庭住址</string>
+    <string name="lxr_grah">个人爱好</string>
+    <string name="lxr_bz">备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注</string>
+    <string name="lxr_lxfs">联系方式</string>
+    <string name="lxrxx">联系人信息</string>
+    <!-- 工作平台-单位资料-拜访 -->
+    <string name="bf_gsmc">公司名称</string>
+    <string name="bf_lxr">联&#160;&#160;系&#160;&#160;人</string>
+    <string name="bf_xsjh">销售机会</string>
+    <string name="bf_dqjd">当前进度</string>
+    <string name="bf_bffs">拜访方式</string>
+    <string name="bf_yysj">预约时间</string>
+    <string name="bf_bfnr">拜访内容</string>
+    <string name="bf_yy">预&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;约</string>
+
+    <!-- 工作平台-单位资料-机会 -->
+    <string name="jh_jhbh">机会编号</string>
+    <string name="jh_kssj">开始时间</string>
+    <string name="jh_khmc">客户名称</string>
+    <string name="jh_lxr">联&#160;&#160;系&#160;&#160;人</string>
+    <string name="jh_lxdh">联系电话</string>
+    <string name="jh_jhmc">机会名称</string>
+    <string name="jh_jhly">机会来源</string>
+    <string name="jh_dqjd">当前进度</string>
+    <string name="jh_jbr">经&#160;&#160;办&#160;&#160;人</string>
+    <string name="jh_bz">备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注</string>
+    <string name="jh_xsjh">销售机会</string>
+    <string name="qrxz">确认选择</string>
+
+    <!-- 现金银行 -->
+    <string name="wldw">往来单位</string>
+    <string name="fkfs">付款方式</string>
+    <string name="xzzc">新增支出</string>
+    <string name="xzsr">新增收入</string>
+    <string name="fymc">费用名称</string>
+    <string name="jslx">结算类型</string>
+    <string name="zczh">转出账户</string>
+    <string name="zrzh">转入账户</string>
+    <string name="djxx">单据信息</string>
+    <string name="cqxx">存取信息</string>
+
+    <!-- 统计分析 -->
+    <string name="sp">商品</string>
+    <string name="srbhmc">输入单位名称</string>
+    <string name="srxmmc">输入项目名称</string>
+    <string name="srbhmc2">输入商品编码或商品名称</string>
+    <string name="mc">名称</string>
+    <string name="khbftj">客户拜访统计</string>
+    <string name="xkhtj">新客户统计</string>
+    <string name="xsjhtj">销售机会统计</string>
+    <string name="khdjtj">客户等级统计</string>
+    <string name="xsjdtj">销售阶段统计</string>
+    <string name="khfwtj">客户服务统计</string>
+    <string name="xsskhzb">销售收款汇总表</string>
+    <string name="spjg">商品价格</string>
+
+    <!-- 项目 -->
+    <string name="xm_bh">编号</string>
+    <string name="xm_dwlx">单位类型</string>
+    <string name="xm_xght">相关合同</string>
+    <string name="xm_xmlx">项目类型</string>
+    <string name="xm_xmly">项目来源</string>
+    <string name="xm_ysje">预算金额</string>
+    <string name="xm_xmmd">項目目的</string>
+    <string name="xm_scxm">删除项目</string>
+
+    <!-- 下拉刷新 -->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新</string>
+    <string name="xlistview_header_hint_loading">正在刷新...</string>
+    <string name="xlistview_header_last_time">上次更新：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开加载</string>
+    <string name="xlistview_footer_hint_loading">正在加载...</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/zdr" />
+
+        <EditText
+            android:id="@+id/zdr_edittext"
+            style="@style/edittext_bj2" />
+
+    </LinearLayout>
+
+</LinearLayout>

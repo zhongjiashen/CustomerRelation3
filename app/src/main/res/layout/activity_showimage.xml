@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    >
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        >
+    </android.support.v4.view.ViewPager>
+    <LinearLayout
+            android:id="@+id/dot_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="35dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dip"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    <RelativeLayout 
+        android:id="@+id/mess_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="#ffffff"
+        android:visibility="gone"
+        >
+        <ImageView 
+            android:id="@+id/fh_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fh"
+            android:layout_alignParentLeft="true"/>
+        <TextView 
+            android:id="@+id/title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:background="@null"/>
+            
+    </RelativeLayout>
+</RelativeLayout>
+

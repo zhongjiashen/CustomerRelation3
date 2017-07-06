@@ -1,0 +1,77 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+    <style name="CustomCheckboxTheme2" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style2</item>
+    </style>
+    <!-- 行的下划线 -->
+    <style name="underline">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dip</item>
+        <item name="android:layout_marginLeft">10dip</item>
+        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:background">@color/gray_line_color</item>
+    </style>
+    <!-- 行的下划线 2-->
+    <style name="underline2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dip</item>
+        <item name="android:background">@color/gray_line_color</item>
+    </style>
+    <!-- 行信息-相对布局——relativeLayout -->
+    <style name="detail_relativelayout">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dip</item>
+        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
+        <item name="android:paddingTop">10dip</item>
+    </style>
+    <!-- 字体的默认的样式和大小 -->
+    <style name="font_default">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/jxc_cggl_cgdd</item>
+    </style>
+
+    <!-- 字体的默认的样式和大小-一行文字靠右对齐 -->
+    <style name="font_default2" parent="@style/font_default">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_width">250dip</item>
+    </style>
+
+    <!-- 编辑框的靠右对齐样式 -->
+    <style name="edittext_bj">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:gravity">right</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dip</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/defalult_font_color</item>
+        <item name="android:textSize">@dimen/jxc_cggl_cgdd</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="edittext_bj2" parent="@style/edittext_bj">
+        <item name="android:focusable">false</item>
+        <item name="android:editable">false</item>
+    </style>
+    <!-- 窗口最右端的箭头 -->
+    <style name="imageview_jt">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dip</item>
+        <item name="android:background">@drawable/xyb_jt</item>
+    </style>
+
+</resources>

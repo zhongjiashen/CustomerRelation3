@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/yyxq"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/save_imagebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/save" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip" >
+
+                <TextView
+                    android:id="@+id/dwmc_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/djmc_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/djbh_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/djrq_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/ze_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/yf_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/wf_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cgdd_search_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:paddingBottom="10dip"
+                    android:paddingTop="10dip"
+                    android:text="@string/yyxx"
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical" >
+
+                <LinearLayout style="@style/detail_relativelayout" >
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/bcjs" />
+
+                    <EditText
+                        android:id="@+id/bcjs_edittext"
+                        style="@style/edittext_bj"
+                        android:layout_marginLeft="20dip"
+                        android:gravity="left"
+                        android:inputType="numberDecimal" />
+                </LinearLayout>
+            </LinearLayout>
+             <LinearLayout
+                android:id="@+id/sc_linearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cgdd_search_bg"
+                android:orientation="vertical"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip" >
+
+                <TextView
+                    android:id="@+id/sc_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/sc"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

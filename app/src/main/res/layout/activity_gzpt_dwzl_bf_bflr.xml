@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:id="@+id/jhname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/bflr"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <ImageButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/save" />
+    </RelativeLayout>
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/bf_gsmc" />
+
+        <EditText
+            android:id="@+id/gsmc_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/bf_lxr" />
+
+        <EditText
+            android:id="@+id/lxr_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/bf_xsjh" />
+
+        <EditText
+            android:id="@+id/xsjh_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+        <ImageView 
+            android:id="@+id/addXsjh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add"/>
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/bf_dqjd" />
+
+        <EditText
+            android:id="@+id/dqjd_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/bf_bffs" />
+
+        <EditText
+            android:id="@+id/bffs_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:layout_weight="1"
+            android:text="@string/bf_yy" />
+
+        <CheckBox
+            android:id="@+id/yy_checkbox"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/bf_yysj" />
+
+        <EditText
+            android:id="@+id/yysj_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" 
+            android:gravity="left|top"/>
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/bf_bfnr" />
+
+        <EditText
+            android:id="@+id/bfnr_edittext"
+            style="@style/edittext_bj"
+            android:inputType="textMultiLine"
+            android:gravity="top|left"
+            android:lines="3"
+            />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+</LinearLayout>

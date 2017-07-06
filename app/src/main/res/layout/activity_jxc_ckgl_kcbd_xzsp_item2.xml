@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/item2_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:layout_weight="1"
+                android:text="@string/xzsp_sl" />
+
+            <com.cr.activity.SLView2
+                android:id="@+id/sl_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </com.cr.activity.SLView2>
+        </LinearLayout>
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" android:visibility="gone" android:id="@+id/cpph_layout">
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/xzsp_cpph" />
+
+            <EditText
+                android:id="@+id/cpph_edittext"
+                style="@style/edittext_bj"
+                android:layout_weight="1"
+                android:editable="false"
+                android:focusable="false" />
+
+            <ImageView style="@style/imageview_jt"/>
+        </LinearLayout>
+
+        <View style="@style/underline" android:visibility="gone" android:id="@+id/cpph_view"/>
+
+        <LinearLayout style="@style/detail_relativelayout" android:visibility="gone" android:id="@+id/scrq_layout">
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/xzsp_scrq" />
+
+            <EditText
+                android:id="@+id/scrq_edittext"
+                style="@style/edittext_bj"
+                android:layout_weight="1"
+                android:editable="false"
+                android:focusable="false" />
+
+            <ImageView style="@style/imageview_jt"/>
+        </LinearLayout>
+
+        <View style="@style/underline" android:visibility="gone" android:id="@+id/scrq_view"/>
+
+        <LinearLayout style="@style/detail_relativelayout" android:visibility="gone" android:id="@+id/yxqz_layout">
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/xzsp_yxqz" />
+
+            <EditText
+                android:id="@+id/yxqz_edittext"
+                style="@style/edittext_bj"
+                android:layout_weight="1"
+                android:editable="false"
+                android:focusable="false" />
+
+            <ImageView style="@style/imageview_jt"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

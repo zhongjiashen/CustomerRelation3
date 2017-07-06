@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/spxq"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/save_imagebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/save" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip" >
+
+                <TextView
+                    android:id="@+id/mc_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/bh_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/gg_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/xh_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+
+                <TextView
+                    android:id="@+id/kc_textview"
+                    style="@style/font_default"
+                    android:textColor="@color/black_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cgdd_search_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:paddingBottom="10dip"
+                    android:paddingTop="10dip"
+                    android:text="@string/bdxx"
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical" >
+
+                <LinearLayout style="@style/detail_relativelayout" android:visibility="gone">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/xzsp_dw" />
+
+                    <EditText
+                        android:id="@+id/dw_edittext"
+                        style="@style/edittext_bj"
+                        android:layout_marginLeft="20dip"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/underline" android:visibility="gone"/>
+
+                <LinearLayout style="@style/detail_relativelayout" >
+
+                    <TextView
+                        style="@style/font_default"
+                        android:layout_weight="1"
+                        android:text="@string/xzsp_sl" />
+
+                    <com.cr.activity.SLView2
+                        android:id="@+id/sl_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                    </com.cr.activity.SLView2>
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout style="@style/detail_relativelayout" android:id="@+id/cpph_layout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/xzsp_cpph" />
+
+                    <EditText
+                        android:id="@+id/cpph_edittext"
+                        style="@style/edittext_bj"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:focusable="false" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <View style="@style/underline" android:id="@+id/cpph_view"/>
+
+                <LinearLayout style="@style/detail_relativelayout" android:id="@+id/scrq_layout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/xzsp_scrq" />
+
+                    <EditText
+                        android:id="@+id/scrq_edittext"
+                        style="@style/edittext_bj"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:focusable="false" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <View style="@style/underline" android:id="@+id/scrq_view"/>
+
+                <LinearLayout style="@style/detail_relativelayout" android:id="@+id/yxqz_layout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/xzsp_yxqz" />
+
+                    <EditText
+                        android:id="@+id/yxqz_edittext"
+                        style="@style/edittext_bj"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:focusable="false" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <View style="@style/underline" android:id="@+id/yxqz_view"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sc_linearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cgdd_search_bg"
+                android:orientation="vertical"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip" >
+
+                <TextView
+                    android:id="@+id/sc_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/sc"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

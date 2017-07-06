@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/qtsr"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <ImageButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/save" />
+    </RelativeLayout>
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/fymc" />
+
+        <EditText
+            android:id="@+id/fymc_edittext"
+            android:focusable="false"
+            android:editable="false"
+            style="@style/edittext_bj" />
+    </LinearLayout>
+	<View style="@style/underline" />
+	<LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/je" />
+
+        <EditText
+            android:id="@+id/je_edittext"
+            style="@style/edittext_bj" 
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+	<View style="@style/underline" />
+</LinearLayout>

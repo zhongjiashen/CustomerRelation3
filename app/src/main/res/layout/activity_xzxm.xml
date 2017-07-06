@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout 
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:id="@+id/jhname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/xm"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <ImageButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/save" />
+    </RelativeLayout>
+
+    <LinearLayout style="@style/detail_relativelayout" android:visibility="gone">
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/xm_bh" />
+
+        <EditText
+            android:id="@+id/bh_edittext"
+            style="@style/edittext_bj"
+            />
+    </LinearLayout>
+
+    <View style="@style/underline" android:visibility="gone"/>
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/dwmc" />
+
+        <EditText
+            android:id="@+id/dwmc_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/xm_dwlx" />
+
+        <EditText
+            android:id="@+id/dwlx_edittext"
+            style="@style/edittext_bj"
+             />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/xm_xght" />
+
+        <EditText
+            android:id="@+id/xght_edittext"
+            style="@style/edittext_bj"
+             />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/xmmc" />
+
+        <EditText
+            android:id="@+id/xmmc_edittext"
+            style="@style/edittext_bj"
+             />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/xm_xmlx" />
+
+        <EditText
+            android:id="@+id/xmlx_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/xm_xmly" />
+
+        <EditText
+            android:id="@+id/xmly_edittext"
+            style="@style/edittext_bj"
+            android:editable="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/xm_ysje" />
+
+        <EditText
+            android:id="@+id/ysje_edittext"
+            android:inputType="numberSigned"
+            style="@style/edittext_bj"
+            />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/qsrq" />
+
+        <EditText
+            android:id="@+id/qsrq_edittext"
+            style="@style/edittext_bj" 
+            android:editable="false"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jzrq" />
+
+        <EditText
+            android:id="@+id/jzrq_edittext"
+            style="@style/edittext_bj" 
+            android:editable="false"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/zxjg" />
+
+        <EditText
+            android:id="@+id/zxjg_edittext"
+            style="@style/edittext_bj" 
+            android:editable="false"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/xm_xmmd" />
+
+        <EditText
+            android:id="@+id/xmmd_edittext"
+            style="@style/edittext_bj" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/djrq" />
+
+        <EditText
+            android:id="@+id/djrq_edittext"
+            style="@style/edittext_bj" 
+            android:editable="false"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/ywy" />
+
+        <EditText
+            android:id="@+id/ywy_edittext"
+            style="@style/edittext_bj" 
+            android:editable="false"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View style="@style/underline" />
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/zdr" />
+
+        <EditText
+            android:id="@+id/zdr_edittext"
+            style="@style/edittext_bj" 
+           />
+
+    </LinearLayout>
+
+    <View style="@style/underline" />
+
+</LinearLayout>
+</ScrollView>

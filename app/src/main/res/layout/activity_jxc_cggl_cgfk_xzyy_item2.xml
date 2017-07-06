@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/item2_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/bcjs" />
+
+            <EditText
+                android:id="@+id/bcjs_edittext"
+                style="@style/edittext_bj"
+                android:layout_marginLeft="20dip"
+                android:gravity="left"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

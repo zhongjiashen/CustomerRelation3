@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/lxr_xm" />
+
+            <EditText
+                android:id="@+id/xm_edittext"
+                style="@style/edittext_bj" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:layout_weight="1"
+                android:text="@string/lxr_xb" />
+
+            <!--
+                 <EditText
+                android:id="@+id/xb_edittext"
+                style="@style/edittext_bj" />
+            -->
+
+            <Spinner
+                android:id="@+id/xb_spinner"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/lxr_bm" />
+
+            <EditText
+                android:id="@+id/bm_edittext"
+                style="@style/edittext_bj" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/lxr_zw" />
+
+            <EditText
+                android:id="@+id/zw_edittext"
+                style="@style/edittext_bj" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/lxr_csrq" />
+
+            <EditText
+                android:id="@+id/csrq_edittext"
+                style="@style/edittext_bj"
+                android:editable="false"
+                android:focusable="false" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:layout_weight="1"
+                android:text="@string/lxr_zlxr" />
+
+                <CheckBox 
+                    android:id="@+id/zlxr_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomCheckboxTheme"/>
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/lxr_jtzz" />
+
+            <EditText
+                android:id="@+id/jtzz_edittext"
+                style="@style/edittext_bj" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/lxr_grah" />
+
+            <EditText
+                android:id="@+id/grah_edittext"
+                style="@style/edittext_bj" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout" >
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/lxr_bz" />
+
+            <EditText
+                android:id="@+id/bz_edittext"
+                style="@style/edittext_bj" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+    </LinearLayout>
+
+</ScrollView>

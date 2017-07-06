@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/lxr"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <ImageButton
+            android:id="@+id/zy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/zy" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_xm" />
+
+                <EditText
+                    android:id="@+id/xm_edittext"
+                    style="@style/edittext_bj" 
+                    android:editable="false"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_xb" />
+
+                <EditText
+                    android:id="@+id/xb_edittext"
+                    style="@style/edittext_bj" 
+                    android:editable="false"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_bm" />
+
+                <EditText
+                    android:id="@+id/bm_edittext"
+                    style="@style/edittext_bj"
+                    android:editable="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_zw" />
+
+                <EditText
+                    android:id="@+id/zw_edittext"
+                    style="@style/edittext_bj"
+                    android:editable="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_csrq" />
+
+                <EditText
+                    android:id="@+id/csrq_edittext"
+                    style="@style/edittext_bj"
+                    android:editable="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_zlxr" />
+
+                <EditText
+                    android:id="@+id/zlxr_edittext"
+                    style="@style/edittext_bj"
+                    android:editable="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_jtzz" />
+
+                <EditText
+                    android:id="@+id/jtzz_edittext"
+                    style="@style/edittext_bj" 
+                    android:editable="false"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_grah" />
+
+                <EditText
+                    android:id="@+id/grah_edittext"
+                    style="@style/edittext_bj" 
+                    android:editable="false"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_bz" />
+
+                <EditText
+                    android:id="@+id/bz_edittext"
+                    style="@style/edittext_bj" 
+                    android:editable="false"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="10dip"
+                android:background="@color/cgdd_search_bg" >
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr_lxfs" />
+
+                <EditText
+                    android:id="@+id/lxfs_edittext"
+                    style="@style/edittext_bj" 
+                    android:editable="false"
+                    android:focusable="false"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@drawable/xyb_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+        </LinearLayout>
+    </ScrollView>
+	<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cgdd_search_bg"
+        android:orientation="vertical"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip" >
+
+        <TextView
+            android:id="@+id/bjlxr_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/bjlxr"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+       
+    </LinearLayout>
+</LinearLayout>

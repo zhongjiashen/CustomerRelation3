@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/khfw"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/qr"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/qr_edittext"
+                android:layout_width="170dip"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:editable="false"
+                android:focusable="false"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/jxc_cggl_cgdd" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/xyb_jt" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View style="@style/underline" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zr"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/zr_edittext"
+                android:layout_width="170dip"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:editable="false"
+                android:focusable="false"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/jxc_cggl_cgdd" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/xyb_jt" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View style="@style/underline" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dwmchbh"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/dwmc_edittext"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/srdjbhhmc"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/jxc_cggl_cgdd" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View style="@style/underline" android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="10dip"
+        android:visibility="gone"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/djbh"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/djbh_edittext"
+                android:layout_width="170dip"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/srdjbh"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/jxc_cggl_cgdd" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View style="@style/underline" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/djlx"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/djlx_edittext"
+                android:layout_width="170dip"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:editable="false"
+                android:focusable="false"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/jxc_cggl_cgdd" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/xyb_jt" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View style="@style/underline" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/djzt"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/djzt_edittext"
+                android:layout_width="170dip"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:editable="false"
+                android:focusable="false"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/jxc_cggl_cgdd" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/xyb_jt" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View style="@style/underline" />
+
+    <ImageView
+        android:id="@+id/cx_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="15dip"
+        android:background="@drawable/cx" />
+
+</LinearLayout>

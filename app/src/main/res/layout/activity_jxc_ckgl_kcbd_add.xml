@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc" >
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/kcbd"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/save_imagebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/save" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/add_scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/bdlx" />
+
+                <EditText
+                    android:id="@+id/bdlx_edittext"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/bdck" />
+
+                <EditText
+                    android:id="@+id/bdck_edittext"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cgdd_search_bg"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:paddingBottom="10dip"
+                    android:paddingTop="10dip"
+                    android:text="@string/bdsp"
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:id="@+id/xzsp_linearlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:orientation="horizontal"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/xzsp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xzsp"
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+
+                <TextView
+                    android:id="@+id/xzspnum_textview"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <com.cr.tools.CustomListView
+                android:id="@+id/xzsp_listview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="@null"
+                android:dividerHeight="0dip"
+                android:listSelector="@android:color/transparent" >
+            </com.cr.tools.CustomListView>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="15dip"
+                android:background="@color/cgdd_search_bg" >
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/djrq" />
+
+                <EditText
+                    android:id="@+id/djrq_edittext"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/jbr" />
+
+                <EditText
+                    android:id="@+id/jbr_edittext"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="15dip"
+                android:background="@color/cgdd_search_bg" >
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/bzxx_edittext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="@string/bzxx"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

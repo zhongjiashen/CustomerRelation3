@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+    <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="50dip"
+	    android:background="#0099cc">
+	    <ImageButton 
+	        android:id="@+id/fh"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/fh"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"/>
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="23sp"
+	        android:textColor="#ffffff"
+	        android:text="@string/gsgg"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"/>
+	</RelativeLayout>
+	<com.cr.common.XListView 
+	    android:id="@+id/gsgg_listview"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:divider="#808080"
+	    android:listSelector="@android:color/transparent"
+	    android:dividerHeight="0.5dip"
+	    android:layout_marginLeft="10dip"
+	    android:layout_marginRight="10dip"
+	    android:layout_marginTop="-1dip"
+	    ></com.cr.common.XListView>
+	
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip" >
+
+        <TextView
+            android:id="@+id/mc_textview"
+           	style="@style/font_default"
+            android:textColor="@color/black_color"
+            />
+        <TextView
+            android:id="@+id/bh_textview"
+            style="@style/font_default"
+            android:textColor="@color/black_color"
+             />
+        <TextView
+            android:id="@+id/rq_textview"
+            style="@style/font_default"
+            android:textColor="@color/black_color"
+            />
+        <TextView
+            android:id="@+id/ze_textview"
+            style="@style/font_default"
+            android:textColor="@color/black_color"
+            />
+        <TextView
+            android:id="@+id/yf_textview"
+            style="@style/font_default"
+            android:textColor="@color/black_color"
+            />
+        <TextView
+            android:id="@+id/wf_textview"
+            style="@style/font_default"
+            android:textColor="@color/black_color"
+            />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/itemcheck"
+        style="@style/CustomCheckboxTheme2"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
