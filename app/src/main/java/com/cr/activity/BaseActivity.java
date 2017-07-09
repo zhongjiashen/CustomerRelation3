@@ -67,12 +67,13 @@ public abstract class BaseActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
 		MyApplication.getInstance().addActivity(this);// 将当前创建的Activity对象封装起来，用于退出的时候统一释放
 		context = this.getApplicationContext();
 		activity = this;
 		networkInfo = NetworkCheck.check(BaseActivity.this);// 检测当前网络的状态
 		updateUIProgressHandle();
-		super.onCreate(savedInstanceState);
 	}
 
 	/**

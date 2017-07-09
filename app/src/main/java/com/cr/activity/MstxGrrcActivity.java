@@ -1,20 +1,16 @@
 package com.cr.activity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.cr.adapter.MstxGrrcAdapter;
 import com.cr.common.XListView;
@@ -24,6 +20,12 @@ import com.cr.tools.OperateMethod;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 进销存--个人日程
@@ -101,6 +103,7 @@ public class MstxGrrcActivity extends BaseActivity implements OnClickListener {
 	}
 	@Override
 	public void executeSuccess() {
+		Log.v("返回结果",returnJson);
 		if(returnSuccessType==0){
 			grrcList.addAll(GRRC.parseJsonToObject(returnJson));
 			adapter.notifyDataSetChanged();
@@ -175,10 +178,11 @@ public class MstxGrrcActivity extends BaseActivity implements OnClickListener {
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(data!=null){
-			if(data.hasExtra("mess")&&data.getExtras().getString("mess").equals("1")){
+			if(data.hasExtra("mess")&&data.getExtras().getString("mess").equals("0")){
 				grrcList.clear();
 				currentPage=1;
 				searchDate();
+				Toast.makeText(this,"刷新成功！",Toast.LENGTH_SHORT).show();
 			}
 		}
 	};
@@ -192,6 +196,9 @@ public class MstxGrrcActivity extends BaseActivity implements OnClickListener {
 				@Override
 				public void run() {
 					//不实现顶部刷新
+					currentPage=1;
+					searchDate();
+					onLoad();
 				}
 			},2000);
 		}

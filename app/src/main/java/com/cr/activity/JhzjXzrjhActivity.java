@@ -1,11 +1,5 @@
 package com.cr.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -20,6 +14,15 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 计划总结新增日计划
+ */
 public class JhzjXzrjhActivity extends BaseActivity implements OnClickListener{
 	
 	EditText ksrqEditText;
@@ -61,7 +64,7 @@ public class JhzjXzrjhActivity extends BaseActivity implements OnClickListener{
 	@Override
 	public void executeSuccess() {
 		if(returnJson.length()>5&&returnJson.substring(0, 5).equals("false")){
-			showToastPromopt("保存失败,"+returnJson.substring(5));
+			showToastPromopt(returnJson.substring(6)+"请选择其他日期！");
 		}else{
 			showToastPromopt("保存成功！");
 			finish();

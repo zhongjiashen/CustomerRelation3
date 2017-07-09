@@ -1,27 +1,19 @@
 package com.cr.tools;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Map;
-
+import android.content.Context;
+import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import com.cr.activity.ShowImgActivity;
-
-import android.content.Context;
-import android.os.RecoverySystem.ProgressListener;
-import android.util.Log;
-import android.widget.Toast;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
 
 /**
  * 获得服务器数据的统一请求方法
@@ -196,7 +188,7 @@ public class ServerRequest {
 //			Log.v("dddd",envelope.bodyIn+"");
 			SoapObject object = (SoapObject) envelope.bodyIn;
 			// 获取返回的结果
-//			Log.v("dddd", "ddd" + object.toString());
+			Log.v("dddd", "ddd" + object.toString());
 			result = object.getProperty(methodName + "Result").toString();
 //			if(Character.isDigit(result.charAt(0))){
 //			    return "";

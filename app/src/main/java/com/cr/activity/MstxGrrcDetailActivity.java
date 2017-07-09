@@ -1,20 +1,11 @@
 package com.cr.activity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TimeZone;
-
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -34,6 +25,14 @@ import com.cr.model.GRRC;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TimeZone;
 
 public class MstxGrrcDetailActivity extends BaseActivity implements OnClickListener{
 	private GRRC grrc;
@@ -250,14 +249,14 @@ public class MstxGrrcDetailActivity extends BaseActivity implements OnClickListe
 		case R.id.save:
 			if(validateMsg()){
 				saveDate();
-				messIsUpdate="1";
-				//保存信息到数据库中
-                Map<String, Object>map=new HashMap<String, Object>();
-                map.put("name",btEditText.getText());
-                map.put("code","grrc");
-                map.put("time", ksrqEditText.getText().toString());
-                map.put("zq", zq);
-                dao.add(map);
+//				messIsUpdate="1";
+//				//保存信息到数据库中
+//                Map<String, Object>map=new HashMap<String, Object>();
+//                map.put("name",btEditText.getText());
+//                map.put("code","grrc");
+//                map.put("time", ksrqEditText.getText().toString());
+//                map.put("zq", zq);
+//                dao.add(map);
 			}
 			break;
 		default:

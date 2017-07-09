@@ -506,6 +506,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 				Intent intent = new Intent();
 				switch (arg2) {
 				case 0:
+
 					intent.setClass(IndexActivity.this, MstxGztxActivity.class);
 					startActivity(intent);
 					break;
@@ -710,9 +711,11 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 				Intent intent = new Intent();
 				switch (arg2) {
 				case 0:
+                    //统计分析客户拜访统计
 					intent.setClass(IndexActivity.this, TjfxKhbftjActivity.class);
 					break;
 				case 1:
+                    //统计分析客户拜访统计
 					intent.setClass(IndexActivity.this, TjfxXkhtjActivity.class);
 					break;
 				case 2:
@@ -740,18 +743,23 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 				Intent intent = new Intent();
 				switch (arg2) {
 				case 0:
+				    //统计分析库存报表
 					intent.setClass(IndexActivity.this, TjfxKcbbActivity.class);
 					break;
 				case 1:
+                    //统计分析应收应付
 					intent.setClass(IndexActivity.this, TjfxYsyfActivity.class);
 					break;
 				case 2:
+                    //统计分析资金账户
 					intent.setClass(IndexActivity.this, TjfxZjzhActivity.class);
 					break;
 				case 3:
+                    //统计分析销售收款汇总表
 					intent.setClass(IndexActivity.this, TjfxXsskhzbActivity.class);
 					break;
 				case 4:
+                    //统计分析经营状况
 					intent.setClass(IndexActivity.this, TjfxJyzkActivity.class);
 					break;
 				}

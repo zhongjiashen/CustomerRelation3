@@ -1,12 +1,5 @@
 package com.cr.activity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +21,13 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MstxGztx2Activity extends BaseActivity {
 	private MstxGztx2Adapter adapter;
 	private XListView gztxListView;
@@ -39,10 +39,12 @@ public class MstxGztx2Activity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mstx_gztx2);
+
 		addFHMethod();
 		initActivity();
 		initListView();
 		searchDate();
+
 	}
 	
 	/**

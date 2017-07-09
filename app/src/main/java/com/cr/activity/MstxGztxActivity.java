@@ -1,10 +1,5 @@
 package com.cr.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +14,11 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MstxGztxActivity extends BaseActivity {
 	private BaseAdapter adapter;
 	private ListView gztxListView;
@@ -32,6 +32,7 @@ public class MstxGztxActivity extends BaseActivity {
 		initActivity();
 		initListView();
 		searchDate();
+
 	}
 	
 	/**
@@ -53,6 +54,7 @@ public class MstxGztxActivity extends BaseActivity {
 				Intent intent = new Intent(context,MstxGztx2Activity.class);
 				intent.putExtra("typecode", gztxList.get(arg2).get("typecode").toString());
 				startActivity(intent);
+
 			}
 		});
 	}
