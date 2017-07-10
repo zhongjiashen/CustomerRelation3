@@ -1,24 +1,24 @@
 package com.cr.activity.xm;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 新增项目
@@ -28,12 +28,13 @@ import com.crcxj.activity.R;
  */
 public class XzxmActivity extends BaseActivity implements
 		OnClickListener {
+	private TextView dwmcEditText;
 
-	private EditText bhEditText,dwmcEditText,dwlxEditText,xghtEditText,xmmcEditText,xmlxEditText,xmlyEditText,
+	private EditText bhEditText,dwlxEditText,xghtEditText,xmmcEditText,xmlxEditText,xmlyEditText,
 	ysjeEditText,qsrqEditText,jzrqEditText,zxjgEditText,xmmdEditText,djrqEditText,ywyEditText,zdrEditText;
 	private String dwmcId, xmlxId, xmlyId, zxjgId,ywyId;
 	ImageButton saveButton;
-
+	Map<String, Object> dwObject;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -41,6 +42,8 @@ public class XzxmActivity extends BaseActivity implements
 		setContentView(R.layout.activity_xzxm);
 		addFHMethod();
 		initActivity();
+		dwObject=((Map<String, Object>) this.getIntent().getExtras().getSerializable("dwObject"));
+		dwmcEditText.setText(dwObject.get("cname").toString());
 //		searchXsjhDate();
 	}
 
@@ -52,7 +55,7 @@ public class XzxmActivity extends BaseActivity implements
 		saveButton.setOnClickListener(this);
 		
 		bhEditText = (EditText) findViewById(R.id.bh_edittext);
-		dwmcEditText = (EditText) findViewById(R.id.dwmc_edittext);
+		dwmcEditText = (TextView) findViewById(R.id.dwmc_edittext);
 		dwmcEditText.setOnClickListener(this);
 		dwlxEditText = (EditText) findViewById(R.id.dwlx_edittext);
 		xghtEditText = (EditText) findViewById(R.id.xght_edittext);
@@ -165,9 +168,9 @@ public class XzxmActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.dwmc_edittext:// 选择单位
-			intent.setClass(this, CommonXzdwActivity.class);
+//			intent.setClass(this, CommonXzdwActivity.class);
 //			intent.putExtra("clientid", clientId);
-			startActivityForResult(intent, 0);
+//			startActivityForResult(intent, 0);
 			break;
 		case R.id.xmlx_edittext:// 项目类型
 			intent.setClass(this, CommonXzzdActivity.class);
@@ -208,6 +211,14 @@ public class XzxmActivity extends BaseActivity implements
 	 * @return
 	 */
 	private boolean validateMsg() {
+		if (xmmcEditText.getText().toString().equals("")) {
+			showToastPromopt("项目名称不能为空");
+			return false;
+		}
+		if (xmmcEditText.getText().toString().equals("")) {
+			showToastPromopt("项目名称不能为空");
+			return false;
+		}
 //		if (bfnrEditText.getText().toString().equals("")) {
 //			showToastPromopt("拜访内容不能为空");
 //			return false;

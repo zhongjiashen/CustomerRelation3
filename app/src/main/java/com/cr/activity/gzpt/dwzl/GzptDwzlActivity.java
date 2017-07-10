@@ -800,7 +800,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 intent.setClass(this, XzxmActivity.class);
                 //                intent.putExtra("lxrid", "0");
                 //                intent.putExtra("clientid", clientId);
-//                intent.putExtra("dwObject", (Serializable) dwObject);
+                intent.putExtra("dwObject", (Serializable) dwObject);
+
                 startActivityForResult(intent, 6);
                 break;
             default:

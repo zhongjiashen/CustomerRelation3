@@ -137,7 +137,12 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //            showToastPromopt(lng+":"+lat);
             
         }
-    }
+
+		@Override
+		public void onConnectHotSpotMessage(String s, int i) {
+
+		}
+	}
 	/**
 	 * 初始化Activity
 	 */

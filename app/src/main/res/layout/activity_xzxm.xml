@@ -63,17 +63,17 @@
             style="@style/font_default"
             android:text="@string/dwmc" />
 
-        <EditText
+        <TextView
             android:id="@+id/dwmc_edittext"
             style="@style/edittext_bj"
-            android:editable="false"
             android:focusable="false" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
-            android:background="@drawable/xyb_jt" />
+            android:background="@drawable/xyb_jt"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <View style="@style/underline" />
@@ -289,7 +289,9 @@
     </LinearLayout>
 
     <View style="@style/underline" />
-    <LinearLayout style="@style/detail_relativelayout" >
+    <LinearLayout
+        android:visibility="gone"
+        style="@style/detail_relativelayout" >
 
         <TextView
             style="@style/font_default"

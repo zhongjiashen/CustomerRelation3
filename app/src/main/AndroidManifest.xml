@@ -604,7 +604,7 @@
         <!-- 百度地图正式的KEY -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="Xb0rHIc0We8IngwhOK3SUvL2" />
+            android:value="WPBIm8dGW9wEbdQNwvU4NcPXU74Cvnr2" />
     </application>
 
 
