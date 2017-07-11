@@ -215,10 +215,7 @@ public class XzxmActivity extends BaseActivity implements
 			showToastPromopt("项目名称不能为空");
 			return false;
 		}
-		if (xmmcEditText.getText().toString().equals("")) {
-			showToastPromopt("项目名称不能为空");
-			return false;
-		}
+
 //		if (bfnrEditText.getText().toString().equals("")) {
 //			showToastPromopt("拜访内容不能为空");
 //			return false;

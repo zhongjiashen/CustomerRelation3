@@ -634,10 +634,10 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     private void searchDateXm(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
 		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-//		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("clientid",clientId);
-		parmMap.put("qsrq", "");
-		parmMap.put("zzrq", "");
+        parmMap.put("qsrq", "1901-01-01");
+        parmMap.put("zzrq", "3000-01-01");
 		parmMap.put("cname", "");
 		parmMap.put("title", "");
 		parmMap.put("curpage", currentPage);
@@ -881,6 +881,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
             case 6:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
+//                    Toast.makeText(GzptDwzlActivity.this,"fasf",Toast.LENGTH_SHORT).show();
                 } else {
                     xmList
                         .addAll((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson));
