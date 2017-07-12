@@ -1,7 +1,6 @@
 package com.cr.activity;
 
-import java.util.List;
-
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -9,10 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -22,12 +19,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
-import com.cr.activity.gzpt.dwzl.GzptDwzlDwBjdwActivity;
 import com.cr.dao.ClientIPDao;
 import com.cr.model.ClientIP;
 import com.cr.service.SocketService;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.permission.PermissionsActivity;
+import com.permission.PermissionsChecker;
+
+import java.util.List;
+
+import static android.Manifest.permission.WRITE_CONTACTS;
 
 public class MainActivity extends BaseActivity implements OnClickListener {
 	private EditText ipEditText;
@@ -42,14 +44,53 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	private ImageButton szButton;
 
+
+
+
+	private static final int REQUEST_CODE = 0; // 请求码
+
+	// 所需的全部权限
+	static final String[] PERMISSIONS = new String[]{
+			Manifest.permission.READ_PHONE_STATE,
+			Manifest.permission.ACCESS_COARSE_LOCATION,
+			Manifest.permission.READ_PHONE_STATE,
+			Manifest.permission.CAMERA,
+			Manifest.permission.WRITE_EXTERNAL_STORAGE,
+			WRITE_CONTACTS,
+			Manifest.permission.SEND_SMS
+	};
+
+
+
+	private PermissionsChecker mPermissionsChecker; // 权限检测器
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		mPermissionsChecker = new PermissionsChecker(this);
 		initActivity();
 		searchDBFroIp();
 	}
+	@Override protected void onResume() {
+		super.onResume();
 
+		// 缺少权限时, 进入权限配置页面
+		if (mPermissionsChecker.lacksPermissions(PERMISSIONS)) {
+			startPermissionsActivity();
+		}
+	}
+
+	private void startPermissionsActivity() {
+		PermissionsActivity.startActivityForResult(this, REQUEST_CODE, PERMISSIONS);
+	}
+
+	@Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		// 拒绝时, 关闭页面, 缺少主要权限, 无法运行
+		if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+			finish();
+		}
+	}
 	/**
 	 * 初始化Activity
 	 */

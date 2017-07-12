@@ -254,8 +254,16 @@ public class QdXzqdActivity extends BaseActivity implements OnClickListener, Tak
             lng = location.getLongitude() + "";
             lat = location.getLatitude() + "";
             address = location.getAddrStr();
-            // saveQdMsg();//保存签到信息
-            ddEditText.setText(address);
+//            saveQdMsg();//保存签到信息
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //此时已在主线程中，可以更新UI了
+                    ddEditText.setText(address);
+                    mLocationClient.stop();
+                }
+            });
+
         }
 
         @Override

@@ -81,6 +81,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.permission.PermissionsActivity" android:screenOrientation="portrait"/>
         <!-- 登录页面 -->
         <activity android:name="com.cr.activity.LoginActivity" android:screenOrientation="portrait"/>
 
