@@ -154,6 +154,8 @@
         <activity android:name="com.cr.activity.JhzjXzxmActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
         <!-- 计划总结-新增项目——执行-->
         <activity android:name="com.cr.activity.JhzjXzxmZxActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
+        <!-- 计划总结-新增项目——执行——查看-->
+        <activity android:name="com.cr.activity.JhzjXzxmZxCkActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
         <!-- 计划总结-今日总结-->
         <activity android:name="com.cr.activity.JhzjJrzjActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
         <!-- 计划总结-新增日计划-->

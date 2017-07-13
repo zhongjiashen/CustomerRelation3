@@ -20,7 +20,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
 import com.baidu.location.Poi;
-import com.baidu.mapapi.SDKInitializer;
+
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.tools.PicUtil;
 import com.cr.tools.ServerURL;
@@ -79,9 +79,7 @@ public class QdXzqdActivity extends BaseActivity implements OnClickListener, Tak
         getTakePhoto().onCreate(savedInstanceState);
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-//        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
-//        //注意该方法要再setContentView方法之前实现
-        SDKInitializer.initialize(getApplicationContext());
+//
         setContentView(R.layout.activity_qd_xzqd);
         addFHMethod();
         mLocationClient = new LocationClient(getApplicationContext()); // 声明LocationClient类

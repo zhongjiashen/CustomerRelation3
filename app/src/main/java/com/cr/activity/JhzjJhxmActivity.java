@@ -1,11 +1,5 @@
 package com.cr.activity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +17,12 @@ import com.cr.model.JHRW;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 	private BaseAdapter adapter;
@@ -67,11 +67,20 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 		jhxmListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-				Intent intent = new Intent(context,JhzjXzxmZxActivity.class);
 				JHRW jhrw2=jhxmList.get(arg2-1);
-				intent.putExtra("jhid", jhrw.getId());
-				intent.putExtra("object",jhrw2);
-				startActivity(intent);
+				if(jhrw2.getLx().equals("0")){
+					Intent intent = new Intent(context,JhzjXzxmZxCkActivity.class);
+
+					intent.putExtra("jhid", jhrw.getId());
+					intent.putExtra("object",jhrw2);
+					startActivity(intent);
+				}else{
+					Intent intent = new Intent(context,JhzjXzxmZxActivity.class);
+					intent.putExtra("jhid", jhrw.getId());
+					intent.putExtra("object",jhrw2);
+					startActivity(intent);
+				}
+
 			}
 		});
 	}

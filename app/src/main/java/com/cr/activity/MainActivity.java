@@ -29,8 +29,6 @@ import com.permission.PermissionsChecker;
 
 import java.util.List;
 
-import static android.Manifest.permission.WRITE_CONTACTS;
-
 public class MainActivity extends BaseActivity implements OnClickListener {
 	private EditText ipEditText;
 	private EditText dkEditText;
@@ -53,11 +51,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	static final String[] PERMISSIONS = new String[]{
 			Manifest.permission.READ_PHONE_STATE,
 			Manifest.permission.ACCESS_COARSE_LOCATION,
-			Manifest.permission.READ_PHONE_STATE,
 			Manifest.permission.CAMERA,
-			Manifest.permission.WRITE_EXTERNAL_STORAGE,
-			WRITE_CONTACTS,
-			Manifest.permission.SEND_SMS
+			Manifest.permission.WRITE_EXTERNAL_STORAGE
+
 	};
 
 
