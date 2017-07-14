@@ -7,8 +7,10 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.tools.ServerURL;
@@ -85,6 +87,7 @@ public class XzxmActivity extends BaseActivity implements
 	 * 连接网络的操作(现在销售机会保存)
 	 */
 	private void saveXsjhDate() {
+		Toast.makeText(this,"保存",Toast.LENGTH_SHORT).show();
 		// Log.v("dddd", this.getIntent().getExtras().getString("jhbid"));
 		Map<String, Object> parmMap = new HashMap<String, Object>();
 		parmMap.put("dbname", ShareUserInfo.getDbName(context));
@@ -168,9 +171,9 @@ public class XzxmActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.dwmc_edittext:// 选择单位
-//			intent.setClass(this, CommonXzdwActivity.class);
+			intent.setClass(this, CommonXzdwActivity.class);
 //			intent.putExtra("clientid", clientId);
-//			startActivityForResult(intent, 0);
+			startActivityForResult(intent, 0);
 			break;
 		case R.id.xmlx_edittext:// 项目类型
 			intent.setClass(this, CommonXzzdActivity.class);

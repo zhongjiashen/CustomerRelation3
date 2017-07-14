@@ -548,6 +548,7 @@
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开加载</string>
     <string name="xlistview_footer_hint_loading">正在加载...</string>
+
     <string name="help">帮助</string>
     <string name="string_help_text">\"当前应用缺少必要权限。请点击\\\"设置\\\"-\\\"权限\\\"-打开所需权限。\"</string>
     <string name="quit">退出</string>

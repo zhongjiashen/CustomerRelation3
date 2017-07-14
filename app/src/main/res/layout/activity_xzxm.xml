@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:background="@drawable/xyb_jt"
-            android:visibility="invisible"/>
+            />
     </LinearLayout>
 
     <View style="@style/underline" />

@@ -69,13 +69,13 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 				JHRW jhrw2=jhxmList.get(arg2-1);
 				if(jhrw2.getLx().equals("0")){
-					Intent intent = new Intent(context,JhzjXzxmZxCkActivity.class);
+					Intent intent = new Intent(context,JhzjXzxmZxActivity.class);
 
 					intent.putExtra("jhid", jhrw.getId());
 					intent.putExtra("object",jhrw2);
 					startActivity(intent);
 				}else{
-					Intent intent = new Intent(context,JhzjXzxmZxActivity.class);
+					Intent intent = new Intent(context,JhzjXzxmZxCkActivity.class);
 					intent.putExtra("jhid", jhrw.getId());
 					intent.putExtra("object",jhrw2);
 					startActivity(intent);

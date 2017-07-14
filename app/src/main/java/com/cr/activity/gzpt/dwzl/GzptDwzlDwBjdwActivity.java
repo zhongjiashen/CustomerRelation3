@@ -1,14 +1,5 @@
 package com.cr.activity.gzpt.dwzl;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,10 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.MainActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.adapter.SlidePageAdapter;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlDwBjdwLxfsAdapter;
@@ -43,6 +32,15 @@ import com.mrwujay.cascade.model.CityModel;
 import com.mrwujay.cascade.model.DistrictModel;
 import com.mrwujay.cascade.model.ProvinceModel;
 import com.mrwujay.cascade.service.XmlParserHandler;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 /**
  * 工作平台-单位资料-单位-编辑单位
@@ -116,7 +114,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
 	 */
 	protected String mCurrentZipCode = "";
 	
-	String dhhm="";
+	String dhhm=" ";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -125,8 +123,10 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		if (this.getIntent().hasExtra("clientid")) {
 			clientId = this.getIntent().getExtras().getString("clientid");
-			dhmc = this.getIntent().getExtras().getString("dhmc");
-			dhhm=this.getIntent().getExtras().getString("dhhm");
+			if(!clientId.equals("0")) {
+				dhmc = this.getIntent().getExtras().getString("dhmc");
+				dhhm = this.getIntent().getExtras().getString("dhhm");
+			}
 		}
 		if (this.getIntent().hasExtra("tel")) {
 			tel = this.getIntent().getExtras().getString("tel");
@@ -171,7 +171,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
 				} else if (arg0 == 1) {
 					if (clientId.equals("0")) {
 						viewPager.setCurrentItem(0);
-						showToastPromopt("请先保存单位信息");
+						showToastPromopt("请先保存单位信息!");
 						return;
 					}
 					viewPager.setCurrentItem(1);
@@ -753,7 +753,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
 					searchDateSave();
 				}
 			} else {
-				showToastPromopt("保存失败" + returnJson.substring(5));
+				showToastPromopt("保存失败" + returnJson.substring(6));
 			}
 			break;
 		case 4:// 保存从新增来电中带过来的电话（此处不做操作）
