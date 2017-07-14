@@ -1,13 +1,5 @@
 package com.cr.activity.tjfx.xsjdtj;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +18,14 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 统计分析-销售阶段统计
@@ -68,6 +68,7 @@ public class TjfxXsjdtjActivity extends BaseActivity implements OnClickListener 
 	private void initActivity() {
 		sxButton = (ImageButton) findViewById(R.id.sx);
 		sxButton.setOnClickListener(this);
+		sxButton.setVisibility(View.GONE);
 		titleTextView=(TextView) findViewById(R.id.title_textview);
 		titleTextView.setText("销售阶段统计");
 	}
