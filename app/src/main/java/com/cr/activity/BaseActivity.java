@@ -20,6 +20,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -37,7 +38,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
 @SuppressLint("HandlerLeak")
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
 	public final int SUCCESS = 0;// 获取数据成功
 	public final int FIELD = 1;// 获取数据失败
 	public final int EMPTY = 2;// 获取到的数据为空

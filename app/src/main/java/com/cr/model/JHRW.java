@@ -1,14 +1,14 @@
 package com.cr.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * 计划任务
@@ -30,6 +30,7 @@ public class JHRW implements Serializable {
 	private String memo;// 备注
 	private String lx;// 计划类型 0按单位 1按联系人
 	private String lxmc;// 计划类型名称
+	private String shzt="0";//审核状态
 
 	public String getId() {
 		return id;
@@ -103,6 +104,14 @@ public class JHRW implements Serializable {
 		this.jhid = jhid;
 	}
 
+	public String getShzt() {
+		return shzt;
+	}
+
+	public void setShzt(String shzt) {
+		this.shzt = shzt;
+	}
+
 	/**
 	 * 将json字符串解析成当前类集合的对象
 	 */
@@ -144,6 +153,7 @@ public class JHRW implements Serializable {
 				// jhrw.setJhname(jsonObj2.getString("jhname"));
 				// jhrw.setMemo(jsonObj2.getString("memo"));
 				jhrw.setQsrq(jsonObj2.getString("jhrq"));
+//				jhrw.setShzt(jsonObj2.getString("shzt"));
 				// jhrw.setZzrq(jsonObj2.getString("zzrq"));
 				// jhrw.setLx(jsonObj2.getString("lx"));
 				// jhrw.setLxmc(jsonObj2.getString("lxmc"));

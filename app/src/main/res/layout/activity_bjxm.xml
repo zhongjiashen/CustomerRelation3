@@ -57,7 +57,7 @@
             />
     </LinearLayout>
 
-    <View style="@style/underline" android:visibility="gone"/>
+    <View style="@style/underline" />
 
     <LinearLayout style="@style/detail_relativelayout" >
 
@@ -80,7 +80,8 @@
 
     <View style="@style/underline" />
 
-    <LinearLayout style="@style/detail_relativelayout" >
+    <LinearLayout style="@style/detail_relativelayout"
+        >
 
         <TextView
             style="@style/font_default"
@@ -169,7 +170,8 @@
 
         <EditText
             android:id="@+id/ysje_edittext"
-            android:inputType="numberSigned"
+            android:inputType="number"
+            android:digits="1234567890."
             style="@style/edittext_bj"
             />
     </LinearLayout>
@@ -278,7 +280,7 @@
             android:text="@string/ywy" />
 
         <EditText
-            android:id="@+id/ywy_edittext"
+            android:id="@+id/jbr_edittext"
             style="@style/edittext_bj" 
             android:editable="false"
             android:focusable="false"/>
@@ -299,7 +301,8 @@
 
         <EditText
             android:id="@+id/zdr_edittext"
-            style="@style/edittext_bj" 
+            style="@style/edittext_bj"
+            android:focusable="false"
            />
 
     </LinearLayout>

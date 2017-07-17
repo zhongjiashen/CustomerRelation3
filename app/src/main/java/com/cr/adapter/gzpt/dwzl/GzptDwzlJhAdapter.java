@@ -1,8 +1,5 @@
 package com.cr.adapter.gzpt.dwzl;
 
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +9,9 @@ import android.widget.TextView;
 
 import com.crcxj.activity.R;
 
+import java.util.List;
+import java.util.Map;
+
 public class GzptDwzlJhAdapter extends BaseAdapter {
 	List<Map<String, Object>> list;
 	private Activity activity;
@@ -19,10 +19,14 @@ public class GzptDwzlJhAdapter extends BaseAdapter {
 		this.list=list;
 		this.activity=activity;
 	}
+
 	@Override
 	public int getCount() {
+		if(list==null)
+			return 0;
 		return list.size();
 	}
+
 	@Override
 	public Object getItem(int position) {
 		return list.get(position);
@@ -36,6 +40,7 @@ public class GzptDwzlJhAdapter extends BaseAdapter {
     }
     public void setList(List<Map<String, Object>> list) {
         this.list = list;
+		notifyDataSetChanged();
     }
     
 	@Override

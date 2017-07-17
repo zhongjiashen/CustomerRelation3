@@ -1,7 +1,5 @@
 package com.cr.adapter;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cr.activity.JhzjJrzjActivity;
 import com.cr.activity.JhzjXzxmActivity;
-import com.crcxj.activity.R;
 import com.cr.model.JHRW;
+import com.crcxj.activity.R;
+
+import java.util.List;
 
 /**
  * 计划总结-周总结-适配器
@@ -66,11 +67,16 @@ public class JhzjZjhAdapter extends BaseAdapter {
 		viewHolder.xzxm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent=new Intent(activity,JhzjXzxmActivity.class);
-				intent.putExtra("jhid",sb.getId());
-				intent.putExtra("start", "0");
-				intent.putExtra("object", sb);
-				activity.startActivity(intent);
+				if(sb.getShzt().equals("1")){
+					Toast.makeText(activity,"该计划已经审核，不能新增项目！",Toast.LENGTH_SHORT).show();
+				}else {
+					Intent intent = new Intent(activity, JhzjXzxmActivity.class);
+					intent.putExtra("jhid", sb.getId());
+					intent.putExtra("start", "0");
+					intent.putExtra("object", sb);
+					activity.startActivity(intent);
+				}
+
 			}
 		});
 		viewHolder.jrzj.setOnClickListener(new OnClickListener() {
@@ -79,6 +85,7 @@ public class JhzjZjhAdapter extends BaseAdapter {
 				Intent intent=new Intent(activity,JhzjJrzjActivity.class);
 				intent.putExtra("jhid",sb.getId());
 				intent.putExtra("type","zjh");
+				intent.putExtra("shzt",sb.getShzt());
 				activity.startActivity(intent);
 			}
 		});

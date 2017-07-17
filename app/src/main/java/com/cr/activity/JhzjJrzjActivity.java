@@ -1,12 +1,5 @@
 package com.cr.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +10,13 @@ import android.widget.TextView;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JhzjJrzjActivity extends BaseActivity implements OnClickListener{
 	private EditText nrEditText;
@@ -57,6 +57,10 @@ public class JhzjJrzjActivity extends BaseActivity implements OnClickListener{
             titleTextView.setText("周总结");
             descTextView.setText("本周总结");
         }
+        if(getIntent().getExtras().getString("shzt").equals("1")){
+			saveImageView.setVisibility(View.GONE);
+			nrEditText.setFocusable(false);
+		}else
 		saveImageView.setOnClickListener(this);
 	}
 	/**

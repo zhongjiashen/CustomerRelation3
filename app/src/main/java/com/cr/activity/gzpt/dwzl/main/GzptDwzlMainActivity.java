@@ -1,4 +1,4 @@
-package com.cr.activity.gzpt.dwzl;
+package com.cr.activity.gzpt.dwzl.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.gzpt.dwzl.main.FjzxPageAdapter;
+import com.cr.activity.gzpt.dwzl.GzptDwzlBfBflrActivity;
+import com.cr.activity.gzpt.dwzl.GzptDwzlDwBjdwActivity;
+import com.cr.activity.gzpt.dwzl.GzptDwzlDwLxfsActivity;
+import com.cr.activity.gzpt.dwzl.GzptDwzlJhXzxsjhActivity;
+import com.cr.activity.gzpt.dwzl.GzptDwzlLxrBjlxrActivity;
 import com.cr.activity.gzpt.dwzl.main.view.BaseView;
 import com.cr.activity.gzpt.dwzl.main.view.ContactView;
 import com.cr.activity.gzpt.dwzl.main.view.OpportunityView;
@@ -39,7 +43,8 @@ import java.util.Map;
  *
  * @author Administrator
  */
-public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
+public class GzptDwzlMainActivity extends BaseActivity implements OnClickListener {
+
     private ViewPager viewPager;
     FjzxPageAdapter myAdapter;
     List<BaseView> viewPage = new ArrayList<BaseView>();
@@ -62,7 +67,6 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     private Map<String, Object> object = new HashMap<String, Object>();
     private Map<String, Object> dwObject = new HashMap<String, Object>();
     TabLayout tabLayout;
-
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +85,10 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         addZYMethod();
         searchDateDw(0);
         if (types.equals("1")) {//客户
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", "服务", "订单", "项目"};
-            //设置可以滑动
-            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            myAdapter.mTitles=new String[]{"单位","联系人","拜访","机会","服务","订单","项目"};
 
         } else if (types.equals("2")) {//供应商
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
-            //设置
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            myAdapter.mTitles=new String[]{"单位","联系人","拜访","项目"};
 
             List<BaseView> v = new ArrayList<BaseView>();
             for (int i = 0; i < viewPage.size(); i++) {
@@ -117,9 +117,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
             }
             viewPage.removeAll(v);
         } else if (types.equals("3")) {//竞争对手
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
-            //设置
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            myAdapter.mTitles=new String[]{"单位","联系人","拜访","项目"};
             List<BaseView> v = new ArrayList<BaseView>();
             for (int i = 0; i < viewPage.size(); i++) {
                 switch (i) {
@@ -147,14 +145,10 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
             }
             viewPage.removeAll(v);
         } else if (types.equals("4")) {//渠道
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", "服务", "订单", "项目"};
-            //设置可以滑动
-            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            myAdapter.mTitles=new String[]{"单位","联系人","拜访","机会","服务","订单","项目"};
         } else if (types.equals("5")) {//员工
 //            dwTextView.setText("基本信息");
-            myAdapter.mTitles = new String[]{"基本信息", "拜访", "项目"};
-            //设置
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            myAdapter.mTitles=new String[]{"基本信息","拜访","项目"};
             UnitView view = (UnitView) dwView;
             view.Visibility();
 
@@ -195,10 +189,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     private void initActivity() {
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
+        tabLayout= (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
-
         dwView = new UnitView(this);
         lxrView = new ContactView(this, clientId);
         bfView = new VisitView(this, clientId, khmc);
@@ -216,7 +208,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         myAdapter = new FjzxPageAdapter();
         viewPager.setAdapter(myAdapter);
         // 下面的点图
-        viewPager.addOnPageChangeListener(new OnPageChangeListener() {
+        viewPager.setOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageSelected(int arg0) {
                 if (!viewPage.get(arg0).isFirst) {
@@ -348,12 +340,12 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         switch (view.getId()) {
             case R.id.lxfs_relativelayout:
                 intent.putExtra("clientid", clientId);
-                intent.setClass(GzptDwzlActivity.this, GzptDwzlDwLxfsActivity.class);
+                intent.setClass(GzptDwzlMainActivity.this, GzptDwzlDwLxfsActivity.class);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.bjdw_textview:
                 intent.putExtra("clientid", clientId);// 单位ID为0，表示新增
-                intent.setClass(GzptDwzlActivity.this, GzptDwzlDwBjdwActivity.class);
+                intent.setClass(GzptDwzlMainActivity.this, GzptDwzlDwBjdwActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.xzdw_textview:
@@ -361,7 +353,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 intent.putExtra("khdjid", khdjid);// 客户类型的ID
                 intent.putExtra("khlbid", types);// 客户类型的ID
                 intent.putExtra("khdjname", dwObject.get("typename").toString());// 客户类型 的名字
-                intent.setClass(GzptDwzlActivity.this, GzptDwzlDwBjdwActivity.class);
+                intent.setClass(GzptDwzlMainActivity.this, GzptDwzlDwBjdwActivity.class);
                 startActivityForResult(intent, 2);
                 break;
             case R.id.xzlxr_textview:// 新增联系人
@@ -467,8 +459,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
                 } else {
-                    ddView.setData((List<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson));
+                   ddView.setData((List<Map<String, Object>>) PaseJson
+                           .paseJsonToObject(returnJson));
                 }
 
                 break;
@@ -479,6 +471,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 } else {
                     xmView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
+
                 }
 
                 break;
@@ -488,25 +481,33 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     }
 
 
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 0) {// 新增联系人
-                lxrView.initData();
-
+                lxrList.clear();
+                searchDateLxr(1);
             } else if (requestCode == 1) {// 单位
-                dwView.initData();
+                searchDateDw(0);
             } else if (requestCode == 2) {// 拜访
-                bfView.initData();
+                bfList.clear();
+                searchDateBf(2);
             } else if (requestCode == 3) {// 机会
-                jhView.initData();
+                jhList.clear();
+                searchDateJh(3);
             } else if (requestCode == 4) {// 服务
-                fwView.initData();
+                fwList.clear();
+                searchDateFw(4);
             } else if (requestCode == 5) {// 订单
-                ddView.initData();
+                ddList.clear();
+                searchDateDd(5);
             } else if (requestCode == 6) {// 項目
-                xmView.initData();
+                xmList.clear();
+                searchDateXm(6);
             }
         }
     }

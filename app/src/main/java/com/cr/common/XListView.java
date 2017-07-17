@@ -47,12 +47,13 @@ public class XListView extends ListView implements OnScrollListener {
 	private final static int SCROLL_DURATION = 400; // scroll back duration
 	private final static int PULL_LOAD_MORE_DELTA = 50; // when pull up >= 50px at bottom, trigger														// load more.
 	private final static float OFFSET_RADIO = 1.8f; // support iOS like pull feature.
-
+    private Context context;
 	/**
 	 * @param context
 	 */
 	public XListView(Context context) {
 		super(context);
+
 		initWithContext(context);
 	}
 
@@ -157,6 +158,7 @@ public class XListView extends ListView implements OnScrollListener {
 				@Override
 				public void onClick(View v) {
 					startLoadMore();
+
 				}
 			});
 		}
@@ -263,8 +265,10 @@ public class XListView extends ListView implements OnScrollListener {
 
 	private void startLoadMore() {
 		mPullLoading = true;
+
 		mFooterView.setState(XListViewFooter.STATE_LOADING);
 		if (mListViewListener != null) {
+
 			mListViewListener.onLoadMore();
 		}
 	}
@@ -357,6 +361,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	public void setXListViewListener(IXListViewListener l) {
+
 		mListViewListener = l;
 	}
 

@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 计划总结-计划项目
+ */
 public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 	private BaseAdapter adapter;
 	private XListView jhxmListView;
@@ -53,7 +56,12 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 		jhnameTextView=(TextView) findViewById(R.id.jhname);
 		jhnameTextView.setText(jhrw.getQsrq());
 		xzxmImageView=(ImageView) findViewById(R.id.xzxm);
-		xzxmImageView.setOnClickListener(this);
+
+		if(jhrw.getShzt().equals("1")){
+			xzxmImageView.setVisibility(View.GONE);
+		}else {
+			xzxmImageView.setOnClickListener(this);
+		}
 	}
 	/**
 	 * 初始化ListView
@@ -70,7 +78,6 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 				JHRW jhrw2=jhxmList.get(arg2-1);
 				if(jhrw2.getLx().equals("0")){
 					Intent intent = new Intent(context,JhzjXzxmZxActivity.class);
-
 					intent.putExtra("jhid", jhrw.getId());
 					intent.putExtra("object",jhrw2);
 					startActivity(intent);

@@ -1,12 +1,5 @@
 package com.cr.activity;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -32,6 +25,16 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 工作平台-呼叫中心——客户管理
+ */
 @SuppressLint("SimpleDateFormat")
 public class GzptKhglActivity extends BaseActivity implements OnClickListener {
     TextView            xzdwTextView;

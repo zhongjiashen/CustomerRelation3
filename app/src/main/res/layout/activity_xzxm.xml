@@ -86,8 +86,7 @@
 
         <EditText
             android:id="@+id/dwlx_edittext"
-            style="@style/edittext_bj"
-             />
+            style="@style/edittext_bj" />
     </LinearLayout>
 
     <View style="@style/underline" />
@@ -167,7 +166,8 @@
 
         <EditText
             android:id="@+id/ysje_edittext"
-            android:inputType="numberSigned"
+            android:inputType="number"
+            android:digits="1234567890."
             style="@style/edittext_bj"
             />
     </LinearLayout>
@@ -273,7 +273,7 @@
 
         <TextView
             style="@style/font_default"
-            android:text="@string/ywy" />
+            android:text="业务员" />
 
         <EditText
             android:id="@+id/ywy_edittext"

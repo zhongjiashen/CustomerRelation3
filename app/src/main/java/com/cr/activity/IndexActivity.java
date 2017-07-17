@@ -7,9 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -260,7 +263,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 			}
 			mstxIndexModelList.add(im);
 		}
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 6; i++) {
 			IndexModel im = new IndexModel();
 			switch (i) {
 			case 0:
@@ -433,7 +436,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 			xjyhIndexModelList.add(im);
 		}
 		//客户关系报表
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 5; i++) {
 			IndexModel im = new IndexModel();
 			switch (i) {
 			case 0:
@@ -520,11 +523,17 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 					startActivity(intent);
 					break;
 				case 2:
+					if (isLocationEnabled()) {
+						intent.setClass(activity, QdXzqdActivity.class);
+						startActivity(intent);
+					} else {
+						Toast.makeText(IndexActivity.this, "定位服务未开启!请开启定位服务", Toast.LENGTH_SHORT).show();
+
+					}
 //					getQdData();// 查询出签到信息，并保存到服务器当中
 					// saveQdMsg();
 //				    mLocationClient.start();//开启定位功能
-					intent.setClass(activity, QdXzqdActivity.class);
-					startActivity(intent);
+
 					return;
 					// break;
 				case 3:
@@ -730,6 +739,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 					intent.setClass(IndexActivity.this, TjfxKhdjtjActivity.class);
 					break;
 				case 4:
+					//统计分析-销售阶段统计
 					intent.setClass(IndexActivity.this, TjfxXsjdtjActivity.class);
 					break;
 				case 5:
@@ -976,4 +986,26 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 		}
 
 	};
+	/**
+	 * 判断定位服务是否开启
+	 *
+	 * @param
+	 * @return true 表示开启
+	 */
+	public boolean isLocationEnabled() {
+		int locationMode = 0;
+		String locationProviders;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			try {
+				locationMode = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
+			} catch (Settings.SettingNotFoundException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+		} else {
+			locationProviders = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+			return !TextUtils.isEmpty(locationProviders);
+		}
+	}
 }

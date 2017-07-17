@@ -68,7 +68,7 @@ public class TjfxXsjdtjActivity extends BaseActivity implements OnClickListener 
 	private void initActivity() {
 		sxButton = (ImageButton) findViewById(R.id.sx);
 		sxButton.setOnClickListener(this);
-		sxButton.setVisibility(View.GONE);
+
 		titleTextView=(TextView) findViewById(R.id.title_textview);
 		titleTextView.setText("销售阶段统计");
 	}

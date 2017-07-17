@@ -45,7 +45,13 @@ public class XzxmActivity extends BaseActivity implements
 		addFHMethod();
 		initActivity();
 		dwObject=((Map<String, Object>) this.getIntent().getExtras().getSerializable("dwObject"));
+
+		setDwlx(getIntent().getExtras().getString("types"));
+		dwlxEditText.setFocusable(false);
 		dwmcEditText.setText(dwObject.get("cname").toString());
+		dwmcId=dwObject.get("id").toString();
+		zxjgId = "1";
+		zxjgEditText.setText("前期准备");
 //		searchXsjhDate();
 	}
 
@@ -215,7 +221,11 @@ public class XzxmActivity extends BaseActivity implements
 	 */
 	private boolean validateMsg() {
 		if (xmmcEditText.getText().toString().equals("")) {
-			showToastPromopt("项目名称不能为空");
+			showToastPromopt("请填写项目名称！");
+			return false;
+		}
+		if (ywyEditText.getText().toString().equals("")) {
+			showToastPromopt("请选择业务员");
 			return false;
 		}
 
@@ -243,6 +253,7 @@ public class XzxmActivity extends BaseActivity implements
 			if (requestCode == 0) {
 				dwmcEditText.setText(data.getExtras().getString("name"));
 				dwmcId = data.getExtras().getString("id");
+				setDwlx(data.getExtras().getString("types"));
 			} else if (requestCode == 1) {
 				xmlxEditText.setText(data.getExtras().getString("dictmc"));
 				xmlxId = data.getExtras().getString("id");
@@ -258,4 +269,23 @@ public class XzxmActivity extends BaseActivity implements
 			}
 		}
 	}
+
+	/**
+	 * 单位类型赋值
+	 * @param type
+	 */
+	private void setDwlx(String type){
+		if(type.equals("1")){
+			dwlxEditText.setText("客户");
+		}else if(type.equals("2")){
+			dwlxEditText.setText("供应商");
+		}else if(type.equals("3")){
+			dwlxEditText.setText("竞争对手");
+		}else if(type.equals("4")){
+			dwlxEditText.setText("渠道");
+		}else if(type.equals("5")){
+			dwlxEditText.setText("员工");
+		}
+	}
+
 }

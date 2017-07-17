@@ -50,9 +50,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	// 所需的全部权限
 	static final String[] PERMISSIONS = new String[]{
 			Manifest.permission.READ_PHONE_STATE,
-			Manifest.permission.ACCESS_COARSE_LOCATION,
 			Manifest.permission.CAMERA,
-			Manifest.permission.WRITE_EXTERNAL_STORAGE
+			Manifest.permission.WRITE_EXTERNAL_STORAGE,
+			Manifest.permission.ACCESS_COARSE_LOCATION,
+			Manifest.permission.ACCESS_FINE_LOCATION,
+			Manifest.permission.CHANGE_WIFI_STATE
+
 
 	};
 

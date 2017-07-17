@@ -1,8 +1,5 @@
 package com.cr.adapter.gzpt.dwzl;
 
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.crcxj.activity.R;
+
+import java.util.List;
+import java.util.Map;
 
 public class GzptDwzlFwAdapter extends BaseAdapter {
 	List<Map<String, Object>> list;
@@ -21,6 +21,8 @@ public class GzptDwzlFwAdapter extends BaseAdapter {
 	}
 	@Override
 	public int getCount() {
+		if(list==null)
+			return 0;
 		return list.size();
 	}
 	@Override
@@ -33,9 +35,11 @@ public class GzptDwzlFwAdapter extends BaseAdapter {
 	}
 	public List<Map<String, Object>> getList() {
         return list;
+
     }
     public void setList(List<Map<String, Object>> list) {
         this.list = list;
+		notifyDataSetChanged();
     }
     
 	@Override

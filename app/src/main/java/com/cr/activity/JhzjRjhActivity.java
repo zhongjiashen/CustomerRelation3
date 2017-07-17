@@ -36,15 +36,15 @@ import java.util.Map;
  */
 public class JhzjRjhActivity extends BaseActivity implements OnClickListener {
     private BaseAdapter adapter;
-    private XListView   rjhListView;
+    private XListView rjhListView;
     //	private JHRW jhrw;
-    List<JHRW>          xzjhList  = new ArrayList<JHRW>();
+    List<JHRW> xzjhList = new ArrayList<JHRW>();
 
-    EditText            ksrqEditText, jsrqEditText;
-    ImageButton         cxButton;
-    ImageView           xzjhImageView;
-    TextView            titlename;
-    boolean             findState = true;
+    EditText ksrqEditText, jsrqEditText;
+    ImageButton cxButton;
+    ImageView xzjhImageView;
+    TextView titlename;
+    boolean findState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class JhzjRjhActivity extends BaseActivity implements OnClickListener {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-");
         ksrqEditText.setText(sdf.format(new Date()) + "01");
         jsrqEditText.setText(sdf.format(new Date())
-                             + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
     }
 
     /**
@@ -114,20 +114,56 @@ public class JhzjRjhActivity extends BaseActivity implements OnClickListener {
         findServiceData2(0, ServerURL.JHRWGZZJRZJ, parmMap, true);
     }
 
-    @Override
-    public void executeSuccess() {
-        findState = true;
-        //		xzjhList.clear();
-        if (returnJson.equals("")) {
-            showToastPromopt(2);
-        } else {
-            xzjhList.addAll(JHRW.parseJsonToObject2(returnJson));
-        }
-        adapter.notifyDataSetChanged();
+    /**
+     * 获取item审核状态
+     */
+    private void getItemShzt(int type, String jhid) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("jhid", jhid);
+        parmMap.put("curpage", currentPage);
+        parmMap.put("pagesize", pageSize);
+        findServiceData2(type, ServerURL.JHRWGZZJITEM, parmMap, false);
     }
 
-    /**     
-     * 创建日期及时间选择对话框    
+    @Override
+    public void executeSuccess() {
+        switch (returnSuccessType) {
+            case 0:
+                findState = true;
+                //		xzjhList.clear();
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+                } else {
+                    xzjhList.addAll(JHRW.parseJsonToObject2(returnJson));
+                }
+                adapter.notifyDataSetChanged();
+                break;
+            case 1:
+                findState = true;
+                //		xzjhList.clear();
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+                } else {
+                    xzjhList.addAll(JHRW.parseJsonToObject2(returnJson));
+                }
+                adapter.notifyDataSetChanged();
+                break;
+            case 2:
+                findState = true;
+                //		xzjhList.clear();
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+                } else {
+                    xzjhList.addAll(JHRW.parseJsonToObject2(returnJson));
+                }
+                adapter.notifyDataSetChanged();
+                break;
+        }
+    }
+
+    /**
+     * 创建日期及时间选择对话框
      */
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -154,11 +190,11 @@ public class JhzjRjhActivity extends BaseActivity implements OnClickListener {
                         ksrqEditText.setText(year + "-" + myMonth + "-" + myDay);
                     }
                 }, c.get(Calendar.YEAR),
-                // 传入年份
-                    c.get(Calendar.MONTH),
-                    // 传入月份
-                    c.get(Calendar.DAY_OF_MONTH)
-                // 传入天数
+                        // 传入年份
+                        c.get(Calendar.MONTH),
+                        // 传入月份
+                        c.get(Calendar.DAY_OF_MONTH)
+                        // 传入天数
                 );
                 break;
             case 1:
@@ -181,11 +217,11 @@ public class JhzjRjhActivity extends BaseActivity implements OnClickListener {
                         jsrqEditText.setText(year + "-" + myMonth + "-" + myDay);
                     }
                 }, c.get(Calendar.YEAR),
-                // 传入年份
-                    c.get(Calendar.MONTH),
-                    // 传入月份
-                    c.get(Calendar.DAY_OF_MONTH)
-                // 传入天数
+                        // 传入年份
+                        c.get(Calendar.MONTH),
+                        // 传入月份
+                        c.get(Calendar.DAY_OF_MONTH)
+                        // 传入天数
                 );
                 break;
         }
@@ -240,28 +276,28 @@ public class JhzjRjhActivity extends BaseActivity implements OnClickListener {
      * 刷新
      */
     private IXListViewListener xListViewListener = new IXListViewListener() {
-                                                     @Override
-                                                     public void onRefresh() {
-                                                         handler.postDelayed(new Runnable() {//实现延迟2秒加载刷新
-                                                                 @Override
-                                                                 public void run() {
-                                                                     //不实现顶部刷新
-                                                                 }
-                                                             }, 2000);
-                                                     }
+        @Override
+        public void onRefresh() {
+            handler.postDelayed(new Runnable() {//实现延迟2秒加载刷新
+                @Override
+                public void run() {
+                    //不实现顶部刷新
+                }
+            }, 2000);
+        }
 
-                                                     @Override
-                                                     public void onLoadMore() {
-                                                         handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
-                                                                 @Override
-                                                                 public void run() {
-                                                                     currentPage++;
-                                                                     searchDate();
-                                                                     onLoad();
-                                                                 }
-                                                             }, 2000);
-                                                     }
-                                                 };
+        @Override
+        public void onLoadMore() {
+            handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
+                @Override
+                public void run() {
+                    currentPage++;
+                    searchDate();
+                    onLoad();
+                }
+            }, 2000);
+        }
+    };
 
     @SuppressWarnings("deprecation")
     private void onLoad() {//停止刷新和加载功能，并且显示时间
@@ -275,7 +311,7 @@ public class JhzjRjhActivity extends BaseActivity implements OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
             if (!ksrqEditText.getText().toString().equals("")
-                && !jsrqEditText.getText().toString().equals("")) {
+                    && !jsrqEditText.getText().toString().equals("")) {
                 xzjhList.clear();
                 currentPage = 1;
                 searchDate();

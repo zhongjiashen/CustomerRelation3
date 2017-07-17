@@ -35,7 +35,8 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:paddingBottom="10dip"
-        android:paddingTop="10dip" >
+        android:paddingTop="10dip"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,7 +77,8 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:paddingBottom="10dip"
-        android:paddingTop="10dip" >
+        android:paddingTop="10dip"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,7 +131,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <EditText
                 android:id="@+id/ywy_edittext"

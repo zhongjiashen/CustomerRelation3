@@ -1,11 +1,5 @@
 package com.cr.activity.xm;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +19,12 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 编辑项目
  * 
@@ -35,7 +35,7 @@ public class BjxmActivity extends BaseActivity implements
 		OnClickListener {
 
 	private EditText bhEditText,dwmcEditText,dwlxEditText,xghtEditText,xmmcEditText,xmlxEditText,xmlyEditText,
-	ysjeEditText,qsrqEditText,jzrqEditText,zxjgEditText,xmmdEditText,djrqEditText,ywyEditText,zdrEditText;
+	ysjeEditText,qsrqEditText,jzrqEditText,zxjgEditText,xmmdEditText,djrqEditText,jbrEditText,zdrEditText;
 	private String dwmcId, xmlxId, xmlyId, zxjgId,ywyId;
 	ImageButton saveButton;
 	private TextView scxmTextView;//删除项目
@@ -79,8 +79,8 @@ public class BjxmActivity extends BaseActivity implements
 		djrqEditText.setOnClickListener(this);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		djrqEditText.setText(sdf.format(new Date()));
-		ywyEditText = (EditText) findViewById(R.id.ywy_edittext);
-		ywyEditText.setOnClickListener(this);
+		jbrEditText = (EditText) findViewById(R.id.jbr_edittext);
+		jbrEditText.setOnClickListener(this);
 		zdrEditText = (EditText) findViewById(R.id.zdr_edittext);
 		
 		scxmTextView=(TextView) findViewById(R.id.scxm_textview);
@@ -95,7 +95,7 @@ public class BjxmActivity extends BaseActivity implements
 		Map<String, Object> parmMap = new HashMap<String, Object>();
 		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("opid", ShareUserInfo.getUserId(context));
-		parmMap.put("projectid", "0");
+		parmMap.put("projectid", this.getIntent().getExtras().getString("xmid"));
 		parmMap.put("billdate", djrqEditText.getText().toString());
 		parmMap.put("title", xmmcEditText.getText().toString());
 		parmMap.put("clientid", dwmcId);
@@ -146,7 +146,7 @@ public class BjxmActivity extends BaseActivity implements
 			bhEditText.setText(object.get("code").toString());
 			dwmcEditText.setText(object.get("Cname").toString());
 			dwmcId=object.get("clientid").toString();
-//			dwlxEditText.setText(object.get("").toString());
+			dwlxEditText.setText(object.get("typesname").toString());
 			xghtEditText.setText(object.get("contractname").toString());
 			xmmcEditText.setText(object.get("title").toString());
 			xmlxEditText.setText(object.get("xmlxname").toString());
@@ -160,9 +160,9 @@ public class BjxmActivity extends BaseActivity implements
 			zxjgId=object.get("finished").toString();
 			xmmdEditText.setText(object.get("objective").toString());
 			djrqEditText.setText(object.get("billdate").toString());
-			ywyEditText.setText(object.get("opname").toString());
+			jbrEditText.setText(object.get("Empname").toString());
 			ywyId=object.get("Empid").toString();
-			zdrEditText.setText(object.get("Empname").toString());
+			zdrEditText.setText(object.get("opname").toString());
 			break;
 		case 3:
 			if (returnJson.equals("")) {
@@ -232,7 +232,7 @@ public class BjxmActivity extends BaseActivity implements
 		case R.id.djrq_edittext:// 截止日期
 			date_init(djrqEditText);
 			break;
-		case R.id.ywy_edittext:
+		case R.id.jbr_edittext:
             intent.setClass(activity, CommonXzjbrActivity.class);
             startActivityForResult(intent, 4);
             break;
@@ -295,7 +295,7 @@ public class BjxmActivity extends BaseActivity implements
 				zxjgEditText.setText(data.getExtras().getString("dictmc"));
 			}else if (requestCode == 4) {
 				ywyId = data.getExtras().getString("id");
-				ywyEditText.setText(data.getExtras().getString("name"));
+				jbrEditText.setText(data.getExtras().getString("name"));
 			}
 		}
 	}
