@@ -30,7 +30,7 @@ public class JHRW implements Serializable {
 	private String memo;// 备注
 	private String lx;// 计划类型 0按单位 1按联系人
 	private String lxmc;// 计划类型名称
-	private String shzt="0";//审核状态
+	private String shzt="1";//审核状态
 
 	public String getId() {
 		return id;
@@ -128,6 +128,7 @@ public class JHRW implements Serializable {
 				// jhrw.setMemo(jsonObj2.getString("memo"));
 				jhrw.setQsrq(jsonObj2.getString("qsrq"));
 				jhrw.setZzrq(jsonObj2.getString("zzrq"));
+				jhrw.setShzt(jsonObj2.getString("shzt"));
 				// jhrw.setLx(jsonObj2.getString("lx"));
 				// jhrw.setLxmc(jsonObj2.getString("lxmc"));
 				jhrwList.add(jhrw);
@@ -153,7 +154,7 @@ public class JHRW implements Serializable {
 				// jhrw.setJhname(jsonObj2.getString("jhname"));
 				// jhrw.setMemo(jsonObj2.getString("memo"));
 				jhrw.setQsrq(jsonObj2.getString("jhrq"));
-//				jhrw.setShzt(jsonObj2.getString("shzt"));
+				jhrw.setShzt(jsonObj2.getString("shzt"));
 				// jhrw.setZzrq(jsonObj2.getString("zzrq"));
 				// jhrw.setLx(jsonObj2.getString("lx"));
 				// jhrw.setLxmc(jsonObj2.getString("lxmc"));

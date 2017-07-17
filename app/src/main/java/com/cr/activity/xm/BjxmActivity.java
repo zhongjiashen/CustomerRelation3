@@ -61,6 +61,7 @@ public class BjxmActivity extends BaseActivity implements
 		dwmcEditText = (EditText) findViewById(R.id.dwmc_edittext);
 		dwmcEditText.setOnClickListener(this);
 		dwlxEditText = (EditText) findViewById(R.id.dwlx_edittext);
+		dwlxEditText.setFocusable(false);
 		xghtEditText = (EditText) findViewById(R.id.xght_edittext);
 		xmmcEditText = (EditText) findViewById(R.id.xmmc_edittext);
 		xmlxEditText = (EditText) findViewById(R.id.xmlx_edittext);
@@ -220,7 +221,7 @@ public class BjxmActivity extends BaseActivity implements
 			break;
 		case R.id.zxjg_edittext:// 执行结果
 			intent.setClass(this, CommonXzzdActivity.class);
-			intent.putExtra("type", "PROJXMLY");
+			intent.putExtra("type", "XMZXJG");
 			startActivityForResult(intent, 3);
 			break;
 		case R.id.qsrq_edittext:// 起始日期
