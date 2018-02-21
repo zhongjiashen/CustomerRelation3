@@ -90,11 +90,11 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 	private ViewPager viewPager;
 	private LayoutInflater inflater;
 	private View gzptView, jxcView, xjyhView, tjfxView, setView;
-	private CustomGridView mstxGridView, wdgzGridView, jhzjGridView,cgglGridView,
+	private CustomGridView mstxGridView, wdgzGridView,azwxGridView, jhzjGridView,cgglGridView,
 			xsglGridView,ckglGridView,xjyhGridView,tjfxGridView,khgxbbGridView;
 	private PopupWindow mPopupWindow;
-	private ImageView corsor1, corsor2/*, corsor3, corsor4*/;
-	private TextView gzptTextView,/* jxcTextView, xjyhTextView,*/ tjfxTextView;
+	private ImageView corsor1, corsor2, corsor3, corsor4;
+	private TextView gzptTextView, jxcTextView, xjyhTextView, tjfxTextView;
 	private LinearLayout gyLayout;
 
 	private String lng, lat; // 经度，纬度
@@ -158,17 +158,17 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 		setButton.setOnClickListener(this);
 		corsor1 = (ImageView) findViewById(R.id.corsor1);
 		corsor2 = (ImageView) findViewById(R.id.corsor2);
-//		corsor3 = (ImageView) findViewById(R.id.corsor3);
-//		corsor4 = (ImageView) findViewById(R.id.corsor4);
+		corsor3 = (ImageView) findViewById(R.id.corsor3);
+		corsor4 = (ImageView) findViewById(R.id.corsor4);
 		gzptTextView = (TextView) findViewById(R.id.gzpt_textview);
-//		jxcTextView = (TextView) findViewById(R.id.jxc_textview);
-//		xjyhTextView = (TextView) findViewById(R.id.xjyh_textview);
+		jxcTextView = (TextView) findViewById(R.id.jxc_textview);
+		xjyhTextView = (TextView) findViewById(R.id.xjyh_textview);
 		tjfxTextView = (TextView) findViewById(R.id.tjfx_textview);
 		gyLayout = (LinearLayout) findViewById(R.id.gy_layout);
 		gyLayout.setOnClickListener(this);
 		gzptTextView.setOnClickListener(this);
-//		jxcTextView.setOnClickListener(this);
-//		xjyhTextView.setOnClickListener(this);
+		jxcTextView.setOnClickListener(this);
+		xjyhTextView.setOnClickListener(this);
 		tjfxTextView.setOnClickListener(this);
 
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -179,8 +179,8 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 		tjfxView = inflater.inflate(R.layout.activity_index_index_tjfx, null);
 		setView = inflater.inflate(R.layout.activity_index_set, null);
 		viewPage.add(gzptView);
-//		viewPage.add(jxcView);
-//		viewPage.add(xjyhView);
+		viewPage.add(jxcView);
+		viewPage.add(xjyhView);
 		viewPage.add(tjfxView);
 		SlidePageAdapter myAdapter = new SlidePageAdapter(viewPage, this);
 		viewPager.setAdapter(myAdapter);
@@ -191,14 +191,14 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 				if (arg0 == 0) {
 					corsor1.setBackgroundResource(R.drawable.index_selectcorsor);
 					corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
-//					corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
-//					corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
+					corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
+					corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
 				} else if (arg0 == 1) {
 					corsor2.setBackgroundResource(R.drawable.index_selectcorsor);
 					corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
-//					corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
-//					corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
-				} /*else if (arg0 == 2) {
+					corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
+					corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
+				} else if (arg0 == 2) {
 					corsor3.setBackgroundResource(R.drawable.index_selectcorsor);
 					corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
 					corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
@@ -208,7 +208,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 					corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
 					corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
 					corsor4.setBackgroundResource(R.drawable.index_selectcorsor);
-				}*/
+				}
 			}
 
 			@Override
@@ -223,6 +223,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 		});
 		mstxGridView = (CustomGridView) gzptView.findViewById(R.id.mstx_gridview);
 		wdgzGridView = (CustomGridView) gzptView.findViewById(R.id.wdgz_gridview);
+		azwxGridView = (CustomGridView) gzptView.findViewById(R.id.azwx_gridview);
 		jhzjGridView = (CustomGridView) gzptView.findViewById(R.id.jhzj_gridview);
 		cgglGridView = (CustomGridView) jxcView.findViewById(R.id.cggl_gridview);
 		xsglGridView = (CustomGridView) jxcView.findViewById(R.id.xsgl_gridview);
@@ -232,6 +233,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 		khgxbbGridView=(CustomGridView) tjfxView.findViewById(R.id.khgxbb_gridview);
 		List<IndexModel> mstxIndexModelList = new ArrayList<IndexModel>();
 		List<IndexModel> gzptIndexModelList = new ArrayList<IndexModel>();
+		List<IndexModel> azwxIndexModelList = new ArrayList<IndexModel>();
 		List<IndexModel> jhzjIndexModelList = new ArrayList<IndexModel>();
 		List<IndexModel> cgglIndexModelList = new ArrayList<IndexModel>();
 		List<IndexModel> xsglIndexModelList = new ArrayList<IndexModel>();
@@ -263,7 +265,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 			}
 			mstxIndexModelList.add(im);
 		}
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 7; i++) {
 			IndexModel im = new IndexModel();
 			switch (i) {
 			case 0:
@@ -299,6 +301,34 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 			}
 			gzptIndexModelList.add(im);
 		}
+
+		//安装维修
+		for (int i = 0; i < 4; i++) {
+			IndexModel im = new IndexModel();
+			switch (i) {
+				case 0:
+					im.setLogoId(R.drawable.index_rjh);
+					im.setLogoName("安装登记");
+					break;
+				case 1:
+					im.setLogoId(R.drawable.index_zjh);
+					im.setLogoName("安装执行");
+					break;
+				case 2:
+					im.setLogoId(R.drawable.index_yjh);
+					im.setLogoName("维修登记");
+					break;
+				case 3:
+					im.setLogoId(R.drawable.index_zdyjh);
+					im.setLogoName("检测维修");
+					break;
+				default:
+					break;
+			}
+			azwxIndexModelList.add(im);
+		}
+
+		//计划总结
 		for (int i = 0; i < 4; i++) {
 			IndexModel im = new IndexModel();
 			switch (i) {
@@ -436,7 +466,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 			xjyhIndexModelList.add(im);
 		}
 		//客户关系报表
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			IndexModel im = new IndexModel();
 			switch (i) {
 			case 0:
@@ -498,6 +528,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 		}
 		mstxGridView.setAdapter(new IndexAdapter(context, mstxIndexModelList));
 		wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
+		azwxGridView.setAdapter(new IndexAdapter(context, azwxIndexModelList));
 		jhzjGridView.setAdapter(new IndexAdapter(context, jhzjIndexModelList));
 		cgglGridView.setAdapter(new IndexAdapter(context, cgglIndexModelList));
 		xsglGridView.setAdapter(new IndexAdapter(context, xsglIndexModelList));
@@ -811,32 +842,32 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 		case R.id.gzpt_textview:
 			corsor1.setBackgroundResource(R.drawable.index_selectcorsor);
 			corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
 			viewPager.setCurrentItem(0);
 			break;
-//		case R.id.jxc_textview:
-			case R.id.tjfx_textview:
+		case R.id.jxc_textview:
+//			case R.id.tjfx_textview:
 			corsor2.setBackgroundResource(R.drawable.index_selectcorsor);
 			corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
 			viewPager.setCurrentItem(1);
 			break;
-//		case R.id.xjyh_textview:
-//			corsor3.setBackgroundResource(R.drawable.index_selectcorsor);
-//			corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			viewPager.setCurrentItem(2);
-//			break;
-//		case R.id.tjfx_textview:
-//			corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
-//			corsor4.setBackgroundResource(R.drawable.index_selectcorsor);
-//			viewPager.setCurrentItem(3);
-//			break;
+		case R.id.xjyh_textview:
+			corsor3.setBackgroundResource(R.drawable.index_selectcorsor);
+			corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor4.setBackgroundResource(R.drawable.index_unselectcorsor);
+			viewPager.setCurrentItem(2);
+			break;
+		case R.id.tjfx_textview:
+			corsor3.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
+			corsor4.setBackgroundResource(R.drawable.index_selectcorsor);
+			viewPager.setCurrentItem(3);
+			break;
 		default:
 			break;
 		}

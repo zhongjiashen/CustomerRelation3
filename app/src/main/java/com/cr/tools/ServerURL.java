@@ -24,6 +24,9 @@ public class ServerURL {
     //public static String       endPoint          = "/crmjxcserver/n_crmwebserver.asmx?WSDL";
     //IT企业版
     public static String       endPoint          = "/crmenpserver/n_crmwebserver.asmx?WSDL";
+    //内部版
+//    public static String       endPoint          = "/crmintserver/n_crmwebserver.asmx?WSDL";
+
     //汽配版
 //    public static String       endPoint          = "/crmcarserver/n_crmwebserver.asmx?WSDL";
     //保全版

@@ -14,6 +14,7 @@
     <!-- index主界面 -->
     <string name="mstx">秘书提醒</string>
     <string name="wdgz">呼叫中心</string>
+    <string name="azwx">安装维修</string>
     <string name="jhzj">计划总结</string>
     <string name="gzpt">工作平台</string>
     <string name="tjfx">统计分析</string>
