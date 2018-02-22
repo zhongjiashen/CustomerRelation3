@@ -152,6 +152,13 @@
         <activity android:name="com.cr.activity.GzptXsdjXzxsdActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
         <!-- 工作平台-销售单据-销售单-选择产品-->
         <activity android:name="com.cr.activity.GzptXsdjXsdXzcpActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
+
+        <!-- 安装维修-安装登记列表 -->
+        <activity android:name="com.update.actiity.InstallRegistrationActivity" android:screenOrientation="portrait"/>
+
+
+
+
         <!-- 计划总结-日计划-->
         <activity android:name="com.cr.activity.JhzjRjhActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
         <!-- 计划总结-月计划-->

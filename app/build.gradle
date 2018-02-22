@@ -37,4 +37,8 @@ dependencies {
     compile 'com.jph.takephoto:takephoto_library:4.0.3'
     compile files('libs/IndoorscapeAlbumPlugin.jar')
     compile 'com.android.support:design:25.2.0'
+
+    /*butterknife*/
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }

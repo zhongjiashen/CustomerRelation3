@@ -71,6 +71,7 @@ import com.cr.tools.MyApplication;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.InstallRegistrationActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -612,6 +613,36 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 					break;
 				default:
 					break;
+				}
+				startActivity(intent);
+			}
+		});
+		azwxGridView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+									long arg3) {
+//				ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+				Intent intent = new Intent();
+				switch (arg2) {
+					case 0:
+						intent.setClass(IndexActivity.this,
+								InstallRegistrationActivity.class);
+//						ShareUserInfo.setKey(context, "khzlname", "hjzx");
+						break;
+					case 1:
+						intent.setClass(IndexActivity.this, GzptYybfActivity.class);
+						ShareUserInfo.setKey(context, "khzlname", "yybf");
+						break;
+					case 2:
+						intent.setClass(IndexActivity.this, GzptShhfActivity.class);
+						ShareUserInfo.setKey(context, "khzlname", "shhf");
+						break;
+					case 3:
+						intent.setClass(IndexActivity.this, GzptKhglActivity.class);
+						ShareUserInfo.setKey(context, "khzlname", "khgl");
+						break;
+					default:
+						break;
 				}
 				startActivity(intent);
 			}
