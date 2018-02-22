@@ -308,19 +308,19 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 			IndexModel im = new IndexModel();
 			switch (i) {
 				case 0:
-					im.setLogoId(R.drawable.index_rjh);
+					im.setLogoId(R.mipmap.ic_registration);
 					im.setLogoName("安装登记");
 					break;
 				case 1:
-					im.setLogoId(R.drawable.index_zjh);
+					im.setLogoId(R.mipmap.ic_perform);
 					im.setLogoName("安装执行");
 					break;
 				case 2:
-					im.setLogoId(R.drawable.index_yjh);
+					im.setLogoId(R.mipmap.ic_registration);
 					im.setLogoName("维修登记");
 					break;
 				case 3:
-					im.setLogoId(R.drawable.index_zdyjh);
+					im.setLogoId(R.mipmap.ic_perform);
 					im.setLogoName("检测维修");
 					break;
 				default:

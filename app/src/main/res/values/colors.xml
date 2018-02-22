@@ -17,4 +17,5 @@
     <color name="gray">#C5C9CE</color>
 
     <color name="province_line_border">#C7C7C7</color>
+    <color name="gray_background">#D7D7D7</color>
 </resources>
