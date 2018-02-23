@@ -11,11 +11,18 @@
     <color name="black_color">#000000</color>
     <!-- 灰色线的颜色 -->
     <color name="gray_line_color">#f1f2f6</color>
+
+    <!-- 黑色色线的颜色 -->
+    <color name="black_line_color">#999999</color>
     <!-- 默认字体的颜色 -->
     <color name="defalult_font_color">#bfbfbf</color>
 
     <color name="gray">#C5C9CE</color>
-
+    <color name="background_white">#ffffff</color>
     <color name="province_line_border">#C7C7C7</color>
     <color name="gray_background">#D7D7D7</color>
+
+
+    <color name="button_gray">#f1f2f6</color>
+
 </resources>

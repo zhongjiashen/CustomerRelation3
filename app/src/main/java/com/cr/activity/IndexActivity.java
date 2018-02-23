@@ -72,6 +72,7 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.InstallRegistrationActivity;
+import com.update.actiity.PerformInstallationActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -630,8 +631,9 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //						ShareUserInfo.setKey(context, "khzlname", "hjzx");
 						break;
 					case 1:
-						intent.setClass(IndexActivity.this, GzptYybfActivity.class);
-						ShareUserInfo.setKey(context, "khzlname", "yybf");
+						intent.setClass(IndexActivity.this,
+								PerformInstallationActivity.class);
+//						ShareUserInfo.setKey(context, "khzlname", "yybf");
 						break;
 					case 2:
 						intent.setClass(IndexActivity.this, GzptShhfActivity.class);

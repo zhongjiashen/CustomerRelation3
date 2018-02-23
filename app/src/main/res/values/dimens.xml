@@ -5,7 +5,26 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     
     <dimen name="khzl_bottom">50dip</dimen>
-    
+
+
+    <dimen name="context_hight">50dp</dimen>
+    <dimen name="margin">15dp</dimen>
+
+
     <!-- 采购订单中统一字体的大小 -->
 	<dimen name="jxc_cggl_cgdd">16sp</dimen>
+
+
+    <!--***********************字体大小********************************-->
+    <!-- 特大号字体的大小 -->
+    <dimen name="word_mega">16sp</dimen>
+    <!-- 大号字体的大小 -->
+    <dimen name="word_big">18sp</dimen>
+    <!-- 中号字体的大小 -->
+    <dimen name="word_jmedium">16sp</dimen>
+    <!-- 小号字体的大小 -->
+    <dimen name="word_small">14sp</dimen>
+    <!-- 特小号字体的大小 -->
+    <dimen name="word_tiny">12sp</dimen>
+    <!--***********************字体大小********************************-->
 </resources>

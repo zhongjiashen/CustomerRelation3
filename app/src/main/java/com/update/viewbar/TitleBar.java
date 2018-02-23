@@ -34,6 +34,8 @@ public class TitleBar extends RelativeLayout {
     ImageView ivRight;
     @BindView(R.id.iv_right_two)
     ImageView ivRightTwo;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
 
 
     private Activity mActivity;
@@ -67,6 +69,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置标题文本
+     *
      * @param activity
      * @param text
      */
@@ -76,7 +79,18 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
+     * 设置右标题文本
+     *
+     * @param text
+     */
+    public void setRightText(String text) {
+        tvRight.setVisibility(VISIBLE);
+        tvRight.setText(text);
+    }
+
+    /**
      * 设置
+     *
      * @param resId
      */
     public void setIvRightTwoImageResource(int resId) {
@@ -85,14 +99,25 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
+     * 设置
+     *
+     * @param resId
+     */
+    public void setIvRightImageResource(int resId) {
+        ivRight.setVisibility(VISIBLE);
+        ivRight.setImageResource(resId);
+    }
+
+    /**
      * 设置标题头点击事件
+     *
      * @param titleOnlicListener
      */
     public void setTitleOnlicListener(TitleOnlicListener titleOnlicListener) {
         mTitleOnlicListener = titleOnlicListener;
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_right, R.id.iv_right_two})
+    @OnClick({R.id.iv_back, R.id.iv_right, R.id.iv_right_two, R.id.tv_right})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -107,6 +132,9 @@ public class TitleBar extends RelativeLayout {
                 break;
             case R.id.iv_right_two:
                 mTitleOnlicListener.onClick(1);
+                break;
+            case R.id.tv_right:
+                mTitleOnlicListener.onClick(2);
                 break;
         }
     }
