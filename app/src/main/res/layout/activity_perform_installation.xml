@@ -209,6 +209,7 @@
             android:textColor="@color/black_color"
             android:textSize="@dimen/word_jmedium"
             android:textStyle="bold"/>
+
         <EditText
             android:id="@+id/et_goods_name"
             android:layout_width="match_parent"
