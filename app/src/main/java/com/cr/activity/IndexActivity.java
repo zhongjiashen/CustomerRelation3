@@ -71,7 +71,9 @@ import com.cr.tools.MyApplication;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.DetectionMaintenanceActivity;
 import com.update.actiity.InstallRegistrationActivity;
+import com.update.actiity.MaintenanceRegistrationActivity;
 import com.update.actiity.PerformInstallationActivity;
 
 import java.util.ArrayList;
@@ -636,12 +638,12 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //						ShareUserInfo.setKey(context, "khzlname", "yybf");
 						break;
 					case 2:
-						intent.setClass(IndexActivity.this, GzptShhfActivity.class);
-						ShareUserInfo.setKey(context, "khzlname", "shhf");
+						intent.setClass(IndexActivity.this,
+								MaintenanceRegistrationActivity.class);
 						break;
 					case 3:
-						intent.setClass(IndexActivity.this, GzptKhglActivity.class);
-						ShareUserInfo.setKey(context, "khzlname", "khgl");
+						intent.setClass(IndexActivity.this,
+								DetectionMaintenanceActivity.class);
 						break;
 					default:
 						break;

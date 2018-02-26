@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
     <!-- 下面显示的主要是主界面内容 -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,23 +37,11 @@
                 android:layout_marginLeft="10dip"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="输入单位名称/单据编号"
+                android:hint="输入单位名称/商品"
                 android:imeOptions="actionSearch"
                 android:inputType="text"/>
         </LinearLayout>
-        <com.update.viewbar.refresh.PullToRefreshLayout
-            android:id="@+id/pullToRefreshLayout_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <com.update.viewbar.refresh.PullableRecyclerView
-                android:id="@+id/pullRecycle_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#efeff4" />
-
-
-        </com.update.viewbar.refresh.PullToRefreshLayout>
 
     </LinearLayout>
 
@@ -135,10 +123,67 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/xyb_jt"/>
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_maintenance_result"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="维修结果"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/word_jmedium"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_maintenance_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="全部"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/word_small"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/xyb_jt"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_maintenance_personnel"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="维修人员"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/word_jmedium"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_maintenance_personnel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="全部"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/word_small"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/xyb_jt"/>
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
             android:text="单位名称"
             android:textColor="@color/black_color"
             android:textSize="@dimen/word_jmedium"
@@ -151,6 +196,28 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:hint="请输入单位名称"
+            android:textColor="@color/text_gray"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:background="@color/gray_background"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="商品"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/word_jmedium"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/et_goods_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入商品名称"
             android:textColor="@color/text_gray"
             android:textSize="14sp"
             android:padding="5dp"
