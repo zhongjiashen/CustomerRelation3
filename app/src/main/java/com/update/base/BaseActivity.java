@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity implements BaseV {
     protected T presenter;
-
+    protected BaseRecycleAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

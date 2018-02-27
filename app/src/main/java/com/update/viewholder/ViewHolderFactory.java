@@ -27,7 +27,11 @@ public class ViewHolderFactory {
         return new InstallRegistrationHolder(LayoutInflater.from(context).inflate(R.layout.item_install_registration, null, false));
     }
 
-    public static class InstallRegistrationHolder extends RecyclerView.ViewHolder{
+    public static PerformInstallationHolder getPerformInstallationHolder(Context context) {
+        return new PerformInstallationHolder(LayoutInflater.from(context).inflate(R.layout.item_perform_installation, null, false));
+    }
+
+    public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_data)
         TextView tvData;
         @BindView(R.id.tv_receipt_number)
@@ -38,6 +42,24 @@ public class ViewHolderFactory {
         TextView tvCompanyName;
 
         InstallRegistrationHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class PerformInstallationHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.tv_company_name)
+        TextView tvCompanyName;
+        @BindView(R.id.tv_technician)
+        TextView tvTechnician;
+        @BindView(R.id.tv_commodity_information)
+        TextView tvCommodityInformation;
+        @BindView(R.id.tv_maintenance_status)
+        TextView tvMaintenanceStatus;
+        @BindView(R.id.tv_audit_status)
+        TextView tvAuditStatus;
+
+        PerformInstallationHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

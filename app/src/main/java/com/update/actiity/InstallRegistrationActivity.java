@@ -10,16 +10,21 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.crcxj.activity.R;
 import com.update.base.BaseActivity;
 import com.update.base.BaseRecycleAdapter;
+import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
 import com.update.viewholder.ViewHolderFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,7 +71,8 @@ public class InstallRegistrationActivity extends BaseActivity implements
 
 
     private List mList;
-    private BaseRecycleAdapter mAdapter;
+
+    private TimePickerView mTimePickerView;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -108,7 +114,8 @@ public class InstallRegistrationActivity extends BaseActivity implements
 
             }
         });
-
+        mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
+        initRightPopWindow();
     }
 
     /**
@@ -142,17 +149,31 @@ public class InstallRegistrationActivity extends BaseActivity implements
         }
     }
 
+    /**
+     * 初始化右边弹窗
+     */
+    private void initRightPopWindow(){
+        Date date=new Date();
+        tvTimeLeft.setText(DateUtil.DateToString(date,"yyyy-MM-")+"01");
+        tvTimeRight.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
+        tvAuditStatus.setText("全部");
+        etUnitName.setText("");
+    }
+
 
     @OnClick({R.id.tv_time_left, R.id.tv_time_right, R.id.ll_audit_status, R.id.bt_reset, R.id.bt_query})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_time_left://开始时间选择
+                selectTime(0);
                 break;
             case R.id.tv_time_right://结束时间选择
+                selectTime(1);
                 break;
             case R.id.ll_audit_status://审核状态选择
                 break;
             case R.id.bt_reset://重置
+                initRightPopWindow();
                 break;
             case R.id.bt_query://查询
                 break;
@@ -186,5 +207,35 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 mList.add("");
             }
         }, 2000); //
+    }
+
+
+    public void selectTime(final int i){
+        // TimePickerView 同样有上面设置样式的方法
+        // 设置是否循环
+//        mTimePickerView.setCyclic(true);
+        // 设置滚轮文字大小
+//        mTimePickerView.setTextSize(TimePickerView.TextSize.SMALL);
+        // 设置时间可选范围(结合 setTime 方法使用,必须在)
+//        Calendar calendar = Calendar.getInstance();
+//        mTimePickerView.setRange(calendar.get(Calendar.YEAR) - 100, calendar.get(Calendar.YEAR));
+        // 设置选中时间
+        mTimePickerView.setTime(new Date());
+        mTimePickerView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+                switch (i){
+                    case 0:
+                        tvTimeLeft.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
+                        break;
+                    case 1:
+                        tvTimeRight.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
+                        break;
+                }
+
+            }
+        });
+        mTimePickerView.show();
     }
 }
