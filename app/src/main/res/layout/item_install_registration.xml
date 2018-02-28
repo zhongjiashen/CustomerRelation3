@@ -28,19 +28,6 @@
             android:text="单据编号：45545554545454"
             android:textColor="@color/text_black"
             android:textSize="@dimen/word_small"/>
-
-        <TextView
-            android:id="@+id/tv_audit_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_toRightOf="@+id/tv_receipt_number"
-            android:background="@color/colorPrimary"
-            android:padding="5dp"
-            android:text="审核中"
-            android:textColor="@color/text_white"
-            android:textSize="@dimen/word_small"/>
-
         <TextView
             android:id="@+id/tv_company_name"
             android:layout_width="wrap_content"
@@ -50,7 +37,37 @@
             android:text="河南恒视软件科技有限公司"
             android:textColor="@color/text_black"
             android:textSize="@dimen/word_small"/>
+        <TextView
+            android:id="@+id/tv_maintenance_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_company_name"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@color/button_yellow"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="维修中"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/word_tiny"/>
 
+        <TextView
+            android:id="@+id/tv_audit_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_company_name"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_toRightOf="@+id/tv_maintenance_status"
+            android:background="@color/colorPrimary"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="未审核"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/word_tiny"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,5 +75,8 @@
             android:layout_centerVertical="true"
             android:src="@drawable/xyb_jt"/>
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color"/>
 </LinearLayout>

@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
  */
 public class ViewHolderFactory {
 
+
+
     public static InstallRegistrationHolder getInstallRegistrationHolder(Context context) {
         return new InstallRegistrationHolder(LayoutInflater.from(context).inflate(R.layout.item_install_registration, null, false));
     }
@@ -36,10 +38,12 @@ public class ViewHolderFactory {
         TextView tvData;
         @BindView(R.id.tv_receipt_number)
         TextView tvReceiptNumber;
-        @BindView(R.id.tv_audit_status)
-        TextView tvAuditStatus;
         @BindView(R.id.tv_company_name)
         TextView tvCompanyName;
+        @BindView(R.id.tv_audit_status)
+        TextView tvAuditStatus;
+        @BindView(R.id.tv_maintenance_status)
+        TextView tvMaintenanceStatus;
 
         InstallRegistrationHolder(View view) {
             super(view);
@@ -47,7 +51,7 @@ public class ViewHolderFactory {
         }
     }
 
-    public static class PerformInstallationHolder extends RecyclerView.ViewHolder{
+    public static class PerformInstallationHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_company_name)
         TextView tvCompanyName;
         @BindView(R.id.tv_technician)

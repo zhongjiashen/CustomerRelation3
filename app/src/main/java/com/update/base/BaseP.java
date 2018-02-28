@@ -6,7 +6,8 @@ import android.text.TextUtils;
 import android.view.Gravity;
 
 
-
+import com.cr.tools.ServerRequest;
+import com.update.utils.LogUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +18,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -44,33 +50,49 @@ public class BaseP {
     /**
      * @param requestCode 请求码
      * @param url         请求路径
-     * @param map         请求参数map
-     * @param key         需要验证非空参数的key的数组
-     * @param stringID    该参数为空提示的语句
-     * @param type
+     * @param params         请求参数map
      */
-    protected void post(final int requestCode, String url, Map<String,Object> map, String[] key, int[] stringID, final Type type) {
-        if (key != null) {
-            for (int i = 0; i < key.length; i++) {
-                if (TextUtils.isEmpty((String)map.get(key[i]))) {
-                    view.showShortToast(mActivity.getString(stringID[i]));
-                    return;
-                }
+    public void post(final int requestCode, final String url, final Map<String, Object> params) {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+               String returnJson = ServerRequest.webServicePost(url,
+                        params, mActivity);
+                subscriber.onNext(returnJson);
+                subscriber.onCompleted();
             }
-        }
-        post(requestCode, url, map, type);
+
+
+        })
+                .subscribeOn(Schedulers.computation()) // 指定 subscribe() 发生在 运算 线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+                .subscribe(new Observer<String>() {
+
+                    @Override
+                    public void onNext(String s) {//主线程执行的方法
+                        LogUtils.e(s);
+
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+
 
     }
 
-
-    protected void post(final int requestCode, String url, Map<String, Object> map, final Type type) {
-
-    }
 
     protected void returnData(int requestCode, Object object) {
         view.returnData(requestCode, object);
     }
-
 
 
 }

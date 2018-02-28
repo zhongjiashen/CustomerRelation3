@@ -11,8 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.base.BaseActivity;
+import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
@@ -23,8 +26,10 @@ import com.update.viewholder.ViewHolderFactory;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -69,17 +74,20 @@ public class InstallRegistrationActivity extends BaseActivity implements
     PullToRefreshLayout pullToRefreshLayoutView;
 
 
-
     private List mList;
 
     private TimePickerView mTimePickerView;
+    private Map<String, Object> mParmMap;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
-        mList=new ArrayList();
+        mList = new ArrayList();
+        presenter = new BaseP(this, this);
+        mParmMap = new HashMap<String, Object>();
+        mParmMap.put("opid", ShareUserInfo.getUserId(this));
 //        mList.add("");
 //        mList.add("");
     }
@@ -102,7 +110,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
         setTitlebar();
         pullToRefreshLayoutView.setOnRefreshListener(this);
         pullRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        pullRecycleView.setAdapter(mAdapter=new BaseRecycleAdapter<ViewHolderFactory.InstallRegistrationHolder>(mList) {
+        pullRecycleView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.InstallRegistrationHolder>(mList) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
@@ -152,10 +160,10 @@ public class InstallRegistrationActivity extends BaseActivity implements
     /**
      * 初始化右边弹窗
      */
-    private void initRightPopWindow(){
-        Date date=new Date();
-        tvTimeLeft.setText(DateUtil.DateToString(date,"yyyy-MM-")+"01");
-        tvTimeRight.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
+    private void initRightPopWindow() {
+        Date date = new Date();
+        tvTimeLeft.setText(DateUtil.DateToString(date, "yyyy-MM-") + "01");
+        tvTimeRight.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
         tvAuditStatus.setText("全部");
         etUnitName.setText("");
     }
@@ -176,6 +184,19 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 initRightPopWindow();
                 break;
             case R.id.bt_query://查询
+
+                mParmMap.put("dbname", ShareUserInfo.getDbName(this));
+                mParmMap.put("tabname", "tb_installreg");
+                mParmMap.put("clientid", "0");
+                mParmMap.put("qsrq", tvTimeLeft.getText().toString());
+                mParmMap.put("zzrq", tvTimeRight.getText().toString());
+                mParmMap.put("shzt", "0");
+                mParmMap.put("djzt", "0");
+                mParmMap.put("depid", "0");
+                mParmMap.put("empid", "0");
+                mParmMap.put("curpage", "0");//当前页
+                mParmMap.put("pagesize", "10");
+                presenter.post(0, "billlist", mParmMap);
                 break;
         }
     }
@@ -210,7 +231,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
     }
 
 
-    public void selectTime(final int i){
+    public void selectTime(final int i) {
         // TimePickerView 同样有上面设置样式的方法
         // 设置是否循环
 //        mTimePickerView.setCyclic(true);
@@ -225,12 +246,12 @@ public class InstallRegistrationActivity extends BaseActivity implements
             @Override
             public void onTimeSelect(Date date) {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-                switch (i){
+                switch (i) {
                     case 0:
-                        tvTimeLeft.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
+                        tvTimeLeft.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
                         break;
                     case 1:
-                        tvTimeRight.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
+                        tvTimeRight.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
                         break;
                 }
 

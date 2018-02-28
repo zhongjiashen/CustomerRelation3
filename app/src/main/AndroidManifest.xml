@@ -164,6 +164,8 @@
         <!-- 安装维修-维修登记列表 -->
         <activity android:name="com.update.actiity.MaintenanceRegistrationActivity" android:screenOrientation="portrait"/>
 
+        <!-- 安装维修-检测维修列表 -->
+        <activity android:name="com.update.actiity.DetectionMaintenanceActivity" android:screenOrientation="portrait"/>
 
 
 

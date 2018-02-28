@@ -152,6 +152,7 @@ public class ServerRequest {
 		String endPoint = ShareUserInfo.getIP(context)+":"+ShareUserInfo.getDK(context)+ServerURL.endPoint;
 //		Log.v("dddd","url:"+endPoint);
 		String soapAction = ServerURL.nameSpace + "/" + methodName;
+		Log.v("dddd", "调用接口："+soapAction);
 		Log.v("dddd", "调用接口："+methodName);
 		// 指定WebService的命名空间和调用的方法名
 		SoapObject rpc = new SoapObject(nameSpace, methodName);
@@ -185,7 +186,7 @@ public class ServerRequest {
 			transport.call(soapAction, envelope);
 			transport.debug = true;
 			// 获取返回的数据
-//			Log.v("dddd",envelope.bodyIn+"");
+			Log.v("dddd",envelope.bodyIn+"");
 			SoapObject object = (SoapObject) envelope.bodyIn;
 			// 获取返回的结果
 			Log.v("dddd", "ddd" + object.toString());
