@@ -20,6 +20,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_unit_name_choice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/context_hight"
                 android:gravity="center_vertical"
@@ -34,13 +35,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <TextView
-                    android:id="@+id/tv_audit_status"
+                    android:id="@+id/tv_unit_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -56,6 +56,7 @@
                 android:background="@color/black_line_color"/>
 
             <LinearLayout
+                android:id="@+id/ll_contacts_choice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/context_hight"
                 android:gravity="center_vertical"
@@ -70,12 +71,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <TextView
+                    android:id="@+id/tv_contacts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -105,12 +106,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <EditText
+                    android:id="@+id/et_contact_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -123,10 +124,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/context_hight"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/margin"
-                android:paddingRight="@dimen/margin">
+                android:padding="@dimen/margin">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,12 +136,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <EditText
+                    android:id="@+id/et_customer_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
             </LinearLayout>
@@ -152,6 +152,7 @@
                 android:background="@color/black_line_color"/>
 
             <LinearLayout
+                android:id="@+id/ll_related_projects_choice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/context_hight"
                 android:gravity="center_vertical"
@@ -166,12 +167,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <TextView
+                    android:id="@+id/tv_related_projects"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -201,12 +202,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <EditText
+                    android:id="@+id/et_messenger"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -218,6 +219,7 @@
                 android:background="@color/black_line_color"/>
 
             <LinearLayout
+                android:id="@+id/ll_submit_time_choice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/context_hight"
                 android:gravity="center_vertical"
@@ -232,12 +234,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <TextView
+                    android:id="@+id/tv_submit_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -253,6 +255,7 @@
                 android:background="@color/black_line_color"/>
 
             <LinearLayout
+                android:id="@+id/ll_service_mode_choice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/context_hight"
                 android:gravity="center_vertical"
@@ -267,12 +270,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <TextView
+                    android:id="@+id/tv_service_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -288,6 +291,7 @@
                 android:background="@color/black_line_color"/>
 
             <LinearLayout
+                android:id="@+id/ll_rating_category_choice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/context_hight"
                 android:gravity="center_vertical"
@@ -302,12 +306,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <TextView
+                    android:id="@+id/tv_rating_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -323,6 +327,7 @@
                 android:background="@color/black_line_color"/>
 
             <LinearLayout
+                android:id="@+id/ll_priority_choice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/context_hight"
                 android:gravity="center_vertical"
@@ -337,12 +342,12 @@
                     android:textSize="@dimen/word_jmedium"/>
 
                 <TextView
+                    android:id="@+id/tv_priority"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
-                    android:text="全部"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 
@@ -377,6 +382,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
+                    android:id="@+id/tv_choose_goods"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableLeft="@drawable/xzsp"
@@ -402,6 +408,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
+                    android:id="@+id/tv_adding_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:drawableLeft="@drawable/xzsp"
@@ -421,6 +428,141 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/black_line_color"/>
+
+            <LinearLayout
+                android:id="@+id/ll_document_date_choice"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/context_hight"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin"
+                android:paddingRight="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单据日期"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/word_jmedium"/>
+
+                <TextView
+                    android:id="@+id/tv_document_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/word_small"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/xyb_jt"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color"/>
+
+            <LinearLayout
+                android:id="@+id/ll_department_choice"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/context_hight"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin"
+                android:paddingRight="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="部        门"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/word_jmedium"/>
+
+                <TextView
+                    android:id="@+id/tv_department"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/word_small"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/xyb_jt"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color"/>
+
+            <LinearLayout
+                android:id="@+id/ll_salesman_choice"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/context_hight"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin"
+                android:paddingRight="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="业  务  员"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/word_jmedium"/>
+
+                <TextView
+                    android:id="@+id/tv_salesman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/word_small"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/xyb_jt"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备        注"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/word_jmedium"/>
+
+                <EditText
+                    android:id="@+id/et_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/word_small"/>
+
+
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

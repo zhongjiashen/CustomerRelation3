@@ -625,6 +625,12 @@
         <activity android:name="com.cr.activity.xm.BjxmActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
 
 
+
+        <!--选择-->
+        <!--审核状态选择-->
+        <activity android:name="com.update.actiity.choose.StateAuditChoiceActivity" android:windowSoftInputMode="adjustUnspecified|stateHidden" android:screenOrientation="portrait"/>
+
+
         <!-- 提醒 --><!--
         <service android:name="com.cr.service.TxService" android:label="消息推送" >
         </service> -->

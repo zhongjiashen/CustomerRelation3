@@ -14,6 +14,7 @@ import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.StateAuditChoiceActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -76,7 +77,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
 
     private List mList;
 
-    private TimePickerView mTimePickerView;
+    private TimePickerView mTimePickerView;//时间选择弹窗
     private Map<String, Object> mParmMap;
 
     /**
@@ -179,12 +180,13 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 selectTime(1);
                 break;
             case R.id.ll_audit_status://审核状态选择
+                startActivityForResult(new Intent(this, StateAuditChoiceActivity.class),11);
                 break;
             case R.id.bt_reset://重置
                 initRightPopWindow();
                 break;
             case R.id.bt_query://查询
-
+                openRightLayout();
                 mParmMap.put("dbname", ShareUserInfo.getDbName(this));
                 mParmMap.put("tabname", "tb_installreg");
                 mParmMap.put("clientid", "0");
@@ -259,4 +261,13 @@ public class InstallRegistrationActivity extends BaseActivity implements
         });
         mTimePickerView.show();
     }
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 11:
+                tvAuditStatus.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                break;
+        }
+    }
+
+
 }

@@ -25,11 +25,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter {
     public static int NULL_DATA = 0;
-
-
     private List mList;
-    private T mViewHolder;
-
     public BaseRecycleAdapter( List list) {
         mList = list;
     }

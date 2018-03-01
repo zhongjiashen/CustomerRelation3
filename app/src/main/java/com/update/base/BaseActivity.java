@@ -127,13 +127,12 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 99) {
-            //判断结果状态吗
-            if (resultCode == RESULT_OK) {
-
-            }
+        if(resultCode==RESULT_OK){
+            onMyActivityResult( requestCode, resultCode, data);
         }
     }
+
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {}
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

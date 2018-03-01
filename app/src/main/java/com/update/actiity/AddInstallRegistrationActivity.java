@@ -1,10 +1,26 @@
 package com.update.actiity;
 
+import android.content.Intent;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.cr.activity.common.CommonXzkhActivity;
+import com.cr.activity.common.CommonXzlxrActivity;
+import com.cr.activity.common.CommonXzywyActivity;
 import com.crcxj.activity.R;
 import com.update.base.BaseActivity;
+import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Author:    申中佳
@@ -19,13 +35,36 @@ import butterknife.BindView;
 public class AddInstallRegistrationActivity extends BaseActivity {
     @BindView(R.id.titlebar)
     TitleBar titlebar;
+    @BindView(R.id.tv_unit_name)
+    TextView tvUnitName;
+    @BindView(R.id.tv_contacts)
+    TextView tvContacts;
+    @BindView(R.id.et_contact_number)
+    EditText etContactNumber;
+    @BindView(R.id.et_customer_address)
+    EditText etCustomerAddress;
+    @BindView(R.id.tv_submit_time)
+    TextView tvSubmitTime;
+    @BindView(R.id.tv_document_date)
+    TextView tvDocumentDate;
+    @BindView(R.id.tv_department)
+    TextView tvDepartment;
+    @BindView(R.id.tv_salesman)
+    TextView tvSalesman;
+
+    private TimePickerView mTimePickerView;//时间选择弹窗
+
+
+    private String clientid;//客户ID
+    private String lxrid;//联系人ID
+    private String empid;//业务员ID
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
-
+        mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
     }
 
     /**
@@ -62,5 +101,90 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @OnClick({R.id.ll_unit_name_choice, R.id.ll_contacts_choice, R.id.ll_related_projects_choice, R.id.ll_submit_time_choice, R.id.ll_service_mode_choice, R.id.ll_rating_category_choice, R.id.ll_priority_choice, R.id.tv_choose_goods, R.id.tv_adding_profile, R.id.ll_document_date_choice, R.id.ll_department_choice, R.id.ll_salesman_choice})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_unit_name_choice://单位选择
+                startActivityForResult(new Intent(this, CommonXzkhActivity.class), 11);
+                break;
+            case R.id.ll_contacts_choice://联系人选择
+                if (TextUtils.isEmpty(clientid))
+                    showShortToast("请先选择单位");
+                else
+                    startActivityForResult(new Intent(this, CommonXzlxrActivity.class).putExtra("clientid", clientid), 12);
+                break;
+            case R.id.ll_related_projects_choice://关联项目选择
+                break;
+            case R.id.ll_submit_time_choice://报送时间选择
+                selectTime(0);
+                break;
+            case R.id.ll_service_mode_choice://服务方式选择
+                break;
+            case R.id.ll_rating_category_choice://登记类别选择
+                break;
+            case R.id.ll_priority_choice://优先级选择
+                break;
+            case R.id.tv_choose_goods://商品选择
+                break;
+            case R.id.tv_adding_profile://增加概况
+                break;
+            case R.id.ll_document_date_choice://单据日期选择
+                selectTime(1);
+                break;
+            case R.id.ll_department_choice://部门选择
+                break;
+            case R.id.ll_salesman_choice://业务员选择
+                startActivityForResult(new Intent(this, CommonXzywyActivity.class), 20);
+                break;
+        }
+    }
+
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 11://单位选择结果处理
+                clientid = data.getStringExtra("id");
+                lxrid = data.getStringExtra("lxrid");
+                tvUnitName.setText(data.getStringExtra("name"));
+                tvContacts.setText(data.getStringExtra("lxrname"));
+                etContactNumber.setText(data.getStringExtra("phone"));
+                etCustomerAddress.setText(data.getStringExtra("shipto"));
+                break;
+            case 12://联系人选择结果处理
+                lxrid = data.getStringExtra("id");
+                tvContacts.setText(data.getStringExtra("name"));
+                etContactNumber.setText(data.getStringExtra("phone"));
+                break;
+            case 20://业务员选择结果处理
+                empid = data.getStringExtra("id");
+                tvSalesman.setText(data.getStringExtra("name"));
+                break;
+        }
+    }
+
+    /**
+     * 时间选择器
+     *
+     * @param i
+     */
+    public void selectTime(final int i) {
+        mTimePickerView.setTime(new Date());
+        mTimePickerView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+                switch (i) {
+                    case 0:
+                        tvSubmitTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
+                        break;
+                    case 1:
+                        tvDocumentDate.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
+                        break;
+                }
+
+            }
+        });
+        mTimePickerView.show();
     }
 }

@@ -25,12 +25,29 @@ public class ViewHolderFactory {
 
 
 
+
+    /**
+     * 安装登记列表
+     *
+     * @param context
+     * @return
+     */
     public static InstallRegistrationHolder getInstallRegistrationHolder(Context context) {
         return new InstallRegistrationHolder(LayoutInflater.from(context).inflate(R.layout.item_install_registration, null, false));
     }
 
     public static PerformInstallationHolder getPerformInstallationHolder(Context context) {
         return new PerformInstallationHolder(LayoutInflater.from(context).inflate(R.layout.item_perform_installation, null, false));
+    }
+
+    /**
+     * 单项选择
+     *
+     * @param context
+     * @return
+     */
+    public static StateAuditChoiceHolder getStateAuditChoiceHolder(Context context) {
+        return new StateAuditChoiceHolder(LayoutInflater.from(context).inflate(R.layout.item_single_choice, null, false));
     }
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
@@ -64,6 +81,15 @@ public class ViewHolderFactory {
         TextView tvAuditStatus;
 
         PerformInstallationHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class StateAuditChoiceHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_text)
+        public TextView tvText;
+        StateAuditChoiceHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
