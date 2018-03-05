@@ -71,7 +71,7 @@ public class BaseP {
                     @Override
                     public void onNext(String s) {//主线程执行的方法
                         LogUtils.e(s);
-
+                        returnData(requestCode, s);
 
                     }
 

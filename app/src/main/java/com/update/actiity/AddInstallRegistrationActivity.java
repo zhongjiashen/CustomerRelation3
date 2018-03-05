@@ -7,10 +7,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.cr.activity.GzptBflrActivity;
+import com.cr.activity.GzptSelectXzxmActivity;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzywyActivity;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.NetworkDataSingleOptionActivity;
+import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.base.BaseActivity;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
@@ -51,12 +55,21 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     TextView tvDepartment;
     @BindView(R.id.tv_salesman)
     TextView tvSalesman;
+    @BindView(R.id.tv_service_mode)
+    TextView tvServiceMode;
+    @BindView(R.id.tv_rating_category)
+    TextView tvRatingCategory;
+    @BindView(R.id.tv_priority)
+    TextView tvPriority;
 
     private TimePickerView mTimePickerView;//时间选择弹窗
 
 
     private String clientid;//客户ID
     private String lxrid;//联系人ID
+    private String sxfsid;// 服务方式ID
+    private String regtype;// 服务类型id
+    private String priorid;// 优先级ID
     private String empid;//业务员ID
 
     /**
@@ -116,15 +129,22 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                     startActivityForResult(new Intent(this, CommonXzlxrActivity.class).putExtra("clientid", clientid), 12);
                 break;
             case R.id.ll_related_projects_choice://关联项目选择
+                if (TextUtils.isEmpty(clientid))
+                    showShortToast("请先选择单位");
+                else
+                startActivityForResult(new Intent(this, ProjectSelectionActivity.class).putExtra("clientid", clientid), 12);
                 break;
             case R.id.ll_submit_time_choice://报送时间选择
                 selectTime(0);
                 break;
             case R.id.ll_service_mode_choice://服务方式选择
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class), 14);
                 break;
             case R.id.ll_rating_category_choice://登记类别选择
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 1), 15);
                 break;
             case R.id.ll_priority_choice://优先级选择
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 2), 16);
                 break;
             case R.id.tv_choose_goods://商品选择
                 break;
@@ -155,6 +175,21 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 lxrid = data.getStringExtra("id");
                 tvContacts.setText(data.getStringExtra("name"));
                 etContactNumber.setText(data.getStringExtra("phone"));
+                break;
+            case 13://关联项目选择结果处理
+
+                break;
+            case 14://服务方式选择结果处理
+                sxfsid = data.getStringExtra("CHOICE_RESULT_ID");
+                tvServiceMode.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                break;
+            case 15://登记类别选择结果处理
+                regtype = data.getStringExtra("CHOICE_RESULT_ID");
+                tvRatingCategory.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                break;
+            case 16://优先级选择结果处理
+                priorid = data.getStringExtra("CHOICE_RESULT_ID");
+                tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 20://业务员选择结果处理
                 empid = data.getStringExtra("id");

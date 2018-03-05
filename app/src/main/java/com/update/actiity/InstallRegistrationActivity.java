@@ -14,6 +14,7 @@ import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.LocalDataSingleOptionActivity;
 import com.update.actiity.choose.StateAuditChoiceActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
@@ -180,7 +181,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 selectTime(1);
                 break;
             case R.id.ll_audit_status://审核状态选择
-                startActivityForResult(new Intent(this, StateAuditChoiceActivity.class),11);
+                startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class),11);
                 break;
             case R.id.bt_reset://重置
                 initRightPopWindow();
@@ -197,7 +198,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 mParmMap.put("depid", "0");
                 mParmMap.put("empid", "0");
                 mParmMap.put("curpage", "0");//当前页
-                mParmMap.put("pagesize", "10");
+                mParmMap.put("pagesize", "10");//每页加载数据大小
                 presenter.post(0, "billlist", mParmMap);
                 break;
         }
