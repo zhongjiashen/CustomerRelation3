@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Author:    申中佳
  * Version    V1.0
  * Date:      2018/3/5 0005 上午 11:37
- * Description:
+ * Description:数据字典
  * Modification  History:
  * Date         	Author        		Version        	Description
  * -----------------------------------------------------------------------------------

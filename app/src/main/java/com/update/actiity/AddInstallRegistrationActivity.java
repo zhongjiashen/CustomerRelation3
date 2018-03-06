@@ -4,23 +4,29 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
-import com.cr.activity.GzptBflrActivity;
-import com.cr.activity.GzptSelectXzxmActivity;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzywyActivity;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.base.BaseActivity;
+import com.update.model.DepartmentData;
+import com.update.model.GoodsOrOverviewData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -61,6 +67,12 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     TextView tvRatingCategory;
     @BindView(R.id.tv_priority)
     TextView tvPriority;
+    @BindView(R.id.tv_profile_information)
+    TextView tvProfileInformation;
+    @BindView(R.id.tv_registration_number)
+    TextView tvRegistrationNumber;
+    @BindView(R.id.rl_profile_information)
+    RelativeLayout rlProfileInformation;
 
     private TimePickerView mTimePickerView;//时间选择弹窗
 
@@ -70,14 +82,17 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     private String sxfsid;// 服务方式ID
     private String regtype;// 服务类型id
     private String priorid;// 优先级ID
+    private String departmentid;// 部门id
     private String empid;//业务员ID
-
+    private GoodsOrOverviewData mOverviewData;//概况信息
+    Gson mGson;
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
+        mGson = new Gson();
     }
 
     /**
@@ -96,6 +111,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        rlProfileInformation.setVisibility(View.GONE);//未添加概况信息，概况信息隐藏
     }
 
     /**
@@ -116,7 +132,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.ll_unit_name_choice, R.id.ll_contacts_choice, R.id.ll_related_projects_choice, R.id.ll_submit_time_choice, R.id.ll_service_mode_choice, R.id.ll_rating_category_choice, R.id.ll_priority_choice, R.id.tv_choose_goods, R.id.tv_adding_profile, R.id.ll_document_date_choice, R.id.ll_department_choice, R.id.ll_salesman_choice})
+    @OnClick({R.id.ll_unit_name_choice, R.id.ll_contacts_choice, R.id.ll_related_projects_choice, R.id.ll_submit_time_choice, R.id.ll_service_mode_choice, R.id.ll_rating_category_choice, R.id.ll_priority_choice, R.id.tv_choose_goods, R.id.tv_adding_profile, R.id.rl_profile_information, R.id.ll_document_date_choice, R.id.ll_department_choice, R.id.ll_salesman_choice})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_unit_name_choice://单位选择
@@ -132,7 +148,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 if (TextUtils.isEmpty(clientid))
                     showShortToast("请先选择单位");
                 else
-                startActivityForResult(new Intent(this, ProjectSelectionActivity.class).putExtra("clientid", clientid), 12);
+                    startActivityForResult(new Intent(this, ProjectSelectionActivity.class).putExtra("clientid", clientid), 12);
                 break;
             case R.id.ll_submit_time_choice://报送时间选择
                 selectTime(0);
@@ -149,14 +165,21 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             case R.id.tv_choose_goods://商品选择
                 break;
             case R.id.tv_adding_profile://增加概况
+                if (rlProfileInformation.getVisibility() == View.VISIBLE) {
+                    showShortToast("已添加过概况信息");
+                } else
+                    startActivityForResult(new Intent(this, IncreaseOverviewActivity.class), 18);
+                break;
+            case R.id.rl_profile_information://概况详情查看
                 break;
             case R.id.ll_document_date_choice://单据日期选择
                 selectTime(1);
                 break;
             case R.id.ll_department_choice://部门选择
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 20);
                 break;
             case R.id.ll_salesman_choice://业务员选择
-                startActivityForResult(new Intent(this, CommonXzywyActivity.class), 20);
+                startActivityForResult(new Intent(this, CommonXzywyActivity.class), 21);
                 break;
         }
     }
@@ -191,7 +214,17 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 priorid = data.getStringExtra("CHOICE_RESULT_ID");
                 tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
-            case 20://业务员选择结果处理
+            case 18://增加概况结果处理
+                mOverviewData=mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
+                }.getType());
+                rlProfileInformation.setVisibility(View.VISIBLE);
+                tvRegistrationNumber.setText("登记数量："+mOverviewData.getUnitqty()+"个");
+                break;
+            case 20://部门选择结果处理
+                departmentid = data.getStringExtra("CHOICE_RESULT_ID");
+                tvDepartment.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                break;
+            case 21://业务员选择结果处理
                 empid = data.getStringExtra("id");
                 tvSalesman.setText(data.getStringExtra("name"));
                 break;

@@ -30,6 +30,12 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder> exte
         mList = list;
     }
 
+
+    public void setList(List list) {
+        mList = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;

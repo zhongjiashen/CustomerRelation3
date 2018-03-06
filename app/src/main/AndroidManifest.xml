@@ -1323,6 +1323,11 @@
             android:name="com.update.actiity.choose.ProjectSelectionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--部门选择-->
+        <activity
+            android:name="com.update.actiity.choose.ChooseDepartmentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
         <!-- 提醒 --><!--
         <service android:name="com.cr.service.TxService" android:label="消息推送" >

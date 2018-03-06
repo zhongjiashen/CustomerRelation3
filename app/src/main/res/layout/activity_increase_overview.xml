@@ -29,11 +29,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="@dimen/margin"
             android:text="数量"
             android:textColor="@color/text_black"
             android:textSize="@dimen/word_jmedium"/>
-
+        <com.cr.activity.SLView2
+            android:id="@+id/sl_view"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </com.cr.activity.SLView2>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

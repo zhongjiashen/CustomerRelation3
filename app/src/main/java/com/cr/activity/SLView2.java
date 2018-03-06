@@ -23,7 +23,7 @@ import com.crcxj.activity.R;
 public class SLView2 extends LinearLayout implements OnClickListener{
     private ImageButton addImageView,plusImageView;//加号减号按钮
     private EditText slEditText;//得到的结果；
-    private double sl=0;
+    private double sl=1.0;
     private SLViewValueChange change;
     public SLView2(Context context) {
         super(context);
@@ -89,7 +89,7 @@ public class SLView2 extends LinearLayout implements OnClickListener{
 //                setSl(sl);
                 break;
             case R.id.plus:
-               if(sl>0){
+               if(sl>1){
                    sl--;
                }
                break;
