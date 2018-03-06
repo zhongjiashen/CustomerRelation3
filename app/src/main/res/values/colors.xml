@@ -23,6 +23,6 @@
     <color name="gray_background">#D7D7D7</color>
 
 
-    <color name="button_gray">#f1f2f6</color>
+    <color name="button_gray">#D7D7D7</color>
     <color name="button_yellow">#FF6600</color>
 </resources>

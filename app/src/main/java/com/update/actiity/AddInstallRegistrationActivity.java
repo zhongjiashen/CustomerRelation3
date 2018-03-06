@@ -18,15 +18,12 @@ import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.base.BaseActivity;
-import com.update.model.DepartmentData;
 import com.update.model.GoodsOrOverviewData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -86,6 +83,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     private String empid;//业务员ID
     private GoodsOrOverviewData mOverviewData;//概况信息
     Gson mGson;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -171,6 +169,9 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                     startActivityForResult(new Intent(this, IncreaseOverviewActivity.class), 18);
                 break;
             case R.id.rl_profile_information://概况详情查看
+                startActivityForResult(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 1)
+                        .putExtra("DATA", new Gson().toJson(mOverviewData)), 18);
+
                 break;
             case R.id.ll_document_date_choice://单据日期选择
                 selectTime(1);
@@ -215,10 +216,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 18://增加概况结果处理
-                mOverviewData=mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
+                mOverviewData = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
                 }.getType());
                 rlProfileInformation.setVisibility(View.VISIBLE);
-                tvRegistrationNumber.setText("登记数量："+mOverviewData.getUnitqty()+"个");
+                tvRegistrationNumber.setText("登记数量：" + mOverviewData.getUnitqty() + "个");
                 break;
             case 20://部门选择结果处理
                 departmentid = data.getStringExtra("CHOICE_RESULT_ID");
