@@ -1,6 +1,5 @@
 package com.update.actiity;
 
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
@@ -8,10 +7,12 @@ import android.widget.EditText;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
-import com.update.model.DepartmentData;
+import com.update.model.ChooseGoodsData;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
@@ -46,19 +47,20 @@ public class ChooseGoodsActivity extends BaseActivity implements
     PullToRefreshLayout pullToRefreshLayoutView;
     private Map<String, Object> mParmMap;
     private int page_number;
-    private List<DepartmentData> mList;
+    private List<ChooseGoodsData> mList;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
-        page_number=1;
+        page_number = 1;
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("curpage", page_number);
         mParmMap.put("pagesize", 10);
-        presenter.post(0, ServerURL.SELECTGOODS,mParmMap);
+        presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
     }
 
     /**
@@ -79,20 +81,25 @@ public class ChooseGoodsActivity extends BaseActivity implements
         setTitlebar();
         pullToRefreshLayoutView.setOnRefreshListener(this);
         pullRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        pullRecycleView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.InstallRegistrationHolder,String>(mList) {
+        pullRecycleView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsHolder, ChooseGoodsData>(mList) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getInstallRegistrationHolder(ChooseGoodsActivity.this);
+                return ViewHolderFactory.getChooseGoodsHolder(ChooseGoodsActivity.this);
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.InstallRegistrationHolder holder, String data) {
-
+            protected void MyonBindViewHolder(ViewHolderFactory.ChooseGoodsHolder holder, ChooseGoodsData data) {
+                holder.tvGoodName.setText("名称："+data.getName());
+                holder.tvCoding.setText("编码："+data.getCode());
+                holder.tvSpecifications.setText("规格："+data.getSpecs());
+                holder.tvModel.setText("型号："+data.getModel());
+                holder.tvUnit.setText("名称："+data.getUnitname());
             }
 
         });
     }
+
     /**
      * 标题头设置
      */
@@ -113,6 +120,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
             }
         });
     }
+
     /**
      * 下拉刷新
      */
@@ -141,5 +149,22 @@ public class ChooseGoodsActivity extends BaseActivity implements
         }, 2000); //
     }
 
+    @Override
+    public void returnData(int requestCode, Object data) {
+        Gson gson = new Gson();
+        mList = gson.fromJson((String) data,
+                new TypeToken<List<ChooseGoodsData>>() {
+                }.getType());
+        mAdapter.setList(mList);
+    }
 
+    @Override
+    public void httpfaile(int requestCode) {
+        super.httpfaile(requestCode);
+    }
+
+    @Override
+    public void httpFinish(int requestCode) {
+
+    }
 }

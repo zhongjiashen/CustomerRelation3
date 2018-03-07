@@ -4,8 +4,11 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cr.activity.SLView2;
 import com.crcxj.activity.R;
 
 import butterknife.BindView;
@@ -50,6 +53,16 @@ public class ViewHolderFactory {
         return new StateAuditChoiceHolder(LayoutInflater.from(context).inflate(R.layout.item_single_choice, null, false));
     }
 
+    /**
+     * 商品选择
+     *
+     * @param context
+     * @return
+     */
+    public static ChooseGoodsHolder getChooseGoodsHolder(Context context) {
+        return new ChooseGoodsHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods, null, false));
+    }
+
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_data)
         TextView tvData;
@@ -89,7 +102,33 @@ public class ViewHolderFactory {
     public static class StateAuditChoiceHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_text)
         public TextView tvText;
+
         StateAuditChoiceHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class ChooseGoodsHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_good_name)
+        public TextView tvGoodName;
+        @BindView(R.id.tv_coding)
+        public TextView tvCoding;
+        @BindView(R.id.tv_specifications)
+        public TextView tvSpecifications;
+        @BindView(R.id.tv_model)
+        public TextView tvModel;
+        @BindView(R.id.tv_unit)
+        public TextView tvUnit;
+        @BindView(R.id.cb_view)
+        public CheckBox cbView;
+        @BindView(R.id.sl_view)
+        public SLView2 slView;
+        @BindView(R.id.ll_number)
+        public LinearLayout llNumber;
+        @BindView(R.id.v_line)
+        public  View vLine;
+        ChooseGoodsHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

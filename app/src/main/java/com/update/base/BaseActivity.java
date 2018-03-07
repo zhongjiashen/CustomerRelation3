@@ -1,18 +1,12 @@
 package com.update.base;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
-
-
 
 import butterknife.ButterKnife;
 
@@ -117,7 +111,7 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
      * 网络请求结束
      */
     @Override
-    public void httpFinish() {
+    public void httpFinish(int requestCode) {
 
     }
 

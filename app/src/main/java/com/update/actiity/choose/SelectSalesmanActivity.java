@@ -16,7 +16,6 @@ import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
-import com.update.model.DepartmentData;
 import com.update.model.SalesmanData;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
@@ -171,7 +170,7 @@ public class SelectSalesmanActivity extends BaseActivity {
      * 网络请求结束
      */
     @Override
-    public void httpFinish() {
-        super.httpFinish();
+    public void httpFinish(int requestCode) {
+        super.httpFinish( requestCode);
     }
 }

@@ -34,5 +34,5 @@ public interface BaseV {
     /**
      * 网络请求结束
      */
-    void httpFinish();
+    void httpFinish(int requestCode);
 }

@@ -13,12 +13,9 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.update.actiity.AddInstallRegistrationActivity;
-import com.update.actiity.InstallRegistrationActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
-import com.update.model.DataDictionaryData;
 import com.update.model.DepartmentData;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
@@ -172,7 +169,7 @@ public class ChooseDepartmentActivity extends BaseActivity {
      * 网络请求结束
      */
     @Override
-    public void httpFinish() {
-        super.httpFinish();
+    public void httpFinish(int requestCode) {
+        super.httpFinish( requestCode);
     }
 }
