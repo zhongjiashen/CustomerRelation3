@@ -66,7 +66,7 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         rvList.setLayoutManager(new LinearLayoutManager(this));
-        rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder>(Arrays.asList(mStrings)) {
+        rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,String>(Arrays.asList(mStrings)) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
@@ -74,18 +74,18 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.StateAuditChoiceHolder holder, final int position) {
-                holder.tvText.setText(mStrings[position]);
+            protected void MyonBindViewHolder(ViewHolderFactory.StateAuditChoiceHolder holder, final String data) {
+                holder.tvText.setText(data);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT", mStrings[position])
-                                .putExtra("CHOICE_RESULT_ID", mResults[position]));
+                        setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT",data)
+                                .putExtra("CHOICE_RESULT_ID", data));
                         finish();
                     }
                 });
-
             }
+
         });
     }
 

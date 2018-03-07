@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
  * -----------------------------------------------------------------------------------
  * 2018/2/26 0026         申中佳               V1.0
  */
-public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter {
+public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder,T1> extends RecyclerView.Adapter {
     public static int NULL_DATA = 0;
-    private List mList;
+    private List<T1> mList;
     public BaseRecycleAdapter( List list) {
         mList = list;
     }
@@ -34,6 +34,10 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder> exte
     public void setList(List list) {
         mList = list;
         notifyDataSetChanged();
+    }
+
+    public List getList() {
+        return mList;
     }
 
     @Override
@@ -53,11 +57,11 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder> exte
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == 1)
-            MyonBindViewHolder((T) holder, position);
+            MyonBindViewHolder((T) holder, mList.get(position));
 
     }
 
-    protected abstract void MyonBindViewHolder(T holder, int position);
+    protected abstract void MyonBindViewHolder(T holder, T1 data);
 
     @Override
     public int getItemCount() {

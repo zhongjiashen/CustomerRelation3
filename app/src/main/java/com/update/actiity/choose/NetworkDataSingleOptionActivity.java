@@ -118,7 +118,7 @@ public class NetworkDataSingleOptionActivity extends BaseActivity {
         mList = gson.fromJson((String) data,
                 new TypeToken<List<DataDictionaryData>>() {
                 }.getType());
-        rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder>( mList) {
+        rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,DataDictionaryData>( mList) {
 //
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
@@ -126,18 +126,18 @@ public class NetworkDataSingleOptionActivity extends BaseActivity {
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.StateAuditChoiceHolder holder, final int position) {
-                holder.tvText.setText(mList.get(position).getDictmc());
+            protected void MyonBindViewHolder(ViewHolderFactory.StateAuditChoiceHolder holder, final DataDictionaryData data) {
+                holder.tvText.setText(data.getDictmc());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT", mList.get(position).getDictmc())
-                                .putExtra("CHOICE_RESULT_ID",mList.get(position).getId()+""));
+                        setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT", data.getDictmc())
+                                .putExtra("CHOICE_RESULT_ID",data.getId()+""));
                         finish();
                     }
                 });
-
             }
+
         });
     }
 }

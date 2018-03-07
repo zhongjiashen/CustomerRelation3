@@ -102,7 +102,7 @@ public class PerformInstallationActivity extends BaseActivity implements
         setTitlebar();
         pullToRefreshLayoutView.setOnRefreshListener(this);
         pullRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        pullRecycleView.setAdapter(mAdapter=new BaseRecycleAdapter<ViewHolderFactory.PerformInstallationHolder>(mList) {
+        pullRecycleView.setAdapter(mAdapter=new BaseRecycleAdapter<ViewHolderFactory.PerformInstallationHolder,String>(mList) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
@@ -110,9 +110,10 @@ public class PerformInstallationActivity extends BaseActivity implements
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.PerformInstallationHolder holder, int position) {
+            protected void MyonBindViewHolder(ViewHolderFactory.PerformInstallationHolder holder, String data) {
 
             }
+
         });
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
     }

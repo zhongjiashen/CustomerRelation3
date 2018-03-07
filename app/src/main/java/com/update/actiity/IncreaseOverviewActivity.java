@@ -126,7 +126,8 @@ public class IncreaseOverviewActivity extends BaseActivity {
                 }
                 break;
             case 1://概况详情删除
-
+                setResult(RESULT_OK, new Intent().putExtra("KIND",1));
+                finish();
                 break;
 
         }

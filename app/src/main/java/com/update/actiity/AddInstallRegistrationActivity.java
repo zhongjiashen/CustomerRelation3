@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.ProjectSelectionActivity;
+import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.base.BaseActivity;
 import com.update.model.GoodsOrOverviewData;
 import com.update.utils.DateUtil;
@@ -161,6 +162,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 2), 16);
                 break;
             case R.id.tv_choose_goods://商品选择
+                startActivityForResult(new Intent(this, ChooseGoodsActivity.class), 17);
                 break;
             case R.id.tv_adding_profile://增加概况
                 if (rlProfileInformation.getVisibility() == View.VISIBLE) {
@@ -170,7 +172,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 break;
             case R.id.rl_profile_information://概况详情查看
                 startActivityForResult(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 1)
-                        .putExtra("DATA", new Gson().toJson(mOverviewData)), 18);
+                        .putExtra("DATA", new Gson().toJson(mOverviewData)), 19);
 
                 break;
             case R.id.ll_document_date_choice://单据日期选择
@@ -180,7 +182,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 20);
                 break;
             case R.id.ll_salesman_choice://业务员选择
-                startActivityForResult(new Intent(this, CommonXzywyActivity.class), 21);
+                if (TextUtils.isEmpty(departmentid))
+                    showShortToast("请先选择部门");
+                else
+                startActivityForResult(new Intent(this, SelectSalesmanActivity.class).putExtra("depid",departmentid), 21);
                 break;
         }
     }
@@ -220,6 +225,19 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 }.getType());
                 rlProfileInformation.setVisibility(View.VISIBLE);
                 tvRegistrationNumber.setText("登记数量：" + mOverviewData.getUnitqty() + "个");
+                break;
+            case 19://概况详情查看结果处理
+                switch (data.getIntExtra("KIND",0)){
+                    case 0://修改处理结果
+                        mOverviewData = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
+                        }.getType());
+                        tvRegistrationNumber.setText("登记数量：" + mOverviewData.getUnitqty() + "个");
+                        break;
+                    case 1://删除处理结果
+                        rlProfileInformation.setVisibility(View.GONE);
+                        mOverviewData=null;
+                        break;
+                }
                 break;
             case 20://部门选择结果处理
                 departmentid = data.getStringExtra("CHOICE_RESULT_ID");

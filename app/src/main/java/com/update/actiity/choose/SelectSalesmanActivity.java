@@ -13,13 +13,11 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.update.actiity.AddInstallRegistrationActivity;
-import com.update.actiity.InstallRegistrationActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
-import com.update.model.DataDictionaryData;
 import com.update.model.DepartmentData;
+import com.update.model.SalesmanData;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
@@ -40,7 +38,7 @@ import butterknife.BindView;
  * -----------------------------------------------------------------------------------
  * 2018/3/6 0006         申中佳               V1.0
  */
-public class ChooseDepartmentActivity extends BaseActivity {
+public class SelectSalesmanActivity extends BaseActivity {
     @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.search)
@@ -48,8 +46,8 @@ public class ChooseDepartmentActivity extends BaseActivity {
     @BindView(R.id.rcv_list)
     RecyclerView rcvList;
     private Map<String, Object> mParmMap;
-    private List<DepartmentData> mList;
-    private List<DepartmentData> mSearchList;//搜索处理过的数据
+    private List<SalesmanData> mList;
+    private List<SalesmanData> mSearchList;//搜索处理过的数据
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -61,10 +59,10 @@ public class ChooseDepartmentActivity extends BaseActivity {
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
 //        mParmMap.put("opid", ShareUserInfo.getUserId(this));
-        mParmMap.put("depid", "0");//部门id –0表示全部
+        mParmMap.put("depid", getIntent().getStringExtra("depid"));//部门id –0表示全部
         mParmMap.put("curpage", "0");//当前页
         mParmMap.put("pagesize", "100");//每页加载数据大小
-        presenter.post(0, "selectdep", mParmMap);
+        presenter.post(0, "employlistnew", mParmMap);
     }
 
     /**
@@ -83,21 +81,22 @@ public class ChooseDepartmentActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        search.setHint("业务员名称");
         rcvList.setLayoutManager(new LinearLayoutManager(this));
-        rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,DepartmentData>(mList) {
+        rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,SalesmanData>(mList) {
             //
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getStateAuditChoiceHolder(ChooseDepartmentActivity.this);
+                return ViewHolderFactory.getStateAuditChoiceHolder(SelectSalesmanActivity.this);
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.StateAuditChoiceHolder holder, final DepartmentData data) {
-                holder.tvText.setText(data.getDepname());
+            protected void MyonBindViewHolder(ViewHolderFactory.StateAuditChoiceHolder holder, final SalesmanData data) {
+                holder.tvText.setText(data.getEmpname());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT", data.getDepname())
+                        setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT", data.getEmpname())
                                 .putExtra("CHOICE_RESULT_ID",data.getId() + ""));
                         finish();
                     }
@@ -123,7 +122,7 @@ public class ChooseDepartmentActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(searchText)) {
                     mSearchList.clear();
                     for (int i = 0; i < mList.size(); i++) {//模糊搜索匹配
-                        if (mList.get(i).getDepname().contains(searchText))
+                        if (mList.get(i).getEmpname().contains(searchText))
                             mSearchList.add(mList.get(i));
                     }
                     mAdapter.setList(mSearchList);
@@ -139,7 +138,7 @@ public class ChooseDepartmentActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "选择部门");
+        titlebar.setTitleText(this, "选择业务员");
     }
 
     /**
@@ -152,7 +151,7 @@ public class ChooseDepartmentActivity extends BaseActivity {
     public void returnData(int requestCode, Object data) {
         Gson gson = new Gson();
         mList = gson.fromJson((String) data,
-                new TypeToken<List<DepartmentData>>() {
+                new TypeToken<List<SalesmanData>>() {
                 }.getType());
         mAdapter.setList(mList);
 
