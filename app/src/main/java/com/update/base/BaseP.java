@@ -77,11 +77,17 @@ public class BaseP {
 
                     @Override
                     public void onCompleted() {
+                        if(view==null)
+                            return;
+                        view.httpFinish(requestCode);
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        if(view==null)
+                            return;
+                        view.httpfaile(requestCode);
 
                     }
                 });

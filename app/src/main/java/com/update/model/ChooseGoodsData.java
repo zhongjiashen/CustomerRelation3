@@ -2,6 +2,8 @@ package com.update.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Author:    申中佳
  * Version    V1.0
@@ -59,6 +61,45 @@ public class ChooseGoodsData {
     private String batchctrl;
     @SerializedName("serialctrl")
     private String serialctrl;
+    /**
+     * 是否被选中
+     */
+    private boolean check;
+    private double number=1.0;//数量
+    private String serialinfo;//序列号
+    private List<Serial> mSerials;//序列号临时保存集合
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    public double getNumber() {
+        return number;
+    }
+
+    public void setNumber(double number) {
+        this.number = number;
+    }
+
+    public String getSerialinfo() {
+        return serialinfo;
+    }
+
+    public void setSerialinfo(String serialinfo) {
+        this.serialinfo = serialinfo;
+    }
+
+    public List<Serial> getSerials() {
+        return mSerials;
+    }
+
+    public void setSerials(List<Serial> serials) {
+        mSerials = serials;
+    }
 
     public int getGoodsid() {
         return goodsid;

@@ -1338,6 +1338,11 @@
             android:name="com.update.actiity.choose.SelectSalesmanActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--录入序列号-->
+        <activity
+            android:name="com.update.actiity.EnterSerialNumberActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 提醒 --><!--
         <service android:name="com.cr.service.TxService" android:label="消息推送" >
         </service> -->

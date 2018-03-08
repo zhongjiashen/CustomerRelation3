@@ -30,9 +30,10 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
+            android:layout_marginRight="@dimen/margin"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="输入单位名称/单据编号"
+            android:hint="输入商品编码、名称、规格、型号"
             android:imeOptions="actionSearch"
             android:inputType="text"/>
     </LinearLayout>
@@ -40,14 +41,22 @@
     <com.update.viewbar.refresh.PullToRefreshLayout
         android:id="@+id/pullToRefreshLayout_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <com.update.viewbar.refresh.PullableRecyclerView
             android:id="@+id/pullRecycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background_white"/>
-
-
     </com.update.viewbar.refresh.PullToRefreshLayout>
+    <Button
+        android:id="@+id/bt_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:layout_alignParentBottom="true"
+        android:textSize="@dimen/word_jmedium"
+        android:textColor="@color/colorPrimary"
+        android:text="确认选择"
+        android:background="@color/button_gray"/>
 </LinearLayout>

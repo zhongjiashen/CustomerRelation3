@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,8 +26,6 @@ import butterknife.ButterKnife;
  * 2018/2/26 0026         申中佳               V1.0
  */
 public class ViewHolderFactory {
-
-
 
 
     /**
@@ -61,6 +60,10 @@ public class ViewHolderFactory {
      */
     public static ChooseGoodsHolder getChooseGoodsHolder(Context context) {
         return new ChooseGoodsHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods, null, false));
+    }
+
+    public static SerialNumberHolder getSerialNumberHolder(Context context) {
+        return new SerialNumberHolder(LayoutInflater.from(context).inflate(R.layout.item_serial_number, null, false));
     }
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
@@ -124,11 +127,28 @@ public class ViewHolderFactory {
         public CheckBox cbView;
         @BindView(R.id.sl_view)
         public SLView2 slView;
+        @BindView(R.id.tv_serial_number)
+        public TextView tvSerialNumber;
         @BindView(R.id.ll_number)
         public LinearLayout llNumber;
         @BindView(R.id.v_line)
-        public  View vLine;
+        public View vLine;
+
         ChooseGoodsHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class SerialNumberHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_serial_number)
+        public TextView tvSerialNumber;
+        @BindView(R.id.iv_editor)
+        public ImageView ivEditor;
+        @BindView(R.id.iv_delete)
+        public ImageView ivDelete;
+
+        SerialNumberHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

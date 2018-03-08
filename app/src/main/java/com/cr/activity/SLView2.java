@@ -75,9 +75,9 @@ public class SLView2 extends LinearLayout implements OnClickListener{
 					e.printStackTrace();
 					sl=0;
 				}
-                if(change!=null){
-                    change.onValueChange(sl);
-                }
+//                if(change!=null){
+//                    change.onValueChange(sl);
+//                }
             }
         });
     }

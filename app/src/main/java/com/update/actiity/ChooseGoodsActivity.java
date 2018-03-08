@@ -1,9 +1,14 @@
 package com.update.actiity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -13,6 +18,8 @@ import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.ChooseGoodsData;
+import com.update.model.Serial;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
@@ -21,6 +28,7 @@ import com.update.viewholder.ViewHolderFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 
@@ -49,11 +57,15 @@ public class ChooseGoodsActivity extends BaseActivity implements
     private int page_number;
     private List<ChooseGoodsData> mList;
 
+    private int possion;//item出发点击事件的位置
+    private Gson mGson;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        mGson=new Gson();
         page_number = 1;
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
@@ -89,12 +101,62 @@ public class ChooseGoodsActivity extends BaseActivity implements
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.ChooseGoodsHolder holder, ChooseGoodsData data) {
+            protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsHolder holder, final ChooseGoodsData data) {
                 holder.tvGoodName.setText("名称："+data.getName());
                 holder.tvCoding.setText("编码："+data.getCode());
                 holder.tvSpecifications.setText("规格："+data.getSpecs());
                 holder.tvModel.setText("型号："+data.getModel());
                 holder.tvUnit.setText("名称："+data.getUnitname());
+                holder.slView.setSl(data.getNumber());//设置数量
+                if(data.isCheck()){//判断是否选中
+                    holder.cbView.setChecked(true);//设置ChecBox的选中状态
+                    holder.llNumber.setVisibility(View.VISIBLE);//数量选择条目显示
+                    holder.vLine.setVisibility(View.VISIBLE);//横线显示
+                }else {
+                    holder.cbView.setChecked(false);
+                    holder.llNumber.setVisibility(View.GONE);
+                    holder.vLine.setVisibility(View.GONE);
+                }
+                holder.cbView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {//ChecBox点击事件
+                        data.setCheck(holder.cbView.isChecked());
+                        if(holder.cbView.isChecked()){//判断是否选中
+                            holder.cbView.setChecked(true);//设置ChecBox的选中状态
+                            holder.llNumber.setVisibility(View.VISIBLE);//数量选择条目显示
+                            holder.vLine.setVisibility(View.VISIBLE);//横线显示
+                            if(TextUtils.isEmpty(data.getSerialinfo())) {
+                                UUID uuid = UUID.randomUUID();
+                                data.setSerialinfo(uuid.toString());
+                            }
+                        }else {
+                            holder.cbView.setChecked(false);
+                            holder.llNumber.setVisibility(View.GONE);
+                            holder.vLine.setVisibility(View.GONE);
+                            data.setNumber(1.0);//取消选中数量恢复默认
+                            holder.slView.setSl(data.getNumber());
+                        }
+                    }
+                });
+                holder.slView.setOnValueChange(new SLViewValueChange() {//数量控件数量变换监听
+                    @Override
+                    public void onValueChange(double sl) {
+                        LogUtils.e("的身高多少");
+                        data.setNumber(sl);
+                    }
+                });
+                //序列号点击事件
+                holder.tvSerialNumber.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        possion=holder.getLayoutPosition();
+                        showShortToast(possion+"");
+                        startActivityForResult(new Intent(ChooseGoodsActivity.this,EnterSerialNumberActivity.class)
+                                .putExtra("uuid",data.getSerialinfo())
+                                .putExtra("DATA",mGson.toJson(data.getSerials())),11);
+
+                    }
+                });
             }
 
         });
@@ -105,7 +167,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
      */
     private void setTitlebar() {
         titlebar.setTitleText(this, "选择商品");
-        titlebar.setIvRightTwoImageResource(R.drawable.oper);
+        titlebar.setIvRightImageResource(R.drawable.oper);
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
@@ -126,13 +188,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
      */
     @Override
     public void onRefresh(PullToRefreshLayout playout) {
-        pullToRefreshLayoutView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pullToRefreshLayoutView.refreshFinish(true);
-
-            }
-        }, 2000); //
+        presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
     }
 
     /**
@@ -140,22 +196,32 @@ public class ChooseGoodsActivity extends BaseActivity implements
      */
     @Override
     public void onLoadMore(PullToRefreshLayout pullLayout) {
-        pullToRefreshLayoutView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pullToRefreshLayoutView.loadMoreFinish(true);
-
-            }
-        }, 2000); //
+        mParmMap.put("curpage", (page_number+1));
+        presenter.post(1, ServerURL.SELECTGOODS, mParmMap);
     }
 
     @Override
     public void returnData(int requestCode, Object data) {
         Gson gson = new Gson();
-        mList = gson.fromJson((String) data,
+        List<ChooseGoodsData> list = gson.fromJson((String) data,
                 new TypeToken<List<ChooseGoodsData>>() {
                 }.getType());
-        mAdapter.setList(mList);
+        switch (requestCode){
+            case 0://第一次加载数据或者刷新数据
+                mList=list;
+                mAdapter.setList(mList);
+                break;
+            case 1:
+                if(list==null||list.size()==0){
+
+                }else {
+                    page_number=page_number+1;
+                    mList.addAll(list);
+                    mAdapter.setList(mList);
+                }
+                break;
+        }
+
     }
 
     @Override
@@ -165,6 +231,21 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     @Override
     public void httpFinish(int requestCode) {
+        switch (requestCode){
+            case 0:
+                pullToRefreshLayoutView.refreshFinish(true);//刷新完成
+                break;
+            case 1:
+                pullToRefreshLayoutView.loadMoreFinish(true);
+                break;
+        }
 
+    }
+
+    @Override
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        List<Serial> serials=mGson.fromJson(data.getStringExtra("DATA"),new TypeToken<List<Serial>>() {
+        }.getType());
+        mList.get(possion).setSerials(serials);
     }
 }
