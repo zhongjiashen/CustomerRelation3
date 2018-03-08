@@ -61,7 +61,6 @@ public abstract class BaseDialog extends Dialog {
         // 获取屏幕宽、高用
         Resources resources = mContext.getResources();
         DisplayMetrics dm = resources.getDisplayMetrics();
-        float density1 = dm.density;
         int width3 = dm.widthPixels;
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         lp.width = (int) (width3 * 0.8); // 宽度设置为屏幕的0.5
