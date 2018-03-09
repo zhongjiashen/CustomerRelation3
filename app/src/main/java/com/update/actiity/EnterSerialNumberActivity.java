@@ -122,6 +122,7 @@ public class EnterSerialNumberActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class),11);
                 break;
             case R.id.bt_add:
                 String serial_number=etSerialNumber.getText().toString();
@@ -140,5 +141,11 @@ public class EnterSerialNumberActivity extends BaseActivity {
                 etSerialNumber.setText("");
                 break;
         }
+    }
+
+    @Override
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onMyActivityResult(requestCode, resultCode, data);
+        etSerialNumber.setText(data.getStringExtra("qr"));
     }
 }
