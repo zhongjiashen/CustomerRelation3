@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.crcxj.activity.R;
+import com.update.dialog.OnDialogClickInterface;
 
 
 /**
@@ -29,6 +30,10 @@ import com.crcxj.activity.R;
  */
 public abstract class BaseDialog extends Dialog {
     protected Context mContext;
+    protected OnDialogClickInterface mDialogClickInterface;
+    private double hight;
+    private double width;
+    private int gravity;
 
     public BaseDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
@@ -49,33 +54,39 @@ public abstract class BaseDialog extends Dialog {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(getLayout());
+        width = 0.8;
+        gravity = Gravity.CENTER;
+        setParameter();
         initWindowParams();
 
     }
+
+    /**
+     * width 宽度设置
+     * gravity 位置设置
+     */
+    protected void setParameter() {
+
+    }
+
+    public void setDialogClickInterface(OnDialogClickInterface dialogClickInterface) {
+        mDialogClickInterface = dialogClickInterface;
+    }
+
     protected void initWindowParams() {
         Window dialogWindow = getWindow();
         // 获取屏幕宽、高用
         Resources resources = mContext.getResources();
         DisplayMetrics dm = resources.getDisplayMetrics();
-        int width3 = dm.widthPixels;
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = (int) (width3 * 0.8); // 宽度设置为屏幕的0.5
-        dialogWindow.setGravity(Gravity.CENTER);
+        lp.width = (int) (dm.widthPixels * width); // 宽度设置为屏幕的0.5
+        dialogWindow.setGravity(gravity);
         dialogWindow.setAttributes(lp);
     }
-    @SuppressWarnings("unchecked")
-    public <T extends View> T $(int id) {
-        return (T) findViewById(id);
-    }
 
-    public <T extends View> T $(View v, int id) {
-        return (T) v.findViewById(id);
-    }
     /**
      * 初始化
      */

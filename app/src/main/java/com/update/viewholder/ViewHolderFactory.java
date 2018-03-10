@@ -28,6 +28,8 @@ import butterknife.ButterKnife;
 public class ViewHolderFactory {
 
 
+
+
     /**
      * 安装登记列表
      *
@@ -64,6 +66,16 @@ public class ViewHolderFactory {
 
     public static SerialNumberHolder getSerialNumberHolder(Context context) {
         return new SerialNumberHolder(LayoutInflater.from(context).inflate(R.layout.item_serial_number, null, false));
+    }
+
+    /**
+     * 获取商品选择结果（添加安装登记）
+     *
+     * @param context
+     * @return
+     */
+    public static ChooseGoodsResultHolder getChooseGoodsResultHolder(Context context) {
+        return new ChooseGoodsResultHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods_result, null, false));
     }
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
@@ -149,6 +161,18 @@ public class ViewHolderFactory {
         public ImageView ivDelete;
 
         SerialNumberHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class ChooseGoodsResultHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_goods_information)
+        public TextView tvGoodsInformation;
+        @BindView(R.id.tv_registration_number)
+        public TextView tvRegistrationNumber;
+
+        ChooseGoodsResultHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

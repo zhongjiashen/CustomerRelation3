@@ -3,9 +3,10 @@ package com.update.actiity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.cr.myinterface.SLViewValueChange;
@@ -25,12 +26,14 @@ import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
 import com.update.viewholder.ViewHolderFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Author:    申中佳
@@ -65,7 +68,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
      */
     @Override
     protected void initVariables() {
-        mGson=new Gson();
+        mGson = new Gson();
         page_number = 1;
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
@@ -102,17 +105,17 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsHolder holder, final ChooseGoodsData data) {
-                holder.tvGoodName.setText("名称："+data.getName());
-                holder.tvCoding.setText("编码："+data.getCode());
-                holder.tvSpecifications.setText("规格："+data.getSpecs());
-                holder.tvModel.setText("型号："+data.getModel());
-                holder.tvUnit.setText("名称："+data.getUnitname());
+                holder.tvGoodName.setText("名称：" + data.getName());
+                holder.tvCoding.setText("编码：" + data.getCode());
+                holder.tvSpecifications.setText("规格：" + data.getSpecs());
+                holder.tvModel.setText("型号：" + data.getModel());
+                holder.tvUnit.setText("名称：" + data.getUnitname());
                 holder.slView.setSl(data.getNumber());//设置数量
-                if(data.isCheck()){//判断是否选中
+                if (data.isCheck()) {//判断是否选中
                     holder.cbView.setChecked(true);//设置ChecBox的选中状态
                     holder.llNumber.setVisibility(View.VISIBLE);//数量选择条目显示
                     holder.vLine.setVisibility(View.VISIBLE);//横线显示
-                }else {
+                } else {
                     holder.cbView.setChecked(false);
                     holder.llNumber.setVisibility(View.GONE);
                     holder.vLine.setVisibility(View.GONE);
@@ -121,15 +124,15 @@ public class ChooseGoodsActivity extends BaseActivity implements
                     @Override
                     public void onClick(View view) {//ChecBox点击事件
                         data.setCheck(holder.cbView.isChecked());
-                        if(holder.cbView.isChecked()){//判断是否选中
+                        if (holder.cbView.isChecked()) {//判断是否选中
                             holder.cbView.setChecked(true);//设置ChecBox的选中状态
                             holder.llNumber.setVisibility(View.VISIBLE);//数量选择条目显示
                             holder.vLine.setVisibility(View.VISIBLE);//横线显示
-                            if(TextUtils.isEmpty(data.getSerialinfo())) {
+                            if (TextUtils.isEmpty(data.getSerialinfo())) {
                                 UUID uuid = UUID.randomUUID();
                                 data.setSerialinfo(uuid.toString());
                             }
-                        }else {
+                        } else {
                             holder.cbView.setChecked(false);
                             holder.llNumber.setVisibility(View.GONE);
                             holder.vLine.setVisibility(View.GONE);
@@ -149,16 +152,32 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 holder.tvSerialNumber.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        possion=holder.getLayoutPosition();
-                        showShortToast(possion+"");
-                        startActivityForResult(new Intent(ChooseGoodsActivity.this,EnterSerialNumberActivity.class)
-                                .putExtra("uuid",data.getSerialinfo())
-                                .putExtra("DATA",mGson.toJson(data.getSerials())),11);
+                        possion = holder.getLayoutPosition();
+                        showShortToast(possion + "");
+                        startActivityForResult(new Intent(ChooseGoodsActivity.this, EnterSerialNumberActivity.class)
+                                .putExtra("uuid", data.getSerialinfo())
+                                .putExtra("DATA", mGson.toJson(data.getSerials())), 11);
 
                     }
                 });
             }
 
+        });
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence sequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence sequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
     }
 
@@ -173,9 +192,6 @@ public class ChooseGoodsActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-
-                        break;
-                    case 1://打开右边侧滑菜单
 
                         break;
                 }
@@ -196,7 +212,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
      */
     @Override
     public void onLoadMore(PullToRefreshLayout pullLayout) {
-        mParmMap.put("curpage", (page_number+1));
+        mParmMap.put("curpage", (page_number + 1));
         presenter.post(1, ServerURL.SELECTGOODS, mParmMap);
     }
 
@@ -206,16 +222,16 @@ public class ChooseGoodsActivity extends BaseActivity implements
         List<ChooseGoodsData> list = gson.fromJson((String) data,
                 new TypeToken<List<ChooseGoodsData>>() {
                 }.getType());
-        switch (requestCode){
+        switch (requestCode) {
             case 0://第一次加载数据或者刷新数据
-                mList=list;
+                mList = list;
                 mAdapter.setList(mList);
                 break;
             case 1:
-                if(list==null||list.size()==0){
+                if (list == null || list.size() == 0) {
 
-                }else {
-                    page_number=page_number+1;
+                } else {
+                    page_number = page_number + 1;
                     mList.addAll(list);
                     mAdapter.setList(mList);
                 }
@@ -231,7 +247,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     @Override
     public void httpFinish(int requestCode) {
-        switch (requestCode){
+        switch (requestCode) {
             case 0:
                 pullToRefreshLayoutView.refreshFinish(true);//刷新完成
                 break;
@@ -244,8 +260,24 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     @Override
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
-        List<Serial> serials=mGson.fromJson(data.getStringExtra("DATA"),new TypeToken<List<Serial>>() {
+        //处理返回的序列号信息
+        List<Serial> serials = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
         }.getType());
         mList.get(possion).setSerials(serials);
+    }
+
+    @OnClick(R.id.bt_view)
+    public void onClick() {
+        if(mList==null||mList.size()==0)//判断选择商品数据是否为空
+            return;
+        List<ChooseGoodsData> list =new ArrayList<>();
+        for (int i=0;i<mList.size();i++){//挑出选中商品
+            ChooseGoodsData chooseGoodsData=mList.get(i);
+            if(chooseGoodsData.isCheck())//判断商品选中状态
+                list.add(chooseGoodsData);
+        }
+        setResult(RESULT_OK,new Intent().putExtra("DATA",mGson.toJson(list)));
+        finish();
+
     }
 }

@@ -14,6 +14,8 @@ import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseRecycleAdapter;
+import com.update.dialog.DialogFactory;
+import com.update.dialog.OnDialogClickInterface;
 import com.update.model.Serial;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
@@ -85,11 +87,23 @@ public class EnterSerialNumberActivity extends BaseActivity {
             }
 
             @Override
-            protected void MyonBindViewHolder(final ViewHolderFactory.SerialNumberHolder holder, Serial data) {
+            protected void MyonBindViewHolder(final ViewHolderFactory.SerialNumberHolder holder, final Serial data) {
                 holder.tvSerialNumber.setText(data.getSerno());
-                holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+                holder.ivEditor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        DialogFactory.getModifySerialNumberDialog(EnterSerialNumberActivity.this, data.getSerno(), new OnDialogClickInterface() {
+                            @Override
+                            public void OnClick(int requestCode, Object object) {
+                                data.setSerno((String) object);
+                                holder.tvSerialNumber.setText(data.getSerno());
+                            }
+                        }).show();
+                    }
+                });
+                holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {//删除该序列号
                         serials.remove(holder.getLayoutPosition());
                         mAdapter.setList(serials);
                     }

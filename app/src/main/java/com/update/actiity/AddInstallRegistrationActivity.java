@@ -1,6 +1,8 @@
 package com.update.actiity;
 
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -10,7 +12,6 @@ import android.widget.TextView;
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
-import com.cr.activity.common.CommonXzywyActivity;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,12 +20,16 @@ import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.base.BaseActivity;
+import com.update.base.BaseRecycleAdapter;
+import com.update.model.ChooseGoodsData;
 import com.update.model.GoodsOrOverviewData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
+import com.update.viewholder.ViewHolderFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -71,6 +76,8 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     TextView tvRegistrationNumber;
     @BindView(R.id.rl_profile_information)
     RelativeLayout rlProfileInformation;
+    @BindView(R.id.rcv_choose_goods_list)
+    RecyclerView rcvChooseGoodsList;
 
     private TimePickerView mTimePickerView;//时间选择弹窗
 
@@ -84,6 +91,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     private String empid;//业务员ID
     private GoodsOrOverviewData mOverviewData;//概况信息
     Gson mGson;
+    private List<ChooseGoodsData> mChooseGoodsDataList;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -111,6 +119,22 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         rlProfileInformation.setVisibility(View.GONE);//未添加概况信息，概况信息隐藏
+
+        /* 选择商品集合信息处理 */
+        rcvChooseGoodsList.setLayoutManager(new LinearLayoutManager(this));
+        rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder,ChooseGoodsData>(mChooseGoodsDataList,false) {
+
+            @Override
+            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
+                return ViewHolderFactory.getChooseGoodsResultHolder(AddInstallRegistrationActivity.this);
+            }
+
+            @Override
+            protected void MyonBindViewHolder(ViewHolderFactory.ChooseGoodsResultHolder holder,ChooseGoodsData data) {
+
+            }
+
+        });
     }
 
     /**
@@ -168,24 +192,24 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 if (rlProfileInformation.getVisibility() == View.VISIBLE) {
                     showShortToast("已添加过概况信息");
                 } else
-                    startActivityForResult(new Intent(this, IncreaseOverviewActivity.class), 18);
+                    startActivityForResult(new Intent(this, IncreaseOverviewActivity.class), 19);
                 break;
             case R.id.rl_profile_information://概况详情查看
                 startActivityForResult(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 1)
-                        .putExtra("DATA", new Gson().toJson(mOverviewData)), 19);
+                        .putExtra("DATA", new Gson().toJson(mOverviewData)), 20);
 
                 break;
             case R.id.ll_document_date_choice://单据日期选择
                 selectTime(1);
                 break;
             case R.id.ll_department_choice://部门选择
-                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 20);
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 21);
                 break;
             case R.id.ll_salesman_choice://业务员选择
                 if (TextUtils.isEmpty(departmentid))
                     showShortToast("请先选择部门");
                 else
-                startActivityForResult(new Intent(this, SelectSalesmanActivity.class).putExtra("depid",departmentid), 21);
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class).putExtra("depid", departmentid), 22);
                 break;
         }
     }
@@ -220,14 +244,23 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 priorid = data.getStringExtra("CHOICE_RESULT_ID");
                 tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
-            case 18://增加概况结果处理
+            case 17://商品选择结果处理
+                mChooseGoodsDataList = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
+                }.getType());
+                mAdapter.setList(mChooseGoodsDataList);
+                break;
+            case 18://商品选择结果处理
+                priorid = data.getStringExtra("CHOICE_RESULT_ID");
+                tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                break;
+            case 19://增加概况结果处理
                 mOverviewData = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
                 }.getType());
                 rlProfileInformation.setVisibility(View.VISIBLE);
                 tvRegistrationNumber.setText("登记数量：" + mOverviewData.getUnitqty() + "个");
                 break;
-            case 19://概况详情查看结果处理
-                switch (data.getIntExtra("KIND",0)){
+            case 20://概况详情查看结果处理
+                switch (data.getIntExtra("KIND", 0)) {
                     case 0://修改处理结果
                         mOverviewData = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
                         }.getType());
@@ -235,15 +268,15 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                         break;
                     case 1://删除处理结果
                         rlProfileInformation.setVisibility(View.GONE);
-                        mOverviewData=null;
+                        mOverviewData = null;
                         break;
                 }
                 break;
-            case 20://部门选择结果处理
+            case 21://部门选择结果处理
                 departmentid = data.getStringExtra("CHOICE_RESULT_ID");
                 tvDepartment.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
-            case 21://业务员选择结果处理
+            case 22://业务员选择结果处理
                 empid = data.getStringExtra("id");
                 tvSalesman.setText(data.getStringExtra("name"));
                 break;

@@ -23,13 +23,20 @@ import butterknife.ButterKnife;
  * -----------------------------------------------------------------------------------
  * 2018/2/26 0026         申中佳               V1.0
  */
-public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder,T1> extends RecyclerView.Adapter {
+public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, T1> extends RecyclerView.Adapter {
     public static int NULL_DATA = 0;
     private List<T1> mList;
-    public BaseRecycleAdapter( List list) {
+    private boolean nulldata_visibility;//当list为空时，是否显示空数据界面
+
+    public BaseRecycleAdapter(List list) {
+        nulldata_visibility = true;
         mList = list;
     }
 
+    public BaseRecycleAdapter(List list, boolean nulldata_visibility) {
+        this.nulldata_visibility = nulldata_visibility;
+        mList = list;
+    }
 
     public void setList(List list) {
         mList = list;
@@ -53,7 +60,9 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder,T1> e
         }
         return viewHolder;
     }
+
     protected abstract RecyclerView.ViewHolder MyonCreateViewHolder();
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == 1)
@@ -65,8 +74,11 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder,T1> e
 
     @Override
     public int getItemCount() {
-        if (mList == null||mList.size() == 0)
-            return 1;
+        if (mList == null || mList.size() == 0)//判断list数据是否为空
+            if (nulldata_visibility)//判断是否要加载空数据页面
+                return 1;
+            else
+                return 0;
         else
             return mList.size();
     }
