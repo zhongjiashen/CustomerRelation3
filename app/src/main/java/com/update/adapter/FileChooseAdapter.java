@@ -1,16 +1,11 @@
 package com.update.adapter;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.crcxj.activity.R;
-import com.update.dialog.DialogFactory;
-import com.update.dialog.OnDialogClickInterface;
 import com.update.model.FileChooseData;
-import com.update.utils.LogUtils;
 import com.update.viewholder.ViewHolderFactory;
 
 import java.util.List;
@@ -25,14 +20,10 @@ import java.util.List;
  * -----------------------------------------------------------------------------------
  * 2018/3/12 0012         申中佳               V1.0
  */
-public  class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderFactory.ChooseFileResultHolder> {
+public abstract class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderFactory.ChooseFileResultHolder> {
     private List<FileChooseData> mList;
 
-    private Activity mActivity;
 
-    public FileChooseAdapter(Activity activity) {
-        mActivity=activity;
-    }
 
     public void setList(List<FileChooseData> list) {
         mList = list;
@@ -52,12 +43,7 @@ public  class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderFactory.C
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DialogFactory.getFileChooseDialog(mActivity, new OnDialogClickInterface() {
-                        @Override
-                        public void OnClick(int requestCode, Object object) {
-
-                        }
-                    }).show();
+                    checkFile();
                 }
             });
         }else {
@@ -65,18 +51,13 @@ public  class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderFactory.C
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DialogFactory.getFileChooseDialog(mActivity, new OnDialogClickInterface() {
-                        @Override
-                        public void OnClick(int requestCode, Object object) {
 
-                        }
-                    });
                 }
             });
         }
     }
 
-
+    public abstract void checkFile();
 
     @Override
     public int getItemCount() {

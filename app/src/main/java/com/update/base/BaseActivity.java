@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-import com.cr.activity.QdXzqdActivity;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
 import com.jph.takephoto.model.InvokeParam;
@@ -33,7 +32,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity implements BaseV, TakePhoto.TakeResultListener, InvokeListener {
     protected T presenter;
     protected BaseRecycleAdapter mAdapter;
-    private TakePhoto takePhoto;
+    protected TakePhoto takePhoto;
     private InvokeParam invokeParam;
 
     @Override
@@ -164,6 +163,12 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
         PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
     }
+
+    @Override
+    public void takeSuccess(TResult result) {
+
+    }
+
     @Override
     public void takeFail(TResult result, String msg) {
 

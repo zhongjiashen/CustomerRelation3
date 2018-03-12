@@ -33,15 +33,21 @@ public class FileChooseDialog extends BaseDialog {
         setContentView(R.layout.dialog_file_choose);
     }
 
-    @OnClick({R.id.bt_choose_picture, R.id.bt_choose_file})
+
+
+    @OnClick({R.id.bt_taking_pictures, R.id.bt_choose_picture, R.id.bt_choose_file})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bt_taking_pictures:
+                mDialogClickInterface.OnClick(0, "");
+                dismiss();
+                break;
             case R.id.bt_choose_picture:
-                mDialogClickInterface.OnClick(0,"");
+                mDialogClickInterface.OnClick(1, "");
                 dismiss();
                 break;
             case R.id.bt_choose_file:
-                mDialogClickInterface.OnClick(1,"");
+                mDialogClickInterface.OnClick(2, "");
                 dismiss();
                 break;
         }

@@ -4,12 +4,26 @@
               android:layout_height="match_parent"
               android:background="@drawable/information_pop"
               android:orientation="vertical">
+    <Button
+        android:id="@+id/bt_taking_pictures"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="@dimen/margin"
+        android:text="拍照"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/word_jmedium"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color"/>
 
     <Button
         android:id="@+id/bt_choose_picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_white"
+        android:background="@null"
         android:padding="@dimen/margin"
         android:text="选择图片"
         android:textColor="@color/colorPrimary"
@@ -24,7 +38,7 @@
         android:id="@+id/bt_choose_file"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_white"
+        android:background="@null"
         android:padding="@dimen/margin"
         android:text="选择文件"
         android:textColor="@color/colorPrimary"

@@ -1,6 +1,8 @@
 package com.update.actiity;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,12 +26,15 @@ import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.adapter.FileChooseAdapter;
 import com.update.base.BaseActivity;
 import com.update.base.BaseRecycleAdapter;
+import com.update.dialog.DialogFactory;
+import com.update.dialog.OnDialogClickInterface;
 import com.update.model.ChooseGoodsData;
 import com.update.model.GoodsOrOverviewData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -143,7 +148,25 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         });
          /* 选择文件集合信息处理 */
         rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
-        rcvChooseFileList.setAdapter( mFileChooseAdapter=new FileChooseAdapter(this));
+        rcvChooseFileList.setAdapter( mFileChooseAdapter= new FileChooseAdapter() {
+            @Override
+            public void checkFile() {
+                DialogFactory.getFileChooseDialog(AddInstallRegistrationActivity.this, new OnDialogClickInterface() {
+                    @Override
+                    public void OnClick(int requestCode, Object object) {
+                        switch (requestCode){
+                            case 0:
+                                File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+                                if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+                                Uri imageUri = Uri.fromFile(file);
+                                takePhoto.onPickFromCapture(imageUri);
+                                break;
+                        }
+
+                    }
+                }).show();
+            }
+        });
     }
 
     /**
