@@ -17,6 +17,8 @@ import android.view.WindowManager;
 import com.crcxj.activity.R;
 import com.update.dialog.OnDialogClickInterface;
 
+import butterknife.ButterKnife;
+
 
 /**
  * Author:    申中佳
@@ -39,18 +41,19 @@ public abstract class BaseDialog extends Dialog {
         super(context, R.style.Dialog);
         this.mContext = context;
         init();
+        ButterKnife.bind(this);
+
     }
 
     public BaseDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
         this.mContext = context;
-        init();
+
     }
 
     protected BaseDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         this.mContext = context;
-        init();
     }
 
 

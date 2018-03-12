@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.cr.activity.SLView2;
 import com.crcxj.activity.R;
+import com.update.viewbar.SquareImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +77,16 @@ public class ViewHolderFactory {
      */
     public static ChooseGoodsResultHolder getChooseGoodsResultHolder(Context context) {
         return new ChooseGoodsResultHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods_result, null, false));
+    }
+
+    /**
+     * 获取商品选择结果（添加安装登记）
+     *
+     * @param context
+     * @return
+     */
+    public static ChooseFileResultHolder getChooseFileResultHolder(Context context) {
+        return new ChooseFileResultHolder(LayoutInflater.from(context).inflate(R.layout.item_select_photos, null, false));
     }
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
@@ -173,6 +184,17 @@ public class ViewHolderFactory {
         public TextView tvRegistrationNumber;
 
         ChooseGoodsResultHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class ChooseFileResultHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.siv_image)
+        public SquareImageView sivImage;
+        @BindView(R.id.iv_delete)
+        public ImageView ivDelete;
+        ChooseFileResultHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

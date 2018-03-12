@@ -8,6 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.cr.activity.QdXzqdActivity;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoImpl;
+import com.jph.takephoto.model.InvokeParam;
+import com.jph.takephoto.model.TContextWrap;
+import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.permission.InvokeListener;
+import com.jph.takephoto.permission.PermissionManager;
+import com.jph.takephoto.permission.TakePhotoInvocationHandler;
+
 import butterknife.ButterKnife;
 
 /**
@@ -20,11 +30,15 @@ import butterknife.ButterKnife;
  * -----------------------------------------------------------------------------------
  * 2017/9/14 0014         申中佳               V1.0
  */
-public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity implements BaseV {
+public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity implements BaseV, TakePhoto.TakeResultListener, InvokeListener {
     protected T presenter;
     protected BaseRecycleAdapter mAdapter;
+    private TakePhoto takePhoto;
+    private InvokeParam invokeParam;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getTakePhoto().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         initVariables();
         setContentView(getLayout());
@@ -116,17 +130,16 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     }
 
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-            onMyActivityResult( requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            onMyActivityResult(requestCode, resultCode, data);
         }
     }
 
-    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {}
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -137,7 +150,49 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
         return super.onKeyDown(keyCode, event);
     }
 
+    /*------------------------------TakePhoto配置开始--------------------*/
+     /*图片选择和拍照*/
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        getTakePhoto().onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
+    }
+    @Override
+    public void takeFail(TResult result, String msg) {
 
+    }
+    @Override
+    public void takeCancel() {
+        showShortToast("取消当前操作！");
+
+    }
+
+    /**
+     * 获取TakePhoto实例
+     *
+     * @return
+     */
+    public TakePhoto getTakePhoto() {
+        if (takePhoto == null) {
+            takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
+        }
+        return takePhoto;
+    }
+
+    @Override
+    public PermissionManager.TPermissionType invoke(InvokeParam invokeParam) {
+        PermissionManager.TPermissionType type = PermissionManager.checkPermission(TContextWrap.of(this), invokeParam.getMethod());
+        if (PermissionManager.TPermissionType.WAIT.equals(type)) {
+            this.invokeParam = invokeParam;
+        }
+        return type;
+    }
 
 }

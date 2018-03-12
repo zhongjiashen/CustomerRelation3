@@ -1,6 +1,7 @@
 package com.update.actiity;
 
 import android.content.Intent;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,10 +16,12 @@ import com.cr.activity.common.CommonXzlxrActivity;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jph.takephoto.model.TResult;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.adapter.FileChooseAdapter;
 import com.update.base.BaseActivity;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.ChooseGoodsData;
@@ -78,8 +81,11 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     RelativeLayout rlProfileInformation;
     @BindView(R.id.rcv_choose_goods_list)
     RecyclerView rcvChooseGoodsList;
+    @BindView(R.id.rcv_choose_file_list)
+    RecyclerView rcvChooseFileList;
 
     private TimePickerView mTimePickerView;//时间选择弹窗
+    private FileChooseAdapter mFileChooseAdapter;
 
 
     private String clientid;//客户ID
@@ -122,7 +128,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 
         /* 选择商品集合信息处理 */
         rcvChooseGoodsList.setLayoutManager(new LinearLayoutManager(this));
-        rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder,ChooseGoodsData>(mChooseGoodsDataList,false) {
+        rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, ChooseGoodsData>(mChooseGoodsDataList, false) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
@@ -130,11 +136,14 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.ChooseGoodsResultHolder holder,ChooseGoodsData data) {
+            protected void MyonBindViewHolder(ViewHolderFactory.ChooseGoodsResultHolder holder, ChooseGoodsData data) {
 
             }
 
         });
+         /* 选择文件集合信息处理 */
+        rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
+        rcvChooseFileList.setAdapter( mFileChooseAdapter=new FileChooseAdapter(this));
     }
 
     /**
@@ -306,5 +315,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             }
         });
         mTimePickerView.show();
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+
     }
 }

@@ -20,15 +20,29 @@ import com.update.viewholder.ViewHolderFactory;
 public class DialogFactory {
     /**
      * 获取修改序列号对话框
+     *
      * @param context
      * @param object
      * @param mDialogClickInterface
      * @return
      */
-    public static BaseDialog getModifySerialNumberDialog(Context context,Object object,OnDialogClickInterface mDialogClickInterface) {
-        ModifySerialNumberDialog numberDialog=  new ModifySerialNumberDialog(context);
+    public static BaseDialog getModifySerialNumberDialog(Context context, Object object, OnDialogClickInterface mDialogClickInterface) {
+        ModifySerialNumberDialog numberDialog = new ModifySerialNumberDialog(context);
         numberDialog.setData(object);
         numberDialog.setDialogClickInterface(mDialogClickInterface);
         return numberDialog;
+    }
+
+    /**
+     * 获取修改序列号对话框
+     *
+     * @param context
+     * @param mDialogClickInterface
+     * @return
+     */
+    public static BaseDialog getFileChooseDialog(Context context, OnDialogClickInterface mDialogClickInterface) {
+        FileChooseDialog dialog = new FileChooseDialog(context);
+        dialog.setDialogClickInterface(mDialogClickInterface);
+        return dialog;
     }
 }
