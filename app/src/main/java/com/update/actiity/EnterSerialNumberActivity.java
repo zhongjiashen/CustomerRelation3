@@ -20,6 +20,7 @@ import com.update.model.Serial;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -158,7 +159,7 @@ public class EnterSerialNumberActivity extends BaseActivity {
     }
 
     @Override
-    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         super.onMyActivityResult(requestCode, resultCode, data);
         etSerialNumber.setText(data.getStringExtra("qr"));
     }

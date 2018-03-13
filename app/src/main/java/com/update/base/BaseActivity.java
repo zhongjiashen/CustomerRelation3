@@ -10,12 +10,15 @@ import android.widget.Toast;
 
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
+import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
+
+import java.net.URISyntaxException;
 
 import butterknife.ButterKnife;
 
@@ -131,13 +134,18 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            onMyActivityResult(requestCode, resultCode, data);
+            try {
+                onMyActivityResult(requestCode, resultCode, data);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
     }
 
     @Override
@@ -188,6 +196,9 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
         if (takePhoto == null) {
             takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
         }
+        takePhoto.onEnableCompress(new CompressConfig.Builder()
+                .setMaxSize(50*1024).setMaxPixel(800)
+                .create(),true);
         return takePhoto;
     }
 

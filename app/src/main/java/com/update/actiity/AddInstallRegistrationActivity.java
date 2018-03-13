@@ -1,5 +1,6 @@
 package com.update.actiity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
+import com.cr.tools.PicUtil;
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,20 +29,33 @@ import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.adapter.FileChooseAdapter;
 import com.update.base.BaseActivity;
+import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.dialog.DialogFactory;
 import com.update.dialog.OnDialogClickInterface;
+import com.update.model.Attfiles;
 import com.update.model.ChooseGoodsData;
+import com.update.model.FileChooseData;
 import com.update.model.GoodsOrOverviewData;
+import com.update.model.Master;
+import com.update.model.Serial;
 import com.update.utils.DateUtil;
+import com.update.utils.FileUtils;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
+import org.kobjects.base64.Base64;
+
 import java.io.File;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -88,6 +105,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     RecyclerView rcvChooseGoodsList;
     @BindView(R.id.rcv_choose_file_list)
     RecyclerView rcvChooseFileList;
+    @BindView(R.id.et_messenger)
+    EditText etMessenger;
+    @BindView(R.id.et_note)
+    EditText etNote;
 
     private TimePickerView mTimePickerView;//时间选择弹窗
     private FileChooseAdapter mFileChooseAdapter;
@@ -96,6 +117,8 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     private String clientid;//客户ID
     private String lxrid;//联系人ID
     private String sxfsid;// 服务方式ID
+    private String billdate;//生产日期
+    private String bsrq;//报送日期
     private String regtype;// 服务类型id
     private String priorid;// 优先级ID
     private String departmentid;// 部门id
@@ -103,14 +126,23 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     private GoodsOrOverviewData mOverviewData;//概况信息
     Gson mGson;
     private List<ChooseGoodsData> mChooseGoodsDataList;
+    private List<FileChooseData> mFileChooseDatas;
+    private Map<String, Object> mParmMap;
+    private static final int FILE_SELECT_CODE = 66;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        presenter = new BaseP(this, this);
+        mParmMap = new HashMap<String, Object>();
+        mFileChooseDatas = new ArrayList<>();
+
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
         mGson = new Gson();
+        billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
+        bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH:mm:ss");
     }
 
     /**
@@ -129,6 +161,15 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        tvSubmitTime.setText(bsrq);//设置默认报送时间
+        tvDocumentDate.setText(billdate);//设置默认单据日期
+        sxfsid = "2";
+        tvServiceMode.setText("上门安装");
+        regtype = "1";
+        tvRatingCategory.setText("复杂安装");
+        priorid = "0";
+        tvPriority.setText("普通");
+
         rlProfileInformation.setVisibility(View.GONE);//未添加概况信息，概况信息隐藏
 
         /* 选择商品集合信息处理 */
@@ -148,18 +189,34 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         });
          /* 选择文件集合信息处理 */
         rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
-        rcvChooseFileList.setAdapter( mFileChooseAdapter= new FileChooseAdapter() {
+        rcvChooseFileList.setAdapter(mFileChooseAdapter = new FileChooseAdapter(this) {
             @Override
             public void checkFile() {
                 DialogFactory.getFileChooseDialog(AddInstallRegistrationActivity.this, new OnDialogClickInterface() {
                     @Override
                     public void OnClick(int requestCode, Object object) {
-                        switch (requestCode){
+                        switch (requestCode) {
                             case 0:
                                 File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
                                 if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
                                 Uri imageUri = Uri.fromFile(file);
                                 takePhoto.onPickFromCapture(imageUri);
+                                break;
+                            case 1:
+                                takePhoto.onPickFromGallery();
+                                break;
+                            case 2:
+                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                intent.setType("*/*");
+                                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                                try {
+                                    startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), FILE_SELECT_CODE);
+                                } catch (ActivityNotFoundException ex) {
+                                    // Potentially direct the user to the Market with a Dialog
+                                    showShortToast("Please install a File Manager.");
+
+                                }
+
                                 break;
                         }
 
@@ -180,6 +237,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             public void onClick(int i) {
                 switch (i) {
                     case 2:
+                        addInstallRegistration();
                         break;
 
                 }
@@ -246,7 +304,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         }
     }
 
-    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         switch (requestCode) {
             case 11://单位选择结果处理
                 clientid = data.getStringExtra("id");
@@ -309,8 +367,20 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 tvDepartment.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 22://业务员选择结果处理
-                empid = data.getStringExtra("id");
-                tvSalesman.setText(data.getStringExtra("name"));
+                empid = data.getStringExtra("CHOICE_RESULT_ID");
+                tvSalesman.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                break;
+            case FILE_SELECT_CODE://文件选择处理结果
+                Uri uri = data.getData();
+                LogUtils.e("File Uri: " + uri.toString());
+                // Get the path
+                String path = FileUtils.getUrlPath(this, uri);
+                LogUtils.e("File Path: " + path);
+                FileChooseData fileChooseData = new FileChooseData();
+                fileChooseData.setType(1);
+                fileChooseData.setUrl(path);
+                mFileChooseDatas.add(fileChooseData);
+                mFileChooseAdapter.setList(mFileChooseDatas);
                 break;
         }
     }
@@ -328,7 +398,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
                 switch (i) {
                     case 0:
-                        tvSubmitTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
+                        tvSubmitTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd HH:mm:ss"));
                         break;
                     case 1:
                         tvDocumentDate.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
@@ -342,6 +412,110 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 
     @Override
     public void takeSuccess(TResult result) {
+        LogUtils.e(result.getImage().toString());
+        FileChooseData fileChooseData = new FileChooseData();
+        fileChooseData.setType(0);
+        fileChooseData.setUrl(result.getImage().getCompressPath());
+        mFileChooseDatas.add(fileChooseData);
+        mFileChooseAdapter.setList(mFileChooseDatas);
 
+    }
+
+    /**
+     * 添加安装登记
+     */
+    private void addInstallRegistration() {
+        if (TextUtils.isEmpty(clientid)) {
+            showShortToast("请先选择单位");
+            return;
+        }
+        String phone = etContactNumber.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            showShortToast("请输入联系电话");
+            return;
+        }
+        String shipto = etCustomerAddress.getText().toString();
+        if (TextUtils.isEmpty(shipto)) {
+            showShortToast("请输入客户地址");
+            return;
+        }
+        String bxr = etMessenger.getText().toString();
+        if (TextUtils.isEmpty(bxr)) {
+            showShortToast("请输入报送人姓名");
+            return;
+        }
+        if (mOverviewData == null || mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0) {
+            showShortToast("请添加商品明细");
+            return;
+        }
+        if (TextUtils.isEmpty(departmentid)) {
+            showShortToast("请先选择部门");
+            return;
+        }
+        if (TextUtils.isEmpty(empid)) {
+            showShortToast("请先选择业务员");
+            return;
+        }
+
+        Master master = new Master();
+        master.setBillid("0");
+        master.setClientid(clientid);
+        master.setLxrid(lxrid);
+        master.setLxrname(tvContacts.getText().toString());
+        master.setPhone(phone);
+        master.setShipto(shipto);
+        master.setBilldate(billdate);
+//        master.setBsrq(bsrq);
+        master.setBxr(bxr);
+        master.setSxfsid(sxfsid);
+        master.setRegtype(regtype);
+        master.setPriorid(priorid);
+        master.setDepartmentid(departmentid);
+        master.setEmpid(empid);
+        master.setMemo(etNote.getText().toString());
+        master.setOpid(ShareUserInfo.getUserId(this));
+        List<Master> masterList = new ArrayList<>();
+        masterList.add(master);
+        List<GoodsOrOverviewData> goodsOrOverviewDataList = new ArrayList<>();
+        List<Serial> serialList = new ArrayList<>();
+        goodsOrOverviewDataList.add(mOverviewData);// //添加概况信息
+        for (int i = 0; i < mChooseGoodsDataList.size(); i++) {//增加商品信息
+            ChooseGoodsData chooseGoodsData = mChooseGoodsDataList.get(i);
+            GoodsOrOverviewData overviewData = new GoodsOrOverviewData();
+            overviewData.setBillid("0");
+            overviewData.setItemno("0");
+            overviewData.setLb("1");
+            overviewData.setGoodsid(chooseGoodsData.getGoodsid() + "");
+            overviewData.setGoodsname(chooseGoodsData.getName());
+            overviewData.setUnitqty(chooseGoodsData.getNumber() + "");
+            overviewData.setUnitid(chooseGoodsData.getUnitid() + "");
+            overviewData.setSerialinfo(chooseGoodsData.getSerialinfo());
+            goodsOrOverviewDataList.add(overviewData);
+            if (chooseGoodsData.getSerials() != null)
+                serialList.addAll(chooseGoodsData.getSerials());
+
+        }
+        List<Attfiles> attfilesList = new ArrayList<>();
+        for (int i = 0; i < mFileChooseDatas.size(); i++) {
+            Attfiles attfiles = new Attfiles();
+            attfiles.setBillid("0");
+            attfiles.setClientid(clientid);
+            File file = new File(mFileChooseDatas.get(i).getUrl());
+            attfiles.setFilenames(file.getName());
+            attfiles.setOpid(ShareUserInfo.getUserId(this));
+            try {
+                attfiles.setXx(FileUtils.encodeBase64File(file));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            attfilesList.add(attfiles);
+        }
+        mParmMap.put("dbname", ShareUserInfo.getDbName(this));
+        mParmMap.put("parms", "AZDJ");
+        mParmMap.put("master", mGson.toJson(masterList));
+        mParmMap.put("detail", mGson.toJson(goodsOrOverviewDataList));
+        mParmMap.put("serial", mGson.toJson(serialList));
+        mParmMap.put("attfiles", mGson.toJson(attfilesList));
+        presenter.post(0, "billsavenew", mParmMap);
     }
 }

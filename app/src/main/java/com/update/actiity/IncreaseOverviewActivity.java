@@ -117,6 +117,7 @@ public class IncreaseOverviewActivity extends BaseActivity {
                     showShortToast("请输入概况信息");
                 else {
                     mOverviewData.setBillid("0");//单据ID;为0或空时表示新增
+                    mOverviewData.setItemno("0");
                     mOverviewData.setLb("0");//概况=0，商品=1
                     mOverviewData.setGoodsid("0");
                     mOverviewData.setGoodsname(overview);

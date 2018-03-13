@@ -1,9 +1,11 @@
 package com.update.adapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.crcxj.activity.R;
 import com.update.model.FileChooseData;
 import com.update.viewholder.ViewHolderFactory;
@@ -22,8 +24,11 @@ import java.util.List;
  */
 public abstract class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderFactory.ChooseFileResultHolder> {
     private List<FileChooseData> mList;
+    private Activity mActivity;
 
-
+    public FileChooseAdapter(Activity activity) {
+        mActivity = activity;
+    }
 
     public void setList(List<FileChooseData> list) {
         mList = list;
@@ -36,7 +41,7 @@ public abstract class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderF
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolderFactory.ChooseFileResultHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolderFactory.ChooseFileResultHolder holder, final int position) {
         if (mList==null||mList.size() == position) {//判断是否是添加新文件的条目
             holder.ivDelete.setVisibility(View.GONE);
             holder.sivImage.setImageResource(R.mipmap.add);
@@ -48,10 +53,20 @@ public abstract class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderF
             });
         }else {
             holder.ivDelete.setVisibility(View.VISIBLE);
+            if(mList.get(position).getType()==0){
+                Glide.with(mActivity).load(mList.get(position).getUrl()).into(holder.sivImage);
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
+                }
+            });
+            holder.ivDelete.setOnClickListener(new View.OnClickListener() {//删除图片
+                @Override
+                public void onClick(View view) {
+                    mList.remove(position);
+                    notifyDataSetChanged();
                 }
             });
         }

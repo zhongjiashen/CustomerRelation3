@@ -1,5 +1,7 @@
 package com.update.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Author:    申中佳
  * Version    V1.0
@@ -11,14 +13,22 @@ package com.update.model;
  * 2018/3/6 0006         申中佳               V1.0
  */
 public class GoodsOrOverviewData {
-    private String billid ;//单据ID
-    private String itemno;//明细ID
-    private String lb ;// 概况=0，商品=1
-    private String goodsid;//商品ID  如果lb=0 则为0
-    private String goodsname;// 商品名称或概况内容
-    private String unitid;//计量单位ID
-    private String unitqty;//数量
-    private String serialinfo;// 序列号GUID
+    @SerializedName("billid")
+    private String billid;	//主单据ID
+    @SerializedName("itemno")
+    private String itemno;	//明细ID
+    @SerializedName("lb")
+    private String lb;	//概况=0，商品=1
+    @SerializedName("goodsid")
+    private String goodsid;	//商品ID  如果lb=0 则为0
+    @SerializedName("goodsname")
+    private String goodsname;	//商品名称或概况内容
+    @SerializedName("unitid")
+    private String unitid;	//计量单位ID
+    @SerializedName("unitqty")
+    private String unitqty;	//数量
+    @SerializedName("serialinfo")
+    private String serialinfo;//序列号GUID
 
     public String getBillid() {
         return billid;

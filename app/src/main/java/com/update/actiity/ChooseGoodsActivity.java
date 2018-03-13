@@ -130,7 +130,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
                             holder.vLine.setVisibility(View.VISIBLE);//横线显示
                             if (TextUtils.isEmpty(data.getSerialinfo())) {
                                 UUID uuid = UUID.randomUUID();
-                                data.setSerialinfo(uuid.toString());
+                                data.setSerialinfo(uuid.toString().toUpperCase());
                             }
                         } else {
                             holder.cbView.setChecked(false);
@@ -155,6 +155,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
                         possion = holder.getLayoutPosition();
                         showShortToast(possion + "");
                         startActivityForResult(new Intent(ChooseGoodsActivity.this, EnterSerialNumberActivity.class)
+                                .putExtra("billid", "0")
                                 .putExtra("uuid", data.getSerialinfo())
                                 .putExtra("DATA", mGson.toJson(data.getSerials())), 11);
 
