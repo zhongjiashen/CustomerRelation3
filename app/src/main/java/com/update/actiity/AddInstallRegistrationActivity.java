@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
-import com.cr.tools.PicUtil;
-import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -44,8 +42,6 @@ import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
-
-import org.kobjects.base64.Base64;
 
 import java.io.File;
 import java.net.URISyntaxException;

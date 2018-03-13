@@ -1,7 +1,8 @@
 package com.cr.tools;
 
 import android.content.Context;
-import android.util.Log;
+
+import com.update.utils.LogUtils;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -57,11 +58,11 @@ public class ServerRequest {
 		}
 		// sb.append(ServerURL.secret_key);
 		psb.append(",\"token\":\"" + MD5.getMD5(sb.toString()) + "\"}");
-		// Log.v("dddd",sb.toString());
+		// LogUtils.e(sb.toString());
 
 		// parmJson.put("token",MD5.getMD5(sb.toString()));
 		// parmJson.put("sid", ServerURL.sid);
-		// Log.v("dddd", psb.toString());
+		// LogUtils.e( psb.toString());
 		byte[] entitydata = ("{\"REQUEST_BODY\":" + psb.toString() + "}")
 				.getBytes();// 得到实体的二进制数据
 		URL url = new URL(path);
@@ -86,7 +87,7 @@ public class ServerRequest {
 			byte[] data = readInputStream(inStream);
 			String json = new String(data);
 			// System.out.println("json=" + json);
-			// Log.v("dddd", json);
+			// LogUtils.e( json);
 			return json;
 		}
 		// 服务器返回错误信息
@@ -114,7 +115,7 @@ public class ServerRequest {
 			byte[] data = readInputStream(inStream);
 			String json = new String(data);
 			// System.out.println("json=" + json);
-			// Log.v("dddd", json);
+			// LogUtils.e( json);
 			return json;
 		} else {
 			return null;
@@ -150,10 +151,10 @@ public class ServerRequest {
 		// 调用的方法名称
 		// String methodName = "GetJhbList";
 		String endPoint = ShareUserInfo.getIP(context)+":"+ShareUserInfo.getDK(context)+ServerURL.endPoint;
-//		Log.v("dddd","url:"+endPoint);
+//		LogUtils.e("url:"+endPoint);
 		String soapAction = ServerURL.nameSpace + "/" + methodName;
-		Log.v("dddd", "调用接口："+soapAction);
-		Log.v("dddd", "调用接口："+methodName);
+		LogUtils.e( "调用接口："+soapAction);
+		LogUtils.e( "调用接口："+methodName);
 		// 指定WebService的命名空间和调用的方法名
 		SoapObject rpc = new SoapObject(nameSpace, methodName);
 		String result = "";
@@ -167,7 +168,7 @@ public class ServerRequest {
 					} else {
 						rpc.addProperty(entry.getKey(), entry.getValue().toString());
 					}
-					Log.v("dddd", entry.getKey() + ":"
+					LogUtils.e( entry.getKey() + ":"
 							+ entry.getValue().toString());
 				}
 			}
@@ -186,24 +187,24 @@ public class ServerRequest {
 			transport.call(soapAction, envelope);
 			transport.debug = true;
 			// 获取返回的数据
-			Log.v("dddd",envelope.bodyIn+"");
+			LogUtils.e(envelope.bodyIn+"");
 			SoapObject object = (SoapObject) envelope.bodyIn;
 			// 获取返回的结果
-			Log.v("dddd", "ddd" + object.toString());
+			LogUtils.e( "ddd" + object.toString());
 			result = object.getProperty(methodName + "Result").toString();
 //			if(Character.isDigit(result.charAt(0))){
 //			    return "";
 //			}
 			// String result = object.toString();
 			if (result.equals("anyType{}")) {
-			    Log.v("dddd", "执行结果：");
+			    LogUtils.e( "执行结果：");
 				return "";
 			}
 			if (result.length()>6&&result.substring(0, 6).equals("false1")) {
-			    Log.v("dddd", "执行结果："+result);
+			    LogUtils.e( "执行结果："+result);
 				return "nmyqx";
 			}
-			Log.v("dddd", "执行结果：" + result);
+			LogUtils.e( "执行结果：" + result);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

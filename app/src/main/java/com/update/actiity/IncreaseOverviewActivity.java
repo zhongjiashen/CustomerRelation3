@@ -120,6 +120,8 @@ public class IncreaseOverviewActivity extends BaseActivity {
                     mOverviewData.setItemno("0");
                     mOverviewData.setLb("0");//概况=0，商品=1
                     mOverviewData.setGoodsid("0");
+                    mOverviewData.setSerialinfo("h");
+                    mOverviewData.setUnitid("0");
                     mOverviewData.setGoodsname(overview);
                     mOverviewData.setUnitqty(slView.getSl() + "");//数量
                     setResult(RESULT_OK, new Intent().putExtra("DATA", new Gson().toJson(mOverviewData)));
