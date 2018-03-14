@@ -1,6 +1,7 @@
 package com.update.actiity;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -8,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -44,6 +46,9 @@ import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -138,7 +143,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
         mGson = new Gson();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
-        bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH:mm:ss");
+        bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH|mm|ss");
     }
 
     /**
@@ -461,7 +466,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         master.setPhone(phone);
         master.setShipto(shipto);
         master.setBilldate(billdate);
-//        master.setBsrq(bsrq);
+        master.setBsrq(bsrq);
         master.setBxr(bxr);
         master.setSxfsid(sxfsid);
         master.setRegtype(regtype);
@@ -511,7 +516,34 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         mParmMap.put("master", mGson.toJson(masterList));
         mParmMap.put("detail", mGson.toJson(goodsOrOverviewDataList));
         mParmMap.put("serial", mGson.toJson(serialList));
-        mParmMap.put("attfiles", mGson.toJson(attfilesList));
+        if (attfilesList.size() != 0) {
+            mParmMap.put("attfiles", mGson.toJson(attfilesList));
+            setCache((String) mParmMap.get("attfiles"),this,"myfirst.txt",Context.MODE_WORLD_READABLE);
+        }
         presenter.post(0, "billsavenew", mParmMap);
     }
+    /**设置缓存
+     content是要存储的内容，可以是任意格式的，不一定是字符串。
+     */
+    public static void setCache(String content, Context context, String cacheFileName, int mode) {
+        FileOutputStream fos = null;
+        try {
+            //打开文件输出流，接收参数是文件名和模式
+            fos = context.openFileOutput(cacheFileName,mode);
+            fos.write(content.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
