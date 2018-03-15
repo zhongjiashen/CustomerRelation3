@@ -479,7 +479,6 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         masterList.add(master);
         List<GoodsOrOverviewData> goodsOrOverviewDataList = new ArrayList<>();
         List<Serial> serialList = new ArrayList<>();
-        goodsOrOverviewDataList.add(mOverviewData);// //添加概况信息
         for (int i = 0; i < mChooseGoodsDataList.size(); i++) {//增加商品信息
             ChooseGoodsData chooseGoodsData = mChooseGoodsDataList.get(i);
             GoodsOrOverviewData overviewData = new GoodsOrOverviewData();
@@ -496,7 +495,9 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 serialList.addAll(chooseGoodsData.getSerials());
 
         }
+        goodsOrOverviewDataList.add(mOverviewData);// //添加概况信息
         List<Attfiles> attfilesList = new ArrayList<>();
+        mFileChooseDatas=mFileChooseAdapter.getList();
         for (int i = 0; i < mFileChooseDatas.size(); i++) {
             Attfiles attfiles = new Attfiles();
             attfiles.setBillid("0");
@@ -546,4 +547,14 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 网路请求返回数据
+     *
+     * @param requestCode 请求码
+     * @param data        数据
+     */
+    @Override
+    public void returnData(int requestCode, Object data) {
+        super.returnData(requestCode, data);
+    }
 }

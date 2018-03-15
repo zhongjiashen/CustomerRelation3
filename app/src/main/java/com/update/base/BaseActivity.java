@@ -37,6 +37,7 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     protected BaseRecycleAdapter mAdapter;
     protected TakePhoto takePhoto;
     private InvokeParam invokeParam;
+    protected final int DATA_REFERSH=10;//刷新
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

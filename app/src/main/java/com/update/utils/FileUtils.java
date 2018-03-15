@@ -10,6 +10,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
+import com.cr.tools.PicUtil;
+
 import org.kobjects.base64.Base64;
 
 import java.io.File;
@@ -182,7 +184,8 @@ public class FileUtils {
         byte[] buffer = new byte[(int) file.length()];
         inputFile.read(buffer);
         inputFile.close();
-        return new Base64().encode(buffer);
+        return new String(Base64.encode(buffer));
+
 
     }
 }

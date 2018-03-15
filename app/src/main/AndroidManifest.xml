@@ -222,6 +222,10 @@
         <activity
             android:name="com.update.actiity.InstallRegistrationActivity"
             android:screenOrientation="portrait"/>
+        <!-- 安装维修-安装登记列表详情 -->
+        <activity
+            android:name="com.update.actiity.InstallRegistrationDetailsActivity"
+            android:screenOrientation="portrait"/>
         <!-- 安装维修-增加安装登记 -->
         <activity
             android:name="com.update.actiity.AddInstallRegistrationActivity"

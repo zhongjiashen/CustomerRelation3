@@ -205,6 +205,8 @@ public class ChooseGoodsActivity extends BaseActivity implements
      */
     @Override
     public void onRefresh(PullToRefreshLayout playout) {
+        page_number = 1;
+        mParmMap.put("curpage", page_number);
         presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
     }
 

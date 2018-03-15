@@ -35,6 +35,10 @@ public abstract class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderF
         notifyDataSetChanged();
     }
 
+    public List<FileChooseData> getList() {
+        return mList;
+    }
+
     @Override
     public ViewHolderFactory.ChooseFileResultHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return ViewHolderFactory.getChooseFileResultHolder(parent.getContext());

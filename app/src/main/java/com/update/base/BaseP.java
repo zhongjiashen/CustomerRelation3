@@ -52,7 +52,18 @@ public class BaseP {
      * @param url         请求路径
      * @param params         请求参数map
      */
-    public void post(final int requestCode, final String url, final Map<String, Object> params) {
+    public void post(int requestCode,String url, Map<String, Object> params) {
+        post(requestCode,url, params,true);
+    }
+
+
+    /**
+     * @param requestCode 请求码
+     * @param url         请求路径
+     * @param params         请求参数map
+     * @param dialog   是否显示加载对话框;true显示，false不显示
+     */
+    public void post(final int requestCode, final String url, final Map<String, Object> params,boolean dialog) {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {

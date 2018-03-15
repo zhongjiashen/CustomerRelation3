@@ -38,7 +38,7 @@
             android:textColor="@color/text_black"
             android:textSize="@dimen/word_small"/>
         <TextView
-            android:id="@+id/tv_maintenance_status"
+            android:id="@+id/tv_audit_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_company_name"
@@ -53,13 +53,13 @@
             android:textSize="@dimen/word_tiny"/>
 
         <TextView
-            android:id="@+id/tv_audit_status"
+            android:id="@+id/tv_maintenance_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_company_name"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginTop="@dimen/margin"
-            android:layout_toRightOf="@+id/tv_maintenance_status"
+            android:layout_toRightOf="@+id/tv_audit_status"
             android:background="@color/colorPrimary"
             android:paddingBottom="2dp"
             android:paddingLeft="5dp"

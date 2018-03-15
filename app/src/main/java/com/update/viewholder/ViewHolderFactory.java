@@ -91,15 +91,15 @@ public class ViewHolderFactory {
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_data)
-        TextView tvData;
+        public TextView tvData;
         @BindView(R.id.tv_receipt_number)
-        TextView tvReceiptNumber;
+        public TextView tvReceiptNumber;
         @BindView(R.id.tv_company_name)
-        TextView tvCompanyName;
+        public TextView tvCompanyName;
         @BindView(R.id.tv_audit_status)
-        TextView tvAuditStatus;
+        public TextView tvAuditStatus;
         @BindView(R.id.tv_maintenance_status)
-        TextView tvMaintenanceStatus;
+        public TextView tvMaintenanceStatus;
 
         InstallRegistrationHolder(View view) {
             super(view);
