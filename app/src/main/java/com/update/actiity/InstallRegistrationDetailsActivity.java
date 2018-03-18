@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.cr.tools.ServerURL;
@@ -15,8 +16,6 @@ import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
-import com.update.model.ChooseGoodsData;
-import com.update.model.GoodsOrOverviewData;
 import com.update.model.InstallRegistrationDetailsData;
 import com.update.model.InstallRegistrationScheduleData;
 import com.update.viewbar.TitleBar;
@@ -127,7 +126,30 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.ChooseGoodsResultHolder holder, InstallRegistrationScheduleData data) {
+            protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, final InstallRegistrationScheduleData data) {
+                holder.tvRegistrationNumber.setText("登记数量："+data.getUnitqty()+"个");
+                switch (data.getLb()){//0 概况（goodsname记录内容） ,1 商品
+                    case 0:
+                        holder.tvGoodsInformation.setText("概况信息");
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startActivity(new Intent(InstallRegistrationDetailsActivity.this, IncreaseOverviewActivity.class).putExtra("kind", 2)
+                                        .putExtra("DATA", new Gson().toJson(mGoodsOrOverviewDatas.get(holder.getLayoutPosition()))));
+                            }
+                        });
+                        break;
+                    case 1:
+                        holder.tvGoodsInformation.setText("商品信息");
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startActivity(new Intent(InstallRegistrationDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("kind", 2)
+                                        .putExtra("DATA", new Gson().toJson(mGoodsOrOverviewDatas.get(holder.getLayoutPosition()))));
+                            }
+                        });
+                        break;
+                }
 
             }
 

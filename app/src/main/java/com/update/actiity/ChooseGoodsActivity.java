@@ -109,7 +109,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 holder.tvCoding.setText("编码：" + data.getCode());
                 holder.tvSpecifications.setText("规格：" + data.getSpecs());
                 holder.tvModel.setText("型号：" + data.getModel());
-                holder.tvUnit.setText("名称：" + data.getUnitname());
+                holder.tvUnit.setText("单位：" + data.getUnitname());
                 holder.slView.setSl(data.getNumber());//设置数量
                 if (data.isCheck()) {//判断是否选中
                     holder.cbView.setChecked(true);//设置ChecBox的选中状态

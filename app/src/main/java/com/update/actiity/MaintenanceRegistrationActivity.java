@@ -1,6 +1,7 @@
 package com.update.actiity;
 
 import android.content.Intent;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.EditText;
@@ -9,7 +10,10 @@ import android.widget.TextView;
 
 import com.crcxj.activity.R;
 import com.update.base.BaseActivity;
+import com.update.base.BaseP;
 import com.update.viewbar.TitleBar;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,12 +44,19 @@ public class MaintenanceRegistrationActivity extends BaseActivity {
     @BindView(R.id.et_unit_name)
     EditText etUnitName;
 
+    private Map<String, Object> mParmMap;
+    /*上传参数变量*/
+    private int page_number;//页码
+
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
-
+        mParmMap = new ArrayMap<String, Object>();
+        presenter = new BaseP(this, this);
+        page_number = 1;
     }
 
     /**
@@ -79,7 +90,7 @@ public class MaintenanceRegistrationActivity extends BaseActivity {
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-                        startActivity(new Intent(MaintenanceRegistrationActivity.this,AddInstallRegistrationActivity.class));
+                        startActivity(new Intent(MaintenanceRegistrationActivity.this,NewMaintenanceRegistrationActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
                         openRightLayout();

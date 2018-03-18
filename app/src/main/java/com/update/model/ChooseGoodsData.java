@@ -64,9 +64,13 @@ public class ChooseGoodsData {
     /**
      * 是否被选中
      */
+    @SerializedName("check")
     private boolean check;
+    @SerializedName("number")
     private double number=1.0;//数量
+    @SerializedName("serialinfo")
     private String serialinfo;//序列号
+    @SerializedName("mSerials")
     private List<Serial> mSerials;//序列号临时保存集合
 
     public boolean isCheck() {

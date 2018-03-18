@@ -1,5 +1,6 @@
 package com.update.actiity;
 
+import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.base.BaseActivity;
+import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
@@ -18,11 +21,10 @@ import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
 import com.update.viewholder.ViewHolderFactory;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -76,12 +78,44 @@ public class PerformInstallationActivity extends BaseActivity implements
     private List mList;
     private TimePickerView mTimePickerView;
 
+
+    private Map<String, Object> mParmMap;
+    /*上传参数变量*/
+    private int page_number;//页码
+    private String start_time;//起始日期
+    private String end_time;//截止日期
+    private String shzt;//审核状态 (0未审 1已审 2 审核中   9全部)
+    private String fwjg;//安装结果ID	是 （0全部）
+    private String fwry;//安装人员ID	是 （0全部）
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        mParmMap=new ArrayMap<>();
         mList=new ArrayList();
+        Date date = new Date();
+        page_number = 1;
+        start_time = DateUtil.DateToString(date, "yyyy-MM-") + "01";
+        end_time = DateUtil.DateToString(date, "yyyy-MM-dd");
+        shzt = "9";
+        fwjg="0";
+        fwry="0";
+        mList = new ArrayList();
+        presenter = new BaseP(this, this);
+        mParmMap.put("dbname", ShareUserInfo.getDbName(this));
+        mParmMap.put("parms", "AZZX");
+        mParmMap.put("clientid", "0");
+        mParmMap.put("qsrq", start_time);
+        mParmMap.put("zzrq", end_time);
+        mParmMap.put("shzt", shzt);
+        mParmMap.put("fwjg", fwjg);
+        mParmMap.put("fwry", fwry);
+        mParmMap.put("opid", ShareUserInfo.getUserId(this));
+        mParmMap.put("curpage", page_number);//当前页
+        mParmMap.put("pagesize", "10");//每页加载数据大小
+        presenter.post(0,"billlistnew", mParmMap);
     }
 
     /**
@@ -144,16 +178,7 @@ public class PerformInstallationActivity extends BaseActivity implements
             drawerLayout.openDrawer(llMenu);
         }
     }
-    /**
-     * 初始化右边弹窗
-     */
-    private void initRightPopWindow(){
-        Date date=new Date();
-        tvTimeLeft.setText(DateUtil.DateToString(date,"yyyy-MM-")+"01");
-        tvTimeRight.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
-        tvAuditStatus.setText("全部");
-        etUnitName.setText("");
-    }
+
     /**
      * 下拉刷新
      */
@@ -183,23 +208,5 @@ public class PerformInstallationActivity extends BaseActivity implements
         }, 2000); //
     }
 
-    public void selectTime(final int i){
-        mTimePickerView.setTime(new Date());
-        mTimePickerView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date) {
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-                switch (i){
-                    case 0:
-                        tvTimeLeft.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
-                        break;
-                    case 1:
-                        tvTimeRight.setText(DateUtil.DateToString(date,"yyyy-MM-dd"));
-                        break;
-                }
 
-            }
-        });
-        mTimePickerView.show();
-    }
 }

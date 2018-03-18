@@ -2,6 +2,7 @@ package com.update.actiity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -73,10 +74,10 @@ public class IncreaseOverviewActivity extends BaseActivity {
     private void setTitlebar() {
 
         switch (mKind) {
-            case 0:
+            case 0://添加概况
                 titlebar.setTitleText(this, "增加概况");
                 break;
-            case 1:
+            case 1://修改删除概况
                 titlebar.setTitleText(this, "概况详情");
                 titlebar.setRightText("保存");
                 titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
@@ -99,6 +100,14 @@ public class IncreaseOverviewActivity extends BaseActivity {
                     }
                 });
                 btView.setText("删除");
+                mOverviewData = new Gson().fromJson(getIntent().getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
+                }.getType());
+                etOverview.setText(mOverviewData.getGoodsname());
+                slView.setSl(Double.valueOf(mOverviewData.getUnitqty()));
+                break;
+            case 2://只能查看概况
+                titlebar.setTitleText(this, "概况详情");
+                btView.setVisibility(View.GONE);
                 mOverviewData = new Gson().fromJson(getIntent().getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
                 }.getType());
                 etOverview.setText(mOverviewData.getGoodsname());

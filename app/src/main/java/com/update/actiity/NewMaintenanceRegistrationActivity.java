@@ -64,13 +64,13 @@ import butterknife.OnClick;
  * Author:    申中佳
  * Version    V1.0
  * Date:      2018/2/23 0023 下午 3:21
- * Description:添加安装登记
+ * Description:新增维修登记
  * Modification  History:
  * Date         	Author        		Version        	Description
  * -----------------------------------------------------------------------------------
  * 2018/2/23 0023         申中佳               V1.0
  */
-public class AddInstallRegistrationActivity extends BaseActivity {
+public class NewMaintenanceRegistrationActivity extends BaseActivity {
     @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.tv_unit_name)
@@ -165,10 +165,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         setTitlebar();
         tvSubmitTime.setText(bsrq);//设置默认报送时间
         tvDocumentDate.setText(billdate);//设置默认单据日期
-        sxfsid = "2";
-        tvServiceMode.setText("上门安装");
-        regtype = "1";
-        tvRatingCategory.setText("复杂安装");
+        sxfsid = "358";
+        tvServiceMode.setText("上门服务");
+        regtype = "0";
+        tvRatingCategory.setText("派工");
         priorid = "0";
         tvPriority.setText("普通");
 
@@ -180,7 +180,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getChooseGoodsResultHolder(AddInstallRegistrationActivity.this);
+                return ViewHolderFactory.getChooseGoodsResultHolder(NewMaintenanceRegistrationActivity.this);
             }
 
             @Override
@@ -190,7 +190,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         goods_possion=holder.getLayoutPosition();
-                        startActivityForResult(new Intent(AddInstallRegistrationActivity.this, ChooseGoodsDetailsActivity.class)
+                        startActivityForResult(new Intent(NewMaintenanceRegistrationActivity.this, ChooseGoodsDetailsActivity.class)
                                 .putExtra("kind", 1)
                                 .putExtra("DATA", new Gson().toJson(mChooseGoodsDataList.get( goods_possion))), 18);
                     }
@@ -204,7 +204,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         rcvChooseFileList.setAdapter(mFileChooseAdapter = new FileChooseAdapter(this) {
             @Override
             public void checkFile() {
-                DialogFactory.getFileChooseDialog(AddInstallRegistrationActivity.this, new OnDialogClickInterface() {
+                DialogFactory.getFileChooseDialog(NewMaintenanceRegistrationActivity.this, new OnDialogClickInterface() {
                     @Override
                     public void OnClick(int requestCode, Object object) {
                         switch (requestCode) {
@@ -242,7 +242,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "安装登记");
+        titlebar.setTitleText(this, "维修登记");
         titlebar.setRightText("保存");
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
@@ -279,10 +279,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 selectTime(0);
                 break;
             case R.id.ll_service_mode_choice://服务方式选择
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class), 14);
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 3), 14);
                 break;
             case R.id.ll_rating_category_choice://登记类别选择
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 1), 15);
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 4), 15);
                 break;
             case R.id.ll_priority_choice://优先级选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 2), 16);

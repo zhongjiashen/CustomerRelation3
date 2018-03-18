@@ -17,7 +17,6 @@ import com.update.model.DataDictionaryData;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,14 +54,20 @@ public class NetworkDataSingleOptionActivity extends BaseActivity {
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         switch (kind) {
-            case 0://服务方式
+            case 0://安装服务类型
                 mParmMap.put("zdbm", "AZFWLX");
                 break;
-            case 1://登记类别
+            case 1://安装登记类型
                 mParmMap.put("zdbm", "AZDJLX");
                 break;
             case 2://优先级
                 mParmMap.put("zdbm", "FWYXJ");
+                break;
+            case 3://维修服务类型（同ZDBM=’FWFS’,为了统一另加了这个）
+                mParmMap.put("zdbm", "WXFWLX");
+                break;
+            case 4://维修登记类型
+                mParmMap.put("zdbm", "WXDJLX");
                 break;
         }
         presenter.post(0, ServerURL.DATADICT, mParmMap);
