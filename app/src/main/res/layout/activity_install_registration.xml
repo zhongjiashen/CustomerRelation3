@@ -7,8 +7,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/background_white">
+        android:background="@color/background_white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
         <com.update.viewbar.TitleBar
             android:id="@+id/titlebar"
@@ -39,8 +41,9 @@
                 android:background="@null"
                 android:hint="输入单位名称/单据编号"
                 android:imeOptions="actionSearch"
-                android:inputType="text"/>
+                android:inputType="text" />
         </LinearLayout>
+
         <com.update.viewbar.refresh.PullToRefreshLayout
             android:id="@+id/pullToRefreshLayout_view"
             android:layout_width="match_parent"
@@ -63,8 +66,8 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:orientation="vertical"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,7 +76,8 @@
             android:text="起止日期"
             android:textColor="@color/black_color"
             android:textSize="@dimen/word_jmedium"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,29 +88,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:background="@color/gray_background"
+                android:padding="5dp"
                 android:text="2017-11-01"
                 android:textColor="@color/black_color"
-                android:textSize="@dimen/word_small"
-                android:padding="5dp"
-                android:background="@color/gray_background"/>
+                android:textSize="@dimen/word_small" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:text="—"
                 android:textColor="@color/black_color"
-                android:textSize="24sp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"/>
+                android:textSize="24sp" />
+
             <TextView
                 android:id="@+id/tv_time_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/gray_background"
+                android:padding="5dp"
                 android:text="2017-11-01"
                 android:textColor="@color/black_color"
-                android:textSize="@dimen/word_small"
-                android:padding="5dp"
-                android:background="@color/gray_background"/>
+                android:textSize="@dimen/word_small" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_audit_status"
             android:layout_width="match_parent"
@@ -114,6 +121,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,7 +129,8 @@
                 android:text="审核状态"
                 android:textColor="@color/black_color"
                 android:textSize="@dimen/word_jmedium"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_audit_status"
                 android:layout_width="wrap_content"
@@ -129,12 +138,14 @@
                 android:layout_marginRight="15dp"
                 android:text="全部"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/word_small"/>
+                android:textSize="@dimen/word_small" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/xyb_jt"/>
+                android:src="@drawable/xyb_jt" />
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -142,44 +153,49 @@
             android:text="单位名称"
             android:textColor="@color/black_color"
             android:textSize="@dimen/word_jmedium"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/et_unit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray_background"
             android:hint="请输入单位名称"
-            android:textColor="@color/text_gray"
-            android:textSize="14sp"
             android:padding="5dp"
-            android:background="@color/gray_background"/>
+            android:textColor="@color/text_gray"
+            android:textSize="14sp" />
+
         <View
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp">
+
             <Button
                 android:id="@+id/bt_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/button_gray"
                 android:text="重置"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/word_big"
-                android:background="@color/button_gray"/>
+                android:textSize="@dimen/word_big" />
+
             <Button
                 android:id="@+id/bt_query"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/colorPrimary"
                 android:text="查询"
                 android:textColor="@color/text_white"
-                android:textSize="@dimen/word_big"
-                android:background="@color/colorPrimary"/>
+                android:textSize="@dimen/word_big" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

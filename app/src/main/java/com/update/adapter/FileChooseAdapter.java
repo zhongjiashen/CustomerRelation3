@@ -10,6 +10,7 @@ import com.crcxj.activity.R;
 import com.update.model.FileChooseData;
 import com.update.viewholder.ViewHolderFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,7 @@ public abstract class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderF
 
     public FileChooseAdapter(Activity activity) {
         mActivity = activity;
+        mList=new ArrayList<>();
     }
 
     public void setList(List<FileChooseData> list) {

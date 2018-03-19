@@ -18,11 +18,10 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
-import com.update.actiity.choose.StateAuditChoiceActivity;
+import com.update.actiity.choose.ScreeningActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
-import com.update.model.ChooseGoodsData;
 import com.update.model.InstallRegistrationData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
@@ -214,7 +213,9 @@ public class InstallRegistrationActivity extends BaseActivity implements
                         startActivity(new Intent(InstallRegistrationActivity.this, AddInstallRegistrationActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
-                        openRightLayout();
+                        startActivityForResult(new Intent(InstallRegistrationActivity.this, ScreeningActivity.class)
+                                .putExtra("kind",0), 11);
+
                         break;
                 }
             }

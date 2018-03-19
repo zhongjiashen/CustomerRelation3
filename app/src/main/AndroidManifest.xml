@@ -1311,6 +1311,11 @@
 
 
         <!--选择-->
+        <!--筛选-->
+        <activity
+            android:name="com.update.actiity.choose.ScreeningActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!--审核状态选择-->
         <activity
             android:name="com.update.actiity.choose.StateAuditChoiceActivity"

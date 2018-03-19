@@ -581,5 +581,12 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
+        String result= (String) data;
+        if(TextUtils.isEmpty(result)||result.equals("false")){
+
+        }else {
+            showShortToast("添加成功");
+            finish();
+        }
     }
 }

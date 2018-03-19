@@ -41,10 +41,11 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
     protected void initVariables() {
         kind=getIntent().getIntExtra("kind",0);
         switch (kind){
-            case 0:
+            case 0://审核状态（安装登记列表）
                 mStrings = new String[]{"未审核", "已审核", "审核中", "全部"};
                 mResults = new String[]{"0", "1", "2", "9"};
                 break;
+
         }
 
     }
