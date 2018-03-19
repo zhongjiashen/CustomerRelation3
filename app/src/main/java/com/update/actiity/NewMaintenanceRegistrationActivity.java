@@ -171,7 +171,6 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         tvRatingCategory.setText("派工");
         priorid = "0";
         tvPriority.setText("普通");
-
         rlProfileInformation.setVisibility(View.GONE);//未添加概况信息，概况信息隐藏
 
         /* 选择商品集合信息处理 */
