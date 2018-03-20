@@ -38,8 +38,6 @@ public class NetworkDataSingleOptionActivity extends BaseActivity {
     TitleBar titlebar;
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-    private String[] mStrings;
-    private String[] mResults;
     private int kind;//
     private Map<String, Object> mParmMap;
     private List<DataDictionaryData> mList;
@@ -53,23 +51,30 @@ public class NetworkDataSingleOptionActivity extends BaseActivity {
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
-        switch (kind) {
-            case 0://安装服务类型
-                mParmMap.put("zdbm", "AZFWLX");
-                break;
-            case 1://安装登记类型
-                mParmMap.put("zdbm", "AZDJLX");
-                break;
-            case 2://优先级
-                mParmMap.put("zdbm", "FWYXJ");
-                break;
-            case 3://维修服务类型（同ZDBM=’FWFS’,为了统一另加了这个）
-                mParmMap.put("zdbm", "WXFWLX");
-                break;
-            case 4://维修登记类型
-                mParmMap.put("zdbm", "WXDJLX");
-                break;
-        }
+        mParmMap.put("zdbm",getIntent().getStringExtra("zdbm"));
+//        switch (kind) {
+//            case 0://安装服务类型
+//                mParmMap.put("zdbm", "AZFWLX");
+//                break;
+//            case 1://安装登记类型
+//                mParmMap.put("zdbm", "AZDJLX");
+//                break;
+//            case 2://优先级
+//                mParmMap.put("zdbm", "FWYXJ");
+//                break;
+//            case 3://维修服务类型（同ZDBM=’FWFS’,为了统一另加了这个）
+//                mParmMap.put("zdbm", "WXFWLX");
+//                break;
+//            case 4://维修登记类型
+//                mParmMap.put("zdbm", "WXDJLX");
+//                break;
+//            case 5://安装登记状态
+//                mParmMap.put("zdbm", "AZDJZT");
+//                break;
+//            case 6://安装登记状态
+//                mParmMap.put("zdbm", "AZDJZT");
+//                break;
+//        }
         presenter.post(0, ServerURL.DATADICT, mParmMap);
     }
 
@@ -97,17 +102,27 @@ public class NetworkDataSingleOptionActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
-        switch (kind) {
-            case 0://服务方式
-                titlebar.setTitleText(this, "服务方式选择");
-                break;
-            case 1://登记类别
-                titlebar.setTitleText(this, "登记类别选择");
-                break;
-            case 2://优先级
-                titlebar.setTitleText(this, "优先级选择");
-                break;
-        }
+        titlebar.setTitleText(this, getIntent().getStringExtra("title"));
+//        switch (kind) {
+//            case 0://服务方式
+//
+//                break;
+//            case 1://登记类别
+//                titlebar.setTitleText(this, "登记类别选择");
+//                break;
+//            case 2://优先级
+//                titlebar.setTitleText(this, "优先级选择");
+//                break;
+//            case 3://维修服务类型（同ZDBM=’FWFS’,为了统一另加了这个）
+//                titlebar.setTitleText(this, "维修服务类型选择");
+//                break;
+//            case 4://维修登记类型
+//                titlebar.setTitleText(this, "维修登记类型选择");
+//                break;
+//            case 5://安装登记状态
+//                titlebar.setTitleText(this, "安装登记状态选择");
+//                break;
+//        }
 
     }
 

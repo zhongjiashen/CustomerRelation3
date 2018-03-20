@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.crcxj.activity.R;
+import com.update.actiity.choose.ScreeningActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.viewbar.TitleBar;
@@ -93,7 +94,8 @@ public class MaintenanceRegistrationActivity extends BaseActivity {
                         startActivity(new Intent(MaintenanceRegistrationActivity.this,NewMaintenanceRegistrationActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
-                        openRightLayout();
+                        startActivityForResult(new Intent(MaintenanceRegistrationActivity.this, ScreeningActivity.class)
+                                .putExtra("kind",2), 11);
                         break;
                 }
             }

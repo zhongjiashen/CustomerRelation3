@@ -1,5 +1,6 @@
 package com.update.actiity;
 
+import android.content.Intent;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.ScreeningActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -163,7 +165,8 @@ public class PerformInstallationActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://打开右边侧滑菜单
-                        openRightLayout();
+                        startActivityForResult(new Intent(PerformInstallationActivity.this, ScreeningActivity.class)
+                                .putExtra("kind",1), 11);
                         break;
                 }
             }

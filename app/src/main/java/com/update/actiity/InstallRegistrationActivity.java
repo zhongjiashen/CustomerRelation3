@@ -97,7 +97,6 @@ public class InstallRegistrationActivity extends BaseActivity implements
     @Override
     protected void initVariables() {
         Date date = new Date();
-        page_number = 1;
         start_time = DateUtil.DateToString(date, "yyyy-MM-") + "01";
         end_time = DateUtil.DateToString(date, "yyyy-MM-dd");
         shzt = "9";
@@ -109,19 +108,22 @@ public class InstallRegistrationActivity extends BaseActivity implements
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("tabname", "tb_installreg");
         mParmMap.put("clientid", "0");
+
+        mParmMap.put("depid", "0");
+        mParmMap.put("empid", "0");
+
+        mParmMap.put("pagesize", "10");//每页加载数据大小
+        http();
+    }
+    private void http(){
+        page_number = 1;
         mParmMap.put("qsrq", start_time);
         mParmMap.put("zzrq", end_time);
         mParmMap.put("shzt", shzt);
         mParmMap.put("djzt", djzt);
-        mParmMap.put("depid", "0");
-        mParmMap.put("empid", "0");
         mParmMap.put("curpage", page_number);//当前页
-        mParmMap.put("pagesize", "10");//每页加载数据大小
         presenter.post(0, ServerURL.BILLLIST, mParmMap);
-//        mList.add("");
-//        mList.add("");
     }
-
     /**
      * 指定加载布局
      *
@@ -215,42 +217,23 @@ public class InstallRegistrationActivity extends BaseActivity implements
                     case 1://打开右边侧滑菜单
                         startActivityForResult(new Intent(InstallRegistrationActivity.this, ScreeningActivity.class)
                                 .putExtra("kind",0), 11);
-
                         break;
                 }
             }
         });
     }
 
-    // 右边菜单开关事件
-    public void openRightLayout() {
-        if (drawerLayout.isDrawerOpen(llMenu)) {
-            drawerLayout.closeDrawer(llMenu);
-        } else {
-            drawerLayout.openDrawer(llMenu);
-        }
-    }
 
-    /**
-     * 初始化右边弹窗
-     */
-    private void initRightPopWindow() {
-        Date date = new Date();
-        tvTimeLeft.setText(DateUtil.DateToString(date, "yyyy-MM-") + "01");
-        tvTimeRight.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
-        tvAuditStatus.setText("全部");
-        etUnitName.setText("");
-    }
 
 
     @OnClick({R.id.tv_time_left, R.id.tv_time_right, R.id.ll_audit_status, R.id.bt_reset, R.id.bt_query})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_time_left://开始时间选择
-                selectTime(0);
+//                selectTime(0);
                 break;
             case R.id.tv_time_right://结束时间选择
-                selectTime(1);
+//                selectTime(1);
                 break;
             case R.id.ll_audit_status://审核状态选择
                 startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class), 11);
@@ -285,42 +268,22 @@ public class InstallRegistrationActivity extends BaseActivity implements
     }
 
 
-    public void selectTime(final int i) {
-        // TimePickerView 同样有上面设置样式的方法
-        // 设置是否循环
-//        mTimePickerView.setCyclic(true);
-        // 设置滚轮文字大小
-//        mTimePickerView.setTextSize(TimePickerView.TextSize.SMALL);
-        // 设置时间可选范围(结合 setTime 方法使用,必须在)
-//        Calendar calendar = Calendar.getInstance();
-//        mTimePickerView.setRange(calendar.get(Calendar.YEAR) - 100, calendar.get(Calendar.YEAR));
-        // 设置选中时间
-        mTimePickerView.setTime(new Date());
-        mTimePickerView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date) {
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-                switch (i) {
-                    case 0:
-                        tvTimeLeft.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
-                        break;
-                    case 1:
-                        tvTimeRight.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
-                        break;
-                }
 
-            }
-        });
-        mTimePickerView.show();
-    }
 
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 11:
-                tvAuditStatus.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                start_time = data.getStringExtra("qsrq");
+                end_time = data.getStringExtra("zzrq");
+                shzt = data.getStringExtra("shzt");
+                djzt = data.getStringExtra("djzt");
+                http();
                 break;
         }
     }
+
+
+
 
     /**
      * 网路请求返回数据
@@ -365,5 +328,24 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 break;
         }
 
+    }
+    // 右边菜单开关事件
+    public void openRightLayout() {
+        if (drawerLayout.isDrawerOpen(llMenu)) {
+            drawerLayout.closeDrawer(llMenu);
+        } else {
+            drawerLayout.openDrawer(llMenu);
+        }
+    }
+
+    /**
+     * 初始化右边弹窗
+     */
+    private void initRightPopWindow() {
+        Date date = new Date();
+        tvTimeLeft.setText(DateUtil.DateToString(date, "yyyy-MM-") + "01");
+        tvTimeRight.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
+        tvAuditStatus.setText("全部");
+        etUnitName.setText("");
     }
 }

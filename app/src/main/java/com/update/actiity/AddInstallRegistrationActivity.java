@@ -279,13 +279,16 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 selectTime(0);
                 break;
             case R.id.ll_service_mode_choice://服务方式选择
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class), 14);
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm", "AZFWLX").putExtra("title","服务方式选择"), 14);
                 break;
             case R.id.ll_rating_category_choice://登记类别选择
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 1), 15);
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm","AZDJLX").putExtra("title","登记类别选择"), 15);
                 break;
             case R.id.ll_priority_choice://优先级选择
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 2), 16);
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm","FWYXJ").putExtra("title","优先级选择"), 16);
                 break;
             case R.id.tv_choose_goods://商品选择
                 startActivityForResult(new Intent(this, ChooseGoodsActivity.class), 17);

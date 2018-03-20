@@ -75,13 +75,13 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.StateAuditChoiceHolder holder, final String data) {
+            protected void MyonBindViewHolder(final ViewHolderFactory.StateAuditChoiceHolder holder, final String data) {
                 holder.tvText.setText(data);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT",data)
-                                .putExtra("CHOICE_RESULT_ID", data));
+                                .putExtra("CHOICE_RESULT_ID", mResults[holder.getLayoutPosition()]));
                         finish();
                     }
                 });
