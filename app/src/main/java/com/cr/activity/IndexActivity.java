@@ -71,10 +71,10 @@ import com.cr.tools.MyApplication;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
-import com.update.actiity.DetectionMaintenanceActivity;
-import com.update.actiity.InstallRegistrationActivity;
-import com.update.actiity.MaintenanceRegistrationActivity;
-import com.update.actiity.PerformInstallationActivity;
+import com.update.actiity.maintenance.DetectionMaintenanceActivity;
+import com.update.actiity.installation.InstallRegistrationActivity;
+import com.update.actiity.maintenance.MaintenanceRegistrationActivity;
+import com.update.actiity.installation.PerformInstallationActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

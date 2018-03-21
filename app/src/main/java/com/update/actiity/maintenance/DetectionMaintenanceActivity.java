@@ -1,4 +1,4 @@
-package com.update.actiity;
+package com.update.actiity.maintenance;
 
 import android.content.Intent;
 import android.widget.EditText;

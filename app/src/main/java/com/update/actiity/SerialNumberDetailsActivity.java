@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -33,6 +35,7 @@ public class SerialNumberDetailsActivity extends BaseActivity {
     private String serialinfo;//单据对应序列号列表的唯一guid
     private Map<String, Object> mParmMap;
     List<Serial> serials;
+
     @Override
     protected void initVariables() {
         billid = getIntent().getStringExtra("billid");
@@ -40,7 +43,7 @@ public class SerialNumberDetailsActivity extends BaseActivity {
         presenter = new BaseP(this, this);
         mParmMap = new ArrayMap<>();
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
-        mParmMap.put("tabname", "tb_installjob");
+        mParmMap.put("tabname", "tb_installreg");
         mParmMap.put("billid", billid);
         mParmMap.put("serno", "");
         mParmMap.put("serialinfo", serialinfo);
@@ -58,7 +61,7 @@ public class SerialNumberDetailsActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         rcvList.setLayoutManager(new LinearLayoutManager(this));
-        rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.SerialNumberHolder,Serial>(serials) {
+        rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.SerialNumberHolder, Serial>(serials) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
@@ -85,5 +88,8 @@ public class SerialNumberDetailsActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
+        serials = new Gson().fromJson((String) data, new TypeToken<List<Serial>>() {
+        }.getType());
+        mAdapter.setList(serials);
     }
 }

@@ -6,14 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.crcxj.activity.R;
-import com.update.actiity.AddInstallRegistrationActivity;
-import com.update.actiity.InstallRegistrationActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseRecycleAdapter;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import butterknife.BindView;

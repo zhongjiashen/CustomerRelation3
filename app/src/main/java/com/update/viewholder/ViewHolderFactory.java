@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -156,7 +157,18 @@ public class ViewHolderFactory {
         public LinearLayout llNumber;
         @BindView(R.id.v_line)
         public View vLine;
-
+        @BindView(R.id.tv_warranty_status)
+        public  TextView tvWarrantyStatus;
+        @BindView(R.id.ll_warranty_status)
+        public LinearLayout llWarrantyStatus;
+        @BindView(R.id.tv_fault_type)
+        public TextView tvFaultType;
+        @BindView(R.id.ll_fault_type)
+        public LinearLayout llFaultType;
+        @BindView(R.id.et_fault_description)
+        public EditText etFaultDescription;
+        @BindView(R.id.ll_maintenance)
+        public LinearLayout llMaintenance;
         ChooseGoodsHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -194,6 +206,7 @@ public class ViewHolderFactory {
         public SquareImageView sivImage;
         @BindView(R.id.iv_delete)
         public ImageView ivDelete;
+
         ChooseFileResultHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

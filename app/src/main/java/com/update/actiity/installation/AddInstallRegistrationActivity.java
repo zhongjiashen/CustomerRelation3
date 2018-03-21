@@ -1,4 +1,4 @@
-package com.update.actiity;
+package com.update.actiity.installation;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -542,7 +542,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         mParmMap.put("parms", "AZDJ");
         mParmMap.put("master", mGson.toJson(masterList));
         mParmMap.put("detail", mGson.toJson(goodsOrOverviewDataList));
-        mParmMap.put("serial", mGson.toJson(serialList));
+        mParmMap.put("serialinfo", mGson.toJson(serialList));
         if (attfilesList.size() != 0) {
             mParmMap.put("attfiles", mGson.toJson(attfilesList));
             setCache((String) mParmMap.get("attfiles"), this, "myfirst.txt", Context.MODE_WORLD_READABLE);

@@ -1,4 +1,4 @@
-package com.update.actiity;
+package com.update.actiity.installation;
 
 import android.content.Intent;
 import android.support.v4.util.ArrayMap;

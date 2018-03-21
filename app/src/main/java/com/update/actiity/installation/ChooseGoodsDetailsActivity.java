@@ -1,4 +1,4 @@
-package com.update.actiity;
+package com.update.actiity.installation;
 
 import android.content.Intent;
 import android.view.View;
@@ -10,6 +10,8 @@ import com.cr.myinterface.SLViewValueChange;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.EnterSerialNumberActivity;
+import com.update.actiity.SerialNumberDetailsActivity;
 import com.update.base.BaseActivity;
 import com.update.model.ChooseGoodsData;
 import com.update.model.InstallRegistrationScheduleData;

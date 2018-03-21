@@ -1,4 +1,4 @@
-package com.update.actiity;
+package com.update.actiity.maintenance;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,19 +6,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.update.actiity.choose.LocalDataSingleOptionActivity;
 import com.update.actiity.choose.ScreeningActivity;
+import com.update.actiity.installation.InstallRegistrationActivity;
+import com.update.actiity.installation.InstallRegistrationDetailsActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -29,28 +28,24 @@ import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
 import com.update.viewholder.ViewHolderFactory;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Author:    申中佳
  * Version    V1.0
- * Date:      2018/2/22 0022 上午 11:51
- * Description:安装登记界面
+ * Date:      2018/2/26 0026 上午 10:42
+ * Description:维修登记
  * Modification  History:
  * Date         	Author        		Version        	Description
  * -----------------------------------------------------------------------------------
- * 2018/2/22 0022         申中佳               V1.0
+ * 2018/2/26 0026         申中佳               V1.0
  */
-public class InstallRegistrationActivity extends BaseActivity implements
+public class MaintenanceRegistrationActivity extends BaseActivity implements
         PullToRefreshLayout.OnRefreshListener {
     @BindView(R.id.titlebar)
     TitleBar titlebar;
@@ -66,23 +61,11 @@ public class InstallRegistrationActivity extends BaseActivity implements
     TextView tvAuditStatus;
     @BindView(R.id.et_unit_name)
     EditText etUnitName;
-    @BindView(R.id.search)
-    EditText search;
-    @BindView(R.id.pullRecycle_view)
-    PullableRecyclerView pullRecycleView;
-    @BindView(R.id.ll_audit_status)
-    LinearLayout llAuditStatus;
-    @BindView(R.id.bt_reset)
-    Button btReset;
-    @BindView(R.id.bt_query)
-    Button btQuery;
     @BindView(R.id.pullToRefreshLayout_view)
     PullToRefreshLayout pullToRefreshLayoutView;
-
-
+    @BindView(R.id.pullRecycle_view)
+    PullableRecyclerView pullRecycleView;
     private List<InstallRegistrationData> mList;
-
-    private TimePickerView mTimePickerView;//时间选择弹窗
     private Map<String, Object> mParmMap;
     /*上传参数变量*/
     private int page_number;//页码
@@ -101,12 +84,11 @@ public class InstallRegistrationActivity extends BaseActivity implements
         end_time = DateUtil.DateToString(date, "yyyy-MM-dd");
         shzt = "9";
         djzt = "0";
-        mList = new ArrayList();
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("opid", ShareUserInfo.getUserId(this));
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
-        mParmMap.put("tabname", "tb_installreg");
+        mParmMap.put("tabname", "tb_servicereg");
         mParmMap.put("clientid", "0");
 
         mParmMap.put("depid", "0");
@@ -115,7 +97,8 @@ public class InstallRegistrationActivity extends BaseActivity implements
         mParmMap.put("pagesize", "10");//每页加载数据大小
         http();
     }
-    private void http(){
+
+    private void http() {
         page_number = 1;
         mParmMap.put("qsrq", start_time);
         mParmMap.put("zzrq", end_time);
@@ -124,6 +107,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
         mParmMap.put("curpage", page_number);//当前页
         presenter.post(0, ServerURL.BILLLIST, mParmMap);
     }
+
     /**
      * 指定加载布局
      *
@@ -146,7 +130,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getInstallRegistrationHolder(InstallRegistrationActivity.this);
+                return ViewHolderFactory.getInstallRegistrationHolder(MaintenanceRegistrationActivity.this);
             }
 
             @Override
@@ -189,22 +173,21 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivityForResult(new Intent(InstallRegistrationActivity.this, InstallRegistrationDetailsActivity.class)
-                                .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+//                        startActivityForResult(new Intent(InstallRegistrationActivity.this, InstallRegistrationDetailsActivity.class)
+//                                .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                     }
                 });
             }
 
         });
-        mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
-        initRightPopWindow();
+
     }
 
     /**
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "安装登记");
+        titlebar.setTitleText(this, "维修登记");
         titlebar.setIvRightTwoImageResource(R.drawable.oper);
         titlebar.setIvRightImageResource(R.mipmap.ic_add);
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
@@ -212,41 +195,17 @@ public class InstallRegistrationActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-                        startActivity(new Intent(InstallRegistrationActivity.this, AddInstallRegistrationActivity.class));
+                        startActivity(new Intent(MaintenanceRegistrationActivity.this, NewMaintenanceRegistrationActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
-                        startActivityForResult(new Intent(InstallRegistrationActivity.this, ScreeningActivity.class)
-                                .putExtra("kind",0), 11);
+                        startActivityForResult(new Intent(MaintenanceRegistrationActivity.this, ScreeningActivity.class)
+                                .putExtra("kind", 2), 11);
                         break;
                 }
             }
         });
     }
 
-
-
-
-    @OnClick({R.id.tv_time_left, R.id.tv_time_right, R.id.ll_audit_status, R.id.bt_reset, R.id.bt_query})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_time_left://开始时间选择
-//                selectTime(0);
-                break;
-            case R.id.tv_time_right://结束时间选择
-//                selectTime(1);
-                break;
-            case R.id.ll_audit_status://审核状态选择
-                startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class), 11);
-                break;
-            case R.id.bt_reset://重置
-                initRightPopWindow();
-                break;
-            case R.id.bt_query://查询
-                openRightLayout();
-
-                break;
-        }
-    }
 
     /**
      * 下拉刷新
@@ -267,9 +226,6 @@ public class InstallRegistrationActivity extends BaseActivity implements
         presenter.post(1, ServerURL.BILLLIST, mParmMap);
     }
 
-
-
-
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 11:
@@ -281,8 +237,6 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 break;
         }
     }
-
-
 
 
     /**
@@ -329,23 +283,6 @@ public class InstallRegistrationActivity extends BaseActivity implements
         }
 
     }
-    // 右边菜单开关事件
-    public void openRightLayout() {
-        if (drawerLayout.isDrawerOpen(llMenu)) {
-            drawerLayout.closeDrawer(llMenu);
-        } else {
-            drawerLayout.openDrawer(llMenu);
-        }
-    }
 
-    /**
-     * 初始化右边弹窗
-     */
-    private void initRightPopWindow() {
-        Date date = new Date();
-        tvTimeLeft.setText(DateUtil.DateToString(date, "yyyy-MM-") + "01");
-        tvTimeRight.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
-        tvAuditStatus.setText("全部");
-        etUnitName.setText("");
-    }
+
 }

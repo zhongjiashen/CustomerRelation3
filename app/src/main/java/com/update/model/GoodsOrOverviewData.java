@@ -29,6 +29,56 @@ public class GoodsOrOverviewData {
     private String unitqty;	//数量
     @SerializedName("serialinfo")
     private String serialinfo;//序列号GUID
+    @SerializedName("ensureid")
+    private String ensureid;// 保修状态ID
+    @SerializedName("ensurename")
+    private String ensurename;// 保修状态名称
+    @SerializedName("faultid")
+    private String faultid;// 故障类别ID
+    @SerializedName("faultname")
+    private String faultname;// 故障类别名称
+    @SerializedName("faultinfo")
+    private String faultinfo;//故障描述
+
+    public String getEnsurename() {
+        return ensurename;
+    }
+
+    public void setEnsurename(String ensurename) {
+        this.ensurename = ensurename;
+    }
+
+    public String getFaultname() {
+        return faultname;
+    }
+
+    public void setFaultname(String faultname) {
+        this.faultname = faultname;
+    }
+
+    public String getEnsureid() {
+        return ensureid;
+    }
+
+    public void setEnsureid(String ensureid) {
+        this.ensureid = ensureid;
+    }
+
+    public String getFaultid() {
+        return faultid;
+    }
+
+    public void setFaultid(String faultid) {
+        this.faultid = faultid;
+    }
+
+    public String getFaultinfo() {
+        return faultinfo;
+    }
+
+    public void setFaultinfo(String faultinfo) {
+        this.faultinfo = faultinfo;
+    }
 
     public String getBillid() {
         return billid;

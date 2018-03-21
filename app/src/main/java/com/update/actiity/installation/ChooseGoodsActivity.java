@@ -1,4 +1,4 @@
-package com.update.actiity;
+package com.update.actiity.installation;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +15,8 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.EnterSerialNumberActivity;
+import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -63,11 +65,14 @@ public class ChooseGoodsActivity extends BaseActivity implements
     private int possion;//item出发点击事件的位置
     private Gson mGson;
 
+    private int kind;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        kind=getIntent().getIntExtra("kind",0);
         mGson = new Gson();
         page_number = 1;
         presenter = new BaseP(this, this);
@@ -115,10 +120,16 @@ public class ChooseGoodsActivity extends BaseActivity implements
                     holder.cbView.setChecked(true);//设置ChecBox的选中状态
                     holder.llNumber.setVisibility(View.VISIBLE);//数量选择条目显示
                     holder.vLine.setVisibility(View.VISIBLE);//横线显示
+                    if(kind>0){
+                        holder.llMaintenance.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     holder.cbView.setChecked(false);
                     holder.llNumber.setVisibility(View.GONE);
                     holder.vLine.setVisibility(View.GONE);
+                    if(kind>0){
+                        holder.llMaintenance.setVisibility(View.GONE);
+                    }
                 }
                 holder.cbView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -128,6 +139,9 @@ public class ChooseGoodsActivity extends BaseActivity implements
                             holder.cbView.setChecked(true);//设置ChecBox的选中状态
                             holder.llNumber.setVisibility(View.VISIBLE);//数量选择条目显示
                             holder.vLine.setVisibility(View.VISIBLE);//横线显示
+                            if(kind>0){
+                                holder.llMaintenance.setVisibility(View.VISIBLE);
+                            }
                             if (TextUtils.isEmpty(data.getSerialinfo())) {
                                 UUID uuid = UUID.randomUUID();
                                 data.setSerialinfo(uuid.toString().toUpperCase());
@@ -136,6 +150,9 @@ public class ChooseGoodsActivity extends BaseActivity implements
                             holder.cbView.setChecked(false);
                             holder.llNumber.setVisibility(View.GONE);
                             holder.vLine.setVisibility(View.GONE);
+                            if(kind>0){
+                                holder.llMaintenance.setVisibility(View.GONE);
+                            }
                             data.setNumber(1.0);//取消选中数量恢复默认
                             holder.slView.setSl(data.getNumber());
                         }
@@ -144,7 +161,6 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 holder.slView.setOnValueChange(new SLViewValueChange() {//数量控件数量变换监听
                     @Override
                     public void onValueChange(double sl) {
-                        LogUtils.e("的身高多少");
                         data.setNumber(sl);
                     }
                 });
@@ -161,6 +177,44 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
                     }
                 });
+                if(kind>0){
+                    holder.tvWarrantyStatus.setText(data.getEnsurename());
+                    holder.llWarrantyStatus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            possion = holder.getLayoutPosition();
+                            startActivityForResult(new Intent(ChooseGoodsActivity.this, NetworkDataSingleOptionActivity.class)
+                                    .putExtra("zdbm", "BXZT").putExtra("title", "保修状态选择"), 12);
+                        }
+                    });
+                    holder.tvFaultType.setText(data.getFaultname());
+                    holder.llFaultType.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            possion = holder.getLayoutPosition();
+                            startActivityForResult(new Intent(ChooseGoodsActivity.this, NetworkDataSingleOptionActivity.class)
+                                    .putExtra("zdbm", "GZLB").putExtra("title", "故障类别选择"), 13);
+                        }
+                    });
+                    holder.etFaultDescription.setText(data.getFaultinfo());
+                    final int position=holder.getLayoutPosition();
+                    holder.etFaultDescription.setTag(position);
+                    holder.etFaultDescription.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            //关键点：1.给edittext设置tag，此tag用来与position做对比校验，验证当前选中的edittext是否为需要的控件;
+//                            2.焦点判断：只有当前有焦点的edittext才有更改数据的权限，否则会造成数据紊乱
+//                            3.edittext内数据变动直接直接更改datalist的数据值，以便滑动view时显示正确
+                            if ((Integer)holder.etFaultDescription.getTag() == position&& holder.etFaultDescription.hasFocus()) {
+                                data.setFaultinfo(s.toString());
+                            }
+                        }
+                    });
+                }
             }
 
         });
@@ -263,10 +317,25 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     @Override
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
-        //处理返回的序列号信息
-        List<Serial> serials = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
-        }.getType());
-        mList.get(possion).setSerials(serials);
+        switch (requestCode){
+            case 11:
+                //处理返回的序列号信息
+                List<Serial> serials = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
+                }.getType());
+                mList.get(possion).setSerials(serials);
+                break;
+            case 12://保修状态
+                mList.get(possion).setEnsureid(data.getStringExtra("CHOICE_RESULT_ID"));
+                mList.get(possion).setEnsurename(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                mAdapter.setList(mList);
+                break;
+            case 13://保修状态
+                mList.get(possion).setFaultid(data.getStringExtra("CHOICE_RESULT_ID"));
+                mList.get(possion).setFaultname(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                mAdapter.setList(mList);
+                break;
+        }
+
     }
 
     @OnClick(R.id.bt_view)
@@ -283,4 +352,5 @@ public class ChooseGoodsActivity extends BaseActivity implements
         finish();
 
     }
+
 }

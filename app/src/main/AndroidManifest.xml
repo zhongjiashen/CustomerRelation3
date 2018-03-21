@@ -220,39 +220,43 @@
 
         <!-- 安装维修-安装登记列表 -->
         <activity
-            android:name="com.update.actiity.InstallRegistrationActivity"
+            android:name="com.update.actiity.installation.InstallRegistrationActivity"
             android:screenOrientation="portrait"/>
         <!-- 安装维修-安装登记列表详情 -->
         <activity
-            android:name="com.update.actiity.InstallRegistrationDetailsActivity"
+            android:name="com.update.actiity.installation.InstallRegistrationDetailsActivity"
             android:screenOrientation="portrait"/>
         <!-- 安装维修-增加安装登记 -->
         <activity
-            android:name="com.update.actiity.AddInstallRegistrationActivity"
+            android:name="com.update.actiity.installation.AddInstallRegistrationActivity"
             android:screenOrientation="portrait"/>
         <!-- 安装维修-增加安装登记-增加概况-->
         <activity
-            android:name="com.update.actiity.IncreaseOverviewActivity"
+            android:name="com.update.actiity.installation.IncreaseOverviewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
         <!-- 安装维修-安装执行列表 -->
         <activity
-            android:name="com.update.actiity.PerformInstallationActivity"
+            android:name="com.update.actiity.installation.PerformInstallationActivity"
             android:screenOrientation="portrait"/>
 
         <!-- 安装维修-维修登记列表 -->
         <activity
-            android:name="com.update.actiity.MaintenanceRegistrationActivity"
+            android:name="com.update.actiity.maintenance.MaintenanceRegistrationActivity"
             android:screenOrientation="portrait"/>
         <!-- 安装维修-维修登记列表 -->
         <activity
-            android:name="com.update.actiity.NewMaintenanceRegistrationActivity"
+            android:name="com.update.actiity.maintenance.NewMaintenanceRegistrationActivity"
+            android:screenOrientation="portrait"/>
+        <!-- 安装维修-概况 -->
+        <activity
+            android:name="com.update.actiity.maintenance.OverviewActivity"
             android:screenOrientation="portrait"/>
 
         <!-- 安装维修-检测维修列表 -->
         <activity
-            android:name="com.update.actiity.DetectionMaintenanceActivity"
+            android:name="com.update.actiity.maintenance.DetectionMaintenanceActivity"
             android:screenOrientation="portrait"/>
 
 
@@ -1338,12 +1342,12 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!--商品选择-->
         <activity
-            android:name="com.update.actiity.ChooseGoodsActivity"
+            android:name="com.update.actiity.installation.ChooseGoodsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!--商品选择条目详情-->
         <activity
-            android:name="com.update.actiity.ChooseGoodsDetailsActivity"
+            android:name="com.update.actiity.installation.ChooseGoodsDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!--部门选择-->

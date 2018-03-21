@@ -1,4 +1,4 @@
-package com.update.actiity;
+package com.update.actiity.maintenance;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -22,6 +22,9 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.model.TResult;
+import com.update.actiity.installation.ChooseGoodsActivity;
+import com.update.actiity.installation.ChooseGoodsDetailsActivity;
+import com.update.actiity.installation.IncreaseOverviewActivity;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.ProjectSelectionActivity;
@@ -188,10 +191,10 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        goods_possion=holder.getLayoutPosition();
+                        goods_possion = holder.getLayoutPosition();
                         startActivityForResult(new Intent(NewMaintenanceRegistrationActivity.this, ChooseGoodsDetailsActivity.class)
                                 .putExtra("kind", 1)
-                                .putExtra("DATA", new Gson().toJson(mChooseGoodsDataList.get( goods_possion))), 18);
+                                .putExtra("DATA", new Gson().toJson(mChooseGoodsDataList.get(goods_possion))), 18);
                     }
                 });
 
@@ -278,25 +281,29 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 selectTime(0);
                 break;
             case R.id.ll_service_mode_choice://服务方式选择
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 3), 14);
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm", "WXFWLX").putExtra("title", "服务方式选择"), 14);
                 break;
             case R.id.ll_rating_category_choice://登记类别选择
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 4), 15);
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm", "WXDJLX").putExtra("title", "登记类别选择"), 14);
                 break;
             case R.id.ll_priority_choice://优先级选择
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class).putExtra("kind", 2), 16);
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm", "FWYXJ").putExtra("title", "优先级选择"), 16);
                 break;
             case R.id.tv_choose_goods://商品选择
-                startActivityForResult(new Intent(this, ChooseGoodsActivity.class), 17);
+                startActivityForResult(new Intent(this, ChooseGoodsActivity.class)
+                        .putExtra("kind", 1), 17);
                 break;
             case R.id.tv_adding_profile://增加概况
                 if (rlProfileInformation.getVisibility() == View.VISIBLE) {
                     showShortToast("已添加过概况信息");
                 } else
-                    startActivityForResult(new Intent(this, IncreaseOverviewActivity.class), 19);
+                    startActivityForResult(new Intent(this, OverviewActivity.class), 19);
                 break;
             case R.id.rl_profile_information://概况详情查看
-                startActivityForResult(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 1)
+                startActivityForResult(new Intent(this, OverviewActivity.class).putExtra("kind", 1)
                         .putExtra("DATA", new Gson().toJson(mOverviewData)), 20);
 
                 break;
@@ -351,15 +358,15 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 mAdapter.setList(mChooseGoodsDataList);
                 break;
             case 18://商品选择结果处理
-                switch (data.getIntExtra("KIND",0)){
+                switch (data.getIntExtra("KIND", 0)) {
                     case 0:
                         mChooseGoodsDataList.remove(goods_possion);
                         break;
                     case 1:
-                        ChooseGoodsData chooseGoodsData=mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<ChooseGoodsData>() {
+                        ChooseGoodsData chooseGoodsData = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<ChooseGoodsData>() {
                         }.getType());
                         LogUtils.d(mGson.toJson(mChooseGoodsDataList));
-                        mChooseGoodsDataList.set(goods_possion,chooseGoodsData);
+                        mChooseGoodsDataList.set(goods_possion, chooseGoodsData);
                         LogUtils.d(mGson.toJson(mChooseGoodsDataList));
                         break;
                 }
@@ -512,11 +519,16 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             overviewData.setUnitqty(chooseGoodsData.getNumber() + "");
             overviewData.setUnitid(chooseGoodsData.getUnitid() + "");
             overviewData.setSerialinfo(chooseGoodsData.getSerialinfo());
+            overviewData.setEnsureid(chooseGoodsData.getEnsureid());
+            overviewData.setFaultid(chooseGoodsData.getFaultid());
+            overviewData.setFaultinfo(chooseGoodsData.getFaultinfo());
             goodsOrOverviewDataList.add(overviewData);
             if (chooseGoodsData.getSerials() != null)
                 serialList.addAll(chooseGoodsData.getSerials());
 
         }
+        mOverviewData.setEnsurename(null);
+        mOverviewData.setFaultname(null);
         goodsOrOverviewDataList.add(mOverviewData);// //添加概况信息
         List<Attfiles> attfilesList = new ArrayList<>();
         mFileChooseDatas = mFileChooseAdapter.getList();
@@ -535,10 +547,10 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             attfilesList.add(attfiles);
         }
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
-        mParmMap.put("parms", "AZDJ");
+        mParmMap.put("parms", "WXDJ");
         mParmMap.put("master", mGson.toJson(masterList));
         mParmMap.put("detail", mGson.toJson(goodsOrOverviewDataList));
-        mParmMap.put("serial", mGson.toJson(serialList));
+        mParmMap.put("serialinfo", mGson.toJson(serialList));
         if (attfilesList.size() != 0) {
             mParmMap.put("attfiles", mGson.toJson(attfilesList));
             setCache((String) mParmMap.get("attfiles"), this, "myfirst.txt", Context.MODE_WORLD_READABLE);
@@ -579,6 +591,12 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
      */
     @Override
     public void returnData(int requestCode, Object data) {
-        super.returnData(requestCode, data);
+        String result= (String) data;
+        if(TextUtils.isEmpty(result)||result.equals("false")){
+
+        }else {
+            showShortToast("添加成功");
+            finish();
+        }
     }
 }
