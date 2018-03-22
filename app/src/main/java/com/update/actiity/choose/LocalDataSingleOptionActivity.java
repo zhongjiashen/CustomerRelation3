@@ -45,6 +45,10 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
                 mStrings = new String[]{"未审核", "已审核", "审核中", "全部"};
                 mResults = new String[]{"0", "1", "2", "9"};
                 break;
+            case 1://审核状态（安装登记列表）
+                mStrings = new String[]{"否", "是"};
+                mResults = new String[]{"0", "1"};
+                break;
 
         }
 
@@ -94,7 +98,15 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "审核状态选择");
+        switch (kind) {
+            case 0://审核状态（安装登记列表）
+                titlebar.setTitleText(this, "审核状态选择");
+                break;
+            case 1://审核状态（安装登记列表）
+                titlebar.setTitleText(this, "重新派工选择");
+                break;
+        }
+
     }
 
 }

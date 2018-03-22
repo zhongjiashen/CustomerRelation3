@@ -122,6 +122,17 @@ public class InstallRegistrationActivity extends BaseActivity implements
         mParmMap.put("curpage", page_number);//当前页
         presenter.post(0, ServerURL.BILLLIST, mParmMap);
     }
+
+    /**
+     * 刷新界面数据
+     */
+    @Override
+    protected void refersh() {
+        page_number = 1;
+        mParmMap.put("curpage", page_number);//当前页
+        presenter.post(0, ServerURL.BILLLIST, mParmMap);
+    }
+
     /**
      * 指定加载布局
      *
@@ -170,17 +181,17 @@ public class InstallRegistrationActivity extends BaseActivity implements
                         holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                         break;
                 }
-                switch (data.getDjzt()) {//登记状态设置,审核状态(0未审 1已审 2 审核中)
+                switch (data.getDjzt()) {//登记状态设置
                     case 1://未处理
                         holder.tvMaintenanceStatus.setText("未处理");
                         holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                         break;
-                    case 0://已审
-                        holder.tvMaintenanceStatus.setText("已审核");
+                    case 2://处理中
+                        holder.tvMaintenanceStatus.setText("处理中");
                         holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                         break;
-                    case 2://审核中
-                        holder.tvMaintenanceStatus.setText("审核中");
+                    case 3://已完成
+                        holder.tvMaintenanceStatus.setText("已完成");
                         holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                         break;
                 }

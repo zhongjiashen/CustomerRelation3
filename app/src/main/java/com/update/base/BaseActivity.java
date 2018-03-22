@@ -37,7 +37,7 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     protected BaseRecycleAdapter mAdapter;
     protected TakePhoto takePhoto;
     private InvokeParam invokeParam;
-    protected final int DATA_REFERSH=10;//刷新
+    protected final int DATA_REFERSH = 10;//刷新
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,13 +138,25 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
         getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            try {
-                onMyActivityResult(requestCode, resultCode, data);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
+            switch (requestCode) {
+                case DATA_REFERSH:
+                    refersh();
+                    break;
+                default:
+                    try {
+                        onMyActivityResult(requestCode, resultCode, data);
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
             }
+
         }
     }
+
+    /**
+     * 刷新界面数据
+     */
+    protected void refersh(){};
 
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
     }
@@ -182,6 +194,7 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     public void takeFail(TResult result, String msg) {
 
     }
+
     @Override
     public void takeCancel() {
         showShortToast("取消当前操作！");
@@ -198,8 +211,8 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
             takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
         }
         takePhoto.onEnableCompress(new CompressConfig.Builder()
-                .setMaxSize(50*1024).setMaxPixel(800)
-                .create(),true);
+                .setMaxSize(50 * 1024).setMaxPixel(800)
+                .create(), true);
         return takePhoto;
     }
 

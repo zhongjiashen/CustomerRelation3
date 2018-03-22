@@ -1,22 +1,29 @@
 package com.update.actiity.installation;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ScreeningActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
+import com.update.model.InstallRegistrationData;
+import com.update.model.PerformInstallationData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
@@ -77,7 +84,7 @@ public class PerformInstallationActivity extends BaseActivity implements
     @BindView(R.id.et_goods_name)
     EditText etGoodsName;
 
-    private List mList;
+    private List<PerformInstallationData> mList;
     private TimePickerView mTimePickerView;
 
 
@@ -95,31 +102,43 @@ public class PerformInstallationActivity extends BaseActivity implements
      */
     @Override
     protected void initVariables() {
-        mParmMap=new ArrayMap<>();
-        mList=new ArrayList();
+        mParmMap = new ArrayMap<>();
+        mList = new ArrayList();
         Date date = new Date();
-        page_number = 1;
         start_time = DateUtil.DateToString(date, "yyyy-MM-") + "01";
         end_time = DateUtil.DateToString(date, "yyyy-MM-dd");
         shzt = "9";
-        fwjg="0";
-        fwry="0";
+        fwjg = "0";
+        fwry = "0";
         mList = new ArrayList();
         presenter = new BaseP(this, this);
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("parms", "AZZX");
         mParmMap.put("clientid", "0");
+        mParmMap.put("opid", ShareUserInfo.getUserId(this));
+        mParmMap.put("pagesize", "10");//每页加载数据大小
+        http();
+    }
+
+    private void http() {
+        page_number = 1;
         mParmMap.put("qsrq", start_time);
         mParmMap.put("zzrq", end_time);
         mParmMap.put("shzt", shzt);
         mParmMap.put("fwjg", fwjg);
         mParmMap.put("fwry", fwry);
-        mParmMap.put("opid", ShareUserInfo.getUserId(this));
         mParmMap.put("curpage", page_number);//当前页
-        mParmMap.put("pagesize", "10");//每页加载数据大小
-        presenter.post(0,"billlistnew", mParmMap);
+        presenter.post(0, "billlistnew", mParmMap);
     }
-
+    /**
+     * 刷新界面数据
+     */
+    @Override
+    protected void refersh() {
+        page_number = 1;
+        mParmMap.put("curpage", page_number);//当前页
+        presenter.post(0, "billlistnew", mParmMap);
+    }
     /**
      * 指定加载布局
      *
@@ -138,16 +157,51 @@ public class PerformInstallationActivity extends BaseActivity implements
         setTitlebar();
         pullToRefreshLayoutView.setOnRefreshListener(this);
         pullRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        pullRecycleView.setAdapter(mAdapter=new BaseRecycleAdapter<ViewHolderFactory.PerformInstallationHolder,String>(mList) {
+        pullRecycleView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.PerformInstallationHolder, PerformInstallationData>(mList) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getPerformInstallationHolder(PerformInstallationActivity .this);
+                return ViewHolderFactory.getPerformInstallationHolder(PerformInstallationActivity.this);
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.PerformInstallationHolder holder, String data) {
+            protected void MyonBindViewHolder(ViewHolderFactory.PerformInstallationHolder holder, final PerformInstallationData data) {
+                holder.tvCompanyName.setText(data.getCname());
+                holder.tvTechnician.setText(data.getEmpnames());
+                holder.tvCommodityInformation.setText(data.getGoodsname());
+                switch (data.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                    case 0://未审
+                        holder.tvAuditStatus.setText("未审核");
+                        holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                        break;
+                    case 1://已审
+                        holder.tvAuditStatus.setText("已审核");
+                        holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                        break;
 
+                }
+                switch (data.getWxjgid()) {//执行结果设置
+                    case 1://未处理
+                        holder.tvMaintenanceStatus.setText(data.getWxjgname());
+                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                        break;
+                    case 2://处理中
+                        holder.tvMaintenanceStatus.setText(data.getWxjgname());
+                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                        break;
+                    case 3://已完成
+                        holder.tvMaintenanceStatus.setText(data.getWxjgname());
+                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#00CC00"));
+                        break;
+                }
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivityForResult(new Intent(PerformInstallationActivity.this,  InstallationDetailsActivity.class)
+                                .putExtra("itemno", data.getItemno() + "")
+                                .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                    }
+                });
             }
 
         });
@@ -166,20 +220,11 @@ public class PerformInstallationActivity extends BaseActivity implements
                 switch (i) {
                     case 0://打开右边侧滑菜单
                         startActivityForResult(new Intent(PerformInstallationActivity.this, ScreeningActivity.class)
-                                .putExtra("kind",1), 11);
+                                .putExtra("kind", 1), 11);
                         break;
                 }
             }
         });
-    }
-
-    // 右边菜单开关事件
-    public void openRightLayout() {
-        if (drawerLayout.isDrawerOpen(llMenu)) {
-            drawerLayout.closeDrawer(llMenu);
-        } else {
-            drawerLayout.openDrawer(llMenu);
-        }
     }
 
     /**
@@ -187,13 +232,9 @@ public class PerformInstallationActivity extends BaseActivity implements
      */
     @Override
     public void onRefresh(PullToRefreshLayout playout) {
-        pullToRefreshLayoutView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pullToRefreshLayoutView.refreshFinish(true);
-
-            }
-        }, 2000); //
+        page_number = 1;
+        mParmMap.put("curpage", page_number);//当前页
+        presenter.post(0, "billlistnew", mParmMap);
     }
 
     /**
@@ -201,15 +242,68 @@ public class PerformInstallationActivity extends BaseActivity implements
      */
     @Override
     public void onLoadMore(PullToRefreshLayout pullLayout) {
-        pullToRefreshLayoutView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pullToRefreshLayoutView.loadMoreFinish(true);
-                mList.add("");
-                mList.add("");
-            }
-        }, 2000); //
+        mParmMap.put("curpage", (page_number + 1));
+        presenter.post(0, "billlistnew", mParmMap);
     }
 
 
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 11:
+                start_time = data.getStringExtra("qsrq");
+                end_time = data.getStringExtra("zzrq");
+                shzt = data.getStringExtra("shzt");
+                fwjg = data.getStringExtra("fwjg");
+                fwry = data.getStringExtra("fwry");
+
+                http();
+                break;
+        }
+    }
+
+
+    /**
+     * 网路请求返回数据
+     *
+     * @param requestCode 请求码
+     * @param data        数据
+     */
+    @Override
+    public void returnData(int requestCode, Object data) {
+        Gson gson = new Gson();
+        List<PerformInstallationData> list = gson.fromJson((String) data,
+                new TypeToken<List<PerformInstallationData>>() {
+                }.getType());
+        switch (requestCode) {
+            case 0://第一次加载数据或者刷新数据
+                mList = list;
+                mAdapter.setList(mList);
+                break;
+            case 1:
+                if (list == null || list.size() == 0) {
+                    showShortToast("没有更多内容");
+                } else {
+                    page_number = page_number + 1;
+                    mList.addAll(list);
+                    mAdapter.setList(mList);
+                }
+                break;
+        }
+    }
+
+    /**
+     * 网络请求结束
+     */
+    @Override
+    public void httpFinish(int requestCode) {
+        switch (requestCode) {
+            case 0:
+                pullToRefreshLayoutView.refreshFinish(true);//刷新完成
+                break;
+            case 1:
+                pullToRefreshLayoutView.loadMoreFinish(true);
+                break;
+        }
+
+    }
 }

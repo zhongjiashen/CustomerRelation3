@@ -110,15 +110,15 @@ public class ViewHolderFactory {
 
     public static class PerformInstallationHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_company_name)
-        TextView tvCompanyName;
+        public TextView tvCompanyName;
         @BindView(R.id.tv_technician)
-        TextView tvTechnician;
+        public TextView tvTechnician;
         @BindView(R.id.tv_commodity_information)
-        TextView tvCommodityInformation;
+        public TextView tvCommodityInformation;
         @BindView(R.id.tv_maintenance_status)
-        TextView tvMaintenanceStatus;
+        public TextView tvMaintenanceStatus;
         @BindView(R.id.tv_audit_status)
-        TextView tvAuditStatus;
+        public TextView tvAuditStatus;
 
         PerformInstallationHolder(View view) {
             super(view);
