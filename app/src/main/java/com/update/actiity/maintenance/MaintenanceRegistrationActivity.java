@@ -173,8 +173,8 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        startActivityForResult(new Intent(InstallRegistrationActivity.this, InstallRegistrationDetailsActivity.class)
-//                                .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                    startActivityForResult(new Intent(MaintenanceRegistrationActivity.this, MaintenanceDetailsActivity.class)
+                                .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                     }
                 });
             }
