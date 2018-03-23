@@ -19,6 +19,7 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
+import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.adapter.FileChooseAdapter;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
@@ -201,21 +202,29 @@ public class InstallationDetailsActivity extends BaseActivity {
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                     break;
             }
-            tvUnitName.setText(mData.getCname());
-            tvContacts.setText(mData.getLxrname());
-            tvContactNumber.setText(mData.getPhone());
-            tvAddress.setText(mData.getShipto());
-            tvSubmitTime.setText(mData.getBsrq());
-            tvTechnicalPersonnel.setText(mData.getEmpnames());
-            tvDispatchDocuments.setText(mData.getCode());
-            tvDispatchDate.setText(mData.getBilldate());
-            tvExecutionStatus.setText(mData.getZxjg());
-            tvGoodsInformation.setText(mData.getGoodsname());
-            tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
+            tvUnitName.setText(mData.getCname());//单位名称
+            tvContacts.setText(mData.getLxrname());//联系人
+            tvContactNumber.setText(mData.getPhone());//联系电话
+            tvAddress.setText(mData.getShipto());//地址
+            tvSubmitTime.setText(mData.getBsrq());//报送时间
+            tvTechnicalPersonnel.setText(mData.getEmpnames());//技术人员
+            tvDispatchDocuments.setText(mData.getCode());//派工单据
+            tvDispatchDate.setText(mData.getBilldate());//派工日期
+            tvExecutionStatus.setText(mData.getZxjg());//执行状态
+            if(mData.getLb()==1) {
+                tvGoodsInformation.setText(mData.getGoodsname());
+                tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
+            }else {
+                tvGoodsInformation.setText("概况信息");
+                tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + "个");
+            }
+            tvInstalledResults.setText(mData.getWxjgname());//安装结果设置
             if (mData.getIsreturn() == 1)//是否重新派工
                 tvRework.setText("是");
             else
                 tvRework.setText("否");
+            etInstallationNumber.setText(mData.getYesqty()+"");//安装数量
+            etUnloaded.setText(mData.getNoqty()+"");//未装数量
         }
     }
 
@@ -227,10 +236,16 @@ public class InstallationDetailsActivity extends BaseActivity {
                         .putExtra("billid", mData.getInstallregid() + ""), DATA_REFERSH);
                 break;
             case R.id.rl_goods_information://商品信息
+                if(mData.getLb()==1)
                 startActivity(new Intent(InstallationDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("kind", 2)
-                        .putExtra("DATA", new Gson().toJson(mData)));
+                        .putExtra("DATA", mGson.toJson(mData)));
+                else
+                    startActivity(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 2)
+                            .putExtra("DATA",mGson.toJson(mData)));
                 break;
             case R.id.ll_installed_results://安装结果
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm", "AZJG").putExtra("title", "安装结果"), 11);
                 break;
             case R.id.ll_rework://重新派工
                 startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class)
@@ -249,6 +264,9 @@ public class InstallationDetailsActivity extends BaseActivity {
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         super.onMyActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case 11:
+                tvInstalledResults.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                break;
             case 12://重新派工
                 tvRework.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 mData.setIsreturn(Integer.parseInt(data.getStringExtra("CHOICE_RESULT_ID")));

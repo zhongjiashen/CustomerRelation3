@@ -92,7 +92,7 @@ public class InstallationDetailsData {
     @SerializedName("isreturn")
     private int isreturn;
     @SerializedName("yesqty")
-    private Object yesqty;
+    private double yesqty;
     @SerializedName("noqty")
     private double noqty;
     @SerializedName("begindate")
@@ -284,11 +284,11 @@ public class InstallationDetailsData {
         this.isreturn = isreturn;
     }
 
-    public Object getYesqty() {
+    public double getYesqty() {
         return yesqty;
     }
 
-    public void setYesqty(Object yesqty) {
+    public void setYesqty(double yesqty) {
         this.yesqty = yesqty;
     }
 
