@@ -252,6 +252,10 @@
         <activity
             android:name="com.update.actiity.maintenance.MaintenanceDetailsActivity"
             android:screenOrientation="portrait"/>
+        <!-- 安装维修-维修登记列表详情 -->
+        <activity
+            android:name="com.update.actiity.maintenance.GoodsDetailsActivity"
+            android:screenOrientation="portrait"/>
         <!-- 安装维修-维修登记列表 -->
         <activity
             android:name="com.update.actiity.maintenance.NewMaintenanceRegistrationActivity"

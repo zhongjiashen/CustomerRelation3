@@ -147,7 +147,7 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                startActivity(new Intent(MaintenanceDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("kind", 2)
+                                startActivity(new Intent(MaintenanceDetailsActivity.this, GoodsDetailsActivity.class).putExtra("kind", 2)
                                         .putExtra("DATA", new Gson().toJson(mGoodsOrOverviewDatas.get(holder.getLayoutPosition()))));
                             }
                         });

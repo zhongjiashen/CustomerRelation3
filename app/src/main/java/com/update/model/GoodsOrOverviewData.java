@@ -26,7 +26,7 @@ public class GoodsOrOverviewData {
     @SerializedName("unitid")
     private String unitid;	//计量单位ID
     @SerializedName("unitqty")
-    private String unitqty;	//数量
+    private double unitqty;	//数量
     @SerializedName("serialinfo")
     private String serialinfo;//序列号GUID
     @SerializedName("ensureid")
@@ -39,6 +39,24 @@ public class GoodsOrOverviewData {
     private String faultname;// 故障类别名称
     @SerializedName("faultinfo")
     private String faultinfo;//故障描述
+    /**
+     * serviceregid : 15
+     * goodscode : 12071
+     * specs : null
+     * model : 6MM
+     * unitname : 台
+     */
+
+    @SerializedName("serviceregid")
+    private int serviceregid;
+    @SerializedName("goodscode")
+    private String goodscode;
+    @SerializedName("specs")
+    private Object specs;
+    @SerializedName("model")
+    private String model;
+    @SerializedName("unitname")
+    private String unitname;
 
     public String getEnsurename() {
         return ensurename;
@@ -128,11 +146,11 @@ public class GoodsOrOverviewData {
         this.unitid = unitid;
     }
 
-    public String getUnitqty() {
+    public double getUnitqty() {
         return unitqty;
     }
 
-    public void setUnitqty(String unitqty) {
+    public void setUnitqty(double unitqty) {
         this.unitqty = unitqty;
     }
 
@@ -142,5 +160,45 @@ public class GoodsOrOverviewData {
 
     public void setSerialinfo(String serialinfo) {
         this.serialinfo = serialinfo;
+    }
+
+    public void setServiceregid(int serviceregid) {
+        this.serviceregid = serviceregid;
+    }
+
+    public void setGoodscode(String goodscode) {
+        this.goodscode = goodscode;
+    }
+
+    public void setSpecs(Object specs) {
+        this.specs = specs;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setUnitname(String unitname) {
+        this.unitname = unitname;
+    }
+
+    public int getServiceregid() {
+        return serviceregid;
+    }
+
+    public String getGoodscode() {
+        return goodscode;
+    }
+
+    public Object getSpecs() {
+        return specs;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getUnitname() {
+        return unitname;
     }
 }

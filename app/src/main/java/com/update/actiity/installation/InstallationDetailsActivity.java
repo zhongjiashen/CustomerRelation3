@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.update.dialog.DialogFactory;
 import com.update.dialog.OnDialogClickInterface;
 import com.update.model.FileChooseData;
 import com.update.model.InstallationDetailsData;
+import com.update.model.request.PerformSituationData;
 import com.update.utils.DateUtil;
 import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
@@ -35,10 +37,12 @@ import com.update.viewbar.TitleBar;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -107,12 +111,15 @@ public class InstallationDetailsActivity extends BaseActivity {
     private TimePickerView mTimePickerView;//时间选择弹窗
     InstallationDetailsData mData;
     private FileChooseAdapter mFileChooseAdapter;
-
+    PerformSituationData mDetail;
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        mDetail =new PerformSituationData();
+        UUID uuid = UUID.randomUUID();
+        mDetail.setSerialinfo(uuid.toString().toUpperCase());
         mGson = new Gson();
         billid = getIntent().getStringExtra("billid");
         itemno = getIntent().getStringExtra("itemno");
@@ -139,6 +146,7 @@ public class InstallationDetailsActivity extends BaseActivity {
      */
     @Override
     protected void init() {
+        setTitlebar();
  /* 选择文件集合信息处理 */
         rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
         rcvChooseFileList.setAdapter(mFileChooseAdapter = new FileChooseAdapter(this) {
@@ -179,6 +187,26 @@ public class InstallationDetailsActivity extends BaseActivity {
     }
 
     /**
+     * 标题头设置
+     */
+    private void setTitlebar() {
+        titlebar.setTitleText(this, "安装执行");
+        titlebar.setRightText("保存");
+        titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
+            @Override
+            public void onClick(int i) {
+                switch (i) {
+                    case 2:
+                        mData.setPlaninfo(etInstallationMeasures.getText().toString());
+                        saveData();
+                        break;
+
+                }
+            }
+        });
+    }
+
+    /**
      * 网路请求返回数据
      *
      * @param requestCode 请求码
@@ -211,10 +239,10 @@ public class InstallationDetailsActivity extends BaseActivity {
             tvDispatchDocuments.setText(mData.getCode());//派工单据
             tvDispatchDate.setText(mData.getBilldate());//派工日期
             tvExecutionStatus.setText(mData.getZxjg());//执行状态
-            if(mData.getLb()==1) {
+            if (mData.getLb() == 1) {
                 tvGoodsInformation.setText(mData.getGoodsname());
                 tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
-            }else {
+            } else {
                 tvGoodsInformation.setText("概况信息");
                 tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + "个");
             }
@@ -223,8 +251,11 @@ public class InstallationDetailsActivity extends BaseActivity {
                 tvRework.setText("是");
             else
                 tvRework.setText("否");
-            etInstallationNumber.setText(mData.getYesqty()+"");//安装数量
-            etUnloaded.setText(mData.getNoqty()+"");//未装数量
+            etInstallationNumber.setText(mData.getYesqty() + "");//安装数量
+            etUnloaded.setText(mData.getNoqty() + "");//未装数量
+            tvStartTime.setText(mData.getBegindate());
+            tvEndTime.setText(mData.getEnddate());
+            etInstallationMeasures.setText(mData.getPlaninfo());
         }
     }
 
@@ -236,12 +267,12 @@ public class InstallationDetailsActivity extends BaseActivity {
                         .putExtra("billid", mData.getInstallregid() + ""), DATA_REFERSH);
                 break;
             case R.id.rl_goods_information://商品信息
-                if(mData.getLb()==1)
-                startActivity(new Intent(InstallationDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("kind", 2)
-                        .putExtra("DATA", mGson.toJson(mData)));
+                if (mData.getLb() == 1)
+                    startActivity(new Intent(InstallationDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("kind", 2)
+                            .putExtra("DATA", mGson.toJson(mData)));
                 else
                     startActivity(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 2)
-                            .putExtra("DATA",mGson.toJson(mData)));
+                            .putExtra("DATA", mGson.toJson(mData)));
                 break;
             case R.id.ll_installed_results://安装结果
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
@@ -266,6 +297,7 @@ public class InstallationDetailsActivity extends BaseActivity {
         switch (requestCode) {
             case 11:
                 tvInstalledResults.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                mData.setWxjgid(Integer.parseInt(data.getStringExtra("CHOICE_RESULT_ID")));
                 break;
             case 12://重新派工
                 tvRework.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
@@ -293,7 +325,7 @@ public class InstallationDetailsActivity extends BaseActivity {
      */
     public void selectTime(final int i) {
         if (mTimePickerView == null)
-            mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
+            mTimePickerView = new TimePickerView(this, TimePickerView.Type.ALL);
         mTimePickerView.setTime(new Date());
         mTimePickerView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
             @Override
@@ -302,9 +334,11 @@ public class InstallationDetailsActivity extends BaseActivity {
                 switch (i) {
                     case 0:
                         tvStartTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd HH:mm:ss"));
+                        mData.setBegindate(tvStartTime.getText().toString());
                         break;
                     case 1:
-                        tvEndTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
+                        tvEndTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd HH:mm:ss"));
+                        mData.setEnddate(tvEndTime.getText().toString());
                         break;
                 }
 
@@ -312,4 +346,44 @@ public class InstallationDetailsActivity extends BaseActivity {
         });
         mTimePickerView.show();
     }
+
+    /**
+     * 保存数据
+     */
+    private void saveData() {
+//        Billid    主单ID
+//        itemno  明细ID
+//        wxjgid  安装结果ID
+//        isreturn 重新派工 0否 1是
+//        yesqty  已装数量
+//        noqty   未装数量
+//        begindate 开始时间
+//        enddate  结束时间
+//        planinfo  安装措施
+//        serialinfo  序列号GUID
+//        opid      操作员ID
+
+
+        mDetail.setBillid(mData.getBillid()+"");
+        mDetail.setItemno(mData.getItemno()+"");
+        mDetail.setWxjgid(mData.getWxjgid()+"");
+        mDetail.setIsreturn(mData.getIsreturn()+"");
+        mDetail.setYesqty(mData.getYesqty()+"");
+        mDetail.setNoqty(mData.getNoqty()+"");
+        mDetail.setBegindate(mData.getBegindate().replace(":","|"));
+        mDetail.setEnddate(mData.getEnddate().replace(":","|"));
+        mDetail.setPlaninfo(mData.getPlaninfo());
+        mDetail.setOpid(ShareUserInfo.getUserId(this));
+        List list=new ArrayList();
+        list.add(mDetail);
+        Map map = new ArrayMap<>();
+        map.put("dbname", ShareUserInfo.getDbName(this));
+        map.put("parms", "AZZX");
+        map.put("master", "");
+        map.put("detail", mGson.toJson(list));
+        map.put("serialinfo", "");
+        map.put("attfiles", "");
+        presenter.post(1, "billsavenew", map);
+    }
+
 }

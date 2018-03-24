@@ -96,13 +96,13 @@ public class InstallationDetailsData {
     @SerializedName("noqty")
     private double noqty;
     @SerializedName("begindate")
-    private Object begindate;
+    private String begindate;
     @SerializedName("enddate")
-    private Object enddate;
+    private String enddate;
     @SerializedName("planinfo")
-    private Object planinfo;
+    private String planinfo;
     @SerializedName("serialinfo")
-    private Object serialinfo;
+    private String serialinfo;
     @SerializedName("installregid")
     private int installregid;
     @SerializedName("jobshzt")
@@ -300,35 +300,35 @@ public class InstallationDetailsData {
         this.noqty = noqty;
     }
 
-    public Object getBegindate() {
+    public String getBegindate() {
         return begindate;
     }
 
-    public void setBegindate(Object begindate) {
+    public void setBegindate(String begindate) {
         this.begindate = begindate;
     }
 
-    public Object getEnddate() {
+    public String getEnddate() {
         return enddate;
     }
 
-    public void setEnddate(Object enddate) {
+    public void setEnddate(String enddate) {
         this.enddate = enddate;
     }
 
-    public Object getPlaninfo() {
+    public String getPlaninfo() {
         return planinfo;
     }
 
-    public void setPlaninfo(Object planinfo) {
+    public void setPlaninfo(String planinfo) {
         this.planinfo = planinfo;
     }
 
-    public Object getSerialinfo() {
+    public String getSerialinfo() {
         return serialinfo;
     }
 
-    public void setSerialinfo(Object serialinfo) {
+    public void setSerialinfo(String serialinfo) {
         this.serialinfo = serialinfo;
     }
 

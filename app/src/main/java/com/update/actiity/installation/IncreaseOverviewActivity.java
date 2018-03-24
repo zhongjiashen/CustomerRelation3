@@ -90,7 +90,7 @@ public class IncreaseOverviewActivity extends BaseActivity {
                                     showShortToast("请输入概况信息");
                                 else {
                                     mOverviewData.setGoodsname(overview);
-                                    mOverviewData.setUnitqty(slView.getSl() + "");//数量
+                                    mOverviewData.setUnitqty(slView.getSl() );//数量
                                     setResult(RESULT_OK, new Intent().putExtra("DATA", new Gson().toJson(mOverviewData)));
                                     finish();
                                 }
@@ -132,7 +132,7 @@ public class IncreaseOverviewActivity extends BaseActivity {
                     mOverviewData.setSerialinfo("");
                     mOverviewData.setUnitid("0");
                     mOverviewData.setGoodsname(overview);
-                    mOverviewData.setUnitqty(slView.getSl() + "");//数量
+                    mOverviewData.setUnitqty(slView.getSl() );//数量
                     setResult(RESULT_OK, new Intent().putExtra("DATA", new Gson().toJson(mOverviewData)));
                     finish();
                 }

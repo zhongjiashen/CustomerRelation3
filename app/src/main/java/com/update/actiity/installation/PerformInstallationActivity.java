@@ -243,7 +243,7 @@ public class PerformInstallationActivity extends BaseActivity implements
     @Override
     public void onLoadMore(PullToRefreshLayout pullLayout) {
         mParmMap.put("curpage", (page_number + 1));
-        presenter.post(0, "billlistnew", mParmMap);
+        presenter.post(1, "billlistnew", mParmMap);
     }
 
 

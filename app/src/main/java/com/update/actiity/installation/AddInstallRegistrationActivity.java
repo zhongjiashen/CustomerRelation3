@@ -513,7 +513,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             overviewData.setLb("1");
             overviewData.setGoodsid(chooseGoodsData.getGoodsid() + "");
             overviewData.setGoodsname(chooseGoodsData.getName());
-            overviewData.setUnitqty(chooseGoodsData.getNumber() + "");
+            overviewData.setUnitqty(chooseGoodsData.getNumber() );
             overviewData.setUnitid(chooseGoodsData.getUnitid() + "");
             overviewData.setSerialinfo(chooseGoodsData.getSerialinfo());
             goodsOrOverviewDataList.add(overviewData);

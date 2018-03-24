@@ -192,7 +192,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         goods_possion = holder.getLayoutPosition();
-                        startActivityForResult(new Intent(NewMaintenanceRegistrationActivity.this, ChooseGoodsDetailsActivity.class)
+                        startActivityForResult(new Intent(NewMaintenanceRegistrationActivity.this,GoodsDetailsActivity.class)
                                 .putExtra("kind", 1)
                                 .putExtra("DATA", new Gson().toJson(mChooseGoodsDataList.get(goods_possion))), 18);
                     }
@@ -516,7 +516,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             overviewData.setLb("1");
             overviewData.setGoodsid(chooseGoodsData.getGoodsid() + "");
             overviewData.setGoodsname(chooseGoodsData.getName());
-            overviewData.setUnitqty(chooseGoodsData.getNumber() + "");
+            overviewData.setUnitqty(chooseGoodsData.getNumber());
             overviewData.setUnitid(chooseGoodsData.getUnitid() + "");
             overviewData.setSerialinfo(chooseGoodsData.getSerialinfo());
             overviewData.setEnsureid(chooseGoodsData.getEnsureid());
