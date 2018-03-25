@@ -18,8 +18,6 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ScreeningActivity;
-import com.update.actiity.installation.InstallationDetailsActivity;
-import com.update.actiity.installation.PerformInstallationActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -32,7 +30,6 @@ import com.update.viewholder.ViewHolderFactory;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -198,7 +195,7 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivityForResult(new Intent(DetectionMaintenanceActivity.this,  InstallationDetailsActivity.class)
+                        startActivityForResult(new Intent(DetectionMaintenanceActivity.this, DetectionDetailsActivity.class)
                                 .putExtra("itemno", data.getItemno() + "")
                                 .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                     }

@@ -585,6 +585,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/black_line_color"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="报废数量"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/word_jmedium"/>
+
+                <EditText
+                    android:id="@+id/et_scrap_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/word_small"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color"/>
 
             <LinearLayout
                 android:id="@+id/ll_start_time"
@@ -656,7 +684,6 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/xyb_jt"/>
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -671,19 +698,50 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="安装措施"
+                    android:text="实际故障"
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/word_jmedium"/>
 
                 <EditText
-                    android:id="@+id/et_installation_measures"
+                    android:id="@+id/et_fault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="请输入备注"
+                    android:hint="请输入实际故障"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/word_small"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="维修措施"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/word_jmedium"/>
+
+                <EditText
+                    android:id="@+id/et_maintenance_measures"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入维修措施"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
 

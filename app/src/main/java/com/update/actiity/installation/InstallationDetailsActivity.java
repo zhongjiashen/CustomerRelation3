@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -112,12 +111,13 @@ public class InstallationDetailsActivity extends BaseActivity {
     InstallationDetailsData mData;
     private FileChooseAdapter mFileChooseAdapter;
     PerformSituationData mDetail;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
-        mDetail =new PerformSituationData();
+        mDetail = new PerformSituationData();
         UUID uuid = UUID.randomUUID();
         mDetail.setSerialinfo(uuid.toString().toUpperCase());
         mGson = new Gson();
@@ -191,19 +191,8 @@ public class InstallationDetailsActivity extends BaseActivity {
      */
     private void setTitlebar() {
         titlebar.setTitleText(this, "安装执行");
-        titlebar.setRightText("保存");
-        titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
-            @Override
-            public void onClick(int i) {
-                switch (i) {
-                    case 2:
-                        mData.setPlaninfo(etInstallationMeasures.getText().toString());
-                        saveData();
-                        break;
 
-                }
-            }
-        });
+
     }
 
     /**
@@ -215,48 +204,70 @@ public class InstallationDetailsActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        List<InstallationDetailsData> list = mGson.fromJson((String) data,
-                new TypeToken<List<InstallationDetailsData>>() {
-                }.getType());
-        if (list != null && list.size() != 0) {
-            mData = list.get(0);
-            switch (mData.getJobshzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
-                case 0://未审
-                    tvAuditStatus.setText("未审核");
-                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                    break;
-                case 1://已审
-                    tvAuditStatus.setText("已审核");
-                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-                    break;
-            }
-            tvUnitName.setText(mData.getCname());//单位名称
-            tvContacts.setText(mData.getLxrname());//联系人
-            tvContactNumber.setText(mData.getPhone());//联系电话
-            tvAddress.setText(mData.getShipto());//地址
-            tvSubmitTime.setText(mData.getBsrq());//报送时间
-            tvTechnicalPersonnel.setText(mData.getEmpnames());//技术人员
-            tvDispatchDocuments.setText(mData.getCode());//派工单据
-            tvDispatchDate.setText(mData.getBilldate());//派工日期
-            tvExecutionStatus.setText(mData.getZxjg());//执行状态
-            if (mData.getLb() == 1) {
-                tvGoodsInformation.setText(mData.getGoodsname());
-                tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
-            } else {
-                tvGoodsInformation.setText("概况信息");
-                tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + "个");
-            }
-            tvInstalledResults.setText(mData.getWxjgname());//安装结果设置
-            if (mData.getIsreturn() == 1)//是否重新派工
-                tvRework.setText("是");
-            else
-                tvRework.setText("否");
-            etInstallationNumber.setText(mData.getYesqty() + "");//安装数量
-            etUnloaded.setText(mData.getNoqty() + "");//未装数量
-            tvStartTime.setText(mData.getBegindate());
-            tvEndTime.setText(mData.getEnddate());
-            etInstallationMeasures.setText(mData.getPlaninfo());
+        switch (requestCode) {
+            case 0:
+                List<InstallationDetailsData> list = mGson.fromJson((String) data,
+                        new TypeToken<List<InstallationDetailsData>>() {
+                        }.getType());
+                if (list != null && list.size() != 0) {
+                    mData = list.get(0);
+                    switch (mData.getJobshzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                        case 0://未审
+                            tvAuditStatus.setText("未审核");
+                            tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                    /*标题设置*/
+                            titlebar.setRightText("保存");
+                            titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
+                                @Override
+                                public void onClick(int i) {
+                                    switch (i) {
+                                        case 2:
+                                            mData.setPlaninfo(etInstallationMeasures.getText().toString());
+                                            saveData();
+                                            break;
+
+                                    }
+                                }
+                            });
+                            break;
+                        case 1://已审
+                            tvAuditStatus.setText("已审核");
+                            tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                            break;
+                    }
+                    tvUnitName.setText(mData.getCname());//单位名称
+                    tvContacts.setText(mData.getLxrname());//联系人
+                    tvContactNumber.setText(mData.getPhone());//联系电话
+                    tvAddress.setText(mData.getShipto());//地址
+                    tvSubmitTime.setText(mData.getBsrq());//报送时间
+                    tvTechnicalPersonnel.setText(mData.getEmpnames());//技术人员
+                    tvDispatchDocuments.setText(mData.getCode());//派工单据
+                    tvDispatchDate.setText(mData.getBilldate());//派工日期
+                    tvExecutionStatus.setText(mData.getZxjg());//执行状态
+                    if (mData.getLb() == 1) {
+                        tvGoodsInformation.setText(mData.getGoodsname());
+                        tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
+                    } else {
+                        tvGoodsInformation.setText("概况信息");
+                        tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + "个");
+                    }
+                    tvInstalledResults.setText(mData.getWxjgname());//安装结果设置
+                    if (mData.getIsreturn() == 1)//是否重新派工
+                        tvRework.setText("是");
+                    else
+                        tvRework.setText("否");
+                    etInstallationNumber.setText(mData.getYesqty() + "");//安装数量
+                    etUnloaded.setText(mData.getNoqty() + "");//未装数量
+                    tvStartTime.setText(mData.getBegindate());
+                    tvEndTime.setText(mData.getEnddate());
+                    etInstallationMeasures.setText(mData.getPlaninfo());
+                }
+                break;
+            case 1:
+                showShortToast("保存成功");
+                break;
         }
+
     }
 
     @OnClick({R.id.bt_registration_details, R.id.rl_goods_information, R.id.ll_installed_results, R.id.ll_rework, R.id.ll_start_time, R.id.ll_end_time})
@@ -364,17 +375,17 @@ public class InstallationDetailsActivity extends BaseActivity {
 //        opid      操作员ID
 
 
-        mDetail.setBillid(mData.getBillid()+"");
-        mDetail.setItemno(mData.getItemno()+"");
-        mDetail.setWxjgid(mData.getWxjgid()+"");
-        mDetail.setIsreturn(mData.getIsreturn()+"");
-        mDetail.setYesqty(mData.getYesqty()+"");
-        mDetail.setNoqty(mData.getNoqty()+"");
-        mDetail.setBegindate(mData.getBegindate().replace(":","|"));
-        mDetail.setEnddate(mData.getEnddate().replace(":","|"));
+        mDetail.setBillid(mData.getBillid() + "");
+        mDetail.setItemno(mData.getItemno() + "");
+        mDetail.setWxjgid(mData.getWxjgid() + "");
+        mDetail.setIsreturn(mData.getIsreturn() + "");
+        mDetail.setYesqty(mData.getYesqty() + "");
+        mDetail.setNoqty(mData.getNoqty() + "");
+        mDetail.setBegindate(mData.getBegindate().replace(":", "|"));
+        mDetail.setEnddate(mData.getEnddate().replace(":", "|"));
         mDetail.setPlaninfo(mData.getPlaninfo());
         mDetail.setOpid(ShareUserInfo.getUserId(this));
-        List list=new ArrayList();
+        List list = new ArrayList();
         list.add(mDetail);
         Map map = new ArrayMap<>();
         map.put("dbname", ShareUserInfo.getDbName(this));
