@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,7 +90,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
     private String end_time;//截止日期
     private String shzt;//审核状态 (0未审 1已审 2 审核中   9全部)
     private String djzt;//登记状态ID （维修登记、安装登记用传0表示全部 取字典zdbm=’WXDJZT’维修登记状态，zdbm=’AZDJZT’安装登记状态，其他单据传空）
-
+    private String cname;//供应商名称（模糊查询用）
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -115,6 +117,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
     }
     private void http(){
         page_number = 1;
+        mParmMap.put("cname", cname);
         mParmMap.put("qsrq", start_time);
         mParmMap.put("zzrq", end_time);
         mParmMap.put("shzt", shzt);
@@ -206,7 +209,21 @@ public class InstallRegistrationActivity extends BaseActivity implements
 
         });
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
-        initRightPopWindow();
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                cname=s.toString();
+                http();
+            }
+        });
     }
 
     /**
@@ -286,6 +303,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 end_time = data.getStringExtra("zzrq");
                 shzt = data.getStringExtra("shzt");
                 djzt = data.getStringExtra("djzt");
+                cname=data.getStringExtra("cname");
                 http();
                 break;
         }

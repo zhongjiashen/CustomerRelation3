@@ -6,6 +6,8 @@ import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,8 +48,8 @@ import butterknife.BindView;
  * 2018/2/26 0026         申中佳               V1.0
  */
 public class DetectionMaintenanceActivity extends BaseActivity implements
-        PullToRefreshLayout.OnRefreshListener{
-        @BindView(R.id.titlebar)
+        PullToRefreshLayout.OnRefreshListener {
+    @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.tv_time_left)
     TextView tvTimeLeft;
@@ -81,6 +83,8 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
     LinearLayout llInstallationPersonnel;
     @BindView(R.id.et_goods_name)
     EditText etGoodsName;
+    @BindView(R.id.search)
+    EditText search;
 
     private List<PerformInstallationData> mList;
     private TimePickerView mTimePickerView;
@@ -94,6 +98,9 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
     private String shzt;//审核状态 (0未审 1已审 2 审核中   9全部)
     private String fwjg;//安装结果ID	是 （0全部）
     private String fwry;//安装人员ID	是 （0全部）
+    private String commfilter;//快捷查找用，单位名称，商品
+    private String goodsname;// 商品名称
+    private String cname;// 单位名称
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -125,9 +132,13 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
         mParmMap.put("shzt", shzt);
         mParmMap.put("fwjg", fwjg);
         mParmMap.put("fwry", fwry);
+        mParmMap.put("commfilter", commfilter);
+        mParmMap.put("goodsname", goodsname);
+        mParmMap.put("cname", cname);
         mParmMap.put("curpage", page_number);//当前页
         presenter.post(0, "billlistnew", mParmMap);
     }
+
     /**
      * 刷新界面数据
      */
@@ -137,6 +148,7 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
         mParmMap.put("curpage", page_number);//当前页
         presenter.post(0, "billlistnew", mParmMap);
     }
+
     /**
      * 指定加载布局
      *
@@ -204,6 +216,23 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
 
         });
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                commfilter = s.toString();
+                http();
+            }
+        });
     }
 
     /**
@@ -253,7 +282,8 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
                 shzt = data.getStringExtra("shzt");
                 fwjg = data.getStringExtra("fwjg");
                 fwry = data.getStringExtra("fwry");
-
+                cname = data.getStringExtra("cname");
+                goodsname = data.getStringExtra("goodsname");
                 http();
                 break;
         }

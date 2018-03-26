@@ -5,7 +5,10 @@ import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,8 +19,6 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ScreeningActivity;
-import com.update.actiity.installation.InstallRegistrationActivity;
-import com.update.actiity.installation.InstallRegistrationDetailsActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -65,6 +66,14 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
     PullToRefreshLayout pullToRefreshLayoutView;
     @BindView(R.id.pullRecycle_view)
     PullableRecyclerView pullRecycleView;
+    @BindView(R.id.search)
+    EditText search;
+    @BindView(R.id.ll_audit_status)
+    LinearLayout llAuditStatus;
+    @BindView(R.id.bt_reset)
+    Button btReset;
+    @BindView(R.id.bt_query)
+    Button btQuery;
     private List<InstallRegistrationData> mList;
     private Map<String, Object> mParmMap;
     /*上传参数变量*/
@@ -73,6 +82,8 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
     private String end_time;//截止日期
     private String shzt;//审核状态 (0未审 1已审 2 审核中   9全部)
     private String djzt;//登记状态ID （维修登记、安装登记用传0表示全部 取字典zdbm=’WXDJZT’维修登记状态，zdbm=’AZDJZT’安装登记状态，其他单据传空）
+    private String commfilter;//快捷查找用，单位名称，商品
+    private String cname;//供应商名称（模糊查询用）
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -100,6 +111,7 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
 
     private void http() {
         page_number = 1;
+        mParmMap.put("cname", cname);
         mParmMap.put("qsrq", start_time);
         mParmMap.put("zzrq", end_time);
         mParmMap.put("shzt", shzt);
@@ -173,14 +185,30 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                    startActivityForResult(new Intent(MaintenanceRegistrationActivity.this, MaintenanceDetailsActivity.class)
+                        startActivityForResult(new Intent(MaintenanceRegistrationActivity.this, MaintenanceDetailsActivity.class)
                                 .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                     }
                 });
             }
 
         });
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                cname=s.toString();
+                http();
+            }
+        });
     }
 
     /**
@@ -233,6 +261,7 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
                 end_time = data.getStringExtra("zzrq");
                 shzt = data.getStringExtra("shzt");
                 djzt = data.getStringExtra("djzt");
+                cname=data.getStringExtra("cname");
                 http();
                 break;
         }

@@ -2,6 +2,7 @@ package com.update.actiity.choose;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,6 +48,10 @@ public class ScreeningActivity extends BaseActivity {
     LinearLayout llC;
     @BindView(R.id.ll_et_b)
     LinearLayout llEtB;
+    @BindView(R.id.et_a)
+    EditText etA;
+    @BindView(R.id.et_b)
+    EditText etB;
 
 
     private TimePickerView mTimePickerView;//时间选择弹窗
@@ -78,12 +83,13 @@ public class ScreeningActivity extends BaseActivity {
         switch (kind) {
             case 0:
             case 2:
-                aId = "0";
+                aId = "9";
                 bId = "0";
                 break;
             case 1:
-                aId = "0";
+                aId = "9";
                 bId = "0";
+                cId = "0";
                 tvBText.setText("执行结果");
                 llC.setVisibility(View.VISIBLE);
                 tvCText.setText("技术人员");
@@ -158,17 +164,22 @@ public class ScreeningActivity extends BaseActivity {
                 Intent intent = new Intent();
                 switch (kind) {
                     case 0:
+                    case 2:
                         intent.putExtra("qsrq", tvStartTime.getText().toString());
                         intent.putExtra("zzrq", tvEndTime.getText().toString());
                         intent.putExtra("shzt", aId);
                         intent.putExtra("djzt", bId);
+                        intent.putExtra("cname", etA.getText().toString());
                         break;
                     case 1:
+                    case 3:
                         intent.putExtra("qsrq", tvStartTime.getText().toString());
                         intent.putExtra("zzrq", tvEndTime.getText().toString());
                         intent.putExtra("shzt", aId);
                         intent.putExtra("fwjg", bId);
                         intent.putExtra("fwry", cId);
+                        intent.putExtra("cname", etA.getText().toString());
+                        intent.putExtra("goodsname", etB.getText().toString());
                         break;
                 }
                 setResult(RESULT_OK, intent);
