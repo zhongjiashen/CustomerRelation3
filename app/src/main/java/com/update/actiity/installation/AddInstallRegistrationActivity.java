@@ -470,6 +470,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             showShortToast("请输入客户地址");
             return;
         }
+
         String bxr = etMessenger.getText().toString();
         if (TextUtils.isEmpty(bxr)) {
             showShortToast("请输入报送人姓名");
