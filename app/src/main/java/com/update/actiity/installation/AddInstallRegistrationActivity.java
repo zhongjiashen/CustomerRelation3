@@ -3,6 +3,7 @@ package com.update.actiity.installation;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
+import com.cr.tools.PicUtil;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -43,6 +45,8 @@ import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
+
+import org.kobjects.base64.Base64;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -517,6 +521,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             overviewData.setUnitid(chooseGoodsData.getUnitid() + "");
             overviewData.setSerialinfo(chooseGoodsData.getSerialinfo());
             goodsOrOverviewDataList.add(overviewData);
+
             if (chooseGoodsData.getSerials() != null)
                 serialList.addAll(chooseGoodsData.getSerials());
 
@@ -531,11 +536,16 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             File file = new File(mFileChooseDatas.get(i).getUrl());
             attfiles.setFilenames(file.getName());
             attfiles.setOpid(ShareUserInfo.getUserId(this));
-            try {
-                attfiles.setXx(FileUtils.encodeBase64File(file));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Bitmap bitmap = PicUtil.getLoacalBitmap(mFileChooseDatas.get(i).getUrl());
+            Bitmap bitmap2 = PicUtil.comp(bitmap);
+            //进行Base64编码
+            String uploadBuffer = new String(Base64.encode(PicUtil.compressImage(bitmap2)));
+            attfiles.setXx(uploadBuffer);
+//            try {
+//                attfiles.setXx(FileUtils.encodeBase64File(file));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             attfilesList.add(attfiles);
         }
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
@@ -545,7 +555,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         mParmMap.put("serialinfo", mGson.toJson(serialList));
         if (attfilesList.size() != 0) {
             mParmMap.put("attfiles", mGson.toJson(attfilesList));
-            setCache((String) mParmMap.get("attfiles"), this, "myfirst.txt", Context.MODE_WORLD_READABLE);
+//            setCache((String) mParmMap.get("attfiles"), this, "myfirst.txt", Context.MODE_WORLD_READABLE);
         }
         presenter.post(0, "billsavenew", mParmMap);
     }

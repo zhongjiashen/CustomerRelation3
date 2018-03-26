@@ -48,7 +48,7 @@ public class GoodsOrOverviewData {
      */
 
     @SerializedName("serviceregid")
-    private int serviceregid;
+    private String serviceregid;
     @SerializedName("goodscode")
     private String goodscode;
     @SerializedName("specs")
@@ -162,7 +162,7 @@ public class GoodsOrOverviewData {
         this.serialinfo = serialinfo;
     }
 
-    public void setServiceregid(int serviceregid) {
+    public void setServiceregid(String serviceregid) {
         this.serviceregid = serviceregid;
     }
 
@@ -182,7 +182,7 @@ public class GoodsOrOverviewData {
         this.unitname = unitname;
     }
 
-    public int getServiceregid() {
+    public String getServiceregid() {
         return serviceregid;
     }
 
