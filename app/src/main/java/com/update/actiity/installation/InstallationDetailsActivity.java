@@ -20,6 +20,7 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.EnterSerialNumberActivity;
+import com.update.actiity.SerialNumberDetailsActivity;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.adapter.FileChooseAdapter;
@@ -305,16 +306,23 @@ public class InstallationDetailsActivity extends BaseActivity {
                 break;
             case R.id.iv_scan://序列号
                 if (mData != null) {
-                    int kind = 0;
-                    if (!TextUtils.isEmpty(mData.getSerialinfo())) {
-                        kind = 1;
+                    if (mData.getJobshzt() == 0) {
+                        int kind = 0;
+                        if (!TextUtils.isEmpty(mData.getSerialinfo())) {
+                            kind = 1;
+                        }
+                        startActivityForResult(new Intent(InstallationDetailsActivity.this, EnterSerialNumberActivity.class)
+                                .putExtra("billid", billid)
+                                .putExtra("kind", kind)
+                                .putExtra("uuid", mData.getSerialinfo())
+                                .putExtra("tabname", "tb_installjob")
+                                .putExtra("DATA", mGson.toJson(serialList)), 13);
+                    } else {
+                        startActivity(new Intent(InstallationDetailsActivity.this, SerialNumberDetailsActivity.class)
+                                .putExtra("billid", billid)
+                                .putExtra("serialinfo", mData.getSerialinfo())
+                                .putExtra("tabname", "tb_installjob"));
                     }
-                    startActivityForResult(new Intent(InstallationDetailsActivity.this, EnterSerialNumberActivity.class)
-                            .putExtra("billid", billid)
-                            .putExtra("kind", kind)
-                            .putExtra("uuid",mData.getSerialinfo())
-                            .putExtra("tabname", "tb_installjob")
-                            .putExtra("DATA", mGson.toJson(serialList)), 13);
                 }
 
                 break;
@@ -393,6 +401,11 @@ public class InstallationDetailsActivity extends BaseActivity {
      * 保存数据
      */
     private void saveData() {
+        if(TextUtils.isEmpty(mData.getBegindate())||TextUtils.isEmpty(mData.getEnddate())){
+            showShortToast("请输入起止时间！");
+            return;
+        }
+
 //        Billid    主单ID
 //        itemno  明细ID
 //        wxjgid  安装结果ID
@@ -404,7 +417,6 @@ public class InstallationDetailsActivity extends BaseActivity {
 //        planinfo  安装措施
 //        serialinfo  序列号GUID
 //        opid      操作员ID
-
 
         mDetail.setBillid(mData.getBillid() + "");
         mDetail.setItemno(mData.getItemno() + "");

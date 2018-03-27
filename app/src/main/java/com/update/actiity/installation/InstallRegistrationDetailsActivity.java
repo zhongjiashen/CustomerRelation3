@@ -231,6 +231,14 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         new TypeToken<List<InstallRegistrationScheduleData>>() {
                         }.getType());
                 mAdapter.setList(mGoodsOrOverviewDatas);
+                //获取文件列表
+                Map map=new ArrayMap();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("attcode", "AZDJ");
+                map.put("billid", billid);
+                map.put("curpage", "0");
+                map.put("pagesize", "100");
+                presenter.post(2, "attfilelist", map);
                 break;
         }
     }

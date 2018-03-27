@@ -170,7 +170,7 @@ public class GoodsDetailsActivity extends BaseActivity {
                             .putExtra("DATA", mGson.toJson(chooseGoodsData.getSerials())), 11);
                 } else
                     startActivity(new Intent(GoodsDetailsActivity.this, SerialNumberDetailsActivity.class)
-                            .putExtra("billid", mGoodsOrOverviewData.getBillid())
+                            .putExtra("billid", mGoodsOrOverviewData.getServiceregid())
                             .putExtra("serialinfo", mGoodsOrOverviewData.getSerialinfo())
                             .putExtra("tabname", "tb_servicereg"));
                 break;

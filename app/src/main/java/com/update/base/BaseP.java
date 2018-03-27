@@ -1,21 +1,11 @@
 package com.update.base;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.text.TextUtils;
-import android.view.Gravity;
-
+import android.app.ProgressDialog;
 
 import com.cr.tools.ServerRequest;
 import com.update.utils.LogUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -39,7 +29,7 @@ public class BaseP {
     protected BaseV view;
     protected Activity mActivity;
     static boolean run = false;
-
+    public ProgressDialog progressDialog;// 弹出框进度条
 
     public BaseP(BaseV view, Activity activity) {
         this.view = view;
@@ -64,6 +54,10 @@ public class BaseP {
      * @param dialog   是否显示加载对话框;true显示，false不显示
      */
     public void post(final int requestCode, final String url, final Map<String, Object> params,boolean dialog) {
+        if(dialog)
+//            progressDialog= ProgressDialog.show(mActivity, "请稍等...",
+//                    "正在加载数据......", false); // 打开进度条
+//        progressDialog.setCancelable(true);
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
@@ -88,14 +82,17 @@ public class BaseP {
 
                     @Override
                     public void onCompleted() {
+                        LogUtils.e("-------------1---------------");
                         if(view==null)
                             return;
                         view.httpFinish(requestCode);
+//                        progressDialog.dismiss();
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        progressDialog.dismiss();
                         if(view==null)
                             return;
                         view.httpfaile(requestCode);

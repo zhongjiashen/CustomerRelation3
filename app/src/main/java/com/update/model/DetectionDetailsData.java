@@ -77,7 +77,7 @@ public class DetectionDetailsData {
     @SerializedName("planinfo")
     private String planinfo;
     @SerializedName("serialinfo")
-    private Object serialinfo;
+    private String serialinfo;
     @SerializedName("serviceregid")
     private int serviceregid;
     @SerializedName("jobshzt")
@@ -355,11 +355,11 @@ public class DetectionDetailsData {
         this.planinfo = planinfo;
     }
 
-    public Object getSerialinfo() {
+    public String getSerialinfo() {
         return serialinfo;
     }
 
-    public void setSerialinfo(Object serialinfo) {
+    public void setSerialinfo(String serialinfo) {
         this.serialinfo = serialinfo;
     }
 

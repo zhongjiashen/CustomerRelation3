@@ -19,6 +19,8 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.EnterSerialNumberActivity;
+import com.update.actiity.SerialNumberDetailsActivity;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.installation.ChooseGoodsDetailsActivity;
@@ -30,6 +32,7 @@ import com.update.dialog.DialogFactory;
 import com.update.dialog.OnDialogClickInterface;
 import com.update.model.DetectionDetailsData;
 import com.update.model.FileChooseData;
+import com.update.model.Serial;
 import com.update.model.request.PerformSituationData;
 import com.update.utils.DateUtil;
 import com.update.utils.FileUtils;
@@ -119,15 +122,15 @@ public class DetectionDetailsActivity extends BaseActivity {
     private FileChooseAdapter mFileChooseAdapter;
 
     PerformSituationData mDetail;
+    List<Serial> serialList;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        serialList = new ArrayList<>();
         mDetail = new PerformSituationData();
-        UUID uuid = UUID.randomUUID();
-        mDetail.setSerialinfo(uuid.toString().toUpperCase());
         mGson = new Gson();
         billid = getIntent().getStringExtra("billid");
         itemno = getIntent().getStringExtra("itemno");
@@ -274,6 +277,12 @@ public class DetectionDetailsActivity extends BaseActivity {
                     tvEndTime.setText(mData.getEnddate());
                     etFault.setText(mData.getFactfault());//实际故障
                     etMaintenanceMeasures.setText(mData.getPlaninfo());//维修措施
+                    if (TextUtils.isEmpty(mData.getSerialinfo())) {
+                        UUID uuid = UUID.randomUUID();
+                        mDetail.setSerialinfo(uuid.toString().toUpperCase());
+                    } else {
+                        mDetail.setSerialinfo(mData.getSerialinfo());
+                    }
                 }
                 break;
             case 1:
@@ -283,7 +292,7 @@ public class DetectionDetailsActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.bt_registration_details, R.id.rl_goods_information, R.id.ll_maintenance_results, R.id.ll_rework, R.id.ll_start_time, R.id.ll_end_time})
+    @OnClick({R.id.bt_registration_details, R.id.rl_goods_information, R.id.ll_maintenance_results, R.id.ll_rework, R.id.iv_scan, R.id.ll_start_time, R.id.ll_end_time})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_registration_details://查看登记详情
@@ -306,10 +315,32 @@ public class DetectionDetailsActivity extends BaseActivity {
                 startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class)
                         .putExtra("kind", 1), 12);
                 break;
+            case R.id.iv_scan://序列号
+                if (mData != null) {
+                    if (mData.getJobshzt() == 0) {
+                        int kind = 0;
+                        if (!TextUtils.isEmpty(mData.getSerialinfo())) {
+                            kind = 1;
+                        }
+                        startActivityForResult(new Intent(DetectionDetailsActivity.this, EnterSerialNumberActivity.class)
+                                .putExtra("billid", billid)
+                                .putExtra("kind", kind)
+                                .putExtra("uuid", mData.getSerialinfo())
+                                .putExtra("tabname", "tb_servicejob")
+                                .putExtra("DATA", mGson.toJson(serialList)), 13);
+                    } else {
+                        startActivity(new Intent(DetectionDetailsActivity.this, SerialNumberDetailsActivity.class)
+                                .putExtra("billid", billid)
+                                .putExtra("serialinfo", mData.getSerialinfo())
+                                .putExtra("tabname", "tb_servicejob"));
+                    }
+                }
+                break;
             case R.id.ll_start_time://开始时间
                 selectTime(0);
                 break;
             case R.id.ll_end_time://结束时间
+                serialList.clear();
                 selectTime(1);
                 break;
         }
@@ -326,6 +357,12 @@ public class DetectionDetailsActivity extends BaseActivity {
             case 12://重新派工
                 tvRework.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 mData.setIsreturn(Integer.parseInt(data.getStringExtra("CHOICE_RESULT_ID")));
+                break;
+            case 13:
+                //处理返回的序列号信息
+                LogUtils.d(data.getStringExtra("DATA"));
+                serialList = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
+                }.getType());
                 break;
             case FILE_SELECT_CODE://文件选择处理结果
                 Uri uri = data.getData();
@@ -407,7 +444,7 @@ public class DetectionDetailsActivity extends BaseActivity {
         map.put("parms", "JCWX");
         map.put("master", "");
         map.put("detail", mGson.toJson(list));
-        map.put("serialinfo", "");
+        map.put("serialinfo", mGson.toJson(serialList));
         map.put("attfiles", "");
         presenter.post(1, "billsavenew", map);
     }
