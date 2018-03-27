@@ -159,7 +159,7 @@ public class GoodsDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_serial_number,R.id.ll_warranty_status, R.id.ll_fault_type, R.id.bt_view})
+    @OnClick({R.id.tv_serial_number, R.id.ll_warranty_status, R.id.ll_fault_type, R.id.bt_view})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_serial_number:
@@ -170,8 +170,9 @@ public class GoodsDetailsActivity extends BaseActivity {
                             .putExtra("DATA", mGson.toJson(chooseGoodsData.getSerials())), 11);
                 } else
                     startActivity(new Intent(GoodsDetailsActivity.this, SerialNumberDetailsActivity.class)
-                            .putExtra("billid", installRegistrationScheduleData.getInstallregid() + "")
-                            .putExtra("serialinfo", installRegistrationScheduleData.getSerialinfo()));
+                            .putExtra("billid", mGoodsOrOverviewData.getBillid())
+                            .putExtra("serialinfo", mGoodsOrOverviewData.getSerialinfo())
+                            .putExtra("tabname", "tb_servicereg"));
                 break;
             case R.id.ll_warranty_status:
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
@@ -190,7 +191,7 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     @Override
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case 11:
                 //处理返回的序列号信息
                 List<Serial> serials = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {

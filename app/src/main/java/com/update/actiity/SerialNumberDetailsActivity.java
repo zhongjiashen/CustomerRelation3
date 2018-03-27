@@ -43,7 +43,7 @@ public class SerialNumberDetailsActivity extends BaseActivity {
         presenter = new BaseP(this, this);
         mParmMap = new ArrayMap<>();
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
-        mParmMap.put("tabname", "tb_installreg");
+        mParmMap.put("tabname", getIntent().getStringExtra("tabname"));
         mParmMap.put("billid", billid);
         mParmMap.put("serno", "");
         mParmMap.put("serialinfo", serialinfo);

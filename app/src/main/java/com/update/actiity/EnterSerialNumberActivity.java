@@ -2,17 +2,20 @@ package com.update.actiity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
 import com.update.base.BaseActivity;
+import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.dialog.DialogFactory;
 import com.update.dialog.OnDialogClickInterface;
@@ -24,6 +27,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,6 +55,7 @@ public class EnterSerialNumberActivity extends BaseActivity {
     List<Serial> serials;
     private String serialinfo;	//序列号GUID
     private String billid;	//主单据ID
+    private Map<String, Object> mParmMap;
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -61,6 +66,18 @@ public class EnterSerialNumberActivity extends BaseActivity {
         serialinfo=getIntent().getStringExtra("uuid");
         serials=mGson.fromJson(getIntent().getStringExtra("DATA"),new TypeToken<List<Serial>>() {
         }.getType());
+        if(getIntent().getIntExtra("kind",0)==1) {
+            presenter = new BaseP(this, this);
+            mParmMap = new ArrayMap<>();
+            mParmMap.put("dbname", ShareUserInfo.getDbName(this));
+            mParmMap.put("tabname", getIntent().getStringExtra("tabname"));
+            mParmMap.put("billid", billid);
+            mParmMap.put("serno", "");
+            mParmMap.put("serialinfo", serialinfo);
+            mParmMap.put("curpage", "0");
+            mParmMap.put("pagesize", 100);
+            presenter.post(0, "seriallist", mParmMap);
+        }
     }
 
     /**
@@ -162,5 +179,20 @@ public class EnterSerialNumberActivity extends BaseActivity {
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         super.onMyActivityResult(requestCode, resultCode, data);
         etSerialNumber.setText(data.getStringExtra("qr"));
+    }
+
+    /**
+     * 网路请求返回数据
+     *
+     * @param requestCode 请求码
+     * @param data        数据
+     */
+    @Override
+    public void returnData(int requestCode, Object data) {
+        super.returnData(requestCode, data);
+        List<Serial> list=new Gson().fromJson((String) data, new TypeToken<List<Serial>>() {
+        }.getType());
+        serials .addAll(list);
+        mAdapter.setList(serials);
     }
 }

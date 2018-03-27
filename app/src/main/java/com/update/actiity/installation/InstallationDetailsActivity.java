@@ -122,7 +122,7 @@ public class InstallationDetailsActivity extends BaseActivity {
     @Override
     protected void initVariables() {
         mDetail = new PerformSituationData();
-        serialList=new ArrayList<>();
+        serialList = new ArrayList<>();
         mGson = new Gson();
         billid = getIntent().getStringExtra("billid");
         itemno = getIntent().getStringExtra("itemno");
@@ -264,15 +264,16 @@ public class InstallationDetailsActivity extends BaseActivity {
                     tvStartTime.setText(mData.getBegindate());
                     tvEndTime.setText(mData.getEnddate());
                     etInstallationMeasures.setText(mData.getPlaninfo());
-                    if(TextUtils.isEmpty(mData.getSerialinfo())){
+                    if (TextUtils.isEmpty(mData.getSerialinfo())) {
                         UUID uuid = UUID.randomUUID();
                         mDetail.setSerialinfo(uuid.toString().toUpperCase());
-                    }else {
-                        mDetail.setSerialinfo(mData.getPlaninfo());
+                    } else {
+                        mDetail.setSerialinfo(mData.getSerialinfo());
                     }
                 }
                 break;
             case 1:
+                serialList.clear();
                 showShortToast("保存成功");
                 break;
         }
@@ -303,10 +304,18 @@ public class InstallationDetailsActivity extends BaseActivity {
                         .putExtra("kind", 1), 12);
                 break;
             case R.id.iv_scan://序列号
-                startActivityForResult(new Intent(InstallationDetailsActivity.this, EnterSerialNumberActivity.class)
-                        .putExtra("billid", itemno)
-                        .putExtra("uuid", mDetail.getSerialinfo())
-                        .putExtra("DATA", mGson.toJson(serialList)), 13);
+                if (mData != null) {
+                    int kind = 0;
+                    if (!TextUtils.isEmpty(mData.getSerialinfo())) {
+                        kind = 1;
+                    }
+                    startActivityForResult(new Intent(InstallationDetailsActivity.this, EnterSerialNumberActivity.class)
+                            .putExtra("billid", billid)
+                            .putExtra("kind", kind)
+                            .putExtra("uuid",mData.getSerialinfo())
+                            .putExtra("tabname", "tb_installjob")
+                            .putExtra("DATA", mGson.toJson(serialList)), 13);
+                }
 
                 break;
             case R.id.ll_start_time://开始时间

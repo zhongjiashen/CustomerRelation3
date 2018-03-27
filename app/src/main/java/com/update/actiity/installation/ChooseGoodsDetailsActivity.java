@@ -102,7 +102,7 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
                         switch (i) {
                             case 2:
                                 setResult(RESULT_OK, new Intent()
-                                        .putExtra("KIND",1)
+                                        .putExtra("KIND", 1)
                                         .putExtra("DATA", mGson.toJson(chooseGoodsData)));
                                 finish();
                                 break;
@@ -153,10 +153,11 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
                 } else
                     startActivity(new Intent(ChooseGoodsDetailsActivity.this, SerialNumberDetailsActivity.class)
                             .putExtra("billid", installRegistrationScheduleData.getInstallregid() + "")
-                            .putExtra("serialinfo", installRegistrationScheduleData.getSerialinfo()));
+                            .putExtra("serialinfo", installRegistrationScheduleData.getSerialinfo())
+                            .putExtra("tabname", "tb_installreg"));
                 break;
             case R.id.bt_view:
-                setResult(RESULT_OK,new Intent().putExtra("KIND",0));
+                setResult(RESULT_OK, new Intent().putExtra("KIND", 0));
                 finish();
                 break;
         }
