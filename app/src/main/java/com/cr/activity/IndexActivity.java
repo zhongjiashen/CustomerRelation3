@@ -71,10 +71,14 @@ import com.cr.tools.MyApplication;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.contract.ContractManagementActivity;
+import com.update.actiity.logistics.LogisticsManagementActivity;
 import com.update.actiity.maintenance.DetectionMaintenanceActivity;
 import com.update.actiity.installation.InstallRegistrationActivity;
 import com.update.actiity.maintenance.MaintenanceRegistrationActivity;
 import com.update.actiity.installation.PerformInstallationActivity;
+import com.update.actiity.project.ProjectManagementActivity;
+import com.update.actiity.sales.SalesOpportunitiesActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -631,6 +635,18 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                         break;
                     case 6:
                         intent.setClass(IndexActivity.this, KhfwActivity.class);
+                        break;
+                    case 7://物流管理
+                        intent.setClass(IndexActivity.this, LogisticsManagementActivity.class);
+                        break;
+                    case 8://销售机会
+                        intent.setClass(IndexActivity.this,SalesOpportunitiesActivity.class);
+                        break;
+                    case 9://合同管理
+                        intent.setClass(IndexActivity.this, ContractManagementActivity.class);
+                        break;
+                    case 10://项目管理
+                        intent.setClass(IndexActivity.this, ProjectManagementActivity.class);
                         break;
                     default:
                         break;
