@@ -54,10 +54,10 @@ public class BaseP {
      * @param dialog   是否显示加载对话框;true显示，false不显示
      */
     public void post(final int requestCode, final String url, final Map<String, Object> params,boolean dialog) {
-        if(dialog)
-//            progressDialog= ProgressDialog.show(mActivity, "请稍等...",
-//                    "正在加载数据......", false); // 打开进度条
-//        progressDialog.setCancelable(true);
+        if(dialog){
+
+        }
+//
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {

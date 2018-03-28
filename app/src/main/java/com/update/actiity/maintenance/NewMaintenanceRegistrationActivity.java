@@ -540,7 +540,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             attfiles.setFilenames(file.getName());
             attfiles.setOpid(ShareUserInfo.getUserId(this));
             try {
-                attfiles.setXx(FileUtils.encodeBase64File(file));
+//                attfiles.setXx(FileUtils.encodeBase64File(file));
             } catch (Exception e) {
                 e.printStackTrace();
             }

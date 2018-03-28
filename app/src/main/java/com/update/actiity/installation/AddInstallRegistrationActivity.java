@@ -3,20 +3,24 @@ package com.update.actiity.installation;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.bumptech.glide.Glide;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
+import com.cr.tools.PicUtil;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -43,6 +47,8 @@ import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
+
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -541,9 +547,13 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             attfiles.setFilenames(file.getName());
             attfiles.setOpid(ShareUserInfo.getUserId(this));
             LogUtils.e(mFileChooseDatas.get(i).getUrl());
+            //进行Base64编码
+//            String uploadBuffer = new String(Base64.encode(PicUtil.compressImage(bitmap2)));
+//            setCache( uploadBuffer , this, "myF.txt", Context.MODE_PRIVATE);
             try {
-                attfiles.setXx(FileUtils.encodeBase64File(file));
-                setCache(attfiles.getXx(), this, "my.txt", Context.MODE_PRIVATE);
+                attfiles.setXx(FileUtils.encodeBase64File(mFileChooseDatas.get(i).getUrl()));
+//                setCache(attfiles.getXx(), this, "my.txt", Context.MODE_PRIVATE);
+//                decoderBase64File(attfiles.getXx(),"/data/data/com.crenp.activity/cache/takephoto_cache/19.png");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -556,10 +566,27 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         mParmMap.put("serialinfo", mGson.toJson(serialList));
         if (attfilesList.size() != 0) {
             mParmMap.put("attfiles", mGson.toJson(attfilesList));
-//            setCache((String) mParmMap.get("attfiles"), this, "myfirst.txt", Context.MODE_WORLD_READABLE);
+//            setCache((String) mParmMap.get("attfiles"), this, "file.txt", Context.MODE_PRIVATE);
         }
         presenter.post(0, "billsavenew", mParmMap);
     }
+    /**
+     * decoderBase64File:(将base64字符解码保存文件).
+
+     * @author guhaizhou@126.com
+     * @param base64Code 编码后的字串
+     * @param savePath 文件保存路径
+     * @throws Exception
+     * @since JDK 1.6
+     */
+    public static void decoderBase64File(String base64Code,String savePath) throws Exception {
+//byte[] buffer = new BASE64Decoder().decodeBuffer(base64Code);
+        byte[] buffer = Base64.decode(base64Code, Base64.DEFAULT);
+        FileOutputStream out = new FileOutputStream(savePath);
+        out.write(buffer);
+        out.close();
+    }
+
 
     /**
      * 设置缓存

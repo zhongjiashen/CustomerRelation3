@@ -9,13 +9,17 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Base64;
 
 import com.cr.tools.PicUtil;
 
-import org.kobjects.base64.Base64;
+
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
 /**
@@ -172,20 +176,28 @@ public class FileUtils {
     }
 
 
-    /**
-     * 将文件转成base64 字符串
-     *
-     * @param file 文件
-     * @return
-     * @throws Exception
-     */
-    public static String encodeBase64File(File file) throws Exception {
+//    /**
+//     * 将文件转成base64 字符串
+//     *
+//     * @param file 文件
+//     * @return
+//     * @throws Exception
+//     */
+//    public static String encodeBase64File(File file) throws Exception {
+//        FileInputStream inputFile = new FileInputStream(file);
+//        byte[] buffer = new byte[(int) file.length()];
+//        inputFile.read(buffer);
+//        inputFile.close();
+//        return Base64.encode(buffer);
+//
+//
+//    }
+    public static String encodeBase64File(String path) throws Exception {
+        File  file = new File(path);
         FileInputStream inputFile = new FileInputStream(file);
-        byte[] buffer = new byte[(int) file.length()];
+        byte[] buffer = new byte[(int)file.length()];
         inputFile.read(buffer);
         inputFile.close();
-        return new String(Base64.encode(buffer));
-
-
+        return Base64.encodeToString(buffer,Base64.NO_WRAP);
     }
 }
