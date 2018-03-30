@@ -195,9 +195,9 @@ public class FileUtils {
     public static String encodeBase64File(String path) throws Exception {
         File  file = new File(path);
         FileInputStream inputFile = new FileInputStream(file);
-        byte[] buffer = new byte[(int)file.length()];
+        byte[] buffer = new byte[inputFile.available()];
         inputFile.read(buffer);
         inputFile.close();
-        return Base64.encodeToString(buffer,Base64.NO_WRAP);
+        return new String(Base64.encode(buffer,Base64.NO_WRAP),"UTF-8");
     }
 }

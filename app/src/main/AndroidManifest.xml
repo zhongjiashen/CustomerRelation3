@@ -230,6 +230,10 @@
         <activity
             android:name="com.update.actiity.contract.ContractManagementActivity"
             android:screenOrientation="portrait"/>
+        <!-- 安装维修-新怎合同管理 -->
+        <activity
+            android:name="com.update.actiity.contract.AddContractActivity"
+            android:screenOrientation="portrait"/>
         <!-- 安装维修-项目管理列表 -->
         <activity
             android:name="com.update.actiity.project.ProjectManagementActivity"

@@ -62,7 +62,7 @@ public class LogisticsManagementActivity extends BaseActivity implements
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "项目");
+        titlebar.setTitleText(this, "物流");
         titlebar.setIvRightTwoImageResource(R.drawable.oper);
         titlebar.setIvRightImageResource(R.mipmap.ic_add);
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {

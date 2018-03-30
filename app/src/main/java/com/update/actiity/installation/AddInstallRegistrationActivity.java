@@ -24,6 +24,7 @@ import com.cr.tools.PicUtil;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.model.TResult;
 import com.update.actiity.choose.ChooseDepartmentActivity;
@@ -148,7 +149,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         mFileChooseDatas = new ArrayList<>();
 
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
-        mGson = new Gson();
+        mGson = new GsonBuilder().disableHtmlEscaping().create();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
         bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH|mm|ss");
     }
@@ -255,13 +256,13 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             public void onClick(int i) {
                 switch (i) {
                     case 2:
-                        new Thread(){
-                            @Override
-                            public void run(){
-                                super.run();
+//                        new Thread(){
+//                            @Override
+//                            public void run(){
+//                                super.run();
                                 addInstallRegistration();
-                            }
-                        }.start();
+//                            }
+//                        }.start();
 
                         break;
 
@@ -552,7 +553,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 //            setCache( uploadBuffer , this, "myF.txt", Context.MODE_PRIVATE);
             try {
                 attfiles.setXx(FileUtils.encodeBase64File(mFileChooseDatas.get(i).getUrl()));
-//                setCache(attfiles.getXx(), this, "my.txt", Context.MODE_PRIVATE);
+                setCache(attfiles.getXx(), this, "my.txt", Context.MODE_PRIVATE);
 //                decoderBase64File(attfiles.getXx(),"/data/data/com.crenp.activity/cache/takephoto_cache/19.png");
             } catch (Exception e) {
                 e.printStackTrace();
