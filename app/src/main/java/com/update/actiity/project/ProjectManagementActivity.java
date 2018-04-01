@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.widget.EditText;
 
 import com.crcxj.activity.R;
-import com.update.actiity.choose.ScreeningActivity;
-import com.update.actiity.maintenance.MaintenanceRegistrationActivity;
-import com.update.actiity.maintenance.NewMaintenanceRegistrationActivity;
 import com.update.base.BaseActivity;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
@@ -74,7 +71,7 @@ public class ProjectManagementActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-//                        startActivity(new Intent(ProjectManagementActivity.this, NewMaintenanceRegistrationActivity.class));
+                        startActivity(new Intent(ProjectManagementActivity.this,AddProjectActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
 //                        startActivityForResult(new Intent(ProjectManagementActivity.this, ScreeningActivity.class)
