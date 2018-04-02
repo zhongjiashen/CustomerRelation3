@@ -218,27 +218,34 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
-        <!-- 安装维修-物流管理列表 -->
+        <!-- 工作平台-物流管理列表 -->
         <activity
             android:name="com.update.actiity.logistics.LogisticsManagementActivity"
             android:screenOrientation="portrait"/>
-        <!-- 安装维修-销售机会列表 -->
+        <!-- 工作平台-销售机会列表 -->
         <activity
             android:name="com.update.actiity.sales.SalesOpportunitiesActivity"
             android:screenOrientation="portrait"/>
-        <!-- 安装维修-合同管理列表 -->
+        <!-- 工作平台-合同管理列表 -->
         <activity
             android:name="com.update.actiity.contract.ContractManagementActivity"
             android:screenOrientation="portrait"/>
-        <!-- 安装维修-新怎合同管理 -->
+        <!-- 工作平台-新怎合同管理 -->
         <activity
             android:name="com.update.actiity.contract.AddContractActivity"
             android:screenOrientation="portrait"/>
-        <!-- 安装维修-项目管理列表 -->
+        <!-- 工作平台-项目管理列表 -->
         <activity
             android:name="com.update.actiity.project.ProjectManagementActivity"
             android:screenOrientation="portrait"/>
-
+        <!-- 工作平台-新增项目 -->
+        <activity
+            android:name="com.update.actiity.project.AddProjectActivity"
+            android:screenOrientation="portrait"/>
+        <!-- 工作平台-项目详情 -->
+        <activity
+            android:name="com.update.actiity.project.ProjectActivity"
+            android:screenOrientation="portrait"/>
         <!-- 安装维修-安装登记列表 -->
         <activity
             android:name="com.update.actiity.installation.InstallRegistrationActivity"
