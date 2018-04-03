@@ -1,19 +1,28 @@
 package com.update.actiity.project;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
 
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.update.actiity.installation.InstallRegistrationActivity;
+import com.update.actiity.installation.InstallRegistrationDetailsActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
+import com.update.base.BaseRecycleAdapter;
+import com.update.model.InstallRegistrationData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
+import com.update.viewholder.ViewHolderFactory;
 
 import java.util.Date;
 import java.util.Map;
@@ -83,8 +92,7 @@ public class ProjectManagementActivity extends BaseActivity implements
         page_number = 1;
         mParmMap.put("empid", mEmpid);//业务员ID (没有的话传空或0)
         mParmMap.put("qsrq", mQsrq);//
-//        mParmMap.put("zzrq", mZzrq);//
-        mParmMap.put("zzrq", "2018-05-02");//
+        mParmMap.put("zzrq", mZzrq);//
         mParmMap.put("shzt", mShzt);//审核状态
         mParmMap.put("empid", mEmpid);//审核状态
         mParmMap.put("gmid", mGmid);//项目单阶段ID（0全部）
@@ -108,6 +116,62 @@ public class ProjectManagementActivity extends BaseActivity implements
     @Override
     protected void init() {
         setTitlebar();
+        prlView.setOnRefreshListener(this);
+        prvView.setLayoutManager(new LinearLayoutManager(this));
+        prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.InstallRegistrationHolder, InstallRegistrationData>(mList) {
+
+            @Override
+            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
+                return ViewHolderFactory.getInstallRegistrationHolder(ProjectManagementActivity.this);
+            }
+
+            @Override
+            protected void MyonBindViewHolder(ViewHolderFactory.InstallRegistrationHolder holder, final InstallRegistrationData data) {
+                /*
+                *下图审核状态：未审核（颜色FF6600）、审核中（颜色0066FF）、已审核（颜色00CC00）
+                * 登记状态：未处理（颜色FF6600）、处理中（颜色0066FF）、已完成（颜色00CC00）
+                 */
+                holder.tvData.setText(data.getBilldate());//单据日期设置
+                holder.tvReceiptNumber.setText("单据编号" + data.getCode());//单据编号设置
+                holder.tvCompanyName.setText(data.getCname());//公司名称设置
+                switch (data.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                    case 0://未审
+                        holder.tvAuditStatus.setText("未审核");
+                        holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                        break;
+                    case 1://已审
+                        holder.tvAuditStatus.setText("已审核");
+                        holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                        break;
+                    case 2://审核中
+                        holder.tvAuditStatus.setText("审核中");
+                        holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
+                        break;
+                }
+                switch (data.getDjzt()) {//登记状态设置
+                    case 1://未处理
+                        holder.tvMaintenanceStatus.setText("未处理");
+                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                        break;
+                    case 2://处理中
+                        holder.tvMaintenanceStatus.setText("处理中");
+                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                        break;
+                    case 3://已完成
+                        holder.tvMaintenanceStatus.setText("已完成");
+                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#00CC00"));
+                        break;
+                }
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        startActivityForResult(new Intent(InstallRegistrationActivity.this, InstallRegistrationDetailsActivity.class)
+//                                .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                    }
+                });
+            }
+
+        });
     }
 
     /**
