@@ -13,7 +13,6 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.update.actiity.project.ProjectActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -154,7 +153,7 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(SalesOpportunitiesManagementActivity.this, ProjectActivity.class)
+                        startActivity(new Intent(SalesOpportunitiesManagementActivity.this, SalesOpportunitiesActivity.class)
                                 .putExtra("billid", data.getBillid()+"")
                                 .putExtra("shzt", data.getShzt()));
                     }
