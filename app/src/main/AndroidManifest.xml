@@ -230,6 +230,10 @@
         <activity
             android:name="com.update.actiity.contract.ContractManagementActivity"
             android:screenOrientation="portrait"/>
+        <!-- 工作平台-合同详情 -->
+        <activity
+            android:name="com.update.actiity.contract.ContractActivity"
+            android:screenOrientation="portrait"/>
         <!-- 工作平台-新怎合同管理 -->
         <activity
             android:name="com.update.actiity.contract.AddContractActivity"

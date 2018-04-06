@@ -18,43 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/ll_receipt_number"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/context_hight"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/margin"
-                android:paddingRight="@dimen/margin"
-                android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/tv_receipt_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=""
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
-
-                <TextView
-                    android:id="@+id/tv_audit_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@color/button_yellow"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="2dp"
-                    android:text="维修中"
-                    android:textColor="@color/text_white"
-                    android:textSize="@dimen/word_tiny"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
             <LinearLayout
                 android:id="@+id/ll_unit_name_choice"
                 android:layout_width="match_parent"
@@ -196,12 +160,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="合同名称"
+                    android:text="机会名称"
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/word_jmedium"/>
 
                 <EditText
-                    android:id="@+id/et_contract_name"
+                    android:id="@+id/et_opportunities_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -225,18 +189,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="合同金额"
+                    android:text="预计收入"
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/word_jmedium"/>
 
                 <EditText
-                    android:id="@+id/et_contract_amount"
+                    android:id="@+id/et_expected_income"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
                     android:background="@null"
                     android:digits="0123456789."
+                    android:inputType="number"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
             </LinearLayout>
@@ -265,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
-                    android:text="前期准备"
+                    android:text="预算"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small"/>
             </LinearLayout>
@@ -284,7 +249,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="起始日期"
+                    android:text="开始时间"
                     android:textColor="@color/black_color"
                     android:textSize="@dimen/word_jmedium"
                     />
@@ -318,7 +283,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="截止日期"
+                    android:text="预计成交日期"
                     android:textColor="@color/black_color"
                     android:textSize="@dimen/word_jmedium"/>
 
