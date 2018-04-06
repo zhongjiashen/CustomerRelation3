@@ -39,14 +39,23 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
      */
     @Override
     protected void initVariables() {
-        kind=getIntent().getIntExtra("kind",0);
-        switch (kind){
+        kind = getIntent().getIntExtra("kind", 0);
+        switch (kind) {
             case 0://审核状态（安装登记列表）
                 mStrings = new String[]{"未审核", "已审核", "审核中", "全部"};
                 mResults = new String[]{"0", "1", "2", "9"};
                 break;
             case 1://审核状态（安装登记列表）
+            case 2:
                 mStrings = new String[]{"否", "是"};
+                mResults = new String[]{"0", "1"};
+                break;
+            case 3://物流类型 0-收货 1-发货
+                mStrings = new String[]{"收货", "发货"};
+                mResults = new String[]{"0", "1"};
+                break;
+            case 4://运费承担 0我方 1对方
+                mStrings = new String[]{"我方", "对方"};
                 mResults = new String[]{"0", "1"};
                 break;
 
@@ -71,7 +80,7 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         rvList.setLayoutManager(new LinearLayoutManager(this));
-        rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,String>(Arrays.asList(mStrings)) {
+        rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder, String>(Arrays.asList(mStrings)) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
@@ -84,7 +93,7 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT",data)
+                        setResult(RESULT_OK, new Intent().putExtra("CHOICE_RESULT_TEXT", data)
                                 .putExtra("CHOICE_RESULT_ID", mResults[holder.getLayoutPosition()]));
                         finish();
                     }
@@ -98,14 +107,21 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
-        switch (kind) {
-            case 0://审核状态（安装登记列表）
-                titlebar.setTitleText(this, "审核状态选择");
-                break;
-            case 1://审核状态（安装登记列表）
-                titlebar.setTitleText(this, "重新派工选择");
-                break;
-        }
+        titlebar.setTitleText(this, "请选择");
+//        switch (kind) {
+//            case 0://审核状态（安装登记列表）
+//                titlebar.setTitleText(this, "审核状态选择");
+//                break;
+//            case 1://审核状态（安装登记列表）
+//                titlebar.setTitleText(this, "重新派工选择");
+//                break;
+//            case 2://
+//                titlebar.setTitleText(this, "请选择");
+//                break;
+//            case 3://
+//                titlebar.setTitleText(this, "请选择");
+//                break;
+//        }
 
     }
 
