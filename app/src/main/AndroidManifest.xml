@@ -224,7 +224,7 @@
             android:screenOrientation="portrait"/>
         <!-- 工作平台-销售机会列表 -->
         <activity
-            android:name="com.update.actiity.sales.SalesOpportunitiesActivity"
+            android:name="com.update.actiity.sales.SalesOpportunitiesManagementActivity"
             android:screenOrientation="portrait"/>
         <!-- 工作平台-新增销售机会 -->
         <activity

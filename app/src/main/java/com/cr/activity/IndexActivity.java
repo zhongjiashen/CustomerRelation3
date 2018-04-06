@@ -78,7 +78,7 @@ import com.update.actiity.installation.InstallRegistrationActivity;
 import com.update.actiity.maintenance.MaintenanceRegistrationActivity;
 import com.update.actiity.installation.PerformInstallationActivity;
 import com.update.actiity.project.ProjectManagementActivity;
-import com.update.actiity.sales.SalesOpportunitiesActivity;
+import com.update.actiity.sales.SalesOpportunitiesManagementActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -640,7 +640,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                         intent.setClass(IndexActivity.this, LogisticsManagementActivity.class);
                         break;
                     case 8://销售机会
-                        intent.setClass(IndexActivity.this,SalesOpportunitiesActivity.class);
+                        intent.setClass(IndexActivity.this,SalesOpportunitiesManagementActivity.class);
                         break;
                     case 9://合同管理
                         intent.setClass(IndexActivity.this, ContractManagementActivity.class);

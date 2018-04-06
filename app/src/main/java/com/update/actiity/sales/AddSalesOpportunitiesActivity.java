@@ -125,7 +125,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "项目");
+        titlebar.setTitleText(this, "销售机会");
         titlebar.setRightText("保存");
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
