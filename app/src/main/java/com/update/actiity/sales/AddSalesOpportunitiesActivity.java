@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.common.CommonXzkhActivity;
+import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -39,36 +40,39 @@ import butterknife.OnClick;
  * 2018/3/30 0030         申中佳               V1.0
  */
 public class AddSalesOpportunitiesActivity extends BaseActivity {
+
     @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.tv_unit_name)
     TextView tvUnitName;
-    @BindView(R.id.tv_unit_type)
-    TextView tvUnitType;
-    @BindView(R.id.et_project_name)
-    EditText etProjectName;
+    @BindView(R.id.tv_contacts)
+    TextView tvContacts;
+    @BindView(R.id.et_contact_number)
+    EditText etContactNumber;
+    @BindView(R.id.et_opportunities_name)
+    EditText etOpportunitiesName;
+    @BindView(R.id.et_expected_income)
+    EditText etExpectedIncome;
     @BindView(R.id.tv_current_stage)
     TextView tvCurrentStage;
-    @BindView(R.id.tv_related_contract)
-    TextView tvRelatedContract;
-    @BindView(R.id.tv_project_type)
-    TextView tvProjectType;
-    @BindView(R.id.tv_project_source)
-    TextView tvProjectSource;
-    @BindView(R.id.et_budget_amount)
-    EditText etBudgetAmount;
     @BindView(R.id.tv_start_time)
     TextView tvStartTime;
     @BindView(R.id.tv_end_time)
     TextView tvEndTime;
+    @BindView(R.id.tv_opportunities_source)
+    TextView tvOpportunitiesSource;
+    @BindView(R.id.et_interest_size)
+    EditText etInterestSize;
+    @BindView(R.id.et_chance)
+    EditText etChance;
     @BindView(R.id.tv_document_date)
     TextView tvDocumentDate;
     @BindView(R.id.tv_department)
     TextView tvDepartment;
     @BindView(R.id.tv_salesman)
     TextView tvSalesman;
-    @BindView(R.id.et_project_purpose)
-    EditText etProjectPurpose;
+    @BindView(R.id.et_abstract)
+    EditText etAbstract;
     private TimePickerView mTimePickerView;//时间选择弹窗
 
     Gson mGson;
@@ -76,17 +80,12 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
     private Map<String, Object> mParmMap;
     private Date mDate;
 
-    private String mBilldate;//单据日期
     private String mClientid;// 单位ID
-    private String mProjecttype;// 项目类型id
-    private String mContractid;// 合同ID
-    private String mGmid;//阶段ID
-    private String mQsrq;//开始日期
+    private String mLxrid;// 联系人ID
     private String mZzrq;//截止日期
     private String mBflx;//机会来源ID
     private String mDepartmentid;//部门ID
     private String mEmpid;//业务员ID
-    private String mSourceid;//项目来源id
 
 
     /**
@@ -109,7 +108,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
      */
     @Override
     protected int getLayout() {
-        return R.layout.activity_project;
+        return R.layout.activity_sales_opportunities;
     }
 
     /**
@@ -133,35 +132,34 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
             public void onClick(int i) {
                 switch (i) {
                     case 2:
-                        saveProject();
+                        saveOpportunities();
                         break;
 
                 }
             }
         });
     }
-
-    @OnClick({R.id.ll_unit_name_choice, R.id.ll_related_contract_choice, R.id.ll_project_type_choice, R.id.ll_project_source_choice, R.id.ll_start_time_choice, R.id.ll_end_time_choice, R.id.ll_document_date_choice, R.id.ll_department_choice, R.id.ll_salesman_choice})
+    @OnClick({R.id.ll_unit_name_choice, R.id.ll_contacts_choice, R.id.ll_start_time_choice, R.id.ll_end_time_choice, R.id.ll_opportunities_source_choice, R.id.ll_document_date_choice, R.id.ll_department_choice, R.id.ll_salesman_choice})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_unit_name_choice://单位选择
                 startActivityForResult(new Intent(this, CommonXzkhActivity.class), 11);
                 break;
-            case R.id.ll_related_contract_choice://相关合同
-                break;
-            case R.id.ll_project_type_choice://项目类型
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm", "PROJXMLX").putExtra("title", "项目类型选择"), 13);
-                break;
-            case R.id.ll_project_source_choice://项目来源
-                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm", "PROJXMLY").putExtra("title", "项目来源选择"), 14);
+            case R.id.ll_contacts_choice://联系人选择
+                if (TextUtils.isEmpty(mClientid))
+                    showShortToast("请先选择单位");
+                else
+                    startActivityForResult(new Intent(this, CommonXzlxrActivity.class).putExtra("clientid", mClientid), 12);
                 break;
             case R.id.ll_start_time_choice:
                 selectTime(0);
                 break;
             case R.id.ll_end_time_choice:
                 selectTime(1);
+                break;
+            case R.id.ll_opportunities_source_choice:
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm", "BFLX").putExtra("title", "机会来源选择"), 13);
                 break;
             case R.id.ll_document_date_choice:
                 selectTime(2);
@@ -179,22 +177,24 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         }
     }
 
+
+
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         switch (requestCode) {
             case 11://单位选择结果处理
                 mClientid = data.getStringExtra("id");
+                mLxrid = data.getStringExtra("lxrid");
                 tvUnitName.setText(data.getStringExtra("name"));
+                tvContacts.setText(data.getStringExtra("lxrname"));
+                etContactNumber.setText(data.getStringExtra("phone"));
                 break;
             case 12://联系人选择结果处理
-
+                mLxrid = data.getStringExtra("id");
+                tvContacts.setText(data.getStringExtra("name"));
                 break;
-            case 13://项目类型选择结果处理
-                mProjecttype = data.getStringExtra("CHOICE_RESULT_ID");
-                tvProjectType.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
-                break;
-            case 14://项目来源选择结果处理
-                mSourceid = data.getStringExtra("CHOICE_RESULT_ID");
-                tvProjectSource.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+            case 13://机会来源选择结果处理
+                mBflx = data.getStringExtra("CHOICE_RESULT_ID");
+                tvOpportunitiesSource.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 15://部门选择结果处理
                 mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
@@ -241,32 +241,44 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
     /**
      * 新增项目
      */
-    private void saveProject() {
+    private void saveOpportunities() {
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择单位名称！");
             return;
         }
-        String title = etProjectName.getText().toString();
+        String phone = etContactNumber.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            showShortToast("请输入联系电话");
+            return;
+        }
+        String title = etOpportunitiesName.getText().toString();
         if (TextUtils.isEmpty(title)) {
-            showShortToast("请输入项目名称！");
+            showShortToast("请输入机会名称！");
             return;
         }
-        if (TextUtils.isEmpty(mProjecttype)) {
-            showShortToast("请选择项目类型！");
-            return;
-        }
-        if (TextUtils.isEmpty(mSourceid)) {
-            showShortToast("请选择项目来源！");
-            return;
-        }
-        String amount = etBudgetAmount.getText().toString();
+
+        String amount = etExpectedIncome.getText().toString();
         if (TextUtils.isEmpty(amount)) {
-            showShortToast("请输入预算金额！");
+            showShortToast("请输入预计收入！");
             return;
         }
         mZzrq = tvEndTime.getText().toString();
         if (TextUtils.isEmpty(mZzrq)) {
-            showShortToast("请选择截止日期！");
+            showShortToast("请选择成交日期！");
+            return;
+        }
+        if (TextUtils.isEmpty(mBflx)) {
+            showShortToast("请先选机会来源");
+            return;
+        }
+        String sources = etInterestSize.getText().toString();
+        if (TextUtils.isEmpty(sources)) {
+            showShortToast("请输入兴趣大小！");
+            return;
+        }
+        String probability = etChance.getText().toString();
+        if (TextUtils.isEmpty(probability)) {
+            showShortToast("请输入成功机率！");
             return;
         }
         if (TextUtils.isEmpty(mDepartmentid)) {
@@ -281,25 +293,27 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         mMap.put("billdate", tvDocumentDate.getText().toString()
         );//单据日期
         mMap.put("clientid", mClientid);// 单位ID
-        mMap.put("title", title);//  项目名称
-        mMap.put("projecttype", mProjecttype);//项目类型id
-        mMap.put("sourceid", mSourceid);//项目类型id
-        mMap.put("contractid", mContractid);// 合同ID
+        mMap.put("lxrid", mLxrid);//联系人ID
+        mMap.put("phone", phone);// 单位ID
+        mMap.put("title", title);//机会名称
         mMap.put("amount", amount);//预算金额
         mMap.put("gmid", "0");//阶段ID
         mMap.put("qsrq", tvStartTime.getText().toString());//开始日期
-        mMap.put("zzrq", mZzrq);//截止日期
-//        mMap.put("bflx", mBflx);// 机会来源ID
+        mMap.put("preselldate", mZzrq);//预计成交日期
+        mMap.put("bflx", mBflx);// 机会来源ID
+        mMap.put("sources", sources);// 兴趣大小
+        mMap.put("probability", probability);// 成功机率（数字型）
         mMap.put("departmentid", mDepartmentid);// 部门ID
         mMap.put("empid", mEmpid);//业务员ID
-        mMap.put("objective", etProjectPurpose.getText().toString());//项目目的
+        mMap.put("memo", etAbstract.getText().toString());//备注
         mMap.put("opid", ShareUserInfo.getUserId(this));//操作员ID
 
         //提交数据到网络接口
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
-        mParmMap.put("parms", "XMD");
-        mParmMap.put("master","["+ mGson.toJson(mMap)+"]");
+        mParmMap.put("parms", "XSJH");
+        mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }
+
 
 }

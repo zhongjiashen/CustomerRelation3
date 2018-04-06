@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:text="单位名称"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <TextView
                     android:id="@+id/tv_unit_name"
@@ -42,18 +42,18 @@
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
+                    android:textSize="@dimen/word_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/xyb_jt"/>
+                    android:src="@drawable/xyb_jt" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
 
             <LinearLayout
                 android:id="@+id/ll_contacts_choice"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:text="联  系  人"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <TextView
                     android:id="@+id/tv_contacts"
@@ -78,18 +78,18 @@
                     android:layout_marginRight="@dimen/margin"
                     android:layout_weight="1"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
+                    android:textSize="@dimen/word_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/xyb_jt"/>
+                    android:src="@drawable/xyb_jt" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="联系电话"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <EditText
                     android:id="@+id/et_contact_number"
@@ -113,43 +113,14 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
+                    android:textSize="@dimen/word_small" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="@dimen/margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单位类型"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
-
-                <TextView
-                    android:id="@+id/tv_unit_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_weight="1"
-                    android:text="渠道"
-                    android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:text="机会名称"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <EditText
                     android:id="@+id/et_opportunities_name"
@@ -172,13 +143,13 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
+                    android:textSize="@dimen/word_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:text="预计收入"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <EditText
                     android:id="@+id/et_expected_income"
@@ -203,13 +174,13 @@
                     android:digits="0123456789."
                     android:inputType="number"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
+                    android:textSize="@dimen/word_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -222,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:text="当前阶段"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <TextView
                     android:id="@+id/tv_current_stage"
@@ -232,13 +203,14 @@
                     android:layout_weight="1"
                     android:text="预算"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
+                    android:textSize="@dimen/word_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
+
             <LinearLayout
                 android:id="@+id/ll_start_time_choice"
                 android:layout_width="match_parent"
@@ -251,8 +223,7 @@
                     android:layout_height="wrap_content"
                     android:text="开始时间"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/word_jmedium"
-                    />
+                    android:textSize="@dimen/word_jmedium" />
 
                 <TextView
                     android:id="@+id/tv_start_time"
@@ -269,10 +240,12 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/xyb_jt" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
+
             <LinearLayout
                 android:id="@+id/ll_end_time_choice"
                 android:layout_width="match_parent"
@@ -285,7 +258,7 @@
                     android:layout_height="wrap_content"
                     android:text="预计成交日期"
                     android:textColor="@color/black_color"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <TextView
                     android:id="@+id/tv_end_time"
@@ -302,12 +275,14 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/xyb_jt" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
+
             <LinearLayout
-                android:id="@+id/ll_opportunit_name_choice"
+                android:id="@+id/ll_opportunities_source_choice"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/context_hight"
                 android:gravity="center_vertical"
@@ -317,65 +292,91 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="机会名称"
+                    android:text="机会来源"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <TextView
-                    android:id="@+id/tv_opportunit_name"
+                    android:id="@+id/tv_opportunities_source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
+                    android:textSize="@dimen/word_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/xyb_jt"/>
+                    android:src="@drawable/xyb_jt" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
+
             <LinearLayout
-                android:id="@+id/ll_related_projects_choice"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/context_hight"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/margin"
-                android:paddingRight="@dimen/margin">
+                android:padding="@dimen/margin">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="相关项目"
+                    android:text="兴趣大小"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
-                <TextView
-                    android:id="@+id/tv_related_projects"
+                <EditText
+                    android:id="@+id/et_interest_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="15dp"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/xyb_jt"/>
+                    android:textSize="@dimen/word_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成交几率%"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/word_jmedium" />
+
+                <EditText
+                    android:id="@+id/et_chance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:digits="0123456789."
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:background="@null"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/word_small" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color" />
+
             <LinearLayout
                 android:id="@+id/ll_document_date_choice"
                 android:layout_width="match_parent"
@@ -389,7 +390,7 @@
                     android:layout_height="wrap_content"
                     android:text="单据日期"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/word_jmedium"/>
+                    android:textSize="@dimen/word_jmedium" />
 
                 <TextView
                     android:id="@+id/tv_document_date"
@@ -399,18 +400,19 @@
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/word_small"/>
+                    android:textSize="@dimen/word_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/xyb_jt"/>
+                    android:src="@drawable/xyb_jt" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/black_line_color"/>
+                android:background="@color/black_line_color" />
+
             <LinearLayout
                 android:id="@+id/ll_department_choice"
                 android:layout_width="match_parent"

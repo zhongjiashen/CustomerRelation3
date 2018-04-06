@@ -226,6 +226,10 @@
         <activity
             android:name="com.update.actiity.sales.SalesOpportunitiesActivity"
             android:screenOrientation="portrait"/>
+        <!-- 工作平台-新增销售机会 -->
+        <activity
+            android:name="com.update.actiity.sales.AddSalesOpportunitiesActivity"
+            android:screenOrientation="portrait"/>
         <!-- 工作平台-合同管理列表 -->
         <activity
             android:name="com.update.actiity.contract.ContractManagementActivity"

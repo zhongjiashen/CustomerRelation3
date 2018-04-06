@@ -164,16 +164,15 @@ public class ContractActivity extends BaseActivity {
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                 break;
         }
-        tvUnitName.setText(data.getCname());
-        tvUnitType.setText("渠道");
-        e
-        etProjectName.setText(data.getTitle());
-        tvCurrentStage.setText(data.getGmmc());
-        tvProjectType.setText(data.getXmlxname());
-        tvProjectSource.setText(data.getXmlyname());
-        etBudgetAmount.setText(data.getAmount()+"");
-        tvStartTime.setText(data.getQsrq());
-        tvEndTime.setText(data.getZzrq());
+        tvUnitName.setText(data.getCname());//单位名称
+        tvContacts.setText(data.getLxrname());//联系人
+        etContactNumber.setText(data.getPhone());//联系电话
+        tvUnitType.setText("渠道");//单位类型
+        etContractName.setText(data.getTitle());//合同名称
+        etContractAmount.setText(data.getAmount()+"");//合同金额
+        tvCurrentStage.setText(data.getGmmc());//当前阶段
+        tvStartTime.setText(data.getQsrq());//起始日期
+        tvEndTime.setText(data.getZzrq());//截止日期
         tvDocumentDate.setText(data.getBilldate());
         tvDepartment.setText(data.getDepname());
         tvSalesman.setText(data.getEmpname());

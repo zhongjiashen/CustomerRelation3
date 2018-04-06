@@ -274,7 +274,7 @@ public class AddContractActivity extends BaseActivity {
         mMap.put("billdate", tvDocumentDate.getText().toString()
         );//单据日期
         mMap.put("clientid", mClientid);// 单位ID
-        mMap.put("lxrid", mLxrid);// 单位ID
+        mMap.put("lxrid", mLxrid);// 联系人ID
         mMap.put("phone", phone);// 单位ID
         mMap.put("title", title);//合同名称
         mMap.put("amount", amount);//预算金额

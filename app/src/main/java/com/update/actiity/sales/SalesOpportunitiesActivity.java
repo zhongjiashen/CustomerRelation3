@@ -1,5 +1,6 @@
 package com.update.actiity.sales;
 
+import android.content.Intent;
 import android.widget.EditText;
 
 import com.crcxj.activity.R;
@@ -70,7 +71,7 @@ public class SalesOpportunitiesActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-//                        startActivity(new Intent(ProjectManagementActivity.this, NewMaintenanceRegistrationActivity.class));
+                        startActivity(new Intent(SalesOpportunitiesActivity.this, AddSalesOpportunitiesActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
 //                        startActivityForResult(new Intent(ProjectManagementActivity.this, ScreeningActivity.class)

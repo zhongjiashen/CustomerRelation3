@@ -36,7 +36,7 @@ public class RqContractData {
     @SerializedName("gmid")
     private Object gmid;
     @SerializedName("gmmc")
-    private Object gmmc;
+    private String gmmc;
     @SerializedName("chanceid")
     private int chanceid;
     @SerializedName("chancename")
@@ -160,11 +160,11 @@ public class RqContractData {
         this.gmid = gmid;
     }
 
-    public Object getGmmc() {
+    public String getGmmc() {
         return gmmc;
     }
 
-    public void setGmmc(Object gmmc) {
+    public void setGmmc(String gmmc) {
         this.gmmc = gmmc;
     }
 
