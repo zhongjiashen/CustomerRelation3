@@ -1,7 +1,6 @@
 package com.update.actiity.project;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,29 +12,22 @@ import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
-import com.update.model.ChooseGoodsData;
-import com.update.model.FileChooseData;
-import com.update.model.GoodsOrOverviewData;
 import com.update.utils.DateUtil;
-import com.update.utils.FileUtils;
-import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+
 
 /**
  * Author:    申中佳
@@ -182,7 +174,8 @@ public class AddProjectActivity extends BaseActivity {
                 if (TextUtils.isEmpty(mDepartmentid))
                     showShortToast("请先选择部门");
                 else
-                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class).putExtra("depid", mDepartmentid), 16);
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+                            .putExtra("depid", mDepartmentid), 16);
                 break;
         }
     }

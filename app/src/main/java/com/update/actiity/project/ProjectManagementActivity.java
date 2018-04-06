@@ -12,12 +12,11 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
-import com.update.actiity.installation.InstallRegistrationActivity;
-import com.update.actiity.installation.InstallRegistrationDetailsActivity;
+import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
-import com.update.model.InstallRegistrationData;
+import com.update.model.request.RqProjectListData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
@@ -25,6 +24,7 @@ import com.update.viewbar.refresh.PullableRecyclerView;
 import com.update.viewholder.ViewHolderFactory;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -64,6 +64,9 @@ public class ProjectManagementActivity extends BaseActivity implements
     private String mEmpid;//业务员ID
     private String cname;//供应商名称（模糊查询用）
 
+
+    private List<RqProjectListData> mList;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -72,13 +75,13 @@ public class ProjectManagementActivity extends BaseActivity implements
         presenter = new BaseP(this, this);
         mParmMap = new ArrayMap<>();
         mGson = new Gson();
-        mDate=new Date();
+        mDate = new Date();
 
         mQsrq = DateUtil.DateToString(mDate, "yyyy-MM-") + "01";
         mZzrq = DateUtil.DateToString(mDate, "yyyy-MM-dd");
         mShzt = "9";
         mGmid = "0";
-        mEmpid= "0";
+        mEmpid = "0";
         mParmMap.put("opid", ShareUserInfo.getUserId(this));//登录操作员ID
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("tabname", "tb_project");
@@ -118,21 +121,17 @@ public class ProjectManagementActivity extends BaseActivity implements
         setTitlebar();
         prlView.setOnRefreshListener(this);
         prvView.setLayoutManager(new LinearLayoutManager(this));
-        prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.InstallRegistrationHolder, InstallRegistrationData>(mList) {
+        prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ProjectHolder, RqProjectListData>(mList) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getInstallRegistrationHolder(ProjectManagementActivity.this);
+                return ViewHolderFactory.getProjectHolder(ProjectManagementActivity.this);
             }
 
             @Override
-            protected void MyonBindViewHolder(ViewHolderFactory.InstallRegistrationHolder holder, final InstallRegistrationData data) {
-                /*
-                *下图审核状态：未审核（颜色FF6600）、审核中（颜色0066FF）、已审核（颜色00CC00）
-                * 登记状态：未处理（颜色FF6600）、处理中（颜色0066FF）、已完成（颜色00CC00）
-                 */
-                holder.tvData.setText(data.getBilldate());//单据日期设置
-                holder.tvReceiptNumber.setText("单据编号" + data.getCode());//单据编号设置
+            protected void MyonBindViewHolder(ViewHolderFactory.ProjectHolder holder, final RqProjectListData data) {
+                holder.tvData.setText(data.getBilldate());
+                holder.tvReceiptNumber.setText("单据编号:" + data.getCode());//单据编号设置
                 holder.tvCompanyName.setText(data.getCname());//公司名称设置
                 switch (data.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
                     case 0://未审
@@ -148,27 +147,18 @@ public class ProjectManagementActivity extends BaseActivity implements
                         holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                         break;
                 }
-                switch (data.getDjzt()) {//登记状态设置
-                    case 1://未处理
-                        holder.tvMaintenanceStatus.setText("未处理");
-                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                        break;
-                    case 2://处理中
-                        holder.tvMaintenanceStatus.setText("处理中");
-                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-                        break;
-                    case 3://已完成
-                        holder.tvMaintenanceStatus.setText("已完成");
-                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#00CC00"));
-                        break;
-                }
+                holder.tvPhase.setText("阶段：" + data.getGmmc());
+                holder.tvProjectName.setText(data.getTitle());//项目名称
+                holder.tvMoney.setText("预算金额：￥" + data.getAmount());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-//                        startActivityForResult(new Intent(InstallRegistrationActivity.this, InstallRegistrationDetailsActivity.class)
-//                                .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                    public void onClick(View v) {
+                        startActivity(new Intent(ProjectManagementActivity.this, ProjectActivity.class)
+                                .putExtra("billid", data.getBillid()+"")
+                                .putExtra("shzt", data.getShzt()));
                     }
                 });
+
             }
 
         });
@@ -189,7 +179,7 @@ public class ProjectManagementActivity extends BaseActivity implements
                         startActivity(new Intent(ProjectManagementActivity.this, AddProjectActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
-                        startActivity(new Intent(ProjectManagementActivity.this, ProjectActivity.class).putExtra("billid","31"));
+
 //                        startActivityForResult(new Intent(ProjectManagementActivity.this, ScreeningActivity.class)
 //                                .putExtra("kind", 2), 11);
                         break;
@@ -216,6 +206,35 @@ public class ProjectManagementActivity extends BaseActivity implements
     @Override
     public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
 
+    }
+
+    /**
+     * 网路请求返回数据
+     *
+     * @param requestCode 请求码
+     * @param data        数据
+     */
+    @Override
+    public void returnData(int requestCode, Object data) {
+        Gson gson = new Gson();
+        List<RqProjectListData> list = gson.fromJson((String) data,
+                new TypeToken<List<RqProjectListData>>() {
+                }.getType());
+        switch (requestCode) {
+            case 0://第一次加载数据或者刷新数据
+                mList = list;
+                mAdapter.setList(mList);
+                break;
+            case 1:
+                if (list == null || list.size() == 0) {
+                    showShortToast("没有更多内容");
+                } else {
+                    page_number = page_number + 1;
+                    mList.addAll(list);
+                    mAdapter.setList(mList);
+                }
+                break;
+        }
     }
 
     /**

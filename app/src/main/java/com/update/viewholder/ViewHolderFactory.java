@@ -90,6 +90,17 @@ public class ViewHolderFactory {
         return new ChooseFileResultHolder(LayoutInflater.from(context).inflate(R.layout.item_select_photos, null, false));
     }
 
+    /**
+     * 项目
+     *
+     * @param context
+     * @return
+     */
+    public static ProjectHolder getProjectHolder(Context context) {
+        return new ProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_project, null, false));
+    }
+
+
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_data)
         public TextView tvData;
@@ -158,7 +169,7 @@ public class ViewHolderFactory {
         @BindView(R.id.v_line)
         public View vLine;
         @BindView(R.id.tv_warranty_status)
-        public  TextView tvWarrantyStatus;
+        public TextView tvWarrantyStatus;
         @BindView(R.id.ll_warranty_status)
         public LinearLayout llWarrantyStatus;
         @BindView(R.id.tv_fault_type)
@@ -169,6 +180,7 @@ public class ViewHolderFactory {
         public EditText etFaultDescription;
         @BindView(R.id.ll_maintenance)
         public LinearLayout llMaintenance;
+
         ChooseGoodsHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -208,6 +220,27 @@ public class ViewHolderFactory {
         public ImageView ivDelete;
 
         ChooseFileResultHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class ProjectHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_data)
+        public TextView tvData;
+        @BindView(R.id.tv_receipt_number)
+        public TextView tvReceiptNumber;
+        @BindView(R.id.tv_audit_status)
+        public TextView tvAuditStatus;
+        @BindView(R.id.tv_company_name)
+        public TextView tvCompanyName;
+        @BindView(R.id.tv_project_name)
+        public TextView tvProjectName;
+        @BindView(R.id.tv_phase)
+        public TextView tvPhase;
+        @BindView(R.id.tv_money)
+        public TextView tvMoney;
+        ProjectHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

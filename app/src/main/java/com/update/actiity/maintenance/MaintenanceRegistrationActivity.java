@@ -2,16 +2,12 @@ package com.update.actiity.maintenance;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -50,30 +46,14 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
         PullToRefreshLayout.OnRefreshListener {
     @BindView(R.id.titlebar)
     TitleBar titlebar;
-    @BindView(R.id.ll_menu)
-    LinearLayout llMenu;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
-    @BindView(R.id.tv_time_left)
-    TextView tvTimeLeft;
-    @BindView(R.id.tv_time_right)
-    TextView tvTimeRight;
-    @BindView(R.id.tv_audit_status)
-    TextView tvAuditStatus;
-    @BindView(R.id.et_unit_name)
-    EditText etUnitName;
+
     @BindView(R.id.pullToRefreshLayout_view)
     PullToRefreshLayout pullToRefreshLayoutView;
     @BindView(R.id.pullRecycle_view)
     PullableRecyclerView pullRecycleView;
     @BindView(R.id.search)
     EditText search;
-    @BindView(R.id.ll_audit_status)
-    LinearLayout llAuditStatus;
-    @BindView(R.id.bt_reset)
-    Button btReset;
-    @BindView(R.id.bt_query)
-    Button btQuery;
+
     private List<InstallRegistrationData> mList;
     private Map<String, Object> mParmMap;
     /*上传参数变量*/
