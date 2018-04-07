@@ -40,11 +40,11 @@ public class RqContractData {
     @SerializedName("chanceid")
     private int chanceid;
     @SerializedName("chancename")
-    private Object chancename;
+    private String chancename;
     @SerializedName("projectid")
     private int projectid;
     @SerializedName("projectname")
-    private Object projectname;
+    private String projectname;
     @SerializedName("departmentid")
     private int departmentid;
     @SerializedName("empid")
@@ -176,11 +176,11 @@ public class RqContractData {
         this.chanceid = chanceid;
     }
 
-    public Object getChancename() {
+    public String getChancename() {
         return chancename;
     }
 
-    public void setChancename(Object chancename) {
+    public void setChancename(String chancename) {
         this.chancename = chancename;
     }
 
@@ -192,11 +192,11 @@ public class RqContractData {
         this.projectid = projectid;
     }
 
-    public Object getProjectname() {
+    public String getProjectname() {
         return projectname;
     }
 
-    public void setProjectname(Object projectname) {
+    public void setProjectname(String projectname) {
         this.projectname = projectname;
     }
 

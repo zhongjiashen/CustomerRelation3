@@ -21,8 +21,8 @@
         android:id="@+id/tv_company_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
         android:layout_marginLeft="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:text="河南恒视软件科技有限公司"
         android:textColor="@color/text_black"
         android:textSize="@dimen/word_small" />
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="@dimen/margin"
         android:text="河南恒视软件科技有限公司"
         android:textColor="@color/text_black"
         android:textSize="@dimen/word_small" />
@@ -54,7 +54,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginTop="@dimen/margin"
-        android:paddingBottom="@dimen/margin"
         android:text="河南恒视软件科技有限公司"
         android:textColor="@color/text_black"
         android:textSize="@dimen/word_small" />
@@ -62,5 +61,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin"
         android:background="@color/black_line_color" />
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.update.actiity.contract;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,6 +14,8 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.project.ProjectActivity;
+import com.update.actiity.sales.SalesOpportunitiesActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.model.request.RqContractData;
@@ -21,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Author:    申中佳
@@ -78,6 +83,9 @@ public class ContractActivity extends BaseActivity {
     private String mBillid;//项目ID
     private int mShzt;//审核状态
 
+
+    RqContractData mData;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -132,7 +140,7 @@ public class ContractActivity extends BaseActivity {
 
         switch (requestCode) {
             case 0://第一次加载数据或者刷新数据
-               List<RqContractData> rqContractDatas = mGson.fromJson((String) data,
+                List<RqContractData> rqContractDatas = mGson.fromJson((String) data,
                         new TypeToken<List<RqContractData>>() {
                         }.getType());
                 setData(rqContractDatas.get(0));
@@ -149,11 +157,12 @@ public class ContractActivity extends BaseActivity {
      * @param data
      */
     private void setData(RqContractData data) {
+        mData=data;
         tvReceiptNumber.setText("单据编号:" + data.getCode());//单据编号设置
         switch (mShzt) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
             case 0://未审
                 tvAuditStatus.setText("未审核");
-               tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                 break;
             case 1://已审
                 tvAuditStatus.setText("已审核");
@@ -169,15 +178,35 @@ public class ContractActivity extends BaseActivity {
         etContactNumber.setText(data.getPhone());//联系电话
         tvUnitType.setText("渠道");//单位类型
         etContractName.setText(data.getTitle());//合同名称
-        etContractAmount.setText(data.getAmount()+"");//合同金额
+        etContractAmount.setText(data.getAmount() + "");//合同金额
         tvCurrentStage.setText(data.getGmmc());//当前阶段
         tvStartTime.setText(data.getQsrq());//起始日期
         tvEndTime.setText(data.getZzrq());//截止日期
-        tvDocumentDate.setText(data.getBilldate());
-        tvDepartment.setText(data.getDepname());
-        tvSalesman.setText(data.getEmpname());
-        etAbstract.setText(data.getMemo());
+        tvOpportunitName.setText(data.getChancename());
+        tvRelatedProjects.setText(data.getProjectname());
+        tvDocumentDate.setText(data.getBilldate());//单据日期
+        tvDepartment.setText(data.getDepname());//不噩梦
+        tvSalesman.setText(data.getEmpname());//业务员
+        etAbstract.setText(data.getMemo());//摘要
 
 
+    }
+
+    @OnClick({R.id.ll_opportunit_name_choice, R.id.ll_related_projects_choice})
+    public void onClick(View view) {
+        if(mData==null)
+            return;
+        switch (view.getId()) {
+            case R.id.ll_opportunit_name_choice:
+                if(!TextUtils.isEmpty(mData.getChancename()))
+                    startActivity(new Intent(this, SalesOpportunitiesActivity.class)
+                            .putExtra("billid", mData.getChanceid()+""));
+                break;
+            case R.id.ll_related_projects_choice:
+                if(!TextUtils.isEmpty(mData.getProjectname()))
+                    startActivity(new Intent(this, ProjectActivity.class)
+                            .putExtra("billid", mData.getProjectid()+""));
+                break;
+        }
     }
 }

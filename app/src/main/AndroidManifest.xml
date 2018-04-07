@@ -246,6 +246,10 @@
         <activity
             android:name="com.update.actiity.contract.ContractManagementActivity"
             android:screenOrientation="portrait"/>
+        <!-- 工作平台-合同管理列表 -->
+        <activity
+            android:name="com.update.actiity.contract.ChoiceContractActivity"
+            android:screenOrientation="portrait"/>
         <!-- 工作平台-合同详情 -->
         <activity
             android:name="com.update.actiity.contract.ContractActivity"

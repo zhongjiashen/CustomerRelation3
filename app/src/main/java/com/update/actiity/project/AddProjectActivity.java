@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.contract.ChoiceContractActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.utils.DateUtil;
@@ -149,6 +150,7 @@ public class AddProjectActivity extends BaseActivity {
                 startActivityForResult(new Intent(this, CommonXzkhActivity.class), 11);
                 break;
             case R.id.ll_related_contract_choice://相关合同
+                startActivityForResult(new Intent(this, ChoiceContractActivity.class), 12);
                 break;
             case R.id.ll_project_type_choice://项目类型
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
@@ -187,6 +189,8 @@ public class AddProjectActivity extends BaseActivity {
                 tvUnitName.setText(data.getStringExtra("name"));
                 break;
             case 12://联系人选择结果处理
+                mContractid= data.getStringExtra("contractid");
+                tvRelatedContract.setText(data.getStringExtra("title"));
 
                 break;
             case 13://项目类型选择结果处理
