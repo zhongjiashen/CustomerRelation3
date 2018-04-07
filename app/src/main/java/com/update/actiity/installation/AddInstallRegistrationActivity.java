@@ -3,7 +3,6 @@ package com.update.actiity.installation;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,10 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
-import com.bumptech.glide.Glide;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
-import com.cr.tools.PicUtil;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -29,8 +26,8 @@ import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.model.TResult;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
-import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.adapter.FileChooseAdapter;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
@@ -48,8 +45,6 @@ import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
-
-
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -116,6 +111,8 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     EditText etMessenger;
     @BindView(R.id.et_note)
     EditText etNote;
+    @BindView(R.id.tv_related_projects)
+    TextView tvRelatedProjects;
 
     private TimePickerView mTimePickerView;//时间选择弹窗
     private FileChooseAdapter mFileChooseAdapter;
@@ -138,6 +135,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     private static final int FILE_SELECT_CODE = 66;
 
     private int goods_possion;
+    private String mProjectid;//  项目ID
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -196,10 +194,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        goods_possion=holder.getLayoutPosition();
+                        goods_possion = holder.getLayoutPosition();
                         startActivityForResult(new Intent(AddInstallRegistrationActivity.this, ChooseGoodsDetailsActivity.class)
                                 .putExtra("kind", 1)
-                                .putExtra("DATA", new Gson().toJson(mChooseGoodsDataList.get( goods_possion))), 18);
+                                .putExtra("DATA", new Gson().toJson(mChooseGoodsDataList.get(goods_possion))), 18);
                     }
                 });
 
@@ -260,7 +258,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 //                            @Override
 //                            public void run(){
 //                                super.run();
-                                addInstallRegistration();
+                        addInstallRegistration();
 //                            }
 //                        }.start();
 
@@ -284,25 +282,22 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                     startActivityForResult(new Intent(this, CommonXzlxrActivity.class).putExtra("clientid", clientid), 12);
                 break;
             case R.id.ll_related_projects_choice://关联项目选择
-                if (TextUtils.isEmpty(clientid))
-                    showShortToast("请先选择单位");
-                else
-                    startActivityForResult(new Intent(this, ProjectSelectionActivity.class).putExtra("clientid", clientid), 12);
+                startActivityForResult(new Intent(this, ChoiceProjectActivity.class), 13);
                 break;
             case R.id.ll_submit_time_choice://报送时间选择
                 selectTime(0);
                 break;
             case R.id.ll_service_mode_choice://服务方式选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm", "AZFWLX").putExtra("title","服务方式选择"), 14);
+                        .putExtra("zdbm", "AZFWLX").putExtra("title", "服务方式选择"), 14);
                 break;
             case R.id.ll_rating_category_choice://登记类别选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm","AZDJLX").putExtra("title","登记类别选择"), 15);
+                        .putExtra("zdbm", "AZDJLX").putExtra("title", "登记类别选择"), 15);
                 break;
             case R.id.ll_priority_choice://优先级选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm","FWYXJ").putExtra("title","优先级选择"), 16);
+                        .putExtra("zdbm", "FWYXJ").putExtra("title", "优先级选择"), 16);
                 break;
             case R.id.tv_choose_goods://商品选择
                 startActivityForResult(new Intent(this, ChooseGoodsActivity.class), 17);
@@ -349,7 +344,8 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 etContactNumber.setText(data.getStringExtra("phone"));
                 break;
             case 13://关联项目选择结果处理
-
+                mProjectid = data.getStringExtra("projectid");
+                tvRelatedProjects.setText(data.getStringExtra("title"));
                 break;
             case 14://服务方式选择结果处理
                 sxfsid = data.getStringExtra("CHOICE_RESULT_ID");
@@ -369,15 +365,15 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 mAdapter.setList(mChooseGoodsDataList);
                 break;
             case 18://商品选择结果处理
-                switch (data.getIntExtra("KIND",0)){
+                switch (data.getIntExtra("KIND", 0)) {
                     case 0:
                         mChooseGoodsDataList.remove(goods_possion);
                         break;
                     case 1:
-                        ChooseGoodsData chooseGoodsData=mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<ChooseGoodsData>() {
+                        ChooseGoodsData chooseGoodsData = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<ChooseGoodsData>() {
                         }.getType());
                         LogUtils.d(mGson.toJson(mChooseGoodsDataList));
-                        mChooseGoodsDataList.set(goods_possion,chooseGoodsData);
+                        mChooseGoodsDataList.set(goods_possion, chooseGoodsData);
                         LogUtils.d(mGson.toJson(mChooseGoodsDataList));
                         break;
                 }
@@ -507,6 +503,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         master.setPhone(phone);
         master.setShipto(shipto);
         master.setBilldate(billdate);
+        master.setProjectid(mProjectid);
         master.setBsrq(bsrq);
         master.setBxr(bxr);
         master.setSxfsid(sxfsid);
@@ -528,7 +525,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             overviewData.setLb("1");
             overviewData.setGoodsid(chooseGoodsData.getGoodsid() + "");
             overviewData.setGoodsname(chooseGoodsData.getName());
-            overviewData.setUnitqty(chooseGoodsData.getNumber() );
+            overviewData.setUnitqty(chooseGoodsData.getNumber());
             overviewData.setUnitid(chooseGoodsData.getUnitid() + "");
             overviewData.setSerialinfo(chooseGoodsData.getSerialinfo());
             goodsOrOverviewDataList.add(overviewData);
@@ -571,16 +568,17 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         }
         presenter.post(0, "billsavenew", mParmMap);
     }
+
     /**
      * decoderBase64File:(将base64字符解码保存文件).
-
-     * @author guhaizhou@126.com
+     *
      * @param base64Code 编码后的字串
-     * @param savePath 文件保存路径
+     * @param savePath   文件保存路径
      * @throws Exception
+     * @author guhaizhou@126.com
      * @since JDK 1.6
      */
-    public static void decoderBase64File(String base64Code,String savePath) throws Exception {
+    public static void decoderBase64File(String base64Code, String savePath) throws Exception {
 //byte[] buffer = new BASE64Decoder().decodeBuffer(base64Code);
         byte[] buffer = Base64.decode(base64Code, Base64.DEFAULT);
         FileOutputStream out = new FileOutputStream(savePath);
@@ -623,10 +621,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        String result= (String) data;
-        if(TextUtils.isEmpty(result)||result.equals("false")){
+        String result = (String) data;
+        if (TextUtils.isEmpty(result) || result.equals("false")) {
 
-        }else {
+        } else {
             showShortToast("添加成功");
             finish();
         }

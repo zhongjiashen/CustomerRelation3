@@ -28,9 +28,9 @@ public class RqProjectData {
     @SerializedName("gmmc")
     private String gmmc;
     @SerializedName("contractid")
-    private Object contractid;
+    private int contractid;
     @SerializedName("contractname")
-    private Object contractname;
+    private String contractname;
     @SerializedName("projecttype")
     private int projecttype;
     @SerializedName("xmlxname")
@@ -134,19 +134,19 @@ public class RqProjectData {
         this.gmmc = gmmc;
     }
 
-    public Object getContractid() {
+    public int getContractid() {
         return contractid;
     }
 
-    public void setContractid(Object contractid) {
+    public void setContractid(int contractid) {
         this.contractid = contractid;
     }
 
-    public Object getContractname() {
+    public String getContractname() {
         return contractname;
     }
 
-    public void setContractname(Object contractname) {
+    public void setContractname(String contractname) {
         this.contractname = contractname;
     }
 

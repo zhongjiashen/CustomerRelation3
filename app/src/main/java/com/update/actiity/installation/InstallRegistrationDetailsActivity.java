@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.project.ProjectActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Author:    申中佳
@@ -85,6 +88,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
     private String billid;//单据ID
     Gson mGson;
     private List<InstallRegistrationScheduleData> mGoodsOrOverviewDatas;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -118,7 +122,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
         setTitlebar();
          /* 选择商品集合信息处理 */
         rcvChooseGoodsList.setLayoutManager(new LinearLayoutManager(this));
-        rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder,InstallRegistrationScheduleData>(mGoodsOrOverviewDatas, false) {
+        rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, InstallRegistrationScheduleData>(mGoodsOrOverviewDatas, false) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder() {
@@ -127,8 +131,8 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
 
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, final InstallRegistrationScheduleData data) {
-                holder.tvRegistrationNumber.setText("登记数量："+data.getUnitqty()+"个");
-                switch (data.getLb()){//0 概况（goodsname记录内容） ,1 商品
+                holder.tvRegistrationNumber.setText("登记数量：" + data.getUnitqty() + "个");
+                switch (data.getLb()) {//0 概况（goodsname记录内容） ,1 商品
                     case 0:
                         holder.tvGoodsInformation.setText("概况信息");
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +216,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 tvContacts.setText(master.getLxrname());//联系人
                 tvContactNumber.setText(master.getPhone());//联系电话
                 tvCustomerAddress.setText(master.getShipto());//客户地址
+                tvRelatedProjects.setText(master.getProjectname());
                 tvMessenger.setText(master.getBxr());//报送人
                 tvSubmitTime.setText(master.getBsrq());//报送日期
                 tvServiceMode.setText(master.getSxfsname());//服务方式
@@ -232,7 +237,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         }.getType());
                 mAdapter.setList(mGoodsOrOverviewDatas);
                 //获取文件列表
-                Map map=new ArrayMap();
+                Map map = new ArrayMap();
                 map.put("dbname", ShareUserInfo.getDbName(this));
                 map.put("attcode", "AZDJ");
                 map.put("billid", billid);
@@ -241,5 +246,14 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 presenter.post(2, "attfilelist", map);
                 break;
         }
+    }
+
+    @OnClick(R.id.ll_related_projects_choice)
+    public void onClick() {
+        if(master==null)
+            return;
+        if(!TextUtils.isEmpty(master.getProjectname()))
+            startActivity(new Intent(this, ProjectActivity.class)
+                    .putExtra("billid", master.getProjectid()+""));
     }
 }

@@ -63,9 +63,9 @@ public class InstallRegistrationDetailsData {
     @SerializedName("shipto")
     private String shipto;
     @SerializedName("projectid")
-    private Object projectid;
+    private int projectid;
     @SerializedName("projectname")
-    private Object projectname;
+    private String projectname;
     @SerializedName("bxr")
     private String bxr;
     @SerializedName("bsrq")
@@ -135,11 +135,11 @@ public class InstallRegistrationDetailsData {
         this.shipto = shipto;
     }
 
-    public void setProjectid(Object projectid) {
+    public void setProjectid(int projectid) {
         this.projectid = projectid;
     }
 
-    public void setProjectname(Object projectname) {
+    public void setProjectname(String projectname) {
         this.projectname = projectname;
     }
 
@@ -243,11 +243,11 @@ public class InstallRegistrationDetailsData {
         return shipto;
     }
 
-    public Object getProjectid() {
+    public int getProjectid() {
         return projectid;
     }
 
-    public Object getProjectname() {
+    public String getProjectname() {
         return projectname;
     }
 

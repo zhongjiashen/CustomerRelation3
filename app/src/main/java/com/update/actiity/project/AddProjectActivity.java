@@ -306,5 +306,22 @@ public class AddProjectActivity extends BaseActivity {
         mParmMap.put("master","["+ mGson.toJson(mMap)+"]");
         presenter.post(0, "billsave", mParmMap);
     }
+    /**
+     * 网路请求返回数据
+     *
+     * @param requestCode 请求码
+     * @param data        数据
+     */
+    @Override
+    public void returnData(int requestCode, Object data) {
+        super.returnData(requestCode, data);
+        String result= (String) data;
+        if(TextUtils.isEmpty(result)||result.equals("false")){
 
+        }else {
+            showShortToast("添加成功");
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
 }
