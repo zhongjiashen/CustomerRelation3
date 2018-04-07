@@ -1379,6 +1379,11 @@
             android:name="com.update.actiity.choose.ScreeningActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--筛选(合同管理列表筛选、销售机会列表筛选)-->
+        <activity
+            android:name="com.update.actiity.choose.ScreeningProjectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!--审核状态选择-->
         <activity
             android:name="com.update.actiity.choose.StateAuditChoiceActivity"

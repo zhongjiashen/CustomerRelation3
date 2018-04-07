@@ -13,6 +13,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.choose.ScreeningProjectActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -59,10 +60,11 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
     private int page_number;//页码
     private String mQsrq;//开始日期
     private String mZzrq;//截止日期
-    private String mShzt;//审核状态 (0未审 1已审 2 审核中   9全部)
+    private String mCname;//单位名称（模糊查询用）
+    private String mTitle;//名称（仅机会、合同、项目）
     private String mGmid;//阶段ID
     private String mEmpid;//业务员ID
-    private String cname;//供应商名称（模糊查询用）
+    private String mShzt;//审核状态 (0未审 1已审 2 审核中   9全部)
     private List<RqProjectListData> mList;
 
 
@@ -92,12 +94,13 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
 
     private void http() {
         page_number = 1;
-        mParmMap.put("empid", mEmpid);//业务员ID (没有的话传空或0)
         mParmMap.put("qsrq", mQsrq);//
         mParmMap.put("zzrq", mZzrq);//
-        mParmMap.put("shzt", mShzt);//审核状态
-        mParmMap.put("empid", mEmpid);//审核状态
+        mParmMap.put("cname", mCname);//
+        mParmMap.put("title", mTitle);//
         mParmMap.put("gmid", mGmid);//项目单阶段ID（0全部）
+        mParmMap.put("shzt", mShzt);//审核状态
+        mParmMap.put("empid", mEmpid);//业务员ID (没有的话传空或0)
         mParmMap.put("curpage", page_number);//当前页
         presenter.post(0, ServerURL.BILLLIST, mParmMap);
     }
@@ -179,12 +182,29 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
                         startActivity(new Intent(SalesOpportunitiesManagementActivity.this, AddSalesOpportunitiesActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
-//                        startActivityForResult(new Intent(ProjectManagementActivity.this, ScreeningActivity.class)
-//                                .putExtra("kind", 2), 11);
+                        startActivityForResult(new Intent(SalesOpportunitiesManagementActivity.this, ScreeningProjectActivity.class)
+                                .putExtra("kind", 2), 11);
                         break;
                 }
             }
         });
+    }
+
+
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 11:
+                mQsrq = data.getStringExtra("qsrq");
+                mZzrq = data.getStringExtra("zzrq");
+                mCname = data.getStringExtra("cname");
+                mTitle = data.getStringExtra("title");
+                mGmid = data.getStringExtra("gmid");
+                mEmpid = data.getStringExtra("empid");
+                mShzt = data.getStringExtra("shzt");
+
+                http();
+                break;
+        }
     }
     /**
      * 下拉刷新
