@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_receipt_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:text="单据编号：45545554545454"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/word_small" />
+
+
+    <TextView
+        android:id="@+id/tv_company_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:text="河南恒视软件科技有限公司"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/word_small" />
+
+
+    <TextView
+        android:id="@+id/tv_project_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:text="河南恒视软件科技有限公司"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/word_small" />
+
+    <TextView
+        android:id="@+id/tv_phase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginTop="13dp"
+        android:text="河南恒视软件科技有限公司"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/word_small" />
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:text="河南恒视软件科技有限公司"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/word_small" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+</LinearLayout>

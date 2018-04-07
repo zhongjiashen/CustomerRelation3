@@ -99,6 +99,16 @@ public class ViewHolderFactory {
     public static ProjectHolder getProjectHolder(Context context) {
         return new ProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_project, null, false));
     }
+    /**
+     * 项目
+     *
+     * @param context
+     * @return
+     */
+    public static ChoiceProjectHolder getChoiceProjectHolder(Context context) {
+        return new ChoiceProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_choice_project, null, false));
+    }
+
 
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
@@ -241,6 +251,23 @@ public class ViewHolderFactory {
         @BindView(R.id.tv_money)
         public TextView tvMoney;
         ProjectHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+    public static class ChoiceProjectHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tv_receipt_number)
+        public TextView tvReceiptNumber;
+        @BindView(R.id.tv_company_name)
+        public TextView tvCompanyName;
+        @BindView(R.id.tv_project_name)
+        public TextView tvProjectName;
+        @BindView(R.id.tv_phase)
+        public TextView tvPhase;
+        @BindView(R.id.tv_money)
+        public TextView tvMoney;
+        ChoiceProjectHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

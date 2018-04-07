@@ -15,6 +15,8 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.project.ChoiceProjectActivity;
+import com.update.actiity.sales.ChoiceOpportunitiesActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.utils.DateUtil;
@@ -81,6 +83,8 @@ public class AddContractActivity extends BaseActivity {
     private String mClientid;// 单位ID
     private String mLxrid;// 联系人ID
     private String mZzrq;//截止日期
+    private String mChanceid;// 机会ID
+    private String mProjectid;//  项目ID
     private String mDepartmentid;//部门ID
     private String mEmpid;//业务员ID
 
@@ -154,8 +158,10 @@ public class AddContractActivity extends BaseActivity {
                 selectTime(1);
                 break;
             case R.id.ll_opportunit_name_choice:
+                startActivityForResult(new Intent(this, ChoiceOpportunitiesActivity.class), 13);
                 break;
             case R.id.ll_related_projects_choice:
+                startActivityForResult(new Intent(this, ChoiceProjectActivity.class), 14);
                 break;
             case R.id.ll_document_date_choice:
                 selectTime(2);
@@ -186,12 +192,12 @@ public class AddContractActivity extends BaseActivity {
                 tvContacts.setText(data.getStringExtra("name"));
                 break;
             case 13://项目类型选择结果处理
-//                mProjecttype = data.getStringExtra("CHOICE_RESULT_ID");
-//                tvProjectType.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                mChanceid = data.getStringExtra("chanceid");
+                tvOpportunitName.setText(data.getStringExtra("title"));
                 break;
-            case 14://项目来源选择结果处理
-//                mSourceid = data.getStringExtra("CHOICE_RESULT_ID");
-//                tvProjectSource.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+            case 14://相关项目选择结果处理
+                mProjectid = data.getStringExtra("projectid");
+                tvRelatedProjects.setText(data.getStringExtra("title"));
                 break;
             case 15://部门选择结果处理
                 mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
@@ -281,8 +287,8 @@ public class AddContractActivity extends BaseActivity {
         mMap.put("gmid", "0");//阶段ID
         mMap.put("qsrq", tvStartTime.getText().toString());//开始日期
         mMap.put("zzrq", mZzrq);//截止日期
-        mMap.put("chanceid", "");// 机会ID
-        mMap.put("projectid", "");// 项目ID
+        mMap.put("chanceid", mChanceid);// 机会ID
+        mMap.put("projectid", mProjectid);// 项目ID
         mMap.put("departmentid", mDepartmentid);// 部门ID
         mMap.put("empid", mEmpid);//业务员ID
         mMap.put("opid", ShareUserInfo.getUserId(this));//操作员ID

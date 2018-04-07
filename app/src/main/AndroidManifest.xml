@@ -230,6 +230,10 @@
         <activity
             android:name="com.update.actiity.sales.SalesOpportunitiesManagementActivity"
             android:screenOrientation="portrait"/>
+        <!-- 工作平台-销售机会列表 -->
+        <activity
+            android:name="com.update.actiity.sales.ChoiceOpportunitiesActivity"
+            android:screenOrientation="portrait"/>
         <!-- 工作平台-销售机会详情 -->
         <activity
             android:name="com.update.actiity.sales.SalesOpportunitiesActivity"
@@ -253,6 +257,10 @@
         <!-- 工作平台-项目管理列表 -->
         <activity
             android:name="com.update.actiity.project.ProjectManagementActivity"
+            android:screenOrientation="portrait"/>
+        <!-- 工作平台-项目管理列表 -->
+        <activity
+            android:name="com.update.actiity.project.ChoiceProjectActivity"
             android:screenOrientation="portrait"/>
         <!-- 工作平台-新增项目 -->
         <activity
