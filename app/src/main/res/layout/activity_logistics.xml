@@ -449,12 +449,15 @@
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/word_jmedium" />
 
-                <TextView
-                    android:id="@+id/tv_freight_amount"
+                <EditText
+                    android:id="@+id/et_freight_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:digits="1234567890."
+                    android:inputType="number"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small" />
             </LinearLayout>
@@ -537,14 +540,12 @@
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/word_jmedium" />
 
-                <EditText
-                    android:id="@+id/et_collecting_amount"
+                <TextView
+                    android:id="@+id/tv_collecting_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:digits="0123456789."
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/word_small" />
             </LinearLayout>

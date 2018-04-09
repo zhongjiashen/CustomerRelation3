@@ -124,6 +124,10 @@
         <activity
             android:name="com.cr.activity.MstxGztxActivity"
             android:screenOrientation="portrait"/>
+        <!-- 秘书提醒-工作提醒-我的审核列表 -->
+        <activity
+            android:name="com.update.actiity.audit.MyAuditListActivity"
+            android:screenOrientation="portrait"/>
         <!-- 秘书提醒-工作提醒2 -->
         <activity
             android:name="com.cr.activity.MstxGztx2Activity"

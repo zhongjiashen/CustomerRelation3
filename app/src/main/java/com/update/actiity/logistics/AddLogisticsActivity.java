@@ -66,14 +66,12 @@ public class AddLogisticsActivity extends BaseActivity {
     TextView tvTransportWay;
     @BindView(R.id.tv_freight_for)
     TextView tvFreightFor;
-    @BindView(R.id.tv_freight_amount)
-    TextView tvFreightAmount;
+
     @BindView(R.id.tv_collecting)
     TextView tvCollecting;
     @BindView(R.id.tv_collecting_account)
     TextView tvCollectingAccount;
-    @BindView(R.id.et_collecting_amount)
-    EditText etCollectingAmount;
+
     @BindView(R.id.tv_release)
     TextView tvRelease;
     @BindView(R.id.tv_document_date)
@@ -84,6 +82,10 @@ public class AddLogisticsActivity extends BaseActivity {
     TextView tvSalesman;
     @BindView(R.id.et_abstract)
     EditText etAbstract;
+    @BindView(R.id.et_freight_amount)
+    EditText etFreightAmount;
+    @BindView(R.id.tv_collecting_amount)
+    TextView tvCollectingAmount;
     private TimePickerView mTimePickerView;//时间选择弹窗
     Gson mGson;
     private Map<String, Object> mMap;
@@ -129,6 +131,19 @@ public class AddLogisticsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        mBilltype = "1";
+        tvDocumentType.setText("采购收货");//单据类型默认采购收货
+        mLogistictype = "0";
+        tvLogisticsType.setText("收货");//物流类型默认收货
+        mBeartype = "0";
+        tvFreightFor.setText("我方");//运费承担默认我方
+        mIsproxy = "0";
+        tvCollecting.setText("否");//否代收代付默认否
+        etFreightAmount.setText("0.00");//运费金额（要求大于等于0）默认为0.00
+        tvCollectingAmount.setText("0.00");//（要求大于等于0）代收代付金额默认为0.00
+        mIsnotice = "0";
+        tvRelease.setText("否");//通知放货默认否
+
 
         tvDocumentDate.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//单据日期默认当日
     }
@@ -291,6 +306,7 @@ public class AddLogisticsActivity extends BaseActivity {
      * 新增项目
      */
     private void saveContract() {
+//        物流公司、收货单位、物流单号、部门为必填
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择单位名称！");
             return;
@@ -347,6 +363,7 @@ public class AddLogisticsActivity extends BaseActivity {
         mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }
+
     /**
      * 网路请求返回数据
      *
@@ -356,10 +373,10 @@ public class AddLogisticsActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        String result= (String) data;
-        if(TextUtils.isEmpty(result)||result.equals("false")){
+        String result = (String) data;
+        if (TextUtils.isEmpty(result) || result.equals("false")) {
 
-        }else {
+        } else {
             showShortToast("添加成功");
             setResult(RESULT_OK);
             finish();

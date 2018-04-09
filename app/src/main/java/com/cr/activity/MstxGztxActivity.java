@@ -13,6 +13,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.audit.MyAuditListActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,8 +52,13 @@ public class MstxGztxActivity extends BaseActivity {
 		gztxListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-				Intent intent = new Intent(context,MstxGztx2Activity.class);
-				intent.putExtra("typecode", gztxList.get(arg2).get("typecode").toString());
+				Intent intent;
+				if(gztxList.get(arg2).get("typecode").toString().equals("MYSH")){
+					intent = new Intent(context,MyAuditListActivity.class);
+				}else {
+					intent = new Intent(context,MstxGztx2Activity.class);
+					intent.putExtra("typecode", gztxList.get(arg2).get("typecode").toString());
+				}
 				startActivity(intent);
 
 			}
