@@ -1395,6 +1395,16 @@
             android:name="com.update.actiity.choose.ScreeningActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--筛选(物流单列表筛选条件)-->
+        <activity
+            android:name="com.update.actiity.choose.ScreeningLogisicsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--筛选(我的审核列表筛选条件)-->
+        <activity
+            android:name="com.update.actiity.choose.ScreeningAuditActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!--筛选(合同管理列表筛选、销售机会列表筛选)-->
         <activity
             android:name="com.update.actiity.choose.ScreeningProjectActivity"

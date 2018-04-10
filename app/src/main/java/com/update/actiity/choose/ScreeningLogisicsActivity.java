@@ -23,7 +23,7 @@ import butterknife.OnClick;
  * Created by 1363655717 on 2018-04-07.
  */
 
-public class ScreeningAuditActivity extends BaseActivity {
+public class ScreeningLogisicsActivity extends BaseActivity {
     @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.tv_start_time)
@@ -60,7 +60,7 @@ public class ScreeningAuditActivity extends BaseActivity {
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_screening_audit;
+        return R.layout.activity_screening_logisics;
     }
 
     @Override
@@ -169,6 +169,5 @@ public class ScreeningAuditActivity extends BaseActivity {
 
         }
     }
-
 
 }

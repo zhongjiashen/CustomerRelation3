@@ -78,71 +78,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/xyb_jt" />
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_document_type"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/background_white"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="单据类型"
-            android:textColor="@color/black_color"
-            android:textSize="@dimen/word_jmedium"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_document_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_weight="1"
-            android:text="全部"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/word_small" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/xyb_jt" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/background_white"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="单位名称"
-            android:textColor="@color/black_color"
-            android:textSize="@dimen/word_jmedium"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/et_unit_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@color/background_white"
-            android:hint="请输入单位名称"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/word_small" />
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_audit_status"
@@ -179,29 +114,29 @@
             android:src="@drawable/xyb_jt" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/ll_department"
+        android:id="@+id/ll_document_type_choice"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
         android:layout_marginTop="1dp"
         android:background="@color/background_white"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="部        门"
             android:textColor="@color/black_color"
-            android:textSize="@dimen/word_jmedium"
-            android:textStyle="bold" />
+            android:text="单据类型"
+            android:textStyle="bold"
+            android:textSize="@dimen/word_jmedium" />
 
         <TextView
-            android:id="@+id/tv_department"
+            android:id="@+id/tv_document_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="@dimen/margin"
+            android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:text="全部"
             android:textColor="@color/text_gray"
@@ -213,7 +148,7 @@
             android:src="@drawable/xyb_jt" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/ll_salesman"
+        android:id="@+id/ll_logistics_company_choice"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginTop="1dp"
@@ -225,57 +160,53 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="业  务  员"
-            android:textColor="@color/black_color"
-            android:textSize="@dimen/word_jmedium"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_salesman"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_weight="1"
-            android:text="全部"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/word_small" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/xyb_jt" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/background_white"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="单据编号"
-            android:textColor="@color/black_color"
-            android:textSize="@dimen/word_jmedium"
-            android:textStyle="bold" />
+            android:text="物流公司"
+            android:textStyle="bold"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
 
         <EditText
-            android:id="@+id/et_document_number"
+            android:id="@+id/et_logistics_company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:background="@color/background_white"
-            android:hint="请输入单据编号"
+            android:hint="请输入物流公司名称"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/word_small" />
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_unit_name_choice"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/background_white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收货单位"
+            android:textStyle="bold"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <EditText
+            android:id="@+id/et_unit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="@color/background_white"
+            android:hint="请输入物流公司名称"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
     </LinearLayout>
 
     <LinearLayout
@@ -300,3 +231,5 @@
         android:background="@color/background_white" />
 
 </LinearLayout>
+
+

@@ -14,7 +14,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.update.actiity.choose.ScreeningProjectActivity;
+import com.update.actiity.choose.ScreeningAuditActivity;
 import com.update.actiity.contract.ContractActivity;
 import com.update.actiity.installation.InstallRegistrationDetailsActivity;
 import com.update.actiity.project.ProjectActivity;
@@ -65,6 +65,7 @@ public class MyAuditListActivity extends BaseActivity implements
     private String mDepid;//部门id             ,必填 (0全部)
     private String mEmpid;//业务员ID
     private String mShzt;//审核状态 (0未审 1已审 2 审核中   9全部)
+    private String mBillcode;// 单据编号
     private List<RqMyAuditListData> mList;
 
 
@@ -101,6 +102,7 @@ public class MyAuditListActivity extends BaseActivity implements
         mParmMap.put("shzt", mShzt);//审核状态
         mParmMap.put("depid", mDepid);//
         mParmMap.put("empid", mEmpid);//业务员ID (没有的话传空或0)
+        mParmMap.put("billcode", mBillcode);//业务员ID (没有的话传空或0)
         mParmMap.put("curpage", page_number);//当前页
         presenter.post(0, "waitbillshlist", mParmMap);
     }
@@ -205,7 +207,7 @@ public class MyAuditListActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://打开右边侧滑菜单
-                        startActivityForResult(new Intent(MyAuditListActivity.this, ScreeningProjectActivity.class)
+                        startActivityForResult(new Intent(MyAuditListActivity.this, ScreeningAuditActivity.class)
                                 .putExtra("kind", 2), 11);
                         break;
                 }
@@ -219,10 +221,12 @@ public class MyAuditListActivity extends BaseActivity implements
             case 11:
                 mQsrq = data.getStringExtra("qsrq");
                 mZzrq = data.getStringExtra("zzrq");
-                mCname = data.getStringExtra("cname");
-                mEmpid = data.getStringExtra("empid");
-                mShzt = data.getStringExtra("shzt");
 
+                mCname = data.getStringExtra("cname");
+                mShzt = data.getStringExtra("shzt");
+                mDepid = data.getStringExtra("depid");
+                mEmpid = data.getStringExtra("empid");
+                mBillcode = data.getStringExtra("billcode");
                 http();
                 break;
         }
