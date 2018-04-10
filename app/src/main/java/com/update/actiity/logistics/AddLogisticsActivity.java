@@ -97,6 +97,7 @@ public class AddLogisticsActivity extends BaseActivity {
     private String mBilltype;//单据类型
     private String mClientid;// 单位ID
     private String mLxrid;// 联系人ID
+    private String mShiptype;// 运输方式ID
     private String mBeartype;// 运费承担 0我方 1对方
     private String mIsproxy;// 是否代收 1是 0否
     private String mIsnotice;// 通知放货 1是 0 否
@@ -175,6 +176,8 @@ public class AddLogisticsActivity extends BaseActivity {
                         .putExtra("kind", 3), 11);
                 break;
             case R.id.ll_logistics_company_choice://物流公司选择
+                startActivityForResult(new Intent(this,ChooseLogisticsCompanyActivity.class)
+                        .putExtra("kind", 3), 11);
                 break;
             case R.id.ll_document_type_choice://单据类型选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
@@ -193,6 +196,8 @@ public class AddLogisticsActivity extends BaseActivity {
                             .putExtra("clientid", mClientid), 16);
                 break;
             case R.id.ll_transport_way_choice://运输方式选择
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm", "YSFS").putExtra("title", "运输方式选择"), 17);
 
                 break;
             case R.id.ll_freight_for_choice://运费承担方选择
@@ -307,8 +312,13 @@ public class AddLogisticsActivity extends BaseActivity {
      */
     private void saveContract() {
 //        物流公司、收货单位、物流单号、部门为必填
+        String shipno=etLogisticsNumber.getText().toString();
+        if (TextUtils.isEmpty(shipno)) {
+            showShortToast("请输入物流单号！");
+            return;
+        }
         if (TextUtils.isEmpty(mClientid)) {
-            showShortToast("请选择单位名称！");
+            showShortToast("请选择收货单位！");
             return;
         }
         String phone = etContactNumber.getText().toString();
@@ -316,11 +326,11 @@ public class AddLogisticsActivity extends BaseActivity {
             showShortToast("请输入联系电话");
             return;
         }
-//        String title = etContractName.getText().toString();
-//        if (TextUtils.isEmpty(title)) {
-//            showShortToast("请输入合同名称！");
-//            return;
-//        }
+        String shipto = etShippingAddress.getText().toString();
+        if (TextUtils.isEmpty(shipto)) {
+            showShortToast("请输入收货地址！");
+            return;
+        }
 //
 //        String amount = etContractAmount.getText().toString();
 //        if (TextUtils.isEmpty(amount)) {
@@ -341,25 +351,29 @@ public class AddLogisticsActivity extends BaseActivity {
             return;
         }
         mMap.put("billid", "0");//主键ID;0或空表示新增
+
         mMap.put("billdate", tvDocumentDate.getText().toString()
         );//单据日期
-        mMap.put("clientid", mClientid);// 单位ID
+        mMap.put("Logistictype", mLogistictype);//物流类型 0-收货 1-发货
+        mMap.put("billtype", mBilltype);//单据类型 (字典ZDBM=’ WLDLX’)
+        mMap.put("shipno ", shipno);//物流单号
+        mMap.put("shiptype", mShiptype);//预算金额
+        mMap.put("beartype", mBeartype);//运费承担 0我方 1对方
+        mMap.put("isproxy", mIsproxy);//是否代收 1是 0否
+        mMap.put("isnotice", mIsnotice);//通知放货 1是 0 否
+
+        mMap.put("proxyamt", mIsnotice);//代收金额
+        mMap.put("shipclientid", mClientid);// 收货单位ID
         mMap.put("lxrid", mLxrid);// 联系人ID
-        mMap.put("phone", phone);// 单位ID
-//        mMap.put("title", title);//合同名称
-//        mMap.put("amount", amount);//预算金额
-//        mMap.put("gmid", "0");//阶段ID
-//        mMap.put("qsrq", tvStartTime.getText().toString());//开始日期
-//        mMap.put("zzrq", mZzrq);//截止日期
-        mMap.put("chanceid", "");// 机会ID
-        mMap.put("projectid", "");// 项目ID
+        mMap.put("phone", phone);// 电话
+        mMap.put("shipno", shipno);//收货地址
         mMap.put("departmentid", mDepartmentid);// 部门ID
         mMap.put("empid", mEmpid);//业务员ID
         mMap.put("opid", ShareUserInfo.getUserId(this));//操作员ID
         mMap.put("memo", etAbstract.getText().toString());//摘要
         //提交数据到网络接口
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
-        mParmMap.put("parms", "XSHT");
+        mParmMap.put("parms", "WLD");
         mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }

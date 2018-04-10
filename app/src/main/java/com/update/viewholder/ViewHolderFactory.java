@@ -31,7 +31,6 @@ public class ViewHolderFactory {
 
 
 
-
     /**
      * 安装登记列表
      *
@@ -99,6 +98,7 @@ public class ViewHolderFactory {
     public static ProjectHolder getProjectHolder(Context context) {
         return new ProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_project, null, false));
     }
+
     /**
      * 项目
      *
@@ -110,6 +110,15 @@ public class ViewHolderFactory {
     }
 
 
+    /**
+     * 项目
+     *
+     * @param context
+     * @return
+     */
+    public static ChoiceLogisticsCompanyHolder getChoiceLogisticsCompanyHolder(Context context) {
+        return new ChoiceLogisticsCompanyHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_logistics_company, null, false));
+    }
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_data)
@@ -250,11 +259,13 @@ public class ViewHolderFactory {
         public TextView tvPhase;
         @BindView(R.id.tv_money)
         public TextView tvMoney;
+
         ProjectHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
+
     public static class ChoiceProjectHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_receipt_number)
@@ -267,7 +278,23 @@ public class ViewHolderFactory {
         public TextView tvPhase;
         @BindView(R.id.tv_money)
         public TextView tvMoney;
+
         ChoiceProjectHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class ChoiceLogisticsCompanyHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tv_code)
+        public TextView tvCode;
+        @BindView(R.id.tv_name)
+        public TextView tvName;
+        @BindView(R.id.tv_type)
+        public TextView tvType;
+
+        ChoiceLogisticsCompanyHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
