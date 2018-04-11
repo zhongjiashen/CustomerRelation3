@@ -95,7 +95,8 @@ public class AddLogisticsActivity extends BaseActivity {
 
     private String mLogistictype;//物流类型 0-收货 1-发货
     private String mBilltype;//单据类型
-    private String mClientid;// 单位ID
+    private String mClientid;// 物流公司ID
+    private String mShipclientid;// 收货单位ID
     private String mLxrid;// 联系人ID
     private String mShiptype;// 运输方式ID
     private String mBeartype;// 运费承担 0我方 1对方
@@ -177,27 +178,38 @@ public class AddLogisticsActivity extends BaseActivity {
                 break;
             case R.id.ll_logistics_company_choice://物流公司选择
                 startActivityForResult(new Intent(this,ChooseLogisticsCompanyActivity.class)
-                        .putExtra("kind", 3), 11);
+                        .putExtra("kind", 3), 12);
                 break;
             case R.id.ll_document_type_choice://单据类型选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
                         .putExtra("zdbm", "WLDLX").putExtra("title", "单据类型选择"), 13);
                 break;
             case R.id.ll_associated_documents_choice://关联单据选择
+//                单据类型选择了其他，则选择关联单据项不可点击，收货单位可以点击选择
+                if(mBilltype.equals("9")){
+                showShortToast("单据类型选择了其他，则选择关联单据项不可点击");
+                }
                 break;
             case R.id.ll_unit_name_choice://收货单位选择
-                startActivityForResult(new Intent(this, CommonXzkhActivity.class), 15);
+//                单据类型选择了其他以外的单据类型，则选择关联单据项可点击选择，收货单位不可以点击
+                if(!mBilltype.equals("9")){
+                    showShortToast("单据类型未选择了其他，则收货单位不可以点击不可点击");
+                }else {
+                    startActivityForResult(new Intent(this, CommonXzkhActivity.class), 15);
+                }
                 break;
             case R.id.ll_contacts_choice://联系人选择
-                if (TextUtils.isEmpty(mClientid))
+                if (TextUtils.isEmpty(mShipclientid))
                     showShortToast("请先选择单位");
                 else
                     startActivityForResult(new Intent(this, CommonXzlxrActivity.class)
-                            .putExtra("clientid", mClientid), 16);
+                            .putExtra("clientid", mShipclientid), 16);
                 break;
             case R.id.ll_transport_way_choice://运输方式选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm", "YSFS").putExtra("title", "运输方式选择"), 17);
+                        .putExtra("zdbm", "YSFS")
+                        .putExtra("title", "运输方式选择"),
+                        17);
 
                 break;
             case R.id.ll_freight_for_choice://运费承担方选择
@@ -236,9 +248,9 @@ public class AddLogisticsActivity extends BaseActivity {
                 mLogistictype = data.getStringExtra("CHOICE_RESULT_ID");
                 tvLogisticsType.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
-            case 12://联系人选择结果处理
-                mLxrid = data.getStringExtra("id");
-                tvContacts.setText(data.getStringExtra("name"));
+            case 12://
+                mClientid = data.getStringExtra("id");
+                tvLogisticsCompany.setText(data.getStringExtra("name"));
                 break;
             case 13://单据类型选择结果处理
                 mBilltype = data.getStringExtra("CHOICE_RESULT_ID");
@@ -248,16 +260,21 @@ public class AddLogisticsActivity extends BaseActivity {
 //                mSourceid = data.getStringExtra("CHOICE_RESULT_ID");
 //                tvProjectSource.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
-            case 15://单位选择结果处理
-                mClientid = data.getStringExtra("id");
+            case 15://收货单位选择结果处理
+                mShipclientid = data.getStringExtra("id");
                 mLxrid = data.getStringExtra("lxrid");
                 tvUnitName.setText(data.getStringExtra("name"));
                 tvContacts.setText(data.getStringExtra("lxrname"));
                 etContactNumber.setText(data.getStringExtra("phone"));
+                etShippingAddress.setText(data.getStringExtra("shipto"));
                 break;
             case 16://联系人选择结果处理
                 mLxrid = data.getStringExtra("id");
                 tvContacts.setText(data.getStringExtra("name"));
+                break;
+            case 17://运费承担方选择结果处理
+                mShiptype = data.getStringExtra("CHOICE_RESULT_ID");
+                tvTransportWay.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 18://运费承担方选择结果处理
                 mBeartype = data.getStringExtra("CHOICE_RESULT_ID");
@@ -317,7 +334,7 @@ public class AddLogisticsActivity extends BaseActivity {
             showShortToast("请输入物流单号！");
             return;
         }
-        if (TextUtils.isEmpty(mClientid)) {
+        if (TextUtils.isEmpty(mShipclientid)) {
             showShortToast("请选择收货单位！");
             return;
         }
@@ -357,13 +374,13 @@ public class AddLogisticsActivity extends BaseActivity {
         mMap.put("Logistictype", mLogistictype);//物流类型 0-收货 1-发货
         mMap.put("billtype", mBilltype);//单据类型 (字典ZDBM=’ WLDLX’)
         mMap.put("shipno ", shipno);//物流单号
-        mMap.put("shiptype", mShiptype);//预算金额
+        mMap.put("shiptype", mShiptype);//运输方式ID
         mMap.put("beartype", mBeartype);//运费承担 0我方 1对方
         mMap.put("isproxy", mIsproxy);//是否代收 1是 0否
         mMap.put("isnotice", mIsnotice);//通知放货 1是 0 否
 
         mMap.put("proxyamt", mIsnotice);//代收金额
-        mMap.put("shipclientid", mClientid);// 收货单位ID
+        mMap.put("shipclientid", mShipclientid);// 收货单位ID
         mMap.put("lxrid", mLxrid);// 联系人ID
         mMap.put("phone", phone);// 电话
         mMap.put("shipno", shipno);//收货地址

@@ -1,10 +1,12 @@
 package com.update.actiity.logistics;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import com.cr.tools.ShareUserInfo;
@@ -73,6 +75,17 @@ public class ChooseLogisticsCompanyActivity extends BaseActivity {
                 holder.tvCode.setText(data.getCode());
                 holder.tvName.setText(data.getCname());
                 holder.tvType.setText(data.getTypesname());
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent=new Intent();
+                        intent.putExtra("id",data.getId()+"");
+                        intent.putExtra("name",data.getCname());
+                        setResult(RESULT_OK,intent);
+                        finish();
+                    }
+                });
+
 
             }
 
