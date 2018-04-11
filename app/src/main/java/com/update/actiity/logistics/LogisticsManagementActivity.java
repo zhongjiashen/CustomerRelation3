@@ -13,13 +13,10 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.update.actiity.contract.ContractActivity;
-import com.update.actiity.contract.ContractManagementActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.request.RqLogisticsListData;
-import com.update.model.request.RqProjectListData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
@@ -155,7 +152,7 @@ public class LogisticsManagementActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(LogisticsManagementActivity.this, ContractActivity.class)
+                        startActivity(new Intent(LogisticsManagementActivity.this, LogisticsActivity.class)
                                 .putExtra("billid", data.getBillid() + "")
                                 .putExtra("shzt", data.getShzt()));
                     }

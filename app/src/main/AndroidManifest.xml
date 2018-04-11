@@ -230,6 +230,10 @@
         <activity
             android:name="com.update.actiity.logistics.AddLogisticsActivity"
             android:screenOrientation="portrait"/>
+        <!-- 工作平台-新增物流单 -->
+        <activity
+            android:name="com.update.actiity.logistics.LogisticsActivity"
+            android:screenOrientation="portrait"/>
         <!-- 工作平台-新增物流单_选择物流公司 -->
         <activity
             android:name="com.update.actiity.logistics.ChooseLogisticsCompanyActivity"
