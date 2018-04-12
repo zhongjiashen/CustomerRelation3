@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
@@ -134,8 +135,8 @@ public class InstallRegistrationActivity extends BaseActivity implements
         pullRecycleView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.InstallRegistrationHolder, InstallRegistrationData>(mList) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getInstallRegistrationHolder(InstallRegistrationActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getInstallRegistrationHolder(InstallRegistrationActivity.this,parent);
             }
 
             @Override

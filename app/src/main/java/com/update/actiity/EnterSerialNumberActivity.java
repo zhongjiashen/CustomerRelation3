@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cr.tools.ShareUserInfo;
@@ -100,8 +101,8 @@ public class EnterSerialNumberActivity extends BaseActivity {
         rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.SerialNumberHolder,Serial>(serials) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getSerialNumberHolder(EnterSerialNumberActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getSerialNumberHolder(EnterSerialNumberActivity.this,parent);
             }
 
             @Override

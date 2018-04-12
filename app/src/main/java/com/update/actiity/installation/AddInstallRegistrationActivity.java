@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -184,8 +185,8 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, ChooseGoodsData>(mChooseGoodsDataList, false) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getChooseGoodsResultHolder(AddInstallRegistrationActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getChooseGoodsResultHolder(AddInstallRegistrationActivity.this,parent);
             }
 
             @Override

@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cr.myinterface.SLViewValueChange;
@@ -104,8 +105,8 @@ public class ChooseGoodsActivity extends BaseActivity implements
         pullRecycleView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsHolder, ChooseGoodsData>(mList) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getChooseGoodsHolder(ChooseGoodsActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getChooseGoodsHolder(ChooseGoodsActivity.this,parent);
             }
 
             @Override

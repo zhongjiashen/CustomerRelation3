@@ -55,13 +55,13 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, T1> 
                 viewHolder = new NullDataViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_has_no_data, parent, false));
                 break;
             case 1:
-                viewHolder = MyonCreateViewHolder();
+                viewHolder = MyonCreateViewHolder(parent);
                 break;
         }
         return viewHolder;
     }
 
-    protected abstract RecyclerView.ViewHolder MyonCreateViewHolder();
+    protected abstract RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent);
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {

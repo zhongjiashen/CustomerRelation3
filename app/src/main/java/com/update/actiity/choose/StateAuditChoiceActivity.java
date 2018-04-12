@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.crcxj.activity.R;
 import com.update.base.BaseActivity;
@@ -62,8 +63,8 @@ public class StateAuditChoiceActivity extends BaseActivity {
         rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,String>(Arrays.asList(mStrings)) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getStateAuditChoiceHolder(StateAuditChoiceActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getStateAuditChoiceHolder(StateAuditChoiceActivity.this,parent);
             }
 
             @Override

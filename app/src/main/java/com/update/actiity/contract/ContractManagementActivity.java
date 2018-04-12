@@ -6,6 +6,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cr.tools.ServerURL;
@@ -127,8 +128,8 @@ public class ContractManagementActivity extends BaseActivity implements
         prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ProjectHolder, RqProjectListData>(mList) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getProjectHolder(ContractManagementActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getProjectHolder(ContractManagementActivity.this,parent);
             }
 
             @Override

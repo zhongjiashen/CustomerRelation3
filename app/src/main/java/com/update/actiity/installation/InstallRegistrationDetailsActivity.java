@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cr.tools.ServerURL;
@@ -125,8 +126,8 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
         rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, InstallRegistrationScheduleData>(mGoodsOrOverviewDatas, false) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getChooseGoodsResultHolder(InstallRegistrationDetailsActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getChooseGoodsResultHolder(InstallRegistrationDetailsActivity.this,parent);
             }
 
             @Override

@@ -4,6 +4,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -64,8 +65,8 @@ public class SerialNumberDetailsActivity extends BaseActivity {
         rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.SerialNumberHolder, Serial>(serials) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getSerialNumberHolder(SerialNumberDetailsActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getSerialNumberHolder(SerialNumberDetailsActivity.this,parent);
             }
 
             @Override

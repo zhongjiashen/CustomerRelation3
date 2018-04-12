@@ -5,6 +5,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -124,8 +125,8 @@ public class ChoiceContractActivity extends BaseActivity implements
         prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChoiceProjectHolder, RqProjectListData>(mList) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getChoiceProjectHolder(ChoiceContractActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getChoiceProjectHolder(ChoiceContractActivity.this,parent);
             }
 
             @Override

@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cr.tools.ShareUserInfo;
@@ -66,8 +67,8 @@ public class ChooseLogisticsCompanyActivity extends BaseActivity {
         rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChoiceLogisticsCompanyHolder,RqLogisticsCompanyData >(mList) {
             //
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getChoiceLogisticsCompanyHolder(ChooseLogisticsCompanyActivity .this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getChoiceLogisticsCompanyHolder(ChooseLogisticsCompanyActivity .this,parent);
             }
 
             @Override

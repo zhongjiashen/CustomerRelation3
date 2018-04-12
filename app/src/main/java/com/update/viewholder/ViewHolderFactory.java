@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,12 +38,12 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static InstallRegistrationHolder getInstallRegistrationHolder(Context context) {
-        return new InstallRegistrationHolder(LayoutInflater.from(context).inflate(R.layout.item_install_registration, null, false));
+    public static InstallRegistrationHolder getInstallRegistrationHolder(Context context,ViewGroup parent) {
+        return new InstallRegistrationHolder(LayoutInflater.from(context).inflate(R.layout.item_install_registration, parent, false));
     }
 
-    public static PerformInstallationHolder getPerformInstallationHolder(Context context) {
-        return new PerformInstallationHolder(LayoutInflater.from(context).inflate(R.layout.item_perform_installation, null, false));
+    public static PerformInstallationHolder getPerformInstallationHolder(Context context,ViewGroup parent) {
+        return new PerformInstallationHolder(LayoutInflater.from(context).inflate(R.layout.item_perform_installation, parent, false));
     }
 
     /**
@@ -51,8 +52,8 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static StateAuditChoiceHolder getStateAuditChoiceHolder(Context context) {
-        return new StateAuditChoiceHolder(LayoutInflater.from(context).inflate(R.layout.item_single_choice, null, false));
+    public static StateAuditChoiceHolder getStateAuditChoiceHolder(Context context,ViewGroup parent) {
+        return new StateAuditChoiceHolder(LayoutInflater.from(context).inflate(R.layout.item_single_choice, parent, false));
     }
 
     /**
@@ -61,22 +62,12 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChooseGoodsHolder getChooseGoodsHolder(Context context) {
-        return new ChooseGoodsHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods, null, false));
+    public static ChooseGoodsHolder getChooseGoodsHolder(Context context,ViewGroup parent) {
+        return new ChooseGoodsHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods, parent, false));
     }
 
-    public static SerialNumberHolder getSerialNumberHolder(Context context) {
-        return new SerialNumberHolder(LayoutInflater.from(context).inflate(R.layout.item_serial_number, null, false));
-    }
-
-    /**
-     * 获取商品选择结果（添加安装登记）
-     *
-     * @param context
-     * @return
-     */
-    public static ChooseGoodsResultHolder getChooseGoodsResultHolder(Context context) {
-        return new ChooseGoodsResultHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods_result, null, false));
+    public static SerialNumberHolder getSerialNumberHolder(Context context,ViewGroup parent) {
+        return new SerialNumberHolder(LayoutInflater.from(context).inflate(R.layout.item_serial_number, parent, false));
     }
 
     /**
@@ -85,8 +76,18 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChooseFileResultHolder getChooseFileResultHolder(Context context) {
-        return new ChooseFileResultHolder(LayoutInflater.from(context).inflate(R.layout.item_select_photos, null, false));
+    public static ChooseGoodsResultHolder getChooseGoodsResultHolder(Context context,ViewGroup parent) {
+        return new ChooseGoodsResultHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods_result, parent, false));
+    }
+
+    /**
+     * 获取商品选择结果（添加安装登记）
+     *
+     * @param context
+     * @return
+     */
+    public static ChooseFileResultHolder getChooseFileResultHolder(Context context,ViewGroup parent) {
+        return new ChooseFileResultHolder(LayoutInflater.from(context).inflate(R.layout.item_select_photos, parent, false));
     }
 
     /**
@@ -95,8 +96,8 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ProjectHolder getProjectHolder(Context context) {
-        return new ProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_project, null, false));
+    public static ProjectHolder getProjectHolder(Context context,ViewGroup parent) {
+        return new ProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_project, parent, false));
     }
 
     /**
@@ -105,8 +106,8 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChoiceProjectHolder getChoiceProjectHolder(Context context) {
-        return new ChoiceProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_choice_project, null, false));
+    public static ChoiceProjectHolder getChoiceProjectHolder(Context context,ViewGroup parent) {
+        return new ChoiceProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_choice_project, parent, false));
     }
 
 
@@ -116,8 +117,8 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChoiceLogisticsCompanyHolder getChoiceLogisticsCompanyHolder(Context context) {
-        return new ChoiceLogisticsCompanyHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_logistics_company, null, false));
+    public static ChoiceLogisticsCompanyHolder getChoiceLogisticsCompanyHolder(Context context,ViewGroup parent) {
+        return new ChoiceLogisticsCompanyHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_logistics_company, parent, false));
     }
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {

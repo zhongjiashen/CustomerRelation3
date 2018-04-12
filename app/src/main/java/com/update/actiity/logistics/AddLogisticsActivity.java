@@ -244,11 +244,11 @@ public class AddLogisticsActivity extends BaseActivity {
 
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         switch (requestCode) {
-            case 11://单位选择结果处理
+            case 11://物流类型选择结果处理
                 mLogistictype = data.getStringExtra("CHOICE_RESULT_ID");
                 tvLogisticsType.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
-            case 12://
+            case 12://物流公司选择结果处理
                 mClientid = data.getStringExtra("id");
                 tvLogisticsCompany.setText(data.getStringExtra("name"));
                 break;
@@ -329,6 +329,10 @@ public class AddLogisticsActivity extends BaseActivity {
      */
     private void saveContract() {
 //        物流公司、收货单位、物流单号、部门为必填
+        if (TextUtils.isEmpty(mClientid)) {
+            showShortToast("请选择物流公司！");
+            return;
+        }
         String shipno=etLogisticsNumber.getText().toString();
         if (TextUtils.isEmpty(shipno)) {
             showShortToast("请输入物流单号！");
@@ -368,7 +372,7 @@ public class AddLogisticsActivity extends BaseActivity {
             return;
         }
         mMap.put("billid", "0");//主键ID;0或空表示新增
-
+        mMap.put("clientid", mClientid);//物流公司ID
         mMap.put("billdate", tvDocumentDate.getText().toString()
         );//单据日期
         mMap.put("Logistictype", mLogistictype);//物流类型 0-收货 1-发货
@@ -383,7 +387,7 @@ public class AddLogisticsActivity extends BaseActivity {
         mMap.put("shipclientid", mShipclientid);// 收货单位ID
         mMap.put("lxrid", mLxrid);// 联系人ID
         mMap.put("phone", phone);// 电话
-        mMap.put("shipno", shipno);//收货地址
+        mMap.put("shipto", shipto);//收货地址
         mMap.put("departmentid", mDepartmentid);// 部门ID
         mMap.put("empid", mEmpid);//业务员ID
         mMap.put("opid", ShareUserInfo.getUserId(this));//操作员ID

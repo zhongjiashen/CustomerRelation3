@@ -6,6 +6,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cr.tools.ServerURL;
@@ -13,6 +14,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.choose.ScreeningLogisicsActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -60,9 +62,9 @@ public class LogisticsManagementActivity extends BaseActivity implements
     private String mQsrq;//开始日期
     private String mZzrq;//截止日期
     private String mCname;//单位名称（模糊查询用）
+    private String mShipcname;//收货单位（仅物流筛选）
     private String mTitle;//名称（仅机会、合同、项目）
-    private String mGmid;//阶段ID
-    private String mEmpid;//业务员ID
+    private String mBilltype;//单据类型
     private String mShzt;//审核状态 (0未审 1已审 2 审核中   9全部)
     private List<RqLogisticsListData> mList;
 
@@ -79,13 +81,13 @@ public class LogisticsManagementActivity extends BaseActivity implements
         mQsrq = DateUtil.DateToString(mDate, "yyyy-MM-") + "01";
         mZzrq = DateUtil.DateToString(mDate, "yyyy-MM-dd");
         mShzt = "9";
-        mGmid = "0";
-        mEmpid = "0";
+        mBilltype = "0";
         mParmMap.put("opid", ShareUserInfo.getUserId(this));//登录操作员ID
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("tabname", "tb_logisticbill");
         mParmMap.put("clientid", "0");
         mParmMap.put("depid", "0");//
+        mParmMap.put("empid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
         http();
     }
@@ -94,9 +96,12 @@ public class LogisticsManagementActivity extends BaseActivity implements
         page_number = 1;
         mParmMap.put("qsrq", mQsrq);//
         mParmMap.put("zzrq", mZzrq);//
-        mParmMap.put("cname", mCname);//
-        mParmMap.put("title", mTitle);//
         mParmMap.put("shzt", mShzt);//审核状态
+        mParmMap.put("billtype",mBilltype);
+        mParmMap.put("cname", mCname);//物流公司名称（模糊查询用）
+        mParmMap.put("shipcname", mShipcname);//物流公司名称（模糊查询用）
+        mParmMap.put("title", mTitle);//
+
         mParmMap.put("depid", "0");//部门ID(没有的话传空或0)
         mParmMap.put("empid", "0");//业务员ID (没有的话传空或0)
         mParmMap.put("curpage", page_number);//当前页
@@ -119,12 +124,13 @@ public class LogisticsManagementActivity extends BaseActivity implements
     @Override
     protected void init() {
         setTitlebar();
+        prlView.setOnRefreshListener(this);
         prvView.setLayoutManager(new LinearLayoutManager(this));
         prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ProjectHolder, RqLogisticsListData>(mList) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getProjectHolder(LogisticsManagementActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getProjectHolder(LogisticsManagementActivity.this,parent);
             }
 
             @Override
@@ -178,8 +184,7 @@ public class LogisticsManagementActivity extends BaseActivity implements
                         startActivity(new Intent(LogisticsManagementActivity.this, AddLogisticsActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
-//                        startActivityForResult(new Intent(ProjectManagementActivity.this, ScreeningActivity.class)
-//                                .putExtra("kind", 2), 11);
+                        startActivityForResult(new Intent(LogisticsManagementActivity.this, ScreeningLogisicsActivity.class), 11);
                         break;
                 }
             }
@@ -252,5 +257,18 @@ public class LogisticsManagementActivity extends BaseActivity implements
                 break;
         }
 
+    }
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 11://
+                mQsrq = data.getStringExtra("qsrq");
+                mZzrq = data.getStringExtra("zzrq");
+                mShzt = data.getStringExtra("shzt");
+                mBilltype= data.getStringExtra("sbilltype");
+                mCname = data.getStringExtra("cname");
+                mShipcname= data.getStringExtra("shipcname");
+                http();
+                break;
+        }
     }
 }

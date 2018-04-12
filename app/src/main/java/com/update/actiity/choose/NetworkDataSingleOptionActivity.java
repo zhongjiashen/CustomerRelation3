@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -141,8 +142,8 @@ public class NetworkDataSingleOptionActivity extends BaseActivity {
         rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,DataDictionaryData>( mList) {
 //
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getStateAuditChoiceHolder(NetworkDataSingleOptionActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getStateAuditChoiceHolder(NetworkDataSingleOptionActivity.this,parent);
             }
 
             @Override

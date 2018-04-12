@@ -6,6 +6,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cr.tools.ServerURL;
@@ -124,8 +125,8 @@ public class MaintenanceDetailsActivity extends BaseActivity {
         rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder,GoodsOrOverviewData>(mGoodsOrOverviewDatas, false) {
 
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getChooseGoodsResultHolder(MaintenanceDetailsActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getChooseGoodsResultHolder(MaintenanceDetailsActivity.this,parent);
             }
 
             @Override

@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cr.tools.ShareUserInfo;
@@ -84,8 +85,8 @@ public class ChooseDepartmentActivity extends BaseActivity {
         rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,DepartmentData>(mList) {
             //
             @Override
-            protected RecyclerView.ViewHolder MyonCreateViewHolder() {
-                return ViewHolderFactory.getStateAuditChoiceHolder(ChooseDepartmentActivity.this);
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getStateAuditChoiceHolder(ChooseDepartmentActivity.this,parent);
             }
 
             @Override
