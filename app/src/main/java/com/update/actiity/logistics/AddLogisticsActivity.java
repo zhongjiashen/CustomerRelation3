@@ -95,12 +95,14 @@ public class AddLogisticsActivity extends BaseActivity {
 
     private String mLogistictype;//物流类型 0-收货 1-发货
     private String mBilltype;//单据类型
+    private String mReferbillid;//引用单ID
     private String mClientid;// 物流公司ID
     private String mShipclientid;// 收货单位ID
     private String mLxrid;// 联系人ID
     private String mShiptype;// 运输方式ID
     private String mBeartype;// 运费承担 0我方 1对方
     private String mIsproxy;// 是否代收 1是 0否
+    private String mProxybankid;//代收账户ID
     private String mIsnotice;// 通知放货 1是 0 否
     private String mDepartmentid;//部门ID
     private String mEmpid;//业务员ID
@@ -188,6 +190,8 @@ public class AddLogisticsActivity extends BaseActivity {
 //                单据类型选择了其他，则选择关联单据项不可点击，收货单位可以点击选择
                 if(mBilltype.equals("9")){
                 showShortToast("单据类型选择了其他，则选择关联单据项不可点击");
+                }else {
+                    startActivityForResult(new Intent(this, ChoiceLogisticsActivity.class), 14);
                 }
                 break;
             case R.id.ll_unit_name_choice://收货单位选择
@@ -253,12 +257,40 @@ public class AddLogisticsActivity extends BaseActivity {
                 tvLogisticsCompany.setText(data.getStringExtra("name"));
                 break;
             case 13://单据类型选择结果处理
+               //如果切换了单据类型，选择关联单据、是否代收代付、代收代付账户、代收代付金额、收货单位、联系人、联系电话信息置空；
                 mBilltype = data.getStringExtra("CHOICE_RESULT_ID");
                 tvDocumentType.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                mReferbillid="";
+                tvAssociatedDocuments.setText("");
+                mIsproxy = "0";
+                tvCollecting.setText("否");//否代收代付默认否
+                mProxybankid="";
+                tvCollectingAccount.setText("");
+                tvCollectingAmount.setText("0.00");//（要求大于等于0）代收代付金额默认为0.00
+                mShipclientid = "";
+                mLxrid = "";
+                tvUnitName.setText("");
+                tvContacts.setText("");
+                etContactNumber.setText("");
+                etShippingAddress.setText("");
                 break;
-            case 14://项目来源选择结果处理
-//                mSourceid = data.getStringExtra("CHOICE_RESULT_ID");
-//                tvProjectSource.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+            case 14://关联单据
+                //是否代收代付、代收代付账户、代收代付金额是根据所选择的关联单据带过来的信息
+                mReferbillid=data.getStringExtra("referbillid");
+                tvAssociatedDocuments.setText(data.getStringExtra("code"));
+                mIsproxy = data.getStringExtra("isproxy");
+                switch (mIsproxy){
+                    case "0":
+                        tvCollecting.setText("否");//否代收代付默认否
+                        break;
+                    case "1":
+                        tvCollecting.setText("是");//否代收代付默认否
+                        break;
+                }
+                //代收代付账户
+                mProxybankid=data.getStringExtra("bankid");
+                tvCollectingAccount.setText(data.getStringExtra("bankname"));
+                tvCollectingAmount.setText(data.getStringExtra("proxyamt"));//（要求大于等于0）代收代付金额默认为0.00
                 break;
             case 15://收货单位选择结果处理
                 mShipclientid = data.getStringExtra("id");
@@ -382,8 +414,8 @@ public class AddLogisticsActivity extends BaseActivity {
         mMap.put("beartype", mBeartype);//运费承担 0我方 1对方
         mMap.put("isproxy", mIsproxy);//是否代收 1是 0否
         mMap.put("isnotice", mIsnotice);//通知放货 1是 0 否
-
-        mMap.put("proxyamt", mIsnotice);//代收金额
+        mMap.put("proxybankid", mProxybankid);//代收账户ID
+        mMap.put("proxyamt", tvCollectingAmount.getText().toString());//代收金额
         mMap.put("shipclientid", mShipclientid);// 收货单位ID
         mMap.put("lxrid", mLxrid);// 联系人ID
         mMap.put("phone", phone);// 电话

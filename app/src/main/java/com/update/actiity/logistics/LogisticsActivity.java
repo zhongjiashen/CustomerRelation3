@@ -103,6 +103,7 @@ public class LogisticsActivity extends BaseActivity {
     protected void initVariables() {
         presenter = new BaseP(this, this);
         mGson = new Gson();
+
         mParmMap = new ArrayMap<>();
         mBillid = getIntent().getStringExtra("billid");
 //        mShzt = getIntent().getIntExtra("shzt", 0);
@@ -136,7 +137,7 @@ public class LogisticsActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "合同");
+        titlebar.setTitleText(this, "物流单");
 
     }
 
@@ -155,6 +156,7 @@ public class LogisticsActivity extends BaseActivity {
                 List<RqLogisticsData> rqContractDatas = mGson.fromJson((String) data,
                         new TypeToken<List<RqLogisticsData>>() {
                         }.getType());
+            if(rqContractDatas!=null)
                 setData(rqContractDatas.get(0));
                 break;
             case 1:
@@ -186,8 +188,49 @@ public class LogisticsActivity extends BaseActivity {
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                 break;
         }
-//        tvContacts.setText();
-        etShippingAddress.setText(data.getShipto());
+        tvLogisticsType.setText(data.getLogistictypename());//物流类型
+        tvLogisticsCompany.setText(data.getCname());//物流公司
+        etLogisticsNumber.setText(data.getShipno());//物流单号
+        tvDocumentType.setText(data.getBilltypename());//单据类型
+        tvAssociatedDocuments.setText(data.getReferbillid());//关联单据单号
+        tvUnitName.setText(data.getShipcname());//收货单位
+        tvContacts.setText(data.getLxrname());//联系人
+        etContactNumber.setText(data.getPhone());//联系电话
+        etShippingAddress.setText(data.getShipto());//收货地址
+        tvTransportWay.setText(data.getShiptypename());//运输方式
+        switch (data.getBeartype()){
+            case 0:
+                tvFreightFor.setText("我方");//运费承担
+                break;
+            case 1:
+                tvFreightFor.setText("对方");//运费承担
+                break;
+                default:
+                    break;
+        }
+        etFreightAmount.setText(data.getAmount()+"");//运费金额
+        switch (data.getBeartype()){
+            case 0:
+                tvCollecting.setText("否");//是否代收
+                break;
+            case 1:
+                tvCollecting.setText("是");//是否代收
+                break;
+            default:
+                break;
+        }
+
+        tvCollectingAccount.setText(data.getProxybankname());//代收账户
+        tvCollectingAmount.setText(data.getProxyamt()+"");//代收金额
+        switch (data.getIsnotice()){
+            case 0:
+                tvRelease.setText("否");//通知放货
+                break;
+            case 1:
+                tvRelease.setText("是");//通知放货
+                break;
+        }
+
         tvDocumentDate.setText(data.getBilldate());//单据日期
         etLogisticsNumber.setText(data.getShipno());//物流单号
         tvDepartment.setText(data.getDepname());

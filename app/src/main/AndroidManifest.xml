@@ -238,6 +238,10 @@
         <activity
             android:name="com.update.actiity.logistics.ChooseLogisticsCompanyActivity"
             android:screenOrientation="portrait"/>
+        <!-- 工作平台-新增物流单_选择关联单据 -->
+        <activity
+            android:name="com.update.actiity.logistics.ChoiceLogisticsActivity"
+            android:screenOrientation="portrait"/>
         <!-- 工作平台-销售机会列表 -->
         <activity
             android:name="com.update.actiity.sales.SalesOpportunitiesManagementActivity"

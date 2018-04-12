@@ -92,7 +92,7 @@ public class BaseP {
 
                     @Override
                     public void onError(Throwable e) {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         if(view==null)
                             return;
                         view.httpfaile(requestCode);
