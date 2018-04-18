@@ -479,10 +479,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         }
 
         String bxr = etMessenger.getText().toString();
-        if (TextUtils.isEmpty(bxr)) {
-            showShortToast("请输入报送人姓名");
-            return;
-        }
+//        if (TextUtils.isEmpty(bxr)) {
+//            showShortToast("请输入报送人姓名");
+//            return;
+//        }
         if (mOverviewData == null || mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0) {
             showShortToast("请添加商品明细");
             return;
@@ -503,7 +503,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         master.setLxrname(tvContacts.getText().toString());
         master.setPhone(phone);
         master.setShipto(shipto);
-        master.setBilldate(billdate);
+        master.setBilldate(tvDocumentDate.getText().toString());
         master.setProjectid(mProjectid);
         master.setBsrq(bsrq);
         master.setBxr(bxr);

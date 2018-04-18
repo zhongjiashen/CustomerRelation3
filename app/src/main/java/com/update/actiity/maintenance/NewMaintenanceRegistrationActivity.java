@@ -23,13 +23,11 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.model.TResult;
-import com.update.actiity.installation.ChooseGoodsActivity;
-import com.update.actiity.installation.ChooseGoodsDetailsActivity;
-import com.update.actiity.installation.IncreaseOverviewActivity;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.installation.ChooseGoodsActivity;
 import com.update.adapter.FileChooseAdapter;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
@@ -471,10 +469,10 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             return;
         }
         String bxr = etMessenger.getText().toString();
-        if (TextUtils.isEmpty(bxr)) {
-            showShortToast("请输入报送人姓名");
-            return;
-        }
+//        if (TextUtils.isEmpty(bxr)) {
+//            showShortToast("请输入报送人姓名");
+//            return;
+//        }
         if (mOverviewData == null || mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0) {
             showShortToast("请添加商品明细");
             return;
@@ -495,7 +493,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         master.setLxrname(tvContacts.getText().toString());
         master.setPhone(phone);
         master.setShipto(shipto);
-        master.setBilldate(billdate);
+        master.setBilldate(tvDocumentDate.getText().toString());
         master.setBsrq(bsrq);
         master.setBxr(bxr);
         master.setSxfsid(sxfsid);
