@@ -1,10 +1,5 @@
 package com.cr.activity;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -33,6 +28,12 @@ import com.cr.tools.MyApplication;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.utils.LogUtils;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
     private String               dbName;
@@ -108,6 +109,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         switch (returnSuccessType) {
             case 0:
                 int index = 0;
+                LogUtils.e(returnJson);
                 ztList = ZT.paseJsonToObject(returnJson);
                 String[] ztString = new String[ztList.size()];
                 for (int i = 0; i < ztList.size(); i++) {
@@ -287,8 +289,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             if (requestCode == 0) {
                 bhEditText.setText(data.getExtras().getString("name"));
                 bhId=data.getExtras().getString("id");
-                ShareUserInfo.setKey(context, "empname", data.getExtras().getString("name"));//设置empid，报表的时候使用
                 ShareUserInfo.setKey(context, "empid", data.getExtras().getString("empid"));//设置empid，报表的时候使用
+                ShareUserInfo.setKey(context, "empname", data.getExtras().getString("name"));//设置empid，报表的时候使用
+                ShareUserInfo.setKey(context, "opname", data.getExtras().getString("opname"));//设置empid，报表的时候使用
+                ShareUserInfo.setKey(context, "departmentid", data.getExtras().getString("departmentid"));//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
+                ShareUserInfo.setKey(context, "depname", data.getExtras().getString("depname"));//设置empid，报表的时候使用
 
             }
         }

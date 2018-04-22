@@ -23,7 +23,6 @@ import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.ChooseGoodsData;
 import com.update.model.Serial;
-import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
@@ -232,7 +231,10 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                mParmMap.put("goodsname", editable.toString());
+                page_number = 1;
+                mParmMap.put("curpage", page_number);
+                presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
             }
         });
     }

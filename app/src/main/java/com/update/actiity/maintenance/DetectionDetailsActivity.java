@@ -233,10 +233,10 @@ public class DetectionDetailsActivity extends BaseActivity {
                                 public void onClick(int i) {
                                     switch (i) {
                                         case 2:
-                                            if (TextUtils.isEmpty(tvStartTime.getText().toString())
-                                                    || TextUtils.isEmpty(tvEndTime.getText().toString()))
-                                                showShortToast("请选择起始结束时间");
-                                            else
+//                                            if (TextUtils.isEmpty(tvStartTime.getText().toString())
+//                                                    || TextUtils.isEmpty(tvEndTime.getText().toString()))
+//                                                showShortToast("请选择起始结束时间");
+//                                            else
                                                 saveData();
                                             break;
 
@@ -260,7 +260,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                     tvExecutionStatus.setText(mData.getZxjg());//执行状态
                     if (mData.getLb() == 1) {
                         tvGoodsInformation.setText(mData.getGoodsname());
-                        tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
+                        tvRegistrationNumber.setText("登记数量：" +(mData.getYesqty()+mData.getNoqty()+mData.getDesqty())  + mData.getUnitname());
                     } else {
                         tvGoodsInformation.setText("概况信息");
                         tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + "个");

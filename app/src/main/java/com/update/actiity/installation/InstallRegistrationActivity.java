@@ -198,7 +198,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
             }
             @Override
             public void afterTextChanged(Editable s) {
-                cname=s.toString();
+                mParmMap.put("goodsname", s.toString());
                 http();
             }
         });

@@ -177,7 +177,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         tvRatingCategory.setText("复杂安装");
         priorid = "0";
         tvPriority.setText("普通");
-
+        departmentid=ShareUserInfo.getKey(this, "departmentid");
+        tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
+        empid=ShareUserInfo.getKey(this, "empid");
+        tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
         rlProfileInformation.setVisibility(View.GONE);//未添加概况信息，概况信息隐藏
 
         /* 选择商品集合信息处理 */
@@ -403,6 +406,8 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             case 21://部门选择结果处理
                 departmentid = data.getStringExtra("CHOICE_RESULT_ID");
                 tvDepartment.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                empid = "";
+                tvSalesman.setText("");
                 break;
             case 22://业务员选择结果处理
                 empid = data.getStringExtra("CHOICE_RESULT_ID");
@@ -483,7 +488,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 //            showShortToast("请输入报送人姓名");
 //            return;
 //        }
-        if (mOverviewData == null || mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0) {
+        if (mOverviewData == null &&( mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0)) {
             showShortToast("请添加商品明细");
             return;
         }

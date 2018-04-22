@@ -1,11 +1,5 @@
 package com.cr.activity.common;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -25,6 +19,12 @@ import com.cr.common.XListView.IXListViewListener;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.crcxj.activity.R;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 公用模块-选择操作员
@@ -85,6 +85,10 @@ public class CommonXzczyActivity extends BaseActivity implements OnClickListener
 			    intent.putExtra("id",map.get("opcode").toString());
 			    intent.putExtra("name", map.get("fullname").toString());
 			    intent.putExtra("empid", map.get("empid").toString());
+				intent.putExtra("opname", map.get("opname").toString());
+				intent.putExtra("departmentid", map.get("departmentid").toString());
+				intent.putExtra("depname", map.get("depname").toString());
+
 			    setResult(RESULT_OK, intent);
 			    finish();
 			}
