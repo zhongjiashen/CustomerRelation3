@@ -150,7 +150,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
         mGson = new GsonBuilder().disableHtmlEscaping().create();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
-        bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH|mm|ss");
+        bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH:mm:ss");
     }
 
     /**
@@ -510,7 +510,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         master.setShipto(shipto);
         master.setBilldate(tvDocumentDate.getText().toString());
         master.setProjectid(mProjectid);
-        master.setBsrq(bsrq);
+        master.setBsrq(tvSubmitTime.getText().toString());
         master.setBxr(bxr);
         master.setSxfsid(sxfsid);
         master.setRegtype(regtype);
