@@ -78,6 +78,8 @@ public class ContractActivity extends BaseActivity {
     TextView tvSalesman;
     @BindView(R.id.et_abstract)
     EditText etAbstract;
+    @BindView(R.id.ll_bottom)
+    LinearLayout llBottom;
     private Gson mGson;
     private Map<String, Object> mParmMap;
     private String mBillid;//项目ID
@@ -119,6 +121,7 @@ public class ContractActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         llReceiptNumber.setVisibility(View.VISIBLE);
+        llBottom.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -157,7 +160,7 @@ public class ContractActivity extends BaseActivity {
      * @param data
      */
     private void setData(RqContractData data) {
-        mData=data;
+        mData = data;
         tvReceiptNumber.setText("单据编号:" + data.getCode());//单据编号设置
         switch (mShzt) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
             case 0://未审
@@ -194,18 +197,18 @@ public class ContractActivity extends BaseActivity {
 
     @OnClick({R.id.ll_opportunit_name_choice, R.id.ll_related_projects_choice})
     public void onClick(View view) {
-        if(mData==null)
+        if (mData == null)
             return;
         switch (view.getId()) {
             case R.id.ll_opportunit_name_choice:
-                if(!TextUtils.isEmpty(mData.getChancename()))
+                if (!TextUtils.isEmpty(mData.getChancename()))
                     startActivity(new Intent(this, SalesOpportunitiesActivity.class)
-                            .putExtra("billid", mData.getChanceid()+""));
+                            .putExtra("billid", mData.getChanceid() + ""));
                 break;
             case R.id.ll_related_projects_choice:
-                if(!TextUtils.isEmpty(mData.getProjectname()))
+                if (!TextUtils.isEmpty(mData.getProjectname()))
                     startActivity(new Intent(this, ProjectActivity.class)
-                            .putExtra("billid", mData.getProjectid()+""));
+                            .putExtra("billid", mData.getProjectid() + ""));
                 break;
         }
     }

@@ -88,6 +88,8 @@ public class LogisticsActivity extends BaseActivity {
     TextView tvAuditStatus;
     @BindView(R.id.ll_receipt_number)
     LinearLayout llReceiptNumber;
+    @BindView(R.id.ll_bottom)
+    LinearLayout llBottom;
     private Map<String, Object> mMap;
     private Map<String, Object> mParmMap;
     private Date mDate;
@@ -130,7 +132,7 @@ public class LogisticsActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         llReceiptNumber.setVisibility(View.VISIBLE);
-
+        llBottom.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -156,8 +158,8 @@ public class LogisticsActivity extends BaseActivity {
                 List<RqLogisticsData> rqContractDatas = mGson.fromJson((String) data,
                         new TypeToken<List<RqLogisticsData>>() {
                         }.getType());
-            if(rqContractDatas!=null)
-                setData(rqContractDatas.get(0));
+                if (rqContractDatas != null)
+                    setData(rqContractDatas.get(0));
                 break;
             case 1:
 
@@ -198,18 +200,18 @@ public class LogisticsActivity extends BaseActivity {
         etContactNumber.setText(data.getPhone());//联系电话
         etShippingAddress.setText(data.getShipto());//收货地址
         tvTransportWay.setText(data.getShiptypename());//运输方式
-        switch (data.getBeartype()){
+        switch (data.getBeartype()) {
             case 0:
                 tvFreightFor.setText("我方");//运费承担
                 break;
             case 1:
                 tvFreightFor.setText("对方");//运费承担
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
-        etFreightAmount.setText(data.getAmount()+"");//运费金额
-        switch (data.getBeartype()){
+        etFreightAmount.setText(data.getAmount() + "");//运费金额
+        switch (data.getBeartype()) {
             case 0:
                 tvCollecting.setText("否");//是否代收
                 break;
@@ -221,8 +223,8 @@ public class LogisticsActivity extends BaseActivity {
         }
 
         tvCollectingAccount.setText(data.getProxybankname());//代收账户
-        tvCollectingAmount.setText(data.getProxyamt()+"");//代收金额
-        switch (data.getIsnotice()){
+        tvCollectingAmount.setText(data.getProxyamt() + "");//代收金额
+        switch (data.getIsnotice()) {
             case 0:
                 tvRelease.setText("否");//通知放货
                 break;

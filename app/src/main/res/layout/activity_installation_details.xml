@@ -718,6 +718,15 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin"
                 android:background="@color/black_line_color"/>
+
+
+            <Button
+                android:id="@+id/bt_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                android:text="审核"
+                android:textColor="@color/colorPrimary"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

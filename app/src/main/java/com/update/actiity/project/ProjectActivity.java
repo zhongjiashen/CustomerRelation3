@@ -77,6 +77,8 @@ public class ProjectActivity extends BaseActivity {
     EditText etProjectPurpose;
     @BindView(R.id.ll_related_contract_choice)
     LinearLayout llRelatedContractChoice;
+    @BindView(R.id.ll_bottom)
+    LinearLayout llBottom;
 
 
     private Gson mGson;
@@ -120,6 +122,7 @@ public class ProjectActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         llReceiptNumber.setVisibility(View.VISIBLE);
+        llBottom.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -194,10 +197,10 @@ public class ProjectActivity extends BaseActivity {
 
     @OnClick(R.id.ll_related_contract_choice)
     public void onClick() {
-        if(mData==null)
+        if (mData == null)
             return;
-        if(!TextUtils.isEmpty(mData.getContractname()))
+        if (!TextUtils.isEmpty(mData.getContractname()))
             startActivity(new Intent(this, ContractActivity.class)
-                    .putExtra("billid", mData.getContractid()+""));
+                    .putExtra("billid", mData.getContractid() + ""));
     }
 }

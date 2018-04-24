@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -105,6 +106,8 @@ public class InstallationDetailsActivity extends BaseActivity {
     EditText etInstallationMeasures;
     @BindView(R.id.rcv_choose_file_list)
     RecyclerView rcvChooseFileList;
+    @BindView(R.id.bt_bottom)
+    Button btBottom;
     private List<FileChooseData> mFileChooseDatas;
     private Map<String, Object> mParmMap;
     private static final int FILE_SELECT_CODE = 66;
@@ -219,7 +222,8 @@ public class InstallationDetailsActivity extends BaseActivity {
                         case 0://未审
                             tvAuditStatus.setText("未审核");
                             tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                    /*标题设置*/
+                            btBottom.setText("审核");
+                            /*标题设置*/
                             titlebar.setRightText("保存");
                             titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
                                 @Override
@@ -237,6 +241,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                         case 1://已审
                             tvAuditStatus.setText("已审核");
                             tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                            btBottom.setText("弃审");
                             break;
                     }
                     tvUnitName.setText(mData.getCname());//单位名称
@@ -401,7 +406,7 @@ public class InstallationDetailsActivity extends BaseActivity {
      * 保存数据
      */
     private void saveData() {
-        if(TextUtils.isEmpty(mData.getBegindate())||TextUtils.isEmpty(mData.getEnddate())){
+        if (TextUtils.isEmpty(mData.getBegindate()) || TextUtils.isEmpty(mData.getEnddate())) {
             showShortToast("请输入起止时间！");
             return;
         }

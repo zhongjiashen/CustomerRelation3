@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -111,6 +112,8 @@ public class DetectionDetailsActivity extends BaseActivity {
     EditText etScrapNumber;
     @BindView(R.id.et_fault)
     EditText etFault;
+    @BindView(R.id.bt_bottom)
+    Button btBottom;
     private List<FileChooseData> mFileChooseDatas;
     private Map<String, Object> mParmMap;
     private static final int FILE_SELECT_CODE = 66;
@@ -226,7 +229,8 @@ public class DetectionDetailsActivity extends BaseActivity {
                         case 0://未审
                             tvAuditStatus.setText("未审核");
                             tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                     /*标题设置*/
+                            btBottom.setText("审核");
+                             /*标题设置*/
                             titlebar.setRightText("保存");
                             titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
                                 @Override
@@ -237,7 +241,7 @@ public class DetectionDetailsActivity extends BaseActivity {
 //                                                    || TextUtils.isEmpty(tvEndTime.getText().toString()))
 //                                                showShortToast("请选择起始结束时间");
 //                                            else
-                                                saveData();
+                                            saveData();
                                             break;
 
                                     }
@@ -246,6 +250,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                             break;
                         case 1://已审
                             tvAuditStatus.setText("已审核");
+                            btBottom.setText("弃审");
                             tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                             break;
                     }
@@ -260,7 +265,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                     tvExecutionStatus.setText(mData.getZxjg());//执行状态
                     if (mData.getLb() == 1) {
                         tvGoodsInformation.setText(mData.getGoodsname());
-                        tvRegistrationNumber.setText("登记数量：" +(mData.getYesqty()+mData.getNoqty()+mData.getDesqty())  + mData.getUnitname());
+                        tvRegistrationNumber.setText("登记数量：" + (mData.getYesqty() + mData.getNoqty() + mData.getDesqty()) + mData.getUnitname());
                     } else {
                         tvGoodsInformation.setText("概况信息");
                         tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + "个");
