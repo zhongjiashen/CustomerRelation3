@@ -533,9 +533,12 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 serialList.addAll(chooseGoodsData.getSerials());
 
         }
-        mOverviewData.setEnsurename(null);
-        mOverviewData.setFaultname(null);
-        goodsOrOverviewDataList.add(mOverviewData);// //添加概况信息
+        if(mOverviewData!=null){
+            mOverviewData.setEnsurename(null);
+            mOverviewData.setFaultname(null);
+            goodsOrOverviewDataList.add(mOverviewData);// //添加概况信息
+        }
+
         List<Attfiles> attfilesList = new ArrayList<>();
         mFileChooseDatas = mFileChooseAdapter.getList();
         for (int i = 0; i < mFileChooseDatas.size(); i++) {
@@ -559,7 +562,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         mParmMap.put("serialinfo", mGson.toJson(serialList));
         if (attfilesList.size() != 0) {
             mParmMap.put("attfiles", mGson.toJson(attfilesList));
-            setCache((String) mParmMap.get("attfiles"), this, "myfirst.txt", Context.MODE_WORLD_READABLE);
+//            setCache((String) mParmMap.get("attfiles"), this, "myfirst.txt", Context.MODE_WORLD_READABLE);
         }
         presenter.post(0, "billsavenew", mParmMap);
     }
