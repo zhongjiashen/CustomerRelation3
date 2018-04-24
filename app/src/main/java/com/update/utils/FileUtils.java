@@ -18,6 +18,7 @@ import com.cr.tools.PicUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -200,4 +201,39 @@ public class FileUtils {
         inputFile.close();
         return new String(Base64.encode(buffer,Base64.NO_WRAP),"UTF-8");
     }
+
+    /**
+     * decoderBase64File:(将base64字符解码保存文件).
+     *
+     * @param base64Code 编码后的字串
+     * @throws Exception
+     * @author guhaizhou@126.com
+     * @since JDK 1.6
+     */
+    public static void decoderBase64File(String base64Code, Context context, String savePath, int mode) throws Exception {
+        byte[] buffer = Base64.decode(base64Code, Base64.DEFAULT);
+        FileOutputStream out = new FileOutputStream(savePath);
+        out.write(buffer);
+        out.close();
+//        FileOutputStream fos = null;
+//        try {
+//            //打开文件输出流，接收参数是文件名和模式
+//            fos = context.openFileOutput(cacheFileName, mode);
+//
+//            fos.write(buffer);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (fos != null) {
+//                try {
+//                    fos.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+    }
+
 }

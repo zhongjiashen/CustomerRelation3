@@ -1,6 +1,7 @@
 package com.update.base;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -39,12 +40,15 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     private InvokeParam invokeParam;
     protected final int DATA_REFERSH = 10;//刷新
 
+    protected Activity mActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getTakePhoto().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         initVariables();
         setContentView(getLayout());
+        mActivity=this;
         ButterKnife.bind(this);
         init();
 

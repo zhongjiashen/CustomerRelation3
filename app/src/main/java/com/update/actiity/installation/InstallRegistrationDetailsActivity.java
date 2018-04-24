@@ -1,8 +1,10 @@
 package com.update.actiity.installation;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -10,17 +12,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.cr.tools.FileUtil;
+import com.cr.tools.ServerRequest;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jph.takephoto.uitl.TFileUtils;
 import com.update.actiity.project.ProjectActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
+import com.update.model.Attfiles;
 import com.update.model.InstallRegistrationDetailsData;
 import com.update.model.InstallRegistrationScheduleData;
+import com.update.utils.FileUtils;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
@@ -29,6 +38,11 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author:    申中佳
@@ -89,6 +103,8 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
     private String billid;//单据ID
     Gson mGson;
     private List<InstallRegistrationScheduleData> mGoodsOrOverviewDatas;
+    List<Attfiles> attfilesList;
+    protected BaseRecycleAdapter mFileAdapter;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -121,13 +137,13 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
-         /* 选择商品集合信息处理 */
+        /* 选择商品集合信息处理 */
         rcvChooseGoodsList.setLayoutManager(new LinearLayoutManager(this));
         rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, InstallRegistrationScheduleData>(mGoodsOrOverviewDatas, false) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getChooseGoodsResultHolder(InstallRegistrationDetailsActivity.this,parent);
+                return ViewHolderFactory.getChooseGoodsResultHolder(InstallRegistrationDetailsActivity.this, parent);
             }
 
             @Override
@@ -156,6 +172,22 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         break;
                 }
 
+            }
+
+        });
+        rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
+        rcvChooseFileList.setAdapter(mFileAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseFileResultHolder, Attfiles>(attfilesList, false) {
+
+            @Override
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getChooseFileResultHolder(InstallRegistrationDetailsActivity.this, parent);
+            }
+
+            @Override
+            protected void MyonBindViewHolder(final ViewHolderFactory.ChooseFileResultHolder holder, final Attfiles data) {
+                LogUtils.e(getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(0).getFilenames());
+                holder.ivDelete.setVisibility(View.GONE);
+                Glide.with(InstallRegistrationDetailsActivity.this).load(getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(0).getFilenames()).into(holder.sivImage);
             }
 
         });
@@ -246,15 +278,71 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 map.put("pagesize", "100");
                 presenter.post(2, "attfilelist", map);
                 break;
+            case 2:
+                attfilesList = mGson.fromJson((String) data,
+                        new TypeToken<List<Attfiles>>() {
+                        }.getType());
+                if (attfilesList != null && attfilesList.size() > 0) {
+                    saveFile();
+
+                }
+                break;
         }
     }
 
     @OnClick(R.id.ll_related_projects_choice)
     public void onClick() {
-        if(master==null)
+        if (master == null)
             return;
-        if(!TextUtils.isEmpty(master.getProjectname()))
+        if (!TextUtils.isEmpty(master.getProjectname()))
             startActivity(new Intent(this, ProjectActivity.class)
-                    .putExtra("billid", master.getProjectid()+""));
+                    .putExtra("billid", master.getProjectid() + ""));
+    }
+
+
+    private void saveFile() {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                try {
+                    for (int i = 0; i < attfilesList.size(); i++) {
+                        FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(i).getFilenames(), Context.MODE_PRIVATE);
+                        LogUtils.e("baocun");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                subscriber.onNext("");
+                subscriber.onCompleted();
+            }
+
+
+        })
+                .subscribeOn(Schedulers.computation()) // 指定 subscribe() 发生在 运算 线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+                .subscribe(new Observer<String>() {
+
+                    @Override
+                    public void onNext(String s) {//主线程执行的方法
+                        LogUtils.e(s);
+                        mFileAdapter.setList(attfilesList);
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        LogUtils.e("-------------1---------------");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//
+
+                    }
+                });
+
     }
 }
