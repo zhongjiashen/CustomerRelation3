@@ -1,5 +1,6 @@
 package com.update.actiity.maintenance;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
@@ -19,9 +20,12 @@ import com.update.actiity.installation.IncreaseOverviewActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
+import com.update.model.Attfiles;
 import com.update.model.GoodsOrOverviewData;
 import com.update.model.InstallRegistrationDetailsData;
 import com.update.model.InstallRegistrationScheduleData;
+import com.update.utils.FileUtils;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
@@ -29,6 +33,11 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author:    申中佳
@@ -89,6 +98,11 @@ public class MaintenanceDetailsActivity extends BaseActivity {
     private String billid;//单据ID
     Gson mGson;
     private List<GoodsOrOverviewData> mGoodsOrOverviewDatas;
+
+
+    List<Attfiles> attfilesList;
+    protected BaseRecycleAdapter mFileAdapter;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -235,7 +249,72 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                         new TypeToken<List<GoodsOrOverviewData>>() {
                         }.getType());
                 mAdapter.setList(mGoodsOrOverviewDatas);
+                //获取文件列表
+                Map map = new ArrayMap();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("attcode", "WXDJ");
+                map.put("billid", billid);
+                map.put("curpage", "0");
+                map.put("pagesize", "100");
+                presenter.post(2, "attfilelist", map);
+                break;
+            case 2:
+                attfilesList = mGson.fromJson((String) data,
+                        new TypeToken<List<Attfiles>>() {
+                        }.getType());
+                if (attfilesList != null && attfilesList.size() > 0) {
+                    saveFile();
+
+                }
                 break;
         }
+
+
+    }
+
+    private void saveFile() {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                try {
+                    for (int i = 0; i < attfilesList.size(); i++) {
+                        FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(i).getFilenames(), Context.MODE_PRIVATE);
+                        LogUtils.e("baocun");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                subscriber.onNext("");
+                subscriber.onCompleted();
+            }
+
+
+        })
+                .subscribeOn(Schedulers.computation()) // 指定 subscribe() 发生在 运算 线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+                .subscribe(new Observer<String>() {
+
+                    @Override
+                    public void onNext(String s) {//主线程执行的方法
+                        LogUtils.e(s);
+//                        mFileAdapter.setList(attfilesList);
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        LogUtils.e("-------------1---------------");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//
+
+                    }
+                });
+
     }
 }
