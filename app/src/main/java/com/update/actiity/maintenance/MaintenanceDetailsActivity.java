@@ -202,7 +202,7 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                 dMap.put("tabname", "tb_servicereg");
                 dMap.put("pkvalue", billid);
                 dMap.put("opid", ShareUserInfo.getUserId(this));
-                presenter.post(3, "billdelmaster", dMap);
+                presenter.post(6, "billdelmaster", dMap);
                 break;
         }
     }
@@ -327,15 +327,21 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                 if(data.toString().equals("")) {
                     btSh.setText("弃审");
                     master.setShzt(1);
-                }
-
+                }else
+                    showShortToast(data.toString());
                 break;
             case 5:
                 if(data.toString().equals("")) {
                     btSh.setText("审核");
                     master.setShzt(0);
-                }
-
+                }else
+                    showShortToast(data.toString());
+                break;
+            case 6:
+                if (data.toString().equals("")) {
+                    finish();
+                }else
+                    showShortToast(data.toString());
                 break;
         }
 

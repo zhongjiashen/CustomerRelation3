@@ -187,7 +187,8 @@ public class ContractActivity extends BaseActivity {
                     btSh.setText("弃审");
                     tvAuditStatus.setText("已审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-                }
+                }else
+                    showShortToast(data.toString());
 
                 break;
             case 5:
@@ -195,8 +196,15 @@ public class ContractActivity extends BaseActivity {
                     tvAuditStatus.setText("未审核");
                     btSh.setText("审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                }
+                }else
+                    showShortToast(data.toString());
 
+                break;
+            case 6:
+                if (data.toString().equals("")) {
+                    finish();
+                }else
+                    showShortToast(data.toString());
                 break;
         }
     }
@@ -272,7 +280,7 @@ public class ContractActivity extends BaseActivity {
                 dMap.put("tabname", "tb_contract");
                 dMap.put("pkvalue", mBillid);
                 dMap.put("opid", ShareUserInfo.getUserId(this));
-                presenter.post(3, "billdelmaster", dMap);
+                presenter.post(6, "billdelmaster", dMap);
                 break;
         }
     }
