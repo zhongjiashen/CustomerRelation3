@@ -92,7 +92,7 @@ public class ProjectManagementActivity extends BaseActivity implements
         mParmMap.put("clientid", "0");
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
+
     }
 
     private void http() {
@@ -205,8 +205,6 @@ public class ProjectManagementActivity extends BaseActivity implements
                 mGmid=data.getStringExtra("gmid");
                 mEmpid=data.getStringExtra("empid");
                 mShzt = data.getStringExtra("shzt");
-
-                http();
                 break;
         }
     }
@@ -276,5 +274,10 @@ public class ProjectManagementActivity extends BaseActivity implements
                 break;
         }
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
     }
 }

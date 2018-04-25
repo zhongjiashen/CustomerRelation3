@@ -91,7 +91,7 @@ public class ContractManagementActivity extends BaseActivity implements
         mParmMap.put("clientid", "0");
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
+
     }
 
     private void http() {
@@ -201,8 +201,6 @@ public class ContractManagementActivity extends BaseActivity implements
                 mGmid = data.getStringExtra("gmid");
                 mEmpid = data.getStringExtra("empid");
                 mShzt = data.getStringExtra("shzt");
-
-                http();
                 break;
         }
     }
@@ -273,5 +271,11 @@ public class ContractManagementActivity extends BaseActivity implements
                 break;
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
     }
 }

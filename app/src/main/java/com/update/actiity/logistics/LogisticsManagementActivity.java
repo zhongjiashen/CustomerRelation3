@@ -91,7 +91,7 @@ public class LogisticsManagementActivity extends BaseActivity implements
         mParmMap.put("depid", "0");//
         mParmMap.put("empid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
+
     }
 
     private void http() {
@@ -269,8 +269,13 @@ public class LogisticsManagementActivity extends BaseActivity implements
                 mBilltype= data.getStringExtra("sbilltype");
                 mCname = data.getStringExtra("cname");
                 mShipcname= data.getStringExtra("shipcname");
-                http();
+
                 break;
         }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
     }
 }

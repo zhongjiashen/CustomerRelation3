@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ import com.update.actiity.contract.ContractActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.model.request.RqProjectData;
+import com.update.model.request.RqShlbData;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 
 import java.util.List;
@@ -79,6 +82,8 @@ public class ProjectActivity extends BaseActivity {
     LinearLayout llRelatedContractChoice;
     @BindView(R.id.ll_bottom)
     LinearLayout llBottom;
+    @BindView(R.id.bt_sh)
+    Button btSh;
 
 
     private Gson mGson;
@@ -152,6 +157,48 @@ public class ProjectActivity extends BaseActivity {
             case 1:
 
                 break;
+            case 3:
+
+                List<RqShlbData> shlb = mGson.fromJson((String) data,
+                        new TypeToken<List<RqShlbData>>() {
+                        }.getType());
+                Map smap = new ArrayMap<>();
+                smap.put("dbname", ShareUserInfo.getDbName(this));
+                smap.put("tabname", "tb_project");
+                smap.put("pkvalue", mBillid);
+                smap.put("levels", shlb.get(0).getLevels() + "");
+                smap.put("opid", ShareUserInfo.getUserId(this));
+
+                switch (tvAuditStatus.getText().toString()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                    case "未审核"://未审
+                        smap.put("shzt", "1");
+                        presenter.post(4, "billsh", smap);
+                        break;
+                    case "已审核"://已审
+                        smap.put("shzt", "0");
+                        presenter.post(5, "billsh", smap);
+                        break;
+
+                }
+
+                break;
+            case 4:
+                LogUtils.e(data.toString());
+                if (data.toString().equals("")) {
+                    btSh.setText("弃审");
+                    tvAuditStatus.setText("已审核");
+                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                }
+
+                break;
+            case 5:
+                if (data.toString().equals("")) {
+                    tvAuditStatus.setText("未审核");
+                    btSh.setText("审核");
+                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                }
+
+                break;
         }
     }
 
@@ -163,12 +210,14 @@ public class ProjectActivity extends BaseActivity {
     private void setData(RqProjectData data) {
         mData = data;
         tvReceiptNumber.setText("单据编号:" + data.getCode());//单据编号设置
-        switch (mShzt) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+        switch (data.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
             case 0://未审
                 tvAuditStatus.setText("未审核");
+                btSh.setText("审核");
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                 break;
             case 1://已审
+                btSh.setText("弃审");
                 tvAuditStatus.setText("已审核");
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 break;
@@ -197,10 +246,34 @@ public class ProjectActivity extends BaseActivity {
 
     @OnClick(R.id.ll_related_contract_choice)
     public void onClick() {
-        if (mData == null)
-            return;
-        if (!TextUtils.isEmpty(mData.getContractname()))
-            startActivity(new Intent(this, ContractActivity.class)
-                    .putExtra("billid", mData.getContractid() + ""));
+
+    }
+
+    @OnClick({R.id.ll_related_contract_choice, R.id.bt_sh, R.id.bt_delete})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_related_contract_choice:
+                if (mData == null)
+                    return;
+                if (!TextUtils.isEmpty(mData.getContractname()))
+                    startActivity(new Intent(this, ContractActivity.class)
+                            .putExtra("billid", mData.getContractid() + ""));
+                break;
+            case R.id.bt_sh:
+                Map map = new ArrayMap<>();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("tabname", "tb_project");
+                map.put("pkvalue", mBillid);
+                presenter.post(3, "billshlist", map);
+                break;
+            case R.id.bt_delete:
+                Map dMap = new ArrayMap<>();
+                dMap.put("dbname", ShareUserInfo.getDbName(this));
+                dMap.put("tabname", "tb_project");
+                dMap.put("pkvalue", mBillid);
+                dMap.put("opid", ShareUserInfo.getUserId(this));
+                presenter.post(3, "billdelmaster", dMap);
+                break;
+        }
     }
 }

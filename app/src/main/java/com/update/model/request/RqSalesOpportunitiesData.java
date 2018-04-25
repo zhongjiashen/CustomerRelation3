@@ -58,6 +58,12 @@ public class RqSalesOpportunitiesData {
     private int departmentid;
     @SerializedName("depname")
     private String depname;
+    /**
+     * shzt : 1
+     */
+
+    @SerializedName("shzt")
+    private int shzt;
 
 
     public int getChanceid() {
@@ -258,5 +264,13 @@ public class RqSalesOpportunitiesData {
 
     public void setDepname(String depname) {
         this.depname = depname;
+    }
+
+    public int getShzt() {
+        return shzt;
+    }
+
+    public void setShzt(int shzt) {
+        this.shzt = shzt;
     }
 }

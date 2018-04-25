@@ -55,6 +55,12 @@ public class RqContractData {
     private String empname;
     @SerializedName("memo")
     private String memo;
+    /**
+     * shzt : 1
+     */
+
+    @SerializedName("shzt")
+    private int shzt;
 
     public int getContractid() {
         return contractid;
@@ -238,5 +244,13 @@ public class RqContractData {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public int getShzt() {
+        return shzt;
+    }
+
+    public void setShzt(int shzt) {
+        this.shzt = shzt;
     }
 }

@@ -3,6 +3,7 @@ package com.update.actiity.logistics;
 import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.model.request.RqLogisticsData;
+import com.update.model.request.RqShlbData;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 
 import java.util.Date;
@@ -22,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Author:    申中佳
@@ -90,6 +94,8 @@ public class LogisticsActivity extends BaseActivity {
     LinearLayout llReceiptNumber;
     @BindView(R.id.ll_bottom)
     LinearLayout llBottom;
+    @BindView(R.id.bt_sh)
+    Button btSh;
     private Map<String, Object> mMap;
     private Map<String, Object> mParmMap;
     private Date mDate;
@@ -108,7 +114,6 @@ public class LogisticsActivity extends BaseActivity {
 
         mParmMap = new ArrayMap<>();
         mBillid = getIntent().getStringExtra("billid");
-//        mShzt = getIntent().getIntExtra("shzt", 0);
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("parms", "WLD");
         mParmMap.put("billid", mBillid);
@@ -142,6 +147,27 @@ public class LogisticsActivity extends BaseActivity {
         titlebar.setTitleText(this, "物流单");
 
     }
+    @OnClick({R.id.bt_sh, R.id.bt_delete})
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.bt_sh:
+                Map map = new ArrayMap<>();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("tabname", "tb_logisticbill");
+                map.put("pkvalue", mBillid);
+                presenter.post(3, "billshlist", map);
+                break;
+            case R.id.bt_delete:
+                Map dMap= new ArrayMap<>();
+                dMap.put("dbname", ShareUserInfo.getDbName(this));
+                dMap.put("tabname", "tb_logisticbill");
+                dMap.put("pkvalue", mBillid);
+                dMap.put("opid", ShareUserInfo.getUserId(this));
+                presenter.post(3, "billdelmaster", dMap);
+                break;
+        }
+    }
 
 
     /**
@@ -164,6 +190,49 @@ public class LogisticsActivity extends BaseActivity {
             case 1:
 
                 break;
+
+            case 3:
+
+                List<RqShlbData> shlb = mGson.fromJson((String) data,
+                        new TypeToken<List<RqShlbData>>() {
+                        }.getType());
+                Map smap = new ArrayMap<>();
+                smap.put("dbname", ShareUserInfo.getDbName(this));
+                smap.put("tabname", "tb_logisticbill");
+                smap.put("pkvalue", mBillid);
+                smap.put("levels", shlb.get(0).getLevels()+"");
+                smap.put("opid", ShareUserInfo.getUserId(this));
+
+                switch (tvAuditStatus.getText().toString()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                    case "未审核"://未审
+                        smap.put("shzt", "1");
+                        presenter.post(4, "billsh", smap);
+                        break;
+                    case "已审核"://已审
+                        smap.put("shzt", "0");
+                        presenter.post(5, "billsh", smap);
+                        break;
+
+                }
+
+                break;
+            case 4:
+                LogUtils.e(data.toString());
+                if(data.toString().equals("")) {
+                    btSh.setText("弃审");
+                    tvAuditStatus.setText("已审核");
+                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                }
+
+                break;
+            case 5:
+                if(data.toString().equals("")) {
+                    tvAuditStatus.setText("未审核");
+                    btSh.setText("审核");
+                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                }
+
+                break;
         }
 
     }
@@ -179,9 +248,11 @@ public class LogisticsActivity extends BaseActivity {
         switch (data.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
             case 0://未审
                 tvAuditStatus.setText("未审核");
+                btSh.setText("审核");
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                 break;
             case 1://已审
+                btSh.setText("弃审");
                 tvAuditStatus.setText("已审核");
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 break;
@@ -239,5 +310,6 @@ public class LogisticsActivity extends BaseActivity {
         tvSalesman.setText(data.getEmpname());
         etAbstract.setText(data.getMemo());//摘要
     }
+
 
 }

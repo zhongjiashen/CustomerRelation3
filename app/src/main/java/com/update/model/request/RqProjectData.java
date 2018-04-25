@@ -61,6 +61,12 @@ public class RqProjectData {
     private int types1;
     @SerializedName("typesname")
     private String typesname;
+    /**
+     * shzt : 0
+     */
+
+    @SerializedName("shzt")
+    private int shzt;
 
     public int getProjectid() {
         return projectid;
@@ -268,5 +274,13 @@ public class RqProjectData {
 
     public void setTypesname(String typesname) {
         this.typesname = typesname;
+    }
+
+    public int getShzt() {
+        return shzt;
+    }
+
+    public void setShzt(int shzt) {
+        this.shzt = shzt;
     }
 }

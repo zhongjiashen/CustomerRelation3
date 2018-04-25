@@ -90,7 +90,7 @@ public class MyAuditListActivity extends BaseActivity implements
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
 
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
+
     }
 
     private void http() {
@@ -222,13 +222,11 @@ public class MyAuditListActivity extends BaseActivity implements
             case 11:
                 mQsrq = data.getStringExtra("qsrq");
                 mZzrq = data.getStringExtra("zzrq");
-
                 mCname = data.getStringExtra("cname");
                 mShzt = data.getStringExtra("shzt");
                 mDepid = data.getStringExtra("depid");
                 mEmpid = data.getStringExtra("empid");
                 mBillcode = data.getStringExtra("billcode");
-                http();
                 break;
         }
     }
@@ -299,5 +297,10 @@ public class MyAuditListActivity extends BaseActivity implements
                 break;
         }
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
     }
 }

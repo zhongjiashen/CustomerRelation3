@@ -239,11 +239,6 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 map.put("tabname", "tb_installreg");
                 map.put("pkvalue", billid);
                 presenter.post(3, "billshlist", map);
-
-
-
-
-
                 break;
             case R.id.bt_delete:
                 Map dMap= new ArrayMap<>();
@@ -375,14 +370,19 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
 
                 break;
             case 4:
-                btSh.setText("弃审");
-                master.setShzt(1);
-                presenter.post(0, ServerURL.BILLMASTER, mParmMap);
+                LogUtils.e(data.toString());
+                if(data.toString().equals("")) {
+                    btSh.setText("弃审");
+                    master.setShzt(1);
+                }
+
                 break;
             case 5:
-                btSh.setText("审核");
-                master.setShzt(0);
-                presenter.post(0, ServerURL.BILLMASTER, mParmMap);
+                if(data.toString().equals("")) {
+                    btSh.setText("审核");
+                    master.setShzt(0);
+                }
+
                 break;
         }
     }

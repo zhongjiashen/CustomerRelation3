@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.cr.tools.ServerURL;
@@ -21,6 +22,7 @@ import com.update.base.BaseRecycleAdapter;
 import com.update.model.Attfiles;
 import com.update.model.GoodsOrOverviewData;
 import com.update.model.InstallRegistrationDetailsData;
+import com.update.model.request.RqShlbData;
 import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
@@ -30,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -91,6 +94,8 @@ public class MaintenanceDetailsActivity extends BaseActivity {
     InstallRegistrationDetailsData master;//安装登记单详细（主表）数据
     @BindView(R.id.tv_zdr)
     TextView tvZdr;
+    @BindView(R.id.bt_sh)
+    Button btSh;
 
 
     private Map<String, Object> mParmMap;
@@ -180,6 +185,27 @@ public class MaintenanceDetailsActivity extends BaseActivity {
         titlebar.setTitleText(this, "维修登记");
 
     }
+    @OnClick({R.id.bt_sh, R.id.bt_delete})
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.bt_sh:
+                Map map = new ArrayMap<>();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("tabname", "tb_servicereg");
+                map.put("pkvalue", billid);
+                presenter.post(3, "billshlist", map);
+                break;
+            case R.id.bt_delete:
+                Map dMap= new ArrayMap<>();
+                dMap.put("dbname", ShareUserInfo.getDbName(this));
+                dMap.put("tabname", "tb_servicereg");
+                dMap.put("pkvalue", billid);
+                dMap.put("opid", ShareUserInfo.getUserId(this));
+                presenter.post(3, "billdelmaster", dMap);
+                break;
+        }
+    }
 
     /**
      * 网路请求返回数据
@@ -201,9 +227,11 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                     case 0://未审
                         tvAuditStatus.setText("未审核");
                         tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                        btSh.setText("审核");
                         break;
                     case 1://已审
                         tvAuditStatus.setText("已审核");
+                        btSh.setText("弃审");
                         tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                         break;
                     case 2://审核中
@@ -266,6 +294,48 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                     saveFile();
 
                 }
+                break;
+            case 3:
+
+                List<RqShlbData> shlb = mGson.fromJson((String) data,
+                        new TypeToken<List<RqShlbData>>() {
+                        }.getType());
+                Map smap = new ArrayMap<>();
+                smap.put("dbname", ShareUserInfo.getDbName(this));
+                smap.put("tabname", "tb_servicereg");
+                smap.put("pkvalue", billid);
+                smap.put("levels", shlb.get(0).getLevels()+"");
+                smap.put("opid", ShareUserInfo.getUserId(this));
+
+                switch (master.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                    case 0://未审
+                        smap.put("shzt", "1");
+                        presenter.post(4, "billsh", smap);
+                        break;
+                    case 1://已审
+                        smap.put("shzt", "0");
+                        presenter.post(5, "billsh", smap);
+                        break;
+                    case 2://审核中
+
+                        break;
+                }
+
+                break;
+            case 4:
+                LogUtils.e(data.toString());
+                if(data.toString().equals("")) {
+                    btSh.setText("弃审");
+                    master.setShzt(1);
+                }
+
+                break;
+            case 5:
+                if(data.toString().equals("")) {
+                    btSh.setText("审核");
+                    master.setShzt(0);
+                }
+
                 break;
         }
 

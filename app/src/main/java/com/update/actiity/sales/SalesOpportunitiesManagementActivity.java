@@ -90,7 +90,6 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
         mParmMap.put("clientid", "0");
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
     }
 
     private void http() {
@@ -203,7 +202,7 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
                 mEmpid = data.getStringExtra("empid");
                 mShzt = data.getStringExtra("shzt");
 
-                http();
+
                 break;
         }
     }
@@ -274,5 +273,10 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
                 break;
         }
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
     }
 }
