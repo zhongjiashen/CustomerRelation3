@@ -149,18 +149,18 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
                         holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                         break;
                 }
-                switch (data.getDjzt()) {//登记状态设置,审核状态(0未审 1已审 2 审核中)
+                switch (data.getDjzt()) {//登记状态设置,{"id":1,"dictmc":"未处理"},{"id":2,"dictmc":"处理中"},{"id":3,"dictmc":"已完成"}
                     case 1://未处理
                         holder.tvMaintenanceStatus.setText("未处理");
                         holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                         break;
-                    case 0://已审
-                        holder.tvMaintenanceStatus.setText("已审核");
-                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-                        break;
                     case 2://审核中
-                        holder.tvMaintenanceStatus.setText("审核中");
+                        holder.tvMaintenanceStatus.setText("处理中");
                         holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#00CC00"));
+                        break;
+                    case 3://已审
+                        holder.tvMaintenanceStatus.setText("已完成");
+                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                         break;
                 }
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

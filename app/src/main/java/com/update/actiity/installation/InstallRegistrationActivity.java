@@ -114,6 +114,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
         presenter.post(0, ServerURL.BILLLIST, mParmMap);
     }
 
+
     /**
      * 指定加载布局
      *

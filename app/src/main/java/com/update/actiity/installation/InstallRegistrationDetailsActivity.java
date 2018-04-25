@@ -10,17 +10,16 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.cr.tools.FileUtil;
-import com.cr.tools.ServerRequest;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jph.takephoto.uitl.TFileUtils;
 import com.update.actiity.project.ProjectActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
@@ -28,6 +27,7 @@ import com.update.base.BaseRecycleAdapter;
 import com.update.model.Attfiles;
 import com.update.model.InstallRegistrationDetailsData;
 import com.update.model.InstallRegistrationScheduleData;
+import com.update.model.request.RqShlbData;
 import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
@@ -97,6 +97,34 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
     TextView tvNote;
 
     InstallRegistrationDetailsData master;//安装登记单详细（主表）数据
+    @BindView(R.id.tv_zdr)
+    TextView tvZdr;
+    @BindView(R.id.ll_unit_name_choice)
+    LinearLayout llUnitNameChoice;
+    @BindView(R.id.ll_contacts_choice)
+    LinearLayout llContactsChoice;
+    @BindView(R.id.ll_related_projects_choice)
+    LinearLayout llRelatedProjectsChoice;
+    @BindView(R.id.ll_submit_time_choice)
+    LinearLayout llSubmitTimeChoice;
+    @BindView(R.id.ll_service_mode_choice)
+    LinearLayout llServiceModeChoice;
+    @BindView(R.id.ll_rating_category_choice)
+    LinearLayout llRatingCategoryChoice;
+    @BindView(R.id.ll_priority_choice)
+    LinearLayout llPriorityChoice;
+    @BindView(R.id.tv_choose_goods)
+    TextView tvChooseGoods;
+    @BindView(R.id.tv_adding_profile)
+    TextView tvAddingProfile;
+    @BindView(R.id.ll_document_date_choice)
+    LinearLayout llDocumentDateChoice;
+    @BindView(R.id.ll_department_choice)
+    LinearLayout llDepartmentChoice;
+    @BindView(R.id.ll_salesman_choice)
+    LinearLayout llSalesmanChoice;
+    @BindView(R.id.bt_sh)
+    Button btSh;
 
 
     private Map<String, Object> mParmMap;
@@ -201,6 +229,33 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
 
     }
 
+    @OnClick({R.id.bt_sh, R.id.bt_delete})
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.bt_sh:
+                Map map = new ArrayMap<>();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("tabname", "tb_installreg");
+                map.put("pkvalue", billid);
+                presenter.post(3, "billshlist", map);
+
+
+
+
+
+                break;
+            case R.id.bt_delete:
+                Map dMap= new ArrayMap<>();
+                dMap.put("dbname", ShareUserInfo.getDbName(this));
+                dMap.put("tabname", "tb_installreg");
+                dMap.put("pkvalue", billid);
+                dMap.put("opid", ShareUserInfo.getUserId(this));
+                presenter.post(3, "billdelmaster", dMap);
+                break;
+        }
+    }
+
     /**
      * 网路请求返回数据
      *
@@ -221,9 +276,11 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                     case 0://未审
                         tvAuditStatus.setText("未审核");
                         tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                        btSh.setText("审核");
                         break;
                     case 1://已审
                         tvAuditStatus.setText("已审核");
+                        btSh.setText("弃审");
                         tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                         break;
                     case 2://审核中
@@ -231,20 +288,20 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                         break;
                 }
-//                switch (master.getDjzt()) {//登记状态设置,审核状态(0未审 1已审 2 审核中)
-//                    case 1://未处理
-//                        holder.tvMaintenanceStatus.setText("未处理");
-//                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-//                        break;
-//                    case 0://已审
-//                        holder.tvMaintenanceStatus.setText("已审核");
-//                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-//                        break;
-//                    case 2://审核中
-//                        holder.tvMaintenanceStatus.setText("审核中");
-//                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#00CC00"));
-//                        break;
-//                }
+                switch (master.getDjzt()) {//登记状态设置,{"id":1,"dictmc":"未处理"},{"id":2,"dictmc":"处理中"},{"id":3,"dictmc":"已完成"}
+                    case 1://未处理
+                        tvRegistrationStatus.setText("未处理");
+                        tvRegistrationStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                        break;
+                    case 2://审核中
+                        tvRegistrationStatus.setText("处理中");
+                        tvRegistrationStatus.setBackgroundColor(Color.parseColor("#00CC00"));
+                        break;
+                    case 3://已审
+                        tvRegistrationStatus.setText("已完成");
+                        tvRegistrationStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                        break;
+                }
                 tvUnitName.setText(master.getCname());//单位名称
                 tvContacts.setText(master.getLxrname());//联系人
                 tvContactNumber.setText(master.getPhone());//联系电话
@@ -258,6 +315,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 tvDocumentDate.setText(master.getBilldate());//单据日期
                 tvDepartment.setText(master.getDepname());//部门名称
                 tvSalesman.setText(master.getEmpname());//业务员姓名
+                tvZdr.setText(master.getOpname());//制单人
                 tvNote.setText(master.getMemo());//摘要
 //                Map map= new ArrayMap<>();
 //                map.put("dbname", ShareUserInfo.getDbName(this));
@@ -286,6 +344,45 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                     saveFile();
 
                 }
+
+
+                break;
+            case 3:
+
+                List<RqShlbData> shlb = mGson.fromJson((String) data,
+                        new TypeToken<List<RqShlbData>>() {
+                        }.getType());
+                Map smap = new ArrayMap<>();
+                smap.put("dbname", ShareUserInfo.getDbName(this));
+                smap.put("tabname", "tb_installreg");
+               smap.put("pkvalue", billid);
+                smap.put("levels", shlb.get(0).getLevels()+"");
+                smap.put("opid", ShareUserInfo.getUserId(this));
+
+                switch (master.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                    case 0://未审
+                        smap.put("shzt", "1");
+                        presenter.post(4, "billsh", smap);
+                        break;
+                    case 1://已审
+                       smap.put("shzt", "0");
+                        presenter.post(5, "billsh", smap);
+                        break;
+                    case 2://审核中
+
+                        break;
+                }
+
+                break;
+            case 4:
+                btSh.setText("弃审");
+                master.setShzt(1);
+                presenter.post(0, ServerURL.BILLMASTER, mParmMap);
+                break;
+            case 5:
+                btSh.setText("审核");
+                master.setShzt(0);
+                presenter.post(0, ServerURL.BILLMASTER, mParmMap);
                 break;
         }
     }
@@ -345,4 +442,6 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 });
 
     }
+
+
 }

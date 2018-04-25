@@ -15,15 +15,12 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.update.actiity.installation.ChooseGoodsDetailsActivity;
-import com.update.actiity.installation.IncreaseOverviewActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.Attfiles;
 import com.update.model.GoodsOrOverviewData;
 import com.update.model.InstallRegistrationDetailsData;
-import com.update.model.InstallRegistrationScheduleData;
 import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
@@ -92,6 +89,8 @@ public class MaintenanceDetailsActivity extends BaseActivity {
     TextView tvNote;
 
     InstallRegistrationDetailsData master;//安装登记单详细（主表）数据
+    @BindView(R.id.tv_zdr)
+    TextView tvZdr;
 
 
     private Map<String, Object> mParmMap;
@@ -134,19 +133,19 @@ public class MaintenanceDetailsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
-         /* 选择商品集合信息处理 */
+        /* 选择商品集合信息处理 */
         rcvChooseGoodsList.setLayoutManager(new LinearLayoutManager(this));
-        rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder,GoodsOrOverviewData>(mGoodsOrOverviewDatas, false) {
+        rcvChooseGoodsList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, GoodsOrOverviewData>(mGoodsOrOverviewDatas, false) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getChooseGoodsResultHolder(MaintenanceDetailsActivity.this,parent);
+                return ViewHolderFactory.getChooseGoodsResultHolder(MaintenanceDetailsActivity.this, parent);
             }
 
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, final GoodsOrOverviewData data) {
-                holder.tvRegistrationNumber.setText("登记数量："+data.getUnitqty()+"个");
-                switch (data.getLb()){//0 概况（goodsname记录内容） ,1 商品
+                holder.tvRegistrationNumber.setText("登记数量：" + data.getUnitqty() + "个");
+                switch (data.getLb()) {//0 概况（goodsname记录内容） ,1 商品
                     case "0":
                         holder.tvGoodsInformation.setText("概况信息");
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -212,20 +211,20 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                         tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                         break;
                 }
-//                switch (master.getDjzt()) {//登记状态设置,审核状态(0未审 1已审 2 审核中)
-//                    case 1://未处理
-//                        holder.tvMaintenanceStatus.setText("未处理");
-//                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-//                        break;
-//                    case 0://已审
-//                        holder.tvMaintenanceStatus.setText("已审核");
-//                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-//                        break;
-//                    case 2://审核中
-//                        holder.tvMaintenanceStatus.setText("审核中");
-//                        holder.tvMaintenanceStatus.setBackgroundColor(Color.parseColor("#00CC00"));
-//                        break;
-//                }
+                switch (master.getDjzt()) {//登记状态设置,{"id":1,"dictmc":"未处理"},{"id":2,"dictmc":"处理中"},{"id":3,"dictmc":"已完成"}
+                    case 1://未处理
+                        tvRegistrationStatus.setText("未处理");
+                        tvRegistrationStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                        break;
+                    case 2://审核中
+                        tvRegistrationStatus.setText("处理中");
+                        tvRegistrationStatus.setBackgroundColor(Color.parseColor("#00CC00"));
+                        break;
+                    case 3://已审
+                        tvRegistrationStatus.setText("已完成");
+                        tvRegistrationStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                        break;
+                }
                 tvUnitName.setText(master.getCname());//单位名称
                 tvContacts.setText(master.getLxrname());//联系人
                 tvContactNumber.setText(master.getPhone());//联系电话
@@ -238,6 +237,7 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                 tvDocumentDate.setText(master.getBilldate());//单据日期
                 tvDepartment.setText(master.getDepname());//部门名称
                 tvSalesman.setText(master.getEmpname());//业务员姓名
+                tvZdr.setText(master.getOpname());//制单人
                 tvNote.setText(master.getMemo());//摘要
 //                Map map= new ArrayMap<>();
 //                map.put("dbname", ShareUserInfo.getDbName(this));
