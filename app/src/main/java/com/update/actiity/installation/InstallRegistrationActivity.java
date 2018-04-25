@@ -91,7 +91,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
         mParmMap.put("empid", "0");
 
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
+
     }
     private void http(){
         page_number = 1;
@@ -264,12 +264,16 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 shzt = data.getStringExtra("shzt");
                 djzt = data.getStringExtra("djzt");
                 cname=data.getStringExtra("cname");
-                http();
+
                 break;
         }
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
+    }
 
 
     /**

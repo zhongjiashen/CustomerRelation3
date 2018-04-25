@@ -93,7 +93,6 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
         mParmMap.put("clientid", "0");
         mParmMap.put("opid", ShareUserInfo.getUserId(this));
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
     }
 
     private void http() {
@@ -255,12 +254,15 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
                 fwry = data.getStringExtra("fwry");
                 cname = data.getStringExtra("cname");
                 goodsname = data.getStringExtra("goodsname");
-                http();
                 break;
         }
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
+    }
     /**
      * 网路请求返回数据
      *
