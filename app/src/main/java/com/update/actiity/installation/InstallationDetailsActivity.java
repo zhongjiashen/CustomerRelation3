@@ -33,6 +33,7 @@ import com.update.model.FileChooseData;
 import com.update.model.InstallationDetailsData;
 import com.update.model.Serial;
 import com.update.model.request.PerformSituationData;
+import com.update.model.request.RqShlbData;
 import com.update.utils.DateUtil;
 import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
@@ -282,11 +283,55 @@ public class InstallationDetailsActivity extends BaseActivity {
                 serialList.clear();
                 showShortToast("保存成功");
                 break;
+
+            case 3:
+                List<RqShlbData> shlb = mGson.fromJson((String) data,
+                        new TypeToken<List<RqShlbData>>() {
+                        }.getType());
+                Map smap = new ArrayMap<>();
+                smap.put("dbname", ShareUserInfo.getDbName(this));
+                smap.put("tabname", "tb_installjob");
+                smap.put("pkvalue", billid);
+                smap.put("levels", shlb.get(0).getLevels() + "");
+                smap.put("opid", ShareUserInfo.getUserId(this));
+
+                switch (tvAuditStatus.getText().toString()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                    case "未审核"://未审
+                        smap.put("shzt", "1");
+                        presenter.post(4, "billsh", smap);
+                        break;
+                    case "已审核"://已审
+                        smap.put("shzt", "0");
+                        presenter.post(5, "billsh", smap);
+                        break;
+
+                }
+
+                break;
+            case 4:
+                LogUtils.e(data.toString());
+                if (data.toString().equals("")) {
+                    btBottom.setText("弃审");
+                    tvAuditStatus.setText("已审核");
+                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+                }else
+                    showShortToast(data.toString());
+
+                break;
+            case 5:
+                if (data.toString().equals("")) {
+                    tvAuditStatus.setText("未审核");
+                    btBottom.setText("审核");
+                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+                }else
+                    showShortToast(data.toString());
+
+                break;
         }
 
     }
 
-    @OnClick({R.id.bt_registration_details, R.id.rl_goods_information, R.id.ll_installed_results, R.id.ll_rework, R.id.iv_scan, R.id.ll_start_time, R.id.ll_end_time})
+    @OnClick({R.id.bt_registration_details, R.id.rl_goods_information, R.id.ll_installed_results, R.id.ll_rework, R.id.iv_scan, R.id.ll_start_time, R.id.ll_end_time, R.id.bt_bottom})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_registration_details://查看登记详情
@@ -336,6 +381,13 @@ public class InstallationDetailsActivity extends BaseActivity {
                 break;
             case R.id.ll_end_time://结束时间
                 selectTime(1);
+                break;
+            case R.id.bt_bottom://审核/弃审
+                Map map = new ArrayMap<>();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("tabname", "tb_installjob");
+                map.put("pkvalue", billid);
+                presenter.post(3, "billshlist", map);
                 break;
         }
     }
