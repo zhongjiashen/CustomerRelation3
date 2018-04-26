@@ -21,6 +21,7 @@ import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.model.TResult;
 import com.update.actiity.choose.ChooseDepartmentActivity;
@@ -144,7 +145,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         mFileChooseDatas = new ArrayList<>();
 
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
-        mGson = new Gson();
+        mGson = new GsonBuilder().disableHtmlEscaping().create();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
         bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH|mm|ss");
     }
@@ -549,7 +550,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             attfiles.setFilenames(file.getName());
             attfiles.setOpid(ShareUserInfo.getUserId(this));
             try {
-//                attfiles.setXx(FileUtils.encodeBase64File(file));
+                attfiles.setXx(FileUtils.encodeBase64File(mFileChooseDatas.get(i).getUrl()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -602,7 +603,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
     public void returnData(int requestCode, Object data) {
         String result= (String) data;
         if(TextUtils.isEmpty(result)||result.equals("false")){
-
+            showShortToast(data.toString());
         }else {
             showShortToast("添加成功");
             finish();

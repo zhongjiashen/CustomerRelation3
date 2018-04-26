@@ -556,7 +556,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 //            setCache( uploadBuffer , this, "myF.txt", Context.MODE_PRIVATE);
             try {
                 attfiles.setXx(FileUtils.encodeBase64File(mFileChooseDatas.get(i).getUrl()));
-                setCache(attfiles.getXx(), this, "my.txt", Context.MODE_PRIVATE);
+//                setCache(attfiles.getXx(), this, "my.txt", Context.MODE_PRIVATE);
 //                decoderBase64File(attfiles.getXx(),"/data/data/com.crenp.activity/cache/takephoto_cache/19.png");
             } catch (Exception e) {
                 e.printStackTrace();

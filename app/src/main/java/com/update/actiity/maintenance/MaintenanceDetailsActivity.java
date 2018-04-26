@@ -1,9 +1,13 @@
 package com.update.actiity.maintenance;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.util.ArrayMap;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,14 +15,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.installation.AddInstallRegistrationActivity;
+import com.update.actiity.installation.InstallRegistrationDetailsActivity;
+import com.update.adapter.FileChooseAdapter;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
+import com.update.dialog.DialogFactory;
+import com.update.dialog.OnDialogClickInterface;
 import com.update.model.Attfiles;
 import com.update.model.GoodsOrOverviewData;
 import com.update.model.InstallRegistrationDetailsData;
@@ -28,6 +38,7 @@ import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -176,6 +187,25 @@ public class MaintenanceDetailsActivity extends BaseActivity {
             }
 
         });
+
+        /* 选择文件集合信息处理 */
+        rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
+        rcvChooseFileList.setAdapter(mFileAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseFileResultHolder, Attfiles>(attfilesList, false) {
+
+            @Override
+            protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
+                return ViewHolderFactory.getChooseFileResultHolder(mActivity, parent);
+            }
+
+            @Override
+            protected void MyonBindViewHolder(final ViewHolderFactory.ChooseFileResultHolder holder, final Attfiles data) {
+                LogUtils.e(getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(0).getFilenames());
+                holder.ivDelete.setVisibility(View.GONE);
+                Glide.with(mActivity).load(getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(0).getFilenames()).into(holder.sivImage);
+            }
+
+        });
+
     }
 
     /**
@@ -374,7 +404,7 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                     @Override
                     public void onNext(String s) {//主线程执行的方法
                         LogUtils.e(s);
-//                        mFileAdapter.setList(attfilesList);
+                        mFileAdapter.setList(attfilesList);
 
                     }
 
