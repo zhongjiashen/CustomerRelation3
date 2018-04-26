@@ -74,7 +74,7 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
         Date date = new Date();
         start_time = DateUtil.DateToString(date, "yyyy-MM-") + "01";
         end_time = DateUtil.DateToString(date, "yyyy-MM-dd");
-        shzt = "9";
+        shzt = "0";
         djzt = "0";
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();

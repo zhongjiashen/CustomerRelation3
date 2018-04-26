@@ -291,7 +291,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 break;
             case R.id.ll_rating_category_choice://登记类别选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm", "WXDJLX").putExtra("title", "登记类别选择"), 14);
+                        .putExtra("zdbm", "WXDJLX").putExtra("title", "登记类别选择"), 15);
                 break;
             case R.id.ll_priority_choice://优先级选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)

@@ -82,7 +82,7 @@ public class LogisticsManagementActivity extends BaseActivity implements
 
         mQsrq = DateUtil.DateToString(mDate, "yyyy-MM-") + "01";
         mZzrq = DateUtil.DateToString(mDate, "yyyy-MM-dd");
-        mShzt = "9";
+        mShzt = "0";
         mBilltype = "0";
         mParmMap.put("opid", ShareUserInfo.getUserId(this));//登录操作员ID
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
