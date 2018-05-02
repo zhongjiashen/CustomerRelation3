@@ -435,7 +435,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             xsglIndexModelList.add(im);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             IndexModel im = new IndexModel();
             switch (i) {
                 case 0:
