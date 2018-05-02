@@ -240,7 +240,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="@dimen/margin"
             android:layout_weight="1"
-            android:text="全部"
+            android:text="未审核"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/word_small" />
 

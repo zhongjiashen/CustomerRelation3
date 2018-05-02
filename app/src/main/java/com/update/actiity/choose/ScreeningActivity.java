@@ -83,11 +83,11 @@ public class ScreeningActivity extends BaseActivity {
         switch (kind) {
             case 0:
             case 2:
-                aId = "9";
+                aId = "0";
                 bId = "0";
                 break;
             case 1:
-                aId = "9";
+                aId = "0";
                 bId = "0";
                 cId = "0";
                 tvBText.setText("执行结果");
@@ -96,6 +96,9 @@ public class ScreeningActivity extends BaseActivity {
                 llEtB.setVisibility(View.VISIBLE);
                 break;
             case 3://检测维修
+                aId = "0";
+                bId = "0";
+                cId = "0";
                 tvBText.setText("维修结果");
                 llC.setVisibility(View.VISIBLE);
                 tvCText.setText("维修人员");

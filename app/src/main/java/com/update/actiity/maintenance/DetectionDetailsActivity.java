@@ -301,7 +301,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                         }.getType());
                 Map smap = new ArrayMap<>();
                 smap.put("dbname", ShareUserInfo.getDbName(this));
-                smap.put("tabname", "tb_installjob");
+                smap.put("tabname", "tb_servicejob");
                 smap.put("pkvalue", billid);
                 smap.put("levels", shlb.get(0).getLevels() + "");
                 smap.put("opid", ShareUserInfo.getUserId(this));

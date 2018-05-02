@@ -71,7 +71,7 @@ public class ScreeningProjectActivity extends BaseActivity {
         tvEndTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
 
         mGmid = "0";
-        mShzt = "9";
+        mShzt = "0";
         mEmpid = "0";
         switch (kind) {
             case 0://项目
