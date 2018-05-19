@@ -326,7 +326,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                     tvAuditStatus.setText("已审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 }else
-                    showShortToast(data.toString());
+                    showShortToast("该单据已经最终审核，不能重复审核");
 
                 break;
             case 5:

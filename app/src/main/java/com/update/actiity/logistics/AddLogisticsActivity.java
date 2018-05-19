@@ -156,7 +156,7 @@ public class AddLogisticsActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "合同");
+        titlebar.setTitleText(this, "物流");
         titlebar.setRightText("保存");
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
@@ -357,7 +357,7 @@ public class AddLogisticsActivity extends BaseActivity {
     }
 
     /**
-     * 新增项目
+     * 新增物流
      */
     private void saveContract() {
 //        物流公司、收货单位、物流单号、部门为必填

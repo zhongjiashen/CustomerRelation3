@@ -247,6 +247,7 @@ public class AddProjectActivity extends BaseActivity {
      * 新增项目
      */
     private void saveProject() {
+//        新增项目单据，除单位名称、项目名称、部门业务员是必填的，其他的都不是必填项，目前是不填写不能保存；
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择单位名称！");
             return;
@@ -256,24 +257,24 @@ public class AddProjectActivity extends BaseActivity {
             showShortToast("请输入项目名称！");
             return;
         }
-        if (TextUtils.isEmpty(mProjecttype)) {
-            showShortToast("请选择项目类型！");
-            return;
-        }
-        if (TextUtils.isEmpty(mSourceid)) {
-            showShortToast("请选择项目来源！");
-            return;
-        }
+//        if (TextUtils.isEmpty(mProjecttype)) {
+//            showShortToast("请选择项目类型！");
+//            return;
+//        }
+//        if (TextUtils.isEmpty(mSourceid)) {
+//            showShortToast("请选择项目来源！");
+//            return;
+//        }
         String amount = etBudgetAmount.getText().toString();
-        if (TextUtils.isEmpty(amount)) {
-            showShortToast("请输入预算金额！");
-            return;
-        }
+//        if (TextUtils.isEmpty(amount)) {
+//            showShortToast("请输入预算金额！");
+//            return;
+//        }
         mZzrq = tvEndTime.getText().toString();
-        if (TextUtils.isEmpty(mZzrq)) {
-            showShortToast("请选择截止日期！");
-            return;
-        }
+//        if (TextUtils.isEmpty(mZzrq)) {
+//            showShortToast("请选择截止日期！");
+//            return;
+//        }
         if (TextUtils.isEmpty(mDepartmentid)) {
             showShortToast("请先选择部门");
             return;

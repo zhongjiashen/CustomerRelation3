@@ -240,9 +240,10 @@ public class AddContractActivity extends BaseActivity {
         mTimePickerView.show();
     }
     /**
-     * 新增项目
+     * 新增合同
      */
     private void saveContract() {
+//        41.新增合同单据时，合同金额、截止日期不是必须填写的，目前是不填写保存不了
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择单位名称！");
             return;
@@ -259,15 +260,15 @@ public class AddContractActivity extends BaseActivity {
         }
 
         String amount = etContractAmount.getText().toString();
-        if (TextUtils.isEmpty(amount)) {
-            showShortToast("请输入预算金额！");
-            return;
-        }
+//        if (TextUtils.isEmpty(amount)) {
+//            showShortToast("请输入预算金额！");
+//            return;
+//        }
         mZzrq = tvEndTime.getText().toString();
-        if (TextUtils.isEmpty(mZzrq)) {
-            showShortToast("请选择截止日期！");
-            return;
-        }
+//        if (TextUtils.isEmpty(mZzrq)) {
+//            showShortToast("请选择截止日期！");
+//            return;
+//        }
         if (TextUtils.isEmpty(mDepartmentid)) {
             showShortToast("请先选择部门");
             return;

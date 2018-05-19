@@ -201,7 +201,7 @@ public class MyAuditListActivity extends BaseActivity implements
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "销售机会");
+        titlebar.setTitleText(this, "我的审核");
         titlebar.setIvRightImageResource(R.drawable.oper);
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override

@@ -315,7 +315,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                     tvAuditStatus.setText("已审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 }else
-                    showShortToast(data.toString());
+                    showShortToast("该单据已经最终审核，不能重复审核");
 
                 break;
             case 5:
@@ -458,10 +458,11 @@ public class InstallationDetailsActivity extends BaseActivity {
      * 保存数据
      */
     private void saveData() {
-        if (TextUtils.isEmpty(mData.getBegindate()) || TextUtils.isEmpty(mData.getEnddate())) {
-            showShortToast("请输入起止时间！");
-            return;
-        }
+//        6.安装执行中起始时间和结束时间不是必须填写的；现在不填写单据不能保存；
+//        if (TextUtils.isEmpty(mData.getBegindate()) || TextUtils.isEmpty(mData.getEnddate())) {
+//            showShortToast("请输入起止时间！");
+//            return;
+//        }
 
 //        Billid    主单ID
 //        itemno  明细ID

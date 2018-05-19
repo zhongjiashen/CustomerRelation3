@@ -132,6 +132,12 @@ public class ScreeningActivity extends BaseActivity {
                     case 1://审核状态
                         startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class), 11);
                         break;
+                    case 2://审核状态
+                        startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class), 11);
+                        break;
+                    case 3://审核状态
+                        startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class), 11);
+                        break;
                 }
                 break;
             case R.id.ll_b:
