@@ -239,18 +239,19 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
     }
 
     /**
-     * 新增项目
+     * 新增销售机会
      */
     private void saveOpportunities() {
+//        销售机会单据除了单位名称、机会名称、部门为必填，其他的都不是必填项，目前是不填写不能保存
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择单位名称！");
             return;
         }
         String phone = etContactNumber.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            showShortToast("请输入联系电话");
-            return;
-        }
+//        if (TextUtils.isEmpty(phone)) {
+//            showShortToast("请输入联系电话");
+//            return;
+//        }
         String title = etOpportunitiesName.getText().toString();
         if (TextUtils.isEmpty(title)) {
             showShortToast("请输入机会名称！");
@@ -258,29 +259,29 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         }
 
         String amount = etExpectedIncome.getText().toString();
-        if (TextUtils.isEmpty(amount)) {
-            showShortToast("请输入预计收入！");
-            return;
-        }
+//        if (TextUtils.isEmpty(amount)) {
+//            showShortToast("请输入预计收入！");
+//            return;
+//        }
         mZzrq = tvEndTime.getText().toString();
-        if (TextUtils.isEmpty(mZzrq)) {
-            showShortToast("请选择成交日期！");
-            return;
-        }
-        if (TextUtils.isEmpty(mBflx)) {
-            showShortToast("请先选机会来源");
-            return;
-        }
+//        if (TextUtils.isEmpty(mZzrq)) {
+//            showShortToast("请选择成交日期！");
+//            return;
+//        }
+//        if (TextUtils.isEmpty(mBflx)) {
+//            showShortToast("请先选机会来源");
+//            return;
+//        }
         String sources = etInterestSize.getText().toString();
-        if (TextUtils.isEmpty(sources)) {
-            showShortToast("请输入兴趣大小！");
-            return;
-        }
+//        if (TextUtils.isEmpty(sources)) {
+//            showShortToast("请输入兴趣大小！");
+//            return;
+//        }
         String probability = etChance.getText().toString();
-        if (TextUtils.isEmpty(probability)) {
-            showShortToast("请输入成功机率！");
-            return;
-        }
+//        if (TextUtils.isEmpty(probability)) {
+//            showShortToast("请输入成功机率！");
+//            return;
+//        }
         if (TextUtils.isEmpty(mDepartmentid)) {
             showShortToast("请先选择部门");
             return;

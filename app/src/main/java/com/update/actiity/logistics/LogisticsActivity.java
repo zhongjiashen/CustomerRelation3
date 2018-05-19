@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
+import com.update.dialog.DialogFactory;
+import com.update.dialog.OnDialogClickInterface;
 import com.update.model.request.RqLogisticsData;
 import com.update.model.request.RqShlbData;
 import com.update.utils.LogUtils;
@@ -159,12 +161,20 @@ public class LogisticsActivity extends BaseActivity {
                 presenter.post(3, "billshlist", map);
                 break;
             case R.id.bt_delete:
-                Map dMap= new ArrayMap<>();
-                dMap.put("dbname", ShareUserInfo.getDbName(this));
-                dMap.put("tabname", "tb_logisticbill");
-                dMap.put("pkvalue", mBillid);
-                dMap.put("opid", ShareUserInfo.getUserId(this));
-                presenter.post(6, "billdelmaster", dMap);
+                DialogFactory.getButtonDialog(this, "确定要删除该单据吗？", new OnDialogClickInterface() {
+                    @Override
+                    public void OnClick(int requestCode, Object object) {
+                        Map dMap= new ArrayMap<>();
+                        dMap.put("dbname", ShareUserInfo.getDbName(mActivity));
+                        dMap.put("tabname", "tb_logisticbill");
+                        dMap.put("pkvalue", mBillid);
+                        dMap.put("opid", ShareUserInfo.getUserId(mActivity));
+                        presenter.post(6, "billdelmaster", dMap);
+                    }
+
+
+                }).show();
+
                 break;
         }
     }

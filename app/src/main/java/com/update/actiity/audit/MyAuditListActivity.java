@@ -94,7 +94,7 @@ public class MyAuditListActivity extends BaseActivity implements
     }
 
     private void http() {
-        page_number = 1;
+
         mParmMap.put("qsrq", mQsrq);//
         mParmMap.put("zzrq", mZzrq);//
         mParmMap.put("cname", mCname);//
@@ -239,7 +239,7 @@ public class MyAuditListActivity extends BaseActivity implements
     public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
         page_number = 1;
         mParmMap.put("curpage", page_number);//当前页
-        presenter.post(0, ServerURL.BILLLIST, mParmMap);
+        presenter.post(0, "waitbillshlist", mParmMap);
     }
 
     /**
@@ -250,7 +250,7 @@ public class MyAuditListActivity extends BaseActivity implements
     @Override
     public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
         mParmMap.put("curpage", (page_number + 1));
-        presenter.post(1, ServerURL.BILLLIST, mParmMap,false);
+        presenter.post(0, "waitbillshlist", mParmMap);
     }
 
     /**
@@ -301,6 +301,7 @@ public class MyAuditListActivity extends BaseActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        page_number = 1;
         http();
     }
 }
