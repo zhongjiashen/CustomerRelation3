@@ -126,6 +126,8 @@ public class LogisticsManagementActivity extends BaseActivity implements
     @Override
     protected void init() {
         setTitlebar();
+
+        etSearch.setHint("输入单位名称/单据编号");
         prlView.setOnRefreshListener(this);
         prvView.setLayoutManager(new LinearLayoutManager(this));
         prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ProjectHolder, RqLogisticsListData>(mList) {

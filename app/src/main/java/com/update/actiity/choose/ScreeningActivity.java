@@ -14,6 +14,7 @@ import com.update.viewbar.TitleBar;
 
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -77,8 +78,14 @@ public class ScreeningActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         Date date = new Date();
-        tvStartTime.setText(DateUtil.DateToString(date, "yyyy-MM-") + "01");
-        tvEndTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
+        Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
+        int day=aCalendar.getActualMaximum(Calendar.DATE);
+        String rq=DateUtil.DateToString(date, "yyyy-MM-");
+        tvStartTime.setText(rq + "01");
+        if(day>9)
+            tvEndTime.setText(rq+day);
+        else
+            tvEndTime.setText(rq+"0"+day);
         mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
         switch (kind) {
             case 0:

@@ -13,6 +13,7 @@ import com.update.viewbar.TitleBar;
 
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -67,8 +68,14 @@ public class ScreeningProjectActivity extends BaseActivity {
     @Override
     protected void init() {
         Date date = new Date();
-        tvStartTime.setText(DateUtil.DateToString(date, "yyyy-MM-") + "01");
-        tvEndTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd"));
+        Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
+        int day=aCalendar.getActualMaximum(Calendar.DATE);
+        String rq=DateUtil.DateToString(date, "yyyy-MM-");
+        tvStartTime.setText(rq + "01");
+        if(day>9)
+            tvEndTime.setText(rq+day);
+        else
+            tvEndTime.setText(rq+"0"+day);
 
         mGmid = "0";
         mShzt = "0";

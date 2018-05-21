@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -125,6 +127,25 @@ public class MyAuditListActivity extends BaseActivity implements
     @Override
     protected void init() {
         setTitlebar();
+        etSearch.setHint("输入单位名称/单据编号");
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                mParmMap.put("goodsname", s.toString());
+                http();
+            }
+        });
+
+
+
         prlView.setOnRefreshListener(this);
         prvView.setLayoutManager(new LinearLayoutManager(this));
         prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ProjectHolder, RqMyAuditListData>(mList) {

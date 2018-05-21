@@ -1,6 +1,7 @@
 package com.update.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
@@ -236,4 +237,25 @@ public class FileUtils {
 //        }
     }
 
+
+    //获取VideoPath
+    public static String getPath(Activity activity,String path, String fileName) {
+        String p = getBaseFolder(activity) + path;
+        File f = new File(p);
+        if (!f.exists() && !f.mkdirs()) {
+            return getBaseFolder(activity) + fileName;
+        }
+        return p + fileName;
+    }
+    public static String getBaseFolder(Activity activity) {
+        String baseFolder = Environment.getExternalStorageDirectory() + "/Henshi/";
+        File f = new File(baseFolder);
+        if (!f.exists()) {
+            boolean b = f.mkdirs();
+            if (!b) {
+                baseFolder = activity.getExternalFilesDir(null).getAbsolutePath() + "/";
+            }
+        }
+        return baseFolder;
+    }
 }
