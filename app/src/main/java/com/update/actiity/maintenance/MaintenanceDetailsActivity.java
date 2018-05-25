@@ -35,6 +35,7 @@ import com.update.model.InstallRegistrationDetailsData;
 import com.update.model.request.RqShlbData;
 import com.update.utils.FileUtils;
 import com.update.utils.LogUtils;
+import com.update.utils.SeeFileUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.ViewHolderFactory;
 
@@ -199,9 +200,15 @@ public class MaintenanceDetailsActivity extends BaseActivity {
 
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseFileResultHolder holder, final Attfiles data) {
-                LogUtils.e(getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(0).getFilenames());
+                LogUtils.e( FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames()));
                 holder.ivDelete.setVisibility(View.GONE);
-                Glide.with(mActivity).load(getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(0).getFilenames()).into(holder.sivImage);
+                Glide.with(mActivity).load(FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames())).error(R.mipmap.ic_file).into(holder.sivImage);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SeeFileUtils.openFile(mActivity,FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames()));
+                    }
+                });
             }
 
         });
@@ -392,7 +399,7 @@ public class MaintenanceDetailsActivity extends BaseActivity {
             public void call(Subscriber<? super String> subscriber) {
                 try {
                     for (int i = 0; i < attfilesList.size(); i++) {
-                        FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, getCacheDir().getPath() + "/AZDJ" + billid + attfilesList.get(i).getFilenames(), Context.MODE_PRIVATE);
+                        FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(i).getFilenames()), Context.MODE_PRIVATE);
                         LogUtils.e("baocun");
                     }
 

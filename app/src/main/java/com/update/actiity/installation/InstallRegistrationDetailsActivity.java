@@ -427,7 +427,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 try {
                     for (int i = 0; i < attfilesList.size(); i++) {
                         FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(i).getFilenames()), Context.MODE_PRIVATE);
-                        LogUtils.e("baocun");
+
                     }
 
                 } catch (Exception e) {
