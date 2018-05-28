@@ -147,7 +147,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         mParmMap = new HashMap<String, Object>();
         mFileChooseDatas = new ArrayList<>();
 
-        mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
+
         mGson = new GsonBuilder().disableHtmlEscaping().create();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
         bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH:mm:ss");
@@ -435,11 +435,16 @@ public class AddInstallRegistrationActivity extends BaseActivity {
      * @param i
      */
     public void selectTime(final int i) {
+        if(i==0){
+            mTimePickerView = new TimePickerView(this, TimePickerView.Type.ALL);
+        }else {
+            mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
+        }
+
         mTimePickerView.setTime(new Date());
         mTimePickerView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date) {
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
                 switch (i) {
                     case 0:
                         tvSubmitTime.setText(DateUtil.DateToString(date, "yyyy-MM-dd HH:mm:ss"));
@@ -511,7 +516,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         master.setShipto(shipto);
         master.setBilldate(tvDocumentDate.getText().toString());
         master.setProjectid(mProjectid);
-        master.setBsrq(tvSubmitTime.getText().toString());
+        master.setBsrq(tvSubmitTime.getText().toString().replace(":","|"));
         master.setBxr(bxr);
         master.setSxfsid(sxfsid);
         master.setRegtype(regtype);
