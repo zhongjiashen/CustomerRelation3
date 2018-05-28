@@ -143,11 +143,11 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
         mFileChooseDatas = new ArrayList<>();
+        mChooseGoodsDataList=new ArrayList<>();
 
-        mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
         mGson = new GsonBuilder().disableHtmlEscaping().create();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
-        bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH|mm|ss");
+        bsrq = DateUtil.DateToString(new Date(), "yyyy-MM-dd HH:mm:ss");
     }
 
     /**
@@ -358,8 +358,9 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 17://商品选择结果处理
-                mChooseGoodsDataList = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
+                List<ChooseGoodsData> list= mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
                 }.getType());
+                mChooseGoodsDataList.addAll(list);
                 mAdapter.setList(mChooseGoodsDataList);
                 break;
             case 18://商品选择结果处理
@@ -428,7 +429,12 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
      * @param i
      */
     public void selectTime(final int i) {
-        mTimePickerView.setTime(new Date());
+        if(i==0){
+            mTimePickerView = new TimePickerView(this, TimePickerView.Type.ALL);
+        }else {
+            mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
+        }
+
         mTimePickerView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date) {
@@ -502,7 +508,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         master.setPhone(phone);
         master.setShipto(shipto);
         master.setBilldate(tvDocumentDate.getText().toString());
-        master.setBsrq(bsrq);
+        master.setBsrq(tvSubmitTime.getText().toString().replace(":","|"));
         master.setBxr(bxr);
         master.setSxfsid(sxfsid);
         master.setRegtype(regtype);
