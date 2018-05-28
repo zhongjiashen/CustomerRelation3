@@ -146,7 +146,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
         mFileChooseDatas = new ArrayList<>();
-
+        mChooseGoodsDataList=new ArrayList<>();
 
         mGson = new GsonBuilder().disableHtmlEscaping().create();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
@@ -365,8 +365,9 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 17://商品选择结果处理
-                mChooseGoodsDataList = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
+                List<ChooseGoodsData> list= mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
                 }.getType());
+                mChooseGoodsDataList.addAll(list);
                 mAdapter.setList(mChooseGoodsDataList);
                 break;
             case 18://商品选择结果处理
