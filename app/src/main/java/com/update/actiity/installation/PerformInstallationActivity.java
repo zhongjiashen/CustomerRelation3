@@ -178,7 +178,7 @@ public class PerformInstallationActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivityForResult(new Intent(PerformInstallationActivity.this, InstallationDetailsActivity.class)
+                        startActivityForResult(new Intent(mActivity, InstallationDetailsActivity.class)
                                 .putExtra("itemno", data.getItemno() + "")
                                 .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                     }
@@ -216,7 +216,7 @@ public class PerformInstallationActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://打开右边侧滑菜单
-                        startActivityForResult(new Intent(PerformInstallationActivity.this, ScreeningActivity.class)
+                        startActivityForResult(new Intent(mActivity, ScreeningActivity.class)
                                 .putExtra("kind", 1), 11);
                         break;
                 }
