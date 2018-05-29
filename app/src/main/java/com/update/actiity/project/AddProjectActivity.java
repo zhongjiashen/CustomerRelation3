@@ -120,6 +120,13 @@ public class AddProjectActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        mDepartmentid=ShareUserInfo.getKey(this, "departmentid");
+        tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
+        mEmpid=ShareUserInfo.getKey(this, "empid");
+        tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
+
+
+
         tvStartTime.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//起始时间默认当天
         tvDocumentDate.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//单据日期默认当日
     }
@@ -204,6 +211,8 @@ public class AddProjectActivity extends BaseActivity {
             case 15://部门选择结果处理
                 mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
                 tvDepartment.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                mEmpid = "";
+                tvSalesman.setText("");
                 break;
             case 16://业务员选择结果处理
                 mEmpid = data.getStringExtra("CHOICE_RESULT_ID");

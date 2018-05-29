@@ -135,6 +135,16 @@ public class AddLogisticsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        mDepartmentid=ShareUserInfo.getKey(this, "departmentid");
+        tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
+        mEmpid=ShareUserInfo.getKey(this, "empid");
+        tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
+
+
+
+
+
+
         mBilltype = "1";
         tvDocumentType.setText("采购收货");//单据类型默认采购收货
         mLogistictype = "0";
@@ -323,6 +333,8 @@ public class AddLogisticsActivity extends BaseActivity {
             case 20://部门选择结果处理
                 mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
                 tvDepartment.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                mEmpid = "";
+                tvSalesman.setText("");
                 break;
             case 21://业务员选择结果处理
                 mEmpid = data.getStringExtra("CHOICE_RESULT_ID");
