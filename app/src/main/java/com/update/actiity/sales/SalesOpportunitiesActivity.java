@@ -33,7 +33,7 @@ import butterknife.OnClick;
  * Author:    申中佳
  * Version    V1.0
  * Date:      2018/3/30 0030 下午 2:58
- * Description:新增销售机会
+ * Description:销售机会
  * Modification  History:
  * Date         	Author        		Version        	Description
  * -----------------------------------------------------------------------------------

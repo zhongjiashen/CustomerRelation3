@@ -2,6 +2,7 @@ package com.update.actiity.contract;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +16,6 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.update.actiity.EnterSerialNumberActivity;
 import com.update.actiity.project.ProjectActivity;
 import com.update.actiity.sales.SalesOpportunitiesActivity;
 import com.update.base.BaseActivity;
@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -88,6 +89,12 @@ public class ContractActivity extends BaseActivity {
     LinearLayout llBottom;
     @BindView(R.id.bt_sh)
     Button btSh;
+    @BindView(R.id.v_zdr)
+    View vZdr;
+    @BindView(R.id.tv_zdr)
+    TextView tvZdr;
+    @BindView(R.id.ll_zdr)
+    LinearLayout llZdr;
     private Gson mGson;
     private Map<String, Object> mParmMap;
     private String mBillid;//项目ID
@@ -130,6 +137,8 @@ public class ContractActivity extends BaseActivity {
         setTitlebar();
         llReceiptNumber.setVisibility(View.VISIBLE);
         llBottom.setVisibility(View.VISIBLE);
+        vZdr.setVisibility(View.VISIBLE);
+        llZdr.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -190,7 +199,7 @@ public class ContractActivity extends BaseActivity {
                     btSh.setText("弃审");
                     tvAuditStatus.setText("已审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-                }else
+                } else
                     showShortToast(data.toString());
 
                 break;
@@ -199,14 +208,14 @@ public class ContractActivity extends BaseActivity {
                     tvAuditStatus.setText("未审核");
                     btSh.setText("审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                }else
+                } else
                     showShortToast(data.toString());
 
                 break;
             case 6:
                 if (data.toString().equals("")) {
                     finish();
-                }else
+                } else
                     showShortToast(data.toString());
                 break;
         }
@@ -250,6 +259,7 @@ public class ContractActivity extends BaseActivity {
         tvDocumentDate.setText(data.getBilldate());//单据日期
         tvDepartment.setText(data.getDepname());//不噩梦
         tvSalesman.setText(data.getEmpname());//业务员
+        tvZdr.setText(data.getOpname());
         etAbstract.setText(data.getMemo());//摘要
 
 
@@ -294,5 +304,12 @@ public class ContractActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
