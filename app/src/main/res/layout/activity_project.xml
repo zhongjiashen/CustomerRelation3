@@ -494,6 +494,44 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/xyb_jt" />
             </LinearLayout>
+            <View
+                android:id="@+id/v_zdr"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:background="@color/black_line_color" />
+
+            <LinearLayout
+                android:id="@+id/ll_zdr"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/context_hight"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin"
+                android:paddingRight="@dimen/margin"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="制  单  人"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/word_jmedium" />
+
+                <TextView
+                    android:id="@+id/tv_zdr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/word_small" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/xyb_jt" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

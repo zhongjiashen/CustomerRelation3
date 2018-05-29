@@ -1,6 +1,7 @@
 package com.update.actiity.logistics;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -98,6 +100,12 @@ public class LogisticsActivity extends BaseActivity {
     LinearLayout llBottom;
     @BindView(R.id.bt_sh)
     Button btSh;
+    @BindView(R.id.v_zdr)
+    View vZdr;
+    @BindView(R.id.tv_zdr)
+    TextView tvZdr;
+    @BindView(R.id.ll_zdr)
+    LinearLayout llZdr;
     private Map<String, Object> mMap;
     private Map<String, Object> mParmMap;
     private Date mDate;
@@ -140,6 +148,8 @@ public class LogisticsActivity extends BaseActivity {
         setTitlebar();
         llReceiptNumber.setVisibility(View.VISIBLE);
         llBottom.setVisibility(View.VISIBLE);
+        vZdr.setVisibility(View.VISIBLE);
+        llZdr.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -149,6 +159,7 @@ public class LogisticsActivity extends BaseActivity {
         titlebar.setTitleText(this, "物流单");
 
     }
+
     @OnClick({R.id.bt_sh, R.id.bt_delete})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -164,7 +175,7 @@ public class LogisticsActivity extends BaseActivity {
                 DialogFactory.getButtonDialog(this, "确定要删除该单据吗？", new OnDialogClickInterface() {
                     @Override
                     public void OnClick(int requestCode, Object object) {
-                        Map dMap= new ArrayMap<>();
+                        Map dMap = new ArrayMap<>();
                         dMap.put("dbname", ShareUserInfo.getDbName(mActivity));
                         dMap.put("tabname", "tb_logisticbill");
                         dMap.put("pkvalue", mBillid);
@@ -210,7 +221,7 @@ public class LogisticsActivity extends BaseActivity {
                 smap.put("dbname", ShareUserInfo.getDbName(this));
                 smap.put("tabname", "tb_logisticbill");
                 smap.put("pkvalue", mBillid);
-                smap.put("levels", shlb.get(0).getLevels()+"");
+                smap.put("levels", shlb.get(0).getLevels() + "");
                 smap.put("opid", ShareUserInfo.getUserId(this));
 
                 switch (tvAuditStatus.getText().toString()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
@@ -228,27 +239,27 @@ public class LogisticsActivity extends BaseActivity {
                 break;
             case 4:
                 LogUtils.e(data.toString());
-                if(data.toString().equals("")) {
+                if (data.toString().equals("")) {
                     btSh.setText("弃审");
                     tvAuditStatus.setText("已审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-                }else
+                } else
                     showShortToast(data.toString());
 
                 break;
             case 5:
-                if(data.toString().equals("")) {
+                if (data.toString().equals("")) {
                     tvAuditStatus.setText("未审核");
                     btSh.setText("审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                }else
+                } else
                     showShortToast(data.toString());
 
                 break;
             case 6:
                 if (data.toString().equals("")) {
                     finish();
-                }else
+                } else
                     showShortToast(data.toString());
                 break;
         }
@@ -326,8 +337,10 @@ public class LogisticsActivity extends BaseActivity {
         etLogisticsNumber.setText(data.getShipno());//物流单号
         tvDepartment.setText(data.getDepname());
         tvSalesman.setText(data.getEmpname());
+        tvZdr.setText(data.getOpname());
         etAbstract.setText(data.getMemo());//摘要
     }
+
 
 
 }

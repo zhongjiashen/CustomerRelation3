@@ -67,6 +67,16 @@ public class RqProjectData {
 
     @SerializedName("shzt")
     private int shzt;
+    /**
+     * opid : 12
+     * opname : 管理员
+     */
+
+    @SerializedName("opid")
+    private int opid;
+    @SerializedName("opname")
+    private String opname;
+
 
     public int getProjectid() {
         return projectid;
@@ -282,5 +292,21 @@ public class RqProjectData {
 
     public void setShzt(int shzt) {
         this.shzt = shzt;
+    }
+
+    public int getOpid() {
+        return opid;
+    }
+
+    public void setOpid(int opid) {
+        this.opid = opid;
+    }
+
+    public String getOpname() {
+        return opname;
+    }
+
+    public void setOpname(String opname) {
+        this.opname = opname;
     }
 }
