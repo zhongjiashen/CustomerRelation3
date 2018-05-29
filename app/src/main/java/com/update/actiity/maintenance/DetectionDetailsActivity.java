@@ -324,6 +324,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                 if (data.toString().equals("")) {
                     btBottom.setText("弃审");
                     tvAuditStatus.setText("已审核");
+                    titlebar.setRightText("");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 }else
                     showShortToast("该单据已经最终审核，不能重复审核");
@@ -333,6 +334,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                 if (data.toString().equals("")) {
                     tvAuditStatus.setText("未审核");
                     btBottom.setText("审核");
+                    titlebar.setRightText("保存");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                 }else
                     showShortToast(data.toString());
@@ -394,11 +396,29 @@ public class DetectionDetailsActivity extends BaseActivity {
                 selectTime(1);
                 break;
             case R.id.bt_bottom://审核/弃审
-                Map map = new ArrayMap<>();
-                map.put("dbname", ShareUserInfo.getDbName(this));
-                map.put("tabname", "tb_servicejob");
-                map.put("pkvalue", billid);
-                presenter.post(3, "billshlist", map);
+//                Map map = new ArrayMap<>();
+//                map.put("dbname", ShareUserInfo.getDbName(this));
+//                map.put("tabname", "tb_servicejob");
+//                map.put("pkvalue", billid);
+//                presenter.post(3, "billshlist", map);
+                Map smap = new ArrayMap<>();
+                smap.put("dbname", ShareUserInfo.getDbName(this));
+                smap.put("tabname", "tb_servicejobdetail");
+                smap.put("pkvalue", itemno);
+                smap.put("levels",  "0");
+                smap.put("opid", ShareUserInfo.getUserId(this));
+
+                switch (tvAuditStatus.getText().toString()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
+                    case "未审核"://未审
+                        smap.put("shzt", "1");
+                        presenter.post(4, "billsh", smap);
+                        break;
+                    case "已审核"://已审
+                        smap.put("shzt", "0");
+                        presenter.post(5, "billsh", smap);
+                        break;
+
+                }
                 break;
         }
     }
