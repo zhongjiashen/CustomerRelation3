@@ -287,7 +287,11 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                     startActivityForResult(new Intent(this, CommonXzlxrActivity.class).putExtra("clientid", clientid), 12);
                 break;
             case R.id.ll_related_projects_choice://关联项目选择
-                startActivityForResult(new Intent(this, ChoiceProjectActivity.class), 13);
+                if (TextUtils.isEmpty(clientid))
+                    showShortToast("请先选择单位");
+                else {
+                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class).putExtra("clientid", clientid), 13);
+                }
                 break;
             case R.id.ll_submit_time_choice://报送时间选择
                 selectTime(0);

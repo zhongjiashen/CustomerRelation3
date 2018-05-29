@@ -72,7 +72,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
      */
     @Override
     protected void initVariables() {
-        kind=getIntent().getIntExtra("kind",0);
+        kind = getIntent().getIntExtra("kind", 0);
         mGson = new Gson();
         page_number = 1;
         presenter = new BaseP(this, this);
@@ -105,7 +105,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getChooseGoodsHolder(ChooseGoodsActivity.this,parent);
+                return ViewHolderFactory.getChooseGoodsHolder(ChooseGoodsActivity.this, parent);
             }
 
             @Override
@@ -116,18 +116,30 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 holder.tvModel.setText("型号：" + data.getModel());
                 holder.tvUnit.setText("单位：" + data.getUnitname());
                 holder.slView.setSl(data.getNumber());//设置数量
+                if (kind > 0) {
+                    if (TextUtils.isEmpty(data.getFaultinfo()))
+                        data.setFaultinfo("");
+                    if (TextUtils.isEmpty(data.getEnsureid())) {
+                        data.setEnsureid("");
+                        data.setEnsurename("");
+                    }
+                    if (TextUtils.isEmpty(data.getFaultid())) {
+                        data.setFaultid("");
+                        data.setFaultname("");
+                    }
+                }
                 if (data.isCheck()) {//判断是否选中
                     holder.cbView.setChecked(true);//设置ChecBox的选中状态
                     holder.llNumber.setVisibility(View.VISIBLE);//数量选择条目显示
                     holder.vLine.setVisibility(View.VISIBLE);//横线显示
-                    if(kind>0){
+                    if (kind > 0) {
                         holder.llMaintenance.setVisibility(View.VISIBLE);
                     }
                 } else {
                     holder.cbView.setChecked(false);
                     holder.llNumber.setVisibility(View.GONE);
                     holder.vLine.setVisibility(View.GONE);
-                    if(kind>0){
+                    if (kind > 0) {
                         holder.llMaintenance.setVisibility(View.GONE);
                     }
                 }
@@ -139,7 +151,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
                             holder.cbView.setChecked(true);//设置ChecBox的选中状态
                             holder.llNumber.setVisibility(View.VISIBLE);//数量选择条目显示
                             holder.vLine.setVisibility(View.VISIBLE);//横线显示
-                            if(kind>0){
+                            if (kind > 0) {
                                 holder.llMaintenance.setVisibility(View.VISIBLE);
                             }
                             if (TextUtils.isEmpty(data.getSerialinfo())) {
@@ -150,7 +162,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
                             holder.cbView.setChecked(false);
                             holder.llNumber.setVisibility(View.GONE);
                             holder.vLine.setVisibility(View.GONE);
-                            if(kind>0){
+                            if (kind > 0) {
                                 holder.llMaintenance.setVisibility(View.GONE);
                             }
                             data.setNumber(1.0);//取消选中数量恢复默认
@@ -177,7 +189,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
                     }
                 });
-                if(kind>0){
+                if (kind > 0) {
                     holder.tvWarrantyStatus.setText(data.getEnsurename());
                     holder.llWarrantyStatus.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -197,19 +209,23 @@ public class ChooseGoodsActivity extends BaseActivity implements
                         }
                     });
                     holder.etFaultDescription.setText(data.getFaultinfo());
-                    final int position=holder.getLayoutPosition();
+                    final int position = holder.getLayoutPosition();
                     holder.etFaultDescription.setTag(position);
                     holder.etFaultDescription.addTextChangedListener(new TextWatcher() {
                         @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
                         @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
                         @Override
                         public void afterTextChanged(Editable s) {
                             //关键点：1.给edittext设置tag，此tag用来与position做对比校验，验证当前选中的edittext是否为需要的控件;
 //                            2.焦点判断：只有当前有焦点的edittext才有更改数据的权限，否则会造成数据紊乱
 //                            3.edittext内数据变动直接直接更改datalist的数据值，以便滑动view时显示正确
-                            if ((Integer)holder.etFaultDescription.getTag() == position&& holder.etFaultDescription.hasFocus()) {
+                            if ((Integer) holder.etFaultDescription.getTag() == position && holder.etFaultDescription.hasFocus()) {
                                 data.setFaultinfo(s.toString());
                             }
                         }
@@ -320,7 +336,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     @Override
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case 11:
                 //处理返回的序列号信息
                 List<Serial> serials = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
@@ -343,15 +359,15 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     @OnClick(R.id.bt_view)
     public void onClick() {
-        if(mList==null||mList.size()==0)//判断选择商品数据是否为空
+        if (mList == null || mList.size() == 0)//判断选择商品数据是否为空
             return;
-        List<ChooseGoodsData> list =new ArrayList<>();
-        for (int i=0;i<mList.size();i++){//挑出选中商品
-            ChooseGoodsData chooseGoodsData=mList.get(i);
-            if(chooseGoodsData.isCheck())//判断商品选中状态
+        List<ChooseGoodsData> list = new ArrayList<>();
+        for (int i = 0; i < mList.size(); i++) {//挑出选中商品
+            ChooseGoodsData chooseGoodsData = mList.get(i);
+            if (chooseGoodsData.isCheck())//判断商品选中状态
                 list.add(chooseGoodsData);
         }
-        setResult(RESULT_OK,new Intent().putExtra("DATA",mGson.toJson(list)));
+        setResult(RESULT_OK, new Intent().putExtra("DATA", mGson.toJson(list)));
         finish();
 
     }

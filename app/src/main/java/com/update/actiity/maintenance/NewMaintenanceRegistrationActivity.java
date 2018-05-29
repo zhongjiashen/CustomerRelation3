@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,9 +27,9 @@ import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.model.TResult;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
-import com.update.actiity.choose.ProjectSelectionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.actiity.installation.ChooseGoodsActivity;
+import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.adapter.FileChooseAdapter;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
@@ -61,6 +62,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -112,6 +114,8 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
     EditText etMessenger;
     @BindView(R.id.et_note)
     EditText etNote;
+    @BindView(R.id.tv_related_projects)
+    TextView tvRelatedProjects;
 
     private TimePickerView mTimePickerView;//时间选择弹窗
     private FileChooseAdapter mFileChooseAdapter;
@@ -119,6 +123,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
 
     private String clientid;//客户ID
     private String lxrid;//联系人ID
+    private String mProjectid;//  项目ID
     private String sxfsid;// 服务方式ID
     private String billdate;//生产日期
     private String bsrq;//报送日期
@@ -143,7 +148,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
         mFileChooseDatas = new ArrayList<>();
-        mChooseGoodsDataList=new ArrayList<>();
+        mChooseGoodsDataList = new ArrayList<>();
 
         mGson = new GsonBuilder().disableHtmlEscaping().create();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
@@ -175,9 +180,9 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         priorid = "0";
         tvPriority.setText("普通");
 
-        departmentid=ShareUserInfo.getKey(this, "departmentid");
+        departmentid = ShareUserInfo.getKey(this, "departmentid");
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
-        empid=ShareUserInfo.getKey(this, "empid");
+        empid = ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
         rlProfileInformation.setVisibility(View.GONE);//未添加概况信息，概况信息隐藏
 
@@ -187,7 +192,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getChooseGoodsResultHolder(NewMaintenanceRegistrationActivity.this,parent);
+                return ViewHolderFactory.getChooseGoodsResultHolder(NewMaintenanceRegistrationActivity.this, parent);
             }
 
             @Override
@@ -197,7 +202,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         goods_possion = holder.getLayoutPosition();
-                        startActivityForResult(new Intent(NewMaintenanceRegistrationActivity.this,GoodsDetailsActivity.class)
+                        startActivityForResult(new Intent(NewMaintenanceRegistrationActivity.this, GoodsDetailsActivity.class)
                                 .putExtra("kind", 1)
                                 .putExtra("DATA", new Gson().toJson(mChooseGoodsDataList.get(goods_possion))), 18);
                     }
@@ -206,7 +211,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             }
 
         });
-         /* 选择文件集合信息处理 */
+        /* 选择文件集合信息处理 */
         rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
         rcvChooseFileList.setAdapter(mFileChooseAdapter = new FileChooseAdapter(this) {
             @Override
@@ -279,8 +284,10 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             case R.id.ll_related_projects_choice://关联项目选择
                 if (TextUtils.isEmpty(clientid))
                     showShortToast("请先选择单位");
-                else
-                    startActivityForResult(new Intent(this, ProjectSelectionActivity.class).putExtra("clientid", clientid), 12);
+                else {
+//                    startActivityForResult(new Intent(this, ProjectSelectionActivity.class).putExtra("clientid", clientid), 12);
+                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class).putExtra("clientid", clientid), 13);
+                }
                 break;
             case R.id.ll_submit_time_choice://报送时间选择
                 selectTime(0);
@@ -343,7 +350,8 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 etContactNumber.setText(data.getStringExtra("phone"));
                 break;
             case 13://关联项目选择结果处理
-
+                mProjectid = data.getStringExtra("projectid");
+                tvRelatedProjects.setText(data.getStringExtra("title"));
                 break;
             case 14://服务方式选择结果处理
                 sxfsid = data.getStringExtra("CHOICE_RESULT_ID");
@@ -358,7 +366,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 17://商品选择结果处理
-                List<ChooseGoodsData> list= mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
+                List<ChooseGoodsData> list = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
                 }.getType());
                 mChooseGoodsDataList.addAll(list);
                 mAdapter.setList(mChooseGoodsDataList);
@@ -429,9 +437,9 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
      * @param i
      */
     public void selectTime(final int i) {
-        if(i==0){
+        if (i == 0) {
             mTimePickerView = new TimePickerView(this, TimePickerView.Type.ALL);
-        }else {
+        } else {
             mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
         }
 
@@ -487,7 +495,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
 //            showShortToast("请输入报送人姓名");
 //            return;
 //        }
-        if (mOverviewData == null &&( mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0)) {
+        if (mOverviewData == null && (mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0)) {
             showShortToast("请添加商品明细");
             return;
         }
@@ -508,9 +516,10 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         master.setPhone(phone);
         master.setShipto(shipto);
         master.setBilldate(tvDocumentDate.getText().toString());
-        master.setBsrq(tvSubmitTime.getText().toString().replace(":","|"));
+        master.setBsrq(tvSubmitTime.getText().toString().replace(":", "|"));
         master.setBxr(bxr);
         master.setSxfsid(sxfsid);
+        master.setProjectid(mProjectid);
         master.setRegtype(regtype);
         master.setPriorid(priorid);
         master.setDepartmentid(departmentid);
@@ -540,7 +549,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 serialList.addAll(chooseGoodsData.getSerials());
 
         }
-        if(mOverviewData!=null){
+        if (mOverviewData != null) {
             mOverviewData.setEnsurename(null);
             mOverviewData.setFaultname(null);
             goodsOrOverviewDataList.add(mOverviewData);// //添加概况信息
@@ -607,12 +616,19 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
      */
     @Override
     public void returnData(int requestCode, Object data) {
-        String result= (String) data;
-        if(TextUtils.isEmpty(result)||result.equals("false")){
+        String result = (String) data;
+        if (TextUtils.isEmpty(result) || result.equals("false")) {
             showShortToast(data.toString());
-        }else {
+        } else {
             showShortToast("添加成功");
             finish();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

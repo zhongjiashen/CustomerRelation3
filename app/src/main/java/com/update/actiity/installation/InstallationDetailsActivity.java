@@ -155,7 +155,7 @@ public class InstallationDetailsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
- /* 选择文件集合信息处理 */
+        /* 选择文件集合信息处理 */
         rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
         rcvChooseFileList.setAdapter(mFileChooseAdapter = new FileChooseAdapter(this) {
             @Override
@@ -314,7 +314,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                     btBottom.setText("弃审");
                     tvAuditStatus.setText("已审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-                }else
+                } else
                     showShortToast("该单据已经最终审核，不能重复审核");
 
                 break;
@@ -323,7 +323,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                     tvAuditStatus.setText("未审核");
                     btBottom.setText("审核");
                     tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                }else
+                } else
                     showShortToast(data.toString());
 
                 break;
@@ -482,8 +482,10 @@ public class InstallationDetailsActivity extends BaseActivity {
         mDetail.setIsreturn(mData.getIsreturn() + "");
         mDetail.setYesqty(mData.getYesqty() + "");
         mDetail.setNoqty(mData.getNoqty() + "");
-        mDetail.setBegindate(mData.getBegindate().replace(":", "|"));
-        mDetail.setEnddate(mData.getEnddate().replace(":", "|"));
+        if (!TextUtils.isEmpty(mData.getBegindate()))
+            mDetail.setBegindate(mData.getBegindate().replace(":", "|"));
+        if (!TextUtils.isEmpty(mData.getEnddate()))
+            mDetail.setEnddate(mData.getEnddate().replace(":", "|"));
         mDetail.setPlaninfo(mData.getPlaninfo());
         mDetail.setOpid(ShareUserInfo.getUserId(this));
         List list = new ArrayList();
