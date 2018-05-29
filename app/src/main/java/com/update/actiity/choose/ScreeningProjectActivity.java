@@ -84,14 +84,17 @@ public class ScreeningProjectActivity extends BaseActivity {
             case 0://项目
                 mZdbm = "XMJD";
                 tvType.setText("项目名称");
+                etType.setHint("请输入项目名称");
                 break;
             case 1://合同
                 mZdbm = "HTJD";
                 tvType.setText("合同名称");
+                etType.setHint("请输入合同名称");
                 break;
             case 2://机会
                 mZdbm = "XMGM";
                 tvType.setText("机会名称");
+                etType.setHint("请输入机会名称");
                 break;
 
         }

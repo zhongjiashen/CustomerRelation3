@@ -204,7 +204,7 @@
             android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:background="@color/background_white"
-            android:hint="请输入物流公司名称"
+            android:hint="请输入收货单位名称"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/word_small" />
     </LinearLayout>

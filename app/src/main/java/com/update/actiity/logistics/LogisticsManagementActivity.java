@@ -185,10 +185,10 @@ public class LogisticsManagementActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-                        startActivity(new Intent(LogisticsManagementActivity.this, AddLogisticsActivity.class));
+                        startActivity(new Intent(mActivity, AddLogisticsActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
-                        startActivityForResult(new Intent(LogisticsManagementActivity.this, ScreeningLogisicsActivity.class), 11);
+                        startActivityForResult(new Intent(mActivity, ScreeningLogisicsActivity.class), 11);
                         break;
                 }
             }

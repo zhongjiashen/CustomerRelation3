@@ -187,7 +187,7 @@ public class ProjectManagementActivity extends BaseActivity implements
                         break;
                     case 1://打开右边侧滑菜单
 
-                        startActivityForResult(new Intent(ProjectManagementActivity.this, ScreeningProjectActivity.class)
+                        startActivityForResult(new Intent(mActivity, ScreeningProjectActivity.class)
                                 .putExtra("kind", 0), 11);
                         break;
                 }
