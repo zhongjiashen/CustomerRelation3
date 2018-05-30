@@ -70,6 +70,15 @@ public class RqContractData {
     private int opid;
     @SerializedName("opname")
     private String opname;
+    /**
+     * types : 1
+     * typesname : 客户
+     */
+
+    @SerializedName("types")
+    private int types;
+    @SerializedName("typesname")
+    private String typesname;
 
 
     public int getContractid() {
@@ -278,5 +287,21 @@ public class RqContractData {
 
     public void setOpname(String opname) {
         this.opname = opname;
+    }
+
+    public int getTypes() {
+        return types;
+    }
+
+    public void setTypes(int types) {
+        this.types = types;
+    }
+
+    public String getTypesname() {
+        return typesname;
+    }
+
+    public void setTypesname(String typesname) {
+        this.typesname = typesname;
     }
 }

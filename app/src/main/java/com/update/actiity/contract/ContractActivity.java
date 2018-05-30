@@ -248,7 +248,7 @@ public class ContractActivity extends BaseActivity {
         tvUnitName.setText(data.getCname());//单位名称
         tvContacts.setText(data.getLxrname());//联系人
         etContactNumber.setText(data.getPhone());//联系电话
-        tvUnitType.setText("渠道");//单位类型
+        tvUnitType.setText(data.getTypesname());//单位类型
         etContractName.setText(data.getTitle());//合同名称
         etContractAmount.setText(data.getAmount() + "");//合同金额
         tvCurrentStage.setText(data.getGmmc());//当前阶段
