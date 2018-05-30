@@ -294,7 +294,7 @@ public class LogisticsActivity extends BaseActivity {
         tvLogisticsCompany.setText(data.getCname());//物流公司
         etLogisticsNumber.setText(data.getShipno());//物流单号
         tvDocumentType.setText(data.getBilltypename());//单据类型
-        tvAssociatedDocuments.setText(data.getReferbillid());//关联单据单号
+        tvAssociatedDocuments.setText(data.getRefbillcode());//关联单据单号
         tvUnitName.setText(data.getShipcname());//收货单位
         tvContacts.setText(data.getLxrname());//联系人
         etContactNumber.setText(data.getPhone());//联系电话

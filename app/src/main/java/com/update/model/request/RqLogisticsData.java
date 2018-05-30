@@ -56,7 +56,7 @@ public class RqLogisticsData {
     private String logistictypename;
     private int billtype;
     private String billtypename;
-    private Object refbillcode;
+    private String refbillcode;
     private Object refertype;
     private String referbillid;
     private String shipno;
@@ -158,11 +158,11 @@ public class RqLogisticsData {
         this.billtypename = billtypename;
     }
 
-    public Object getRefbillcode() {
+    public String getRefbillcode() {
         return refbillcode;
     }
 
-    public void setRefbillcode(Object refbillcode) {
+    public void setRefbillcode(String refbillcode) {
         this.refbillcode = refbillcode;
     }
 
