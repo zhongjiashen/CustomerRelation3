@@ -311,7 +311,7 @@ public class LogisticsActivity extends BaseActivity {
                 break;
         }
         etFreightAmount.setText(data.getAmount() + "");//运费金额
-        switch (data.getBeartype()) {
+        switch (data.getIsproxy()) {
             case 0:
                 tvCollecting.setText("否");//是否代收
                 break;

@@ -70,7 +70,7 @@ public class ScreeningLogisicsActivity extends BaseActivity {
         else
             tvEndTime.setText(rq+"0"+day);
 
-        mShzt = "9";
+        mShzt = "0";
         mBilltype="0";
         setTitlebar();
 
