@@ -64,12 +64,15 @@ public class MyAuditListActivity extends BaseActivity implements
     private String mQsrq;//开始日期
     private String mZzrq;//截止日期
     private String mCname;//单位名称（模糊查询用）
+    private String mBillcode;//单据编号（模糊查询用）
     private String mBilltypeid;//单据类型ID
     private String mDepid;//部门id             ,必填 (0全部)
     private String mEmpid;//业务员ID
     private String mShzt;//审核状态 (0未审 1已审 2 审核中   9全部)
-    private String mBillcode;// 单据编号
+
     private List<RqMyAuditListData> mList;
+
+
 
 
     /**
@@ -105,7 +108,7 @@ public class MyAuditListActivity extends BaseActivity implements
         mParmMap.put("shzt", mShzt);//审核状态
         mParmMap.put("depid", mDepid);//
         mParmMap.put("empid", mEmpid);//业务员ID (没有的话传空或0)
-        mParmMap.put("billcode", mBillcode);//业务员ID (没有的话传空或0)
+        mParmMap.put("billcode", mBillcode);//
         mParmMap.put("curpage", page_number);//当前页
         presenter.post(0, "waitbillshlist", mParmMap);
     }
@@ -139,7 +142,7 @@ public class MyAuditListActivity extends BaseActivity implements
             }
             @Override
             public void afterTextChanged(Editable s) {
-                mParmMap.put("goodsname", s.toString());
+                mBillcode=s.toString();
                 http();
             }
         });
