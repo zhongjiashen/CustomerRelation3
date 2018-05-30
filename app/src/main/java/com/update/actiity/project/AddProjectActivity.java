@@ -194,6 +194,7 @@ public class AddProjectActivity extends BaseActivity {
             case 11://单位选择结果处理
                 mClientid = data.getStringExtra("id");
                 tvUnitName.setText(data.getStringExtra("name"));
+                tvUnitType.setText(data.getStringExtra("typesname"));
                 break;
             case 12://联系人选择结果处理
                 mContractid= data.getStringExtra("contractid");

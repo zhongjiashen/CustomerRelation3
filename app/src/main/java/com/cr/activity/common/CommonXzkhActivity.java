@@ -87,6 +87,8 @@ public class CommonXzkhActivity extends BaseActivity implements OnClickListener 
 				intent.putExtra("lxrname", map.get("lxrname").toString());
 				intent.putExtra("phone", map.get("phone").toString());
 				intent.putExtra("shipto", map.get("shipto").toString());
+				intent.putExtra("typesname", map.get("typesname").toString());
+				intent.putExtra("types", map.get("types").toString());
 			    setResult(RESULT_OK, intent);
 			    finish();
 			}

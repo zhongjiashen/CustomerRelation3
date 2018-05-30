@@ -192,6 +192,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
                 tvUnitName.setText(data.getStringExtra("name"));
                 tvContacts.setText(data.getStringExtra("lxrname"));
                 etContactNumber.setText(data.getStringExtra("phone"));
+
                 break;
             case 12://联系人选择结果处理
                 mLxrid = data.getStringExtra("id");
