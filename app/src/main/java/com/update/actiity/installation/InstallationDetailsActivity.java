@@ -1,6 +1,7 @@
 package com.update.actiity.installation;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jph.takephoto.model.TResult;
 import com.update.actiity.EnterSerialNumberActivity;
 import com.update.actiity.SerialNumberDetailsActivity;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
@@ -29,6 +31,7 @@ import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.dialog.DialogFactory;
 import com.update.dialog.OnDialogClickInterface;
+import com.update.model.Attfiles;
 import com.update.model.FileChooseData;
 import com.update.model.InstallationDetailsData;
 import com.update.model.Serial;
@@ -51,6 +54,11 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author:    申中佳
@@ -127,6 +135,7 @@ public class InstallationDetailsActivity extends BaseActivity {
     @Override
     protected void initVariables() {
         mDetail = new PerformSituationData();
+        mFileChooseDatas = new ArrayList<>();
         serialList = new ArrayList<>();
         mGson = new Gson();
         billid = getIntent().getStringExtra("billid");
@@ -278,12 +287,28 @@ public class InstallationDetailsActivity extends BaseActivity {
                         mDetail.setSerialinfo(mData.getSerialinfo());
                     }
                 }
+                //获取文件列表
+                Map map = new ArrayMap();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("attcode", "AZZX");
+                map.put("billid", billid);
+                map.put("curpage", "0");
+                map.put("pagesize", "100");
+                presenter.post(1, "attfilelist", map);
                 break;
             case 1:
+                List<Attfiles> attfilesList = mGson.fromJson((String) data,
+                        new TypeToken<List<Attfiles>>() {
+                        }.getType());
+                if (attfilesList != null && attfilesList.size() > 0) {
+                    saveFile(attfilesList);
+
+                }
+                break;
+            case 2:
                 serialList.clear();
                 showShortToast("保存成功");
                 break;
-
             case 3:
                 List<RqShlbData> shlb = mGson.fromJson((String) data,
                         new TypeToken<List<RqShlbData>>() {
@@ -330,6 +355,77 @@ public class InstallationDetailsActivity extends BaseActivity {
 
                 break;
         }
+
+    }
+
+    private void saveFile(final List<Attfiles> attfilesList) {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                try {
+                    for (int i = 0; i < attfilesList.size(); i++) {
+                        FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, FileUtils.getPath(mActivity, "AZDJ/", billid + attfilesList.get(i).getFilenames()), Context.MODE_PRIVATE);
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                subscriber.onNext("");
+                subscriber.onCompleted();
+            }
+
+
+        })
+                .subscribeOn(Schedulers.computation()) // 指定 subscribe() 发生在 运算 线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+                .subscribe(new Observer<String>() {
+
+                    @Override
+                    public void onNext(String s) {//主线程执行的方法
+                        LogUtils.e(s);
+                        for (int i = 0; i < attfilesList.size(); i++) {
+                            FileChooseData fileChooseData = new FileChooseData();
+                            String fileName = attfilesList.get(i).getFilenames();
+                            int dotIndex = fileName.lastIndexOf(".");
+                            /* 获取文件的后缀名*/
+                            String type = fileName.substring(dotIndex, fileName.length()).toLowerCase();
+                            LogUtils.e(type);
+                            switch (type) {
+                                case ".bmp":
+                                case ".gif":
+                                case ".jpeg":
+                                case ".jpg":
+                                case ".png":
+                                    fileChooseData.setType(0);
+                                    break;
+                                default:
+                                    fileChooseData.setType(1);
+                                    break;
+                            }
+
+
+                            fileChooseData.setUrl(FileUtils.getPath(mActivity, "AZDJ/", billid + fileName));
+                            mFileChooseDatas.add(fileChooseData);
+
+                        }
+                       mFileChooseAdapter.setList(mFileChooseDatas);
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        LogUtils.e("-------------1---------------");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//
+
+                    }
+                });
 
     }
 
@@ -394,7 +490,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                 smap.put("dbname", ShareUserInfo.getDbName(this));
                 smap.put("tabname", "tb_installjobdetail");
                 smap.put("pkvalue", itemno);
-                smap.put("levels","0");
+                smap.put("levels", "0");
                 smap.put("opid", ShareUserInfo.getUserId(this));
 
                 switch (tvAuditStatus.getText().toString()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
@@ -517,7 +613,19 @@ public class InstallationDetailsActivity extends BaseActivity {
         map.put("detail", mGson.toJson(list));
         map.put("serialinfo", mGson.toJson(serialList));
         map.put("attfiles", "");
-        presenter.post(1, "billsavenew", map);
+        presenter.post(2, "billsavenew", map);
+    }
+
+
+    @Override
+    public void takeSuccess(TResult result) {
+        LogUtils.e(result.getImage().toString());
+        FileChooseData fileChooseData = new FileChooseData();
+        fileChooseData.setType(0);
+        fileChooseData.setUrl(result.getImage().getCompressPath());
+        mFileChooseDatas.add(fileChooseData);
+        mFileChooseAdapter.setList(mFileChooseDatas);
+
     }
 
 }
