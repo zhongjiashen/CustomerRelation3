@@ -20,6 +20,7 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.model.TResult;
 import com.update.actiity.EnterSerialNumberActivity;
@@ -137,7 +138,7 @@ public class InstallationDetailsActivity extends BaseActivity {
         mDetail = new PerformSituationData();
         mFileChooseDatas = new ArrayList<>();
         serialList = new ArrayList<>();
-        mGson = new Gson();
+        mGson = new GsonBuilder().disableHtmlEscaping().create();
         billid = getIntent().getStringExtra("billid");
         itemno = getIntent().getStringExtra("itemno");
         presenter = new BaseP(this, this);
@@ -291,7 +292,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                 Map map = new ArrayMap();
                 map.put("dbname", ShareUserInfo.getDbName(this));
                 map.put("attcode", "AZZX");
-                map.put("billid", billid);
+                map.put("billid", itemno);
                 map.put("curpage", "0");
                 map.put("pagesize", "100");
                 presenter.post(1, "attfilelist", map);
@@ -301,6 +302,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                         new TypeToken<List<Attfiles>>() {
                         }.getType());
                 if (attfilesList != null && attfilesList.size() > 0) {
+                    LogUtils.e(attfilesList.size()+"");
                     saveFile(attfilesList);
 
                 }
@@ -606,13 +608,36 @@ public class InstallationDetailsActivity extends BaseActivity {
         mDetail.setOpid(ShareUserInfo.getUserId(this));
         List list = new ArrayList();
         list.add(mDetail);
+
+        List<Attfiles> attfilesList = new ArrayList<>();
+        mFileChooseDatas = mFileChooseAdapter.getList();
+        for (int i = 0; i < mFileChooseDatas.size(); i++) {
+            Attfiles attfiles = new Attfiles();
+            attfiles.setBillid(mData.getItemno() + "");
+            attfiles.setClientid(mData.getBillid() + "");
+            File file = new File(mFileChooseDatas.get(i).getUrl());
+            attfiles.setFilenames(file.getName());
+            attfiles.setOpid(ShareUserInfo.getUserId(this));
+            LogUtils.e(mFileChooseDatas.get(i).getUrl());
+            //进行Base64编码
+//            String uploadBuffer = new String(Base64.encode(PicUtil.compressImage(bitmap2)));
+//            setCache( uploadBuffer , this, "myF.txt", Context.MODE_PRIVATE);
+            try {
+                attfiles.setXx(FileUtils.encodeBase64File(mFileChooseDatas.get(i).getUrl()));
+//                setCache(attfiles.getXx(), this, "my.txt", Context.MODE_PRIVATE);
+//                decoderBase64File(attfiles.getXx(),"/data/data/com.crenp.activity/cache/takephoto_cache/19.png");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            attfilesList.add(attfiles);
+        }
         Map map = new ArrayMap<>();
         map.put("dbname", ShareUserInfo.getDbName(this));
         map.put("parms", "AZZX");
         map.put("master", "");
         map.put("detail", mGson.toJson(list));
         map.put("serialinfo", mGson.toJson(serialList));
-        map.put("attfiles", "");
+        map.put("attfiles", mGson.toJson(attfilesList));
         presenter.post(2, "billsavenew", map);
     }
 

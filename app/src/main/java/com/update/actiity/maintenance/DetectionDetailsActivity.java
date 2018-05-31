@@ -1,6 +1,7 @@
 package com.update.actiity.maintenance;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -19,7 +20,9 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.jph.takephoto.model.TResult;
 import com.update.actiity.EnterSerialNumberActivity;
 import com.update.actiity.SerialNumberDetailsActivity;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
@@ -31,6 +34,7 @@ import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.dialog.DialogFactory;
 import com.update.dialog.OnDialogClickInterface;
+import com.update.model.Attfiles;
 import com.update.model.DetectionDetailsData;
 import com.update.model.FileChooseData;
 import com.update.model.Serial;
@@ -53,6 +57,11 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author:    申中佳
@@ -135,7 +144,8 @@ public class DetectionDetailsActivity extends BaseActivity {
     protected void initVariables() {
         serialList = new ArrayList<>();
         mDetail = new PerformSituationData();
-        mGson = new Gson();
+        mFileChooseDatas = new ArrayList<>();
+        mGson = new GsonBuilder().disableHtmlEscaping().create();
         billid = getIntent().getStringExtra("billid");
         itemno = getIntent().getStringExtra("itemno");
         presenter = new BaseP(this, this);
@@ -206,8 +216,6 @@ public class DetectionDetailsActivity extends BaseActivity {
      */
     private void setTitlebar() {
         titlebar.setTitleText(this, "检测维修");
-
-
     }
 
     /**
@@ -290,8 +298,26 @@ public class DetectionDetailsActivity extends BaseActivity {
                         mDetail.setSerialinfo(mData.getSerialinfo());
                     }
                 }
+                //获取文件列表
+                Map map = new ArrayMap();
+                map.put("dbname", ShareUserInfo.getDbName(this));
+                map.put("attcode", "JCWX");
+                map.put("billid", itemno);
+                map.put("curpage", "0");
+                map.put("pagesize", "100");
+                presenter.post(1, "attfilelist", map);
                 break;
             case 1:
+                List<Attfiles> attfilesList = mGson.fromJson((String) data,
+                        new TypeToken<List<Attfiles>>() {
+                        }.getType());
+                if (attfilesList != null && attfilesList.size() > 0) {
+                    LogUtils.e(attfilesList.size()+"");
+                    saveFile(attfilesList);
+
+                }
+                break;
+            case 2:
                 showShortToast("保存成功");
                 break;
 
@@ -343,7 +369,76 @@ public class DetectionDetailsActivity extends BaseActivity {
         }
 
     }
+    private void saveFile(final List<Attfiles> attfilesList) {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                try {
+                    for (int i = 0; i < attfilesList.size(); i++) {
+                        FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, FileUtils.getPath(mActivity, "AZDJ/", billid + attfilesList.get(i).getFilenames()), Context.MODE_PRIVATE);
 
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                subscriber.onNext("");
+                subscriber.onCompleted();
+            }
+
+
+        })
+                .subscribeOn(Schedulers.computation()) // 指定 subscribe() 发生在 运算 线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+                .subscribe(new Observer<String>() {
+
+                    @Override
+                    public void onNext(String s) {//主线程执行的方法
+                        LogUtils.e(s);
+                        for (int i = 0; i < attfilesList.size(); i++) {
+                            FileChooseData fileChooseData = new FileChooseData();
+                            String fileName = attfilesList.get(i).getFilenames();
+                            int dotIndex = fileName.lastIndexOf(".");
+                            /* 获取文件的后缀名*/
+                            String type = fileName.substring(dotIndex, fileName.length()).toLowerCase();
+                            LogUtils.e(type);
+                            switch (type) {
+                                case ".bmp":
+                                case ".gif":
+                                case ".jpeg":
+                                case ".jpg":
+                                case ".png":
+                                    fileChooseData.setType(0);
+                                    break;
+                                default:
+                                    fileChooseData.setType(1);
+                                    break;
+                            }
+
+
+                            fileChooseData.setUrl(FileUtils.getPath(mActivity, "AZDJ/", billid + fileName));
+                            mFileChooseDatas.add(fileChooseData);
+
+                        }
+                        mFileChooseAdapter.setList(mFileChooseDatas);
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        LogUtils.e("-------------1---------------");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//
+
+                    }
+                });
+
+    }
     @OnClick({R.id.bt_registration_details, R.id.rl_goods_information, R.id.ll_maintenance_results, R.id.ll_rework, R.id.iv_scan, R.id.ll_start_time, R.id.ll_end_time, R.id.bt_bottom})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -516,14 +611,46 @@ public class DetectionDetailsActivity extends BaseActivity {
         mDetail.setOpid(ShareUserInfo.getUserId(this));
         List list = new ArrayList();
         list.add(mDetail);
+
+        List<Attfiles> attfilesList = new ArrayList<>();
+        mFileChooseDatas = mFileChooseAdapter.getList();
+        for (int i = 0; i < mFileChooseDatas.size(); i++) {
+            Attfiles attfiles = new Attfiles();
+            attfiles.setBillid(mData.getItemno() + "");
+            attfiles.setClientid(mData.getBillid() + "");
+            File file = new File(mFileChooseDatas.get(i).getUrl());
+            attfiles.setFilenames(file.getName());
+            attfiles.setOpid(ShareUserInfo.getUserId(this));
+            LogUtils.e(mFileChooseDatas.get(i).getUrl());
+            //进行Base64编码
+//            String uploadBuffer = new String(Base64.encode(PicUtil.compressImage(bitmap2)));
+//            setCache( uploadBuffer , this, "myF.txt", Context.MODE_PRIVATE);
+            try {
+                attfiles.setXx(FileUtils.encodeBase64File(mFileChooseDatas.get(i).getUrl()));
+//                setCache(attfiles.getXx(), this, "my.txt", Context.MODE_PRIVATE);
+//                decoderBase64File(attfiles.getXx(),"/data/data/com.crenp.activity/cache/takephoto_cache/19.png");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            attfilesList.add(attfiles);
+        }
         Map map = new ArrayMap<>();
         map.put("dbname", ShareUserInfo.getDbName(this));
         map.put("parms", "JCWX");
         map.put("master", "");
         map.put("detail", mGson.toJson(list));
         map.put("serialinfo", mGson.toJson(serialList));
-        map.put("attfiles", "");
-        presenter.post(1, "billsavenew", map);
+        map.put("attfiles", mGson.toJson(attfilesList));
+        presenter.post(2, "billsavenew", map);
     }
+    @Override
+    public void takeSuccess(TResult result) {
+        LogUtils.e(result.getImage().toString());
+        FileChooseData fileChooseData = new FileChooseData();
+        fileChooseData.setType(0);
+        fileChooseData.setUrl(result.getImage().getCompressPath());
+        mFileChooseDatas.add(fileChooseData);
+        mFileChooseAdapter.setList(mFileChooseDatas);
 
+    }
 }
