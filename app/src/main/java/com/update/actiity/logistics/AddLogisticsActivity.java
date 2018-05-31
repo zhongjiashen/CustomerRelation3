@@ -20,6 +20,7 @@ import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.utils.DateUtil;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 
 import java.net.URISyntaxException;
@@ -207,7 +208,7 @@ public class AddLogisticsActivity extends BaseActivity {
             case R.id.ll_unit_name_choice://收货单位选择
 //                单据类型选择了其他以外的单据类型，则选择关联单据项可点击选择，收货单位不可以点击
                 if(!mBilltype.equals("9")){
-                    showShortToast("单据类型未选择了其他，则收货单位不可以点击不可点击");
+//                    showShortToast("单据类型未选择了其他，则收货单位不可以点击");
                 }else {
                     startActivityForResult(new Intent(this, CommonXzkhActivity.class), 15);
                 }
@@ -283,6 +284,16 @@ public class AddLogisticsActivity extends BaseActivity {
                 tvContacts.setText("");
                 etContactNumber.setText("");
                 etShippingAddress.setText("");
+                if(tvDocumentType.getText().toString().equals("其他")){
+                    LogUtils.e("asdfsa");
+                    etFreightAmount.setFocusable(false);
+                    etFreightAmount.setFocusableInTouchMode(false);
+                    etFreightAmount.setClickable(false);
+                }else {
+                    etFreightAmount.setFocusable(true);
+                    etFreightAmount.setFocusableInTouchMode(true);
+                    etFreightAmount.setClickable(true);
+                }
                 break;
             case 14://关联单据
                 //是否代收代付、代收代付账户、代收代付金额是根据所选择的关联单据带过来的信息
@@ -382,10 +393,10 @@ public class AddLogisticsActivity extends BaseActivity {
             showShortToast("请输入物流单号！");
             return;
         }
-        if (TextUtils.isEmpty(mShipclientid)) {
-            showShortToast("请选择收货单位！");
-            return;
-        }
+//        if (TextUtils.isEmpty(mShipclientid)) {
+//            showShortToast("请选择收货单位！");
+//            return;
+//        }
         String phone = etContactNumber.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             showShortToast("请输入联系电话");
