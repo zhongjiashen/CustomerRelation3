@@ -130,11 +130,14 @@ public class InstallationDetailsActivity extends BaseActivity {
     PerformSituationData mDetail;
     List<Serial> serialList;
 
+    private boolean firstSerial;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        firstSerial=true;
         mDetail = new PerformSituationData();
         mFileChooseDatas = new ArrayList<>();
         serialList = new ArrayList<>();
@@ -463,10 +466,13 @@ public class InstallationDetailsActivity extends BaseActivity {
                         }
                         startActivityForResult(new Intent(InstallationDetailsActivity.this, EnterSerialNumberActivity.class)
                                 .putExtra("billid", mData.getBillid()+"")
+                                .putExtra("itemno", itemno)
                                 .putExtra("kind", kind)
+                                .putExtra("first",firstSerial)
                                 .putExtra("uuid", mDetail.getSerialinfo())
                                 .putExtra("tabname", "tb_installjob")
                                 .putExtra("DATA", mGson.toJson(serialList)), 13);
+
                     } else {
                         startActivity(new Intent(InstallationDetailsActivity.this, SerialNumberDetailsActivity.class)
                                 .putExtra("billid", mData.getBillid()+"")
@@ -525,6 +531,7 @@ public class InstallationDetailsActivity extends BaseActivity {
             case 13:
                 //处理返回的序列号信息
                 LogUtils.d(data.getStringExtra("DATA"));
+                firstSerial=false;
                 serialList = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
                 }.getType());
                 break;

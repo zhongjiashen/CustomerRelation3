@@ -55,6 +55,7 @@ public class EnterSerialNumberActivity extends BaseActivity {
     List<Serial> serials;
     private String serialinfo;    //序列号GUID
     private String billid;    //主单据ID
+    private String itemno;    //主单据ID
     private Map<String, Object> mParmMap;
 
     /**
@@ -64,10 +65,11 @@ public class EnterSerialNumberActivity extends BaseActivity {
     protected void initVariables() {
         mGson = new Gson();
         billid = getIntent().getStringExtra("billid");
+        itemno= getIntent().getStringExtra("itemno");
         serialinfo = getIntent().getStringExtra("uuid");
         serials = mGson.fromJson(getIntent().getStringExtra("DATA"), new TypeToken<List<Serial>>() {
         }.getType());
-        if (getIntent().getIntExtra("kind", 0) == 1) {
+        if (getIntent().getIntExtra("kind", 0) == 1&&getIntent().getBooleanExtra("first", false)) {
             presenter = new BaseP(this, this);
             mParmMap = new ArrayMap<>();
             mParmMap.put("dbname", ShareUserInfo.getDbName(this));
@@ -189,7 +191,7 @@ public class EnterSerialNumberActivity extends BaseActivity {
             }
         }
         Serial serial = new Serial();
-        serial.setBillid(billid);
+        serial.setBillid(itemno);
         serial.setSerialinfo(serialinfo);
         serial.setSerno(serial_number);
 
@@ -218,6 +220,8 @@ public class EnterSerialNumberActivity extends BaseActivity {
         super.returnData(requestCode, data);
         List<Serial> list = new Gson().fromJson((String) data, new TypeToken<List<Serial>>() {
         }.getType());
+        for(int i=0;i<list.size();i++)
+            list.get(i).setBillid(itemno);
         serials.addAll(list);
         mAdapter.setList(serials);
     }

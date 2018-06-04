@@ -136,12 +136,13 @@ public class DetectionDetailsActivity extends BaseActivity {
 
     PerformSituationData mDetail;
     List<Serial> serialList;
-
+    private boolean firstSerial;
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        firstSerial=true;
         serialList = new ArrayList<>();
         mDetail = new PerformSituationData();
         mFileChooseDatas = new ArrayList<>();
@@ -471,7 +472,9 @@ public class DetectionDetailsActivity extends BaseActivity {
                         }
                         startActivityForResult(new Intent(DetectionDetailsActivity.this, EnterSerialNumberActivity.class)
                                 .putExtra("billid", billid)
+                                .putExtra("itemno", itemno)
                                 .putExtra("kind", kind)
+                                .putExtra("first",firstSerial)
                                 .putExtra("uuid", mData.getSerialinfo())
                                 .putExtra("tabname", "tb_servicejob")
                                 .putExtra("DATA", mGson.toJson(serialList)), 13);
@@ -533,6 +536,7 @@ public class DetectionDetailsActivity extends BaseActivity {
             case 13:
                 //处理返回的序列号信息
                 LogUtils.d(data.getStringExtra("DATA"));
+                firstSerial=false;
                 serialList = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
                 }.getType());
                 break;
