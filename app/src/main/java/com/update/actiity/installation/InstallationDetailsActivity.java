@@ -308,7 +308,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                 }
                 break;
             case 2:
-                serialList.clear();
+
                 showShortToast("保存成功");
                 break;
             case 3:
@@ -462,15 +462,15 @@ public class InstallationDetailsActivity extends BaseActivity {
                             kind = 1;
                         }
                         startActivityForResult(new Intent(InstallationDetailsActivity.this, EnterSerialNumberActivity.class)
-                                .putExtra("billid", billid)
+                                .putExtra("billid", mData.getBillid()+"")
                                 .putExtra("kind", kind)
-                                .putExtra("uuid", mData.getSerialinfo())
+                                .putExtra("uuid", mDetail.getSerialinfo())
                                 .putExtra("tabname", "tb_installjob")
                                 .putExtra("DATA", mGson.toJson(serialList)), 13);
                     } else {
                         startActivity(new Intent(InstallationDetailsActivity.this, SerialNumberDetailsActivity.class)
-                                .putExtra("billid", billid)
-                                .putExtra("serialinfo", mData.getSerialinfo())
+                                .putExtra("billid", mData.getBillid()+"")
+                                .putExtra("serialinfo", mDetail.getSerialinfo())
                                 .putExtra("tabname", "tb_installjob"));
                     }
                 }
