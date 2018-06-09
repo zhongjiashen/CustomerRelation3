@@ -1,6 +1,7 @@
 package com.update.actiity.logistics;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,6 +29,7 @@ import java.util.Date;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -87,6 +89,10 @@ public class AddLogisticsActivity extends BaseActivity {
     EditText etFreightAmount;
     @BindView(R.id.tv_collecting_amount)
     TextView tvCollectingAmount;
+    @BindView(R.id.tv_dszhbt)
+    TextView tvDszhbt;
+    @BindView(R.id.tv_dsjebt)
+    TextView tvDsjebt;
     private TimePickerView mTimePickerView;//时间选择弹窗
     Gson mGson;
     private Map<String, Object> mMap;
@@ -136,14 +142,10 @@ public class AddLogisticsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
-        mDepartmentid=ShareUserInfo.getKey(this, "departmentid");
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
-        mEmpid=ShareUserInfo.getKey(this, "empid");
+        mEmpid = ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
-
-
-
-
 
 
         mBilltype = "1";
@@ -190,7 +192,7 @@ public class AddLogisticsActivity extends BaseActivity {
                         .putExtra("kind", 3), 11);
                 break;
             case R.id.ll_logistics_company_choice://物流公司选择
-                startActivityForResult(new Intent(this,ChooseLogisticsCompanyActivity.class)
+                startActivityForResult(new Intent(this, ChooseLogisticsCompanyActivity.class)
                         .putExtra("kind", 3), 12);
                 break;
             case R.id.ll_document_type_choice://单据类型选择
@@ -199,17 +201,17 @@ public class AddLogisticsActivity extends BaseActivity {
                 break;
             case R.id.ll_associated_documents_choice://关联单据选择
 //                单据类型选择了其他，则选择关联单据项不可点击，收货单位可以点击选择
-                if(mBilltype.equals("9")){
-                showShortToast("单据类型选择了其他，则选择关联单据项不可点击");
-                }else {
+                if (mBilltype.equals("9")) {
+                    showShortToast("单据类型选择了其他，则选择关联单据项不可点击");
+                } else {
                     startActivityForResult(new Intent(this, ChoiceLogisticsActivity.class), 14);
                 }
                 break;
             case R.id.ll_unit_name_choice://收货单位选择
 //                单据类型选择了其他以外的单据类型，则选择关联单据项可点击选择，收货单位不可以点击
-                if(!mBilltype.equals("9")){
+                if (!mBilltype.equals("9")) {
 //                    showShortToast("单据类型未选择了其他，则收货单位不可以点击");
-                }else {
+                } else {
                     startActivityForResult(new Intent(this, CommonXzkhActivity.class), 15);
                 }
                 break;
@@ -222,8 +224,8 @@ public class AddLogisticsActivity extends BaseActivity {
                 break;
             case R.id.ll_transport_way_choice://运输方式选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm", "YSFS")
-                        .putExtra("title", "运输方式选择"),
+                                .putExtra("zdbm", "YSFS")
+                                .putExtra("title", "运输方式选择"),
                         17);
 
                 break;
@@ -268,14 +270,14 @@ public class AddLogisticsActivity extends BaseActivity {
                 tvLogisticsCompany.setText(data.getStringExtra("name"));
                 break;
             case 13://单据类型选择结果处理
-               //如果切换了单据类型，选择关联单据、是否代收代付、代收代付账户、代收代付金额、收货单位、联系人、联系电话信息置空；
+                //如果切换了单据类型，选择关联单据、是否代收代付、代收代付账户、代收代付金额、收货单位、联系人、联系电话信息置空；
                 mBilltype = data.getStringExtra("CHOICE_RESULT_ID");
                 tvDocumentType.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
-                mReferbillid="";
+                mReferbillid = "";
                 tvAssociatedDocuments.setText("");
                 mIsproxy = "0";
                 tvCollecting.setText("否");//否代收代付默认否
-                mProxybankid="";
+                mProxybankid = "";
                 tvCollectingAccount.setText("");
                 tvCollectingAmount.setText("0.00");//（要求大于等于0）代收代付金额默认为0.00
                 mShipclientid = "";
@@ -284,23 +286,31 @@ public class AddLogisticsActivity extends BaseActivity {
                 tvContacts.setText("");
                 etContactNumber.setText("");
                 etShippingAddress.setText("");
-                if(tvDocumentType.getText().toString().equals("其他")){
+                if (tvDocumentType.getText().toString().equals("其他")) {
                     LogUtils.e("asdfsa");
                     etFreightAmount.setFocusable(false);
                     etFreightAmount.setFocusableInTouchMode(false);
                     etFreightAmount.setClickable(false);
-                }else {
+                } else {
                     etFreightAmount.setFocusable(true);
                     etFreightAmount.setFocusableInTouchMode(true);
                     etFreightAmount.setClickable(true);
                 }
+                if (tvDocumentType.getText().toString().equals("采购收货") || tvDocumentType.getText().toString().equals("资产购置")) {
+                    tvDszhbt.setText("代付账号");
+                    tvDsjebt.setText("代付金额");
+                }else {
+                    tvDszhbt.setText("代收账户");
+                    tvDsjebt.setText("代收金额");
+                }
+
                 break;
             case 14://关联单据
                 //是否代收代付、代收代付账户、代收代付金额是根据所选择的关联单据带过来的信息
-                mReferbillid=data.getStringExtra("referbillid");
+                mReferbillid = data.getStringExtra("referbillid");
                 tvAssociatedDocuments.setText(data.getStringExtra("code"));
                 mIsproxy = data.getStringExtra("isproxy");
-                switch (mIsproxy){
+                switch (mIsproxy) {
                     case "0":
                         tvCollecting.setText("否");//否代收代付默认否
                         break;
@@ -309,7 +319,7 @@ public class AddLogisticsActivity extends BaseActivity {
                         break;
                 }
                 //代收代付账户
-                mProxybankid=data.getStringExtra("bankid");
+                mProxybankid = data.getStringExtra("bankid");
                 tvCollectingAccount.setText(data.getStringExtra("bankname"));
                 tvCollectingAmount.setText(data.getStringExtra("proxyamt"));//（要求大于等于0）代收代付金额默认为0.00
                 break;
@@ -388,7 +398,7 @@ public class AddLogisticsActivity extends BaseActivity {
             showShortToast("请选择物流公司！");
             return;
         }
-        String shipno=etLogisticsNumber.getText().toString();
+        String shipno = etLogisticsNumber.getText().toString();
         if (TextUtils.isEmpty(shipno)) {
             showShortToast("请输入物流单号！");
             return;
@@ -473,4 +483,10 @@ public class AddLogisticsActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }
