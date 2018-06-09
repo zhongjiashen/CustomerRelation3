@@ -40,9 +40,9 @@ public class ChooseGoodsData {
     @SerializedName("name")
     private String name;
     @SerializedName("specs")
-    private Object specs;
+    private String specs;//规格
     @SerializedName("model")
-    private String model;
+    private String model;//型号
     @SerializedName("inf_costingtypeid")
     private int infCostingtypeid;
     @SerializedName("goodstypeid")
@@ -180,11 +180,11 @@ public class ChooseGoodsData {
         this.name = name;
     }
 
-    public Object getSpecs() {
+    public String getSpecs() {
         return specs;
     }
 
-    public void setSpecs(Object specs) {
+    public void setSpecs(String specs) {
         this.specs = specs;
     }
 

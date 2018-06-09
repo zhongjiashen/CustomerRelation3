@@ -198,6 +198,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, ChooseGoodsData data) {
                 holder.tvRegistrationNumber.setText("登记数量：" + data.getNumber() + "个");
+                holder.tvGoodsInformation.setText(data.getCode()+"    "+data.getName()+"    "+data.getSpecs()+"    "+data.getModel());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

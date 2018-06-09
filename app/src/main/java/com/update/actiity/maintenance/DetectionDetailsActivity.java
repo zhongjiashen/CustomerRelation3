@@ -274,7 +274,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                     tvDispatchDate.setText(mData.getBilldate());//派工日期
                     tvExecutionStatus.setText(mData.getZxjg());//执行状态
                     if (mData.getLb() == 1) {
-                        tvGoodsInformation.setText(mData.getGoodsname());
+                        tvGoodsInformation.setText(mData.getGoodscode()+"    "+mData.getGoodsname()+"    "+mData.getSpecs()+"    "+mData.getModel());
                         tvRegistrationNumber.setText("登记数量：" + (mData.getYesqty() + mData.getNoqty() + mData.getDesqty()) + mData.getUnitname());
                     } else {
                         tvGoodsInformation.setText("概况信息");
@@ -493,7 +493,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                 serialList.clear();
                 selectTime(1);
                 break;
-            case R.id.bt_bottom://审核/弃审
+            case R.id.bt_bottom://（审核/弃审）
 //                Map map = new ArrayMap<>();
 //                map.put("dbname", ShareUserInfo.getDbName(this));
 //                map.put("tabname", "tb_servicejob");

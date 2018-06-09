@@ -174,7 +174,7 @@ public class MaintenanceDetailsActivity extends BaseActivity {
                         });
                         break;
                     case "1":
-                        holder.tvGoodsInformation.setText("示商品编码    名称    规格    型号");
+                        holder.tvGoodsInformation.setText(data.getGoodscode()+"    "+data.getGoodsname()+"    "+data.getSpecs()+"    "+data.getModel());
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

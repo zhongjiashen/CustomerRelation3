@@ -268,7 +268,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                     tvDispatchDate.setText(mData.getBilldate());//派工日期
                     tvExecutionStatus.setText(mData.getZxjg());//执行状态
                     if (mData.getLb() == 1) {
-                        tvGoodsInformation.setText(/*"示商品编码    名称    规格    型号"*/mData.getGoodsname());
+                        tvGoodsInformation.setText(mData.getGoodscode()+"    "+mData.getGoodsname()+"    "+mData.getSpecs()+"    "+mData.getModel());
                         tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
                     } else {
                         tvGoodsInformation.setText("概况信息");
