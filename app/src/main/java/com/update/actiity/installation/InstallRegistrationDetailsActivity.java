@@ -260,7 +260,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         dMap.put("tabname", "tb_installreg");
                         dMap.put("pkvalue", billid);
                         dMap.put("opid", ShareUserInfo.getUserId(mActivity));
-                        presenter.post(6, "billdelmaster", dMap);
+                        presenter.post(7, "billdelmaster", dMap);
                     }
 
 
@@ -383,7 +383,8 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         presenter.post(5, "billsh", smap);
                         break;
                     case 2://审核中
-
+                        smap.put("shzt", "2");
+                        presenter.post(6, "billsh", smap);
                         break;
                 }
 
@@ -404,6 +405,9 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                     showShortToast(data.toString());
                 break;
             case 6:
+                showShortToast("审核成功" );
+                break;
+            case 7:
                 if (data.toString().equals("")) {
                     finish();
                 }else
