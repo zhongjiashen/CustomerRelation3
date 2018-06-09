@@ -289,10 +289,10 @@ public class AddProjectActivity extends BaseActivity {
             showShortToast("请先选择部门");
             return;
         }
-        if (TextUtils.isEmpty(mEmpid)) {
-            showShortToast("请先选择业务员");
-            return;
-        }
+//        if (TextUtils.isEmpty(mEmpid)) {
+//            showShortToast("请先选择业务员");
+//            return;
+//        }
         mMap.put("billid", "0");//主键ID;0或空表示新增
         mMap.put("billdate", tvDocumentDate.getText().toString()
         );//单据日期
