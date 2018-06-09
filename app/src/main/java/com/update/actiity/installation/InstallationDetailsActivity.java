@@ -605,8 +605,8 @@ public class InstallationDetailsActivity extends BaseActivity {
         mDetail.setItemno(mData.getItemno() + "");
         mDetail.setWxjgid(mData.getWxjgid() + "");
         mDetail.setIsreturn(mData.getIsreturn() + "");
-        mDetail.setYesqty(mData.getYesqty() + "");
-        mDetail.setNoqty(mData.getNoqty() + "");
+        mDetail.setYesqty(etInstallationNumber.getText().toString() + "");
+        mDetail.setNoqty(etUnloaded.getText().toString()  + "");
         if (!TextUtils.isEmpty(mData.getBegindate()))
             mDetail.setBegindate(mData.getBegindate().replace(":", "|"));
         if (!TextUtils.isEmpty(mData.getEnddate()))
