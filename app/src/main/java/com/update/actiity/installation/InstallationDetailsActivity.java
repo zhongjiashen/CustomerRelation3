@@ -443,7 +443,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                 break;
             case R.id.rl_goods_information://商品信息
                 if (mData.getLb() == 1)
-                    startActivity(new Intent(InstallationDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("kind", 2)
+                    startActivity(new Intent(InstallationDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("tabname","tb_installjob").putExtra("kind", 2)
                             .putExtra("DATA", mGson.toJson(mData)));
                 else
                     startActivity(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 2)

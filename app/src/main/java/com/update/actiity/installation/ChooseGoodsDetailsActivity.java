@@ -154,7 +154,7 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
                     startActivity(new Intent(ChooseGoodsDetailsActivity.this, SerialNumberDetailsActivity.class)
                             .putExtra("billid", installRegistrationScheduleData.getInstallregid() + "")
                             .putExtra("serialinfo", installRegistrationScheduleData.getSerialinfo())
-                            .putExtra("tabname", "tb_installreg"));
+                            .putExtra("tabname", getIntent().getStringExtra("tabname")));
                 break;
             case R.id.bt_view:
                 setResult(RESULT_OK, new Intent().putExtra("KIND", 0));

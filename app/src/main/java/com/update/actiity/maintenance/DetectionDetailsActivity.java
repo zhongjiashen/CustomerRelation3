@@ -449,7 +449,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                 break;
             case R.id.rl_goods_information://商品信息
                 if (mData.getLb() == 1)
-                    startActivity(new Intent(DetectionDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("kind", 2)
+                    startActivity(new Intent(DetectionDetailsActivity.this, ChooseGoodsDetailsActivity.class).putExtra("tabname","tb_servicejob").putExtra("kind", 2)
                             .putExtra("DATA", mGson.toJson(mData)));
                 else
                     startActivity(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 2)
