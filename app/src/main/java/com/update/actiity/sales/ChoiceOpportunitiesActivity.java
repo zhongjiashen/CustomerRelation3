@@ -83,7 +83,7 @@ public class ChoiceOpportunitiesActivity extends BaseActivity implements
         mParmMap.put("opid", ShareUserInfo.getUserId(this));//登录操作员ID
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("tabname", "tb_chance");
-        mParmMap.put("clientid", "0");
+        mParmMap.put("clientid", getIntent().getStringExtra("clientid"));
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
         http();

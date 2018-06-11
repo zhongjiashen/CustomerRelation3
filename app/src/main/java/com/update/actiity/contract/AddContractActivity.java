@@ -165,11 +165,17 @@ public class AddContractActivity extends BaseActivity {
             case R.id.ll_end_time_choice:
                 selectTime(1);
                 break;
-            case R.id.ll_opportunit_name_choice:
-                startActivityForResult(new Intent(this, ChoiceOpportunitiesActivity.class), 13);
+            case R.id.ll_opportunit_name_choice://机会名称选择
+                if (TextUtils.isEmpty(mClientid))
+                    showShortToast("请先选择单位");
+                else
+                startActivityForResult(new Intent(this, ChoiceOpportunitiesActivity.class).putExtra("clientid", mClientid), 13);
                 break;
             case R.id.ll_related_projects_choice:
-                startActivityForResult(new Intent(this, ChoiceProjectActivity.class), 14);
+                if (TextUtils.isEmpty(mClientid))
+                    showShortToast("请先选择单位");
+                else
+                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class).putExtra("clientid", mClientid), 14);
                 break;
             case R.id.ll_document_date_choice:
                 selectTime(2);
