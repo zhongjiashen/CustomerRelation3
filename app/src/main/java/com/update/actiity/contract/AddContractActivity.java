@@ -82,7 +82,10 @@ public class AddContractActivity extends BaseActivity {
     private Date mDate;
 
     private String mClientid;// 单位ID
+    private String mClientname;// 单位名称
     private String mLxrid;// 联系人ID
+    private String mLxrname;//联系人姓名
+    private String mPhone;// 联系電話
     private String mZzrq;//截止日期
     private String mChanceid;// 机会ID
     private String mProjectid;//  项目ID
@@ -117,9 +120,9 @@ public class AddContractActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
-        mDepartmentid=ShareUserInfo.getKey(this, "departmentid");
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
-        mEmpid=ShareUserInfo.getKey(this, "empid");
+        mEmpid = ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
 
 
@@ -157,7 +160,8 @@ public class AddContractActivity extends BaseActivity {
                 if (TextUtils.isEmpty(mClientid))
                     showShortToast("请先选择单位");
                 else
-                    startActivityForResult(new Intent(this, CommonXzlxrActivity.class).putExtra("clientid", mClientid), 12);
+                    startActivityForResult(new Intent(this, CommonXzlxrActivity.class)
+                            .putExtra("clientid", mClientid), 12);
                 break;
             case R.id.ll_start_time_choice:
                 selectTime(0);
@@ -169,7 +173,14 @@ public class AddContractActivity extends BaseActivity {
                 if (TextUtils.isEmpty(mClientid))
                     showShortToast("请先选择单位");
                 else
-                startActivityForResult(new Intent(this, ChoiceOpportunitiesActivity.class).putExtra("clientid", mClientid), 13);
+
+                startActivityForResult(new Intent(this, ChoiceOpportunitiesActivity.class)
+                                .putExtra("clientid", mClientid)
+                                .putExtra("clientname", mClientname)
+                                .putExtra("lxrid", mLxrid)
+                                .putExtra("lxrname", mLxrname)
+                                .putExtra("phone", mPhone),
+                        13);
                 break;
             case R.id.ll_related_projects_choice:
                 if (TextUtils.isEmpty(mClientid))
@@ -192,14 +203,18 @@ public class AddContractActivity extends BaseActivity {
                 break;
         }
     }
+
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         switch (requestCode) {
             case 11://单位选择结果处理
                 mClientid = data.getStringExtra("id");
+                mClientname = data.getStringExtra("name");
                 mLxrid = data.getStringExtra("lxrid");
-                tvUnitName.setText(data.getStringExtra("name"));
-                tvContacts.setText(data.getStringExtra("lxrname"));
-                etContactNumber.setText(data.getStringExtra("phone"));
+                mLxrname = data.getStringExtra("lxrname");
+                mPhone = data.getStringExtra("phone");
+                tvUnitName.setText(mClientname);
+                tvContacts.setText(mLxrname);
+                etContactNumber.setText(mPhone);
                 tvUnitType.setText(data.getStringExtra("typesname"));
                 break;
             case 12://联系人选择结果处理
@@ -226,6 +241,7 @@ public class AddContractActivity extends BaseActivity {
                 break;
         }
     }
+
     /**
      * 时间选择器
      *
@@ -256,6 +272,7 @@ public class AddContractActivity extends BaseActivity {
         mTimePickerView.setTime(mDate);
         mTimePickerView.show();
     }
+
     /**
      * 新增合同
      */
@@ -314,9 +331,10 @@ public class AddContractActivity extends BaseActivity {
         //提交数据到网络接口
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("parms", "XSHT");
-        mParmMap.put("master","["+ mGson.toJson(mMap)+"]");
+        mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }
+
     /**
      * 网路请求返回数据
      *
@@ -326,10 +344,10 @@ public class AddContractActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        String result= (String) data;
-        if(TextUtils.isEmpty(result)||result.equals("false")){
+        String result = (String) data;
+        if (TextUtils.isEmpty(result) || result.equals("false")) {
 
-        }else {
+        } else {
             showShortToast("添加成功");
             setResult(RESULT_OK);
             finish();

@@ -65,6 +65,14 @@ public class ChoiceOpportunitiesActivity extends BaseActivity implements
     private List<RqProjectListData> mList;
 
 
+
+    private String mClientid;// 单位ID
+    private String mClientname;// 单位名称
+    private String mLxrid;// 联系人ID
+    private String mLxrname;//联系人姓名
+    private String mPhone;// 联系電話
+
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -87,6 +95,12 @@ public class ChoiceOpportunitiesActivity extends BaseActivity implements
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
         http();
+
+        mClientid =getIntent().getStringExtra("clientid");
+        mClientname =getIntent().getStringExtra("clientname");
+        mLxrid =getIntent().getStringExtra("lxrid");
+        mLxrname =getIntent().getStringExtra("lxrname");
+        mPhone =getIntent().getStringExtra("phone");
     }
 
     private void http() {
@@ -164,7 +178,12 @@ public class ChoiceOpportunitiesActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-                        startActivity(new Intent(ChoiceOpportunitiesActivity.this, AddSalesOpportunitiesActivity.class));
+                        startActivity(new Intent(ChoiceOpportunitiesActivity.this, AddSalesOpportunitiesActivity.class)
+                                .putExtra("clientid", mClientid)
+                                .putExtra("clientname", mClientname)
+                                .putExtra("lxrid", mLxrid)
+                                .putExtra("lxrname", mLxrname)
+                                .putExtra("phone", mPhone));
                         break;
                     case 1://打开右边侧滑菜单
                         startActivityForResult(new Intent(ChoiceOpportunitiesActivity.this, ScreeningProjectActivity.class)

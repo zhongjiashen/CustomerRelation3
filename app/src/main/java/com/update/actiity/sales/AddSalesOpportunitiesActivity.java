@@ -81,7 +81,10 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
     private Date mDate;
 
     private String mClientid;// 单位ID
+    private String mClientname;// 单位名称
     private String mLxrid;// 联系人ID
+    private String mLxrname;//联系人姓名
+    private String mPhone;// 联系電話
     private String mZzrq;//截止日期
     private String mBflx;//机会来源ID
     private String mDepartmentid;//部门ID
@@ -98,6 +101,12 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         mMap = new ArrayMap<>();
         mParmMap = new ArrayMap<>();
         mDate = new Date();
+
+        mClientid =getIntent().getStringExtra("clientid");
+        mClientname =getIntent().getStringExtra("clientname");
+        mLxrid =getIntent().getStringExtra("lxrid");
+        mLxrname =getIntent().getStringExtra("lxrname");
+        mPhone =getIntent().getStringExtra("phone");
 
     }
 
@@ -121,9 +130,12 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
         mEmpid=ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
-
         tvStartTime.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//起始时间默认当天
         tvDocumentDate.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//单据日期默认当日
+
+        tvUnitName.setText(mClientname);
+        tvContacts.setText(mLxrname);
+        etContactNumber.setText(mPhone);
     }
 
     /**
