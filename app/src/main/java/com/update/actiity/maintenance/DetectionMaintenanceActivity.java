@@ -271,6 +271,11 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
      */
     @Override
     public void returnData(int requestCode, Object data) {
+        if (data.toString().equals("nmyqx")) {
+            showShortToast("您没有操作该功能菜单的权限");
+            finish();
+            return;
+        }
         Gson gson = new Gson();
         List<PerformInstallationData> list = gson.fromJson((String) data,
                 new TypeToken<List<PerformInstallationData>>() {
