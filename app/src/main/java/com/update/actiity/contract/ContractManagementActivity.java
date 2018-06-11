@@ -6,6 +6,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,7 +171,11 @@ public class ContractManagementActivity extends BaseActivity implements
                         holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                         break;
                 }
-                holder.tvPhase.setText("阶段：" + data.getGmmc());
+                if(TextUtils.isEmpty(data.getGmmc())){
+                    holder.tvPhase.setText("阶段：" );
+                }else {
+                    holder.tvPhase.setText("阶段：" + data.getGmmc());
+                }
                 holder.tvProjectName.setText(data.getTitle());//项目名称
                 holder.tvMoney.setText("合同金额：￥" + data.getAmount());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
