@@ -29,7 +29,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-
 /**
  * Author:    申中佳
  * Version    V1.0
@@ -125,9 +124,9 @@ public class AddProjectActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
-        mDepartmentid=ShareUserInfo.getKey(this, "departmentid");
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
-        mEmpid=ShareUserInfo.getKey(this, "empid");
+        mEmpid = ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
         tvUnitName.setText(mClientname);
         tvUnitType.setText(mTypesname);
@@ -163,7 +162,12 @@ public class AddProjectActivity extends BaseActivity {
                 startActivityForResult(new Intent(this, CommonXzkhActivity.class), 11);
                 break;
             case R.id.ll_related_contract_choice://相关合同
-                startActivityForResult(new Intent(this, ChoiceContractActivity.class), 12);
+                if (TextUtils.isEmpty(mClientid))
+                    showShortToast("请先选择单位");
+                else
+                    startActivityForResult(new Intent(this, ChoiceContractActivity.class)
+                                    .putExtra("clientid", mClientid)
+                            , 12);
                 break;
             case R.id.ll_project_type_choice://项目类型
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
@@ -203,7 +207,7 @@ public class AddProjectActivity extends BaseActivity {
                 tvUnitType.setText(data.getStringExtra("typesname"));
                 break;
             case 12://联系人选择结果处理
-                mContractid= data.getStringExtra("contractid");
+                mContractid = data.getStringExtra("contractid");
                 tvRelatedContract.setText(data.getStringExtra("title"));
 
                 break;
@@ -320,9 +324,10 @@ public class AddProjectActivity extends BaseActivity {
         //提交数据到网络接口
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("parms", "XMD");
-        mParmMap.put("master","["+ mGson.toJson(mMap)+"]");
+        mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }
+
     /**
      * 网路请求返回数据
      *
@@ -332,10 +337,10 @@ public class AddProjectActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        String result= (String) data;
-        if(TextUtils.isEmpty(result)||result.equals("false")){
+        String result = (String) data;
+        if (TextUtils.isEmpty(result) || result.equals("false")) {
 
-        }else {
+        } else {
             showShortToast("添加成功");
             setResult(RESULT_OK);
             finish();

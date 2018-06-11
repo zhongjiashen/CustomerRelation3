@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -67,11 +68,18 @@ public class ChoiceContractActivity extends BaseActivity implements
     private List<RqProjectListData> mList;
 
 
+    private String mClientid;// 单位ID
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        mClientid = getIntent().getStringExtra("clientid");
+        if (TextUtils.isEmpty(mClientid))
+            mClientid = "0";
+
+
         presenter = new BaseP(this, this);
         mParmMap = new ArrayMap<>();
         mGson = new Gson();
@@ -126,7 +134,7 @@ public class ChoiceContractActivity extends BaseActivity implements
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getChoiceProjectHolder(ChoiceContractActivity.this,parent);
+                return ViewHolderFactory.getChoiceProjectHolder(ChoiceContractActivity.this, parent);
             }
 
             @Override
@@ -141,8 +149,8 @@ public class ChoiceContractActivity extends BaseActivity implements
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
-                        intent.putExtra("contractid",data.getBillid()+"");
-                        intent.putExtra("title",data.getTitle());
+                        intent.putExtra("contractid", data.getBillid() + "");
+                        intent.putExtra("title", data.getTitle());
                         setResult(RESULT_OK, intent);
                         finish();
                     }
