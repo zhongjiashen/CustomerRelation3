@@ -22,6 +22,7 @@ import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.InstallRegistrationData;
 import com.update.utils.DateUtil;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
@@ -50,7 +51,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
     @BindView(R.id.titlebar)
     TitleBar titlebar;
 
-        @BindView(R.id.search)
+    @BindView(R.id.search)
     EditText search;
     @BindView(R.id.pullRecycle_view)
     PullableRecyclerView pullRecycleView;
@@ -69,6 +70,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
     private String shzt;//审核状态 (0未审 1已审 2 审核中   9全部)
     private String djzt;//登记状态ID （维修登记、安装登记用传0表示全部 取字典zdbm=’WXDJZT’维修登记状态，zdbm=’AZDJZT’安装登记状态，其他单据传空）
     private String cname;//供应商名称（模糊查询用）
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -93,7 +95,8 @@ public class InstallRegistrationActivity extends BaseActivity implements
         mParmMap.put("pagesize", "10");//每页加载数据大小
 
     }
-    private void http(){
+
+    private void http() {
         page_number = 1;
         mParmMap.put("cname", cname);
         mParmMap.put("qsrq", start_time);
@@ -137,14 +140,14 @@ public class InstallRegistrationActivity extends BaseActivity implements
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getInstallRegistrationHolder(InstallRegistrationActivity.this,parent);
+                return ViewHolderFactory.getInstallRegistrationHolder(InstallRegistrationActivity.this, parent);
             }
 
             @Override
             protected void MyonBindViewHolder(ViewHolderFactory.InstallRegistrationHolder holder, final InstallRegistrationData data) {
                 /*
-                *下图审核状态：未审核（颜色FF6600）、审核中（颜色0066FF）、已审核（颜色00CC00）
-                * 登记状态：未处理（颜色FF6600）、处理中（颜色0066FF）、已完成（颜色00CC00）
+                 *下图审核状态：未审核（颜色FF6600）、审核中（颜色0066FF）、已审核（颜色00CC00）
+                 * 登记状态：未处理（颜色FF6600）、处理中（颜色0066FF）、已完成（颜色00CC00）
                  */
                 holder.tvData.setText(data.getBilldate());//单据日期设置
                 holder.tvReceiptNumber.setText("单据编号" + data.getCode());//单据编号设置
@@ -193,10 +196,12 @@ public class InstallRegistrationActivity extends BaseActivity implements
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 mParmMap.put("goodsname", s.toString());
@@ -221,17 +226,12 @@ public class InstallRegistrationActivity extends BaseActivity implements
                         break;
                     case 1://打开右边侧滑菜单
                         startActivityForResult(new Intent(InstallRegistrationActivity.this, ScreeningActivity.class)
-                                .putExtra("kind",0), 11);
+                                .putExtra("kind", 0), 11);
                         break;
                 }
             }
         });
     }
-
-
-
-
-
 
 
     /**
@@ -241,7 +241,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
     public void onRefresh(PullToRefreshLayout playout) {
         page_number = 1;
         mParmMap.put("curpage", page_number);//当前页
-        presenter.post(0, ServerURL.BILLLIST, mParmMap,false);
+        presenter.post(0, ServerURL.BILLLIST, mParmMap, false);
     }
 
     /**
@@ -250,10 +250,8 @@ public class InstallRegistrationActivity extends BaseActivity implements
     @Override
     public void onLoadMore(PullToRefreshLayout pullLayout) {
         mParmMap.put("curpage", (page_number + 1));
-        presenter.post(1, ServerURL.BILLLIST, mParmMap,false);
+        presenter.post(1, ServerURL.BILLLIST, mParmMap, false);
     }
-
-
 
 
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
@@ -263,7 +261,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 end_time = data.getStringExtra("zzrq");
                 shzt = data.getStringExtra("shzt");
                 djzt = data.getStringExtra("djzt");
-                cname=data.getStringExtra("cname");
+                cname = data.getStringExtra("cname");
 
                 break;
         }
@@ -284,6 +282,12 @@ public class InstallRegistrationActivity extends BaseActivity implements
      */
     @Override
     public void returnData(int requestCode, Object data) {
+        LogUtils.e(data.toString());
+        if (data.toString().equals("nmyqx")) {
+            showShortToast("您没有操作该功能菜单的权限");
+            finish();
+            return;
+        }
         Gson gson = new Gson();
         List<InstallRegistrationData> list = gson.fromJson((String) data,
                 new TypeToken<List<InstallRegistrationData>>() {
@@ -303,6 +307,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
                 }
                 break;
         }
+
     }
 
     /**
