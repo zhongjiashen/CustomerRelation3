@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 
 import com.cr.tools.ServerRequest;
+import com.update.dialog.LoadingDialog;
 import com.update.utils.LogUtils;
 
 import java.util.Map;
@@ -29,7 +30,7 @@ public class BaseP {
     protected BaseV view;
     protected Activity mActivity;
     static boolean run = false;
-    public ProgressDialog progressDialog;// 弹出框进度条
+    public LoadingDialog progressDialog;// 弹出框进度条
 
     public BaseP(BaseV view, Activity activity) {
         this.view = view;
@@ -40,29 +41,31 @@ public class BaseP {
     /**
      * @param requestCode 请求码
      * @param url         请求路径
-     * @param params         请求参数map
+     * @param params      请求参数map
      */
-    public void post(int requestCode,String url, Map<String, Object> params) {
-        post(requestCode,url, params,true);
+    public void post(int requestCode, String url, Map<String, Object> params) {
+        post(requestCode, url, params, true);
     }
 
 
     /**
      * @param requestCode 请求码
      * @param url         请求路径
-     * @param params         请求参数map
-     * @param dialog   是否显示加载对话框;true显示，false不显示
+     * @param params      请求参数map
+     * @param dialog      是否显示加载对话框;true显示，false不显示
      */
-    public void post(final int requestCode, final String url, final Map<String, Object> params,boolean dialog) {
-        if(dialog){
-
+    public void post(final int requestCode, final String url, final Map<String, Object> params, boolean dialog) {
+        if (dialog) {
+            if (progressDialog == null)
+                progressDialog = new LoadingDialog(mActivity);
+            progressDialog.show();
         }
-//
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-               String returnJson = ServerRequest.webServicePost(url,
+                String returnJson = ServerRequest.webServicePost(url,
                         params, mActivity);
+
                 subscriber.onNext(returnJson);
                 subscriber.onCompleted();
             }
@@ -77,23 +80,23 @@ public class BaseP {
                     public void onNext(String s) {//主线程执行的方法
                         LogUtils.e(s);
                         returnData(requestCode, s);
-
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void onCompleted() {
                         LogUtils.e("-------------1---------------");
-                        if(view==null)
+                        if (view == null)
                             return;
                         view.httpFinish(requestCode);
-//                        progressDialog.dismiss();
+                        progressDialog.dismiss();
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
-//                        progressDialog.dismiss();
-                        if(view==null)
+                        progressDialog.dismiss();
+                        if (view == null)
                             return;
                         view.httpfaile(requestCode);
 

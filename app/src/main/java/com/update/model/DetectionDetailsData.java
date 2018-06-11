@@ -1,5 +1,7 @@
 package com.update.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -284,15 +286,22 @@ public class DetectionDetailsData {
     }
 
     public String getBegindate() {
-        return begindate;
+        if(TextUtils.isEmpty(begindate)) {
+            return "0000-00-00 00:00:00";
+        }else
+            return begindate;
     }
+
 
     public void setBegindate(String begindate) {
         this.begindate = begindate;
     }
 
     public String getEnddate() {
-        return enddate;
+        if(TextUtils.isEmpty(enddate)) {
+            return "0000-00-00 00:00:00";
+        }else
+            return enddate;
     }
 
     public void setEnddate(String enddate) {
