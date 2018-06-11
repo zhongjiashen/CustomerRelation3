@@ -60,6 +60,8 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
     private Gson mGson;
     private InstallRegistrationScheduleData installRegistrationScheduleData;
 
+    private boolean xlh;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -67,6 +69,7 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
     protected void initVariables() {
         mKind = getIntent().getIntExtra("kind", 0);
         mGson = new Gson();
+        xlh=getIntent().getBooleanExtra("xlh",true);
 
     }
 
@@ -86,6 +89,11 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        if(xlh) {
+            tvSerialNumber.setVisibility(View.VISIBLE);
+        }else {
+            tvSerialNumber.setVisibility(View.GONE);
+        }
     }
 
     /**

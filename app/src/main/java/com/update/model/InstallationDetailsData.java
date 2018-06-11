@@ -1,5 +1,7 @@
 package com.update.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -301,7 +303,10 @@ public class InstallationDetailsData {
     }
 
     public String getBegindate() {
-        return begindate;
+        if(TextUtils.isEmpty(begindate)) {
+            return "0000-00-00 00:00:00";
+        }else
+            return begindate;
     }
 
     public void setBegindate(String begindate) {
@@ -309,6 +314,9 @@ public class InstallationDetailsData {
     }
 
     public String getEnddate() {
+        if(TextUtils.isEmpty(enddate)) {
+            return "0000-00-00 00:00:00";
+        }else
         return enddate;
     }
 
