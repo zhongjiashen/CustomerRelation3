@@ -77,6 +77,7 @@ public class ScreeningAuditActivity extends BaseActivity {
             tvEndTime.setText(rq+"0"+day);
 
         mShzt = "9";
+        tvAuditStatus.setText("我的审核");
         mDepartmentid = "0";
         mEmpid = "0";
 
@@ -128,10 +129,10 @@ public class ScreeningAuditActivity extends BaseActivity {
             case R.id.ll_document_type:
                 break;
             case R.id.ll_audit_status:
-                startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class), 12);
+                startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class).putExtra("kind",5), 12);
                 break;
             case R.id.ll_department:
-                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 23);
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 13);
                 break;
             case R.id.ll_salesman:
                 startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
@@ -143,7 +144,7 @@ public class ScreeningAuditActivity extends BaseActivity {
                 intent.putExtra("zzrq", tvEndTime.getText().toString());
                 intent.putExtra("cname", etUnitName.getText().toString());
                 intent.putExtra("shzt", mShzt);
-                intent.putExtra("depid ", mDepartmentid);
+                intent.putExtra("depid", mDepartmentid);
                 intent.putExtra("empid", mEmpid);
                 intent.putExtra("billcode", etDocumentNumber.getText().toString());
                 setResult(RESULT_OK, intent);

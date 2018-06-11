@@ -59,6 +59,11 @@ public class LocalDataSingleOptionActivity extends BaseActivity {
                 mStrings = new String[]{"我方", "对方"};
                 mResults = new String[]{"0", "1"};
                 break;
+            case 5://我的审核列表审核状态
+                //审核状态 (0未审 1已审 2 审核中   9我的审核 -1全部)
+                mStrings = new String[]{"未审核", "已审核", "审核中","我的审核" ,"全部"};
+                mResults = new String[]{"0", "1", "2", "9","-1"};
+                break;
 
         }
 

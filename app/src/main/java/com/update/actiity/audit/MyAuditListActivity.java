@@ -27,6 +27,7 @@ import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.request.RqMyAuditListData;
 import com.update.utils.DateUtil;
+import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
@@ -107,6 +108,7 @@ public class MyAuditListActivity extends BaseActivity implements
         mParmMap.put("billtypeid", mBilltypeid);//项目单阶段ID（0全部）
         mParmMap.put("shzt", mShzt);//审核状态
         mParmMap.put("depid", mDepid);//
+
         mParmMap.put("empid", mEmpid);//业务员ID (没有的话传空或0)
         mParmMap.put("billcode", mBillcode);//
         mParmMap.put("curpage", page_number);//当前页
@@ -251,6 +253,7 @@ public class MyAuditListActivity extends BaseActivity implements
                 mDepid = data.getStringExtra("depid");
                 mEmpid = data.getStringExtra("empid");
                 mBillcode = data.getStringExtra("billcode");
+                LogUtils.e("onMyActivityResult");
                 break;
         }
     }
@@ -332,5 +335,6 @@ public class MyAuditListActivity extends BaseActivity implements
         super.onResume();
         page_number = 1;
         http();
+        LogUtils.e("onResume");
     }
 }
