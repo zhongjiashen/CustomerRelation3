@@ -192,12 +192,12 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         });
                         break;
                     case 1:
-                        holder.tvGoodsInformation.setText(data.getGoodscode()+"    "+data.getGoodsname()+"    "+data.getSpecs()+"    "+data.getModel());
+                        holder.tvGoodsInformation.setText(data.getGoodscode() + "    " + data.getGoodsname() + "    " + data.getSpecs() + "    " + data.getModel());
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 startActivity(new Intent(InstallRegistrationDetailsActivity.this, ChooseGoodsDetailsActivity.class)
-                                        .putExtra("tabname","tb_installreg")
+                                        .putExtra("tabname", "tb_installreg")
                                         .putExtra("kind", 2)
                                         .putExtra("DATA", new Gson().toJson(mGoodsOrOverviewDatas.get(holder.getLayoutPosition()))));
                             }
@@ -218,13 +218,13 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
 
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseFileResultHolder holder, final Attfiles data) {
-                LogUtils.e( FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames()));
+                LogUtils.e(FileUtils.getPath(mActivity, "AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames()));
                 holder.ivDelete.setVisibility(View.GONE);
-                Glide.with(mActivity).load(FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames())).error(R.mipmap.ic_file).into(holder.sivImage);
+                Glide.with(mActivity).load(FileUtils.getPath(mActivity, "AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames())).error(R.mipmap.ic_file).into(holder.sivImage);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SeeFileUtils.openFile(mActivity,FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames()));
+                        SeeFileUtils.openFile(mActivity, FileUtils.getPath(mActivity, "AZDJ/", billid + attfilesList.get(holder.getLayoutPosition()).getFilenames()));
                     }
                 });
             }
@@ -255,7 +255,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 DialogFactory.getButtonDialog(this, "确定要删除该单据吗？", new OnDialogClickInterface() {
                     @Override
                     public void OnClick(int requestCode, Object object) {
-                        Map dMap= new ArrayMap<>();
+                        Map dMap = new ArrayMap<>();
                         dMap.put("dbname", ShareUserInfo.getDbName(mActivity));
                         dMap.put("tabname", "tb_installreg");
                         dMap.put("pkvalue", billid);
@@ -369,8 +369,8 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 Map smap = new ArrayMap<>();
                 smap.put("dbname", ShareUserInfo.getDbName(this));
                 smap.put("tabname", "tb_installreg");
-               smap.put("pkvalue", billid);
-                smap.put("levels", shlb.get(0).getLevels()+"");
+                smap.put("pkvalue", billid);
+                smap.put("levels", shlb.get(shlb.size()-1).getLevels() + "");
                 smap.put("opid", ShareUserInfo.getUserId(this));
 
                 switch (master.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
@@ -379,7 +379,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         presenter.post(4, "billsh", smap);
                         break;
                     case 1://已审
-                       smap.put("shzt", "0");
+                        smap.put("shzt", "0");
                         presenter.post(5, "billsh", smap);
                         break;
                     case 2://审核中
@@ -391,26 +391,30 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 break;
             case 4:
                 LogUtils.e(data.toString());
-                if(data.toString().equals("")) {
+                if (data.toString().equals("")) {
                     btSh.setText("弃审");
                     master.setShzt(1);
-                }else
+                } else
                     showShortToast(data.toString());
                 break;
             case 5:
-                if(data.toString().equals("")) {
+                if (data.toString().equals("")) {
                     btSh.setText("审核");
                     master.setShzt(0);
-                }else
+                } else
                     showShortToast(data.toString());
                 break;
             case 6:
-                showShortToast("审核成功" );
+                if (data.toString().equals(""))
+                    showShortToast("审核成功");
+                else {
+                    showShortToast(data.toString());
+                }
                 break;
             case 7:
                 if (data.toString().equals("")) {
                     finish();
-                }else
+                } else
                     showShortToast(data.toString());
                 break;
         }
@@ -432,7 +436,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
             public void call(Subscriber<? super String> subscriber) {
                 try {
                     for (int i = 0; i < attfilesList.size(); i++) {
-                        FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, FileUtils.getPath(mActivity,"AZDJ/", billid + attfilesList.get(i).getFilenames()), Context.MODE_PRIVATE);
+                        FileUtils.decoderBase64File(attfilesList.get(i).getXx(), mActivity, FileUtils.getPath(mActivity, "AZDJ/", billid + attfilesList.get(i).getFilenames()), Context.MODE_PRIVATE);
 
                     }
 

@@ -233,10 +233,17 @@ public class LogisticsActivity extends BaseActivity {
                         smap.put("shzt", "0");
                         presenter.post(5, "billsh", smap);
                         break;
-
+                    case "审核中"://审核中
+                        smap.put("shzt", "2");
+                        presenter.post(7, "billsh", smap);
+                        break;
                 }
-
                 break;
+            case 7:
+                if (data.toString().equals("")) {
+                    showShortToast("审核成功");
+                } else
+                    showShortToast(data.toString());
             case 4:
                 LogUtils.e(data.toString());
                 if (data.toString().equals("")) {
