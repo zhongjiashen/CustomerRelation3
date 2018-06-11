@@ -62,21 +62,25 @@ public class ChoiceProjectActivity extends BaseActivity implements
     private String mGmid;//阶段ID
     private String mEmpid;//业务员ID
     private String mShzt;//审核状态 (0未审 1已审 2 审核中   9全部)
-
-
-
     private List<RqProjectListData> mList;
 
+
+    private String mClientid;// 单位ID
+    private String mClientname;// 单位名称
+    private String mTypesname;// 单位类型
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        mClientid = getIntent().getStringExtra("clientid");
+        mClientname = getIntent().getStringExtra("clientname");
+        mTypesname = getIntent().getStringExtra("typesname");
+
         presenter = new BaseP(this, this);
         mParmMap = new ArrayMap<>();
         mGson = new Gson();
         mDate = new Date();
-
         mQsrq = DateUtil.DateToString(mDate, "yyyy-MM-") + "01";
         mZzrq = DateUtil.DateToString(mDate, "yyyy-MM-dd");
         mShzt = "9";
@@ -85,7 +89,7 @@ public class ChoiceProjectActivity extends BaseActivity implements
         mParmMap.put("opid", ShareUserInfo.getUserId(this));//登录操作员ID
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("tabname", "tb_project");
-        mParmMap.put("clientid", getIntent().getStringExtra("clientid"));
+        mParmMap.put("clientid", mClientid);
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
         http();
@@ -127,7 +131,7 @@ public class ChoiceProjectActivity extends BaseActivity implements
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getChoiceProjectHolder(ChoiceProjectActivity.this,parent);
+                return ViewHolderFactory.getChoiceProjectHolder(ChoiceProjectActivity.this, parent);
             }
 
             @Override
@@ -141,8 +145,8 @@ public class ChoiceProjectActivity extends BaseActivity implements
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
-                        intent.putExtra("projectid",data.getBillid()+"");
-                        intent.putExtra("title",data.getTitle());
+                        intent.putExtra("projectid", data.getBillid() + "");
+                        intent.putExtra("title", data.getTitle());
                         setResult(RESULT_OK, intent);
                         finish();
                     }
@@ -165,7 +169,10 @@ public class ChoiceProjectActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-                        startActivity(new Intent(ChoiceProjectActivity.this, AddProjectActivity.class));
+                        startActivity(new Intent(ChoiceProjectActivity.this, AddProjectActivity.class)
+                                .putExtra("clientid", mClientid)
+                                .putExtra("clientname", mClientname)
+                                .putExtra("typesname", mTypesname));
                         break;
                     case 1://打开右边侧滑菜单
 
@@ -181,18 +188,19 @@ public class ChoiceProjectActivity extends BaseActivity implements
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 11:
-                mQsrq= data.getStringExtra("qsrq");
+                mQsrq = data.getStringExtra("qsrq");
                 mZzrq = data.getStringExtra("zzrq");
-                mCname=data.getStringExtra("cname");
-                mTitle=data.getStringExtra("title");
-                mGmid=data.getStringExtra("gmid");
-                mEmpid=data.getStringExtra("empid");
+                mCname = data.getStringExtra("cname");
+                mTitle = data.getStringExtra("title");
+                mGmid = data.getStringExtra("gmid");
+                mEmpid = data.getStringExtra("empid");
                 mShzt = data.getStringExtra("shzt");
 
                 http();
                 break;
         }
     }
+
     /**
      * 下拉刷新
      *
@@ -213,7 +221,7 @@ public class ChoiceProjectActivity extends BaseActivity implements
     @Override
     public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
         mParmMap.put("curpage", (page_number + 1));
-        presenter.post(1, ServerURL.BILLLIST, mParmMap,false);
+        presenter.post(1, ServerURL.BILLLIST, mParmMap, false);
     }
 
     /**

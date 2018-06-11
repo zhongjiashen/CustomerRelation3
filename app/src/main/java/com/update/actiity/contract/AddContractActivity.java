@@ -86,6 +86,7 @@ public class AddContractActivity extends BaseActivity {
     private String mLxrid;// 联系人ID
     private String mLxrname;//联系人姓名
     private String mPhone;// 联系電話
+    private String mTypesname;// 单位类型
     private String mZzrq;//截止日期
     private String mChanceid;// 机会ID
     private String mProjectid;//  项目ID
@@ -174,19 +175,23 @@ public class AddContractActivity extends BaseActivity {
                     showShortToast("请先选择单位");
                 else
 
-                startActivityForResult(new Intent(this, ChoiceOpportunitiesActivity.class)
-                                .putExtra("clientid", mClientid)
-                                .putExtra("clientname", mClientname)
-                                .putExtra("lxrid", mLxrid)
-                                .putExtra("lxrname", mLxrname)
-                                .putExtra("phone", mPhone),
-                        13);
+                    startActivityForResult(new Intent(this, ChoiceOpportunitiesActivity.class)
+                                    .putExtra("clientid", mClientid)
+                                    .putExtra("clientname", mClientname)
+                                    .putExtra("lxrid", mLxrid)
+                                    .putExtra("lxrname", mLxrname)
+                                    .putExtra("phone", mPhone),
+                            13);
                 break;
             case R.id.ll_related_projects_choice:
                 if (TextUtils.isEmpty(mClientid))
                     showShortToast("请先选择单位");
                 else
-                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class).putExtra("clientid", mClientid), 14);
+                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+                                    .putExtra("clientid", mClientid)
+                                    .putExtra("clientname", mClientname)
+                                    .putExtra("typesname", mTypesname)
+                            , 14);
                 break;
             case R.id.ll_document_date_choice:
                 selectTime(2);
@@ -212,10 +217,11 @@ public class AddContractActivity extends BaseActivity {
                 mLxrid = data.getStringExtra("lxrid");
                 mLxrname = data.getStringExtra("lxrname");
                 mPhone = data.getStringExtra("phone");
+                mTypesname = data.getStringExtra("typesname");
                 tvUnitName.setText(mClientname);
                 tvContacts.setText(mLxrname);
                 etContactNumber.setText(mPhone);
-                tvUnitType.setText(data.getStringExtra("typesname"));
+                tvUnitType.setText(mTypesname);
                 break;
             case 12://联系人选择结果处理
                 mLxrid = data.getStringExtra("id");

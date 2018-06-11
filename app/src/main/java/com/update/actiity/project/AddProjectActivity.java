@@ -80,6 +80,8 @@ public class AddProjectActivity extends BaseActivity {
 
     private String mBilldate;//单据日期
     private String mClientid;// 单位ID
+    private String mClientname;// 单位名称
+    private String mTypesname;// 单位类型
     private String mProjecttype;// 项目类型id
     private String mContractid;// 合同ID
     private String mGmid;//阶段ID
@@ -101,6 +103,9 @@ public class AddProjectActivity extends BaseActivity {
         mMap = new ArrayMap<>();
         mParmMap = new ArrayMap<>();
         mDate = new Date();
+        mClientid = getIntent().getStringExtra("clientid");
+        mClientname = getIntent().getStringExtra("clientname");
+        mTypesname = getIntent().getStringExtra("typesname");
 
     }
 
@@ -124,7 +129,8 @@ public class AddProjectActivity extends BaseActivity {
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
         mEmpid=ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
-
+        tvUnitName.setText(mClientname);
+        tvUnitType.setText(mTypesname);
 
 
         tvStartTime.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//起始时间默认当天

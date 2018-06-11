@@ -120,6 +120,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 
 
     private String clientid;//客户ID
+    private String mClientname;// 单位名称
     private String lxrid;//联系人ID
     private String sxfsid;// 服务方式ID
     private String billdate;//生产日期
@@ -146,7 +147,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         presenter = new BaseP(this, this);
         mParmMap = new HashMap<String, Object>();
         mFileChooseDatas = new ArrayList<>();
-        mChooseGoodsDataList=new ArrayList<>();
+        mChooseGoodsDataList = new ArrayList<>();
 
         mGson = new GsonBuilder().disableHtmlEscaping().create();
         billdate = DateUtil.DateToString(new Date(), "yyyy-MM-dd");
@@ -177,9 +178,9 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         tvRatingCategory.setText("复杂安装");
         priorid = "0";
         tvPriority.setText("普通");
-        departmentid=ShareUserInfo.getKey(this, "departmentid");
+        departmentid = ShareUserInfo.getKey(this, "departmentid");
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
-        empid=ShareUserInfo.getKey(this, "empid");
+        empid = ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
         rlProfileInformation.setVisibility(View.GONE);//未添加概况信息，概况信息隐藏
 
@@ -189,13 +190,13 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getChooseGoodsResultHolder(AddInstallRegistrationActivity.this,parent);
+                return ViewHolderFactory.getChooseGoodsResultHolder(AddInstallRegistrationActivity.this, parent);
             }
 
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, ChooseGoodsData data) {
                 holder.tvRegistrationNumber.setText("登记数量：" + data.getNumber() + "个");
-                holder.tvGoodsInformation.setText(data.getCode()+"    "+data.getName()+"    "+data.getSpecs()+"    "+data.getModel());
+                holder.tvGoodsInformation.setText(data.getCode() + "    " + data.getName() + "    " + data.getSpecs() + "    " + data.getModel());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -209,7 +210,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             }
 
         });
-         /* 选择文件集合信息处理 */
+        /* 选择文件集合信息处理 */
         rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
         rcvChooseFileList.setAdapter(mFileChooseAdapter = new FileChooseAdapter(this) {
             @Override
@@ -290,7 +291,10 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 if (TextUtils.isEmpty(clientid))
                     showShortToast("请先选择单位");
                 else {
-                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class).putExtra("clientid", clientid), 13);
+                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+                                    .putExtra("clientid", clientid)
+                                    .putExtra("clientname", mClientname),
+                            13);
                 }
                 break;
             case R.id.ll_submit_time_choice://报送时间选择
@@ -341,8 +345,9 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         switch (requestCode) {
             case 11://单位选择结果处理
                 clientid = data.getStringExtra("id");
+                mClientname = data.getStringExtra("name");
                 lxrid = data.getStringExtra("lxrid");
-                tvUnitName.setText(data.getStringExtra("name"));
+                tvUnitName.setText(mClientname);
                 tvContacts.setText(data.getStringExtra("lxrname"));
                 etContactNumber.setText(data.getStringExtra("phone"));
                 etCustomerAddress.setText(data.getStringExtra("shipto"));
@@ -369,7 +374,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 tvPriority.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 17://商品选择结果处理
-                List<ChooseGoodsData> list= mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
+                List<ChooseGoodsData> list = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<ChooseGoodsData>>() {
                 }.getType());
                 mChooseGoodsDataList.addAll(list);
                 mAdapter.setList(mChooseGoodsDataList);
@@ -440,9 +445,9 @@ public class AddInstallRegistrationActivity extends BaseActivity {
      * @param i
      */
     public void selectTime(final int i) {
-        if(i==0){
+        if (i == 0) {
             mTimePickerView = new TimePickerView(this, TimePickerView.Type.ALL);
-        }else {
+        } else {
             mTimePickerView = new TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY);
         }
 
@@ -499,7 +504,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 //            showShortToast("请输入报送人姓名");
 //            return;
 //        }
-        if (mOverviewData == null &&( mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0)) {
+        if (mOverviewData == null && (mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0)) {
             showShortToast("请添加商品明细");
             return;
         }
@@ -521,7 +526,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         master.setShipto(shipto);
         master.setBilldate(tvDocumentDate.getText().toString());
         master.setProjectid(mProjectid);
-        master.setBsrq(tvSubmitTime.getText().toString().replace(":","|"));
+        master.setBsrq(tvSubmitTime.getText().toString().replace(":", "|"));
         master.setBxr(bxr);
         master.setSxfsid(sxfsid);
         master.setRegtype(regtype);
