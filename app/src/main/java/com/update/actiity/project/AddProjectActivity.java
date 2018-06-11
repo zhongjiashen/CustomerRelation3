@@ -80,6 +80,9 @@ public class AddProjectActivity extends BaseActivity {
     private String mBilldate;//单据日期
     private String mClientid;// 单位ID
     private String mClientname;// 单位名称
+    private String mLxrid;// 联系人ID
+    private String mLxrname;//联系人姓名
+    private String mPhone;// 联系電話
     private String mTypesname;// 单位类型
     private String mProjecttype;// 项目类型id
     private String mContractid;// 合同ID
@@ -167,6 +170,11 @@ public class AddProjectActivity extends BaseActivity {
                 else
                     startActivityForResult(new Intent(this, ChoiceContractActivity.class)
                                     .putExtra("clientid", mClientid)
+                                    .putExtra("clientname", mClientname)
+                                    .putExtra("lxrid", mLxrid)
+                                    .putExtra("lxrname", mLxrname)
+                                    .putExtra("phone", mPhone)
+                                    .putExtra("typesname", mTypesname)
                             , 12);
                 break;
             case R.id.ll_project_type_choice://项目类型
@@ -203,8 +211,13 @@ public class AddProjectActivity extends BaseActivity {
         switch (requestCode) {
             case 11://单位选择结果处理
                 mClientid = data.getStringExtra("id");
-                tvUnitName.setText(data.getStringExtra("name"));
-                tvUnitType.setText(data.getStringExtra("typesname"));
+                mClientname = data.getStringExtra("name");
+                mLxrid = data.getStringExtra("lxrid");
+                mLxrname = data.getStringExtra("lxrname");
+                mPhone = data.getStringExtra("phone");
+                mTypesname = data.getStringExtra("typesname");
+                tvUnitName.setText(mClientname);
+                tvUnitType.setText(mTypesname);
                 break;
             case 12://联系人选择结果处理
                 mContractid = data.getStringExtra("contractid");

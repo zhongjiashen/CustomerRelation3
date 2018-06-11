@@ -1,15 +1,16 @@
 package com.update.actiity.contract;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.common.CommonXzdwActivity;
-import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -28,6 +29,7 @@ import java.util.Date;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -73,6 +75,8 @@ public class AddContractActivity extends BaseActivity {
     TextView tvSalesman;
     @BindView(R.id.et_abstract)
     EditText etAbstract;
+    @BindView(R.id.ll_unit_name_choice)
+    LinearLayout llUnitNameChoice;
 
 
     private TimePickerView mTimePickerView;//时间选择弹窗
@@ -98,6 +102,16 @@ public class AddContractActivity extends BaseActivity {
      */
     @Override
     protected void initVariables() {
+        mClientid = getIntent().getStringExtra("clientid");
+//        if (TextUtils.isEmpty(mClientid))
+//            mClientid = "0";
+        mClientname = getIntent().getStringExtra("clientname");
+        mLxrid = getIntent().getStringExtra("lxrid");
+        mLxrname = getIntent().getStringExtra("lxrname");
+        mPhone = getIntent().getStringExtra("phone");
+        mTypesname = getIntent().getStringExtra("typesname");
+
+
         presenter = new BaseP(this, this);
         mGson = new Gson();
         mMap = new ArrayMap<>();
@@ -125,10 +139,18 @@ public class AddContractActivity extends BaseActivity {
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
         mEmpid = ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
-
-
         tvStartTime.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//起始时间默认当天
         tvDocumentDate.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//单据日期默认当日
+
+
+        if (!TextUtils.isEmpty(mClientid)) {
+            tvUnitName.setText(mClientname);
+            tvContacts.setText(mLxrname);
+            etContactNumber.setText(mPhone);
+            tvUnitType.setText(mTypesname);
+            llUnitNameChoice.setEnabled(false);
+
+        }
     }
 
     /**
@@ -358,5 +380,12 @@ public class AddContractActivity extends BaseActivity {
             setResult(RESULT_OK);
             finish();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

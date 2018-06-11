@@ -69,6 +69,11 @@ public class ChoiceContractActivity extends BaseActivity implements
 
 
     private String mClientid;// 单位ID
+    private String mClientname;// 单位名称
+    private String mLxrid;// 联系人ID
+    private String mLxrname;//联系人姓名
+    private String mPhone;// 联系電話
+    private String mTypesname;// 单位类型
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -76,9 +81,13 @@ public class ChoiceContractActivity extends BaseActivity implements
     @Override
     protected void initVariables() {
         mClientid = getIntent().getStringExtra("clientid");
-        if (TextUtils.isEmpty(mClientid))
-            mClientid = "0";
-
+//        if (TextUtils.isEmpty(mClientid))
+//            mClientid = "0";
+        mClientname = getIntent().getStringExtra("clientname");
+        mLxrid =getIntent().getStringExtra("lxrid");
+        mLxrname =getIntent().getStringExtra("lxrname");
+        mPhone =getIntent().getStringExtra("phone");
+        mTypesname = getIntent().getStringExtra("typesname");
 
         presenter = new BaseP(this, this);
         mParmMap = new ArrayMap<>();
@@ -93,10 +102,10 @@ public class ChoiceContractActivity extends BaseActivity implements
         mParmMap.put("opid", ShareUserInfo.getUserId(this));//登录操作员ID
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("tabname", "tb_contract");
-        mParmMap.put("clientid", "0");
+        mParmMap.put("clientid", mClientid);
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
+
     }
 
     private void http() {
@@ -110,6 +119,12 @@ public class ChoiceContractActivity extends BaseActivity implements
         mParmMap.put("empid", mEmpid);//业务员ID (没有的话传空或0)
         mParmMap.put("curpage", page_number);//当前页
         presenter.post(0, ServerURL.BILLLIST, mParmMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
     }
 
     /**
@@ -173,7 +188,13 @@ public class ChoiceContractActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-                        startActivity(new Intent(ChoiceContractActivity.this, AddContractActivity.class));
+                        startActivity(new Intent(ChoiceContractActivity.this, AddContractActivity.class)
+                                .putExtra("clientid", mClientid)
+                                .putExtra("clientname", mClientname)
+                                .putExtra("lxrid", mLxrid)
+                                .putExtra("lxrname", mLxrname)
+                                .putExtra("phone", mPhone)
+                                .putExtra("typesname", mTypesname));
                         break;
                     case 1://打开右边侧滑菜单
                         startActivityForResult(new Intent(ChoiceContractActivity.this, ScreeningProjectActivity.class)
@@ -195,7 +216,7 @@ public class ChoiceContractActivity extends BaseActivity implements
                 mEmpid = data.getStringExtra("empid");
                 mShzt = data.getStringExtra("shzt");
 
-                http();
+
                 break;
         }
     }
