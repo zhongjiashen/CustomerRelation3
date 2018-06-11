@@ -87,9 +87,14 @@ public class CommonXzdwActivity extends BaseActivity implements OnClickListener 
 			    intent.putExtra("name", map.get("cname").toString());
 			    intent.putExtra("types", map.get("types").toString());
 			    intent.putExtra("code", map.get("code").toString());
+
 			    intent.putExtra("yf", map.get("suramt").toString());
                 intent.putExtra("yf2", map.get("balance").toString());
                 intent.putExtra("qk", map.get("oweamt").toString());
+				intent.putExtra("lxrid", map.get("lxrid").toString());
+				intent.putExtra("lxrname", map.get("lxrname").toString());
+				intent.putExtra("typesname", map.get("typesname").toString());
+				intent.putExtra("phone", map.get("phone").toString());
 			    setResult(RESULT_OK, intent);
 			    finish();
 			}

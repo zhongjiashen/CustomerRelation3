@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.tools.ShareUserInfo;
@@ -149,7 +150,8 @@ public class AddContractActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_unit_name_choice://单位选择
-                startActivityForResult(new Intent(this, CommonXzkhActivity.class), 11);
+                startActivityForResult(new Intent(this, CommonXzdwActivity.class).putExtra("type", "0"), 11);
+//                startActivityForResult(new Intent(this, CommonXzkhActivity.class), 11);
                 break;
             case R.id.ll_contacts_choice://联系人选择
                 if (TextUtils.isEmpty(mClientid))
