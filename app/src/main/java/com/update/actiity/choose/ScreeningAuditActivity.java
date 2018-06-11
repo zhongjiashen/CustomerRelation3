@@ -48,7 +48,7 @@ public class ScreeningAuditActivity extends BaseActivity {
     private int kind;
     String mZdbm;
     private TimePickerView mTimePickerView;//时间选择弹窗
-
+    private  String mBilltypeid;//单据类型ID
     private String mDepartmentid;//部门ID
     private String mEmpid;//业务员
     private String mShzt;//(0未审 1已审 2 审核中   9全部)
@@ -127,6 +127,8 @@ public class ScreeningAuditActivity extends BaseActivity {
                 selectTime(1);
                 break;
             case R.id.ll_document_type:
+                startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
+                        .putExtra("zdbm", "DJLX").putExtra("title", "单据类型选择"), 11);
                 break;
             case R.id.ll_audit_status:
                 startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class).putExtra("kind",5), 12);
@@ -157,9 +159,9 @@ public class ScreeningAuditActivity extends BaseActivity {
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         super.onMyActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 11://阶段
-                mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
-                tvDepartment.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+            case 11://单据类型
+                mBilltypeid = data.getStringExtra("CHOICE_RESULT_ID");
+                tvDocumentType.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
             case 12://审核状态
                 tvAuditStatus.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
