@@ -122,6 +122,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     private String clientid;//客户ID
     private String mClientname;// 单位名称
     private String lxrid;//联系人ID
+    private String mTypesname;// 单位类型
     private String sxfsid;// 服务方式ID
     private String billdate;//生产日期
     private String bsrq;//报送日期
@@ -293,7 +294,8 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 else {
                     startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
                                     .putExtra("clientid", clientid)
-                                    .putExtra("clientname", mClientname),
+                                    .putExtra("clientname", mClientname)
+                                    .putExtra("typesname", mTypesname),
                             13);
                 }
                 break;
@@ -347,6 +349,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
                 clientid = data.getStringExtra("id");
                 mClientname = data.getStringExtra("name");
                 lxrid = data.getStringExtra("lxrid");
+                mTypesname = data.getStringExtra("typesname");
                 tvUnitName.setText(mClientname);
                 tvContacts.setText(data.getStringExtra("lxrname"));
                 etContactNumber.setText(data.getStringExtra("phone"));
