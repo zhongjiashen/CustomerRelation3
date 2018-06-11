@@ -20,6 +20,10 @@ import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ScreeningAuditActivity;
 import com.update.actiity.contract.ContractActivity;
 import com.update.actiity.installation.InstallRegistrationDetailsActivity;
+import com.update.actiity.installation.InstallationDetailsActivity;
+import com.update.actiity.logistics.LogisticsActivity;
+import com.update.actiity.maintenance.DetectionDetailsActivity;
+import com.update.actiity.maintenance.MaintenanceDetailsActivity;
 import com.update.actiity.project.ProjectActivity;
 import com.update.actiity.sales.SalesOpportunitiesActivity;
 import com.update.base.BaseActivity;
@@ -193,25 +197,40 @@ public class MyAuditListActivity extends BaseActivity implements
                                     startActivityForResult(new Intent(MyAuditListActivity.this, InstallRegistrationDetailsActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
+                                case "AZZX"://安装执行
+                                    startActivityForResult(new Intent(MyAuditListActivity.this, InstallationDetailsActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                                    break;
+                                case "JCWX"://检测维修
+                                    startActivityForResult(new Intent(MyAuditListActivity.this,  DetectionDetailsActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                                    break;
+                                case "WXDJ"://维修登记单
+                                    startActivityForResult(new Intent(MyAuditListActivity.this,  MaintenanceDetailsActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                                    break;
                                 case "XMD"://项目单
                                     startActivity(new Intent(MyAuditListActivity.this, ProjectActivity.class)
-                                            .putExtra("billid", data.getBillid()+"")
-                                            .putExtra("shzt", data.getShzt()));
+                                            .putExtra("billid", data.getBillid()+""));
                                     break;
                                 case "XSJH"://销售机会单
                                     startActivity(new Intent(MyAuditListActivity.this, SalesOpportunitiesActivity.class)
-                                            .putExtra("billid", data.getBillid()+"")
-                                            .putExtra("shzt", data.getShzt()));
+                                            .putExtra("billid", data.getBillid()+""));
                                     break;
                                 case "XSHT"://销售合同单
                                     startActivity(new Intent(MyAuditListActivity.this, ContractActivity.class)
-                                            .putExtra("billid", data.getBillid() + "")
-                                            .putExtra("shzt", data.getShzt()));
+                                            .putExtra("billid", data.getBillid() + ""));
                                     break;
                                 case "XSKD"://销售开单
+                                    showShortToast(data.getBilltypename());
                                     break;
                                 case "WLD"://物流单
+                                    startActivity(new Intent(MyAuditListActivity.this, LogisticsActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
                                     break;
+                                    default:
+                                        showShortToast(data.getBilltypename());
+                                        break;
                             }
                         }
 
@@ -277,7 +296,7 @@ public class MyAuditListActivity extends BaseActivity implements
     @Override
     public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
         mParmMap.put("curpage", (page_number + 1));
-        presenter.post(0, "waitbillshlist", mParmMap);
+        presenter.post(1, "waitbillshlist", mParmMap);
     }
 
     /**
