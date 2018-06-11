@@ -291,7 +291,7 @@ public class LogisticsManagementActivity extends BaseActivity implements
                 mQsrq = data.getStringExtra("qsrq");
                 mZzrq = data.getStringExtra("zzrq");
                 mShzt = data.getStringExtra("shzt");
-                mBilltype= data.getStringExtra("sbilltype");
+                mBilltype= data.getStringExtra("billtype");
                 mCname = data.getStringExtra("cname");
                 mShipcname= data.getStringExtra("shipcname");
 
