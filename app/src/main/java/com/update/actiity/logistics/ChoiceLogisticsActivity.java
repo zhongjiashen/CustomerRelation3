@@ -7,6 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshActivity;
+import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshAddActivity;
+import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthActivity;
+import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthAddActivity;
+import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdActivity;
+import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdAddActivity;
+import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdActivity;
+import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdAddActivity;
+import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthActivity;
+import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthAddActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -19,6 +29,7 @@ import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.request.RqChoiceLogisticsListData;
 import com.update.model.request.RqProjectListData;
+import com.update.model.request.WldlxtTabData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
@@ -35,7 +46,7 @@ import butterknife.BindView;
  * Author:    申中佳
  * Version    V1.0
  * Date:      2018/3/28 0028 下午 3:04
- * Description:合同管理表
+ * Description:物理单据引用界面
  * Modification  History:
  * Date         	Author        		Version        	Description
  * -----------------------------------------------------------------------------------
@@ -66,11 +77,14 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
     private List<RqChoiceLogisticsListData> mList;
 
 
+    private String mBilltype;//单据类型
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
+        mBilltype = getIntent().getStringExtra("billtype");
         presenter = new BaseP(this, this);
         mParmMap = new ArrayMap<>();
         mGson = new Gson();
@@ -79,7 +93,7 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
         mQsrq = DateUtil.DateToString(mDate, "yyyy-MM-") + "01";
         mZzrq = DateUtil.DateToString(mDate, "yyyy-MM-dd");
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
-        mParmMap.put("billtype", "1");//每页加载数据大小
+        mParmMap.put("billtype", mBilltype);//每页加载数据大小
         mParmMap.put("pagesize", "10");//每页加载数据大小
         http();
     }
@@ -115,7 +129,7 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getChoiceProjectHolder(ChoiceLogisticsActivity.this,parent);
+                return ViewHolderFactory.getChoiceProjectHolder(ChoiceLogisticsActivity.this, parent);
             }
 
             @Override
@@ -131,12 +145,12 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
                     public void onClick(View v) {
 //                        是否代收代付、代收代付账户、代收代付金额是根据所选择的关联单据带过来的信息，不可修改
                         Intent intent = new Intent();
-                        intent.putExtra("referbillid",data.getBillid()+"");//引用单ID
-                        intent.putExtra("code",data.getCode());//引用单据编号
-                        intent.putExtra("isproxy",data.getIsproxy()+"");//代收金额
-                        intent.putExtra("bankid",data.getBankid()+"");//代收账户ID
-                        intent.putExtra("bankname",data.getBankid()+"");//代收账户名称
-                        intent.putExtra("proxyamt",data.getProxyamt()+"");//代收金额
+                        intent.putExtra("referbillid", data.getBillid() + "");//引用单ID
+                        intent.putExtra("code", data.getCode());//引用单据编号
+                        intent.putExtra("isproxy", data.getIsproxy() + "");//代收金额
+                        intent.putExtra("bankid", data.getBankid() + "");//代收账户ID
+                        intent.putExtra("bankname", data.getBankid() + "");//代收账户名称
+                        intent.putExtra("proxyamt", data.getProxyamt() + "");//代收金额
 
                         setResult(RESULT_OK, intent);
                         finish();
@@ -152,20 +166,89 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
      * 标题头设置
      */
     private void setTitlebar() {
-        titlebar.setTitleText(this, "合同");
-        titlebar.setIvRightTwoImageResource(R.drawable.oper);
-        titlebar.setIvRightImageResource(R.mipmap.ic_add);
+        Gson gson = new Gson();
+        List<WldlxtTabData> list = gson.fromJson(getIntent().getStringExtra("data"),
+                new TypeToken<List<WldlxtTabData>>() {
+                }.getType());
+        String title = "";
+        final Intent intent=new Intent();
+        for (int i = 0; i < list.size(); i++) {
+            if (mBilltype.equals(list.get(i).getId() + "")) {
+                switch (list.get(i).getDictmc()) {
+                    case "tb_received":
+                        title = "采购收货";
+                        intent.setClass(mActivity, JxcCgglCgshAddActivity.class);
+//                        startActivityForResult(new Intent(this, JxcCgglCgshActivity.class)
+//                                        .putExtra("select", ""),
+//                                14);
+                        break;
+                    case "tb_preturn":
+                        title = "采购退货";
+                        intent.setClass(mActivity, JxcCgglCgthAddActivity.class);
+//                        startActivityForResult(new Intent(this, JxcCgglCgthActivity.class)
+//                                        .putExtra("select", ""),
+//                                14);
+                        break;
+                    case "tb_invoice":
+                        title = "销售开单";
+                        intent.setClass(mActivity, JxcXsglXskdAddActivity.class);
+//                        startActivityForResult(new Intent(this, JxcXsglXskdActivity.class)
+//                                        .putExtra("select", ""),
+//                                14);
+                        break;
+                    case "tb_sreturn":
+                        title = "销售退货";
+                        intent.setClass(mActivity, JxcXsglXsthAddActivity.class);
+//                        startActivityForResult(new Intent(this, JxcXsglXsthActivity.class)
+//                                        .putExtra("select", ""),
+//                                14);
+                        break;
+                    case "tb_inout":
+                        title = "库存变动";
+                        intent.setClass(mActivity, JxcCkglKcbdAddActivity.class);
+//                        startActivityForResult(new Intent(this, JxcCkglKcbdActivity.class)
+//                                        .putExtra("select", ""),
+//                                14);
+                        break;
+                    case "tb_assetsin":
+
+
+                        break;
+                    case "tb_assetsout":
+
+                        break;
+                    case "syn_invoice_wxd":
+
+                        break;
+                    case "tb_backfact":
+
+                        break;
+                    case "tb_svchange":
+
+                        break;
+                    case "syn_invoice_azd":
+
+                        break;
+
+
+                }
+            }
+        }
+        titlebar.setTitleText(this, "选择单据");
+//        titlebar.setIvRightTwoImageResource(R.drawable.oper);
+        titlebar.setIvRightImageResource(R.drawable.oper);
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
-                        startActivity(new Intent(ChoiceLogisticsActivity.this, AddContractActivity.class));
-                        break;
-                    case 1://打开右边侧滑菜单
                         startActivityForResult(new Intent(ChoiceLogisticsActivity.this, ScreeningProjectActivity.class)
                                 .putExtra("kind", 1), 11);
                         break;
+//                    case 1://打开右边侧滑菜单
+//                        startActivityForResult(new Intent(ChoiceLogisticsActivity.this, ScreeningProjectActivity.class)
+//                                .putExtra("kind", 1), 11);
+//                        break;
                 }
             }
         });

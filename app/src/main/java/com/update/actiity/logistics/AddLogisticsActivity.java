@@ -11,21 +11,32 @@ import android.widget.TextView;
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
+import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshActivity;
+import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity;
+import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthActivity;
+import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdActivity;
+import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdActivity;
+import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthActivity;
+import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.LocalDataSingleOptionActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
+import com.update.model.DataDictionaryData;
+import com.update.model.request.WldlxtTabData;
 import com.update.utils.DateUtil;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -204,7 +215,12 @@ public class AddLogisticsActivity extends BaseActivity {
                 if (mBilltype.equals("9")) {
                     showShortToast("单据类型选择了其他，则选择关联单据项不可点击");
                 } else {
-                    startActivityForResult(new Intent(this, ChoiceLogisticsActivity.class), 14);
+
+                    Map map = new ArrayMap();
+                    map.put("dbname", ShareUserInfo.getDbName(this));
+                    map.put("zdbm", "WLDLXTAB");
+                    presenter.post(1, ServerURL.DATADICT, map);
+
                 }
                 break;
             case R.id.ll_unit_name_choice://收货单位选择
@@ -299,7 +315,7 @@ public class AddLogisticsActivity extends BaseActivity {
                 if (tvDocumentType.getText().toString().equals("采购收货") || tvDocumentType.getText().toString().equals("资产购置")) {
                     tvDszhbt.setText("代付账号");
                     tvDsjebt.setText("代付金额");
-                }else {
+                } else {
                     tvDszhbt.setText("代收账户");
                     tvDsjebt.setText("代收金额");
                 }
@@ -473,20 +489,28 @@ public class AddLogisticsActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        String result = (String) data;
-        if (TextUtils.isEmpty(result) || result.equals("false")) {
+        switch (requestCode) {
+            case 0:
+                String result = (String) data;
+                if (TextUtils.isEmpty(result) || result.equals("false")) {
+                    showShortToast("添加失败");
+                } else {
+                    showShortToast("添加成功");
+                    setResult(RESULT_OK);
+                    finish();
+                }
+                break;
+            case 1:
+                LogUtils.e(data.toString());
+                startActivityForResult(new Intent(this, ChoiceLogisticsActivity.class)
+                                .putExtra("billtype", mBilltype)
+                                .putExtra("data", data.toString())
+                        , 14);
 
-        } else {
-            showShortToast("添加成功");
-            setResult(RESULT_OK);
-            finish();
+
+                break;
         }
+
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
