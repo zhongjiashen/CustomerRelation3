@@ -603,13 +603,20 @@ public class InstallationDetailsActivity extends BaseActivity {
 //        planinfo  安装措施
 //        serialinfo  序列号GUID
 //        opid      操作员ID
-
+        double yesqty=Double.parseDouble(etInstallationNumber.getText().toString());
+        double noqty=Double.parseDouble(etUnloaded.getText().toString());
+        double number=yesqty+noqty;
+        if(mData.getUnitqty()<number){
+            showShortToast("合计数量大于登记数量！");
+            return;
+        }
+        mDetail.setYesqty( yesqty+ "");
+        mDetail.setNoqty(noqty  + "");
         mDetail.setBillid(mData.getBillid() + "");
         mDetail.setItemno(mData.getItemno() + "");
         mDetail.setWxjgid(mData.getWxjgid() + "");
         mDetail.setIsreturn(mData.getIsreturn() + "");
-        mDetail.setYesqty(etInstallationNumber.getText().toString() + "");
-        mDetail.setNoqty(etUnloaded.getText().toString()  + "");
+
         if (!TextUtils.isEmpty(mData.getBegindate()))
             mDetail.setBegindate(mData.getBegindate().replace(":", "|"));
         if (!TextUtils.isEmpty(mData.getEnddate()))
