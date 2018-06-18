@@ -220,7 +220,7 @@ public class SalesOpportunitiesActivity extends BaseActivity {
      * @param data
      */
     private void setData(RqSalesOpportunitiesData data) {
-        tvReceiptNumber.setText("单据编号:" + data.getCode());//单据编号设置
+        tvReceiptNumber.setText(data.getCode());//单据编号设置
         switch (data.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
             case 0://未审
                 tvAuditStatus.setText("未审核");

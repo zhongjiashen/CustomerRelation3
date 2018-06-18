@@ -155,7 +155,7 @@ public class ContractManagementActivity extends BaseActivity implements
             @Override
             protected void MyonBindViewHolder(ViewHolderFactory.ProjectHolder holder, final RqProjectListData data) {
                 holder.tvData.setText(data.getBilldate());
-                holder.tvReceiptNumber.setText("单据编号:" + data.getCode());//单据编号设置
+                holder.tvReceiptNumber.setText(data.getCode());//单据编号设置
                 holder.tvCompanyName.setText(data.getCname());//公司名称设置
                 switch (data.getShzt()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
                     case 0://未审

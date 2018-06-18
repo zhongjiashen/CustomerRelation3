@@ -144,7 +144,7 @@ public class ChoiceOpportunitiesActivity extends BaseActivity implements
 
             @Override
             protected void MyonBindViewHolder(ViewHolderFactory.ChoiceProjectHolder holder, final RqProjectListData data) {
-                holder.tvReceiptNumber.setText("单据编号:" + data.getCode());//单据编号设置
+                holder.tvReceiptNumber.setText(data.getCode());//单据编号设置
                 holder.tvCompanyName.setText(data.getCname());//公司名称设置
 
                 holder.tvPhase.setText("阶段：" + data.getGmmc());

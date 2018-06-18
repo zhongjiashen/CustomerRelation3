@@ -134,7 +134,7 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
 
             @Override
             protected void MyonBindViewHolder(ViewHolderFactory.ChoiceProjectHolder holder, final RqChoiceLogisticsListData data) {
-                holder.tvReceiptNumber.setText("单据编号:" + data.getCode());//单据编号设置
+                holder.tvReceiptNumber.setText(data.getCode());//单据编号设置
                 holder.tvCompanyName.setText(data.getShipcname());//公司名称设置
 
                 holder.tvMoney.setText("单据日期：" + data.getBilldate());
