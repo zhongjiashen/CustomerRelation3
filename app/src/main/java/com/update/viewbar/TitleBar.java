@@ -2,6 +2,8 @@ package com.update.viewbar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,7 @@ public class TitleBar extends RelativeLayout {
         initView(context);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TitleBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView(context);
@@ -86,6 +89,10 @@ public class TitleBar extends RelativeLayout {
     public void setRightText(String text) {
         tvRight.setVisibility(VISIBLE);
         tvRight.setText(text);
+    }
+
+    public void setTvRightEnabled(boolean enabled) {
+        tvRight.setClickable(enabled);
     }
 
     /**
@@ -135,6 +142,7 @@ public class TitleBar extends RelativeLayout {
                 break;
             case R.id.tv_right:
                 mTitleOnlicListener.onClick(2);
+
                 break;
         }
     }

@@ -265,6 +265,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 //                            @Override
 //                            public void run(){
 //                                super.run();
+                        titlebar.setTvRightEnabled(false);
                         addInstallRegistration();
 //                            }
 //                        }.start();
@@ -489,16 +490,21 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     private void addInstallRegistration() {
         if (TextUtils.isEmpty(clientid)) {
             showShortToast("请先选择单位");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String phone = etContactNumber.getText().toString();
         if (TextUtils.isEmpty(phone)) {
+            titlebar.setTvRightEnabled(true);
             showShortToast("请输入联系电话");
+
             return;
         }
         String shipto = etCustomerAddress.getText().toString();
         if (TextUtils.isEmpty(shipto)) {
+            titlebar.setTvRightEnabled(true);
             showShortToast("请输入客户地址");
+
             return;
         }
 
@@ -509,14 +515,17 @@ public class AddInstallRegistrationActivity extends BaseActivity {
 //        }
         if (mOverviewData == null && (mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0)) {
             showShortToast("请添加商品明细");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         if (TextUtils.isEmpty(departmentid)) {
             showShortToast("请先选择部门");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         if (TextUtils.isEmpty(empid)) {
             showShortToast("请先选择业务员");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 
@@ -651,6 +660,16 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         } else {
             showShortToast("添加成功");
             finish();
+        }
+    }
+
+    @Override
+    public void httpFinish(int requestCode) {
+        super.httpFinish(requestCode);
+        switch (requestCode){
+            case 0:
+                titlebar.setTvRightEnabled(true);
+                break;
         }
     }
 }
