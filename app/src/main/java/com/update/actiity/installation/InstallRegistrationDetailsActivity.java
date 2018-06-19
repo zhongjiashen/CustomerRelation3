@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -245,11 +246,17 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
         switch (view.getId()) {
 
             case R.id.bt_sh:
-                Map map = new ArrayMap<>();
-                map.put("dbname", ShareUserInfo.getDbName(this));
-                map.put("tabname", "tb_installreg");
-                map.put("pkvalue", billid);
-                presenter.post(3, "billshlist", map);
+                Intent intent = new Intent();
+                intent.putExtra("billid", billid);
+                intent.putExtra("tb", "tb_installreg");
+                intent.putExtra("opid", ShareUserInfo.getUserId(this));
+                intent.setClass(mActivity, JxcCgglCgddShlcActivity.class);
+                startActivityForResult(intent, 11);
+//                Map map = new ArrayMap<>();
+//                map.put("dbname", ShareUserInfo.getDbName(this));
+//                map.put("tabname", "tb_installreg");
+//                map.put("pkvalue", billid);
+//                presenter.post(3, "billshlist", map);
                 break;
             case R.id.bt_delete:
                 DialogFactory.getButtonDialog(this, "确定要删除该单据吗？", new OnDialogClickInterface() {
@@ -475,6 +482,12 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                 });
 
     }
-
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 11:
+                presenter.post(0, ServerURL.BILLMASTER, mParmMap);
+                break;
+        }
+    }
 
 }
