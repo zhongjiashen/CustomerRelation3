@@ -152,6 +152,7 @@ public class AddProjectActivity extends BaseActivity {
                 switch (i) {
                     case 2:
                         saveProject();
+                        titlebar.setTvRightEnabled(false);
                         break;
 
                 }
@@ -284,11 +285,13 @@ public class AddProjectActivity extends BaseActivity {
 //        新增项目单据，除单位名称、项目名称、部门业务员是必填的，其他的都不是必填项，目前是不填写不能保存；
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择单位名称！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String title = etProjectName.getText().toString();
         if (TextUtils.isEmpty(title)) {
             showShortToast("请输入项目名称！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 //        if (TextUtils.isEmpty(mProjecttype)) {
@@ -311,6 +314,7 @@ public class AddProjectActivity extends BaseActivity {
 //        }
         if (TextUtils.isEmpty(mDepartmentid)) {
             showShortToast("请先选择部门");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 //        if (TextUtils.isEmpty(mEmpid)) {
@@ -341,7 +345,15 @@ public class AddProjectActivity extends BaseActivity {
         mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }
-
+    @Override
+    public void httpFinish(int requestCode) {
+        super.httpFinish(requestCode);
+        switch (requestCode){
+            case 0:
+                titlebar.setTvRightEnabled(true);
+                break;
+        }
+    }
     /**
      * 网路请求返回数据
      *

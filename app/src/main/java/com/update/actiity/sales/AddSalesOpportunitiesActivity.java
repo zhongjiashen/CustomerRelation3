@@ -150,6 +150,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
                 switch (i) {
                     case 2:
                         saveOpportunities();
+                        titlebar.setTvRightEnabled(false);
                         break;
 
                 }
@@ -265,6 +266,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
 //        销售机会单据除了单位名称、机会名称、部门为必填，其他的都不是必填项，目前是不填写不能保存
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择单位名称！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String phone = etContactNumber.getText().toString();
@@ -275,6 +277,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         String title = etOpportunitiesName.getText().toString();
         if (TextUtils.isEmpty(title)) {
             showShortToast("请输入机会名称！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 
@@ -304,6 +307,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
 //        }
         if (TextUtils.isEmpty(mDepartmentid)) {
             showShortToast("请先选择部门");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 //        if (TextUtils.isEmpty(mEmpid)) {
@@ -335,7 +339,15 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }
-
+    @Override
+    public void httpFinish(int requestCode) {
+        super.httpFinish(requestCode);
+        switch (requestCode){
+            case 0:
+                titlebar.setTvRightEnabled(true);
+                break;
+        }
+    }
     /**
      * 网路请求返回数据
      *

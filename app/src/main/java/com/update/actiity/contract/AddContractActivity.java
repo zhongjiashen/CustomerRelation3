@@ -165,6 +165,7 @@ public class AddContractActivity extends BaseActivity {
                 switch (i) {
                     case 2:
                         saveContract();
+                        titlebar.setTvRightEnabled(false);
                         break;
 
                 }
@@ -308,16 +309,19 @@ public class AddContractActivity extends BaseActivity {
 //        41.新增合同单据时，合同金额、截止日期不是必须填写的，目前是不填写保存不了
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择单位名称！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String phone = etContactNumber.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             showShortToast("请输入联系电话");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String title = etContractName.getText().toString();
         if (TextUtils.isEmpty(title)) {
             showShortToast("请输入合同名称！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 
@@ -333,6 +337,7 @@ public class AddContractActivity extends BaseActivity {
 //        }
         if (TextUtils.isEmpty(mDepartmentid)) {
             showShortToast("请先选择部门");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 //        if (TextUtils.isEmpty(mEmpid)) {
@@ -361,6 +366,15 @@ public class AddContractActivity extends BaseActivity {
         mParmMap.put("parms", "XSHT");
         mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
+    }
+    @Override
+    public void httpFinish(int requestCode) {
+        super.httpFinish(requestCode);
+        switch (requestCode){
+            case 0:
+                titlebar.setTvRightEnabled(true);
+                break;
+        }
     }
 
     /**

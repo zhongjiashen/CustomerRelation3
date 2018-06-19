@@ -188,6 +188,7 @@ public class AddLogisticsActivity extends BaseActivity {
                 switch (i) {
                     case 2:
                         saveContract();
+                        titlebar.setTvRightEnabled(false);
                         break;
 
                 }
@@ -412,6 +413,7 @@ public class AddLogisticsActivity extends BaseActivity {
 //        物流公司、收货单位、物流单号、部门为必填
         if (TextUtils.isEmpty(mClientid)) {
             showShortToast("请选择物流公司！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String shipno = etLogisticsNumber.getText().toString();
@@ -426,11 +428,13 @@ public class AddLogisticsActivity extends BaseActivity {
         String phone = etContactNumber.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             showShortToast("请输入联系电话");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String shipto = etShippingAddress.getText().toString();
         if (TextUtils.isEmpty(shipto)) {
             showShortToast("请输入收货地址！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 //
@@ -446,6 +450,7 @@ public class AddLogisticsActivity extends BaseActivity {
 //        }
         if (TextUtils.isEmpty(mDepartmentid)) {
             showShortToast("请先选择部门");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 //        if (TextUtils.isEmpty(mEmpid)) {
@@ -479,7 +484,15 @@ public class AddLogisticsActivity extends BaseActivity {
         mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }
-
+    @Override
+    public void httpFinish(int requestCode) {
+        super.httpFinish(requestCode);
+        switch (requestCode){
+            case 0:
+                titlebar.setTvRightEnabled(true);
+                break;
+        }
+    }
     /**
      * 网路请求返回数据
      *
