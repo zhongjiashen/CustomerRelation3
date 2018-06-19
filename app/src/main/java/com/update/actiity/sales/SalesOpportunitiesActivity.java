@@ -1,5 +1,6 @@
 package com.update.actiity.sales;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -261,11 +263,17 @@ public class SalesOpportunitiesActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_sh:
-                Map map = new ArrayMap<>();
-                map.put("dbname", ShareUserInfo.getDbName(this));
-                map.put("tabname", "tb_chance");
-                map.put("pkvalue", mBillid);
-                presenter.post(3, "billshlist", map);
+                Intent intent = new Intent();
+                intent.putExtra("billid", mBillid);
+                intent.putExtra("tb", "tb_chance");
+                intent.putExtra("opid", ShareUserInfo.getUserId(this));
+                intent.setClass(mActivity, JxcCgglCgddShlcActivity.class);
+                startActivityForResult(intent, 11);
+//                Map map = new ArrayMap<>();
+//                map.put("dbname", ShareUserInfo.getDbName(this));
+//                map.put("tabname", "tb_chance");
+//                map.put("pkvalue", mBillid);
+//                presenter.post(3, "billshlist", map);
                 break;
             case R.id.bt_delete:
                 DialogFactory.getButtonDialog(this, "确定要删除该单据吗？", new OnDialogClickInterface() {
@@ -285,6 +293,12 @@ public class SalesOpportunitiesActivity extends BaseActivity {
                 break;
         }
     }
-
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 11:
+                presenter.post(0, ServerURL.BILLMASTER, mParmMap);
+                break;
+        }
+    }
 
 }
