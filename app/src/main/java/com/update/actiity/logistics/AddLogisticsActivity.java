@@ -448,10 +448,10 @@ public class AddLogisticsActivity extends BaseActivity {
             showShortToast("请先选择部门");
             return;
         }
-        if (TextUtils.isEmpty(mEmpid)) {
-            showShortToast("请先选择业务员");
-            return;
-        }
+//        if (TextUtils.isEmpty(mEmpid)) {
+//            showShortToast("请先选择业务员");
+//            return;
+//        }
         mMap.put("billid", "0");//主键ID;0或空表示新增
         mMap.put("clientid", mClientid);//物流公司ID
         mMap.put("billdate", tvDocumentDate.getText().toString()
@@ -506,8 +506,6 @@ public class AddLogisticsActivity extends BaseActivity {
                                 .putExtra("billtype", mBilltype)
                                 .putExtra("data", data.toString())
                         , 14);
-
-
                 break;
         }
 

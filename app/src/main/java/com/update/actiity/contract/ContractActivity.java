@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -27,6 +28,7 @@ import com.update.model.request.RqShlbData;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -236,7 +238,7 @@ public class ContractActivity extends BaseActivity {
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                 break;
             case 1://已审
-                btSh.setText("弃审");
+//                btSh.setText("弃审");
                 tvAuditStatus.setText("已审核");
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 break;
@@ -281,11 +283,17 @@ public class ContractActivity extends BaseActivity {
                             .putExtra("billid", mData.getProjectid() + ""));
                 break;
             case R.id.bt_sh:
-                Map map = new ArrayMap<>();
-                map.put("dbname", ShareUserInfo.getDbName(this));
-                map.put("tabname", "tb_contract");
-                map.put("pkvalue", mBillid);
-                presenter.post(3, "billshlist", map);
+                Intent intent = new Intent();
+                intent.putExtra("billid", mBillid);
+                intent.putExtra("tb", "tb_contract");
+                intent.putExtra("opid", ShareUserInfo.getUserId(this));
+                intent.setClass(mActivity, JxcCgglCgddShlcActivity.class);
+                startActivityForResult(intent, 11);
+//                Map map = new ArrayMap<>();
+//                map.put("dbname", ShareUserInfo.getDbName(this));
+//                map.put("tabname", "tb_contract");
+//                map.put("pkvalue", mBillid);
+//                presenter.post(3, "billshlist", map);
                 break;
             case R.id.bt_delete:
                 DialogFactory.getButtonDialog(this, "确定要删除该单据吗？", new OnDialogClickInterface() {
@@ -306,5 +314,11 @@ public class ContractActivity extends BaseActivity {
         }
     }
 
-
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 11:
+                presenter.post(0, ServerURL.BILLMASTER, mParmMap);
+                break;
+        }
+    }
 }
