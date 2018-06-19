@@ -238,7 +238,7 @@ public class ContractActivity extends BaseActivity {
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                 break;
             case 1://已审
-//                btSh.setText("弃审");
+                btSh.setText("弃审");
                 tvAuditStatus.setText("已审核");
                 tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 break;
