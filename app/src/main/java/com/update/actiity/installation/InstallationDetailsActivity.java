@@ -245,6 +245,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                                     switch (i) {
                                         case 2:
                                             mData.setPlaninfo(etInstallationMeasures.getText().toString());
+                                            titlebar.setTvRightEnabled(false);
                                             saveData();
                                             break;
 
@@ -608,6 +609,7 @@ public class InstallationDetailsActivity extends BaseActivity {
         double number=yesqty+noqty;
         if(mData.getUnitqty()<number){
             showShortToast("合计数量大于登记数量！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         mDetail.setYesqty( yesqty+ "");
@@ -669,5 +671,13 @@ public class InstallationDetailsActivity extends BaseActivity {
         mFileChooseAdapter.setList(mFileChooseDatas);
 
     }
-
+    @Override
+    public void httpFinish(int requestCode) {
+        super.httpFinish(requestCode);
+        switch (requestCode){
+            case 2:
+                titlebar.setTvRightEnabled(true);
+                break;
+        }
+    }
 }

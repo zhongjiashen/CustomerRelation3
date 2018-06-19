@@ -252,6 +252,7 @@ public class DetectionDetailsActivity extends BaseActivity {
 //                                                showShortToast("请选择起始结束时间");
 //                                            else
                                             saveData();
+                                            titlebar.setTvRightEnabled(false);
                                             break;
 
                                     }
@@ -608,6 +609,7 @@ public class DetectionDetailsActivity extends BaseActivity {
         double number=yesqty+noqty;
         if(mData.getUnitqty()<number){
             showShortToast("合计数量大于登记数量！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         mDetail.setBillid(mData.getBillid() + "");
@@ -665,5 +667,14 @@ public class DetectionDetailsActivity extends BaseActivity {
         mFileChooseDatas.add(fileChooseData);
         mFileChooseAdapter.setList(mFileChooseDatas);
 
+    }
+    @Override
+    public void httpFinish(int requestCode) {
+        super.httpFinish(requestCode);
+        switch (requestCode){
+            case 2:
+                titlebar.setTvRightEnabled(true);
+                break;
+        }
     }
 }

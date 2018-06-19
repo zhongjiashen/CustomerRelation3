@@ -263,6 +263,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 switch (i) {
                     case 2:
                         addInstallRegistration();
+                        titlebar.setTvRightEnabled(false);
                         break;
 
                 }
@@ -479,16 +480,20 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
     private void addInstallRegistration() {
         if (TextUtils.isEmpty(clientid)) {
             showShortToast("请先选择单位");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String phone = etContactNumber.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             showShortToast("请输入联系电话");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String shipto = etCustomerAddress.getText().toString();
         if (TextUtils.isEmpty(shipto)) {
             showShortToast("请输入客户地址");
+            titlebar.setTvRightEnabled(true);
+            titlebar.setTvRightEnabled(true);
             return;
         }
         String bxr = etMessenger.getText().toString();
@@ -498,14 +503,17 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
 //        }
         if (mOverviewData == null && (mChooseGoodsDataList == null || mChooseGoodsDataList.size() == 0)) {
             showShortToast("请添加商品明细");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         if (TextUtils.isEmpty(departmentid)) {
             showShortToast("请先选择部门");
+            titlebar.setTvRightEnabled(true);
             return;
         }
         if (TextUtils.isEmpty(empid)) {
             showShortToast("请先选择业务员");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 
@@ -627,9 +635,12 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void httpFinish(int requestCode) {
+        super.httpFinish(requestCode);
+        switch (requestCode){
+            case 0:
+                titlebar.setTvRightEnabled(true);
+                break;
+        }
     }
 }
