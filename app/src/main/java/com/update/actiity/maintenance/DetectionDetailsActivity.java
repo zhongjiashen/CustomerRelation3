@@ -449,13 +449,19 @@ public class DetectionDetailsActivity extends BaseActivity {
                         .putExtra("billid", mData.getServiceregid() + ""), DATA_REFERSH);
                 break;
             case R.id.rl_goods_information://商品信息
-                if (mData.getLb() == 1)
-                    startActivity(new Intent(DetectionDetailsActivity.this, ChooseGoodsDetailsActivity.class)
+                if (mData.getLb() == 1) {
+                    mData.setUnitqty(mData.getYesqty() + mData.getNoqty() + mData.getDesqty());
+                    startActivityForResult(new Intent(mActivity, GoodsDetailsActivity.class)
                             .putExtra("xlh", false)
-                            .putExtra("tabname","tb_servicejob")
                             .putExtra("kind", 2)
-                            .putExtra("DATA", mGson.toJson(mData)));
-                else
+                            .putExtra("DATA", mGson.toJson(mData)), 18);
+//                    startActivity(new Intent(DetectionDetailsActivity.this, ChooseGoodsDetailsActivity.class)
+//                            .putExtra("xlh", false)
+//                            .putExtra("xzm", true)
+//                            .putExtra("tabname","tb_servicejob")
+//                            .putExtra("kind", 2)
+//                            .putExtra("DATA", mGson.toJson(mData)));
+                }else
                     startActivity(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 2)
                             .putExtra("DATA", mGson.toJson(mData)));
                 break;

@@ -141,7 +141,11 @@ public class GoodsDetailsActivity extends BaseActivity {
                 etFaultDescription.setText(chooseGoodsData.getFaultinfo());
                 break;
             case 2://只能查看概况
-
+                if(getIntent().getBooleanExtra("xlh",true)) {
+                    tvSerialNumber.setVisibility(View.VISIBLE);
+                }else {
+                    tvSerialNumber.setVisibility(View.GONE);
+                }
                 btView.setVisibility(View.GONE);
                 mGoodsOrOverviewData = mGson.fromJson(getIntent().getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
                 }.getType());

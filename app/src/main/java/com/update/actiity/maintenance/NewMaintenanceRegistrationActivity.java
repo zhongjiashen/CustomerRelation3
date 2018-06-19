@@ -262,8 +262,9 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             public void onClick(int i) {
                 switch (i) {
                     case 2:
-                        addInstallRegistration();
                         titlebar.setTvRightEnabled(false);
+                        addInstallRegistration();
+
                         break;
 
                 }

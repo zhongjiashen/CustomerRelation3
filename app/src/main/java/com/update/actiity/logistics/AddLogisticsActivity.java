@@ -187,8 +187,9 @@ public class AddLogisticsActivity extends BaseActivity {
             public void onClick(int i) {
                 switch (i) {
                     case 2:
-                        saveContract();
                         titlebar.setTvRightEnabled(false);
+                        saveContract();
+
                         break;
 
                 }

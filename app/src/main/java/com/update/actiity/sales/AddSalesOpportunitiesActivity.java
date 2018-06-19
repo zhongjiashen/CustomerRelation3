@@ -149,8 +149,8 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
             public void onClick(int i) {
                 switch (i) {
                     case 2:
-                        saveOpportunities();
                         titlebar.setTvRightEnabled(false);
+                        saveOpportunities();
                         break;
 
                 }

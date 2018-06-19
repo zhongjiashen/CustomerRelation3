@@ -151,8 +151,9 @@ public class AddProjectActivity extends BaseActivity {
             public void onClick(int i) {
                 switch (i) {
                     case 2:
-                        saveProject();
                         titlebar.setTvRightEnabled(false);
+                        saveProject();
+
                         break;
 
                 }
