@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.crcxj.activity.R;
 import com.update.model.FileChooseData;
+import com.update.utils.FileUtils;
+import com.update.utils.SeeFileUtils;
 import com.update.viewholder.ViewHolderFactory;
 
 import java.util.ArrayList;
@@ -65,7 +67,7 @@ public abstract class FileChooseAdapter extends RecyclerView.Adapter<ViewHolderF
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    SeeFileUtils.openFile(mActivity,mList.get(position).getUrl() );
                 }
             });
             holder.ivDelete.setOnClickListener(new View.OnClickListener() {//删除图片
