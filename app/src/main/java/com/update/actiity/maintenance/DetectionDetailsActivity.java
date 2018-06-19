@@ -603,7 +603,13 @@ public class DetectionDetailsActivity extends BaseActivity {
 //        serialinfo  序列号GUID
 //        opid      操作员ID
 
-
+        double yesqty=Double.parseDouble(etInstallationNumber.getText().toString());
+        double noqty=Double.parseDouble(etUnloaded.getText().toString());
+        double number=yesqty+noqty;
+        if(mData.getUnitqty()<number){
+            showShortToast("合计数量大于登记数量！");
+            return;
+        }
         mDetail.setBillid(mData.getBillid() + "");
         mDetail.setItemno(mData.getItemno() + "");
         mDetail.setWxjgid(mData.getWxjgid() + "");
