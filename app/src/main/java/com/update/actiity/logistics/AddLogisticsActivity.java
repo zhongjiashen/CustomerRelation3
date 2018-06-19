@@ -336,6 +336,13 @@ public class AddLogisticsActivity extends BaseActivity {
                         tvCollecting.setText("是");//否代收代付默认否
                         break;
                 }
+                mShipclientid = data.getStringExtra("id");
+                mLxrid = data.getStringExtra("lxrid");
+                tvUnitName.setText(data.getStringExtra("name"));
+                tvContacts.setText(data.getStringExtra("lxrname"));
+                etContactNumber.setText(data.getStringExtra("phone"));
+                etShippingAddress.setText(data.getStringExtra("shipto"));
+
                 //代收代付账户
                 mProxybankid = data.getStringExtra("bankid");
                 tvCollectingAccount.setText(data.getStringExtra("bankname"));

@@ -38,14 +38,14 @@ public class RqChoiceLogisticsListData {
     private int Shipclientid;
     private String Shipcname;
     private double totalamt;
-    private Object lxrid;
-    private Object lxrname;
+    private String lxrid;
+    private String lxrname;
     private String phone;
-    private Object projectid;
-    private Object projectname;
-    private Object shipto;
-    private Object bankid;
-    private Object bankname;
+    private String projectid;
+    private String projectname;
+    private String shipto;
+    private String bankid;
+    private String bankname;
     private double proxyamt;
     private int isproxy;
 
@@ -113,19 +113,19 @@ public class RqChoiceLogisticsListData {
         this.totalamt = totalamt;
     }
 
-    public Object getLxrid() {
+    public String getLxrid() {
         return lxrid;
     }
 
-    public void setLxrid(Object lxrid) {
+    public void setLxrid(String lxrid) {
         this.lxrid = lxrid;
     }
 
-    public Object getLxrname() {
+    public String getLxrname() {
         return lxrname;
     }
 
-    public void setLxrname(Object lxrname) {
+    public void setLxrname(String lxrname) {
         this.lxrname = lxrname;
     }
 
@@ -137,43 +137,43 @@ public class RqChoiceLogisticsListData {
         this.phone = phone;
     }
 
-    public Object getProjectid() {
+    public String getProjectid() {
         return projectid;
     }
 
-    public void setProjectid(Object projectid) {
+    public void setProjectid(String projectid) {
         this.projectid = projectid;
     }
 
-    public Object getProjectname() {
+    public String getProjectname() {
         return projectname;
     }
 
-    public void setProjectname(Object projectname) {
+    public void setProjectname(String projectname) {
         this.projectname = projectname;
     }
 
-    public Object getShipto() {
+    public String getShipto() {
         return shipto;
     }
 
-    public void setShipto(Object shipto) {
+    public void setShipto(String shipto) {
         this.shipto = shipto;
     }
 
-    public Object getBankid() {
+    public String getBankid() {
         return bankid;
     }
 
-    public void setBankid(Object bankid) {
+    public void setBankid(String bankid) {
         this.bankid = bankid;
     }
 
-    public Object getBankname() {
+    public String getBankname() {
         return bankname;
     }
 
-    public void setBankname(Object bankname) {
+    public void setBankname(String bankname) {
         this.bankname = bankname;
     }
 
