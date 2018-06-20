@@ -494,19 +494,19 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             return;
         }
         String phone = etContactNumber.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            titlebar.setTvRightEnabled(true);
-            showShortToast("请输入联系电话");
-
-            return;
-        }
+//        if (TextUtils.isEmpty(phone)) {
+//            titlebar.setTvRightEnabled(true);
+//            showShortToast("请输入联系电话");
+//
+//            return;
+//        }
         String shipto = etCustomerAddress.getText().toString();
-        if (TextUtils.isEmpty(shipto)) {
-            titlebar.setTvRightEnabled(true);
-            showShortToast("请输入客户地址");
-
-            return;
-        }
+//        if (TextUtils.isEmpty(shipto)) {
+//            titlebar.setTvRightEnabled(true);
+//            showShortToast("请输入客户地址");
+//
+//            return;
+//        }
 
         String bxr = etMessenger.getText().toString();
 //        if (TextUtils.isEmpty(bxr)) {
