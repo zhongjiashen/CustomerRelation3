@@ -523,11 +523,11 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             titlebar.setTvRightEnabled(true);
             return;
         }
-        if (TextUtils.isEmpty(empid)) {
-            showShortToast("请先选择业务员");
-            titlebar.setTvRightEnabled(true);
-            return;
-        }
+//        if (TextUtils.isEmpty(empid)) {
+//            showShortToast("请先选择业务员");
+//            titlebar.setTvRightEnabled(true);
+//            return;
+//        }
 
         Master master = new Master();
         master.setBillid("0");

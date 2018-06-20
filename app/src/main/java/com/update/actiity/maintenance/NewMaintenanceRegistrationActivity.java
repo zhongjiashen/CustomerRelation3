@@ -199,7 +199,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, ChooseGoodsData data) {
                 holder.tvRegistrationNumber.setText("登记数量：" + data.getNumber() + "个");
-                holder.tvGoodsInformation.setText(data.getCode()+"    "+data.getName()+"    "+data.getSpecs()+"    "+data.getModel());
+                holder.tvGoodsInformation.setText(data.getCode() + "    " + data.getName() + "    " + data.getSpecs() + "    " + data.getModel());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -292,8 +292,8 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
 //                    startActivityForResult(new Intent(this, ProjectSelectionActivity.class).putExtra("clientid", clientid), 12);
                     startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
                                     .putExtra("clientid", clientid)
-                                    .putExtra("clientname",  tvUnitName.getText().toString()),
-
+                                    .putExtra("clientname", tvUnitName.getText().toString())
+                                    .putExtra("typesname", mTypesname),
                             13);
                 }
                 break;
@@ -347,7 +347,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             case 11://单位选择结果处理
                 clientid = data.getStringExtra("id");
                 lxrid = data.getStringExtra("lxrid");
-                mTypesname= data.getStringExtra("typesname");
+                mTypesname = data.getStringExtra("typesname");
                 tvUnitName.setText(data.getStringExtra("name"));
                 tvContacts.setText(data.getStringExtra("lxrname"));
                 etContactNumber.setText(data.getStringExtra("phone"));
@@ -491,18 +491,18 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             return;
         }
         String phone = etContactNumber.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            showShortToast("请输入联系电话");
-            titlebar.setTvRightEnabled(true);
-            return;
-        }
+//        if (TextUtils.isEmpty(phone)) {
+//            showShortToast("请输入联系电话");
+//            titlebar.setTvRightEnabled(true);
+//            return;
+//        }
         String shipto = etCustomerAddress.getText().toString();
-        if (TextUtils.isEmpty(shipto)) {
-            showShortToast("请输入客户地址");
-            titlebar.setTvRightEnabled(true);
-            titlebar.setTvRightEnabled(true);
-            return;
-        }
+//        if (TextUtils.isEmpty(shipto)) {
+//            showShortToast("请输入客户地址");
+//            titlebar.setTvRightEnabled(true);
+//            titlebar.setTvRightEnabled(true);
+//            return;
+//        }
         String bxr = etMessenger.getText().toString();
 //        if (TextUtils.isEmpty(bxr)) {
 //            showShortToast("请输入报送人姓名");
@@ -518,11 +518,11 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             titlebar.setTvRightEnabled(true);
             return;
         }
-        if (TextUtils.isEmpty(empid)) {
-            showShortToast("请先选择业务员");
-            titlebar.setTvRightEnabled(true);
-            return;
-        }
+//        if (TextUtils.isEmpty(empid)) {
+//            showShortToast("请先选择业务员");
+//            titlebar.setTvRightEnabled(true);
+//            return;
+//        }
 
         Master master = new Master();
         master.setBillid("0");
@@ -644,7 +644,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
     @Override
     public void httpFinish(int requestCode) {
         super.httpFinish(requestCode);
-        switch (requestCode){
+        switch (requestCode) {
             case 0:
                 titlebar.setTvRightEnabled(true);
                 break;
