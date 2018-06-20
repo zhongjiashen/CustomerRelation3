@@ -109,6 +109,7 @@ public class AddProjectActivity extends BaseActivity {
         mClientid = getIntent().getStringExtra("clientid");
         mClientname = getIntent().getStringExtra("clientname");
         mTypesname = getIntent().getStringExtra("typesname");
+        mLxrid= getIntent().getStringExtra("lxrid");
 
     }
 

@@ -122,6 +122,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
 
 
     private String clientid;//客户ID
+    private String mTypesname;// 单位类型
     private String lxrid;//联系人ID
     private String mProjectid;//  项目ID
     private String sxfsid;// 服务方式ID
@@ -289,7 +290,11 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                     showShortToast("请先选择单位");
                 else {
 //                    startActivityForResult(new Intent(this, ProjectSelectionActivity.class).putExtra("clientid", clientid), 12);
-                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class).putExtra("clientid", clientid), 13);
+                    startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+                                    .putExtra("clientid", clientid)
+                                    .putExtra("clientname",  tvUnitName.getText().toString()),
+
+                            13);
                 }
                 break;
             case R.id.ll_submit_time_choice://报送时间选择
@@ -342,6 +347,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             case 11://单位选择结果处理
                 clientid = data.getStringExtra("id");
                 lxrid = data.getStringExtra("lxrid");
+                mTypesname= data.getStringExtra("typesname");
                 tvUnitName.setText(data.getStringExtra("name"));
                 tvContacts.setText(data.getStringExtra("lxrname"));
                 etContactNumber.setText(data.getStringExtra("phone"));
