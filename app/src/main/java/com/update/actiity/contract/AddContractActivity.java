@@ -314,11 +314,11 @@ public class AddContractActivity extends BaseActivity {
             return;
         }
         String phone = etContactNumber.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            showShortToast("请输入联系电话");
-            titlebar.setTvRightEnabled(true);
-            return;
-        }
+//        if (TextUtils.isEmpty(phone)) {
+//            showShortToast("请输入联系电话");
+//            titlebar.setTvRightEnabled(true);
+//            return;
+//        }
         String title = etContractName.getText().toString();
         if (TextUtils.isEmpty(title)) {
             showShortToast("请输入合同名称！");
