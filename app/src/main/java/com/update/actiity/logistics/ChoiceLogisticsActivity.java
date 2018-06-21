@@ -146,13 +146,14 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
 //                        是否代收代付、代收代付账户、代收代付金额是根据所选择的关联单据带过来的信息，不可修改
                         Intent intent = new Intent();
                         intent.putExtra("referbillid", data.getBillid() + "");//引用单ID
+                        intent.putExtra("refertype", data.getBilltypeid() + "");//引用单ID
                         intent.putExtra("code", data.getCode());//引用单据编号
                         intent.putExtra("isproxy", data.getIsproxy() + "");//代收金额
                         intent.putExtra("bankid", data.getBankid() + "");//代收账户ID
                         intent.putExtra("bankname", data.getBankid() + "");//代收账户名称
                         intent.putExtra("proxyamt", data.getProxyamt() + "");//代收金额
-                        intent.putExtra("id", data.getProjectid());
-
+                        intent.putExtra("shipclientid", data.getShipclientid());
+                        intent.putExtra("shipcname", data.getShipcname());
                         intent.putExtra("name",data.getProjectname());
                         intent.putExtra("lxrid",data.getLxrid());
                         intent.putExtra("lxrname",data.getLxrname());

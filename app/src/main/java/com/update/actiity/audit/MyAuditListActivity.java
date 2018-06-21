@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -161,7 +162,7 @@ public class MyAuditListActivity extends BaseActivity implements
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getProjectHolder(MyAuditListActivity.this,parent);
+                return ViewHolderFactory.getProjectHolder(mActivity,parent);
             }
 
             @Override
@@ -194,38 +195,39 @@ public class MyAuditListActivity extends BaseActivity implements
                         }else {
                             switch (data.getParms()){
                                 case "AZDJ"://安装登记单
-                                    startActivityForResult(new Intent(MyAuditListActivity.this, InstallRegistrationDetailsActivity.class)
+                                    startActivityForResult(new Intent(mActivity, InstallRegistrationDetailsActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
                                 case "AZZX"://安装执行
-                                    startActivityForResult(new Intent(MyAuditListActivity.this, InstallationDetailsActivity.class)
+                                    startActivityForResult(new Intent(mActivity, InstallationDetailsActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
                                 case "JCWX"://检测维修
-                                    startActivityForResult(new Intent(MyAuditListActivity.this,  DetectionDetailsActivity.class)
+                                    startActivityForResult(new Intent(mActivity,  DetectionDetailsActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
                                 case "WXDJ"://维修登记单
-                                    startActivityForResult(new Intent(MyAuditListActivity.this,  MaintenanceDetailsActivity.class)
+                                    startActivityForResult(new Intent(mActivity,  MaintenanceDetailsActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
                                 case "XMD"://项目单
-                                    startActivity(new Intent(MyAuditListActivity.this, ProjectActivity.class)
+                                    startActivity(new Intent(mActivity, ProjectActivity.class)
                                             .putExtra("billid", data.getBillid()+""));
                                     break;
                                 case "XSJH"://销售机会单
-                                    startActivity(new Intent(MyAuditListActivity.this, SalesOpportunitiesActivity.class)
+                                    startActivity(new Intent(mActivity, SalesOpportunitiesActivity.class)
                                             .putExtra("billid", data.getBillid()+""));
                                     break;
                                 case "XSHT"://销售合同单
-                                    startActivity(new Intent(MyAuditListActivity.this, ContractActivity.class)
+                                    startActivity(new Intent(mActivity, ContractActivity.class)
                                             .putExtra("billid", data.getBillid() + ""));
                                     break;
                                 case "XSKD"://销售开单
-                                    showShortToast(data.getBilltypename());
+                                    startActivity(new Intent(mActivity, JxcXsglXskdDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
                                     break;
                                 case "WLD"://物流单
-                                    startActivity(new Intent(MyAuditListActivity.this, LogisticsActivity.class)
+                                    startActivity(new Intent(mActivity, LogisticsActivity.class)
                                             .putExtra("billid", data.getBillid() + ""));
                                     break;
                                     default:
@@ -253,7 +255,7 @@ public class MyAuditListActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://打开右边侧滑菜单
-                        startActivityForResult(new Intent(MyAuditListActivity.this, ScreeningAuditActivity.class)
+                        startActivityForResult(new Intent(mActivity, ScreeningAuditActivity.class)
                                 .putExtra("kind", 2), 11);
                         break;
                 }

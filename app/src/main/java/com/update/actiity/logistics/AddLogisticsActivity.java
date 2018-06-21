@@ -114,6 +114,7 @@ public class AddLogisticsActivity extends BaseActivity {
     private String mLogistictype;//物流类型 0-收货 1-发货
     private String mBilltype;//单据类型
     private String mReferbillid;//引用单ID
+    private String mRefertype;//引用类型
     private String mClientid;// 物流公司ID
     private String mShipclientid;// 收货单位ID
     private String mLxrid;// 联系人ID
@@ -326,6 +327,7 @@ public class AddLogisticsActivity extends BaseActivity {
             case 14://关联单据
                 //是否代收代付、代收代付账户、代收代付金额是根据所选择的关联单据带过来的信息
                 mReferbillid = data.getStringExtra("referbillid");
+                mRefertype= data.getStringExtra("refertype");
                 tvAssociatedDocuments.setText(data.getStringExtra("code"));
                 mIsproxy = data.getStringExtra("isproxy");
                 switch (mIsproxy) {
@@ -336,9 +338,9 @@ public class AddLogisticsActivity extends BaseActivity {
                         tvCollecting.setText("是");//否代收代付默认否
                         break;
                 }
-                mShipclientid = data.getStringExtra("id");
+                mShipclientid = data.getStringExtra("shipclientid");
+                tvUnitName.setText(data.getStringExtra("shipcname"));
                 mLxrid = data.getStringExtra("lxrid");
-                tvUnitName.setText(data.getStringExtra("name"));
                 tvContacts.setText(data.getStringExtra("lxrname"));
                 etContactNumber.setText(data.getStringExtra("phone"));
                 etShippingAddress.setText(data.getStringExtra("shipto"));
@@ -486,6 +488,8 @@ public class AddLogisticsActivity extends BaseActivity {
         mMap.put("empid", mEmpid);//业务员ID
         mMap.put("opid", ShareUserInfo.getUserId(this));//操作员ID
         mMap.put("memo", etAbstract.getText().toString());//摘要
+        mMap.put("referbillid", mReferbillid);//摘要
+        mMap.put("refertype", mRefertype);//摘要
         //提交数据到网络接口
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("parms", "WLD");
