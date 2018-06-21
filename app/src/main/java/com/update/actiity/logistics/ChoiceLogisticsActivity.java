@@ -150,7 +150,7 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
                         intent.putExtra("code", data.getCode());//引用单据编号
                         intent.putExtra("isproxy", data.getIsproxy() + "");//代收金额
                         intent.putExtra("bankid", data.getBankid() + "");//代收账户ID
-                        intent.putExtra("bankname", data.getBankid() + "");//代收账户名称
+                        intent.putExtra("bankname", data.getBankname() + "");//代收账户名称
                         intent.putExtra("proxyamt", data.getProxyamt() + "");//代收金额
                         intent.putExtra("shipclientid", data.getShipclientid());
                         intent.putExtra("shipcname", data.getShipcname());
