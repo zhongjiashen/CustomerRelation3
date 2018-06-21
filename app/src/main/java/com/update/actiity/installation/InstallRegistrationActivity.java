@@ -198,7 +198,7 @@ public class InstallRegistrationActivity extends BaseActivity implements
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    mParmMap.put("goodsname", v.getText().toString());
+                    mParmMap.put("billcode", v.getText().toString());
                     http();
                     return true;
                 }
