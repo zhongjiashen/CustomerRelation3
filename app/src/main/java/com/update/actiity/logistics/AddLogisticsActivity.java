@@ -339,6 +339,7 @@ public class AddLogisticsActivity extends BaseActivity {
                         break;
                 }
                 mShipclientid = data.getStringExtra("shipclientid");
+                LogUtils.e(mShipclientid);
                 tvUnitName.setText(data.getStringExtra("shipcname"));
                 mLxrid = data.getStringExtra("lxrid");
                 tvContacts.setText(data.getStringExtra("lxrname"));
@@ -429,6 +430,7 @@ public class AddLogisticsActivity extends BaseActivity {
         String shipno = etLogisticsNumber.getText().toString();
         if (TextUtils.isEmpty(shipno)) {
             showShortToast("请输入物流单号！");
+            titlebar.setTvRightEnabled(true);
             return;
         }
 //        if (TextUtils.isEmpty(mShipclientid)) {
@@ -481,6 +483,7 @@ public class AddLogisticsActivity extends BaseActivity {
         mMap.put("proxybankid", mProxybankid);//代收账户ID
         mMap.put("proxyamt", tvCollectingAmount.getText().toString());//代收金额
         mMap.put("shipclientid", mShipclientid);// 收货单位ID
+        LogUtils.e(mShipclientid);
         mMap.put("lxrid", mLxrid);// 联系人ID
         mMap.put("phone", phone);// 电话
         mMap.put("shipto", shipto);//收货地址
