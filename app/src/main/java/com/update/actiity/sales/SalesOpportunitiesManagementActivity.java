@@ -7,9 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -125,29 +128,25 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
     protected void init() {
         setTitlebar();
         etSearch.setHint("输入单位名称/单据编号");
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                mParmMap.put("billcode", s.toString());//
-                http();
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    mParmMap.put("billcode", v.getText().toString());//
+                    http();
+                    return true;
+                }
+                return false;
             }
         });
+
         prlView.setOnRefreshListener(this);
         prvView.setLayoutManager(new LinearLayoutManager(this));
         prvView.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ProjectHolder, RqProjectListData>(mList) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
-                return ViewHolderFactory.getProjectHolder(SalesOpportunitiesManagementActivity.this,parent);
+                return ViewHolderFactory.getProjectHolder(SalesOpportunitiesManagementActivity.this, parent);
             }
 
             @Override
@@ -176,7 +175,7 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(SalesOpportunitiesManagementActivity.this, SalesOpportunitiesActivity.class)
-                                .putExtra("billid", data.getBillid()+"")
+                                .putExtra("billid", data.getBillid() + "")
                                 .putExtra("shzt", data.getShzt()));
                     }
                 });
@@ -225,6 +224,7 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
                 break;
         }
     }
+
     /**
      * 下拉刷新
      *
@@ -245,7 +245,7 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
     @Override
     public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
         mParmMap.put("curpage", (page_number + 1));
-        presenter.post(1, ServerURL.BILLLIST, mParmMap,false);
+        presenter.post(1, ServerURL.BILLLIST, mParmMap, false);
     }
 
     /**
@@ -298,6 +298,7 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
         }
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();

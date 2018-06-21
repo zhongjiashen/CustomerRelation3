@@ -128,7 +128,7 @@ public class ScreeningAuditActivity extends BaseActivity {
                 break;
             case R.id.ll_document_type:
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)
-                        .putExtra("zdbm", "BILLTYPE").putExtra("title", "单据类型选择"), 11);
+                        .putExtra("zdbm", "BILLTYPENAME").putExtra("title", "单据类型选择"), 11);
                 break;
             case R.id.ll_audit_status:
                 startActivityForResult(new Intent(this, LocalDataSingleOptionActivity.class).putExtra("kind",5), 12);
