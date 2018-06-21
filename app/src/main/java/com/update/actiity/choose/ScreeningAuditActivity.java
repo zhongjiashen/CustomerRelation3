@@ -149,6 +149,7 @@ public class ScreeningAuditActivity extends BaseActivity {
                 intent.putExtra("depid", mDepartmentid);
                 intent.putExtra("empid", mEmpid);
                 intent.putExtra("billcode", etDocumentNumber.getText().toString());
+                intent.putExtra("billtypeid", mBilltypeid);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

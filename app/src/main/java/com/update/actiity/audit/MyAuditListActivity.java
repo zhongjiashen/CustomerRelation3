@@ -15,7 +15,23 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddDetailActivity;
+import com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkDetailActivity;
+import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity;
+import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthDetailActivity;
+import com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjDetailActivity;
+import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdDetailActivity;
+import com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdDetailActivity;
+import com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxDetailActivity;
+import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity;
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity;
+import com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskDetailActivity;
+import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthDetailActivity;
+import com.cr.activity.xjyh.fkd.XjyhFkdDetailActivity;
+import com.cr.activity.xjyh.fyzc.XjyhFyzcDetailActivity;
+import com.cr.activity.xjyh.qtsr.XjyhQtsrDetailActivity;
+import com.cr.activity.xjyh.skd.XjyhSkdDetailActivity;
+import com.cr.activity.xjyh.yhcq.XjyhYhcqDetailActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -205,9 +221,102 @@ public class MyAuditListActivity extends BaseActivity implements
                     @Override
                     public void onClick(View v) {
                         if(TextUtils.isEmpty(data.getParms())){
-                            showShortToast("该单据不能再手机上审核！");
+                            showShortToast("该单据不能在手机上审核！");
                         }else {
                             switch (data.getParms()){
+                                case "CGDD"://采购订单
+                                    startActivityForResult(new Intent(mActivity, JxcCgglCgddDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                                    break;
+                                case "CGSH"://采购收货
+                                    startActivityForResult(new Intent(mActivity, JxcCgglCgshDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                                    break;
+                                case "CGTH"://采购退货
+                                    startActivityForResult(new Intent(mActivity, JxcCgglCgthDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                                    break;
+                                case "CGFK"://采购付款
+                                    startActivityForResult(new Intent(mActivity, JxcCgglCgfkDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                                    break;
+                                case "XSDD"://销售订单
+                                    startActivity(new Intent(mActivity, JxcXsglXsddDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "XSKD"://销售开单
+                                    startActivity(new Intent(mActivity, JxcXsglXskdDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "XSTH"://销售退货
+                                    startActivity(new Intent(mActivity, JxcXsglXsthDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "XSSK"://销售收款
+                                    startActivity(new Intent(mActivity, JxcXsglXsskDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "CHTJ"://存货调价
+                                    startActivity(new Intent(mActivity, JxcCkglChtjDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "KCBD"://库存变动
+                                    startActivity(new Intent(mActivity, JxcCkglKcbdDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "KCPD"://库存盘点
+                                    startActivity(new Intent(mActivity, JxcCkglKcpdDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "ZZCX"://组装拆卸
+                                    startActivity(new Intent(mActivity, JxcCkglZzcxDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "FYKZ"://费用支出
+                                    startActivity(new Intent(mActivity, XjyhFyzcDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "QTSR"://其他收入
+                                    startActivity(new Intent(mActivity, XjyhQtsrDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "YHCQ"://银行存取
+                                    startActivity(new Intent(mActivity, XjyhYhcqDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "FKD"://付款单
+                                    startActivity(new Intent(mActivity, XjyhFkdDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "SKD"://收款单
+                                    startActivity(new Intent(mActivity, XjyhSkdDetailActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "XSJH"://销售机会单
+                                    startActivity(new Intent(mActivity, SalesOpportunitiesActivity.class)
+                                            .putExtra("billid", data.getBillid()+""));
+                                    break;
+                                case "BJD"://销售机会单
+                                    showShortToast(data.getBilltypename());
+//                                    startActivity(new Intent(mActivity, SalesOpportunitiesActivity.class)
+//                                            .putExtra("billid", data.getBillid()+""));
+                                    break;
+                                case "XSHT"://销售合同单
+                                    startActivity(new Intent(mActivity, ContractActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "XMD"://项目单
+                                    startActivity(new Intent(mActivity, ProjectActivity.class)
+                                            .putExtra("billid", data.getBillid()+""));
+                                    break;
+                                case "WLD"://物流单
+                                    startActivity(new Intent(mActivity, LogisticsActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""));
+                                    break;
+                                case "WXDJ"://维修登记单
+                                    startActivityForResult(new Intent(mActivity,  MaintenanceDetailsActivity.class)
+                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
+                                    break;
                                 case "AZDJ"://安装登记单
                                     startActivityForResult(new Intent(mActivity, InstallRegistrationDetailsActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
@@ -220,30 +329,7 @@ public class MyAuditListActivity extends BaseActivity implements
                                     startActivityForResult(new Intent(mActivity,  DetectionDetailsActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
-                                case "WXDJ"://维修登记单
-                                    startActivityForResult(new Intent(mActivity,  MaintenanceDetailsActivity.class)
-                                            .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
-                                    break;
-                                case "XMD"://项目单
-                                    startActivity(new Intent(mActivity, ProjectActivity.class)
-                                            .putExtra("billid", data.getBillid()+""));
-                                    break;
-                                case "XSJH"://销售机会单
-                                    startActivity(new Intent(mActivity, SalesOpportunitiesActivity.class)
-                                            .putExtra("billid", data.getBillid()+""));
-                                    break;
-                                case "XSHT"://销售合同单
-                                    startActivity(new Intent(mActivity, ContractActivity.class)
-                                            .putExtra("billid", data.getBillid() + ""));
-                                    break;
-                                case "XSKD"://销售开单
-                                    startActivity(new Intent(mActivity, JxcXsglXskdDetailActivity.class)
-                                            .putExtra("billid", data.getBillid() + ""));
-                                    break;
-                                case "WLD"://物流单
-                                    startActivity(new Intent(mActivity, LogisticsActivity.class)
-                                            .putExtra("billid", data.getBillid() + ""));
-                                    break;
+
                                     default:
                                         showShortToast(data.getBilltypename());
                                         break;
@@ -288,6 +374,7 @@ public class MyAuditListActivity extends BaseActivity implements
                 mDepid = data.getStringExtra("depid");
                 mEmpid = data.getStringExtra("empid");
                 mBillcode = data.getStringExtra("billcode");
+                mBilltypeid = data.getStringExtra("billtypeid");
                 LogUtils.e("onMyActivityResult");
                 break;
         }

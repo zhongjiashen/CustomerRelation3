@@ -93,6 +93,7 @@ public class TitleBar extends RelativeLayout {
 
     public void setTvRightEnabled(boolean enabled) {
         tvRight.setClickable(enabled);
+        tvRight.setEnabled(enabled);
     }
 
     /**
