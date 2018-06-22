@@ -635,6 +635,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         String result = (String) data;
         if (TextUtils.isEmpty(result) || result.equals("false")) {
             showShortToast(data.toString());
+            titlebar.setTvRightEnabled(true);
         } else {
             showShortToast("添加成功");
             finish();
@@ -642,9 +643,8 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
     }
 
     @Override
-    public void httpFinish(int requestCode) {
-        super.httpFinish(requestCode);
-        switch (requestCode) {
+    public void httpfaile(int requestCode) {
+        switch (requestCode){
             case 0:
                 titlebar.setTvRightEnabled(true);
                 break;

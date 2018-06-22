@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crcxj.activity.R;
 
@@ -38,6 +39,8 @@ public class TitleBar extends RelativeLayout {
     ImageView ivRightTwo;
     @BindView(R.id.tv_right)
     TextView tvRight;
+
+    private long time;
 
 
     private Activity mActivity;
@@ -142,7 +145,12 @@ public class TitleBar extends RelativeLayout {
                 mTitleOnlicListener.onClick(1);
                 break;
             case R.id.tv_right:
-                mTitleOnlicListener.onClick(2);
+                if(time==0||System.currentTimeMillis()-time>5000) {
+                    mTitleOnlicListener.onClick(2);
+                    time=System.currentTimeMillis();
+                }else {
+                    Toast.makeText(mActivity,"请不要频繁点击，防止重复保存",Toast.LENGTH_SHORT).show();
+                }
 
                 break;
         }

@@ -102,11 +102,11 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         mParmMap = new ArrayMap<>();
         mDate = new Date();
 
-        mClientid =getIntent().getStringExtra("clientid");
-        mClientname =getIntent().getStringExtra("clientname");
-        mLxrid =getIntent().getStringExtra("lxrid");
-        mLxrname =getIntent().getStringExtra("lxrname");
-        mPhone =getIntent().getStringExtra("phone");
+        mClientid = getIntent().getStringExtra("clientid");
+        mClientname = getIntent().getStringExtra("clientname");
+        mLxrid = getIntent().getStringExtra("lxrid");
+        mLxrname = getIntent().getStringExtra("lxrname");
+        mPhone = getIntent().getStringExtra("phone");
 
     }
 
@@ -126,9 +126,9 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
-        mDepartmentid=ShareUserInfo.getKey(this, "departmentid");
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
-        mEmpid=ShareUserInfo.getKey(this, "empid");
+        mEmpid = ShareUserInfo.getKey(this, "empid");
         tvSalesman.setText(ShareUserInfo.getKey(this, "opname"));
         tvStartTime.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//起始时间默认当天
         tvDocumentDate.setText(DateUtil.DateToString(mDate, "yyyy-MM-dd"));//单据日期默认当日
@@ -157,6 +157,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
             }
         });
     }
+
     @OnClick({R.id.ll_unit_name_choice, R.id.ll_contacts_choice, R.id.ll_start_time_choice, R.id.ll_end_time_choice, R.id.ll_opportunities_source_choice, R.id.ll_document_date_choice, R.id.ll_department_choice, R.id.ll_salesman_choice})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -194,7 +195,6 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
                 break;
         }
     }
-
 
 
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
@@ -339,15 +339,16 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         mParmMap.put("master", "[" + mGson.toJson(mMap) + "]");
         presenter.post(0, "billsave", mParmMap);
     }
+
     @Override
-    public void httpFinish(int requestCode) {
-        super.httpFinish(requestCode);
-        switch (requestCode){
+    public void httpfaile(int requestCode) {
+        switch (requestCode) {
             case 0:
                 titlebar.setTvRightEnabled(true);
                 break;
         }
     }
+
     /**
      * 网路请求返回数据
      *
@@ -357,10 +358,11 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        String result= (String) data;
-        if(TextUtils.isEmpty(result)||result.equals("false")){
-
-        }else {
+        String result = (String) data;
+        if (TextUtils.isEmpty(result) || result.equals("false")) {
+            showShortToast("添加失败");
+            titlebar.setTvRightEnabled(true);
+        } else {
             showShortToast("添加成功");
             setResult(RESULT_OK);
             finish();

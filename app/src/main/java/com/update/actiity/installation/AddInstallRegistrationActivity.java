@@ -656,9 +656,11 @@ public class AddInstallRegistrationActivity extends BaseActivity {
         super.returnData(requestCode, data);
         String result = (String) data;
         if ( result.equals("false")) {
+            LogUtils.e("失败");
             titlebar.setTvRightEnabled(true);
             showShortToast(data.toString());
         } else {
+            LogUtils.e("失败");
             showShortToast("添加成功");
             finish();
         }
@@ -668,6 +670,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     public void httpfaile(int requestCode) {
         switch (requestCode){
             case 0:
+                LogUtils.e("失败");
                 titlebar.setTvRightEnabled(true);
                 break;
         }

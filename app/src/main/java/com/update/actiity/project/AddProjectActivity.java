@@ -348,8 +348,7 @@ public class AddProjectActivity extends BaseActivity {
         presenter.post(0, "billsave", mParmMap);
     }
     @Override
-    public void httpFinish(int requestCode) {
-        super.httpFinish(requestCode);
+    public void httpfaile(int requestCode) {
         switch (requestCode){
             case 0:
                 titlebar.setTvRightEnabled(true);
@@ -367,7 +366,8 @@ public class AddProjectActivity extends BaseActivity {
         super.returnData(requestCode, data);
         String result = (String) data;
         if (TextUtils.isEmpty(result) || result.equals("false")) {
-
+            showShortToast("添加失败");
+            titlebar.setTvRightEnabled(true);
         } else {
             showShortToast("添加成功");
             setResult(RESULT_OK);

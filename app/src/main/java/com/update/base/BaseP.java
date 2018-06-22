@@ -58,8 +58,9 @@ public class BaseP {
         if (dialog) {
             if (progressDialog == null)
                 progressDialog = new LoadingDialog(mActivity);
-            progressDialog.show();
             progressDialog.setCanceledOnTouchOutside(false);// show之前设置无效
+            progressDialog.show();
+
         }
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
