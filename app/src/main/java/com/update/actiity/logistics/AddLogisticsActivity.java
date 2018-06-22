@@ -438,17 +438,17 @@ public class AddLogisticsActivity extends BaseActivity {
 //            return;
 //        }
         String phone = etContactNumber.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            showShortToast("请输入联系电话");
-            titlebar.setTvRightEnabled(true);
-            return;
-        }
+//        if (TextUtils.isEmpty(phone)) {
+//            showShortToast("请输入联系电话");
+//            titlebar.setTvRightEnabled(true);
+//            return;
+//        }
         String shipto = etShippingAddress.getText().toString();
-        if (TextUtils.isEmpty(shipto)) {
-            showShortToast("请输入收货地址！");
-            titlebar.setTvRightEnabled(true);
-            return;
-        }
+//        if (TextUtils.isEmpty(shipto)) {
+//            showShortToast("请输入收货地址！");
+//            titlebar.setTvRightEnabled(true);
+//            return;
+//        }
 //
 //        String amount = etContractAmount.getText().toString();
 //        if (TextUtils.isEmpty(amount)) {

@@ -655,8 +655,9 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
         String result = (String) data;
-        if (TextUtils.isEmpty(result) || result.equals("false")) {
-
+        if ( result.equals("false")) {
+            titlebar.setTvRightEnabled(true);
+            showShortToast(data.toString());
         } else {
             showShortToast("添加成功");
             finish();
@@ -664,12 +665,13 @@ public class AddInstallRegistrationActivity extends BaseActivity {
     }
 
     @Override
-    public void httpFinish(int requestCode) {
-        super.httpFinish(requestCode);
+    public void httpfaile(int requestCode) {
         switch (requestCode){
             case 0:
                 titlebar.setTvRightEnabled(true);
                 break;
         }
     }
+
+
 }

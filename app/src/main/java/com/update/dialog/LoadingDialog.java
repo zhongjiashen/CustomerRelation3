@@ -42,6 +42,8 @@ public class LoadingDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_loading);
         ButterKnife.bind(this);
+
+        setCanceledOnTouchOutside(false);
 //        initWindowParams();
     }
 
