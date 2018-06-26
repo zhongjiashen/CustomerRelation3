@@ -228,7 +228,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
             adapter.notifyDataSetChanged();
         }
     }
-
+    private long time;
     @Override
     public void onClick(View arg0) {
         Intent intent = new Intent();
@@ -255,7 +255,13 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 6);
                 break;
             case R.id.save_imagebutton:
-                searchDateSave();//保存
+                if(time==0||System.currentTimeMillis()-time>5000) {
+                    searchDateSave();//保存
+                    time=System.currentTimeMillis();
+                }else {
+                    showToastPromopt("请不要频繁点击，防止重复保存");
+
+                }
                 break;
         }
     }

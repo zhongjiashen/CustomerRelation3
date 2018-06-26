@@ -80,6 +80,8 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 	private EditText xmEditText;
 	private String xmId;
 	private String mTypesname;// 单位类型
+	private long time;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -381,7 +383,13 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 			// showToastPromopt("请选择客户信息!");
 			// return;
 			// }
-			searchDateSave();// 保存
+			if(time==0||System.currentTimeMillis()-time>5000) {
+				searchDateSave();//保存
+				time=System.currentTimeMillis();
+			}else {
+				showToastPromopt("请不要频繁点击，防止重复保存");
+
+			}
 			break;
 		case R.id.xzxsdd_linearlayout:// 选择销售订单
 			intent.putExtra("type", "XSTH_XSKD");
