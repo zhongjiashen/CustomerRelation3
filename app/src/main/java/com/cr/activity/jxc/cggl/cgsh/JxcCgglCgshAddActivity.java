@@ -331,7 +331,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
             adapter.notifyDataSetChanged();
         }
     }
-
+    private long time;
     @Override
     public void onClick(View arg0) {
         Intent intent = new Intent();
@@ -374,7 +374,13 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 3);
                 break;
             case R.id.save_imagebutton:
-                searchDateSave();//保存
+                if(time==0||System.currentTimeMillis()-time>5000) {
+                    searchDateSave();//保存
+                    time=System.currentTimeMillis();
+                }else {
+                    showToastPromopt("请不要频繁点击，防止重复保存");
+
+                }
                 break;
             case R.id.xzxsdd_linearlayout://选择采购收货引用采购订单
             	intent.putExtra("type", "CGSH_CGDD");
@@ -570,8 +576,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
             	ckEditText.setText(data.getExtras().getString("dictmc"));
             	ckId=data.getExtras().getString("id");
             }else if(requestCode==12){
-//            	xmEditText.setText(data.getExtras().getString("xmname"));
-//            	xmId=data.getExtras().getString("xmid");
+            	xmEditText.setText(data.getExtras().getString("xmname"));
+            	xmId=data.getExtras().getString("xmid");
                 xmEditText.setText(data.getStringExtra("title"));
                 xmId=data.getStringExtra("projectid");
             }
