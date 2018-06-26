@@ -47,6 +47,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.project.ChoiceProjectActivity;
 
 /**
  * 进销存-销售管理-销售开单-增加
@@ -76,6 +77,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
     private String ckId;
     private EditText xmEditText;
     private String xmId;
+
+    private String mTypesname;// 单位类型
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -343,7 +346,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
-            case R.id.gys_edittext:
+            case R.id.gys_edittext://单位选择
                 intent.setClass(this, CommonXzkhActivity.class);
                 startActivityForResult(intent, 1);
                 break;
@@ -415,9 +418,14 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
             		showToastPromopt("请先选择客户！");
             		return;
             	}
-            	intent.setClass(activity, XmActivity.class);
-                intent.putExtra("clientid", gysId);
-                startActivityForResult(intent, 12);
+                startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+                                .putExtra("clientid", gysId)
+                                .putExtra("clientname", gysEditText.getText().toString())
+                                .putExtra("typesname", mTypesname),
+                        12);
+//            	intent.setClass(activity, XmActivity.class);
+//                intent.putExtra("clientid", gysId);
+//                startActivityForResult(intent, 12);
             	break;
                 
         }
@@ -474,6 +482,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                  }
                 gysEditText.setText(data.getExtras().getString("name"));
                 gysId = data.getExtras().getString("id");
+                mTypesname = data.getStringExtra("typesname");
                 khqkEditText.setText(data.getExtras().getString("qk"));
             } else if (requestCode == 2) {// 联系人
                 lxrEditText.setText(data.getExtras().getString("name"));
@@ -551,6 +560,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                 khqkEditText.setText(data.getExtras().getString("qk"));
                 gysEditText.setText(data.getExtras().getString("name"));
                 gysId = data.getExtras().getString("id");
+                mTypesname = data.getStringExtra("typesname");
 
             } else if(requestCode==11){
             	ckckEditText.setText(data.getExtras().getString("dictmc"));
@@ -558,8 +568,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
             	ckEditText.setText(data.getExtras().getString("dictmc"));
             	ckId=data.getExtras().getString("id");
             }else if(requestCode==12){
-            	xmEditText.setText(data.getExtras().getString("xmname"));
-            	xmId=data.getExtras().getString("xmid");
+            	xmEditText.setText(data.getStringExtra("title"));
+            	xmId=data.getStringExtra("projectid");
             }
         }
     }

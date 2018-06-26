@@ -47,6 +47,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.project.ChoiceProjectActivity;
 
 /**
  * 进销存--销售管理-销售退货-增加
@@ -78,7 +79,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 	private String ckId;
 	private EditText xmEditText;
 	private String xmId;
-
+	private String mTypesname;// 单位类型
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -427,9 +428,14 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
          		showToastPromopt("请先选择客户！");
          		return;
          	}
-         	intent.setClass(activity, XmActivity.class);
-             intent.putExtra("clientid", gysId);
-             startActivityForResult(intent, 12);
+//         	intent.setClass(activity, XmActivity.class);
+//             intent.putExtra("clientid", gysId);
+//             startActivityForResult(intent, 12);
+			 startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+							 .putExtra("clientid", gysId)
+							 .putExtra("clientname", gysEditText.getText().toString())
+							 .putExtra("typesname", mTypesname),
+					 12);
          	break;
 		}
 	}
@@ -484,6 +490,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 				}
 				gysEditText.setText(data.getExtras().getString("name"));
 				gysId = data.getExtras().getString("id");
+				mTypesname = data.getStringExtra("typesname");
 			} else if (requestCode == 2) {// 联系人
 			// lxrEditText.setText(data.getExtras().getString("name"));
 			// lxrId = data.getExtras().getString("id");
@@ -561,15 +568,17 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 				gys2Id = data.getExtras().getString("id");
 				gysEditText.setText(data.getExtras().getString("name"));
 				gysId = data.getExtras().getString("id");
-
+				mTypesname = data.getStringExtra("typesname");
 			} else if (requestCode == 11) {
 				rkckEditText.setText(data.getExtras().getString("dictmc"));
 				rkckId = data.getExtras().getString("id");
 				ckEditText.setText(data.getExtras().getString("dictmc"));
 				ckId = data.getExtras().getString("id");
 			}else if(requestCode==12){
-            	xmEditText.setText(data.getExtras().getString("xmname"));
-            	xmId=data.getExtras().getString("xmid");
+//            	xmEditText.setText(data.getExtras().getString("xmname"));
+//            	xmId=data.getExtras().getString("xmid");
+				xmEditText.setText(data.getStringExtra("title"));
+				xmId=data.getStringExtra("projectid");
             }
 		}
 	}

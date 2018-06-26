@@ -47,6 +47,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.project.ChoiceProjectActivity;
 
 /**
  * 进销存-采购管理-采购收货-增加
@@ -73,6 +74,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
     String billid;//选择完关联的单据后返回的单据的ID
     private EditText ckEditText;
     private String ckId;
+    private String mTypesname;// 单位类型
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -419,9 +421,14 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
             		showToastPromopt("请先选择供应商！");
             		return;
             	}
-            	intent.setClass(activity, XmActivity.class);
-                intent.putExtra("clientid", gysId);
-                startActivityForResult(intent, 12);
+                startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+                                .putExtra("clientid", gysId)
+                                .putExtra("clientname", gysEditText.getText().toString())
+                                .putExtra("typesname", mTypesname),
+                        12);
+//            	intent.setClass(activity, XmActivity.class);
+//                intent.putExtra("clientid", gysId);
+//                startActivityForResult(intent, 12);
             	break;
         }
     }
@@ -476,6 +483,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
                  	gysEditText.setText(data.getExtras().getString("name"));
                  	gysId = data.getExtras().getString("id");
                  }
+                mTypesname = data.getStringExtra("typesname");
                 gysEditText.setText(data.getExtras().getString("name"));
                 gysId = data.getExtras().getString("id");
                 gysqkEditText.setText(data.getExtras().getString("qk"));
@@ -555,14 +563,17 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
                 gysqkEditText.setText(data.getExtras().getString("qk"));
                 gysEditText.setText(data.getExtras().getString("name"));
                 gysId = data.getExtras().getString("id");
+                mTypesname = data.getStringExtra("typesname");
             } else if(requestCode==11){
             	rkckEditText.setText(data.getExtras().getString("dictmc"));
             	rkckId=data.getExtras().getString("id");
             	ckEditText.setText(data.getExtras().getString("dictmc"));
             	ckId=data.getExtras().getString("id");
             }else if(requestCode==12){
-            	xmEditText.setText(data.getExtras().getString("xmname"));
-            	xmId=data.getExtras().getString("xmid");
+//            	xmEditText.setText(data.getExtras().getString("xmname"));
+//            	xmId=data.getExtras().getString("xmid");
+                xmEditText.setText(data.getStringExtra("title"));
+                xmId=data.getStringExtra("projectid");
             }
         }
     }
