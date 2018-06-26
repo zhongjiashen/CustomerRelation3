@@ -181,7 +181,6 @@ public class ChooseGoodsActivity extends BaseActivity implements
                     @Override
                     public void onClick(View view) {
                         possion = holder.getLayoutPosition();
-                        showShortToast(possion + "");
                         startActivityForResult(new Intent(ChooseGoodsActivity.this, EnterSerialNumberActivity.class)
                                 .putExtra("billid", "0")
                                 .putExtra("uuid", data.getSerialinfo())
