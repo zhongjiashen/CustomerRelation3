@@ -6,6 +6,7 @@ public class IndexModel {
 	private int logoId;
 	private String logoName;
 	private Intent mIntent;
+	private String khzlname;
 	public int getLogoId() {
 		return logoId;
 	}
@@ -25,5 +26,13 @@ public class IndexModel {
 
 	public void setIntent(Intent intent) {
 		mIntent = intent;
+	}
+
+	public String getKhzlname() {
+		return khzlname;
+	}
+
+	public void setKhzlname(String khzlname) {
+		this.khzlname = khzlname;
 	}
 }

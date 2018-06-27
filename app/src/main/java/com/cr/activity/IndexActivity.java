@@ -99,6 +99,10 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
     private View gzptView, jxcView, xjyhView, tjfxView, setView;
     private CustomGridView mstxGridView, wdgzGridView, azwxGridView, jhzjGridView, cgglGridView,
             xsglGridView, ckglGridView, xjyhGridView, tjfxGridView, khgxbbGridView;
+    private List<IndexModel> mstxIndexModelList, gzptIndexModelList, azwxIndexModelList, jhzjIndexModelList,
+            cgglIndexModelList, xsglIndexModelList, ckglIndexModelList, xjyhIndexModelList, tjfxIndexModelList,
+            khgxbbIndexModelList;
+
     private PopupWindow mPopupWindow;
     private ImageView corsor1, corsor2, corsor3, corsor4;
     private TextView gzptTextView, jxcTextView, xjyhTextView, tjfxTextView;
@@ -241,16 +245,16 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         xjyhGridView = (CustomGridView) xjyhView.findViewById(R.id.xjyh_gridview);
         tjfxGridView = (CustomGridView) tjfxView.findViewById(R.id.tjfx_gridview);
         khgxbbGridView = (CustomGridView) tjfxView.findViewById(R.id.khgxbb_gridview);
-        List<IndexModel> mstxIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> gzptIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> azwxIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> jhzjIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> cgglIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> xsglIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> ckglIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> xjyhIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> tjfxIndexModelList = new ArrayList<IndexModel>();
-        List<IndexModel> khgxbbIndexModelList = new ArrayList<IndexModel>();
+        mstxIndexModelList = new ArrayList<IndexModel>();
+        gzptIndexModelList = new ArrayList<IndexModel>();
+        azwxIndexModelList = new ArrayList<IndexModel>();
+        jhzjIndexModelList = new ArrayList<IndexModel>();
+        cgglIndexModelList = new ArrayList<IndexModel>();
+        xsglIndexModelList = new ArrayList<IndexModel>();
+        ckglIndexModelList = new ArrayList<IndexModel>();
+        xjyhIndexModelList = new ArrayList<IndexModel>();
+        tjfxIndexModelList = new ArrayList<IndexModel>();
+        khgxbbIndexModelList = new ArrayList<IndexModel>();
         for (int i = 0; i < 4; i++) {
             IndexModel im = new IndexModel();
             switch (i) {
@@ -281,53 +285,233 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 case 0:
                     im.setLogoId(R.drawable.index_hjzx);
                     im.setLogoName("计划拜访");
+                    im.setIntent(new Intent(this,
+                            GzptHjzxXzjhActivity.class));
+                    im.setKhzlname("hjzx");
                     break;
                 case 1:
                     im.setLogoId(R.drawable.index_yybf);
                     im.setLogoName("预约拜访");
+                    im.setIntent(new Intent(IndexActivity.this, GzptYybfActivity.class));
+                    im.setKhzlname("yybf");
                     break;
                 case 2:
                     im.setLogoId(R.drawable.index_shhf);
                     im.setLogoName("售后回访");
+                    im.setIntent(new Intent(IndexActivity.this, GzptShhfActivity.class));
+                    im.setKhzlname("shhf");
                     break;
                 case 3:
                     im.setLogoId(R.drawable.index_khgl);
                     im.setLogoName("自定义拜访");
+                    im.setIntent(new Intent(IndexActivity.this, GzptKhglActivity.class));
+                    im.setKhzlname("khgl");
                     break;
                 case 4:
                     im.setLogoId(R.drawable.index_xzld);
                     im.setLogoName("来电录入");
+                    im.setIntent(new Intent(IndexActivity.this, GzptXzldActivity.class));
+                    im.setKhzlname("xzld");
+
                     break;
                 case 5:
                     im.setLogoId(R.drawable.menu_xzjqdw);
                     im.setLogoName("近期新增单位");
+                    im.setIntent(new Intent(IndexActivity.this, GzptJqxzdwActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 6:
                     im.setLogoId(R.drawable.menu_khfw);
                     im.setLogoName("客户服务");
+                    im.setIntent(new Intent(IndexActivity.this, KhfwActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 7:
                     im.setLogoId(R.mipmap.menu_wlgl);
                     im.setLogoName("物流管理");
+                    im.setIntent(new Intent(IndexActivity.this, LogisticsManagementActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 8:
                     im.setLogoId(R.mipmap.menu_xsjh);
                     im.setLogoName("销售机会");
+                    im.setIntent(new Intent(IndexActivity.this, SalesOpportunitiesManagementActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 9:
                     im.setLogoId(R.mipmap.menu_htgl);
                     im.setLogoName("合同管理");
+                    im.setIntent(new Intent(IndexActivity.this, ContractManagementActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 10:
                     im.setLogoId(R.mipmap.menu_xmgl);
                     im.setLogoName("项目管理");
+                    im.setIntent(new Intent(IndexActivity.this, ProjectManagementActivity.class));
+                    im.setKhzlname("");
                     break;
                 default:
                     break;
             }
             gzptIndexModelList.add(im);
         }
+        //客户关系报表
+        for (int i = 0; i < 6; i++) {
+            IndexModel im = new IndexModel();
+            switch (i) {
+                case 0:
+                    im.setLogoId(R.drawable.menu_khbftj);
+                    im.setLogoName("客户拜访统计");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxKhbftjActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 1:
+                    im.setLogoId(R.drawable.menu_xkhtj);
+                    im.setLogoName("新客户统计");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxXkhtjActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 2:
+                    im.setLogoId(R.drawable.menu_xsjhtj);
+                    im.setLogoName("销售机会统计");
+                    im.setIntent(new Intent(IndexActivity.this,  TjfxXsjhtjActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 3:
+                    im.setLogoId(R.drawable.menu_khdjtj);
+                    im.setLogoName("客户等级统计");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxKhdjtjActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 4:
+                    im.setLogoId(R.drawable.menu_xsjdtj);
+                    im.setLogoName("销售阶段统计");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxXsjdtjActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 5:
+                    im.setLogoId(R.drawable.menu_khfwtj);
+                    im.setLogoName("客户服务统计");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxKhfwtjActivity.class));
+                    im.setKhzlname("");
+                    break;
+                default:
+                    break;
+            }
+            khgxbbIndexModelList.add(im);
+        }
+        String category=ShareUserInfo.getKey(context, "zt");
+//        租赁企业版、IT企业版、IT专业版这三个版屏蔽客户服务(标准专业版版\汽配版等保留)，统计分析中客户服务统计也给屏蔽了
+        if(category.equals("租赁企业版")||category.equals("IT企业版")||category.equals("IT专业版")){
+            gzptIndexModelList.remove(6);
+            khgxbbIndexModelList.remove(5);
+        }
+        wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
+        wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+                if (TextUtils.isEmpty(gzptIndexModelList.get(arg2).getKhzlname())) {
+                    ShareUserInfo.setKey(context, "khzlname", gzptIndexModelList.get(arg2).getKhzlname());
+                }
+                startActivity(gzptIndexModelList.get(arg2).getIntent());
+            }
 
+        });
+        khgxbbGridView.setAdapter(new IndexAdapter(context, khgxbbIndexModelList));
+        khgxbbGridView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                startActivity(khgxbbIndexModelList.get(arg2).getIntent());
+            }
+        });
+//        khgxbbGridView.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                Intent intent = new Intent();
+//                switch (arg2) {
+//                    case 0:
+//                        //统计分析客户拜访统计
+//                        intent.setClass(IndexActivity.this, TjfxKhbftjActivity.class);
+//                        break;
+//                    case 1:
+//                        //统计分析客户拜访统计
+//                        intent.setClass(IndexActivity.this, TjfxXkhtjActivity.class);
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, TjfxXsjhtjActivity.class);
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, TjfxKhdjtjActivity.class);
+//                        break;
+//                    case 4:
+//                        //统计分析-销售阶段统计
+//                        intent.setClass(IndexActivity.this, TjfxXsjdtjActivity.class);
+//                        break;
+//                    case 5:
+//                        intent.setClass(IndexActivity.this, TjfxKhfwtjActivity.class);
+//                        break;
+//                }
+//                startActivity(intent);
+//            }
+//        });
+//        wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+//                Intent intent = new Intent();
+//                switch (arg2) {
+//                    case 0:
+//                        intent.setClass(IndexActivity.this,
+//                                GzptHjzxXzjhActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "hjzx");
+//                        break;
+//                    case 1:
+//                        intent.setClass(IndexActivity.this, GzptYybfActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "yybf");
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, GzptShhfActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "shhf");
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, GzptKhglActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "khgl");
+//                        break;
+//                    case 4:
+//                        intent.setClass(IndexActivity.this, GzptXzldActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "xzld");
+//                        break;
+//                    case 5:
+//                        intent.setClass(IndexActivity.this, GzptJqxzdwActivity.class);
+//                        break;
+//                    case 6:
+//                        intent.setClass(IndexActivity.this, KhfwActivity.class);
+//                        break;
+//                    case 7://物流管理
+//                        intent.setClass(IndexActivity.this, LogisticsManagementActivity.class);
+//                        break;
+//                    case 8://销售机会
+//                        intent.setClass(IndexActivity.this,SalesOpportunitiesManagementActivity.class);
+//                        break;
+//                    case 9://合同管理
+//                        intent.setClass(IndexActivity.this, ContractManagementActivity.class);
+//                        break;
+//                    case 10://项目管理
+//                        intent.setClass(IndexActivity.this, ProjectManagementActivity.class);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                startActivity(intent);
+//            }
+//        });
         //安装维修
         for (int i = 0; i < 4; i++) {
             IndexModel im = new IndexModel();
@@ -491,39 +675,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             xjyhIndexModelList.add(im);
         }
-        //客户关系报表
-        for (int i = 0; i < 6; i++) {
-            IndexModel im = new IndexModel();
-            switch (i) {
-                case 0:
-                    im.setLogoId(R.drawable.menu_khbftj);
-                    im.setLogoName("客户拜访统计");
-                    break;
-                case 1:
-                    im.setLogoId(R.drawable.menu_xkhtj);
-                    im.setLogoName("新客户统计");
-                    break;
-                case 2:
-                    im.setLogoId(R.drawable.menu_xsjhtj);
-                    im.setLogoName("销售机会统计");
-                    break;
-                case 3:
-                    im.setLogoId(R.drawable.menu_khdjtj);
-                    im.setLogoName("客户等级统计");
-                    break;
-                case 4:
-                    im.setLogoId(R.drawable.menu_xsjdtj);
-                    im.setLogoName("销售阶段统计");
-                    break;
-                case 5:
-                    im.setLogoId(R.drawable.menu_khfwtj);
-                    im.setLogoName("客户服务统计");
-                    break;
-                default:
-                    break;
-            }
-            khgxbbIndexModelList.add(im);
-        }
+
         for (int i = 0; i < 5; i++) {
             IndexModel im = new IndexModel();
             switch (i) {
@@ -553,7 +705,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             tjfxIndexModelList.add(im);
         }
         mstxGridView.setAdapter(new IndexAdapter(context, mstxIndexModelList));
-        wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
+
         azwxGridView.setAdapter(new IndexAdapter(context, azwxIndexModelList));
         jhzjGridView.setAdapter(new IndexAdapter(context, jhzjIndexModelList));
         cgglGridView.setAdapter(new IndexAdapter(context, cgglIndexModelList));
@@ -561,7 +713,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         ckglGridView.setAdapter(new IndexAdapter(context, ckglIndexModelList));
         xjyhGridView.setAdapter(new IndexAdapter(context, xjyhIndexModelList));
         tjfxGridView.setAdapter(new IndexAdapter(context, tjfxIndexModelList));
-        khgxbbGridView.setAdapter(new IndexAdapter(context, khgxbbIndexModelList));
+
 
         mstxGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -602,58 +754,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 }
             }
         });
-        wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-                    case 0:
-                        intent.setClass(IndexActivity.this,
-                                GzptHjzxXzjhActivity.class);
-                        ShareUserInfo.setKey(context, "khzlname", "hjzx");
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, GzptYybfActivity.class);
-                        ShareUserInfo.setKey(context, "khzlname", "yybf");
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, GzptShhfActivity.class);
-                        ShareUserInfo.setKey(context, "khzlname", "shhf");
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, GzptKhglActivity.class);
-                        ShareUserInfo.setKey(context, "khzlname", "khgl");
-                        break;
-                    case 4:
-                        intent.setClass(IndexActivity.this, GzptXzldActivity.class);
-                        ShareUserInfo.setKey(context, "khzlname", "xzld");
-                        break;
-                    case 5:
-                        intent.setClass(IndexActivity.this, GzptJqxzdwActivity.class);
-                        break;
-                    case 6:
-                        intent.setClass(IndexActivity.this, KhfwActivity.class);
-                        break;
-                    case 7://物流管理
-                        intent.setClass(IndexActivity.this, LogisticsManagementActivity.class);
-                        break;
-                    case 8://销售机会
-                        intent.setClass(IndexActivity.this,SalesOpportunitiesManagementActivity.class);
-                        break;
-                    case 9://合同管理
-                        intent.setClass(IndexActivity.this, ContractManagementActivity.class);
-                        break;
-                    case 10://项目管理
-                        intent.setClass(IndexActivity.this, ProjectManagementActivity.class);
-                        break;
-                    default:
-                        break;
-                }
-                startActivity(intent);
-            }
-        });
+
         azwxGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -816,38 +917,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 startActivity(intent);
             }
         });
-        khgxbbGridView.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                Intent intent = new Intent();
-                switch (arg2) {
-                    case 0:
-                        //统计分析客户拜访统计
-                        intent.setClass(IndexActivity.this, TjfxKhbftjActivity.class);
-                        break;
-                    case 1:
-                        //统计分析客户拜访统计
-                        intent.setClass(IndexActivity.this, TjfxXkhtjActivity.class);
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, TjfxXsjhtjActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, TjfxKhdjtjActivity.class);
-                        break;
-                    case 4:
-                        //统计分析-销售阶段统计
-                        intent.setClass(IndexActivity.this, TjfxXsjdtjActivity.class);
-                        break;
-                    case 5:
-                        intent.setClass(IndexActivity.this, TjfxKhfwtjActivity.class);
-                        break;
-                }
-                startActivity(intent);
-            }
-        });
         tjfxGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
