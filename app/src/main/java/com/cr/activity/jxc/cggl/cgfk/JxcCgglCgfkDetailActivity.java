@@ -329,8 +329,11 @@ public class JxcCgglCgfkDetailActivity extends BaseActivity implements
 			if (returnJson.equals("")) {
 				return;
 			}
+			list.clear();
 			list.addAll((List<Map<String, Object>>) PaseJson
 					.paseJsonToObject(returnJson));
+//			list=(List<Map<String, Object>>) PaseJson
+//					.paseJsonToObject(returnJson);
 			xzspnumTextView.setText("共选择了" + list.size() + "引用");
 			adapter.notifyDataSetChanged();
 			double b=0;

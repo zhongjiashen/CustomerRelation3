@@ -230,6 +230,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
             showZdr(object);
             searchDate2();//查询订单中的商品
         } else if (returnSuccessType == 1) {
+            list.clear();
             list.addAll((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson));
             xzspnumTextView.setText("共选择了" + list.size() + "商品");
             adapter.notifyDataSetChanged();

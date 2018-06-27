@@ -191,6 +191,7 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
             if(returnJson.equals("")){
                 return;
             }
+            list.clear();
             list.addAll((List<Map<String, Object>>)PaseJson.paseJsonToObject(returnJson));
             xzspnumTextView.setText("共选择了" + list.size() + "商品");
             adapter.notifyDataSetChanged();
