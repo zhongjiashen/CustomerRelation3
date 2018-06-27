@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -413,6 +414,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	/**
 	 * 监听事件
 	 */
+	@SuppressLint("MissingPermission")
 	@Override
 	public void onClick(View view) {
 		Intent intent=new Intent();
