@@ -85,9 +85,35 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         addZYMethod();
         searchDateDw(0);
         if (types.equals("1")) {//客户
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", "服务", "订单", "项目"};
+            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "项目"};
             //设置可以滑动
             tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            List<BaseView> v = new ArrayList<BaseView>();
+            for (int i = 0; i < viewPage.size(); i++) {
+                switch (i) {
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+                        v.add(viewPage.get(i));
+                        break;
+                    case 5:
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            viewPage.removeAll(v);
 
         } else if (types.equals("2")) {//供应商
             myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
@@ -151,9 +177,35 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
             }
             viewPage.removeAll(v);
         } else if (types.equals("4")) {//渠道
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", "服务", "订单", "项目"};
+            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "项目"};
             //设置可以滑动
             tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            List<BaseView> v = new ArrayList<BaseView>();
+            for (int i = 0; i < viewPage.size(); i++) {
+                switch (i) {
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+                        v.add(viewPage.get(i));
+                        break;
+                    case 5:
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            viewPage.removeAll(v);
         } else if (types.equals("5")) {//员工
 //            dwTextView.setText("基本信息");
             myAdapter.mTitles = new String[]{"基本信息", "拜访", "项目"};

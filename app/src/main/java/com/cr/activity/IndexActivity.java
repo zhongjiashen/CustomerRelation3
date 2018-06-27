@@ -401,11 +401,55 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             khgxbbIndexModelList.add(im);
         }
+        /*进存销——库存管理*/
+        for (int i = 0; i < 5; i++) {
+            IndexModel im = new IndexModel();
+            switch (i) {
+                case 0:
+                    im.setLogoId(R.drawable.menu_ckdb);
+                    im.setLogoName("仓库调拨");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglCkdbActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 1:
+                    im.setLogoId(R.drawable.menu_kcpd);
+                    im.setLogoName("库存盘点");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglKcpdActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 2:
+                    im.setLogoId(R.drawable.menu_chtj);
+                    im.setLogoName("存货调价");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglChtjActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 3:
+                    im.setLogoId(R.drawable.menu_kcbd);
+                    im.setLogoName("库存变动");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglKcbdActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 4:
+                    im.setLogoId(R.drawable.menu_zzcx);
+                    im.setLogoName("组装拆卸");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglZzcxActivity.class));
+                    im.setKhzlname("");
+                    break;
+                default:
+                    break;
+            }
+            ckglIndexModelList.add(im);
+        }
         String category = ShareUserInfo.getKey(context, "zt");
 //        租赁企业版、IT企业版、IT专业版这三个版屏蔽客户服务(标准专业版版\汽配版等保留)，统计分析中客户服务统计也给屏蔽了
         if (category.equals("租赁企业版") || category.equals("IT企业版") || category.equals("IT专业版")) {
             gzptIndexModelList.remove(6);
             khgxbbIndexModelList.remove(5);
+            ckglIndexModelList.remove(1);
+            ckglIndexModelList.remove(2);
+            ckglIndexModelList.remove(2);
+
+        }else {
             azwxGridView.setVisibility(View.GONE);
             tvAzwx.setVisibility(View.GONE);
         }
@@ -431,6 +475,44 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 startActivity(khgxbbIndexModelList.get(arg2).getIntent());
             }
         });
+        ckglGridView.setAdapter(new IndexAdapter(context, ckglIndexModelList));
+        ckglGridView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
+
+                startActivity(ckglIndexModelList.get(arg2).getIntent());
+            }
+        });
+//        ckglGridView.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
+//                Intent intent = new Intent();
+//                switch (arg2) {
+//                    case 0:
+//                        intent.setClass(IndexActivity.this, JxcCkglCkdbActivity.class);
+//                        break;
+//                    case 1:
+//                        intent.setClass(IndexActivity.this, JxcCkglKcpdActivity.class);
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, JxcCkglChtjActivity.class);
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, JxcCkglKcbdActivity.class);
+//                        break;
+//                    case 4:
+//                        intent.setClass(IndexActivity.this, JxcCkglZzcxActivity.class);
+//                        break;
+//                }
+//                startActivity(intent);
+//            }
+//        });
 //        khgxbbGridView.setOnItemClickListener(new OnItemClickListener() {
 //
 //            @Override
@@ -622,34 +704,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             xsglIndexModelList.add(im);
         }
-        for (int i = 0; i < 3; i++) {
-            IndexModel im = new IndexModel();
-            switch (i) {
-                case 0:
-                    im.setLogoId(R.drawable.menu_ckdb);
-                    im.setLogoName("仓库调拨");
-                    break;
-                case 1:
-                    im.setLogoId(R.drawable.menu_kcpd);
-                    im.setLogoName("库存盘点");
-                    break;
-                case 2:
-                    im.setLogoId(R.drawable.menu_chtj);
-                    im.setLogoName("存货调价");
-                    break;
-                case 3:
-                    im.setLogoId(R.drawable.menu_kcbd);
-                    im.setLogoName("库存变动");
-                    break;
-                case 4:
-                    im.setLogoId(R.drawable.menu_zzcx);
-                    im.setLogoName("组装拆卸");
-                    break;
-                default:
-                    break;
-            }
-            ckglIndexModelList.add(im);
-        }
+
         for (int i = 0; i < 5; i++) {
             IndexModel im = new IndexModel();
             switch (i) {
@@ -713,7 +768,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         jhzjGridView.setAdapter(new IndexAdapter(context, jhzjIndexModelList));
         cgglGridView.setAdapter(new IndexAdapter(context, cgglIndexModelList));
         xsglGridView.setAdapter(new IndexAdapter(context, xsglIndexModelList));
-        ckglGridView.setAdapter(new IndexAdapter(context, ckglIndexModelList));
+
         xjyhGridView.setAdapter(new IndexAdapter(context, xjyhIndexModelList));
         tjfxGridView.setAdapter(new IndexAdapter(context, tjfxIndexModelList));
 
@@ -866,33 +921,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 startActivity(intent);
             }
         });
-        ckglGridView.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-                    case 0:
-                        intent.setClass(IndexActivity.this, JxcCkglCkdbActivity.class);
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, JxcCkglKcpdActivity.class);
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, JxcCkglChtjActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, JxcCkglKcbdActivity.class);
-                        break;
-                    case 4:
-                        intent.setClass(IndexActivity.this, JxcCkglZzcxActivity.class);
-                        break;
-                }
-                startActivity(intent);
-            }
-        });
         xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
