@@ -40,6 +40,7 @@ public class XjyhYhcqAddActivity extends BaseActivity implements
 	private String zczhId,zrzhId, jbrId;
 
 	String billid; // 选择完关联的单据后返回的单据的ID
+	private long time;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +183,13 @@ public class XjyhYhcqAddActivity extends BaseActivity implements
 			startActivityForResult(intent, 3);
 			break;
 		case R.id.save_imagebutton:
-			searchDateSave();// 保存
+			if(time==0||System.currentTimeMillis()-time>5000) {
+				searchDateSave();//保存
+				time=System.currentTimeMillis();
+			}else {
+				showToastPromopt("请不要频繁点击，防止重复保存");
+
+			}
 			break;
 		}
 	}

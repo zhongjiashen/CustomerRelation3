@@ -60,6 +60,8 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
 	String billid; // 选择完关联的单据后返回的单据的ID
 	private EditText xmEditText;
 	private String xmId;
+	private long time;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -285,7 +287,13 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
 			startActivityForResult(intent, 5);
 			break;
 		case R.id.save_imagebutton:
-			searchDateSave();// 保存
+			if(time==0||System.currentTimeMillis()-time>5000) {
+				searchDateSave();//保存
+				time=System.currentTimeMillis();
+			}else {
+				showToastPromopt("请不要频繁点击，防止重复保存");
+
+			}
 			break;
 		 case R.id.xm_edittext:
          	intent.setClass(activity, XmActivity.class);
