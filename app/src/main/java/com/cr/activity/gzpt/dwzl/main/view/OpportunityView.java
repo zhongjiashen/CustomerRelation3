@@ -10,6 +10,8 @@ import com.cr.activity.gzpt.dwzl.GzptDwzlJhXzxsjhActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlJhAdapter;
 import com.cr.common.XListView;
 import com.crcxj.activity.R;
+import com.update.actiity.sales.SalesOpportunitiesActivity;
+import com.update.actiity.sales.SalesOpportunitiesManagementActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -77,13 +79,15 @@ public class OpportunityView extends BaseView{
         xListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent();
-                intent.setClass(activity, GzptDwzlJhXzxsjhActivity.class);
-                intent.putExtra("clientid", clientId);
-                intent.putExtra("clientname", khmc);
-                intent.putExtra("code", jhList.get(arg2 - 1).get("code").toString());
-                intent.putExtra("chanceid", jhList.get(arg2 - 1).get("chanceid").toString());
-                activity.startActivityForResult(intent, 3);
+                activity.startActivityForResult(new Intent(activity, SalesOpportunitiesActivity.class)
+                                .putExtra("billid", jhList.get(arg2 - 1).get("billid").toString()),3);
+//                Intent intent = new Intent();
+//                intent.setClass(activity, GzptDwzlJhXzxsjhActivity.class);
+//                intent.putExtra("clientid", clientId);
+//                intent.putExtra("clientname", khmc);
+//                intent.putExtra("code", jhList.get(arg2 - 1).get("code").toString());
+//                intent.putExtra("chanceid", jhList.get(arg2 - 1).get("billid").toString());
+//                activity.startActivityForResult(intent, 3);
 
             }
         });

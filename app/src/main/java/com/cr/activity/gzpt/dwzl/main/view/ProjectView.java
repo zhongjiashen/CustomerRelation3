@@ -10,6 +10,8 @@ import com.cr.activity.xm.BjxmActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlXmAdapter;
 import com.cr.common.XListView;
 import com.crcxj.activity.R;
+import com.update.actiity.project.ProjectActivity;
+import com.update.actiity.project.ProjectManagementActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,10 +81,12 @@ public class ProjectView extends BaseView{
         xListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent();
-                intent.putExtra("xmid", xmList.get(arg2 - 1).get("projectid").toString());
-                intent.setClass(activity, BjxmActivity.class);
-                activity.startActivityForResult(intent, 6);
+                activity.startActivityForResult(new Intent(activity, ProjectActivity.class)
+                                .putExtra("billid", xmList.get(arg2 - 1).get("billid").toString()), 6);
+//                Intent intent = new Intent();
+//                intent.putExtra("xmid", xmList.get(arg2 - 1).get("billid").toString());
+//                intent.setClass(activity, BjxmActivity.class);
+//                activity.startActivityForResult(intent, 6);
             }
         });
     }

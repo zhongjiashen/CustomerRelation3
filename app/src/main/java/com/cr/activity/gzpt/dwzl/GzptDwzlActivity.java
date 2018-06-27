@@ -27,6 +27,10 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.project.AddProjectActivity;
+import com.update.actiity.project.ProjectManagementActivity;
+import com.update.actiity.sales.AddSalesOpportunitiesActivity;
+import com.update.actiity.sales.SalesOpportunitiesManagementActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -280,10 +284,14 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     public void searchDateJh(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("tabname", "tb_chance");
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("qsrq", "1901-01-01");
+        parmMap.put("zzrq", "3000-01-01");
         parmMap.put("clientid", clientId);
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
-        findServiceData(type, ServerURL.ITEMLIST, parmMap);
+        findServiceData(type, ServerURL.BILLLIST, parmMap);
     }
 
     /**
@@ -328,6 +336,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     public void searchDateXm(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("tabname", "tb_project");
         parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("clientid", clientId);
         parmMap.put("qsrq", "1901-01-01");
@@ -336,7 +345,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         parmMap.put("title", "");
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
-        findServiceData(type, ServerURL.PROJECTLIST, parmMap);
+        findServiceData(type,ServerURL.BILLLIST, parmMap);
     }
 
     /**
@@ -378,10 +387,13 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(intent, 2);
                 break;
             case R.id.xzxsjh_textview:
-                intent.setClass(this, GzptDwzlJhXzxsjhActivity.class);
-                intent.putExtra("clientid", clientId);
-                intent.putExtra("clientname", dwObject.get("cname").toString());
-                startActivityForResult(intent, 3);
+                startActivityForResult(new Intent(this, AddSalesOpportunitiesActivity.class)
+                        .putExtra("clientid", clientId)
+                        .putExtra("clientname", dwObject.get("cname").toString()), 3);
+//                intent.setClass(this, GzptDwzlJhXzxsjhActivity.class);
+//                intent.putExtra("clientid", clientId);
+//                intent.putExtra("clientname", dwObject.get("cname").toString());
+//                startActivityForResult(intent, 3);
                 break;
             case R.id.xzfwd_textview:
                 intent.setClass(this, KhfwAddActivity.class);
@@ -398,12 +410,13 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(intent, 5);
                 break;
             case R.id.xzxm_textview:
-                intent.setClass(this, XzxmActivity.class);
-                //                intent.putExtra("lxrid", "0");
-                //                intent.putExtra("clientid", clientId);
-                intent.putExtra("dwObject", (Serializable) dwObject);
-                intent.putExtra("types", types);
-                startActivityForResult(intent, 6);
+                startActivityForResult(new Intent(this, AddProjectActivity.class),6);
+//                intent.setClass(this, XzxmActivity.class);
+//                //                intent.putExtra("lxrid", "0");
+//                //                intent.putExtra("clientid", clientId);
+//                intent.putExtra("dwObject", (Serializable) dwObject);
+//                intent.putExtra("types", types);
+//                startActivityForResult(intent, 6);
                 break;
             default:
                 break;

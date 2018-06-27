@@ -204,7 +204,6 @@ public class ProjectManagementActivity extends BaseActivity implements
                         startActivity(new Intent(ProjectManagementActivity.this, AddProjectActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
-
                         startActivityForResult(new Intent(mActivity, ScreeningProjectActivity.class)
                                 .putExtra("kind", 0), 11);
                         break;
