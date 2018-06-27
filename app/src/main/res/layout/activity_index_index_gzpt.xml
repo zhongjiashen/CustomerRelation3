@@ -46,6 +46,7 @@
             android:verticalSpacing="15dip" >
         </com.cr.tools.CustomGridView>
         <TextView
+            android:id="@+id/tv_azwx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"

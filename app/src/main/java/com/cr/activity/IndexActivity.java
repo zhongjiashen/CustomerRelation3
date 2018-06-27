@@ -105,7 +105,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 
     private PopupWindow mPopupWindow;
     private ImageView corsor1, corsor2, corsor3, corsor4;
-    private TextView gzptTextView, jxcTextView, xjyhTextView, tjfxTextView;
+    private TextView gzptTextView, jxcTextView, xjyhTextView, tjfxTextView, tvAzwx;
     private LinearLayout gyLayout;
 
     private String lng, lat; // 经度，纬度
@@ -238,6 +238,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         mstxGridView = (CustomGridView) gzptView.findViewById(R.id.mstx_gridview);
         wdgzGridView = (CustomGridView) gzptView.findViewById(R.id.wdgz_gridview);
         azwxGridView = (CustomGridView) gzptView.findViewById(R.id.azwx_gridview);
+        tvAzwx = (TextView) gzptView.findViewById(R.id.tv_azwx);
         jhzjGridView = (CustomGridView) gzptView.findViewById(R.id.jhzj_gridview);
         cgglGridView = (CustomGridView) jxcView.findViewById(R.id.cggl_gridview);
         xsglGridView = (CustomGridView) jxcView.findViewById(R.id.xsgl_gridview);
@@ -374,7 +375,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 case 2:
                     im.setLogoId(R.drawable.menu_xsjhtj);
                     im.setLogoName("销售机会统计");
-                    im.setIntent(new Intent(IndexActivity.this,  TjfxXsjhtjActivity.class));
+                    im.setIntent(new Intent(IndexActivity.this, TjfxXsjhtjActivity.class));
                     im.setKhzlname("");
                     break;
                 case 3:
@@ -400,11 +401,13 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             khgxbbIndexModelList.add(im);
         }
-        String category=ShareUserInfo.getKey(context, "zt");
+        String category = ShareUserInfo.getKey(context, "zt");
 //        租赁企业版、IT企业版、IT专业版这三个版屏蔽客户服务(标准专业版版\汽配版等保留)，统计分析中客户服务统计也给屏蔽了
-        if(category.equals("租赁企业版")||category.equals("IT企业版")||category.equals("IT专业版")){
+        if (category.equals("租赁企业版") || category.equals("IT企业版") || category.equals("IT专业版")) {
             gzptIndexModelList.remove(6);
             khgxbbIndexModelList.remove(5);
+            azwxGridView.setVisibility(View.GONE);
+            tvAzwx.setVisibility(View.GONE);
         }
         wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
         wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
