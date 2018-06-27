@@ -61,6 +61,9 @@ public class JxcXsglXsskSearchActivity extends BaseActivity implements OnClickLi
         }else if(this.getIntent().getExtras().getString("sh").equals("2")){
             shId="2";
             shEditText.setText("审核中");
+        }else if(this.getIntent().getExtras().getString("sh").equals("3")){
+            shId="3";
+            shEditText.setText("全部");
         }
     }
 
