@@ -501,6 +501,11 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 gysEditText.setText(data.getExtras().getString("name"));
                 gysId = data.getExtras().getString("id");
                 gysqkEditText.setText(data.getExtras().getString("qk"));
+                // 清楚項目
+                xmEditText.setText("");
+                xmId="";
+                xmEditText.setText("");
+                xmId="";
             } else if (requestCode == 2) {// 联系人
                 lxrEditText.setText(data.getExtras().getString("name"));
                 lxrId = data.getExtras().getString("id");

@@ -68,12 +68,12 @@ public class JxcCgglCgfkXzyyDetail2Activity extends BaseActivity implements OnCl
         scTextView.setOnClickListener(this);
         saveImageButton.setVisibility(View.GONE);
         scTextView.setVisibility(View.GONE);
-        cpphLayout=(LinearLayout) findViewById(R.id.cpph_layout);
-    	cpphView=findViewById(R.id.cpph_view);
-    	scrqLayout=(LinearLayout) findViewById(R.id.scrq_layout);
-    	scrqView=findViewById(R.id.scrq_view);
-    	yxqzLayout=(LinearLayout) findViewById(R.id.yxqz_layout);
-    	yxqzView=findViewById(R.id.yxqz_view);
+//        cpphLayout=(LinearLayout) findViewById(R.id.cpph_layout);
+//    	cpphView=(View)findViewById(R.id.cpph_view);
+//    	scrqLayout=(LinearLayout) findViewById(R.id.scrq_layout);
+//    	scrqView=(View)findViewById(R.id.scrq_view);
+//    	yxqzLayout=(LinearLayout) findViewById(R.id.yxqz_layout);
+//    	yxqzView=(View)findViewById(R.id.yxqz_view);
         if (this.getIntent().hasExtra("object")) {
             object = (Map<String, Object>) this.getIntent().getExtras().getSerializable("object");
             dwmcTextView.setText("单位名称：" + object.get("cname").toString());
@@ -84,21 +84,21 @@ public class JxcCgglCgfkXzyyDetail2Activity extends BaseActivity implements OnCl
             yfTextView.setText("已付：￥" + object.get("totalrcvd").toString());
             wfTextView.setText("未付：￥" + object.get("shouldpayamt").toString());
             bcjsEditText.setText((object.get("amount")==null?object.get("bcjs").toString():object.get("amount").toString()));
-            if(object.get("batchctrl").toString().equals("T")){
-            	cpphLayout.setVisibility(View.VISIBLE);
-            	cpphView.setVisibility(View.VISIBLE);
-            	scrqLayout.setVisibility(View.VISIBLE);
-            	scrqView.setVisibility(View.VISIBLE);
-            	yxqzLayout.setVisibility(View.VISIBLE);
-            	yxqzView.setVisibility(View.VISIBLE);
-            }else{
-            	cpphLayout.setVisibility(View.GONE);
-            	cpphView.setVisibility(View.GONE);
-            	scrqLayout.setVisibility(View.GONE);
-            	scrqView.setVisibility(View.GONE);
-            	yxqzLayout.setVisibility(View.GONE);
-            	yxqzView.setVisibility(View.GONE);
-            }
+//            if(object.get("batchctrl")!=null&&object.get("batchctrl").toString().equals("T")){
+//            	cpphLayout.setVisibility(View.VISIBLE);
+//            	cpphView.setVisibility(View.VISIBLE);
+//            	scrqLayout.setVisibility(View.VISIBLE);
+//            	scrqView.setVisibility(View.VISIBLE);
+//            	yxqzLayout.setVisibility(View.VISIBLE);
+//            	yxqzView.setVisibility(View.VISIBLE);
+//            }else{
+//            	cpphLayout.setVisibility(View.GONE);
+//            	cpphView.setVisibility(View.GONE);
+//            	scrqLayout.setVisibility(View.GONE);
+//            	scrqView.setVisibility(View.GONE);
+//            	yxqzLayout.setVisibility(View.GONE);
+//            	yxqzView.setVisibility(View.GONE);
+//            }
         }
     }
 

@@ -492,6 +492,11 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                 gysId = data.getExtras().getString("id");
                 mTypesname = data.getStringExtra("typesname");
                 khqkEditText.setText(data.getExtras().getString("qk"));
+                // 清楚項目
+                xmEditText.setText("");
+                xmId="";
+                xmEditText.setText("");
+                xmId="";
             } else if (requestCode == 2) {// 联系人
                 lxrEditText.setText(data.getExtras().getString("name"));
                 lxrId = data.getExtras().getString("id");

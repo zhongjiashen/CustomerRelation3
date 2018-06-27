@@ -201,7 +201,8 @@
 
                 <View style="@style/underline" />
 
-                <LinearLayout style="@style/detail_relativelayout" android:id="@+id/cpph_layout">
+                <LinearLayout style="@style/detail_relativelayout"
+                    android:id="@+id/cpph_layout">
 
                     <TextView
                         style="@style/font_default"
