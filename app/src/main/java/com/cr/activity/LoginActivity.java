@@ -111,6 +111,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 int index = 0;
                 LogUtils.e(returnJson);
                 ztList = ZT.paseJsonToObject(returnJson);
+                LogUtils.e(ShareUserInfo.getKey(context, "zt"));
                 String[] ztString = new String[ztList.size()];
                 for (int i = 0; i < ztList.size(); i++) {
                     ztString[i] = ztList.get(i).getName();

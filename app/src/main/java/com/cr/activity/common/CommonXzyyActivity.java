@@ -155,14 +155,16 @@ public class CommonXzyyActivity extends BaseActivity implements OnClickListener 
 		}else if(returnSuccessType==1){
 			List<Map<String, Object>> l=(List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
 			double totalAmount=0;
-			for(Map<String, Object> m:l){
-			    totalAmount+=Double.parseDouble(m.get("amount").toString().equals("")?"0":m.get("amount").toString());
+			if(l!=null) {
+				for (Map<String, Object> m : l) {
+					totalAmount += Double.parseDouble(m.get("amount").toString().equals("") ? "0" : m.get("amount").toString());
+				}
+				Intent intent = new Intent();
+				intent.putExtra("list", (Serializable) l);
+				intent.putExtra("totalAmount", totalAmount + "");
+				setResult(RESULT_OK, intent);
+				finish();
 			}
-			Intent intent=new Intent();
-			intent.putExtra("list", (Serializable) l);
-			intent.putExtra("totalAmount", totalAmount+"");
-			setResult(RESULT_OK, intent);
-			finish();
 		}
 	}
 
