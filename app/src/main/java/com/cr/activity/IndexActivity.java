@@ -356,6 +356,46 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             gzptIndexModelList.add(im);
         }
+        // 现金银行
+        for (int i = 0; i < 5; i++) {
+            IndexModel im = new IndexModel();
+            switch (i) {
+                case 0:
+                    im.setLogoId(R.drawable.menu_fyzc);
+                    im.setLogoName("费用支出");
+                    im.setIntent(new Intent(IndexActivity.this, XjyhFyzcActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 1:
+                    im.setLogoId(R.drawable.menu_yhcq);
+                    im.setLogoName("银行存取");
+                    im.setIntent(new Intent(IndexActivity.this, XjyhYhcqActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 2:
+                    im.setLogoId(R.drawable.menu_fkd);
+                    im.setLogoName("付款单");
+                    im.setIntent(new Intent(IndexActivity.this, XjyhFkdActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 3:
+                    im.setLogoId(R.drawable.menu_skd);
+                    im.setLogoName("收款单");
+                    im.setIntent(new Intent(IndexActivity.this, XjyhSkdActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 4:
+                    im.setLogoId(R.drawable.menu_qtsr);
+                    im.setLogoName("其他收入");
+                    im.setIntent(new Intent(IndexActivity.this, XjyhQtsrActivity.class));
+                    im.setKhzlname("");
+                    break;
+                default:
+                    break;
+            }
+            xjyhIndexModelList.add(im);
+        }
+
         //客户关系报表
         for (int i = 0; i < 6; i++) {
             IndexModel im = new IndexModel();
@@ -443,16 +483,18 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         String category = ShareUserInfo.getKey(context, "zt");
 //        租赁企业版、IT企业版、IT专业版这三个版屏蔽客户服务(标准专业版版\汽配版等保留)，统计分析中客户服务统计也给屏蔽了
         if (category.equals("租赁企业版") || category.equals("IT企业版") || category.equals("IT专业版")) {
-            gzptIndexModelList.remove(6);
-            khgxbbIndexModelList.remove(5);
-            ckglIndexModelList.remove(1);
-            ckglIndexModelList.remove(2);
-            ckglIndexModelList.remove(2);
+            gzptIndexModelList.remove(6);//屏蔽
+            khgxbbIndexModelList.remove(5);//屏蔽
+            ckglIndexModelList.remove(1);//屏蔽
+            xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
+            xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
 
         }else {
             azwxGridView.setVisibility(View.GONE);
             tvAzwx.setVisibility(View.GONE);
         }
+        ckglIndexModelList.remove(2);
+        ckglIndexModelList.remove(2);
         wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
         wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -486,6 +528,44 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 startActivity(ckglIndexModelList.get(arg2).getIntent());
             }
         });
+        xjyhGridView.setAdapter(new IndexAdapter(context, xjyhIndexModelList));
+        xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "xjyh");//判断是否是采购订单
+                startActivity(xjyhIndexModelList.get(arg2).getIntent());
+            }
+        });
+//
+//        xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                ShareUserInfo.setKey(context, "cpphType", "xjyh");//判断是否是采购订单
+//                Intent intent = new Intent();
+//                switch (arg2) {
+//                    case 0:
+//                        intent.setClass(IndexActivity.this, XjyhFyzcActivity.class);
+//                        break;
+//                    case 1:
+//                        intent.setClass(IndexActivity.this, XjyhYhcqActivity.class);
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, XjyhFkdActivity.class);
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, XjyhSkdActivity.class);
+//                        break;
+//                    case 4:
+//                        intent.setClass(IndexActivity.this, XjyhQtsrActivity.class);
+//                        break;
+//                }
+//                startActivity(intent);
+//            }
+//        });
 //        ckglGridView.setOnItemClickListener(new OnItemClickListener() {
 //
 //            @Override
@@ -705,34 +785,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             xsglIndexModelList.add(im);
         }
 
-        for (int i = 0; i < 5; i++) {
-            IndexModel im = new IndexModel();
-            switch (i) {
-                case 0:
-                    im.setLogoId(R.drawable.menu_fyzc);
-                    im.setLogoName("费用支出");
-                    break;
-                case 1:
-                    im.setLogoId(R.drawable.menu_yhcq);
-                    im.setLogoName("银行存取");
-                    break;
-                case 2:
-                    im.setLogoId(R.drawable.menu_fkd);
-                    im.setLogoName("付款单");
-                    break;
-                case 3:
-                    im.setLogoId(R.drawable.menu_skd);
-                    im.setLogoName("收款单");
-                    break;
-                case 4:
-                    im.setLogoId(R.drawable.menu_qtsr);
-                    im.setLogoName("其他收入");
-                    break;
-                default:
-                    break;
-            }
-            xjyhIndexModelList.add(im);
-        }
+
 
         for (int i = 0; i < 5; i++) {
             IndexModel im = new IndexModel();
@@ -769,7 +822,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         cgglGridView.setAdapter(new IndexAdapter(context, cgglIndexModelList));
         xsglGridView.setAdapter(new IndexAdapter(context, xsglIndexModelList));
 
-        xjyhGridView.setAdapter(new IndexAdapter(context, xjyhIndexModelList));
+
         tjfxGridView.setAdapter(new IndexAdapter(context, tjfxIndexModelList));
 
 
@@ -922,33 +975,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
         });
 
-        xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "xjyh");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-                    case 0:
-                        intent.setClass(IndexActivity.this, XjyhFyzcActivity.class);
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, XjyhYhcqActivity.class);
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, XjyhFkdActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, XjyhSkdActivity.class);
-                        break;
-                    case 4:
-                        intent.setClass(IndexActivity.this, XjyhQtsrActivity.class);
-                        break;
-                }
-                startActivity(intent);
-            }
-        });
 
         tjfxGridView.setOnItemClickListener(new OnItemClickListener() {
 
