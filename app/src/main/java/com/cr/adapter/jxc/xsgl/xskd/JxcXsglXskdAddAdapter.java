@@ -82,7 +82,7 @@ public class JxcXsglXskdAddAdapter extends BaseAdapter {
 				+ (objMap.get("unitname") == null ? objMap.get("unitname")
 						.toString() : objMap.get("unitname").toString()));
 		viewHolder.zjTextView.setText("￥" +FigureTools.sswrFigure( objMap.get("amount").toString()));
-		viewHolder.tvBz.setText(objMap.get("memo").toString());
+		viewHolder.tvBz.setText((objMap.get("billtypename") == null ? "" : objMap.get("billtypename").toString()));
 		return convertView;
 	}
 

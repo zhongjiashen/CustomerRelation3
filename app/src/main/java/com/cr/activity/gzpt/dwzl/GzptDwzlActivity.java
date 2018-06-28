@@ -397,7 +397,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         parmMap.put("title", "");
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
-        findServiceData(type,ServerURL.BILLLIST, parmMap);
+        findServiceData(type, ServerURL.BILLLIST, parmMap);
     }
 
     /**
@@ -462,7 +462,10 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(intent, 5);
                 break;
             case R.id.xzxm_textview:
-                startActivityForResult(new Intent(this, AddProjectActivity.class),6);
+                startActivityForResult(new Intent(this, AddProjectActivity.class)
+                                .putExtra("clientid", clientId)
+                                .putExtra("clientname", dwObject.get("cname").toString())
+                        , 6);
 //                intent.setClass(this, XzxmActivity.class);
 //                //                intent.putExtra("lxrid", "0");
 //                //                intent.putExtra("clientid", clientId);

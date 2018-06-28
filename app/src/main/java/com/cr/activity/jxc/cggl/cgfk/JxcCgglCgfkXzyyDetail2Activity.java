@@ -77,7 +77,12 @@ public class JxcCgglCgfkXzyyDetail2Activity extends BaseActivity implements OnCl
         if (this.getIntent().hasExtra("object")) {
             object = (Map<String, Object>) this.getIntent().getExtras().getSerializable("object");
             dwmcTextView.setText("单位名称：" + object.get("cname").toString());
-            djmcTextView.setText("单据名称：" + (object.get("refertype")==null?object.get("billtypename").toString():object.get("refertype").toString()));
+            if(object.get("billtypename")==null){
+                djmcTextView.setVisibility(View.GONE);
+            }else {
+                djmcTextView.setVisibility(View.VISIBLE);
+                djmcTextView.setText("单据名称：" + (object.get("billtypename") == null ? "" : object.get("billtypename").toString()));
+            }
             djbhTextView.setText("单据编号：" + object.get("code").toString());
             djrqTextView.setText("单据日期：" + object.get("billdate").toString());
             zeTextView.setText("总额：￥" + object.get("total").toString());
