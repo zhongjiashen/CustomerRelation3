@@ -86,7 +86,8 @@
         <LinearLayout
             android:id="@+id/ll_bz"
             style="@style/detail_relativelayout"
-            android:visibility="gone">
+            android:visibility="gone"
+           >
 
             <TextView
                 style="@style/font_default"
@@ -95,10 +96,12 @@
 
             <EditText
                 android:id="@+id/et_bz"
-                style="@style/edittext_bj"
+                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:hint="请输入备注信息"/>
+                android:background="@null"
+                android:layout_height="wrap_content"
+                android:hint="请输入备注信息"
+                android:textSize="@dimen/jxc_cggl_cgdd"/>
 
         </LinearLayout>
 
