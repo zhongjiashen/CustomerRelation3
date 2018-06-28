@@ -281,6 +281,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("batchrefid", "");
                 jsonObject2.put("referbillid ", map.get("referbillid")==null?"":map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno")==null?"":map.get("referitemno").toString());
+                jsonObject2.put("memo", map.get("memo")==null?"":map.get("memo").toString());
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
@@ -345,6 +346,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
             	}
             	intent.putExtra("rkckId", ckckId);
             	intent.putExtra("tabname", "tb_invoice");
+                intent.putExtra("xskd", true);
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
@@ -463,6 +465,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                             map.put("batchcode", map2.get("cpph"));
                             map.put("produceddate", map2.get("scrq"));
                             map.put("validdate", map2.get("yxqz"));
+                            map.put("memo", map2.get("memo"));//备注
                             list.add(map);
 //                            zje += Double.parseDouble(map.get("amount").toString());
                         }

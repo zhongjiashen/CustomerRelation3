@@ -198,7 +198,28 @@
                         android:visibility="gone"
                         android:text="@string/xzsp_bfh" />
                 </LinearLayout>
+                <View style="@style/underline"
+                    android:id="@+id/v_bz"/>
 
+                <LinearLayout style="@style/detail_relativelayout"
+                    android:id="@+id/ll_bz">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="备注：" />
+
+                    <EditText
+                        android:id="@+id/et_bz"
+                        style="@style/edittext_bj"
+                        android:layout_marginLeft="20dip"
+                        android:gravity="left"
+                        android:inputType="numberDecimal" />
+
+                    <TextView
+                        style="@style/font_default"
+                        android:visibility="gone"
+                        android:text="@string/xzsp_bfh" />
+                </LinearLayout>
                 <View style="@style/underline" />
 
                 <LinearLayout style="@style/detail_relativelayout"

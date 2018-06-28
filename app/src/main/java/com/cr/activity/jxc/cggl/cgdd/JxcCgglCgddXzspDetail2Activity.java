@@ -21,35 +21,38 @@ import com.crcxj.activity.R;
 
 /**
  * 进销存-采购管理-采购订单-选择商品-选择的商品的详细信息
- * 
+ *
  * @author Administrator
- * 
  */
 public class JxcCgglCgddXzspDetail2Activity extends BaseActivity implements OnClickListener {
-    TextView            mcTextView;
-    TextView            bhTextView;
-    TextView            ggTextView;
-    TextView            xhTextView;
-    TextView            kcTextView;
-    TextView            scTextView;
-    ImageButton         saveImageButton;
-    EditText            djEditText;
-    EditText            zklEditText;
-    EditText            zjEditText;
-    SLView2             slView;
-    EditText            cpphEditText;
-    EditText            scrqEditText;
-    EditText            yxqzEditText;
-    EditText            dwEditText;
-    String              cpphId;
+    TextView mcTextView;
+    TextView bhTextView;
+    TextView ggTextView;
+    TextView xhTextView;
+    TextView kcTextView;
+    TextView scTextView;
+    ImageButton saveImageButton;
+    EditText djEditText;
+    EditText zklEditText;
+    EditText zjEditText;
+    SLView2 slView;
+    EditText cpphEditText;
+    EditText scrqEditText;
+    EditText yxqzEditText;
+    EditText dwEditText;
+    EditText etBz;
+    String cpphId;
     LinearLayout cpphLayout;
     LinearLayout scrqLayout;
     LinearLayout yxqzLayout;
     View cpphView;
     View scrqView;
     View yxqzView;
+
+    LinearLayout llBz;
+    View vBz;
     Map<String, Object> object = new HashMap<String, Object>();
-    String storeid="";
+    String storeid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,15 +67,18 @@ public class JxcCgglCgddXzspDetail2Activity extends BaseActivity implements OnCl
      */
     @SuppressWarnings("unchecked")
     private void initActivity() {
-    	if(this.getIntent().hasExtra("rkckId")){
-    		storeid=this.getIntent().getExtras().getString("rkckId");
-    	}
-    	cpphLayout=(LinearLayout) findViewById(R.id.cpph_layout);
-    	cpphView=findViewById(R.id.cpph_view);
-    	scrqLayout=(LinearLayout) findViewById(R.id.scrq_layout);
-    	scrqView=findViewById(R.id.scrq_view);
-    	yxqzLayout=(LinearLayout) findViewById(R.id.yxqz_layout);
-    	yxqzView=findViewById(R.id.yxqz_view);
+        if (this.getIntent().hasExtra("rkckId")) {
+            storeid = this.getIntent().getExtras().getString("rkckId");
+        }
+        llBz = (LinearLayout) findViewById(R.id.ll_bz);
+        vBz = findViewById(R.id.v_bz);
+
+        cpphLayout = (LinearLayout) findViewById(R.id.cpph_layout);
+        cpphView = findViewById(R.id.cpph_view);
+        scrqLayout = (LinearLayout) findViewById(R.id.scrq_layout);
+        scrqView = findViewById(R.id.scrq_view);
+        yxqzLayout = (LinearLayout) findViewById(R.id.yxqz_layout);
+        yxqzView = findViewById(R.id.yxqz_view);
         mcTextView = (TextView) findViewById(R.id.mc_textview);
         bhTextView = (TextView) findViewById(R.id.bh_textview);
         ggTextView = (TextView) findViewById(R.id.gg_textview);
@@ -92,23 +98,24 @@ public class JxcCgglCgddXzspDetail2Activity extends BaseActivity implements OnCl
         yxqzEditText.setOnClickListener(this);
         zjEditText = (EditText) findViewById(R.id.zj_edittext);
         dwEditText = (EditText) findViewById(R.id.dw_edittext);
+        etBz = (EditText) findViewById(R.id.et_bz);
         slView = (SLView2) findViewById(R.id.sl_view);
         if (this.getIntent().hasExtra("object")) {
             object = (Map<String, Object>) this.getIntent().getExtras().getSerializable("object");
             mcTextView.setText("名称："
-                               + (null == object.get("name") ? object.get("goodsname").toString()
-                                   : object.get("name").toString()));
+                    + (null == object.get("name") ? object.get("goodsname").toString()
+                    : object.get("name").toString()));
             bhTextView.setText("编号："
-                               + (null == object.get("code") ? object.get("goodscode").toString()
-                                   : object.get("code").toString()));
+                    + (null == object.get("code") ? object.get("goodscode").toString()
+                    : object.get("code").toString()));
             ggTextView.setText("规格：" + object.get("specs").toString());
             xhTextView.setText("型号：" + object.get("model").toString());
             if (object.get("onhand") == null) {
                 kcTextView.setVisibility(View.GONE);
             } else {
                 kcTextView.setText("库存："
-                                   + (int) Double.parseDouble(object.get("onhand").toString())
-                                   + object.get("unitname").toString());
+                        + (int) Double.parseDouble(object.get("onhand").toString())
+                        + object.get("unitname").toString());
             }
             dwEditText.setText(object.get("unitname").toString());
             djEditText.setText(object.get("unitprice").toString());
@@ -117,6 +124,14 @@ public class JxcCgglCgddXzspDetail2Activity extends BaseActivity implements OnCl
             cpphEditText.setText(object.get("batchcode").toString());
             scrqEditText.setText(object.get("produceddate").toString());
             yxqzEditText.setText(object.get("validdate").toString());
+            if (getIntent().getBooleanExtra("xskd", false)) {//屏蔽临时代码
+                llBz.setVisibility(View.VISIBLE);
+                vBz.setVisibility(View.VISIBLE);
+                etBz.setText(object.get("memo") == null ? "" : object.get("memo").toString());
+            }else {
+                llBz.setVisibility(View.GONE);
+                vBz.setVisibility(View.GONE);
+            }
             slView.setSl((int) Double.parseDouble(object.get("unitqty").toString()));
             //            if(null != object.get("orderid")){
             //                saveImageButton.setVisibility(View.GONE);
@@ -124,20 +139,20 @@ public class JxcCgglCgddXzspDetail2Activity extends BaseActivity implements OnCl
             //            }
             scTextView.setVisibility(View.GONE);
             saveImageButton.setVisibility(View.GONE);
-            if(object.get("batchctrl").toString().equals("T")){
-            	cpphLayout.setVisibility(View.VISIBLE);
-            	cpphView.setVisibility(View.VISIBLE);
-            	scrqLayout.setVisibility(View.VISIBLE);
-            	scrqView.setVisibility(View.VISIBLE);
-            	yxqzLayout.setVisibility(View.VISIBLE);
-            	yxqzView.setVisibility(View.VISIBLE);
-            }else{
-            	cpphLayout.setVisibility(View.GONE);
-            	cpphView.setVisibility(View.GONE);
-            	scrqLayout.setVisibility(View.GONE);
-            	scrqView.setVisibility(View.GONE);
-            	yxqzLayout.setVisibility(View.GONE);
-            	yxqzView.setVisibility(View.GONE);
+            if (object.get("batchctrl").toString().equals("T")) {
+                cpphLayout.setVisibility(View.VISIBLE);
+                cpphView.setVisibility(View.VISIBLE);
+                scrqLayout.setVisibility(View.VISIBLE);
+                scrqView.setVisibility(View.VISIBLE);
+                yxqzLayout.setVisibility(View.VISIBLE);
+                yxqzView.setVisibility(View.VISIBLE);
+            } else {
+                cpphLayout.setVisibility(View.GONE);
+                cpphView.setVisibility(View.GONE);
+                scrqLayout.setVisibility(View.GONE);
+                scrqView.setVisibility(View.GONE);
+                yxqzLayout.setVisibility(View.GONE);
+                yxqzView.setVisibility(View.GONE);
             }
         }
     }
@@ -169,9 +184,9 @@ public class JxcCgglCgddXzspDetail2Activity extends BaseActivity implements OnCl
         object.put("unitprice", FigureTools.sswrFigure(djEditText.getText().toString()));
         object.put("unitqty", slView.getSl() + "");
         object.put(
-            "amount",
-            FigureTools.sswrFigure(Double.parseDouble(djEditText.getText().toString())
-                                   * slView.getSl() + ""));
+                "amount",
+                FigureTools.sswrFigure(Double.parseDouble(djEditText.getText().toString())
+                        * slView.getSl() + ""));
         object.put("disc", zklEditText.getText().toString());
         object.put("batchcode", cpphEditText.getText().toString());
         object.put("produceddate", scrqEditText.getText().toString());

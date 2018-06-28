@@ -15,55 +15,63 @@ import com.crcxj.activity.R;
 
 public class JxcXsglXskdDetailAdapter extends BaseAdapter {
 
-	List<Map<String, Object>> list;
-	private Activity activity;
+    List<Map<String, Object>> list;
+    private Activity activity;
 
-    public JxcXsglXskdDetailAdapter(List<Map<String, Object>> list,Activity activity) {
-		this.list=list;
-		this.activity=activity;
-	}
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-	@Override
-	public Object getItem(int position) {
-		return list.get(position);
-	}
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder viewHolder = null;
-		Map<String, Object> objMap=list.get(position);
-		if (convertView == null) {
-			convertView = LayoutInflater.from(activity).inflate(R.layout.activity_jxc_cggl_cgsh_detail_item, null);// 这个过程相当耗时间
-			viewHolder = new ViewHolder();
-			viewHolder.bhmcggTextView = (TextView) convertView.findViewById(R.id.bhmcgg);
-			viewHolder.djTextView = (TextView) convertView.findViewById(R.id.dj_textview);
-			viewHolder.zjTextView = (TextView) convertView.findViewById(R.id.zj_textview);
-			convertView.setTag(viewHolder);
-		} else {
-			viewHolder = (ViewHolder) convertView.getTag();
-		}
-		viewHolder.bhmcggTextView.setText(
-			    (objMap.get("goodscode")==null?objMap.get("code").toString():objMap.get("goodscode").toString())+" "+
-			    (objMap.get("goodsname")==null?objMap.get("name").toString():objMap.get("goodsname").toString())+" "+
-			    (objMap.get("specs")==null?objMap.get("specs").toString():objMap.get("specs").toString())+" "+
-			    (objMap.get("model")==null?objMap.get("model").toString():objMap.get("model").toString()));
-			viewHolder.djTextView.setText("￥"+
-			    (objMap.get("unitprice")==null?objMap.get("aprice").toString():objMap.get("unitprice").toString())+"*"+
-			    (objMap.get("unitqty")==null?objMap.get("unitid").toString():objMap.get("unitqty").toString())+""+
-			    (objMap.get("unitname")==null?objMap.get("unitname").toString():objMap.get("unitname").toString()));
-			viewHolder.zjTextView.setText("￥"+FigureTools.sswrFigure(objMap.get("amount").toString()));
-			return convertView;
-	}
+    public JxcXsglXskdDetailAdapter(List<Map<String, Object>> list, Activity activity) {
+        this.list = list;
+        this.activity = activity;
+    }
 
-	static class ViewHolder {
-		TextView bhmcggTextView;
-		TextView djTextView;
-		TextView zjTextView;
-	}
+    @Override
+    public int getCount() {
+        return list.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder = null;
+        Map<String, Object> objMap = list.get(position);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(activity).inflate(R.layout.activity_jxc_cggl_cgsh_detail_item, null);// 这个过程相当耗时间
+            viewHolder = new ViewHolder();
+            viewHolder.bhmcggTextView = (TextView) convertView.findViewById(R.id.bhmcgg);
+            viewHolder.djTextView = (TextView) convertView.findViewById(R.id.dj_textview);
+            viewHolder.zjTextView = (TextView) convertView.findViewById(R.id.zj_textview);
+            viewHolder.tvBz = (TextView) convertView
+                    .findViewById(R.id.tv_bz);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        viewHolder.bhmcggTextView.setText(
+                (objMap.get("goodscode") == null ? objMap.get("code").toString() : objMap.get("goodscode").toString()) + " " +
+                        (objMap.get("goodsname") == null ? objMap.get("name").toString() : objMap.get("goodsname").toString()) + " " +
+                        (objMap.get("specs") == null ? objMap.get("specs").toString() : objMap.get("specs").toString()) + " " +
+                        (objMap.get("model") == null ? objMap.get("model").toString() : objMap.get("model").toString()));
+        viewHolder.djTextView.setText("￥" +
+                (objMap.get("unitprice") == null ? objMap.get("aprice").toString() : objMap.get("unitprice").toString()) + "*" +
+                (objMap.get("unitqty") == null ? objMap.get("unitid").toString() : objMap.get("unitqty").toString()) + "" +
+                (objMap.get("unitname") == null ? objMap.get("unitname").toString() : objMap.get("unitname").toString()));
+        viewHolder.zjTextView.setText("￥" + FigureTools.sswrFigure(objMap.get("amount").toString()));
+        viewHolder.tvBz.setText(objMap.get("memo").toString());
+        return convertView;
+    }
+
+    static class ViewHolder {
+        TextView bhmcggTextView;
+        TextView djTextView;
+        TextView zjTextView;
+        TextView tvBz;
+    }
 }

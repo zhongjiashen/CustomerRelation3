@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/item2_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <LinearLayout style="@style/detail_relativelayout" >
+        <LinearLayout style="@style/detail_relativelayout">
 
             <TextView
                 style="@style/font_default"
@@ -25,23 +25,29 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:inputType="numberDecimal" />
-            <View style="@style/underline" 
+
+            <View
+                style="@style/underline"
                 android:layout_width="1dip"
-                android:layout_height="fill_parent"/>
-            <ImageView 
+                android:layout_height="fill_parent" />
+
+            <ImageView
                 android:id="@+id/xzjg_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
-                android:background="@drawable/xyb_jt"/>
+                android:background="@drawable/xyb_jt" />
         </LinearLayout>
 
-        <View style="@style/underline" android:visibility="gone"/>
+        <View
+            style="@style/underline"
+            android:visibility="gone" />
 
         <LinearLayout
             style="@style/detail_relativelayout"
-            android:text="@string/xzsp_zkl" android:visibility="gone">
+            android:text="@string/xzsp_zkl"
+            android:visibility="gone">
 
             <TextView
                 style="@style/font_default"
@@ -61,7 +67,7 @@
 
         <View style="@style/underline" />
 
-        <LinearLayout style="@style/detail_relativelayout" >
+        <LinearLayout style="@style/detail_relativelayout">
 
             <TextView
                 style="@style/font_default"
@@ -71,13 +77,34 @@
             <com.cr.activity.SLView2
                 android:id="@+id/sl_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </com.cr.activity.SLView2>
+                android:layout_height="wrap_content"></com.cr.activity.SLView2>
         </LinearLayout>
 
         <View style="@style/underline" />
+        <View style="@style/underline" />
 
-        <LinearLayout style="@style/detail_relativelayout" android:id="@+id/cpph_layout">
+        <LinearLayout
+            android:id="@+id/ll_bz"
+            style="@style/detail_relativelayout"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/font_default"
+                android:layout_height="wrap_content"
+                android:text="备注        " />
+
+            <EditText
+                android:id="@+id/et_bz"
+                style="@style/edittext_bj"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:hint="请输入备注信息"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cpph_layout"
+            style="@style/detail_relativelayout">
 
             <TextView
                 style="@style/font_default"
@@ -92,9 +119,13 @@
             <ImageView style="@style/imageview_jt" />
         </LinearLayout>
 
-        <View style="@style/underline" android:id="@+id/cpph_view"/>
+        <View
+            android:id="@+id/cpph_view"
+            style="@style/underline" />
 
-        <LinearLayout style="@style/detail_relativelayout" android:id="@+id/scrq_layout">
+        <LinearLayout
+            android:id="@+id/scrq_layout"
+            style="@style/detail_relativelayout">
 
             <TextView
                 style="@style/font_default"
@@ -110,9 +141,13 @@
             <ImageView style="@style/imageview_jt" />
         </LinearLayout>
 
-        <View style="@style/underline" android:id="@+id/scrq_view"/>
+        <View
+            android:id="@+id/scrq_view"
+            style="@style/underline" />
 
-        <LinearLayout style="@style/detail_relativelayout" android:id="@+id/yxqz_layout">
+        <LinearLayout
+            android:id="@+id/yxqz_layout"
+            style="@style/detail_relativelayout">
 
             <TextView
                 style="@style/font_default"

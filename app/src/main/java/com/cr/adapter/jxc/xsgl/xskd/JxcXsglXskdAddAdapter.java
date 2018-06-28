@@ -53,6 +53,8 @@ public class JxcXsglXskdAddAdapter extends BaseAdapter {
 					.findViewById(R.id.dj_textview);
 			viewHolder.zjTextView = (TextView) convertView
 					.findViewById(R.id.zj_textview);
+			viewHolder.tvBz = (TextView) convertView
+					.findViewById(R.id.tv_bz);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
@@ -80,6 +82,7 @@ public class JxcXsglXskdAddAdapter extends BaseAdapter {
 				+ (objMap.get("unitname") == null ? objMap.get("unitname")
 						.toString() : objMap.get("unitname").toString()));
 		viewHolder.zjTextView.setText("￥" +FigureTools.sswrFigure( objMap.get("amount").toString()));
+		viewHolder.tvBz.setText(objMap.get("memo").toString());
 		return convertView;
 	}
 
@@ -87,5 +90,6 @@ public class JxcXsglXskdAddAdapter extends BaseAdapter {
 		TextView bhmcggTextView;
 		TextView djTextView;
 		TextView zjTextView;
+		TextView tvBz;
 	}
 }

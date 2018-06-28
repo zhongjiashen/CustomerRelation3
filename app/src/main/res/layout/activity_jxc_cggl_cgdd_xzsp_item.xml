@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/tools"
+
     android:background="@android:color/white"
     android:orientation="horizontal"
     android:paddingLeft="10dip"
-    android:paddingRight="10dip" >
+    android:paddingRight="10dip">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -19,26 +21,31 @@
             android:id="@+id/mc_textview"
            	style="@style/font_default"
             android:textColor="@color/black_color"
+            tool:text="dsgs"
             />
         <TextView
             android:id="@+id/bh_textview"
             style="@style/font_default"
             android:textColor="@color/black_color"
+            tool:text="dsgs"
              />
         <TextView
             android:id="@+id/gg_textview"
             style="@style/font_default"
             android:textColor="@color/black_color"
+            tool:text="dsgs"
             />
         <TextView
             android:id="@+id/xh_textview"
             style="@style/font_default"
             android:textColor="@color/black_color"
+            tool:text="dsgs"
             />
         <TextView
             android:id="@+id/kc_textview"
             style="@style/font_default"
             android:textColor="@color/black_color"
+            tool:text="dsgs"
             />
     </LinearLayout>
 
