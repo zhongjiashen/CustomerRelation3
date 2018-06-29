@@ -109,6 +109,8 @@ public class CommonXzjbrActivity extends BaseActivity implements OnClickListener
                 showToastPromopt(2);
             }else{
                 list.addAll((List<Map<String, Object>>)PaseJson.paseJsonToObject(returnJson));
+                if(list.get(0).get("empname").equals("<全部>"))
+                	list.remove(0);
                 adapter.notifyDataSetChanged();
             }
         }
