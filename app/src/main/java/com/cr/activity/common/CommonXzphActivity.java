@@ -117,12 +117,18 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
         } else {
             xzImageButton.setVisibility(View.GONE);
         }
-        if (getIntent().getBooleanExtra("cgth", false)) {
-
-            xzImageButton.setVisibility(View.INVISIBLE);
-        } else {
-            xzImageButton.setOnClickListener(this);
+        if (getIntent().getStringExtra("type") != null) {
+            switch (getIntent().getStringExtra("type")) {
+                case "cgth":
+                    xzImageButton.setVisibility(View.INVISIBLE);
+                    break;
+                case "xsth":
+                    xzImageButton.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
+
+        xzImageButton.setOnClickListener(this);
     }
 
     /**

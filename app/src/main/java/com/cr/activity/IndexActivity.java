@@ -482,17 +482,24 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         }
         String category = ShareUserInfo.getKey(context, "zt");
 //        租赁企业版、IT企业版、IT专业版这三个版屏蔽客户服务(标准专业版版\汽配版等保留)，统计分析中客户服务统计也给屏蔽了
-        if (category.equals("租赁企业版") || category.equals("IT企业版") || category.equals("IT专业版")) {
-            gzptIndexModelList.remove(6);//屏蔽
-            khgxbbIndexModelList.remove(5);//屏蔽
-            ckglIndexModelList.remove(1);//屏蔽
-            xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
-            xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
+//        if (category.equals("租赁企业版") || category.equals("IT企业版") || category.equals("IT专业版")) {
+//            gzptIndexModelList.remove(6);//屏蔽
+//            khgxbbIndexModelList.remove(5);//屏蔽
+//            ckglIndexModelList.remove(1);//屏蔽
+//            xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
+//            xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
+//
+//        }else {
+//            azwxGridView.setVisibility(View.GONE);
+//            tvAzwx.setVisibility(View.GONE);
+//        }
+        gzptIndexModelList.remove(6);//屏蔽
+        khgxbbIndexModelList.remove(5);//屏蔽
+        ckglIndexModelList.remove(1);//屏蔽
+        xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
+        xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
 
-        }else {
-            azwxGridView.setVisibility(View.GONE);
-            tvAzwx.setVisibility(View.GONE);
-        }
+
         ckglIndexModelList.remove(2);
         ckglIndexModelList.remove(2);
         wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
@@ -787,7 +794,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 
 
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i <4; i++) {
             IndexModel im = new IndexModel();
             switch (i) {
                 case 0:

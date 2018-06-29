@@ -348,7 +348,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             	}
             	intent.putExtra("rkckId", rkckId);
             	intent.putExtra("tabname", "tb_preturn");
-                intent.putExtra("cgth", true);
+                intent.putExtra("type", "cgth");
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;

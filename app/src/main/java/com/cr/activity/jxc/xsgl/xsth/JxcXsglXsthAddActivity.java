@@ -351,6 +351,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 			}
 			intent.putExtra("rkckId", rkckId);
 			intent.putExtra("tabname", "tb_sreturn");
+			intent.putExtra("type", "xsth");
 			intent.setClass(this, JxcCgglCgddXzspActivity.class);
 			startActivityForResult(intent, 0);
 			break;
