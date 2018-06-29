@@ -39,6 +39,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.utils.EditTextHelper;
 
 /**
  * 进销存-采购管理-采购付款-增加
@@ -140,6 +141,10 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
         xzspnumTextView.setText("共选择了" + list.size() + "引用");
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        fklxEditText.setText("应付账款");
+        fklxId ="0";
+        EditTextHelper.EditTextEnable(false,fkjeEditText);
 
     }
 
@@ -433,18 +438,20 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
             } else if (requestCode == 7) {
                 fklxEditText.setText(data.getExtras().getString("name"));
                 fklxId = data.getExtras().getString("id");
-                if (fklxId.equals("0")) {
-                    xzyydShowLayout.setVisibility(View.VISIBLE);
-                    fkjeEditText.setEnabled(false);
-                } else if (fklxId.equals("1")) {
-                    xzyydShowLayout.setVisibility(View.GONE);
-                    fkjeEditText.setEnabled(true);
-                    list.clear();
-                    adapter.notifyDataSetChanged();
-                } else if (fklxId.equals("2")) {
-                    xzyydShowLayout.setVisibility(View.VISIBLE);
-                    fkjeEditText.setEnabled(true);
-                }
+                EditTextHelper.EditTextEnable(fklxId.equals("1"),fkjeEditText);
+
+//                if (fklxId.equals("0")) {
+//                    xzyydShowLayout.setVisibility(View.VISIBLE);
+//                    fkjeEditText.setEnabled(false);
+//                } else if (fklxId.equals("1")) {
+//                    xzyydShowLayout.setVisibility(View.GONE);
+//                    fkjeEditText.setEnabled(true);
+//                    list.clear();
+//                    adapter.notifyDataSetChanged();
+//                } else if (fklxId.equals("2")) {
+//                    xzyydShowLayout.setVisibility(View.VISIBLE);
+//                    fkjeEditText.setEnabled(true);
+//                }
             } else if (requestCode == 8) {
                 jsfsEditText.setText(data.getExtras().getString("dictmc"));
                 jsfsId = data.getExtras().getString("id");

@@ -251,6 +251,7 @@
                 <EditText
                     android:id="@+id/fkje_edittext"
                     style="@style/edittext_bj"
+                    android:digits="0123456789."
                     android:inputType="numberDecimal" />
             </LinearLayout>
 
