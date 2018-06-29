@@ -49,7 +49,10 @@ public class JxcCgglCgddXzspDetailActivity extends BaseActivity implements OnCli
     View cpphView;
     View scrqView;
     View yxqzView;
-    
+
+
+    LinearLayout llBz;
+    EditText  etBz;
     Map<String, Object> object = new HashMap<String, Object>();
     String storeid="";
 
@@ -69,7 +72,10 @@ public class JxcCgglCgddXzspDetailActivity extends BaseActivity implements OnCli
     	if(this.getIntent().hasExtra("rkckId")){
     		storeid=this.getIntent().getExtras().getString("rkckId");
     	}
-    	
+    	llBz=(LinearLayout) findViewById(R.id.ll_bz);
+    	etBz=(EditText) findViewById(R.id.et_bz);
+
+
     	cpphLayout=(LinearLayout) findViewById(R.id.cpph_layout);
     	cpphView=findViewById(R.id.cpph_view);
     	scrqLayout=(LinearLayout) findViewById(R.id.scrq_layout);
@@ -114,6 +120,12 @@ public class JxcCgglCgddXzspDetailActivity extends BaseActivity implements OnCli
                 kcTextView.setText("库存："
                                    + (int) Double.parseDouble(object.get("onhand").toString())
                                    + object.get("unitname").toString());
+            }
+            if(getIntent().getBooleanExtra("xskd",false)){
+                llBz.setVisibility(View.VISIBLE);
+                etBz.setText(object.get("memo")==null?"":object.get("memo").toString());
+            }else {
+                llBz.setVisibility(View.GONE);
             }
             dwEditText.setText(object.get("unitname")==null?object.get("unit_name").toString():object.get("unitname").toString());
             djEditText.setText(object.get("unitprice").toString());
@@ -180,6 +192,7 @@ public class JxcCgglCgddXzspDetailActivity extends BaseActivity implements OnCli
         object.put("batchcode", cpphEditText.getText().toString());
         object.put("produceddate", scrqEditText.getText().toString());
         object.put("validdate", yxqzEditText.getText().toString());
+        object.put("memo", etBz.getText().toString());
         Intent intent = new Intent();
         intent.putExtra("object", (Serializable) object);
         setResult(RESULT_OK, intent);

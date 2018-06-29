@@ -210,10 +210,13 @@
 
                     <EditText
                         android:id="@+id/et_bz"
-                        style="@style/edittext_bj"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:textSize="@dimen/jxc_cggl_cgdd"
                         android:layout_marginLeft="20dip"
-                        android:gravity="left"
-                        android:inputType="numberDecimal" />
+                        />
 
                     <TextView
                         style="@style/font_default"

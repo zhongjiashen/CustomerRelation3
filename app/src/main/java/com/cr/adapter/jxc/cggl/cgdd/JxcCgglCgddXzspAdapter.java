@@ -178,6 +178,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
             viewHolder2.llBz = (LinearLayout) convertView.findViewById(R.id.ll_bz);
             viewHolder2.cpphView = convertView.findViewById(R.id.cpph_view);
             viewHolder2.scrqView = convertView.findViewById(R.id.scrq_view);
+            viewHolder2.etBz.setText(objMap.get("memo")==null?"":objMap.get("memo").toString());
             convertView.setTag(viewHolder2);
 //			} else {
 //				viewHolder2 = (ViewHolder2) convertView.getTag();
@@ -208,6 +209,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                     activity.startActivityForResult(intent, 3);
                 }
             });
+            viewHolder2.etBz.setTag(position);
             viewHolder2.etBz.addTextChangedListener(new TextWatcher() {
 
                 @Override
@@ -223,6 +225,10 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
 
                 @Override
                 public void afterTextChanged(Editable arg0) {
+                    //关键点：1.给edittext设置tag，此tag用来与position做对比校验，验证当前选中的edittext是否为需要的控件;
+//                            2.焦点判断：只有当前有焦点的edittext才有更改数据的权限，否则会造成数据紊乱
+//                            3.edittext内数据变动直接直接更改datalist的数据值，以便滑动view时显示正确
+
                 }
             });
             viewHolder2.djEditText.addTextChangedListener(new TextWatcher() {

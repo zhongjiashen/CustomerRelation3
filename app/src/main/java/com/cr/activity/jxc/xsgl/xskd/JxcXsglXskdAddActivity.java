@@ -120,6 +120,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                 Intent intent = new Intent();
                 intent.setClass(activity, JxcCgglCgddXzspDetailActivity.class);
                 intent.putExtra("object", (Serializable) list.get(arg2));
+                intent.putExtra("xskd", true);
                 startActivityForResult(intent, 4);
             }
         });
