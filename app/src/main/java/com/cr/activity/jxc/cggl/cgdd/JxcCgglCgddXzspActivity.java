@@ -104,7 +104,8 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
      */
     private void initListView() {
         listView = (XListView) findViewById(R.id.xlistview);
-        adapter = new JxcCgglCgddXzspAdapter(list, this, storeid, getIntent().getBooleanExtra("xskd", false));
+        adapter = new JxcCgglCgddXzspAdapter(list, this, storeid, getIntent().getBooleanExtra("xskd", false),
+                getIntent().getBooleanExtra("cgth", false));
         listView.setAdapter(adapter);
         listView.setXListViewListener(xListViewListener);
         listView.setPullLoadEnable(true);

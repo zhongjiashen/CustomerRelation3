@@ -37,7 +37,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
 
     private String storeid;
     private boolean bz_isTrue;
-
+    private boolean cgth;
     public JxcCgglCgddXzspAdapter(List<Map<String, Object>> list,
                                   BaseActivity activity, String storeid) {
         this.list = list;
@@ -47,11 +47,12 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
     }
 
     public JxcCgglCgddXzspAdapter(List<Map<String, Object>> list,
-                                  BaseActivity activity, String storeid, boolean bz_isTrue) {
+                                  BaseActivity activity, String storeid, boolean bz_isTrue,boolean cgth) {
         this.list = list;
         this.activity = activity;
         this.storeid = storeid;
         this.bz_isTrue = bz_isTrue;
+        this.cgth = cgth;
     }
 
     @Override
@@ -307,6 +308,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                             .toString());
                     intent.putExtra("storied", storeid);
                     intent.putExtra("index", position);
+                    intent.putExtra("cgth",cgth);
                     activity.startActivityForResult(intent, 0);
                 }
             });

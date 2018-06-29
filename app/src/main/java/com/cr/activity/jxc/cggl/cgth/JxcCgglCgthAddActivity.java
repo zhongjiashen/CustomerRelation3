@@ -280,7 +280,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("ispresent", "");
                 
                 jsonObject2.put("refertype", map.get("refertype")==null?"":map.get("refertype").toString());
-                jsonObject2.put("batchrefid", "");
+                jsonObject2.put("batchrefid", map.get("batchrefid")==null?"":map.get("batchrefid").toString());
                 jsonObject2.put("referbillid ", map.get("referbillid")==null?"":map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno")==null?"":map.get("referitemno").toString());
                 arrayDetail.put(jsonObject2);
@@ -348,6 +348,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             	}
             	intent.putExtra("rkckId", rkckId);
             	intent.putExtra("tabname", "tb_preturn");
+                intent.putExtra("cgth", true);
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;

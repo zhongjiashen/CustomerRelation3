@@ -243,7 +243,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
                  jsonObject2.put("batchcode", "");
                  jsonObject2.put("produceddate", "");
                  jsonObject2.put("validdate", "");
-                 jsonObject2.put("batchrefid", "");
+                 jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
                  sZe += Double.parseDouble(map.get("sl") == null ? map.get("unitqty").toString()
                      : map.get("sl").toString())
                      * Double.parseDouble(map.get("dj") == null ? map.get("unitprice").toString()

@@ -251,7 +251,7 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
                 jsonObject2.put("batchcode", "");
                 jsonObject2.put("produceddate", "");
                 jsonObject2.put("validdate", "");
-                jsonObject2.put("batchrefid", "");
+                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {

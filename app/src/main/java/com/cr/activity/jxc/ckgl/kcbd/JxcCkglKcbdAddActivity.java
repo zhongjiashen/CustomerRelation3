@@ -184,7 +184,7 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("batchcode", map.get("batchcode").toString());
                 jsonObject2.put("produceddate", map.get("produceddate").toString());
                 jsonObject2.put("validdate", map.get("validdate").toString());
-                jsonObject2.put("batchrefid", "");
+                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {

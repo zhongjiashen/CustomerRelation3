@@ -31,19 +31,19 @@ import com.crcxj.activity.R;
 
 /**
  * 公用模块-选择批号
- * 
+ *
  * @author caiyanfei
  * @version $Id: CommonXzdwActivity.java, v 0.1 2015-3-12 下午3:46:54 caiyanfei Exp $
  */
 public class CommonXzphActivity extends BaseActivity implements OnClickListener {
     private CommonXzphAdapter adapter;
-    private XListView         listView;
-    private EditText          searchEditText;
-    private String            storied = "0";                                 //仓库ID 23
-//    private String            goodsid = "2396";                              //商品ID 2396
-    private String            index;
-    List<Map<String, Object>> list    = new ArrayList<Map<String, Object>>();
-    private ImageButton       xzImageButton;
+    private XListView listView;
+    private EditText searchEditText;
+    private String storied = "0";                                 //仓库ID 23
+    //    private String            goodsid = "2396";                              //商品ID 2396
+    private String index;
+    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    private ImageButton xzImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +53,9 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
         initActivity();
         initListView();
         list.clear();
-        		if(this.getIntent().hasExtra("storied")){
-        		    storied=this.getIntent().getExtras().getString("storied");
-        		}
+        if (this.getIntent().hasExtra("storied")) {
+            storied = this.getIntent().getExtras().getString("storied");
+        }
         //		if(this.getIntent().hasExtra("goodsid")){
         //		    goodsid=this.getIntent().getExtras().getString("goodsid");
         //        }
@@ -74,7 +74,7 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
         searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
-                    || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     list.clear();
                     currentPage = 1;
                     searchDate();
@@ -110,11 +110,18 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
         listView.setPullLoadEnable(false);
         listView.setPullRefreshEnable(false);
         xzImageButton = (ImageButton) findViewById(R.id.xz);
-        xzImageButton.setOnClickListener(this);
-        if(ShareUserInfo.getKey(activity, "cpphType").equals("cggl")||ShareUserInfo.getKey(activity, "cpphType").equals("kcpd")){
+
+
+        if (ShareUserInfo.getKey(activity, "cpphType").equals("cggl") || ShareUserInfo.getKey(activity, "cpphType").equals("kcpd")) {
             xzImageButton.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             xzImageButton.setVisibility(View.GONE);
+        }
+        if (getIntent().getBooleanExtra("cgth", false)) {
+
+            xzImageButton.setVisibility(View.INVISIBLE);
+        } else {
+            xzImageButton.setOnClickListener(this);
         }
     }
 
@@ -125,7 +132,7 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         //        parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("storeid", storied.equals("")?"0":storied);
+        parmMap.put("storeid", storied.equals("") ? "0" : storied);
         parmMap.put("goodsid", this.getIntent().getExtras().getString("goodsid"));
 //        parmMap.put("index", index);
         //        parmMap.put("curpage",currentPage);
@@ -160,18 +167,18 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
                 builder.setTitle("输入批号的名称").setView(inputServer)
                         .setNegativeButton("取消", null);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-         
+
                     public void onClick(DialogInterface dialog, int which) {
-                       Intent intent = new Intent();
-                       intent.putExtra("id", "0");
-                       intent.putExtra("name", inputServer.getText().toString());
-                       intent.putExtra("scrq","");
-                       intent.putExtra("yxrq", "");
-                       intent.putExtra("onhand", "0");
-                       intent.putExtra("index", index);
-                       setResult(RESULT_OK, intent);
-                       finish();
-                     }
+                        Intent intent = new Intent();
+                        intent.putExtra("id", "0");
+                        intent.putExtra("name", inputServer.getText().toString());
+                        intent.putExtra("scrq", "");
+                        intent.putExtra("yxrq", "");
+                        intent.putExtra("onhand", "0");
+                        intent.putExtra("index", index);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 });
                 builder.show();
 
@@ -185,28 +192,28 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
      * 刷新
      */
     private IXListViewListener xListViewListener = new IXListViewListener() {
-                                                     @Override
-                                                     public void onRefresh() {
-                                                         handler.postDelayed(new Runnable() {//实现延迟2秒加载刷新
-                                                                 @Override
-                                                                 public void run() {
-                                                                     //不实现顶部刷新
-                                                                 }
-                                                             }, 2000);
-                                                     }
+        @Override
+        public void onRefresh() {
+            handler.postDelayed(new Runnable() {//实现延迟2秒加载刷新
+                @Override
+                public void run() {
+                    //不实现顶部刷新
+                }
+            }, 2000);
+        }
 
-                                                     @Override
-                                                     public void onLoadMore() {
-                                                         handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
-                                                                 @Override
-                                                                 public void run() {
-                                                                     currentPage++;
-                                                                     searchDate();
-                                                                     onLoad();
-                                                                 }
-                                                             }, 2000);
-                                                     }
-                                                 };
+        @Override
+        public void onLoadMore() {
+            handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
+                @Override
+                public void run() {
+                    currentPage++;
+                    searchDate();
+                    onLoad();
+                }
+            }, 2000);
+        }
+    };
 
     @SuppressWarnings("deprecation")
     private void onLoad() {//停止刷新和加载功能，并且显示时间

@@ -275,7 +275,7 @@ public class JxcXsglXsddDetailActivity extends BaseActivity implements OnClickLi
                 jsonObject2.put("batchcode", map.get("batchcode").toString());
                 jsonObject2.put("produceddate", map.get("produceddate").toString());
                 jsonObject2.put("validdate", map.get("validdate").toString());
-                jsonObject2.put("batchrefid", "");
+                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
                 jsonObject2.put("refertype", "");
                 jsonObject2.put("referbillid ", "");
                 jsonObject2.put("referitemno ", "");
