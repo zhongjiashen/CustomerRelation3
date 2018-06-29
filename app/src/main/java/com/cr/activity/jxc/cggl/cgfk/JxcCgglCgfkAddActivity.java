@@ -439,7 +439,14 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
                 fklxEditText.setText(data.getExtras().getString("name"));
                 fklxId = data.getExtras().getString("id");
                 EditTextHelper.EditTextEnable(fklxId.equals("1"),fkjeEditText);
-
+                xzyydShowLayout.setVisibility(View.GONE);
+                if (fklxId.equals("1")) {
+                    xzyydShowLayout.setVisibility(View.GONE);
+                    list.clear();
+                    adapter.notifyDataSetChanged();
+                }else {
+                    xzyydShowLayout.setVisibility(View.VISIBLE);
+                }
 //                if (fklxId.equals("0")) {
 //                    xzyydShowLayout.setVisibility(View.VISIBLE);
 //                    fkjeEditText.setEnabled(false);
