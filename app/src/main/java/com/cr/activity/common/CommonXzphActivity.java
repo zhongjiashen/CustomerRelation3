@@ -123,7 +123,7 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
                     xzImageButton.setVisibility(View.INVISIBLE);
                     break;
                 case "xsth":
-                    xzImageButton.setVisibility(View.VISIBLE);
+//                    xzImageButton.setVisibility(View.VISIBLE);
                     break;
             }
         }

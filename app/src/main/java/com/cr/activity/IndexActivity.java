@@ -493,7 +493,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //            azwxGridView.setVisibility(View.GONE);
 //            tvAzwx.setVisibility(View.GONE);
 //        }
-        gzptIndexModelList.remove(6);//屏蔽
+        gzptIndexModelList.remove(6);//屏蔽客户服务
         khgxbbIndexModelList.remove(5);//屏蔽
         ckglIndexModelList.remove(1);//屏蔽
         xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出

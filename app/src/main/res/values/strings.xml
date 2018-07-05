@@ -1,10 +1,15 @@
 <resources>
-    <string name="app_name">恒视CRM_IT企业版</string>
+    <!--<string name="app_name">恒视CRM_IT企业版</string>-->
+    <string name="app_name">恒视CRM_内部版</string>
+    <!--<string name="tgb">IT企业版V1.0</string>-->
+    <string name="tgb">内部版V1.0</string>
+    <!-- <string name="hscrm">恒视CRM_IT企业版</string>-->
+    <string name="hscrm">恒视CRM_内部版</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
     <!--设置  -->
-    <string name="hscrm">恒视CRM_IT企业版</string>
+
     <string name="ip">I P:</string>
     <string name="dk">端 口:</string>
 
@@ -33,7 +38,7 @@
 
     <!-- 关于页面 -->
     <string name="gy_hscrm">恒视CRM</string>
-    <string name="tgb">IT企业版V1.0</string>
+
     <string name="gs">公司：河南恒视软件科技有限公司</string>
     <string name="wz">网站：www.hengshicrm.com</string>
     <string name="dh">电话：0371-63575118/128</string>
