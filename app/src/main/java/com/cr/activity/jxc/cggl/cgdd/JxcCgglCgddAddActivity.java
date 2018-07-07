@@ -61,6 +61,14 @@ public class JxcCgglCgddAddActivity extends BaseActivity implements OnClickListe
     private TextView                  xzspnumTextView;
     private EditText                  bzxxEditText, gysEditText, lxrEditText, lxdhEditText,
             jhdzEditText, hjjeEditText, djrqEditText, jbrEditText;
+    /**
+     * 部门
+     */
+    private EditText etBm;
+    /**
+     * 发票类型
+     */
+    private EditText etFplx;
     private CustomListView            listview;
     String                            gysId       = "", lxrId = "", jbrId = "";
     private List<Map<String, Object>> list;
@@ -96,6 +104,8 @@ public class JxcCgglCgddAddActivity extends BaseActivity implements OnClickListe
         lxrEditText = (EditText) findViewById(R.id.lxr_edittext);
         lxrEditText.setOnClickListener(this);
         lxdhEditText = (EditText) findViewById(R.id.lxdh_edittext);
+        etBm = (EditText) findViewById(R.id.et_bm);
+        etBm.setOnClickListener(this);
         jhdzEditText = (EditText) findViewById(R.id.jhdz_edittext);
         jhdzEditText.setOnClickListener(this);
         listview = (CustomListView) findViewById(R.id.xzsp_listview);
