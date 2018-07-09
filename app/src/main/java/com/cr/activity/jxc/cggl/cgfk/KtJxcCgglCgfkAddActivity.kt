@@ -18,7 +18,6 @@ import com.update.actiity.choose.ChooseDepartmentActivity
 import com.update.actiity.choose.SelectSalesmanActivity
 
 
-
 import kotlinx.android.synthetic.main.activity_jxc_cggl_cgfk_add.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -31,11 +30,11 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
     var time: Long = 0
     var gysId: String? = ""
     var lxrId = ""
-    var jbrId:String? = ""
-    var rkckId:String? = ""
-    var fklxId:String? = ""
-    var jsfsId:String? = ""
-    var zjzhId:String? = ""
+    var jbrId: String? = ""
+    var rkckId: String? = ""
+    var fklxId: String? = ""
+    var jsfsId: String? = ""
+    var zjzhId: String? = ""
     // 部门id
     var departmentid: String? = ""
     var selectIndex: Int = 0
@@ -96,7 +95,7 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
         }
         //部门选择
         et_bm.setOnClickListener {
-            startActivityForResult(Intent(this, ChooseDepartmentActivity::class.java), 7)
+            startActivityForResult(Intent(this, ChooseDepartmentActivity::class.java), 2)
         }
         //业务员选择
         jbr_edittext.setOnClickListener {
@@ -104,7 +103,7 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
             if (TextUtils.isEmpty(departmentid))
                 showToastPromopt("请先选择部门")
             else
-                startActivityForResult(Intent(this, SelectSalesmanActivity::class.java).putExtra("depid", departmentid), 8)
+                startActivityForResult(Intent(this, SelectSalesmanActivity::class.java).putExtra("depid", departmentid), 3)
 //            intent.setClass(activity, CommonXzjbrActivity::class.java)
 //            startActivityForResult(intent, 8)
         }
@@ -154,6 +153,21 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
                         gysId = data.extras!!.getString("id")
                         dqyf_edittext.setText(data.extras!!.getString("yf"))
                         dqyf2_edittext.setText(data.extras!!.getString("yf2"))
+                    }
+                //部门选择结果处理
+                    2 -> {
+                        val id = data.getStringExtra("CHOICE_RESULT_ID")
+                        if (!departmentid.equals(id)) {
+                            departmentid = id
+                            et_bm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"))
+                            jbr_edittext.setText("")
+                            jbrId = ""
+                        }
+                    }
+                // 经办人
+                    3 -> {
+                        jbr_edittext.setText(data.getStringExtra("CHOICE_RESULT_TEXT"))
+                        jbrId = data.getStringExtra("CHOICE_RESULT_ID")
                     }
                 //修改选中的引用的详情
                     4 -> {
@@ -238,7 +252,8 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
             jsonObject.put("bankid", zjzhId)
             jsonObject.put("clientid", gysId)// 供应商ID
             jsonObject.put("factamount", fkje_edittext.getText().toString())
-            jsonObject.put("exemanid", jbrId)
+            jsonObject.put("departmentid", departmentid)//部门ID
+            jsonObject.put("exemanid", jbrId)//经办人
             jsonObject.put("amount", fkje_edittext.getText().toString())
             jsonObject.put("memo", bzxx_edittext.getText().toString())
             jsonObject.put("opid", ShareUserInfo.getUserId(context))

@@ -27,6 +27,7 @@ import com.update.actiity.project.ChoiceProjectActivity
 import com.update.utils.LogUtils
 
 import kotlinx.android.synthetic.main.activity_jxc_cggl_cgdd_add.*
+
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -305,10 +306,13 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
 
                 //部门选择结果处理
                     7 -> {
-                        departmentid = data.getStringExtra("CHOICE_RESULT_ID")
-                        et_bm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"))
-                        jbr_edittext.setText("")
-                        jbrId = ""
+                        val id = data.getStringExtra("CHOICE_RESULT_ID")
+                        if (!departmentid.equals(id)) {
+                            departmentid = id
+                            et_bm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"))
+                            jbr_edittext.setText("")
+                            jbrId = ""
+                        }
                     }
                 // 经办人
                     8 -> {

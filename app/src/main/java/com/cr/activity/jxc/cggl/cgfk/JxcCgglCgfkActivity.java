@@ -163,7 +163,7 @@ public class JxcCgglCgfkActivity extends BaseActivity implements OnClickListener
                 startActivityForResult(intent, 0);
                 break;
             case R.id.xz:
-                intent.setClass(context, JxcCgglCgfkAddActivity.class);
+                intent.setClass(context, KtJxcCgglCgfkAddActivity.class);
                 startActivityForResult(intent, 1);
                 break;
         }
