@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.MotionEvent
 import android.widget.BaseAdapter
 import com.cr.activity.BaseActivity
@@ -13,6 +14,8 @@ import com.cr.adapter.jxc.cggl.cgfk.JxcCgglCgfkAddAdapter
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
+import com.update.actiity.choose.ChooseDepartmentActivity
+import com.update.actiity.choose.SelectSalesmanActivity
 
 
 
@@ -33,6 +36,8 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
     var fklxId:String? = ""
     var jsfsId:String? = ""
     var zjzhId:String? = ""
+    // 部门id
+    var departmentid: String? = ""
     var selectIndex: Int = 0
     var list = ArrayList<Map<String, Any?>>()
     var adapter = JxcCgglCgfkAddAdapter(list, this)
@@ -88,6 +93,20 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
         //单据日期
         djrq_edittext.setOnClickListener {
             date_init(djrq_edittext)
+        }
+        //部门选择
+        et_bm.setOnClickListener {
+            startActivityForResult(Intent(this, ChooseDepartmentActivity::class.java), 7)
+        }
+        //业务员选择
+        jbr_edittext.setOnClickListener {
+            val intent = Intent()
+            if (TextUtils.isEmpty(departmentid))
+                showToastPromopt("请先选择部门")
+            else
+                startActivityForResult(Intent(this, SelectSalesmanActivity::class.java).putExtra("depid", departmentid), 8)
+//            intent.setClass(activity, CommonXzjbrActivity::class.java)
+//            startActivityForResult(intent, 8)
         }
         //保存单据
         save_imagebutton.setOnClickListener {
