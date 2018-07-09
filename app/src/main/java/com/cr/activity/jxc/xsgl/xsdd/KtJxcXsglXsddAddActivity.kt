@@ -56,6 +56,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_jxc_xsgl_xsdd_add)
         setOnClick()
+        addFHMethod()
         xzsp_listview.adapter = adapter
         if (this.intent.hasExtra("dwObject")) {
             val map = this.intent.extras!!.getSerializable("dwObject") as Map<String, Any>

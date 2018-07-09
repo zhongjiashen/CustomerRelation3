@@ -31,6 +31,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.Serializable
+import java.text.SimpleDateFormat
 
 import java.util.*
 
@@ -55,7 +56,10 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_jxc_cggl_cgdd_add)
         setOnClick()
+        addFHMethod()
         xzsp_listview.adapter = adapter;
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        djrq_edittext.setText(sdf.format(Date()))
     }
 
 

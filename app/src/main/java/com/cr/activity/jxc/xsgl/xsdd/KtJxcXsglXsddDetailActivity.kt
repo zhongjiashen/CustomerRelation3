@@ -31,7 +31,7 @@ class KtJxcXsglXsddDetailActivity: BaseActivity() {
         setContentView(R.layout.activity_jxc_cggl_cgdd_detail)
         searchDate()
         setOnClick()
-
+        addFHMethod()
     }
 
     /**

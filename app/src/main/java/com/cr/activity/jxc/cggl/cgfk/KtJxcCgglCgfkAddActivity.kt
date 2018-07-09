@@ -40,6 +40,7 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_jxc_cggl_cgfk_add)
         setOnClick()
+        addFHMethod()
         xzsp_listview.adapter = adapter
         xzspnum_textview.setText("共选择了" + list.size + "引用")
         fklx_edittext.setText("应付账款")
