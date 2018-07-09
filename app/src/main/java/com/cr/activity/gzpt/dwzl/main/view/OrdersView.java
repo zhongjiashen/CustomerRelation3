@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity;
+import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlDdAdapter;
 import com.cr.common.XListView;
 import com.crcxj.activity.R;
@@ -79,7 +80,7 @@ public class OrdersView extends BaseView{
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Intent intent = new Intent();
                 intent.putExtra("billid", ddList.get(arg2 - 1).get("billid").toString());
-                intent.setClass(activity, JxcXsglXsddDetailActivity.class);
+                intent.setClass(activity, KtJxcXsglXsddDetailActivity.class);
                 activity.startActivity(intent);
             }
         });

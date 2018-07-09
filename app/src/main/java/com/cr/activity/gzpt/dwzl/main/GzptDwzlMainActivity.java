@@ -25,6 +25,7 @@ import com.cr.activity.gzpt.dwzl.main.view.ServiceView;
 import com.cr.activity.gzpt.dwzl.main.view.UnitView;
 import com.cr.activity.gzpt.dwzl.main.view.VisitView;
 import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddAddActivity;
+import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddAddActivity;
 import com.cr.activity.khfw.KhfwAddActivity;
 import com.cr.activity.xm.XzxmActivity;
 import com.cr.tools.PaseJson;
@@ -383,7 +384,7 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
                 startActivityForResult(intent, 4);
                 break;
             case R.id.xzxsdd_textview:
-                intent.setClass(this, JxcXsglXsddAddActivity.class);
+                intent.setClass(this, KtJxcXsglXsddAddActivity.class);
                 //                intent.putExtra("lxrid", "0");
                 //                intent.putExtra("clientid", clientId);
                 intent.putExtra("dwObject", (Serializable) dwObject);

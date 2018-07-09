@@ -732,9 +732,17 @@
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.cggl.cgdd.KtJxcCgglCgddDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-采购管理-采购订单-增加-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.cggl.cgdd.KtJxcCgglCgddAddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-采购管理-采购订单-选择商品-->
@@ -789,6 +797,10 @@
         <!-- 进销存-采购管理-采购付款-增加-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.cggl.cgfk.KtJxcCgglCgfkAddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-采购管理-采购付款-选择商品-->
@@ -865,12 +877,23 @@
             android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-销售管理-销售订单-增加-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddAddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-
+        <activity
+            android:name="com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-销售管理-销售开单-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdActivity"
@@ -1466,6 +1489,11 @@
         <!--业务员选择-->
         <activity
             android:name="com.update.actiity.choose.SelectSalesmanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--选择发票类型-->
+        <activity
+            android:name="com.update.actiity.choose.KtXzfplxActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!--录入序列号-->

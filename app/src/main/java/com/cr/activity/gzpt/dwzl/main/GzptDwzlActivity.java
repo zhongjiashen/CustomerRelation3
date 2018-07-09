@@ -25,6 +25,8 @@ import com.cr.activity.gzpt.dwzl.GzptDwzlLxrBjlxrActivity;
 import com.cr.activity.gzpt.dwzl.GzptDwzlLxrDetailActivity;
 import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddAddActivity;
 import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity;
+import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddAddActivity;
+import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity;
 import com.cr.activity.khfw.KhfwAddActivity;
 import com.cr.activity.khfw.KhfwDetailActivity;
 import com.cr.activity.xm.BjxmActivity;
@@ -522,7 +524,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Intent intent = new Intent();
                 intent.putExtra("billid", ddList.get(arg2 - 1).get("billid").toString());
-                intent.setClass(activity, JxcXsglXsddDetailActivity.class);
+                intent.setClass(activity, KtJxcXsglXsddDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -800,7 +802,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(intent, 4);
                 break;
             case R.id.xzxsdd_textview:
-                intent.setClass(this, JxcXsglXsddAddActivity.class);
+                intent.setClass(this, KtJxcXsglXsddAddActivity.class);
                 //                intent.putExtra("lxrid", "0");
                 //                intent.putExtra("clientid", clientId);
                 intent.putExtra("dwObject", (Serializable) dwObject);

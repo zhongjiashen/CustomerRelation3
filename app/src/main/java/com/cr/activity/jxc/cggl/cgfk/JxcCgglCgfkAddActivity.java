@@ -307,7 +307,7 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
                 intent.putExtra("type", "2");
                 startActivityForResult(intent, 1);
                 break;
-            case R.id.lxr_edittext:
+            case R.id.lxr_edittext://界面上没有
                 if (gysId.equals("")) {
                     showToastPromopt("请先选择供应商信息");
                     return;

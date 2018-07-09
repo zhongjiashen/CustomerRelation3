@@ -47,16 +47,15 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:layout_marginTop="10dip"
         android:orientation="horizontal" >
 
         <TextView
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:text="@string/gldjcg"
             android:textSize="@dimen/jxc_cggl_cgdd" />
 
@@ -186,7 +185,51 @@
                     android:id="@+id/jhdz_edittext"
                     style="@style/edittext_bj" />
             </LinearLayout>
+            <View style="@style/underline" />
 
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/fplx" />
+
+                <EditText
+                    android:id="@+id/et_fplx"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/xgxm" />
+
+                <EditText
+                    android:id="@+id/et_xgxm"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="交货日期" />
+
+                <EditText
+                    android:id="@+id/et_jhrq"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
             <View style="@style/underline2" />
 
             <LinearLayout
@@ -283,6 +326,20 @@
 
                 <EditText
                     android:id="@+id/djrq_edittext"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout" >
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="部门" />
+
+                <EditText
+                    android:id="@+id/et_bm"
                     style="@style/edittext_bj2" />
 
                 <ImageView style="@style/imageview_jt" />

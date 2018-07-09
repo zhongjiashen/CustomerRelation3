@@ -11,6 +11,7 @@ import com.cr.activity.gzpt.dwzl.GzptDwzlActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddDetailActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity;
 import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity;
+import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity;
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity;
 import com.cr.adapter.MstxGztx2Adapter;
 import com.cr.common.XListView;
@@ -164,7 +165,7 @@ public class MstxGztx2Activity extends BaseActivity {
 						intent.putExtra("billid",gztxList.get(arg2-1).get("id").toString());
 						startActivity(intent);
 					}else if(billtype.equals("21")){
-						Intent intent = new Intent(context,JxcXsglXsddDetailActivity.class);
+						Intent intent = new Intent(context,KtJxcXsglXsddDetailActivity.class);
 						intent.putExtra("billid",gztxList.get(arg2-1).get("id").toString());
 						startActivity(intent);
 					}

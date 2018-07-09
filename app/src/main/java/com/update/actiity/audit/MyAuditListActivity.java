@@ -24,6 +24,7 @@ import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdDetailActivity;
 import com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdDetailActivity;
 import com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxDetailActivity;
 import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity;
+import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity;
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity;
 import com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskDetailActivity;
 import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthDetailActivity;
@@ -241,7 +242,7 @@ public class MyAuditListActivity extends BaseActivity implements
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
                                 case "XSDD"://销售订单
-                                    startActivity(new Intent(mActivity, JxcXsglXsddDetailActivity.class)
+                                    startActivity(new Intent(mActivity, KtJxcXsglXsddDetailActivity.class)
                                             .putExtra("billid", data.getBillid() + ""));
                                     break;
                                 case "XSKD"://销售开单
