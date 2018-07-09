@@ -794,6 +794,11 @@
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.cggl.cgfk.KtJxcCgglCgfkDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
         <!-- 进销存-采购管理-采购付款-增加-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkAddActivity"

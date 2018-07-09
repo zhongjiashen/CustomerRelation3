@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddDetailActivity;
 import com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkDetailActivity;
+import com.cr.activity.jxc.cggl.cgfk.KtJxcCgglCgfkDetailActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity;
 import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthDetailActivity;
 import com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjDetailActivity;
@@ -238,7 +239,7 @@ public class MyAuditListActivity extends BaseActivity implements
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
                                 case "CGFK"://采购付款
-                                    startActivityForResult(new Intent(mActivity, JxcCgglCgfkDetailActivity.class)
+                                    startActivityForResult(new Intent(mActivity, KtJxcCgglCgfkDetailActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;
                                 case "XSDD"://销售订单

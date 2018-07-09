@@ -97,7 +97,7 @@ public class JxcCgglCgfkActivity extends BaseActivity implements OnClickListener
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent(context, JxcCgglCgfkDetailActivity.class);
+                Intent intent = new Intent(context, KtJxcCgglCgfkDetailActivity.class);
                 intent.putExtra("billid", list.get(arg2-1).get("billid").toString());
                 if(JxcCgglCgfkActivity.this.getIntent().hasExtra("select")){//如果是添加订单时候关联的操作
                     setResult(RESULT_OK,intent);

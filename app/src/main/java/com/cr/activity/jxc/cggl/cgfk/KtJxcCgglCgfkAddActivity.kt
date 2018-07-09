@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.widget.BaseAdapter
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.CommonXzdwActivity
+import com.cr.activity.common.CommonXzzdActivity
 
 import com.cr.adapter.jxc.cggl.cgfk.JxcCgglCgfkAddAdapter
 import com.cr.tools.ServerURL
@@ -88,6 +89,13 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
             intent.setClass(activity, JxcCgglCgfkXzyyDetailActivity::class.java)
             intent.putExtra("object", list[position] as Serializable)
             startActivityForResult(intent, 4)
+        }
+        //资金账户选择
+        zjzh_edittext.setOnClickListener {
+            val intent = Intent()
+            intent.setClass(activity, CommonXzzdActivity::class.java)
+            intent.putExtra("type", "BANK")
+            startActivityForResult(intent, 5)
         }
         //单据日期
         djrq_edittext.setOnClickListener {
@@ -197,6 +205,12 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
                         }
                         fkje_edittext.setText(b.toString() + "")
                     }
+                //资金账户选择
+                    5->{
+                        zjzh_edittext.setText(data.extras!!.getString("dictmc"))
+                        zjzhId = data.extras!!.getString("id")
+                    }
+
 
                 }
             }
