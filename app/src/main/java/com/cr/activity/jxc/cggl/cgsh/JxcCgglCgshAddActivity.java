@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,6 +48,8 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.ChooseDepartmentActivity;
+import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.actiity.project.ChoiceProjectActivity;
 
 /**
@@ -61,7 +64,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
     private TextView                  xzspnumTextView;
     private EditText                  bzxxEditText, gysEditText, lxrEditText, lxdhEditText,
             jhdzEditText, hjjeEditText, djrqEditText, jbrEditText,rkckEditText,gysqkEditText,
-            fkjeEditText,fklxEditText,jsfsEditText,zjzhEditText,gys2EditText,xmEditText;
+            fkjeEditText,fklxEditText,jsfsEditText,zjzhEditText,gys2EditText,xmEditText,etBm;
     private CustomListView            listview;
     String                            gysId="",gys2Id="", lxrId="", jbrId="",rkckId="", fklxId="", jsfsId="", zjzhId="",xmId="";
     private List<Map<String, Object>> list;
@@ -75,6 +78,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
     private EditText ckEditText;
     private String ckId;
     private String mTypesname;// 单位类型
+    private String mDepartmentid;//部门ID
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -125,6 +129,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
         djrqEditText.setText(sdf.format(new Date()));
         jbrEditText = (EditText) findViewById(R.id.jbr_edittext);
         jbrEditText.setOnClickListener(this);
+        etBm = (EditText) findViewById(R.id.et_bm);
+        etBm.setOnClickListener(this);
         bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
         bzxxEditText.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View view, MotionEvent event) {
@@ -255,6 +261,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("phone", lxdhEditText.getText().toString());
             jsonObject.put("projectid", xmId);
 //            jsonObject.put("billto", jhdzEditText.getText().toString());
+            jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
 //            String hjje = hjjeEditText.getText().toString();
 //            jsonObject.put("amount", hjje.replace("￥", ""));
@@ -369,10 +376,19 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
             case R.id.djrq_edittext:
                 date_init(djrqEditText);
                 break;
-            case R.id.jbr_edittext:
-                intent.setClass(activity, CommonXzjbrActivity.class);
-                startActivityForResult(intent, 3);
+            case R.id.et_bm:
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
                 break;
+            case R.id.jbr_edittext:
+                if (TextUtils.isEmpty(mDepartmentid))
+                    showToastPromopt("请先选择部门");
+                else
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+                            .putExtra("depid", mDepartmentid), 16);
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
+                break;
+
             case R.id.save_imagebutton:
                 if(time==0||System.currentTimeMillis()-time>5000) {
                     searchDateSave();//保存
@@ -585,6 +601,14 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
             	xmId=data.getExtras().getString("xmid");
                 xmEditText.setText(data.getStringExtra("title"));
                 xmId=data.getStringExtra("projectid");
+            }else if(requestCode==15){
+                mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
+                etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                jbrId = "";
+                jbrEditText.setText("");
+            }else if(requestCode==16){
+                jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
+                jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
             }
         }
     }
