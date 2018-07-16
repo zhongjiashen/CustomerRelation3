@@ -61,6 +61,8 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         xzsp_listview.adapter = adapter;
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         djrq_edittext.setText(sdf.format(Date()))
+        et_fplx.setText("收据")
+        billtypeid="1"
     }
 
 

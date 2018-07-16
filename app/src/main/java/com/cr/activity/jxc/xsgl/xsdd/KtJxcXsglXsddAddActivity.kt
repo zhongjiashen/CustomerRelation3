@@ -63,6 +63,8 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
             gys_edittext.setText(map["cname"].toString())
             gysId = map["id"].toString()
         }
+        et_fplx.setText("收据")
+        billtypeid="1"
     }
 
     /**
