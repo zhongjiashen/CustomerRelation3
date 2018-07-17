@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshAddActivity;
+import com.cr.activity.jxc.cggl.cgsh.KtJxcCgglCgshAddActivity;
 import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthActivity;
 import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthAddActivity;
 import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdActivity;

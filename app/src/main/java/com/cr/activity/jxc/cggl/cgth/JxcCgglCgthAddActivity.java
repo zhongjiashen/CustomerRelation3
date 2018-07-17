@@ -11,7 +11,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.text.TextUtils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,12 +49,13 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.project.ChoiceProjectActivity;
+import com.update.actiity.choose.ChooseDepartmentActivity;
+import com.update.actiity.choose.SelectSalesmanActivity;
 
 /**
  * 进销存-采购管理-采购退货-增加
- * 
+ *
  * @author Administrator
- * 
  */
 public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListener {
     private ImageButton               saveImageButton;
@@ -79,6 +80,8 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
     private EditText xmEditText;
     private String xmId;
     private String mTypesname;// 单位类型
+    private String mDepartmentid;//部门ID
+    private EditText etBm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -93,6 +96,10 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
      * 初始化Activity
      */
     private void initActivity() {
+        etBm = (EditText) findViewById(R.id.et_bm);
+        etBm.setOnClickListener(this);
+
+
     	xmEditText=(EditText) findViewById(R.id.xm_edittext);
     	xmEditText.setOnClickListener(this);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
@@ -255,7 +262,9 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("linkmanid", lxrId);//联系人ID
             jsonObject.put("phone", lxdhEditText.getText().toString());
 //            jsonObject.put("billto", jhdzEditText.getText().toString());
+            jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
+
             jsonObject.put("projectid", xmId);
 //            String hjje = hjjeEditText.getText().toString();
 //            jsonObject.put("amount", hjje.replace("￥", ""));
@@ -283,6 +292,9 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("batchrefid", map.get("batchrefid")==null?"":map.get("batchrefid").toString());
                 jsonObject2.put("referbillid ", map.get("referbillid")==null?"":map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno")==null?"":map.get("referitemno").toString());
+                jsonObject2.put("taxrate", "17.00");//税率%
+                jsonObject2.put("taxunitprice", "117.00");//含税单价
+                jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
@@ -295,7 +307,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("parms", "CGTH");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
+        findServiceData2(0, "billsavenew", parmMap, false);
     }
 
     @SuppressWarnings("unchecked")
@@ -374,9 +386,17 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             case R.id.djrq_edittext:
                 date_init(djrqEditText);
                 break;
+            case R.id.et_bm:
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
+                break;
             case R.id.jbr_edittext:
-                intent.setClass(activity, CommonXzjbrActivity.class);
-                startActivityForResult(intent, 3);
+                if (TextUtils.isEmpty(mDepartmentid))
+                    showToastPromopt("请先选择部门");
+                else
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+                            .putExtra("depid", mDepartmentid), 16);
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
                 break;
             case R.id.save_imagebutton:
                 if(time==0||System.currentTimeMillis()-time>5000) {
@@ -601,6 +621,14 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
 //            	xmId=data.getExtras().getString("xmid");
                 xmEditText.setText(data.getStringExtra("title"));
                 xmId=data.getStringExtra("projectid");
+            }else if(requestCode==15){
+                mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
+                etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                jbrId = "";
+                jbrEditText.setText("");
+            }else if(requestCode==16){
+                jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
+                jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
             }
         }
     }

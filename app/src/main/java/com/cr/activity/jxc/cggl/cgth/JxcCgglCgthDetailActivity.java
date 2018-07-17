@@ -47,8 +47,8 @@ import com.crcxj.activity.R;
 
 /**
  * 进销存-采购管理-采购退货-详情
- * @author Administrator
  *
+ * @author Administrator
  */
 public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickListener {
     private ImageView                 shImageView;
@@ -67,6 +67,8 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
     private String                    shzt="";                                               //社会状态
     Map<String, Object>               object;
     private EditText xmEditText;
+    private EditText etBm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -81,6 +83,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
      * 初始化Activity
      */
     private void initActivity() {
+         etBm = (EditText) findViewById(R.id.et_bm);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
         saveImageButton.setOnClickListener(this);
         rkckEditText = (EditText) findViewById(R.id.rkck_edittext);
@@ -193,6 +196,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
 //            jhdzEditText.setText(object.get("billto").toString());
             fkjeEditText.setText(object.get("totalamt").toString());
             djrqEditText.setText(object.get("billdate").toString());
+             etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
             bzxxEditText.setText(object.get("memo").toString());
             if (object.get("shzt").toString().equals("0")) {

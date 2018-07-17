@@ -845,7 +845,10 @@
             android:name="com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshAddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-
+        <activity
+            android:name="com.cr.activity.jxc.cggl.cgsh.KtJxcCgglCgshAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-采购管理-采购退货-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgth.JxcCgglCgthActivity"

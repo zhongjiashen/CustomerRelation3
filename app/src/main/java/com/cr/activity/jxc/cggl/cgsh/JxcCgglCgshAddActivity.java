@@ -286,6 +286,9 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
                 jsonObject2.put("referbillid ", map.get("referbillid")==null?"":map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno")==null?"":map.get("referitemno").toString());
+                jsonObject2.put("taxrate", "17.00");//税率%
+                jsonObject2.put("taxunitprice", "117.00");//含税单价
+                jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
@@ -298,7 +301,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("parms", "CGSH");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
+        findServiceData2(0, "billsavenew", parmMap, false);
     }
 
     @SuppressWarnings("unchecked")

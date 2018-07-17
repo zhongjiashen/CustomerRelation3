@@ -40,8 +40,8 @@ import com.crcxj.activity.R;
 
 /**
  * 进销存-采购管理-采购收货-详情
- * @author Administrator
  *
+ * @author Administrator
  */
 public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickListener {
     private ImageView                 shImageView;
@@ -51,6 +51,7 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
     private EditText                  bzxxEditText, gysEditText, lxrEditText, lxdhEditText,
             jhdzEditText, hjjeEditText, djrqEditText, jbrEditText, rkckEditText, gysqkEditText,
             fkjeEditText, fklxEditText, jsfsEditText, zjzhEditText;
+   private EditText etBm;
     private CustomListView            listview;
     private List<Map<String, Object>> list;
     private LinearLayout              xzspLinearLayout;
@@ -75,6 +76,8 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
      * 初始化Activity
      */
     private void initActivity() {
+        etBm = (EditText) findViewById(R.id.et_bm);
+
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
         saveImageButton.setOnClickListener(this);
         rkckEditText = (EditText) findViewById(R.id.rkck_edittext);
@@ -188,6 +191,7 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
             hjjeEditText.setText(object.get("totalamt").toString());
             fkjeEditText.setText(object.get("receipt").toString());
             djrqEditText.setText(object.get("billdate").toString());
+            etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
             bzxxEditText.setText(object.get("memo").toString());
             gysqkEditText.setText(object.get("oweamt").toString());

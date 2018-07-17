@@ -48,12 +48,13 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.project.ChoiceProjectActivity;
-
+import android.text.TextUtils;
+import com.update.actiity.choose.ChooseDepartmentActivity;
+import com.update.actiity.choose.SelectSalesmanActivity;
 /**
  * 进销存-销售管理-销售开单-增加
- * 
+ *
  * @author Administrator
- * 
  */
 public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListener {
     private ImageButton               saveImageButton;
@@ -80,7 +81,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
 
     private String mTypesname;// 单位类型
     private long time;
-
+    private String mDepartmentid;//部门ID
+    private EditText etBm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -95,6 +97,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
      * 初始化Activity
      */
     private void initActivity() {
+         etBm = (EditText) findViewById(R.id.et_bm);
+        etBm.setOnClickListener(this);
     	xmEditText=(EditText) findViewById(R.id.xm_edittext);
     	xmEditText.setOnClickListener(this);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
@@ -258,6 +262,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("paytypeid", jsfsId);
             jsonObject.put("bankid",zjzhId );
             jsonObject.put("shipto", jhdzEditText.getText().toString());
+             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
             jsonObject.put("memo", bzxxEditText.getText().toString());
@@ -295,7 +300,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("parms", "XSKD");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
+        findServiceData2(0, "billsavenew", parmMap, false);
     }
 
     @SuppressWarnings("unchecked")
@@ -371,9 +376,17 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
             case R.id.djrq_edittext:
                 date_init(djrqEditText);
                 break;
+           case R.id.et_bm:
+                startActivityForResult(new Intent(this, com.update.actiity.choose.ChooseDepartmentActivity.class), 15);
+                break;
             case R.id.jbr_edittext:
-                intent.setClass(activity, CommonXzjbrActivity.class);
-                startActivityForResult(intent, 3);
+                if (TextUtils.isEmpty(mDepartmentid))
+                    showToastPromopt("请先选择部门");
+                else
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+                            .putExtra("depid", mDepartmentid), 16);
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
                 break;
             case R.id.save_imagebutton:
                 if(time==0||System.currentTimeMillis()-time>5000) {
@@ -587,6 +600,14 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
             }else if(requestCode==12){
             	xmEditText.setText(data.getStringExtra("title"));
             	xmId=data.getStringExtra("projectid");
+            }else if(requestCode==15){
+                mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
+                etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                jbrId = "";
+                jbrEditText.setText("");
+            }else if(requestCode==16){
+                jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
+                jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
             }
         }
     }
