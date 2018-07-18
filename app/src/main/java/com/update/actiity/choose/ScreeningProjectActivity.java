@@ -1,8 +1,10 @@
 package com.update.actiity.choose;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
@@ -18,6 +20,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -43,6 +46,8 @@ public class ScreeningProjectActivity extends BaseActivity {
     TextView tvSalesman;
     @BindView(R.id.tv_audit_status)
     TextView tvAuditStatus;
+    @BindView(R.id.ll_dwmc)
+    LinearLayout llDwmc;
 
 
     private int kind;
@@ -67,15 +72,19 @@ public class ScreeningProjectActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        //判断单位名称是否需要隐藏
+        if(getIntent().getBooleanExtra("dwmc",false)){
+            llDwmc.setVisibility(View.GONE);
+        }
         Date date = new Date();
         Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
-        int day=aCalendar.getActualMaximum(Calendar.DATE);
-        String rq=DateUtil.DateToString(date, "yyyy-MM-");
+        int day = aCalendar.getActualMaximum(Calendar.DATE);
+        String rq = DateUtil.DateToString(date, "yyyy-MM-");
         tvStartTime.setText(rq + "01");
-        if(day>9)
-            tvEndTime.setText(rq+day);
+        if (day > 9)
+            tvEndTime.setText(rq + day);
         else
-            tvEndTime.setText(rq+"0"+day);
+            tvEndTime.setText(rq + "0" + day);
 
         mGmid = "0";
         mShzt = "0";
@@ -184,5 +193,12 @@ public class ScreeningProjectActivity extends BaseActivity {
                 mShzt = data.getStringExtra("CHOICE_RESULT_ID");
                 break;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

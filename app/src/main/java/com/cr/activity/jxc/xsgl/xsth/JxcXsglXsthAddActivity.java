@@ -443,6 +443,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 			 startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
 							 .putExtra("clientid", gysId)
 							 .putExtra("clientname", gysEditText.getText().toString())
+							 .putExtra("dwmc", true)
 							 .putExtra("typesname", mTypesname),
 					 12);
          	break;

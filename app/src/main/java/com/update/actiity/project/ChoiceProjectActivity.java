@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -68,6 +69,7 @@ public class ChoiceProjectActivity extends BaseActivity implements
     private String mClientid;// 单位ID
     private String mClientname;// 单位名称
     private String mTypesname;// 单位类型
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -175,9 +177,10 @@ public class ChoiceProjectActivity extends BaseActivity implements
                                 .putExtra("typesname", mTypesname));
                         break;
                     case 1://打开右边侧滑菜单
-
                         startActivityForResult(new Intent(ChoiceProjectActivity.this, ScreeningProjectActivity.class)
-                                .putExtra("kind", 0), 11);
+                                        .putExtra("kind", 0)
+                                        .putExtra("dwmc", getIntent().getBooleanExtra("dwmc", false)),
+                                11);
                         break;
                 }
             }
@@ -190,7 +193,8 @@ public class ChoiceProjectActivity extends BaseActivity implements
             case 11:
                 mQsrq = data.getStringExtra("qsrq");
                 mZzrq = data.getStringExtra("zzrq");
-                mCname = data.getStringExtra("cname");
+
+                mCname = TextUtils.isEmpty(data.getStringExtra("cname")) ? mCname : data.getStringExtra("cname");
                 mTitle = data.getStringExtra("title");
                 mGmid = data.getStringExtra("gmid");
                 mEmpid = data.getStringExtra("empid");

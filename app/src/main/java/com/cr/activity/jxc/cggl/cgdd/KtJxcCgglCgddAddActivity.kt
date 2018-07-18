@@ -199,6 +199,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                 startActivityForResult(Intent(this, ChoiceProjectActivity::class.java)
                         .putExtra("clientid", gysId)
                         .putExtra("clientname", gys_edittext.text.toString())
+                        .putExtra("dwmc", true)
                         .putExtra("typesname", mTypesname), 9)
         }
 

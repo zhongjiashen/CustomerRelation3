@@ -449,6 +449,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
                                 .putExtra("clientid", gysId)
                                 .putExtra("clientname", gysEditText.getText().toString())
+                                .putExtra("dwmc", true)
                                 .putExtra("typesname", mTypesname),
                         12);
 //            	intent.setClass(activity, XmActivity.class);

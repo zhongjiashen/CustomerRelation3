@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +37,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.SelectSalesmanActivity;
 
 /**
  * 进销存-仓库管理-仓库调拨-增加
@@ -55,7 +57,8 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
 //    LinearLayout                      xzxsddLinearLayout;
     private int                       selectIndex;
     String billid;//选择完关联的单据后返回的单据的ID
-
+    private String mDepartmentid;//部门ID
+    private EditText etBm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -70,6 +73,8 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
      * 初始化Activity
      */
     private void initActivity() {
+        etBm = (EditText) findViewById(R.id.et_bm);
+        etBm.setOnClickListener(this);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
         saveImageButton.setOnClickListener(this);
         rkckEditText=(EditText) findViewById(R.id.rkck_edittext);
@@ -170,6 +175,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("insid", rkckId);
             jsonObject.put("outsid", ckckId);
             jsonObject.put("totalamt","0" );
+            jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
@@ -187,6 +193,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("produceddate", map.get("produceddate").toString());
                 jsonObject2.put("validdate", map.get("validdate").toString());
                 jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
+                jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
@@ -199,7 +206,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("parms", "CKDB");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
+        findServiceData2(0, "billsavenew", parmMap, false);
     }
 
     @SuppressWarnings("unchecked")
@@ -256,9 +263,17 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
             case R.id.djrq_edittext:
                 date_init(djrqEditText);
                 break;
+            case R.id.et_bm:
+                startActivityForResult(new Intent(this, com.update.actiity.choose.ChooseDepartmentActivity.class), 15);
+                break;
             case R.id.jbr_edittext:
-                intent.setClass(activity, CommonXzjbrActivity.class);
-                startActivityForResult(intent, 3);
+                if (TextUtils.isEmpty(mDepartmentid))
+                    showToastPromopt("请先选择部门");
+                else
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+                            .putExtra("depid", mDepartmentid), 16);
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
                 break;
             case R.id.save_imagebutton:
                 if(time==0||System.currentTimeMillis()-time>5000) {
@@ -354,6 +369,14 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
             		list.clear();
             		adapter.notifyDataSetChanged();
             	}
+            }else if(requestCode==15){
+                mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
+                etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                jbrId = "";
+                jbrEditText.setText("");
+            }else if(requestCode==16){
+                jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
+                jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
             }
         }
     }
