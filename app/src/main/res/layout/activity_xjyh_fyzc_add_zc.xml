@@ -49,19 +49,59 @@
             android:focusable="false"
             android:editable="false"
             style="@style/edittext_bj" />
+        <ImageView style="@style/imageview_jt" />
     </LinearLayout>
 	<View style="@style/underline" />
 	<LinearLayout style="@style/detail_relativelayout" >
 
         <TextView
             style="@style/font_default"
-            android:text="@string/je" />
+            android:text="@string/csje" />
 
         <EditText
-            android:id="@+id/je_edittext"
+            android:id="@+id/et_csje"
             style="@style/edittext_bj" 
             android:maxLength="7"
             android:inputType="numberDecimal"/>
     </LinearLayout>
+    <View style="@style/underline" />
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="税    率 %" />
+
+        <EditText
+            android:id="@+id/et_sl"
+            style="@style/edittext_bj"
+            android:maxLength="7"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <View style="@style/underline" />
+    <LinearLayout style="@style/detail_relativelayout" >
+
+        <TextView
+            style="@style/font_default"
+            android:text="@string/jshj" />
+
+        <TextView
+            android:id="@+id/tv_jshj"
+            style="@style/edittext_bj"
+            android:maxLength="7"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
 	<View style="@style/underline" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    <Button
+        android:id="@+id/bt_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:layout_gravity="bottom"
+        android:background="@color/button_gray"
+        android:text="删除"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/word_jmedium" />
 </LinearLayout>

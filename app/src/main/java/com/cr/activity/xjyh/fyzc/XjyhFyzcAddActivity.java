@@ -276,7 +276,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.xzzc_linearlayout:
-                intent.setClass(this, XjyhFyzcAddZcActivity.class);
+                intent.setClass(this, KtXjyhFyzcAddZcActivity.class);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.wldw_edittext:
