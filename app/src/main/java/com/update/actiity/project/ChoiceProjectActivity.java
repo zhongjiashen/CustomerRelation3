@@ -94,7 +94,7 @@ public class ChoiceProjectActivity extends BaseActivity implements
         mParmMap.put("clientid", mClientid);
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
-        http();
+
     }
 
     private void http() {
@@ -157,6 +157,12 @@ public class ChoiceProjectActivity extends BaseActivity implements
             }
 
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        http();
     }
 
     /**

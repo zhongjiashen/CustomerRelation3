@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="10dip"
-            android:text="@string/wdgz"
+            android:text="@string/gzpt"
             android:textSize="17sp" />
 
         <com.cr.tools.CustomGridView
