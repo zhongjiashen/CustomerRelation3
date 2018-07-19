@@ -34,13 +34,20 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
         setContentView(R.layout.activity_xjyh_fyzc_add_zc)
         setOnClick()
         addFHMethod()
-        if (activity.getIntent().getIntExtra("type", 0) == 1) {
+        if (this.getIntent().hasExtra("object")) {
             bt_view.visibility = VISIBLE
+            var data = this.intent.extras!!.getSerializable("object") as Map<String, String>
+            fymc_edittext.setText(data.get("name"))
+            fymcId=data.get("ietypeid")
+            et_csje.setText(data.get("initamt"))
+            mTaxrate = data.get("taxrate")!!.toDouble()
+            et_jshj.setText(data.get("amount"))
+
         } else {
             mTaxrate = activity.getIntent().getStringExtra("taxrate").toDouble()
-            et_sl.setText(mTaxrate.toString())
             bt_view.visibility = GONE
         }
+        et_sl.setText(mTaxrate.toString())
 
         et_csje.addTextChangedListener(object : TextWatcher {
 
@@ -126,6 +133,10 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
             intent.putExtra("type", "ZCLB")
             intent.setClass(activity, CommonXzzdActivity::class.java)
             startActivityForResult(intent, 0)
+        }
+        bt_view.setOnClickListener {
+            setResult(Activity.RESULT_OK)
+            finish()
         }
         save.setOnClickListener {
             if (fymc_edittext.getText().toString() == "") {

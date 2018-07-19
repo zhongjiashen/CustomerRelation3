@@ -1,5 +1,6 @@
 package com.cr.activity.xjyh.fyzc;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,6 +77,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
     private String mDepartmentid;//部门ID
     private EditText etBm;
     private EditText etFplx;
+    private int selectIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +109,12 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                // Intent intent = new Intent();
-                // intent.setClass(activity,
-                // JxcCgglCgddXzspDetailActivity.class);
-                // intent.putExtra("object", (Serializable) list.get(arg2));
-                // startActivityForResult(intent, 4);
+                selectIndex = arg2;
+                Intent intent = new Intent();
+                intent.setClass(activity,
+                        KtXjyhFyzcAddZcActivity.class);
+                intent.putExtra("object", (Serializable) list.get(arg2));
+                startActivityForResult(intent, 10);
             }
         });
         bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
@@ -282,6 +285,19 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                 etFplx.setText(data.getExtras().getString("name"));
                 billtypeid = data.getExtras().getString("id");
                 mTaxrate = data.getExtras().getString("taxrate");
+            } else if (requestCode == 10) {
+                if (data!=null) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("name", data.getExtras().getString("name"));
+                    map.put("ietypeid", data.getExtras().getString("ietypeid"));
+                    map.put("initamt", data.getExtras().getString("initamt"));
+                    map.put("taxrate", data.getExtras().getString("taxrate"));
+                    map.put("amount", data.getExtras().getString("amount"));
+                    list.set(selectIndex,map);
+                } else {
+                    list.remove(selectIndex);
+                }
+                adapter.notifyDataSetChanged();
             } else if (requestCode == 12) {
                 xmEditText.setText(data.getExtras().getString("xmname"));
                 xmId = data.getExtras().getString("xmid");
