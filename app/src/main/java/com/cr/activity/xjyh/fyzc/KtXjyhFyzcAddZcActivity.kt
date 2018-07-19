@@ -35,7 +35,12 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
         setOnClick()
         addFHMethod()
         if (this.getIntent().hasExtra("object")) {
-            bt_view.visibility = VISIBLE
+            if(intent.getBooleanExtra("update",true)) {
+                bt_view.visibility = VISIBLE
+            }else{
+                bt_view.visibility = GONE
+                save.visibility = GONE
+            }
             var data = this.intent.extras!!.getSerializable("object") as Map<String, String>
             fymc_edittext.setText(data.get("name"))
             fymcId=data.get("ietypeid")

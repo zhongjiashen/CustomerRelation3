@@ -1,5 +1,6 @@
 package com.cr.activity.xjyh.fyzc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +64,8 @@ public class XjyhFyzcDetailActivity extends BaseActivity implements
 	private String shzt; // 审核状态
 	Map<String, Object> object;
     private EditText xmEditText;
-
+	private EditText etBm;
+	private EditText etFplx;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -78,6 +80,8 @@ public class XjyhFyzcDetailActivity extends BaseActivity implements
 	 * 初始化Activity
 	 */
 	private void initActivity() {
+		etBm = (EditText) findViewById(R.id.et_bm);
+		etFplx = (EditText) findViewById(R.id.et_fplx);
 		saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
 		saveImageButton.setOnClickListener(this);
 		djbhTextView = (TextView) findViewById(R.id.djbh_textview);
@@ -87,11 +91,12 @@ public class XjyhFyzcDetailActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-//				selectIndex = arg2;
-//				Intent intent = new Intent();
-//				intent.setClass(activity, JxcCgglCgddXzspDetailActivity.class);
-//				intent.putExtra("object", (Serializable) list.get(arg2));
-//				startActivityForResult(intent, 4);
+				Intent intent = new Intent();
+				intent.setClass(activity,
+						KtXjyhFyzcAddZcActivity.class);
+				intent.putExtra("object", (Serializable) list.get(arg2));
+				intent.putExtra("update",false);
+				startActivity(intent);
 			}
 		});
 
@@ -221,6 +226,8 @@ public class XjyhFyzcDetailActivity extends BaseActivity implements
 			jslxId = object.get("paytypeid").toString();
 			fkjeEditText.setText(object.get("receipt").toString());
 			djrqEditText.setText(object.get("billdate").toString());
+			etBm.setText(object.get("depname").toString());
+			etFplx.setText(object.get("billtypename").toString());
 			jbrEditText.setText(object.get("empname").toString());
 			jbrId = object.get("empid").toString();
 			bzxxEditText.setText(object.get("memo").toString());
