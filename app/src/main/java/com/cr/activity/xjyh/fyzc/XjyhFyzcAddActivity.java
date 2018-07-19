@@ -13,7 +13,11 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +28,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzdwActivity;
@@ -67,6 +72,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
     private long time;
     private String billtypeid;// 发票类型类型
     private String mTypesname;// 单位类型
+    private String mTaxrate;//税率
     private String mDepartmentid;//部门ID
     private EditText etBm;
     private EditText etFplx;
@@ -91,6 +97,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
         etFplx.setOnClickListener(this);
         etFplx.setText("收据");
         billtypeid = "1";
+        mTaxrate = "16";
         xmEditText = (EditText) findViewById(R.id.xm_edittext);
         xmEditText.setOnClickListener(this);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
@@ -144,6 +151,150 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
         adapter = new XjyhFyzcAddAdapter(list, this);
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+    }
+
+
+    @Override
+    public void onClick(View arg0) {
+        Intent intent = new Intent();
+        switch (arg0.getId()) {
+            case R.id.xzzc_linearlayout:
+                intent.putExtra("taxrate", mTaxrate);
+                intent.setClass(this, KtXjyhFyzcAddZcActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.wldw_edittext:
+                intent.setClass(this, CommonXzdwActivity.class);
+                intent.putExtra("type", "0");//
+                startActivityForResult(intent, 1);
+                break;
+            case R.id.jslx_edittext:
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "FKLX");
+                startActivityForResult(intent, 4);
+                break;
+            case R.id.zjzh_edittext:
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "BANK");
+                startActivityForResult(intent, 3);
+                break;
+            case R.id.fkfs_edittext:
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "PAYTYPE");
+                startActivityForResult(intent, 2);
+                break;
+            case R.id.djrq_edittext:
+                date_init(djrqEditText);
+                break;
+            case R.id.et_bm:
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
+                break;
+            case R.id.jbr_edittext:
+                if (TextUtils.isEmpty(mDepartmentid))
+                    showToastPromopt("请先选择部门");
+                else
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+                            .putExtra("depid", mDepartmentid), 16);
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
+                break;
+            case R.id.et_fplx:
+                startActivityForResult(new Intent(activity, KtXzfplxActivity.class).putExtra("djlx", "0"), 5);
+                break;
+//		case R.id.jbr_edittext:
+//			intent.setClass(activity, CommonXzjbrActivity.class);
+//			startActivityForResult(intent, 5);
+//			break;
+            case R.id.save_imagebutton:
+                if (time == 0 || System.currentTimeMillis() - time > 5000) {
+                    searchDateSave();//保存
+                    time = System.currentTimeMillis();
+                } else {
+                    showToastPromopt("请不要频繁点击，防止重复保存");
+
+                }
+                break;
+            case R.id.xm_edittext:
+                if (wldwId.equals("")) {
+                    showToastPromopt("请先选择供应商！");
+                    return;
+                }
+                startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+                                .putExtra("clientid", wldwId)
+                                .putExtra("clientname", wldwEditText.getText().toString())
+                                .putExtra("dwmc", true)
+                                .putExtra("typesname", mTypesname),
+                        12);
+//         	intent.setClass(activity, XmActivity.class);
+//             startActivityForResult(intent, 12);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0) {// 增加费用
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("name", data.getExtras().getString("name"));
+                map.put("ietypeid", data.getExtras().getString("ietypeid"));
+                map.put("initamt", data.getExtras().getString("initamt"));
+                map.put("taxrate", data.getExtras().getString("taxrate"));
+                map.put("amount", data.getExtras().getString("amount"));
+                list.add(map);
+                adapter.notifyDataSetChanged();
+                double hjfy = 0;
+                for (Map<String, Object> m : list) {
+                    hjfy += Double.parseDouble(m.get("amount").toString());
+                }
+                hjjeEditText.setText(FigureTools.sswrFigure(hjfy));
+            } else if (requestCode == 1) {// 往来单位
+                wldwEditText.setText(data.getExtras().getString("cname"));
+                wldwId = data.getExtras().getString("id");
+                mTypesname = data.getStringExtra("typesname");
+            } else if (requestCode == 2) {// 付款方式
+                fkfsEditText.setText(data.getExtras().getString("dictmc"));
+                fkfsId = data.getExtras().getString("id");
+            } else if (requestCode == 3) {// 资金账户
+                zjzhEditText.setText(data.getExtras().getString("dictmc"));
+                zjzhId = data.getExtras().getString("id");
+            } else if (requestCode == 4) {// 结算类型
+                jslxEditText.setText(data.getExtras().getString("dictmc"));
+                jslxId = data.getExtras().getString("id");
+                if (data.getExtras().getString("id").equals("0")) {
+                    fkjeEditText.setText("0");
+                    fkjeEditText.setEnabled(false);
+                    fkfsEditText.setEnabled(false);
+                    zjzhEditText.setEnabled(false);
+                    fkfsEditText.setText("");
+                    zjzhEditText.setText("");
+                    fkfsId = "";
+                    zjzhId = "";
+                } else {
+                    fkjeEditText.setEnabled(true);
+                    fkfsEditText.setEnabled(true);
+                    zjzhEditText.setEnabled(true);
+                }
+            } else if (requestCode == 5) {// 发票类型
+                etFplx.setText(data.getExtras().getString("name"));
+                billtypeid = data.getExtras().getString("id");
+                mTaxrate = data.getExtras().getString("taxrate");
+            } else if (requestCode == 12) {
+                xmEditText.setText(data.getExtras().getString("xmname"));
+                xmId = data.getExtras().getString("xmid");
+            } else if (requestCode == 15) {// 经办人
+                mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
+                etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                jbrId = "";
+                jbrEditText.setText("");
+            } else if (requestCode == 16) {
+                jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
+                jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
+            }
+        }
     }
 
     /**
@@ -225,7 +376,9 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                 jsonObject2.put("billid", "0");
                 jsonObject2.put("itemno", "0");
                 jsonObject2.put("ietypeid", map.get("ietypeid").toString());
-                jsonObject2.put("amount ", map.get("amount").toString());
+                jsonObject2.put("initamt", map.get("initamt").toString());
+                jsonObject2.put("taxrate ", map.get("taxrate").toString());
+                jsonObject2.put("amount", map.get("amount").toString());
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
@@ -238,7 +391,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
         parmMap.put("parms", "FYKZ");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(0, "billsavenew", parmMap, false);
+        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
     }
 
     @SuppressWarnings("unchecked")
@@ -268,144 +421,6 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
             adapter = new JxcCgglCgddDetailAdapter(list, this);
             listview.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void onClick(View arg0) {
-        Intent intent = new Intent();
-        switch (arg0.getId()) {
-            case R.id.xzzc_linearlayout:
-                intent.setClass(this, KtXjyhFyzcAddZcActivity.class);
-                startActivityForResult(intent, 0);
-                break;
-            case R.id.wldw_edittext:
-                intent.setClass(this, CommonXzdwActivity.class);
-                intent.putExtra("type", "0");//
-                startActivityForResult(intent, 1);
-                break;
-            case R.id.jslx_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "FKLX");
-                startActivityForResult(intent, 4);
-                break;
-            case R.id.zjzh_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "BANK");
-                startActivityForResult(intent, 3);
-                break;
-            case R.id.fkfs_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "PAYTYPE");
-                startActivityForResult(intent, 2);
-                break;
-            case R.id.djrq_edittext:
-                date_init(djrqEditText);
-                break;
-            case R.id.et_bm:
-                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
-                break;
-            case R.id.jbr_edittext:
-                if (TextUtils.isEmpty(mDepartmentid))
-                    showToastPromopt("请先选择部门");
-                else
-                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
-                            .putExtra("depid", mDepartmentid), 16);
-//                intent.setClass(activity, CommonXzjbrActivity.class);
-//                startActivityForResult(intent, 3);
-                break;
-            case R.id.et_fplx:
-                startActivityForResult(new Intent(activity, KtXzfplxActivity.class).putExtra("djlx", "0"), 5);
-                break;
-//		case R.id.jbr_edittext:
-//			intent.setClass(activity, CommonXzjbrActivity.class);
-//			startActivityForResult(intent, 5);
-//			break;
-            case R.id.save_imagebutton:
-                if (time == 0 || System.currentTimeMillis() - time > 5000) {
-                    searchDateSave();//保存
-                    time = System.currentTimeMillis();
-                } else {
-                    showToastPromopt("请不要频繁点击，防止重复保存");
-
-                }
-                break;
-            case R.id.xm_edittext:
-                if (wldwId.equals("")) {
-                    showToastPromopt("请先选择供应商！");
-                    return;
-                }
-                startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
-                                .putExtra("clientid", wldwId)
-                                .putExtra("clientname", wldwEditText.getText().toString())
-                                .putExtra("dwmc", true)
-                                .putExtra("typesname", mTypesname),
-                        12);
-//         	intent.setClass(activity, XmActivity.class);
-//             startActivityForResult(intent, 12);
-                break;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 0) {// 增加费用
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("name", data.getExtras().getString("name"));
-                map.put("amount", data.getExtras().getString("amount"));
-                map.put("ietypeid", data.getExtras().getString("ietypeid"));
-                list.add(map);
-                adapter.notifyDataSetChanged();
-                double hjfy = 0;
-                for (Map<String, Object> m : list) {
-                    hjfy += Double.parseDouble(m.get("amount").toString());
-                }
-                hjjeEditText.setText(FigureTools.sswrFigure(hjfy));
-            } else if (requestCode == 1) {// 往来单位
-                wldwEditText.setText(data.getExtras().getString("cname"));
-                wldwId = data.getExtras().getString("id");
-                mTypesname = data.getStringExtra("typesname");
-            } else if (requestCode == 2) {// 付款方式
-                fkfsEditText.setText(data.getExtras().getString("dictmc"));
-                fkfsId = data.getExtras().getString("id");
-            } else if (requestCode == 3) {// 资金账户
-                zjzhEditText.setText(data.getExtras().getString("dictmc"));
-                zjzhId = data.getExtras().getString("id");
-            } else if (requestCode == 4) {// 结算类型
-                jslxEditText.setText(data.getExtras().getString("dictmc"));
-                jslxId = data.getExtras().getString("id");
-                if (data.getExtras().getString("id").equals("0")) {
-                    fkjeEditText.setText("0");
-                    fkjeEditText.setEnabled(false);
-                    fkfsEditText.setEnabled(false);
-                    zjzhEditText.setEnabled(false);
-                    fkfsEditText.setText("");
-                    zjzhEditText.setText("");
-                    fkfsId = "";
-                    zjzhId = "";
-                } else {
-                    fkjeEditText.setEnabled(true);
-                    fkfsEditText.setEnabled(true);
-                    zjzhEditText.setEnabled(true);
-                }
-            } else if (requestCode == 5) {// 发票类型
-                etFplx.setText(data.getExtras().getString("name"));
-                billtypeid = data.getExtras().getString("id");
-            } else if (requestCode == 12) {
-                xmEditText.setText(data.getExtras().getString("xmname"));
-                xmId = data.getExtras().getString("xmid");
-            } else if (requestCode == 15) {// 经办人
-                mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
-                etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
-                jbrId = "";
-                jbrEditText.setText("");
-            } else if (requestCode == 16) {
-                jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
-                jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
-            }
         }
     }
 }

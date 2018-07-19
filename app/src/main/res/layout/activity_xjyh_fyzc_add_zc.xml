@@ -84,8 +84,8 @@
             style="@style/font_default"
             android:text="@string/jshj" />
 
-        <TextView
-            android:id="@+id/tv_jshj"
+        <EditText
+            android:id="@+id/et_jshj"
             style="@style/edittext_bj"
             android:maxLength="7"
             android:inputType="numberDecimal"/>
