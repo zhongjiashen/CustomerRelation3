@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +38,9 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.ChooseDepartmentActivity;
+import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.project.ChoiceProjectActivity;
 
 /**
  * 现金银行-费用支出-增加
@@ -61,7 +65,9 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
 	private EditText xmEditText;
 	private String xmId;
 	private long time;
-
+	private String mTypesname;// 单位类型
+	private String mDepartmentid;//部门ID
+	private EditText etBm;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -76,6 +82,9 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
 	 * 初始化Activity
 	 */
 	private void initActivity() {
+		etBm = (EditText) findViewById(R.id.et_bm);
+		etBm.setOnClickListener(this);
+
 		xmEditText=(EditText) findViewById(R.id.xm_edittext);
     	xmEditText.setOnClickListener(this);
 		saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
@@ -198,6 +207,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
 			jsonObject.put("bankid", zjzhId);
 			jsonObject.put("receipt", fkjeEditText.getText().toString());
 			jsonObject.put("amount", hjjeEditText.getText().toString());
+			jsonObject.put("departmentid", mDepartmentid);
 			jsonObject.put("empid", jbrId);
 			jsonObject.put("memo", bzxxEditText.getText().toString());
 			jsonObject.put("opid", ShareUserInfo.getUserId(context));
@@ -285,10 +295,22 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
 		case R.id.djrq_edittext:
 			date_init(djrqEditText);
 			break;
-		case R.id.jbr_edittext:
-			intent.setClass(activity, CommonXzjbrActivity.class);
-			startActivityForResult(intent, 5);
-			break;
+			case R.id.et_bm:
+				startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
+				break;
+			case R.id.jbr_edittext:
+				if (TextUtils.isEmpty(mDepartmentid))
+					showToastPromopt("请先选择部门");
+				else
+					startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+							.putExtra("depid", mDepartmentid), 16);
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
+				break;
+//		case R.id.jbr_edittext:
+//			intent.setClass(activity, CommonXzjbrActivity.class);
+//			startActivityForResult(intent, 5);
+//			break;
 		case R.id.save_imagebutton:
 			if(time==0||System.currentTimeMillis()-time>5000) {
 				searchDateSave();//保存
@@ -299,8 +321,18 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
 			}
 			break;
 		 case R.id.xm_edittext:
-         	intent.setClass(activity, XmActivity.class);
-             startActivityForResult(intent, 12);
+			 if(wldwId.equals("")){
+				 showToastPromopt("请先选择供应商！");
+				 return;
+			 }
+			 startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+							 .putExtra("clientid", wldwId)
+							 .putExtra("clientname", wldwEditText.getText().toString())
+							 .putExtra("dwmc", true)
+							 .putExtra("typesname", mTypesname),
+					 12);
+//         	intent.setClass(activity, XmActivity.class);
+//             startActivityForResult(intent, 12);
          	break;
 		}
 	}
@@ -325,6 +357,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
 			} else if (requestCode == 1) {// 往来单位
 				wldwEditText.setText(data.getExtras().getString("cname"));
 				wldwId = data.getExtras().getString("id");
+				mTypesname = data.getStringExtra("typesname");
 			} else if (requestCode == 2) {// 付款方式
 				fkfsEditText.setText(data.getExtras().getString("dictmc"));
 				fkfsId = data.getExtras().getString("id");
@@ -354,7 +387,15 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
 			}else if(requestCode==12){
             	xmEditText.setText(data.getExtras().getString("xmname"));
             	xmId=data.getExtras().getString("xmid");
-            }
+            }else if(requestCode==15){
+				mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
+				etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+				jbrId = "";
+				jbrEditText.setText("");
+			}else if(requestCode==16){
+				jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
+				jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
+			}
 		}
 	}
 }
