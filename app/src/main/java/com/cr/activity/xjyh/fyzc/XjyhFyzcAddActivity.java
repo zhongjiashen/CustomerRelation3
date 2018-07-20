@@ -99,7 +99,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
         etFplx.setOnClickListener(this);
         etFplx.setText("收据");
         billtypeid = "1";
-        mTaxrate = "16";
+        mTaxrate = "0";
         xmEditText = (EditText) findViewById(R.id.xm_edittext);
         xmEditText.setOnClickListener(this);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
@@ -113,6 +113,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                 Intent intent = new Intent();
                 intent.setClass(activity,
                         KtXjyhFyzcAddZcActivity.class);
+                intent.putExtra("billtypeid", billtypeid);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 startActivityForResult(intent, 10);
             }
@@ -164,6 +165,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
         switch (arg0.getId()) {
             case R.id.xzzc_linearlayout:
                 intent.putExtra("taxrate", mTaxrate);
+                intent.putExtra("billtypeid", billtypeid);
                 intent.setClass(this, KtXjyhFyzcAddZcActivity.class);
                 startActivityForResult(intent, 0);
                 break;
@@ -284,20 +286,45 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
             } else if (requestCode == 5) {// 发票类型
                 etFplx.setText(data.getExtras().getString("name"));
                 billtypeid = data.getExtras().getString("id");
-                mTaxrate = data.getExtras().getString("taxrate");
+                if (billtypeid.equals("1")) {
+                    mTaxrate = "0";
+                } else {
+                    mTaxrate = data.getExtras().getString("taxrate");
+                }
+                if (list != null && list.size() > 0) {
+                    double hjfy = 0;
+                    for (int i = 0; i < list.size(); i++) {
+                        Map<String, Object> d = list.get(i);
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        map.put("name", d.get("name"));
+                        map.put("ietypeid", d.get("ietypeid"));
+                        map.put("initamt", d.get("initamt"));
+                        map.put("taxrate", mTaxrate);
+                        map.put("amount", ((Double.parseDouble(mTaxrate) + 100) * Double.parseDouble(d.get("initamt").toString()) / 100) + "");
+                        hjfy += Double.parseDouble(map.get("amount").toString());
+                        list.set(i, map);
+                    }
+                    adapter.notifyDataSetChanged();
+                    hjjeEditText.setText(FigureTools.sswrFigure(hjfy));
+                }
             } else if (requestCode == 10) {
-                if (data!=null) {
+                if (data != null) {
                     Map<String, Object> map = new HashMap<String, Object>();
                     map.put("name", data.getExtras().getString("name"));
                     map.put("ietypeid", data.getExtras().getString("ietypeid"));
                     map.put("initamt", data.getExtras().getString("initamt"));
                     map.put("taxrate", data.getExtras().getString("taxrate"));
                     map.put("amount", data.getExtras().getString("amount"));
-                    list.set(selectIndex,map);
+                    list.set(selectIndex, map);
                 } else {
                     list.remove(selectIndex);
                 }
                 adapter.notifyDataSetChanged();
+                double hjfy = 0;
+                for (Map<String, Object> m : list) {
+                    hjfy += Double.parseDouble(m.get("amount").toString());
+                }
+                hjjeEditText.setText(FigureTools.sswrFigure(hjfy));
             } else if (requestCode == 12) {
                 xmEditText.setText(data.getExtras().getString("xmname"));
                 xmId = data.getExtras().getString("xmid");

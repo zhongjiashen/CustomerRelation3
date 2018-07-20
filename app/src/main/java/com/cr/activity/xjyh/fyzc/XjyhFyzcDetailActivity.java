@@ -92,10 +92,10 @@ public class XjyhFyzcDetailActivity extends BaseActivity implements
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				Intent intent = new Intent();
-				intent.setClass(activity,
-						KtXjyhFyzcAddZcActivity.class);
+				intent.setClass(activity, KtXjyhFyzcAddZcActivity.class);
 				intent.putExtra("object", (Serializable) list.get(arg2));
 				intent.putExtra("update",false);
+
 				startActivity(intent);
 			}
 		});

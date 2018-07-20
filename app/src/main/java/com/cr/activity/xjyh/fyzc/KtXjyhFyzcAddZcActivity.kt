@@ -17,6 +17,7 @@ import com.cr.activity.common.CommonXzzdActivity
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
+import com.update.utils.EditTextHelper
 import kotlinx.android.synthetic.main.activity_xjyh_fyzc_add_zc.*
 
 
@@ -34,16 +35,22 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
         setContentView(R.layout.activity_xjyh_fyzc_add_zc)
         setOnClick()
         addFHMethod()
+        //如果单据发票类型为收据时税率为0且不可修改
+        if (intent.getStringExtra("billtypeid")!=null&&intent.getStringExtra("billtypeid").equals("1")) {
+            EditTextHelper.EditTextEnable(false, et_sl)
+        } else {
+            EditTextHelper.EditTextEnable(false, et_sl)
+        }
         if (this.getIntent().hasExtra("object")) {
-            if(intent.getBooleanExtra("update",true)) {
+            if (intent.getBooleanExtra("update", true)) {
                 bt_view.visibility = VISIBLE
-            }else{
+            } else {
                 bt_view.visibility = GONE
                 save.visibility = GONE
             }
             var data = this.intent.extras!!.getSerializable("object") as Map<String, String>
             fymc_edittext.setText(data.get("name"))
-            fymcId=data.get("ietypeid")
+            fymcId = data.get("ietypeid")
             et_csje.setText(data.get("initamt"))
             mTaxrate = data.get("taxrate")!!.toDouble()
             et_jshj.setText(data.get("amount"))
