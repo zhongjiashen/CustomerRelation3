@@ -37,6 +37,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
 
 /**
@@ -269,7 +270,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 date_init(djrqEditText);
                 break;
             case R.id.et_bm:
-                startActivityForResult(new Intent(this, com.update.actiity.choose.ChooseDepartmentActivity.class), 15);
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
                 break;
             case R.id.jbr_edittext:
                 if (TextUtils.isEmpty(mDepartmentid))

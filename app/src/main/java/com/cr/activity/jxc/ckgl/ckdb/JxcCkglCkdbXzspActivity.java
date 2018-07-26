@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,9 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.update.model.Serial;
 
 /**
  * 进销存-仓库管理-仓库调拨-选择商品
@@ -157,6 +161,9 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
 				obj2.put("scrq", "");
 				obj2.put("yxqz", "");
 				obj2.put("batchctrl", obj.get("batchctrl").toString());
+				UUID uuid = UUID.randomUUID();
+				obj2.put("serialinfo", uuid.toString().toUpperCase());
+				obj2.put("serials", new ArrayList<Serial>());
 				list.add(obj2);
 			}
 		}
@@ -248,6 +255,12 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
 				code=data.getExtras().getString("id");
 				list.clear();
 				searchDate();
+			}else if (requestCode == 11) {
+				int index =data.getExtras()
+						.getInt("position");
+				list.get(index).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+				}.getType()));
+
 			}
 		}
 	}
