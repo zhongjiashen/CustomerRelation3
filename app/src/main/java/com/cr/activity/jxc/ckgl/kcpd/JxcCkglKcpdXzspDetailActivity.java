@@ -2,6 +2,7 @@ package com.cr.activity.jxc.ckgl.kcpd;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
@@ -16,6 +17,9 @@ import android.widget.TextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.SLView2;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.update.model.Serial;
 
 /**
  * 进销存-仓库管理-库存盘点-选择商品-选择的商品的详细信息
@@ -44,7 +48,7 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
 	EditText scrqEditText;
 	EditText yxqzEditText;
     Map<String, Object> object = new HashMap<String, Object>();
-
+    TextView tvSerialNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,8 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
         ggTextView = (TextView) findViewById(R.id.gg_textview);
         xhTextView = (TextView) findViewById(R.id.xh_textview);
         kcTextView = (TextView) findViewById(R.id.kc_textview);
+        tvSerialNumber = findViewById(R.id.tv_serial_number);
+        tvSerialNumber.setOnClickListener(this);
         scTextView = (TextView) findViewById(R.id.sc_textview);
         scTextView.setOnClickListener(this);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
@@ -183,6 +189,31 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
             case R.id.save_imagebutton:
                 searchDateSave();
                 break;
+            case R.id.tv_serial_number:
+                startActivityForResult(new Intent(activity, KtSerialNumberAddActivity.class)
+                        .putExtra("itemno", "0")
+                        .putExtra("uuid", object.get("serialinfo")
+                                .toString())
+                        .putExtra("position", 0)
+                        .putExtra("DATA", new Gson().toJson(object.get("serials")
+                        )), 11);
+                break;
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0) {
+                cpphEditText.setText(data.getExtras().getString("name"));
+//                cpphId = data.getExtras().getString("id");
+            }else if (requestCode == 11) {
+                int index =data.getExtras()
+                        .getInt("position");
+                object.put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+                }.getType()));
+
+            }
         }
     }
 }

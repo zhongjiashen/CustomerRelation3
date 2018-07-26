@@ -38,7 +38,9 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.model.Serial;
 
 /**
  * 进销存-仓库管理-库存盘点-增加
@@ -161,6 +163,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
+        List<Serial> serialinfo=new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
@@ -174,19 +177,24 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
             double amount=0;
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
-                jsonObject2.put("billid", "0");
-                jsonObject2.put("itemno", "0");
-                jsonObject2.put("goodsid", map.get("goodsid").toString());
-                jsonObject2.put("unitid", map.get("unitid").toString());
-                jsonObject2.put("unitprice", map.get("aprice").toString());
-                jsonObject2.put("unitqty", map.get("yksl").toString());
-                jsonObject2.put("amount", map.get("amount").toString());
-                amount+=Double.parseDouble(map.get("amount").toString());
-                jsonObject2.put("batchcode", map.get("batchcode").toString());
-                jsonObject2.put("produceddate", map.get("produceddate").toString());
-                jsonObject2.put("validdate", map.get("validdate").toString());
-                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
+                jsonObject2.put("billid", "0");//单据ID
+                jsonObject2.put("itemno", "0");//明细ID
+                jsonObject2.put("goodsid", map.get("goodsid").toString());//商品ID
+                jsonObject2.put("unitid", map.get("unitid").toString());//计量单位ID
+                jsonObject2.put("unitprice", map.get("aprice").toString());//单价
+                jsonObject2.put("unitqty", map.get("yksl").toString());//盈亏数量
+                jsonObject2.put("amount", map.get("amount").toString());//金额
+                amount+=Double.parseDouble(map.get("amount").toString());//
+                jsonObject2.put("batchcode", map.get("batchcode").toString());//批号
+                jsonObject2.put("produceddate", map.get("produceddate").toString());//生产日期
+                jsonObject2.put("validdate", map.get("validdate").toString());//有效期至
+                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());//
+                jsonObject2.put("serialinfo", map.get("serialinfo").toString());//序列号GUID
+                jsonObject2.put("zmonhand", map.get("zmsl").toString());//账面数量
+                jsonObject2.put("sponhand", map.get("spsl").toString());//实盘数量
+                jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
+                serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
             }
             jsonObject.put("totalamt",amount+"");
             arrayMaster.put(jsonObject);
@@ -200,7 +208,8 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("parms", "KCPD");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
+        parmMap.put("serialinfo", new Gson().toJson(serialinfo));
+        findServiceData2(0, "billsavenew", parmMap, false);
     }
 
     @SuppressWarnings("unchecked")
@@ -313,6 +322,8 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
 							map.put("batchcode", map2.get("cpph"));
                             map.put("produceddate", map2.get("scrq"));
                             map.put("validdate", map2.get("yxqz"));
+                            map.put("serialinfo", map2.get("serialinfo").toString());
+                            map.put("serials", map2.get("serials"));
                             list.add(map);
                         }
                     }
