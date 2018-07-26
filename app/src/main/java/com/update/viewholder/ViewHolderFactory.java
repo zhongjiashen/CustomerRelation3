@@ -31,18 +31,17 @@ import butterknife.ButterKnife;
 public class ViewHolderFactory {
 
 
-
     /**
      * 安装登记列表
      *
      * @param context
      * @return
      */
-    public static InstallRegistrationHolder getInstallRegistrationHolder(Context context,ViewGroup parent) {
+    public static InstallRegistrationHolder getInstallRegistrationHolder(Context context, ViewGroup parent) {
         return new InstallRegistrationHolder(LayoutInflater.from(context).inflate(R.layout.item_install_registration, parent, false));
     }
 
-    public static PerformInstallationHolder getPerformInstallationHolder(Context context,ViewGroup parent) {
+    public static PerformInstallationHolder getPerformInstallationHolder(Context context, ViewGroup parent) {
         return new PerformInstallationHolder(LayoutInflater.from(context).inflate(R.layout.item_perform_installation, parent, false));
     }
 
@@ -52,7 +51,7 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static StateAuditChoiceHolder getStateAuditChoiceHolder(Context context,ViewGroup parent) {
+    public static StateAuditChoiceHolder getStateAuditChoiceHolder(Context context, ViewGroup parent) {
         return new StateAuditChoiceHolder(LayoutInflater.from(context).inflate(R.layout.item_single_choice, parent, false));
     }
 
@@ -62,11 +61,11 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChooseGoodsHolder getChooseGoodsHolder(Context context,ViewGroup parent) {
+    public static ChooseGoodsHolder getChooseGoodsHolder(Context context, ViewGroup parent) {
         return new ChooseGoodsHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods, parent, false));
     }
 
-    public static SerialNumberHolder getSerialNumberHolder(Context context,ViewGroup parent) {
+    public static SerialNumberHolder getSerialNumberHolder(Context context, ViewGroup parent) {
         return new SerialNumberHolder(LayoutInflater.from(context).inflate(R.layout.item_serial_number, parent, false));
     }
 
@@ -76,7 +75,7 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChooseGoodsResultHolder getChooseGoodsResultHolder(Context context,ViewGroup parent) {
+    public static ChooseGoodsResultHolder getChooseGoodsResultHolder(Context context, ViewGroup parent) {
         return new ChooseGoodsResultHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_goods_result, parent, false));
     }
 
@@ -86,7 +85,7 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChooseFileResultHolder getChooseFileResultHolder(Context context,ViewGroup parent) {
+    public static ChooseFileResultHolder getChooseFileResultHolder(Context context, ViewGroup parent) {
         return new ChooseFileResultHolder(LayoutInflater.from(context).inflate(R.layout.item_select_photos, parent, false));
     }
 
@@ -96,7 +95,7 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ProjectHolder getProjectHolder(Context context,ViewGroup parent) {
+    public static ProjectHolder getProjectHolder(Context context, ViewGroup parent) {
         return new ProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_project, parent, false));
     }
 
@@ -106,7 +105,7 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChoiceProjectHolder getChoiceProjectHolder(Context context,ViewGroup parent) {
+    public static ChoiceProjectHolder getChoiceProjectHolder(Context context, ViewGroup parent) {
         return new ChoiceProjectHolder(LayoutInflater.from(context).inflate(R.layout.item_choice_project, parent, false));
     }
 
@@ -117,8 +116,18 @@ public class ViewHolderFactory {
      * @param context
      * @return
      */
-    public static ChoiceLogisticsCompanyHolder getChoiceLogisticsCompanyHolder(Context context,ViewGroup parent) {
+    public static ChoiceLogisticsCompanyHolder getChoiceLogisticsCompanyHolder(Context context, ViewGroup parent) {
         return new ChoiceLogisticsCompanyHolder(LayoutInflater.from(context).inflate(R.layout.item_choose_logistics_company, parent, false));
+    }
+
+    /**
+     * 项目
+     *
+     * @param context
+     * @return
+     */
+    public static JxcCkglKcpdXzspHolder getJxcCkglKcpdXzspHolder(Context context, ViewGroup parent) {
+        return new JxcCkglKcpdXzspHolder(LayoutInflater.from(context).inflate(R.layout.item_jxc_ckgl_kcdb_xzsp, parent, false));
     }
 
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
@@ -300,4 +309,45 @@ public class ViewHolderFactory {
             ButterKnife.bind(this, view);
         }
     }
+
+    public static class JxcCkglKcpdXzspHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.et_mc)
+        public TextView etMc;
+        @BindView(R.id.et_bh)
+        public TextView etBh;
+        @BindView(R.id.et_gg)
+        public TextView etGg;
+        @BindView(R.id.cb_view)
+        public CheckBox cbView;
+        @BindView(R.id.et_xh)
+        public TextView etXh;
+        @BindView(R.id.et_kc)
+        public TextView etKc;
+        @BindView(R.id.tv_serial_number)
+        public TextView tvSerialNumber;
+        @BindView(R.id.sl_view)
+        public SLView2 slView;
+        @BindView(R.id.ll_number)
+        public LinearLayout llNumber;
+        @BindView(R.id.tv_cpph)
+        public TextView tvCpph;
+        @BindView(R.id.ll_cpph)
+        public LinearLayout llCpph;
+        @BindView(R.id.tv_scrq)
+        public TextView tvScrq;
+        @BindView(R.id.ll_scrq)
+        public LinearLayout llScrq;
+        @BindView(R.id.tv_yxqz)
+        public TextView tvYxqz;
+        @BindView(R.id.ll_yxqz)
+        public LinearLayout llYxqz;
+        @BindView(R.id.ll_v)
+        public LinearLayout llV;
+
+        JxcCkglKcpdXzspHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
 }

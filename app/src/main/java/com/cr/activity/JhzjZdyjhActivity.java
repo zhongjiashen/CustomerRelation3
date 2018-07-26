@@ -58,7 +58,7 @@ public class JhzjZdyjhActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void initActivity(){
 		titlename=(TextView) findViewById(R.id.titlename);
-		titlename.setText("自定义计划");
+		titlename.setText("年计划");
 		rjhListView=(XListView) findViewById(R.id.xzjh_listview);
 		ksrqEditText=(EditText) findViewById(R.id.ksrq_edit);
 		ksrqEditText.setOnClickListener(this);

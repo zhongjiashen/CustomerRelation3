@@ -111,9 +111,9 @@ public class ServerURL {
     public static String       JHRWGZZJYZJ       = "jhrwgzzjyzj";
     //计划总结-月计划新增
     public static String       JHRWGZZJYZJSAVE   = "jhrwgzzjyzjsave";
-    //计划总结-自定义计划
+    //计划总结-年计划
     public static String       JHRWGZZJZDY       = "jhrwgzzjzdy";
-    //计划总结-自定义计划新增
+    //计划总结-年计划新增
     public static String       JHRWGZZJZDYSAVE   = "jhrwgzzjzdysave";
     //计划总结-项目列表
     public static String       JHRWGZZJITEM      = "jhrwgzzjitem";

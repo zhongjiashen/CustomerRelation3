@@ -16,6 +16,7 @@ import com.cr.activity.JhzjJrzjActivity;
 import com.cr.activity.JhzjXzxmActivity;
 import com.cr.model.JHRW;
 import com.crcxj.activity.R;
+import com.update.utils.LogUtils;
 
 import java.util.List;
 
@@ -62,6 +63,7 @@ public class JhzjYjhAdapter extends BaseAdapter {
 		viewHolder.xzxm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				LogUtils.e(sb.getShzt());
 				if(sb.getShzt().equals("1")){
 					Toast.makeText(activity,"该计划已经审核，不能新增项目！",Toast.LENGTH_SHORT).show();
 				}else {

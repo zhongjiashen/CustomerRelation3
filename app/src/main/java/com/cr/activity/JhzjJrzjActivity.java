@@ -51,7 +51,7 @@ public class JhzjJrzjActivity extends BaseActivity implements OnClickListener{
             titleTextView.setText("月总结");
             descTextView.setText("当月总结");
         }else if(type.equals("zdyjh")){
-            titleTextView.setText("自定义计划总结");
+            titleTextView.setText("年计划总结");
             descTextView.setText("计划总结");
         }else if(type.equals("zjh")){
             titleTextView.setText("周总结");

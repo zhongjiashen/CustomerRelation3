@@ -39,7 +39,7 @@ public class JhzjXzzdyjhActivity extends BaseActivity implements OnClickListener
 	 */
 	private void initActivity(){
 		titlename=(TextView) findViewById(R.id.titlename);
-		titlename.setText("新增自定义计划");
+		titlename.setText("新增年计划");
 		ksrqEditText=(EditText) findViewById(R.id.ksrq_edit);
 		ksrqEditText.setOnClickListener(this);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");

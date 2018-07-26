@@ -380,7 +380,7 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
 
-        <!-- 计划总结-自定义计划-->
+        <!-- 计划总结-年计划-->
         <activity
             android:name="com.cr.activity.JhzjZdyjhActivity"
             android:screenOrientation="portrait"
@@ -420,7 +420,7 @@
             android:name="com.cr.activity.JhzjXzyjhActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <!-- 计划总结-新增自定义计划-->
+        <!-- 计划总结-新增年计划-->
         <activity
             android:name="com.cr.activity.JhzjXzzdyjhActivity"
             android:screenOrientation="portrait"
@@ -889,10 +889,7 @@
             android:name="com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <activity
-            android:name="com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
         <!-- 进销存-销售管理-销售订单-增加-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddAddActivity"
@@ -915,6 +912,11 @@
         <!-- 进销存-销售管理-销售开单-详情-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!-- 进销存-仓库管理-库存盘点-选择商品-->
+        <activity
+            android:name="com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-销售管理-销售开单-增加-->
@@ -986,9 +988,17 @@
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbAddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.ckgl.ckdb.KtJxcCkglCkdbAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-仓库管理-仓库调拨-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbXzspActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.ckgl.ckdb.KtJxcCkglCkdbXzspActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 进销存-仓库管理-仓库调拨-选中产品的详细信息-->
@@ -1099,6 +1109,11 @@
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdXzspActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.jxc.ckgl.kcpd.KtJxcCkglKcpdXzspActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
         <!-- 进销存-仓库管理-库存盘点-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdXzspDetailActivity"

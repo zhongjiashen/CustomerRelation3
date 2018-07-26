@@ -495,13 +495,14 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //        }
         gzptIndexModelList.remove(6);//屏蔽客户服务
         khgxbbIndexModelList.remove(5);//屏蔽
-        ckglIndexModelList.remove(1);//屏蔽
+
 //        xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
 //        xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
 
+//        ckglIndexModelList.remove(1);//屏蔽库存盘点
+        ckglIndexModelList.remove(2);//屏蔽库存盘点
+        ckglIndexModelList.remove(2);//屏蔽库存盘点
 
-        ckglIndexModelList.remove(2);
-        ckglIndexModelList.remove(2);
         wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
         wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -728,7 +729,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                     break;
                 case 3:
                     im.setLogoId(R.drawable.index_zdyjh);
-                    im.setLogoName("自定义计划");
+                    im.setLogoName("年计划");
                     break;
                 default:
                     break;

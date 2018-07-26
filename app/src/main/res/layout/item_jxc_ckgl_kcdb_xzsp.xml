@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="@color/background_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/et_mc"
+        style="@style/font_default"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black_color"
+        tool:text="名称：" />
+
+    <TextView
+        android:id="@+id/et_bh"
+        style="@style/font_default"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black_color"
+        tool:text="名称：" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/et_gg"
+            style="@style/font_default"
+            android:layout_weight="1"
+            android:textColor="@color/black_color"
+            tool:text="名称：" />
+
+        <CheckBox
+            android:id="@+id/cb_view"
+            style="@style/CustomCheckboxTheme2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/et_xh"
+        style="@style/font_default"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black_color"
+        tool:text="名称：" />
+
+    <TextView
+        android:id="@+id/et_kc"
+        style="@style/font_default"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black_color"
+        tool:text="名称：" />
+
+    <View
+        style="@style/underline2"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_number"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/font_default"
+            android:layout_weight="1"
+            android:text="数量"
+            android:textColor="@color/black_color" />
+
+
+        <TextView
+            android:id="@+id/tv_serial_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin"
+            android:background="@drawable/shape_button_color_primary_line"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="序列号"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/word_jmedium" />
+
+        <com.cr.activity.SLView2
+            android:id="@+id/sl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View style="@style/underline2" />
+
+    <LinearLayout
+        android:id="@+id/ll_v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_cpph"
+            style="@style/detail_relativelayout">
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/xzsp_cpph" />
+
+            <TextView
+                android:id="@+id/tv_cpph"
+                style="@style/font_default"
+                android:layout_weight="1"
+                android:gravity="right" />
+
+
+            <ImageView style="@style/imageview_jt" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout
+            android:id="@+id/ll_scrq"
+            style="@style/detail_relativelayout">
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/xzsp_scrq" />
+
+            <TextView
+                android:id="@+id/tv_scrq"
+                style="@style/font_default"
+                android:layout_weight="1"
+                android:gravity="right" />
+
+            <ImageView style="@style/imageview_jt" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout
+            android:id="@+id/ll_yxqz"
+            style="@style/detail_relativelayout">
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/xzsp_yxqz" />
+
+            <TextView
+                android:id="@+id/tv_yxqz"
+                style="@style/font_default"
+                android:layout_weight="1"
+                android:gravity="right" />
+
+            <ImageView style="@style/imageview_jt" />
+        </LinearLayout>
+
+        <View style="@style/underline2" />
+    </LinearLayout>
+</LinearLayout>

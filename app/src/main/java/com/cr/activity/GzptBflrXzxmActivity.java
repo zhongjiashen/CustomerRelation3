@@ -74,7 +74,7 @@ public class GzptBflrXzxmActivity extends BaseActivity implements OnClickListene
 		qsrqEditText=(EditText) findViewById(R.id.qsrq_edit);
 		qsrqEditText.setOnClickListener(this);
 		jhlxSpinner=(Spinner) findViewById(R.id.jhlx_spinner);
-		String[]jhlxStrings={"日计划","月计划","自定义计划"};
+		String[]jhlxStrings={"日计划","月计划","年计划"};
 		jhlxAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, jhlxStrings);
 		jhlxAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

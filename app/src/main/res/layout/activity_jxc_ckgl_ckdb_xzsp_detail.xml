@@ -128,7 +128,8 @@
 
                 <View style="@style/underline" />
 
-                <LinearLayout style="@style/detail_relativelayout" android:visibility="gone">
+                <LinearLayout style="@style/detail_relativelayout"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/font_default"

@@ -27,7 +27,7 @@
 
         <View style="@style/underline" android:visibility="gone"/>
 
-        <LinearLayout style="@style/detail_relativelayout" 
+        <LinearLayout style="@style/detail_relativelayout"
             android:visibility="gone">
 
             <TextView

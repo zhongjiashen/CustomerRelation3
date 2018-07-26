@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +38,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.SelectSalesmanActivity;
 
 /**
  * 进销存-仓库管理-库存盘点-增加
@@ -56,7 +58,8 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
 //    LinearLayout                      xzxsddLinearLayout;
     private int                       selectIndex;
     String billid;//选择完关联的单据后返回的单据的ID
-
+    private String mDepartmentid;//部门ID
+    private EditText etBm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -71,6 +74,8 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
      * 初始化Activity
      */
     private void initActivity() {
+        etBm = (EditText) findViewById(R.id.et_bm);
+        etBm.setOnClickListener(this);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
         saveImageButton.setOnClickListener(this);
         listview = (CustomListView) findViewById(R.id.xzsp_listview);
@@ -245,10 +250,22 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
             case R.id.djrq_edittext:
                 date_init(djrqEditText);
                 break;
-            case R.id.jbr_edittext:
-                intent.setClass(activity, CommonXzjbrActivity.class);
-                startActivityForResult(intent, 3);
+            case R.id.et_bm:
+                startActivityForResult(new Intent(this, com.update.actiity.choose.ChooseDepartmentActivity.class), 15);
                 break;
+            case R.id.jbr_edittext:
+                if (TextUtils.isEmpty(mDepartmentid))
+                    showToastPromopt("请先选择部门");
+                else
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+                            .putExtra("depid", mDepartmentid), 16);
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
+                break;
+//            case R.id.jbr_edittext:
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
+//                break;
             case R.id.pdck_edittext:
                 intent.setClass(activity, CommonXzzdActivity.class);
                 intent.putExtra("type","STORE");
@@ -325,6 +342,14 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 pdckId = data.getExtras().getString("id");
                 list.clear();
                 adapter.notifyDataSetChanged();
+            }else if (requestCode == 15) {
+                mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
+                etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                jbrId = "";
+                jbrEditText.setText("");
+            } else if (requestCode == 16) {
+                jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
+                jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
             }
         }
     }
