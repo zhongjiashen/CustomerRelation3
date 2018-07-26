@@ -2,6 +2,8 @@ package com.update.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Author:    申中佳
  * Version    V1.0
@@ -12,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
  * -----------------------------------------------------------------------------------
  * 2018/3/8 0008         申中佳               V1.0
  */
-public class Serial {
+public class Serial implements Serializable {
     @SerializedName("billid")
     private String billid;	//主单据ID
     @SerializedName("serialinfo")

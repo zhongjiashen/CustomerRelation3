@@ -3,6 +3,7 @@ package com.cr.activity.jxc.ckgl.ckdb;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -37,8 +38,10 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.model.Serial;
 
 /**
  * 进销存-仓库管理-仓库调拨-增加
@@ -171,6 +174,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
+        List<Serial> serialinfo=new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
@@ -197,8 +201,10 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("produceddate", map.get("produceddate").toString());
                 jsonObject2.put("validdate", map.get("validdate").toString());
                 jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
+                jsonObject2.put("serialinfo", map.get("serialinfo").toString());//备注
                 jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
+                serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -210,6 +216,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("parms", "CKDB");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
+        parmMap.put("serialinfo", new Gson().toJson(serialinfo));
         findServiceData2(0, "billsavenew", parmMap, false);
     }
 
@@ -327,6 +334,8 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                             map.put("batchcode", map2.get("cpph").toString());
                             map.put("produceddate", map2.get("scrq").toString());
                             map.put("validdate", map2.get("yxqz").toString());
+                            map.put("serialinfo", map2.get("serialinfo").toString());
+                            map.put("serials", map2.get("serials"));
                             list.add(map);
 //                            zje += Double.parseDouble(map.get("amount").toString());
                         }
@@ -345,14 +354,13 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 } else {
                     Map<String, Object> map = (Map<String, Object>) data.getExtras()
                             .getSerializable("object");
-                    list.remove(selectIndex);
-                    map.put("unitqty", map.get("unitqty").toString());
-                    map.put("dj", map.get("dj").toString());
+
+
 //                    map.put(
 //                        "amount",
 //                        map.put("amount", Double.parseDouble(map.get("unitprice").toString())
 //                                          * Double.parseDouble(map.get("unitqty").toString())));
-                    list.add(selectIndex, map);
+                    list.set(selectIndex, map);
                     adapter.notifyDataSetChanged();
                 }
                 xzspnumTextView.setText("共选择了" + list.size() + "商品");
