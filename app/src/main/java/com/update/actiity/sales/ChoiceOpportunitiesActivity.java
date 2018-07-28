@@ -156,6 +156,10 @@ public class ChoiceOpportunitiesActivity extends BaseActivity implements
                         Intent intent = new Intent();
                         intent.putExtra("chanceid",data.getBillid()+"");
                         intent.putExtra("title",data.getTitle());
+                        intent.putExtra("khmc", data.getCname());
+                        intent.putExtra("gmid", data.getGmid());
+                        intent.putExtra("gmmc", data.getGmmc());
+                        intent.putExtra("clientid", data.getClientid()+"");
                         setResult(RESULT_OK, intent);
                         finish();
                     }

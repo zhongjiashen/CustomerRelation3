@@ -25,7 +25,7 @@ public class RqProjectListData {
     @SerializedName("title")
     private String title;
     @SerializedName("gmid")
-    private Object gmid;
+    private String gmid;
     @SerializedName("gmmc")
     private String gmmc;
 
@@ -93,11 +93,11 @@ public class RqProjectListData {
         this.title = title;
     }
 
-    public Object getGmid() {
+    public String getGmid() {
         return gmid;
     }
 
-    public void setGmid(Object gmid) {
+    public void setGmid(String gmid) {
         this.gmid = gmid;
     }
 

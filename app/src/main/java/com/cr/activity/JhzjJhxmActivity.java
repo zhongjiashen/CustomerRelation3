@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cr.activity.khgl.KtKhglJhzjXmzxActivity;
+import com.cr.activity.khgl.KtKhglJhzjXzxmActivity;
 import com.cr.adapter.JhzjJhxmAdapter;
 import com.cr.common.XListView;
 import com.cr.common.XListView.IXListViewListener;
@@ -77,7 +79,7 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 				JHRW jhrw2=jhxmList.get(arg2-1);
 				if(jhrw2.getLx().equals("0")){
-					Intent intent = new Intent(context,JhzjXzxmZxActivity.class);
+					Intent intent = new Intent(context, KtKhglJhzjXmzxActivity/*JhzjXzxmZxActivity*/.class);
 					intent.putExtra("jhid", jhrw.getId());
 					intent.putExtra("object",jhrw2);
 					startActivity(intent);
@@ -116,7 +118,7 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.xzxm:
-			Intent intent=new Intent(JhzjJhxmActivity.this,JhzjXzxmActivity.class);
+			Intent intent=new Intent(JhzjJhxmActivity.this, KtKhglJhzjXzxmActivity/*JhzjXzxmActivity*/.class);
 			intent.putExtra("jhid", jhrw.getId());
 			intent.putExtra("start", "1");
 			startActivityForResult(intent, 0);
