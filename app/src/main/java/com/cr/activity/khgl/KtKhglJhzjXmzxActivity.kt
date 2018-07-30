@@ -9,6 +9,7 @@ import android.os.Environment
 import android.text.TextUtils
 import android.view.View
 import com.airsaid.pickerviewlibrary.TimePickerView
+import com.bumptech.glide.Glide
 import com.cr.activity.jxc.ckgl.ckdb.KtJxcCkgdbXzspData
 import com.cr.model.JHRW
 import com.cr.tools.ServerURL
@@ -56,6 +57,7 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
     var starttime: String? = ""
     var issy = "0"
     var syrq: String? = ""
+    var path: String? = ""
     var mTimePickerView: TimePickerView? = null
     var jhrw: JHRW? = null
     override fun initVariables() {
@@ -155,7 +157,7 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
                 issy="0"
             }
         }
-        //提醒时间点击事件
+        //是否顺延点击事件
         ll_sysj_choice.setOnClickListener {
             selectTime(1)
         }
@@ -184,6 +186,12 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
                     }
                 }
             }.show()
+        }
+
+        iv_delete.setOnClickListener {
+            path=""
+            Glide.with(mActivity).load(R.mipmap.add).into(siv_image)
+            iv_delete.visibility=View.GONE
         }
     }
 
@@ -277,13 +285,9 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
                         val uri = data.data
                         LogUtils.e("File Uri: " + uri!!.toString())
                         // Get the path
-                        val path = FileUtils.getUrlPath(this, uri)
+                        path = FileUtils.getUrlPath(this, uri)
                         LogUtils.e("File Path: $path")
-//                        val fileChooseData = FileChooseData()
-//                        fileChooseData.type = 1
-//                        fileChooseData.url = path
-//                        mFileChooseDatas.add(fileChooseData)
-//                        mFileChooseAdapter.setList(mFileChooseDatas)
+                        setImage()
                     }
                 }
             }
@@ -320,12 +324,17 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
 
     override fun takeSuccess(result: TResult) {
         LogUtils.e(result.image.toString())
+        path=result.image.compressPath
 //        val fileChooseData = FileChooseData()
 //        fileChooseData.type = 0
 //        fileChooseData.url = result.image.compressPath
 //        mFileChooseDatas.add(fileChooseData)
 //        mFileChooseAdapter.setList(mFileChooseDatas)
-
+        setImage()
+    }
+    fun setImage(){
+        Glide.with(mActivity).load(path).error(R.mipmap.ic_file).into(siv_image)
+        iv_delete.visibility=View.VISIBLE
     }
 
     fun save() {
