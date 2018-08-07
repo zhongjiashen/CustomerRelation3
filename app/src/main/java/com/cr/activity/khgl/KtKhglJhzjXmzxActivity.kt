@@ -2,15 +2,14 @@ package com.cr.activity.khgl
 
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.os.Environment
 import android.text.TextUtils
 import android.view.View
 import com.airsaid.pickerviewlibrary.TimePickerView
 import com.bumptech.glide.Glide
-import com.cr.activity.jxc.ckgl.ckdb.KtJxcCkgdbXzspData
 import com.cr.model.JHRW
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
@@ -33,7 +32,10 @@ import com.update.utils.LogUtils
 
 
 import kotlinx.android.synthetic.main.activity_khgl_jhzj_xmzx.*
-
+import rx.Observable
+import rx.Observer
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 
 import java.io.File
@@ -60,6 +62,7 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
     var path: String? = ""
     var mTimePickerView: TimePickerView? = null
     var jhrw: JHRW? = null
+    var attfilesList= ArrayList<KtFiles>()
     override fun initVariables() {
         jhrw = intent.extras!!.getSerializable("object") as JHRW
         presenter = BaseP(this, this)
@@ -369,7 +372,10 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
         mParmMap.put("issy", issy)//是否提醒 0否 1是
         mParmMap.put("syrq", syrq)//提醒日期
         mParmMap.put("lb", "1")//类别（0计划制订 1计划执行）
-
+        if(!path.equals("")){
+            mParmMap.put("filenames", File(path).name)
+            mParmMap.put("xx", FileUtils.encodeBase64File(path))
+        }
         presenter.post(1, "jhrwgzzjitemsave", mParmMap)
     }
 
@@ -432,6 +438,15 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
                         }
                     }
                 }
+                //获取文件列表
+                var  map = HashMap<String, Any?>()
+
+                map.put("dbname", ShareUserInfo.getDbName(this))
+                map.put("attcode", "GZZJ")
+                map.put("billid", jhrw!!.getId())
+                map.put("curpage", "0")
+                map.put("pagesize", "100")
+                presenter.post(2, "attfilelist", map)
             }
             1 -> {
                 val result = data as String
@@ -445,7 +460,61 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
                     finish()
                 }
             }
+            2->{
+                 attfilesList = Gson().fromJson<ArrayList<KtFiles>>(data as String,
+                        object : TypeToken<ArrayList<KtFiles>>() {
+                        }.type)
+                if (attfilesList != null && attfilesList!!.size > 0) {
+                    saveFile()
+
+                }
+            }
         }
+
+    }
+
+    private fun saveFile() {
+        Observable.create(Observable.OnSubscribe<String> { subscriber ->
+            try {
+                for (i in attfilesList) {
+                    FileUtils.decoderBase64File(i.xx, mActivity, FileUtils.getPath(mActivity, "AZDJ/", i.filenames), Context.MODE_PRIVATE)
+
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            subscriber.onNext("")
+            subscriber.onCompleted()
+        })
+                .subscribeOn(Schedulers.computation()) // 指定 subscribe() 发生在 运算 线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+                .subscribe(object : Observer<String> {
+
+                    override fun onNext(s: String) {//主线程执行的方法
+                        LogUtils.e(s)
+                        for (i in attfilesList) {
+                            if(i.lb=="0"){
+                                Glide.with(mActivity).load(FileUtils.getPath(mActivity, "AZDJ/",  i.filenames)).error(R.mipmap.ic_file).into(siv_fjck)
+                            }else{
+                                Glide.with(mActivity).load(FileUtils.getPath(mActivity, "AZDJ/",  i.filenames)).error(R.mipmap.ic_file).into(siv_image)
+                            }
+
+                        }
+                    }
+
+                    override fun onCompleted() {
+                        LogUtils.e("-------------1---------------")
+
+
+                    }
+
+                    override fun onError(e: Throwable) {
+                        //
+
+                    }
+                })
 
     }
 }
