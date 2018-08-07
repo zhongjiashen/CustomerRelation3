@@ -500,8 +500,8 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //        xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
 
 //        ckglIndexModelList.remove(1);//屏蔽库存盘点
-        ckglIndexModelList.remove(2);//屏蔽库存盘点
-        ckglIndexModelList.remove(2);//屏蔽库存盘点
+        ckglIndexModelList.remove(2);//屏蔽存货调价
+        ckglIndexModelList.remove(3);//屏蔽库存变动
 
         wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
         wdgzGridView.setOnItemClickListener(new OnItemClickListener() {

@@ -509,6 +509,9 @@ public class JxcCgglCgshAddActivity extends BaseActivity implements OnClickListe
                  	gysEditText.setText(data.getExtras().getString("name"));
                  	gysId = data.getExtras().getString("id");
                  }
+                lxrEditText.setText(data.getExtras().getString("lxrname"));
+                lxrId = data.getExtras().getString("lxrid");
+                lxdhEditText.setText(data.getExtras().getString("phone"));
                 mTypesname = data.getStringExtra("typesname");
                 gysEditText.setText(data.getExtras().getString("name"));
                 gysId = data.getExtras().getString("id");
