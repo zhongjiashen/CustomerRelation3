@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.cr.activity.JhzjJrzjActivity;
 import com.cr.activity.JhzjXzxmActivity;
+import com.cr.activity.khgl.KtKhglJhzjXzxmActivity;
 import com.cr.model.JHRW;
 import com.crcxj.activity.R;
 
@@ -70,7 +71,7 @@ public class JhzjZjhAdapter extends BaseAdapter {
 				if(sb.getShzt().equals("1")){
 					Toast.makeText(activity,"该计划已经审核，不能新增项目！",Toast.LENGTH_SHORT).show();
 				}else {
-					Intent intent = new Intent(activity, JhzjXzxmActivity.class);
+					Intent intent = new Intent(activity, KtKhglJhzjXzxmActivity/*JhzjXzxmActivity*/.class);
 					intent.putExtra("jhid", sb.getId());
 					intent.putExtra("start", "0");
 					intent.putExtra("object", sb);
