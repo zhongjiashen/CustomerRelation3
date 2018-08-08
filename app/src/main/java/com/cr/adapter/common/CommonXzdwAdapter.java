@@ -56,18 +56,19 @@ public class CommonXzdwAdapter extends BaseAdapter {
 		}
 		viewHolder.bhTextView.setText(sb.get("code").toString());
 		viewHolder.nameTextView.setText(sb.get("cname").toString());
-		String type=sb.get("types").toString();
-		if(type.equals("1")){
-		    viewHolder.gysTextView.setText("客户");
-		}else if(type.equals("2")){
-		    viewHolder.gysTextView.setText("供应商");
-		}else if(type.equals("3")){
-            viewHolder.gysTextView.setText("竞争对手");
-        }else if(type.equals("4")){
-            viewHolder.gysTextView.setText("渠道");
-        }else if(type.equals("5")){
-            viewHolder.gysTextView.setText("员工");
-        }
+		viewHolder.gysTextView.setText(sb.get("typesname").toString());
+//		String type=sb.get("types").toString();
+//		if(type.equals("1")){
+//		    viewHolder.gysTextView.setText("客户");
+//		}else if(type.equals("2")){
+//		    viewHolder.gysTextView.setText("供应商");
+//		}else if(type.equals("3")){
+//            viewHolder.gysTextView.setText("竞争对手");
+//        }else if(type.equals("4")){
+//            viewHolder.gysTextView.setText("渠道");
+//        }else if(type.equals("5")){
+//            viewHolder.gysTextView.setText("员工");
+//        }
 		return convertView;
 	}
 
