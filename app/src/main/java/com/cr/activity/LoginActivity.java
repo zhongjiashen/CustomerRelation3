@@ -61,8 +61,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private void initActivity() {
         ztSpinner = (Spinner) findViewById(R.id.zt_spinner);
         bhEditText = (EditText) findViewById(R.id.login_bh);
-        bhEditText.setText(ShareUserInfo.getKey(context, "bh"));
+//        bhEditText.setText(ShareUserInfo.getKey(context, "bh"));
         bhId=ShareUserInfo.getKey(context, "bhId");
+        bhEditText.setText( bhId);
         bhEditText.setOnClickListener(this);
         mmEditText = (EditText) findViewById(R.id.login_mm);
         mmEditText.setText(ShareUserInfo.getKey(context, "mm"));
@@ -218,7 +219,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     }
                     Map<String, Object> params = new HashMap<String, Object>();
                     params.put("dbname", dbName);
-                    params.put("usercode", bhId);
+                   /* params.put("usercode", bhId);*/
+                    params.put("usercode", bhEditText.getText().toString());
                     params.put("pwd", mmEditText.getText().toString());
                     findServiceData3(1, "login", params);
                 }
@@ -227,10 +229,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
                 break;
             case R.id.login_bh:
-                Intent intent = new Intent();
-                intent.putExtra("dbname", dbName);
-                intent.setClass(activity, CommonXzczyActivity.class);
-                startActivityForResult(intent, 0);
+//                Intent intent = new Intent();
+//                intent.putExtra("dbname", dbName);
+//                intent.setClass(activity, CommonXzczyActivity.class);
+//                startActivityForResult(intent, 0);
                 break;
             default:
                 break;
@@ -245,7 +247,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             showToastPromopt("请选择帐套信息！");
             return false;
         } else if (bhEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择编号信息！");
+           /* showToastPromopt("请选择编号信息！");*/
+            showToastPromopt("请输入择编号信息！");
             return false;
         }
         // else if(mmEditText.getText().toString().equals("")){
