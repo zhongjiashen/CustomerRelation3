@@ -196,162 +196,17 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
 //        findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
 //    }
 
-    /**
-     * 连接网络的操作（查询从表的内容）
-     */
-    private void searchDate2() {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("parms", "XSKD");
-        parmMap.put("billid", billid);
-        findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
-    }
-    /**
-     * 连接网络的操作(保存)
-     */
-    private void searchDateSave() {
-         if(ckckEditText.getText().toString().equals("")){
-            showToastPromopt("请选择出库仓库");
-            return;
-        }else if(gysEditText.getText().toString().equals("")){
-            showToastPromopt("请选择客户");
-            return;
-        }else if (list.size() == 0) {
-            showToastPromopt("请选择商品");
-            return;
-        }else if(djrqEditText.getText().toString().equals("")){
-            showToastPromopt("请选择单据日期");
-            return;
-        }else if(sklxEditText.getText().toString().equals("")){
-            showToastPromopt("请选择收款类型");
-            return;
-        }else if(sklxId.equals("1")){
-            double hjje=Double.parseDouble(hjjeEditText.getText().toString().replace("￥", "").equals("")?"0":hjjeEditText.getText().toString().replace("￥", ""));
-            double fkje=Double.parseDouble(skjeEditText.getText().toString().replace("￥", "").equals("")?"0":skjeEditText.getText().toString().replace("￥", ""));
-            if(fkje<=0||fkje>hjje){
-                showToastPromopt("收款金额不在范围内！");
-                return;
-            }
-//            else if(jsfsEditText.getText().toString().equals("")){
-//                showToastPromopt("请选择结算方式");
-//                return;
-//            }
-                else if(zjzhEditText.getText().toString().equals("")){
-                showToastPromopt("请选择资金账户");
-                return;
-            }
-        } if (jbrEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
-        JSONArray arrayMaster = new JSONArray();
-        JSONArray arrayDetail = new JSONArray();
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("billid", "0");
-            jsonObject.put("code", "");
-            jsonObject.put("billdate", djrqEditText.getText().toString());
-            jsonObject.put("storeid", ckckId);
-            jsonObject.put("ispc", sklxId);
-            jsonObject.put("clientid", gysId);//供应商ID
-            jsonObject.put("linkmanid", lxrId);//联系人ID
-            jsonObject.put("phone", lxdhEditText.getText().toString());
-            jsonObject.put("receipt",skjeEditText.getText().toString());
-            jsonObject.put("privilege","" );
-            jsonObject.put("totalamt",hjjeEditText.getText().toString().replace("￥", "") );
-            jsonObject.put("paytypeid", jsfsId);
-            jsonObject.put("bankid",zjzhId );
-            jsonObject.put("shipto", jhdzEditText.getText().toString());
-             jsonObject.put("departmentid", mDepartmentid);
-            jsonObject.put("exemanid", jbrId);
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
-            jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("projectid", xmId);
-            arrayMaster.put(jsonObject);
-            for (Map<String, Object> map : list) {
-                JSONObject jsonObject2 = new JSONObject();
-                jsonObject2.put("billid", "0");
-                jsonObject2.put("itemno", "0");
-                jsonObject2.put("goodsid", map.get("goodsid").toString());
-                jsonObject2.put("unitid", map.get("unitid").toString());
-                jsonObject2.put("unitprice", map.get("unitprice").toString());
-                jsonObject2.put("unitqty", map.get("unitqty").toString());
-                String disc=map.get("disc").toString();
-                jsonObject2.put("disc", disc);
-                jsonObject2.put("amount", map.get("amount").toString());
-                jsonObject2.put("batchcode", map.get("batchcode").toString());
-                jsonObject2.put("produceddate", map.get("produceddate").toString());
-                jsonObject2.put("validdate", map.get("validdate").toString());
-                jsonObject2.put("ispresent", "");
-                jsonObject2.put("refertype", map.get("refertype")==null?"":map.get("refertype").toString());
-                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
-                jsonObject2.put("referbillid ", map.get("referbillid")==null?"":map.get("referbillid").toString());
-                jsonObject2.put("referitemno ", map.get("referitemno")==null?"":map.get("referitemno").toString());
-                jsonObject2.put("memo", map.get("memo")==null?"":map.get("memo").toString());
-                arrayDetail.put(jsonObject2);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }//代表新增
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        //		parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("tabname", "tb_invoice");
-        parmMap.put("parms", "XSKD");
-        parmMap.put("master", arrayMaster.toString());
-        parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(0, "billsavenew", parmMap, false);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void executeSuccess() {
-        if (returnSuccessType == 0) {
-            if (returnJson.equals("")) {
-                showToastPromopt("保存成功");
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                showToastPromopt("保存失败" + returnJson.substring(5));
-            }
-        }else if(returnSuccessType==1){//管理单据成功后把信息填到里面（主表）
-            if (returnJson.equals("")) {
-                return;
-            }
-            Map<String, Object> object = ((List<Map<String, Object>>) PaseJson
-                .paseJsonToObject(returnJson)).get(0);
-            gysEditText.setText(object.get("cname").toString());
-            lxrEditText.setText(object.get("lxrname").toString());
-            lxdhEditText.setText(object.get("phone").toString());
-            jhdzEditText.setText(object.get("billto").toString());
-            hjjeEditText.setText(object.get("amount").toString());
-            djrqEditText.setText(object.get("billdate").toString());
-            jbrEditText.setText(object.get("empname").toString());
-            bzxxEditText.setText(object.get("memo").toString());
-            gysId = object.get("clientid").toString();
-            lxrId = object.get("lxrid").toString();
-            jbrId = object.get("empid").toString();
-            searchDate2();//查询订单中的商品
-        }else if(returnSuccessType==2){//管理单据成功后把信息填到里面（从表）
-            list = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
-            adapter = new JxcCgglCgddDetailAdapter(list, this);
-            xzspnumTextView.setText("共选择了" + list.size() + "商品");
-            listview.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-        }
-    }
-
     @Override
     public void onClick(View arg0) {
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.xzsp_linearlayout:
-            	if(ckckEditText.getText().toString().equals("")){
-            		showToastPromopt("请先选择仓库信息！");
-            		return;
-            	}
-            	intent.putExtra("rkckId", ckckId);
-            	intent.putExtra("tabname", "tb_invoice");
+                if(ckckEditText.getText().toString().equals("")){
+                    showToastPromopt("请先选择仓库信息！");
+                    return;
+                }
+                intent.putExtra("rkckId", ckckId);
+                intent.putExtra("tabname", "tb_invoice");
                 intent.putExtra("xskd", true);
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
@@ -376,7 +231,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
             case R.id.djrq_edittext:
                 date_init(djrqEditText);
                 break;
-           case R.id.et_bm:
+            case R.id.et_bm:
                 startActivityForResult(new Intent(this, com.update.actiity.choose.ChooseDepartmentActivity.class), 15);
                 break;
             case R.id.jbr_edittext:
@@ -398,17 +253,17 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                 }
                 break;
             case R.id.xzxsdd_linearlayout://选择销售订单
-            	intent.putExtra("type", "XSKD_XSDD");
-            	if(gys2EditText.getText().toString().equals("")){
-            		showToastPromopt("请先选择客户");
-            		return;
-            	}
-            	if(ckEditText.getText().toString().equals("")){
-            		showToastPromopt("请先选择仓库");
-            		return;
-            	}
-            	intent.putExtra("clientid", gys2Id);
-            	intent.putExtra("reftypeid", "1");
+                intent.putExtra("type", "XSKD_XSDD");
+                if(gys2EditText.getText().toString().equals("")){
+                    showToastPromopt("请先选择客户");
+                    return;
+                }
+                if(ckEditText.getText().toString().equals("")){
+                    showToastPromopt("请先选择仓库");
+                    return;
+                }
+                intent.putExtra("clientid", gys2Id);
+                intent.putExtra("reftypeid", "1");
                 intent.setClass(activity, CommonXzyyActivity.class);
                 startActivityForResult(intent,5);
                 break;
@@ -438,10 +293,10 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 11);
                 break;
             case R.id.xm_edittext:
-            	if(gysId.equals("")){
-            		showToastPromopt("请先选择客户！");
-            		return;
-            	}
+                if(gysId.equals("")){
+                    showToastPromopt("请先选择客户！");
+                    return;
+                }
                 startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
                                 .putExtra("clientid", gysId)
                                 .putExtra("clientname", gysEditText.getText().toString())
@@ -451,8 +306,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
 //            	intent.setClass(activity, XmActivity.class);
 //                intent.putExtra("clientid", gysId);
 //                startActivityForResult(intent, 12);
-            	break;
-                
+                break;
+
         }
     }
 
@@ -615,4 +470,151 @@ public class JxcXsglXskdAddActivity extends BaseActivity implements OnClickListe
             }
         }
     }
+
+    /**
+     * 连接网络的操作（查询从表的内容）
+     */
+    private void searchDate2() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("parms", "XSKD");
+        parmMap.put("billid", billid);
+        findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
+    }
+    /**
+     * 连接网络的操作(保存)
+     */
+    private void searchDateSave() {
+        if(ckckEditText.getText().toString().equals("")){
+            showToastPromopt("请选择出库仓库");
+            return;
+        }else if(gysEditText.getText().toString().equals("")){
+            showToastPromopt("请选择客户");
+            return;
+        }else if (list.size() == 0) {
+            showToastPromopt("请选择商品");
+            return;
+        }else if(djrqEditText.getText().toString().equals("")){
+            showToastPromopt("请选择单据日期");
+            return;
+        }else if(sklxEditText.getText().toString().equals("")){
+            showToastPromopt("请选择收款类型");
+            return;
+        }else if(sklxId.equals("1")){
+            double hjje=Double.parseDouble(hjjeEditText.getText().toString().replace("￥", "").equals("")?"0":hjjeEditText.getText().toString().replace("￥", ""));
+            double fkje=Double.parseDouble(skjeEditText.getText().toString().replace("￥", "").equals("")?"0":skjeEditText.getText().toString().replace("￥", ""));
+            if(fkje<=0/*||fkje>hjje*/){
+                showToastPromopt("收款金额不在范围内！");
+                return;
+            }
+//            else if(jsfsEditText.getText().toString().equals("")){
+//                showToastPromopt("请选择结算方式");
+//                return;
+//            }
+            else if(zjzhEditText.getText().toString().equals("")){
+                showToastPromopt("请选择资金账户");
+                return;
+            }
+        } if (jbrEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择业务员");
+            return;
+        }
+        JSONArray arrayMaster = new JSONArray();
+        JSONArray arrayDetail = new JSONArray();
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("billid", "0");
+            jsonObject.put("code", "");
+            jsonObject.put("billdate", djrqEditText.getText().toString());
+            jsonObject.put("storeid", ckckId);
+            jsonObject.put("ispc", sklxId);
+            jsonObject.put("clientid", gysId);//供应商ID
+            jsonObject.put("linkmanid", lxrId);//联系人ID
+            jsonObject.put("phone", lxdhEditText.getText().toString());
+            jsonObject.put("receipt",skjeEditText.getText().toString());
+            jsonObject.put("privilege","" );
+            jsonObject.put("totalamt",hjjeEditText.getText().toString().replace("￥", "") );
+            jsonObject.put("paytypeid", jsfsId);
+            jsonObject.put("bankid",zjzhId );
+            jsonObject.put("shipto", jhdzEditText.getText().toString());
+            jsonObject.put("departmentid", mDepartmentid);
+            jsonObject.put("exemanid", jbrId);
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+            jsonObject.put("memo", bzxxEditText.getText().toString());
+            jsonObject.put("projectid", xmId);
+            arrayMaster.put(jsonObject);
+            for (Map<String, Object> map : list) {
+                JSONObject jsonObject2 = new JSONObject();
+                jsonObject2.put("billid", "0");
+                jsonObject2.put("itemno", "0");
+                jsonObject2.put("goodsid", map.get("goodsid").toString());
+                jsonObject2.put("unitid", map.get("unitid").toString());
+                jsonObject2.put("unitprice", map.get("unitprice").toString());
+                jsonObject2.put("unitqty", map.get("unitqty").toString());
+                String disc=map.get("disc").toString();
+                jsonObject2.put("disc", disc);
+                jsonObject2.put("amount", map.get("amount").toString());
+                jsonObject2.put("batchcode", map.get("batchcode").toString());
+                jsonObject2.put("produceddate", map.get("produceddate").toString());
+                jsonObject2.put("validdate", map.get("validdate").toString());
+                jsonObject2.put("ispresent", "");
+                jsonObject2.put("refertype", map.get("refertype")==null?"":map.get("refertype").toString());
+                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
+                jsonObject2.put("referbillid ", map.get("referbillid")==null?"":map.get("referbillid").toString());
+                jsonObject2.put("referitemno ", map.get("referitemno")==null?"":map.get("referitemno").toString());
+                jsonObject2.put("memo", map.get("memo")==null?"":map.get("memo").toString());
+                arrayDetail.put(jsonObject2);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }//代表新增
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        //		parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("tabname", "tb_invoice");
+        parmMap.put("parms", "XSKD");
+        parmMap.put("master", arrayMaster.toString());
+        parmMap.put("detail", arrayDetail.toString());
+        findServiceData2(0, "billsavenew", parmMap, false);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void executeSuccess() {
+        if (returnSuccessType == 0) {
+            if (returnJson.equals("")) {
+                showToastPromopt("保存成功");
+                setResult(RESULT_OK);
+                finish();
+            } else {
+                showToastPromopt("保存失败" + returnJson.substring(5));
+            }
+        }else if(returnSuccessType==1){//管理单据成功后把信息填到里面（主表）
+            if (returnJson.equals("")) {
+                return;
+            }
+            Map<String, Object> object = ((List<Map<String, Object>>) PaseJson
+                    .paseJsonToObject(returnJson)).get(0);
+            gysEditText.setText(object.get("cname").toString());
+            lxrEditText.setText(object.get("lxrname").toString());
+            lxdhEditText.setText(object.get("phone").toString());
+            jhdzEditText.setText(object.get("billto").toString());
+            hjjeEditText.setText(object.get("amount").toString());
+            djrqEditText.setText(object.get("billdate").toString());
+            jbrEditText.setText(object.get("empname").toString());
+            bzxxEditText.setText(object.get("memo").toString());
+            gysId = object.get("clientid").toString();
+            lxrId = object.get("lxrid").toString();
+            jbrId = object.get("empid").toString();
+            searchDate2();//查询订单中的商品
+        }else if(returnSuccessType==2){//管理单据成功后把信息填到里面（从表）
+            list = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+            adapter = new JxcCgglCgddDetailAdapter(list, this);
+            xzspnumTextView.setText("共选择了" + list.size() + "商品");
+            listview.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+
 }

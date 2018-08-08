@@ -187,158 +187,6 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 		findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
 	}
 
-	/**
-	 * 连接网络的操作（查询从表的内容）
-	 */
-	private void searchDate2() {
-		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("parms", "XSTH");
-		parmMap.put("billid", billid);
-		findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
-	}
-
-	/**
-	 * 连接网络的操作(保存)
-	 */
-	private void searchDateSave() {
-		if (rkckEditText.getText().toString().equals("")) {
-			showToastPromopt("请选择入库仓库");
-			return;
-		} else if (gysEditText.getText().toString().equals("")) {
-			showToastPromopt("请选择客户");
-			return;
-		} else if (list.size() == 0) {
-			showToastPromopt("请选择商品");
-			return;
-		} else if (fklxEditText.getText().toString().equals("")) {
-			showToastPromopt("请选择退款类型");
-			return;
-		} else if (fklxId.equals("T")) {
-//			if (jsfsEditText.getText().toString().equals("")) {
-//				showToastPromopt("请选择结算方式");
-//				return;
-//			} else 
-				if (zjzhEditText.getText().toString().equals("")) {
-				showToastPromopt("请选择资金账户");
-				return;
-			}
-		}
-		if (djrqEditText.getText().toString().equals("")) {
-			showToastPromopt("请选择单据日期");
-			return;
-		}
-		if (jbrEditText.getText().toString().equals("")) {
-			showToastPromopt("请选择业务员");
-			return;
-		}
-		JSONArray arrayMaster = new JSONArray();
-		JSONArray arrayDetail = new JSONArray();
-		try {
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("billid", "0");
-			jsonObject.put("code", "");
-			jsonObject.put("billdate", djrqEditText.getText().toString());
-			jsonObject.put("storeid", rkckId);
-			// jsonObject.put("ispc", fklxId);
-			jsonObject.put("clientid", gysId);// 供应商ID
-			jsonObject.put("linkmanid", "");// 联系人ID
-			jsonObject.put("backmoney", fklxId);
-			jsonObject.put("phone", "");
-			// jsonObject.put("receipt",fkjeEditText.getText().toString());
-			jsonObject.put("paytypeid", jsfsId);
-			jsonObject.put("bankid", zjzhId);
-			jsonObject.put("privilege", "");
-			String hjje = hjjeEditText.getText().toString();
-			jsonObject.put("totalamt", hjje.replace("￥", ""));
-			jsonObject.put("projectid", xmId);
-			// jsonObject.put("shipto", jhdzEditText.getText().toString());
-			jsonObject.put("exemanid", jbrId);
-			// String hjje = hjjeEditText.getText().toString();
-			// jsonObject.put("amount", fkjeEditText.getText().toString());
-			jsonObject.put("opid", ShareUserInfo.getUserId(context));
-			jsonObject.put("memo", bzxxEditText.getText().toString());
-			arrayMaster.put(jsonObject);
-			for (Map<String, Object> map : list) {
-				JSONObject jsonObject2 = new JSONObject();
-				jsonObject2.put("billid", "0");
-				jsonObject2.put("itemno", "0");
-				jsonObject2.put("goodsid", map.get("goodsid").toString());
-				jsonObject2.put("unitid", map.get("unitid").toString());
-				jsonObject2.put("unitprice", map.get("unitprice").toString());
-				jsonObject2.put("unitqty", map.get("unitqty").toString());
-				String disc = map.get("disc").toString();
-				jsonObject2.put("disc", disc);
-				jsonObject2.put("amount", map.get("amount").toString());
-				jsonObject2.put("batchcode", map.get("batchcode").toString());
-				jsonObject2.put("produceddate", map.get("produceddate")
-						.toString());
-				jsonObject2.put("validdate", map.get("validdate").toString());
-				jsonObject2.put("ispresent", "");
-				jsonObject2.put("refertype", map.get("refertype") == null ? ""
-						: map.get("refertype").toString());
-				jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
-				jsonObject2.put(
-						"referbillid ",
-						map.get("referbillid") == null ? "" : map.get(
-								"referbillid").toString());
-				jsonObject2.put(
-						"referitemno ",
-						map.get("referitemno") == null ? "" : map.get(
-								"referitemno").toString());
-				arrayDetail.put(jsonObject2);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}// 代表新增
-		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		// parmMap.put("opid", ShareUserInfo.getUserId(context));
-		parmMap.put("tabname", "tb_sreturn");
-		parmMap.put("parms", "XSTH");
-		parmMap.put("master", arrayMaster.toString());
-		parmMap.put("detail", arrayDetail.toString());
-		findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void executeSuccess() {
-		if (returnSuccessType == 0) {
-			if (returnJson.equals("")) {
-				showToastPromopt("保存成功");
-				setResult(RESULT_OK);
-				finish();
-			} else {
-				showToastPromopt("保存失败" + returnJson.substring(5));
-			}
-		} else if (returnSuccessType == 1) {// 管理单据成功后把信息填到里面（主表）
-			if (returnJson.equals("")) {
-				return;
-			}
-			Map<String, Object> object = ((List<Map<String, Object>>) PaseJson
-					.paseJsonToObject(returnJson)).get(0);
-			gysEditText.setText(object.get("cname").toString());
-			// lxrEditText.setText(object.get("lxrname").toString());
-			// lxdhEditText.setText(object.get("phone").toString());
-			// jhdzEditText.setText(object.get("billto").toString());
-			hjjeEditText.setText(object.get("amount").toString());
-			djrqEditText.setText(object.get("billdate").toString());
-			jbrEditText.setText(object.get("empname").toString());
-			bzxxEditText.setText(object.get("memo").toString());
-			gysId = object.get("clientid").toString();
-			// lxrId = object.get("lxrid").toString();
-			jbrId = object.get("empid").toString();
-			searchDate2();// 查询订单中的商品
-		} else if (returnSuccessType == 2) {// 管理单据成功后把信息填到里面（从表）
-			list = (List<Map<String, Object>>) PaseJson
-					.paseJsonToObject(returnJson);
-			adapter = new JxcCgglCgddDetailAdapter(list, this);
-			xzspnumTextView.setText("共选择了" + list.size() + "商品");
-			listview.setAdapter(adapter);
-			adapter.notifyDataSetChanged();
-		}
-	}
 
 	@Override
 	public void onClick(View arg0) {
@@ -596,6 +444,160 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 				xmEditText.setText(data.getStringExtra("title"));
 				xmId=data.getStringExtra("projectid");
             }
+		}
+	}
+
+
+	/**
+	 * 连接网络的操作（查询从表的内容）
+	 */
+	private void searchDate2() {
+		Map<String, Object> parmMap = new HashMap<String, Object>();
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("parms", "XSTH");
+		parmMap.put("billid", billid);
+		findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
+	}
+
+	/**
+	 * 连接网络的操作(保存)
+	 */
+	private void searchDateSave() {
+		if (rkckEditText.getText().toString().equals("")) {
+			showToastPromopt("请选择入库仓库");
+			return;
+		} else if (gysEditText.getText().toString().equals("")) {
+			showToastPromopt("请选择客户");
+			return;
+		} else if (list.size() == 0) {
+			showToastPromopt("请选择商品");
+			return;
+		} else if (fklxEditText.getText().toString().equals("")) {
+			showToastPromopt("请选择退款类型");
+			return;
+		} else if (fklxId.equals("T")) {
+//			if (jsfsEditText.getText().toString().equals("")) {
+//				showToastPromopt("请选择结算方式");
+//				return;
+//			} else
+			if (zjzhEditText.getText().toString().equals("")) {
+				showToastPromopt("请选择资金账户");
+				return;
+			}
+		}
+		if (djrqEditText.getText().toString().equals("")) {
+			showToastPromopt("请选择单据日期");
+			return;
+		}
+		if (jbrEditText.getText().toString().equals("")) {
+			showToastPromopt("请选择业务员");
+			return;
+		}
+		JSONArray arrayMaster = new JSONArray();
+		JSONArray arrayDetail = new JSONArray();
+		try {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("billid", "0");
+			jsonObject.put("code", "");
+			jsonObject.put("billdate", djrqEditText.getText().toString());
+			jsonObject.put("storeid", rkckId);
+			// jsonObject.put("ispc", fklxId);
+			jsonObject.put("clientid", gysId);// 供应商ID
+			jsonObject.put("linkmanid", "");// 联系人ID
+			jsonObject.put("backmoney", fklxId);
+			jsonObject.put("phone", "");
+			// jsonObject.put("receipt",fkjeEditText.getText().toString());
+			jsonObject.put("paytypeid", jsfsId);
+			jsonObject.put("bankid", zjzhId);
+			jsonObject.put("privilege", "");
+			String hjje = hjjeEditText.getText().toString();
+			jsonObject.put("totalamt", hjje.replace("￥", ""));
+			jsonObject.put("projectid", xmId);
+			// jsonObject.put("shipto", jhdzEditText.getText().toString());
+			jsonObject.put("exemanid", jbrId);
+			// String hjje = hjjeEditText.getText().toString();
+			// jsonObject.put("amount", fkjeEditText.getText().toString());
+			jsonObject.put("opid", ShareUserInfo.getUserId(context));
+			jsonObject.put("memo", bzxxEditText.getText().toString());
+			arrayMaster.put(jsonObject);
+			for (Map<String, Object> map : list) {
+				JSONObject jsonObject2 = new JSONObject();
+				jsonObject2.put("billid", "0");
+				jsonObject2.put("itemno", "0");
+				jsonObject2.put("goodsid", map.get("goodsid").toString());
+				jsonObject2.put("unitid", map.get("unitid").toString());
+				jsonObject2.put("unitprice", map.get("unitprice").toString());
+				jsonObject2.put("unitqty", map.get("unitqty").toString());
+				String disc = map.get("disc").toString();
+				jsonObject2.put("disc", disc);
+				jsonObject2.put("amount", map.get("amount").toString());
+				jsonObject2.put("batchcode", map.get("batchcode").toString());
+				jsonObject2.put("produceddate", map.get("produceddate")
+						.toString());
+				jsonObject2.put("validdate", map.get("validdate").toString());
+				jsonObject2.put("ispresent", "");
+				jsonObject2.put("refertype", map.get("refertype") == null ? ""
+						: map.get("refertype").toString());
+				jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
+				jsonObject2.put(
+						"referbillid ",
+						map.get("referbillid") == null ? "" : map.get(
+								"referbillid").toString());
+				jsonObject2.put(
+						"referitemno ",
+						map.get("referitemno") == null ? "" : map.get(
+								"referitemno").toString());
+				arrayDetail.put(jsonObject2);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}// 代表新增
+		Map<String, Object> parmMap = new HashMap<String, Object>();
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		// parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("tabname", "tb_sreturn");
+		parmMap.put("parms", "XSTH");
+		parmMap.put("master", arrayMaster.toString());
+		parmMap.put("detail", arrayDetail.toString());
+		findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void executeSuccess() {
+		if (returnSuccessType == 0) {
+			if (returnJson.equals("")) {
+				showToastPromopt("保存成功");
+				setResult(RESULT_OK);
+				finish();
+			} else {
+				showToastPromopt("保存失败" + returnJson.substring(5));
+			}
+		} else if (returnSuccessType == 1) {// 管理单据成功后把信息填到里面（主表）
+			if (returnJson.equals("")) {
+				return;
+			}
+			Map<String, Object> object = ((List<Map<String, Object>>) PaseJson
+					.paseJsonToObject(returnJson)).get(0);
+			gysEditText.setText(object.get("cname").toString());
+			// lxrEditText.setText(object.get("lxrname").toString());
+			// lxdhEditText.setText(object.get("phone").toString());
+			// jhdzEditText.setText(object.get("billto").toString());
+			hjjeEditText.setText(object.get("amount").toString());
+			djrqEditText.setText(object.get("billdate").toString());
+			jbrEditText.setText(object.get("empname").toString());
+			bzxxEditText.setText(object.get("memo").toString());
+			gysId = object.get("clientid").toString();
+			// lxrId = object.get("lxrid").toString();
+			jbrId = object.get("empid").toString();
+			searchDate2();// 查询订单中的商品
+		} else if (returnSuccessType == 2) {// 管理单据成功后把信息填到里面（从表）
+			list = (List<Map<String, Object>>) PaseJson
+					.paseJsonToObject(returnJson);
+			adapter = new JxcCgglCgddDetailAdapter(list, this);
+			xzspnumTextView.setText("共选择了" + list.size() + "商品");
+			listview.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
 		}
 	}
 }
