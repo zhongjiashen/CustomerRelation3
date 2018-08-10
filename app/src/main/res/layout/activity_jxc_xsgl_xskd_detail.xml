@@ -165,9 +165,7 @@
                     style="@style/imageview_jt"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
-
             <View style="@style/underline" />
-
             <LinearLayout style="@style/detail_relativelayout">
 
                 <TextView
@@ -182,8 +180,9 @@
                     style="@style/imageview_jt"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
-
             <View style="@style/underline" />
+
+
 
             <LinearLayout style="@style/detail_relativelayout">
 
@@ -197,7 +196,6 @@
 
                 <ImageView style="@style/imageview_jt" />
             </LinearLayout>
-
             <View style="@style/underline" />
 
             <LinearLayout style="@style/detail_relativelayout">
