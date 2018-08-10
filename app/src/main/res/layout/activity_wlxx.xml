@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_white"
+    android:orientation="vertical">
+
+    <com.update.viewbar.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/llWlgsXz"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="物流公司"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tvWlgs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="物流单号"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <EditText
+            android:id="@+id/etWldh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+
+    <LinearLayout
+        android:id="@+id/llYsfsXz"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="运输方式"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tvYsfs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_weight="1"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+
+    <LinearLayout
+        android:id="@+id/llYfcdXz"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="运费承担"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tvYfcd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_weight="1"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+
+    <LinearLayout
+        android:id="@+id/llFklxXz"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="付款类型"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tvFklx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_weight="1"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+
+    <LinearLayout
+        android:id="@+id/llFkzhXz"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="付款账户"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tvFkzh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_weight="1"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="运费金额"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <EditText
+            android:id="@+id/etYfje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+
+    <LinearLayout
+        android:id="@+id/llTzfhXz"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/context_hight"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin"
+        android:paddingRight="@dimen/margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通知放货"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tvTzfh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_weight="1"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_line_color" />
+</LinearLayout>

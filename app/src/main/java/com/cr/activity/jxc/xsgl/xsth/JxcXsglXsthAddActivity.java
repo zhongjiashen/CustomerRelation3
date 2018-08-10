@@ -476,6 +476,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity implements
 			showToastPromopt("请选择退款类型");
 			return;
 		} else if (fklxId.equals("T")) {
+
 //			if (jsfsEditText.getText().toString().equals("")) {
 //				showToastPromopt("请选择结算方式");
 //				return;

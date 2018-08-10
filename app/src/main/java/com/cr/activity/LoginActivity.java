@@ -137,7 +137,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     } else {
                         ShareUserInfo.setUserId(context, userLogin.getId());
                         ShareUserInfo.setUserName(context, userLogin.getOpname());
-                        ShareUserInfo.setKey(context, "bhId", bhId);
+                        ShareUserInfo.setKey(context, "bhId",  bhEditText.getText().toString());
                         ShareUserInfo.setKey(context, "zt", ztSpinner.getSelectedItem().toString());
                         ShareUserInfo.setDbName(context, dbName);
                         String s = "#loguserinfo#" + userLogin.getId() + ","

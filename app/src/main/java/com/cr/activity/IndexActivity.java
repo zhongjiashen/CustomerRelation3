@@ -546,145 +546,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 startActivity(xjyhIndexModelList.get(arg2).getIntent());
             }
         });
-//
-//        xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//                                    long arg3) {
-//                ShareUserInfo.setKey(context, "cpphType", "xjyh");//判断是否是采购订单
-//                Intent intent = new Intent();
-//                switch (arg2) {
-//                    case 0:
-//                        intent.setClass(IndexActivity.this, XjyhFyzcActivity.class);
-//                        break;
-//                    case 1:
-//                        intent.setClass(IndexActivity.this, XjyhYhcqActivity.class);
-//                        break;
-//                    case 2:
-//                        intent.setClass(IndexActivity.this, XjyhFkdActivity.class);
-//                        break;
-//                    case 3:
-//                        intent.setClass(IndexActivity.this, XjyhSkdActivity.class);
-//                        break;
-//                    case 4:
-//                        intent.setClass(IndexActivity.this, XjyhQtsrActivity.class);
-//                        break;
-//                }
-//                startActivity(intent);
-//            }
-//        });
-//        ckglGridView.setOnItemClickListener(new OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//                                    long arg3) {
-//                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
-//                Intent intent = new Intent();
-//                switch (arg2) {
-//                    case 0:
-//                        intent.setClass(IndexActivity.this, JxcCkglCkdbActivity.class);
-//                        break;
-//                    case 1:
-//                        intent.setClass(IndexActivity.this, JxcCkglKcpdActivity.class);
-//                        break;
-//                    case 2:
-//                        intent.setClass(IndexActivity.this, JxcCkglChtjActivity.class);
-//                        break;
-//                    case 3:
-//                        intent.setClass(IndexActivity.this, JxcCkglKcbdActivity.class);
-//                        break;
-//                    case 4:
-//                        intent.setClass(IndexActivity.this, JxcCkglZzcxActivity.class);
-//                        break;
-//                }
-//                startActivity(intent);
-//            }
-//        });
-//        khgxbbGridView.setOnItemClickListener(new OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//                                    long arg3) {
-//                Intent intent = new Intent();
-//                switch (arg2) {
-//                    case 0:
-//                        //统计分析客户拜访统计
-//                        intent.setClass(IndexActivity.this, TjfxKhbftjActivity.class);
-//                        break;
-//                    case 1:
-//                        //统计分析客户拜访统计
-//                        intent.setClass(IndexActivity.this, TjfxXkhtjActivity.class);
-//                        break;
-//                    case 2:
-//                        intent.setClass(IndexActivity.this, TjfxXsjhtjActivity.class);
-//                        break;
-//                    case 3:
-//                        intent.setClass(IndexActivity.this, TjfxKhdjtjActivity.class);
-//                        break;
-//                    case 4:
-//                        //统计分析-销售阶段统计
-//                        intent.setClass(IndexActivity.this, TjfxXsjdtjActivity.class);
-//                        break;
-//                    case 5:
-//                        intent.setClass(IndexActivity.this, TjfxKhfwtjActivity.class);
-//                        break;
-//                }
-//                startActivity(intent);
-//            }
-//        });
-//        wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//                                    long arg3) {
-//                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
-//                Intent intent = new Intent();
-//                switch (arg2) {
-//                    case 0:
-//                        intent.setClass(IndexActivity.this,
-//                                GzptHjzxXzjhActivity.class);
-//                        ShareUserInfo.setKey(context, "khzlname", "hjzx");
-//                        break;
-//                    case 1:
-//                        intent.setClass(IndexActivity.this, GzptYybfActivity.class);
-//                        ShareUserInfo.setKey(context, "khzlname", "yybf");
-//                        break;
-//                    case 2:
-//                        intent.setClass(IndexActivity.this, GzptShhfActivity.class);
-//                        ShareUserInfo.setKey(context, "khzlname", "shhf");
-//                        break;
-//                    case 3:
-//                        intent.setClass(IndexActivity.this, GzptKhglActivity.class);
-//                        ShareUserInfo.setKey(context, "khzlname", "khgl");
-//                        break;
-//                    case 4:
-//                        intent.setClass(IndexActivity.this, GzptXzldActivity.class);
-//                        ShareUserInfo.setKey(context, "khzlname", "xzld");
-//                        break;
-//                    case 5:
-//                        intent.setClass(IndexActivity.this, GzptJqxzdwActivity.class);
-//                        break;
-//                    case 6:
-//                        intent.setClass(IndexActivity.this, KhfwActivity.class);
-//                        break;
-//                    case 7://物流管理
-//                        intent.setClass(IndexActivity.this, LogisticsManagementActivity.class);
-//                        break;
-//                    case 8://销售机会
-//                        intent.setClass(IndexActivity.this,SalesOpportunitiesManagementActivity.class);
-//                        break;
-//                    case 9://合同管理
-//                        intent.setClass(IndexActivity.this, ContractManagementActivity.class);
-//                        break;
-//                    case 10://项目管理
-//                        intent.setClass(IndexActivity.this, ProjectManagementActivity.class);
-//                        break;
-//                    default:
-//                        break;
-//                }
-//                startActivity(intent);
-//            }
-//        });
+
         //安装维修
         for (int i = 0; i < 4; i++) {
             IndexModel im = new IndexModel();
@@ -1246,3 +1108,142 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         }
     }
 }
+//
+//        xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                ShareUserInfo.setKey(context, "cpphType", "xjyh");//判断是否是采购订单
+//                Intent intent = new Intent();
+//                switch (arg2) {
+//                    case 0:
+//                        intent.setClass(IndexActivity.this, XjyhFyzcActivity.class);
+//                        break;
+//                    case 1:
+//                        intent.setClass(IndexActivity.this, XjyhYhcqActivity.class);
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, XjyhFkdActivity.class);
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, XjyhSkdActivity.class);
+//                        break;
+//                    case 4:
+//                        intent.setClass(IndexActivity.this, XjyhQtsrActivity.class);
+//                        break;
+//                }
+//                startActivity(intent);
+//            }
+//        });
+//        ckglGridView.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
+//                Intent intent = new Intent();
+//                switch (arg2) {
+//                    case 0:
+//                        intent.setClass(IndexActivity.this, JxcCkglCkdbActivity.class);
+//                        break;
+//                    case 1:
+//                        intent.setClass(IndexActivity.this, JxcCkglKcpdActivity.class);
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, JxcCkglChtjActivity.class);
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, JxcCkglKcbdActivity.class);
+//                        break;
+//                    case 4:
+//                        intent.setClass(IndexActivity.this, JxcCkglZzcxActivity.class);
+//                        break;
+//                }
+//                startActivity(intent);
+//            }
+//        });
+//        khgxbbGridView.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                Intent intent = new Intent();
+//                switch (arg2) {
+//                    case 0:
+//                        //统计分析客户拜访统计
+//                        intent.setClass(IndexActivity.this, TjfxKhbftjActivity.class);
+//                        break;
+//                    case 1:
+//                        //统计分析客户拜访统计
+//                        intent.setClass(IndexActivity.this, TjfxXkhtjActivity.class);
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, TjfxXsjhtjActivity.class);
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, TjfxKhdjtjActivity.class);
+//                        break;
+//                    case 4:
+//                        //统计分析-销售阶段统计
+//                        intent.setClass(IndexActivity.this, TjfxXsjdtjActivity.class);
+//                        break;
+//                    case 5:
+//                        intent.setClass(IndexActivity.this, TjfxKhfwtjActivity.class);
+//                        break;
+//                }
+//                startActivity(intent);
+//            }
+//        });
+//        wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+//                Intent intent = new Intent();
+//                switch (arg2) {
+//                    case 0:
+//                        intent.setClass(IndexActivity.this,
+//                                GzptHjzxXzjhActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "hjzx");
+//                        break;
+//                    case 1:
+//                        intent.setClass(IndexActivity.this, GzptYybfActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "yybf");
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, GzptShhfActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "shhf");
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, GzptKhglActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "khgl");
+//                        break;
+//                    case 4:
+//                        intent.setClass(IndexActivity.this, GzptXzldActivity.class);
+//                        ShareUserInfo.setKey(context, "khzlname", "xzld");
+//                        break;
+//                    case 5:
+//                        intent.setClass(IndexActivity.this, GzptJqxzdwActivity.class);
+//                        break;
+//                    case 6:
+//                        intent.setClass(IndexActivity.this, KhfwActivity.class);
+//                        break;
+//                    case 7://物流管理
+//                        intent.setClass(IndexActivity.this, LogisticsManagementActivity.class);
+//                        break;
+//                    case 8://销售机会
+//                        intent.setClass(IndexActivity.this,SalesOpportunitiesManagementActivity.class);
+//                        break;
+//                    case 9://合同管理
+//                        intent.setClass(IndexActivity.this, ContractManagementActivity.class);
+//                        break;
+//                    case 10://项目管理
+//                        intent.setClass(IndexActivity.this, ProjectManagementActivity.class);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                startActivity(intent);
+//            }
+//        });
