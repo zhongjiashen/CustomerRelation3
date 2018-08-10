@@ -137,8 +137,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
     EditText bzxxEdittext;
     @BindView(R.id.add_scrollview)
     ScrollView addScrollview;
-    //发票类型ID
-    String billtypeid;
+
     String gysId = "", gys2Id = "", lxrId = "", jbrId = "", sklxId = "", jsfsId = "", zjzhId = "", ckckId = "";
     private List<Map<String, Object>> list;
     private List<Map<String, Object>> yyList = new ArrayList<Map<String, Object>>();
@@ -148,7 +147,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
 
     private int selectIndex;
     String billid;//选择完关联的单据后返回的单据的ID
-    String proxybankid;//代收账户ID
+
 
     private String ckId;
 
@@ -159,8 +158,10 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
     private String mDepartmentid;//部门ID
 
     private KtWlxxData mWlxxData;
-
-
+    //代收账户ID
+    String proxybankid;
+    //发票类型ID
+    String billtypeid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub

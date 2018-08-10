@@ -2,7 +2,9 @@ package com.cr.activity.jxc.cggl.cgsh;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,9 +36,16 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ChooseDepartmentActivity;
+import com.update.actiity.choose.KtXzfplxActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.logistics.ChooseLogisticsCompanyActivity;
+import com.update.actiity.logistics.KtWlxxActivity;
 import com.update.actiity.project.ChoiceProjectActivity;
+import com.update.model.KtWlxxData;
+import com.update.utils.EditTextHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -128,7 +137,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
     String gysId = "", gys2Id = "", lxrId = "", jbrId = "", rkckId = "", fklxId = "", jsfsId = "", zjzhId = "", xmId = "";
     private List<Map<String, Object>> list;
     private List<Map<String, Object>> yyList = new ArrayList<Map<String, Object>>();
-    private LinearLayout xzspLinearLayout;
+
     BaseAdapter adapter;
 
 
@@ -138,7 +147,11 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
     private String ckId;
     private String mTypesname;// 单位类型
     private String mDepartmentid;//部门ID
-
+    private KtWlxxData mWlxxData;
+    //代收账户ID
+    String proxybankid;
+    //发票类型ID
+    String billtypeid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -165,12 +178,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 startActivityForResult(intent, 4);
             }
         });
-
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         djrqEdittext.setText(sdf.format(new Date()));
-
-
 
         bzxxEdittext.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View view, MotionEvent event) {
@@ -204,6 +213,57 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         xzspnumTextview.setText("共选择了" + list.size() + "商品");
         xzspListview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        etFplx.setText("收据");
+        billtypeid = "1";
+        EditTextHelper.EditTextEnable(true, etDsje);
+
+
+        fkjeEdittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s)) {
+                    if (TextUtils.isEmpty(etDsje.getText().toString())) {
+                        etSkhj.setText(Double.parseDouble(s.toString()) + "");
+                    } else {
+                        etSkhj.setText((Double.parseDouble(s.toString()) + Double.parseDouble(etDsje.getText().toString()))+"");
+                    }
+                }
+            }
+        });
+        etDsje.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s)) {
+                    if (TextUtils.isEmpty(fkjeEdittext.getText().toString())) {
+                        etSkhj.setText(Double.parseDouble(s.toString()) + "");
+                    } else {
+                        etSkhj.setText((Double.parseDouble(s.toString()) + Double.parseDouble(fkjeEdittext.getText().toString()))+"");
+                    }
+                }
+
+            }
+        });
     }
 
     @OnClick({R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.et_shrq, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.et_dszh, R.id.et_dsje, R.id.et_skhj, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
@@ -325,9 +385,13 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 break;
             case R.id.lxdh_edittext:
                 break;
-            case R.id.et_fplx:
+            case R.id.et_fplx://选择发票类型
+                intent.setClass(activity, KtXzfplxActivity.class);
+                intent.putExtra("djlx", "1");
+                startActivityForResult(intent, 13);
                 break;
-            case R.id.et_shrq:
+            case R.id.et_shrq://收货日期
+                date_init(etShrq);
                 break;
             case R.id.jhdz_edittext:
                 break;
@@ -340,8 +404,15 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             case R.id.fkje_edittext:
                 break;
             case R.id.et_wlgs:
+                //选择物流公司
+                startActivityForResult(new Intent(this, KtWlxxActivity.class)
+                                .putExtra("data",new Gson().toJson(mWlxxData))
+                        , 14);
                 break;
             case R.id.et_dszh:
+                //代收账户
+                startActivityForResult(new Intent(this, ChooseLogisticsCompanyActivity.class)
+                        .putExtra("kind", 3), 17);
                 break;
             case R.id.et_dsje:
                 break;
@@ -520,9 +591,15 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     xmEdittext.setText(data.getStringExtra("title"));
                     xmId = data.getStringExtra("projectid");
                     break;
-                case 13:
+                case 13://选择发票类型
+                    etFplx.setText(data.getStringExtra("name"));
+                    billtypeid = data.getStringExtra("id");
                     break;
-                case 14:
+                case 14://选择物流公司
+                    mWlxxData = new Gson().fromJson(data.getStringExtra("data"),
+                            new TypeToken<KtWlxxData>() {
+                            }.getType());
+                    etWlgs.setText(mWlxxData.getLogisticname());
                     break;
                 case 15:
                     mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
@@ -534,7 +611,10 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     jbrEdittext.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
                     jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
                     break;
-                case 17:
+                case 17://代收账户
+                    proxybankid = data.getStringExtra("id");
+                    etDszh.setText(data.getStringExtra("name"));
+                    EditTextHelper.EditTextEnable(true, etDsje);
                     break;
                 case 18:
                     break;
@@ -611,6 +691,22 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
 //            jsonObject.put("amount", hjje.replace("￥", ""));
             jsonObject.put("memo", bzxxEdittext.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
+
+
+            jsonObject.put("billtypeid", billtypeid);//发票类型ID
+            jsonObject.put("skrq", etShrq.getText().toString());//收款日期
+            jsonObject.put("proxybankid", proxybankid);//代收账户ID
+            jsonObject.put("proxyamt", etDsje.getText().toString());//代收金额
+            if(mWlxxData!=null) {
+                jsonObject.put("logisticid", mWlxxData.getLogisticid());//新加物流公司ID
+                jsonObject.put("shipno", mWlxxData.getShipno());//物流单号
+                jsonObject.put("shiptype", mWlxxData.getShiptype());//运输方式
+                jsonObject.put("beartype", mWlxxData.getBeartype());//运费承担 0我方 1对方
+                jsonObject.put("logisticispp", mWlxxData.getLogisticispp());//付款类型 0往来结算 1现款结算
+                jsonObject.put("logisticbankid", mWlxxData.getLogisticbankid());//付款账户ID
+                jsonObject.put("amount", mWlxxData.getAmount());//运费
+                jsonObject.put("isnotice", mWlxxData.getIsnotice());// 通知放货 0否 1是
+            }
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
