@@ -2,7 +2,9 @@ package com.cr.activity.jxc.xsgl.xskd;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -157,6 +159,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
     private String mDepartmentid;//部门ID
 
     private KtWlxxData mWlxxData;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -173,7 +177,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
      */
     private void initActivity() {
         etFplx.setText("收据");
-        billtypeid="1";
+        billtypeid = "1";
         xzspListview.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -222,7 +226,54 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
         khqkEdittext.setEnabled(false);
 
-        EditTextHelper.EditTextEnable(false,dsjeEdittext);
+        EditTextHelper.EditTextEnable(true, dsjeEdittext);
+
+
+        skjeEdittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s)) {
+                    if (TextUtils.isEmpty(dsjeEdittext.getText().toString())) {
+                        skhjEdittext.setText(Double.parseDouble(s.toString()) + "");
+                    } else {
+                        skhjEdittext.setText((Double.parseDouble(s.toString()) + Double.parseDouble(dsjeEdittext.getText().toString()))+"");
+                    }
+                }
+            }
+        });
+        dsjeEdittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s)) {
+                    if (TextUtils.isEmpty(skjeEdittext.getText().toString())) {
+                        skhjEdittext.setText(Double.parseDouble(s.toString()) + "");
+                    } else {
+                        skhjEdittext.setText((Double.parseDouble(s.toString()) + Double.parseDouble(skjeEdittext.getText().toString()))+"");
+                    }
+                }
+
+            }
+        });
     }
 //    /**
 //     * 连接网络的操作(查询主表的内容)
@@ -370,7 +421,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 break;
             case R.id.wlgs_edittext://选择物流公司
                 startActivityForResult(new Intent(this, KtWlxxActivity.class)
-                       , 14);
+                                .putExtra("data",new Gson().toJson(mWlxxData))
+                        , 14);
                 break;
             case R.id.jhdz_edittext:
                 break;
@@ -564,9 +616,9 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     billtypeid = data.getStringExtra("id");
                     break;
                 case 14://选择物流公司
-                    mWlxxData=new Gson().fromJson(data.getStringExtra("data"),
-                        new TypeToken<KtWlxxData>() {
-                        }.getType());
+                    mWlxxData = new Gson().fromJson(data.getStringExtra("data"),
+                            new TypeToken<KtWlxxData>() {
+                            }.getType());
                     wlgsEdittext.setText(mWlxxData.getLogisticname());
                     break;
                 case 15:
@@ -580,9 +632,9 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
                     break;
                 case 17://代收账户
-                    proxybankid=data.getStringExtra("id");
+                    proxybankid = data.getStringExtra("id");
                     dszhEdittext.setText(data.getStringExtra("name"));
-                    EditTextHelper.EditTextEnable(true,dsjeEdittext);
+                    EditTextHelper.EditTextEnable(true, dsjeEdittext);
                     break;
             }
 
@@ -607,19 +659,28 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         if (ckckEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择出库仓库");
             return;
-        } else if (gysEdittext.getText().toString().equals("")) {
+        }
+        if (gysEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择客户");
             return;
-        } else if (list.size() == 0) {
+        }
+        if (etShrq.getText().toString().equals("")) {
+            showToastPromopt("请选择收款日期");
+            return;
+        }
+        if (list.size() == 0) {
             showToastPromopt("请选择商品");
             return;
-        } else if (djrqEdittext.getText().toString().equals("")) {
+        }
+        if (djrqEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择单据日期");
             return;
-        } else if (sklxEdittext.getText().toString().equals("")) {
+        }
+        if (sklxEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择收款类型");
             return;
-        } else if (sklxId.equals("1")) {
+        }
+        if (sklxId.equals("1")) {
             double hjje = Double.parseDouble(hjjeEdittext.getText().toString().replace("￥", "").equals("") ? "0" : hjjeEdittext.getText().toString().replace("￥", ""));
             double fkje = Double.parseDouble(skjeEdittext.getText().toString().replace("￥", "").equals("") ? "0" : skjeEdittext.getText().toString().replace("￥", ""));
             if (fkje <= 0/*||fkje>hjje*/) {
@@ -651,7 +712,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             jsonObject.put("clientid", gysId);//供应商ID
             jsonObject.put("linkmanid", lxrId);//联系人ID
             jsonObject.put("phone", lxdhEdittext.getText().toString());
-            jsonObject.put("receipt", skjeEdittext.getText().toString());
+            jsonObject.put("receipt", skjeEdittext.getText().toString());//收款金额
             jsonObject.put("privilege", "");
             jsonObject.put("totalamt", hjjeEdittext.getText().toString().replace("￥", ""));
             jsonObject.put("paytypeid", jsfsId);
@@ -662,6 +723,21 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
             jsonObject.put("memo", bzxxEdittext.getText().toString());
             jsonObject.put("projectid", xmId);
+
+            jsonObject.put("billtypeid", billtypeid);//发票类型ID
+            jsonObject.put("skrq", etShrq.getText().toString());//收款日期
+            jsonObject.put("proxybankid", proxybankid);//代收账户ID
+            jsonObject.put("proxyamt", dsjeEdittext.getText().toString());//代收账户ID
+            if(mWlxxData!=null) {
+                jsonObject.put("logisticid", mWlxxData.getLogisticid());//新加物流公司ID
+                jsonObject.put("shipno", mWlxxData.getShipno());//物流单号
+                jsonObject.put("shiptype", mWlxxData.getShiptype());//运输方式
+                jsonObject.put("beartype", mWlxxData.getBeartype());//运费承担 0我方 1对方
+                jsonObject.put("logisticispp", mWlxxData.getLogisticispp());//付款类型 0往来结算 1现款结算
+                jsonObject.put("logisticbankid", mWlxxData.getLogisticbankid());//付款账户ID
+                jsonObject.put("amount", mWlxxData.getAmount());//运费
+                jsonObject.put("isnotice", mWlxxData.getIsnotice());// 通知放货 0否 1是
+            }
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();

@@ -14,6 +14,8 @@ data class KtWlxxData(
         @SerializedName("shipno") var shipno: String = "",
         //运输方式
         @SerializedName("shiptype") var shiptype: String = "",
+        //运输方式
+        @SerializedName("shiptypename") var shiptypename: String = "",
         //运费承担 0我方 1对方
         @SerializedName("beartype") var beartype: String = "",
         //付款类型 0往来结算 1现款结算

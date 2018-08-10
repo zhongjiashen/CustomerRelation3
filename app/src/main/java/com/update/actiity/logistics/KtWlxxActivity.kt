@@ -7,10 +7,12 @@ import android.text.TextUtils
 import com.cr.activity.common.CommonXzzdActivity
 import com.crcxj.activity.R
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.update.actiity.choose.LocalDataSingleOptionActivity
 import com.update.actiity.choose.NetworkDataSingleOptionActivity
 import com.update.base.BaseActivity
 import com.update.base.BaseP
+import com.update.model.KtFplxData
 import com.update.model.KtWlxxData
 import com.update.utils.EditTextHelper
 
@@ -39,6 +41,8 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
                         showShortToast("请选择物流公司")
                         return@setTitleOnlicListener
                     }
+                    wlxxData.shipno=etWldh.text.toString()
+                    wlxxData.amount=etYfje.text.toString()
                     setResult(Activity.RESULT_OK,intent.putExtra("data",Gson().toJson(wlxxData)))
                     finish()
 
@@ -77,16 +81,39 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
             startActivityForResult(Intent(this, LocalDataSingleOptionActivity::class.java)
                     .putExtra("kind", 2), 16)
         }
-
-
-        //运费承担默认我方，付款类型默认往来结算，通知放货默认为否，运费金额（要求大于等于0）默认0.00，其他默认为空，
-        wlxxData.beartype = "0"
-        tvYfcd.setText("我方")//运费承担默认我方
-        wlxxData.isnotice = "0"
-        tvTzfh.setText("否")//通知放货默认否
-        etYfje.setText("0.00")//运费金额（要求大于等于0）默认为0.00
-        wlxxData.logisticispp = "0"
-        tvFklx.text = "往来结算"
+        var data=intent.getStringExtra("data")
+        if(data=="null"||data==null) {
+            //运费承担默认我方，付款类型默认往来结算，通知放货默认为否，运费金额（要求大于等于0）默认0.00，其他默认为空，
+            wlxxData.beartype = "0"
+            tvYfcd.setText("我方")//运费承担默认我方
+            wlxxData.isnotice = "0"
+            tvTzfh.setText("否")//通知放货默认否
+            etYfje.setText("0.00")//运费金额（要求大于等于0）默认为0.00
+            wlxxData.logisticispp = "0"
+            tvFklx.text = "往来结算"
+        }else{
+            wlxxData=Gson().fromJson<KtWlxxData>(data ,
+                    object : TypeToken<KtWlxxData>() {
+                    }.type)
+            tvWlgs.text=wlxxData.logisticname
+            etWldh.setText(wlxxData.shipno)
+            tvYsfs.text =  wlxxData.shiptypename
+            when(wlxxData.beartype){
+                "0"->tvYfcd.text="我方"
+                "1"->tvYfcd.text="对方"
+            }
+            when(wlxxData.logisticispp){
+                "0"->tvFklx.text="往来结算"
+                "1"->tvFklx.text="现款结算"
+            }
+            tvFkzh.text=wlxxData.logisticbankaccount
+            etYfje.setText(wlxxData.amount)
+            when(wlxxData.isnotice){
+                "0"->tvTzfh.text="否"
+                "1"->tvTzfh.text="是"
+            }
+            yfcd()
+        }
 
     }
 
@@ -102,7 +129,8 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
         //运输方式选择
             12 -> {
                 wlxxData.shiptype = data?.getStringExtra("CHOICE_RESULT_ID").toString()
-                tvYsfs.text = data?.getStringExtra("CHOICE_RESULT_TEXT")
+                wlxxData.shiptypename = data?.getStringExtra("CHOICE_RESULT_TEXT").toString()
+                tvYsfs.text =  wlxxData.shiptypename
             }
         //运费承担
             13 -> {
