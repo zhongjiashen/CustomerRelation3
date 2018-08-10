@@ -112,9 +112,9 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
                 "0"->tvTzfh.text="否"
                 "1"->tvTzfh.text="是"
             }
-            yfcd()
-        }
 
+        }
+        yfcd()
     }
 
     override fun onMyActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -192,14 +192,14 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
             tvFkzh.text = ""
             wlxxData.logisticbankid = ""
             wlxxData.logisticbankaccount = ""
-            llFklxXz.isEnabled = false
+            llFkzhXz.isEnabled = false
             //运费金额
             EditTextHelper.EditTextEnable(true, etYfje)
         }
         //如果运费承担为我方，付款类型为现款结算时，则付款账户、运费金额都可修改；
         else {
             //付款账户
-            llFklxXz.isEnabled = true
+            llFkzhXz.isEnabled = true
             //运费金额
             EditTextHelper.EditTextEnable(true, etYfje)
         }
