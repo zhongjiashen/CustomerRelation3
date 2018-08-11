@@ -123,12 +123,14 @@ public class JHRW implements Serializable {
 				JSONObject jsonObj2 = jsonArray.getJSONObject(j);
 				JHRW jhrw = new JHRW();
 				jhrw.setId(jsonObj2.getString("id"));
-				// jhrw.setNd(jsonObj2.getString("nd"));
 				jhrw.setJhname(jsonObj2.getString("jhname"));
-				// jhrw.setMemo(jsonObj2.getString("memo"));
 				jhrw.setQsrq(jsonObj2.getString("qsrq"));
 				jhrw.setZzrq(jsonObj2.getString("zzrq"));
-				jhrw.setShzt(jsonObj2.getString("shzt"));
+				// jhrw.setNd(jsonObj2.getString("nd"));
+
+				// jhrw.setMemo(jsonObj2.getString("memo"));
+
+//				jhrw.setShzt(jsonObj2.getString("shzt"));
 				// jhrw.setLx(jsonObj2.getString("lx"));
 				// jhrw.setLxmc(jsonObj2.getString("lxmc"));
 				jhrwList.add(jhrw);
