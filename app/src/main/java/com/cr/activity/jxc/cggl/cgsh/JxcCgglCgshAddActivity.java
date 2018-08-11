@@ -387,7 +387,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 break;
             case R.id.et_fplx://选择发票类型
                 intent.setClass(activity, KtXzfplxActivity.class);
-                intent.putExtra("djlx", "1");
+                intent.putExtra("djlx", "0");
                 startActivityForResult(intent, 13);
                 break;
             case R.id.et_shrq://收货日期

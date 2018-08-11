@@ -412,7 +412,6 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             case R.id.lxdh_edittext:
                 break;
             case R.id.et_fplx://选择发票类型
-
                 intent.setClass(activity, KtXzfplxActivity.class);
                 intent.putExtra("djlx", "1");
                 startActivityForResult(intent, 13);
