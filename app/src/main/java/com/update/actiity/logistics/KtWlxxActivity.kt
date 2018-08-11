@@ -86,6 +86,8 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
             //运费承担默认我方，付款类型默认往来结算，通知放货默认为否，运费金额（要求大于等于0）默认0.00，其他默认为空，
             wlxxData.beartype = "0"
             tvYfcd.setText("我方")//运费承担默认我方
+
+
             wlxxData.isnotice = "0"
             tvTzfh.setText("否")//通知放货默认否
             etYfje.setText("0.00")//运费金额（要求大于等于0）默认为0.00
@@ -174,7 +176,7 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
             tvFkzh.text = ""
             wlxxData.logisticbankid = ""
             wlxxData.logisticbankaccount = ""
-            llFklxXz.isEnabled = false
+            llFkzhXz.isEnabled = false
 
             //运费金额
             etYfje.setText("0.00")//运费金额（要求大于等于0）默认为0.00
@@ -182,6 +184,7 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
 
         } else {
             fklx()
+            llFklxXz.isEnabled = true
         }
     }
 

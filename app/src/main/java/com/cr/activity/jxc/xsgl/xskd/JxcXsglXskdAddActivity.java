@@ -759,6 +759,10 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
                 jsonObject2.put("memo", map.get("memo") == null ? "" : map.get("memo").toString());
+
+                jsonObject2.put("taxrate", "17.00");//税率%
+                jsonObject2.put("taxunitprice", "117.00");//含税单价
+                jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
