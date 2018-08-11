@@ -65,6 +65,8 @@ public class GzptDwzlBfBflrDetailActivity extends BaseActivity implements OnClic
         yysjEditText = (EditText) findViewById(R.id.yysj_edittext);
         yysjEditText.setOnClickListener(this);
         bfnrEditText = (EditText) findViewById(R.id.bfnr_edittext);
+        gsmcEditText.setText(object.get("cname").toString());//公司名称
+        lxrEditText.setText(object.get("lxrname").toString());//公司名称
         dqjdEditText.setText(object.get("xmjdmc").toString());
         bfnrEditText.setText(object.get("memo").toString());
         lxrEditText.setText(object.get("lxrname").toString());
