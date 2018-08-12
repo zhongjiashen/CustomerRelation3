@@ -152,6 +152,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
     String proxybankid;
     //发票类型ID
     String billtypeid;
+    private String mTaxrate;//税率
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -216,6 +217,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
 
         etFplx.setText("收据");
         billtypeid = "1";
+        mTaxrate = "0";
+
         EditTextHelper.EditTextEnable(true, etDsje);
 
 
@@ -265,7 +268,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             }
         });
     }
-
+    private long time;
     @OnClick({R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.et_shrq, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.et_dszh, R.id.et_dsje, R.id.et_skhj, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -424,7 +427,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         }
     }
 
-    private long time;
+
 
 
 
@@ -594,6 +597,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 case 13://选择发票类型
                     etFplx.setText(data.getStringExtra("name"));
                     billtypeid = data.getStringExtra("id");
+                    mTaxrate = data.getExtras().getString("taxrate");
                     break;
                 case 14://选择物流公司
                     mWlxxData = new Gson().fromJson(data.getStringExtra("data"),

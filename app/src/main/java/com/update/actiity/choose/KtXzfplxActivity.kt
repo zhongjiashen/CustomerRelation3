@@ -48,7 +48,10 @@ class KtXzfplxActivity : BaseActivity<BaseP>() {
                 if (holder != null) {
                     holder.tvText.setText(data.name)
                     holder.itemView.setOnClickListener {
-                        setResult(Activity.RESULT_OK, intent.putExtra("id", data.id).putExtra("name", data.name).putExtra("taxrate", data.taxrate))
+                        setResult(Activity.RESULT_OK,
+                                intent.putExtra("id", data.id)
+                                        .putExtra("name", data.name)
+                                        .putExtra("taxrate", data.taxrate))
                         finish()
                     }
                 }
