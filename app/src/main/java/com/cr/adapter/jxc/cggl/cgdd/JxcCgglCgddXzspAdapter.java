@@ -2,6 +2,7 @@ package com.cr.adapter.jxc.cggl.cgdd;
 
 import android.content.Intent;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
 import com.crcxj.activity.R;
+import com.update.utils.EditTextHelper;
 import com.update.utils.LogUtils;
 
 import java.util.List;
@@ -100,7 +102,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         int viewType = getItemViewType(position);
         ViewHolder viewHolder = null;
-        ViewHolder2 viewHolder2 = null;
+
         LogUtils.e("的说法发送");
         final Map<String, Object> objMap = list.get(position);
         if (viewType == 0) {
@@ -109,7 +111,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                     R.layout.activity_jxc_cggl_cgdd_xzsp_item, null);// 这个过程相当耗时间
             viewHolder = new ViewHolder(convertView);
 
-            convertView.setTag(viewHolder);
+
             viewHolder.itemcheck
                     .setOnCheckedChangeListener(new OnCheckedChangeListener() {
                         @Override
@@ -147,10 +149,10 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
 //			if (convertView == null) {
             convertView = LayoutInflater.from(activity).inflate(
                     R.layout.activity_jxc_cggl_cgdd_xzsp_item2, null);// 这个过程相当耗时间
-            viewHolder2 = new ViewHolder2(convertView);
+            final ViewHolder2 viewHolder2  = new ViewHolder2(convertView);
 
             viewHolder2.etBz.setText(objMap.get("memo") == null ? "" : objMap.get("memo").toString());
-            convertView.setTag(viewHolder2);
+
 //			} else {
 //				viewHolder2 = (ViewHolder2) convertView.getTag();
 //			}
@@ -282,63 +284,68 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                     activity.startActivityForResult(intent, 0);
                 }
             });
-
+            //  是批次商品的会显示批号、生产日期、有效日期
             if (objMap.get("batchctrl").equals("T")) {
+                //产品批号
                 viewHolder2.cpphLayout.setVisibility(View.VISIBLE);
-                viewHolder2.scrqLayout.setVisibility(View.VISIBLE);
-                viewHolder2.yxqzLayout.setVisibility(View.VISIBLE);
                 viewHolder2.cpphView.setVisibility(View.VISIBLE);
+                viewHolder2.cpphEdittext.setText(objMap.get("cpph").toString());
+                viewHolder2.scrqLayout.setVisibility(View.VISIBLE);
                 viewHolder2.scrqView.setVisibility(View.VISIBLE);
+                viewHolder2.scrqEdittext.setText(objMap.get("scrq").toString());
 
+
+                viewHolder2.yxqzLayout.setVisibility(View.VISIBLE);
+                viewHolder2.yxqzEdittext.setText(objMap.get("yxqz").toString());
             } else {
                 viewHolder2.cpphLayout.setVisibility(View.GONE);
-                viewHolder2.scrqLayout.setVisibility(View.GONE);
-                viewHolder2.yxqzLayout.setVisibility(View.GONE);
                 viewHolder2.cpphView.setVisibility(View.GONE);
+
+                viewHolder2.scrqLayout.setVisibility(View.GONE);
                 viewHolder2.scrqView.setVisibility(View.GONE);
+
+                viewHolder2.yxqzLayout.setVisibility(View.GONE);
+
             }
-            viewHolder2.djEdittext.setText(objMap.get("dj").toString());
+            viewHolder2.djEdittext.setText(objMap.get("dj").toString());//商品单价
             viewHolder2.zklEdittext.setText(objMap.get("zkl").toString());
             viewHolder2.slView.setSl(Double.parseDouble(objMap.get("sl")
                     .toString()));
-            viewHolder2.cpphEdittext.setText(objMap.get("cpph").toString());
-            viewHolder2.scrqEdittext.setText(objMap.get("scrq").toString());
-            viewHolder2.yxqzEdittext.setText(objMap.get("yxqz").toString());
+
+
+            //判断发票类型是否是收据
+            EditTextHelper.EditTextEnable(!(boolean) objMap.get("issj"), viewHolder2.etSl);
+            viewHolder2.etSl.setText(objMap.get("taxrate").toString());//设置税率
+            viewHolder2.etSl.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void onTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence arg0, int arg1,
+                                              int arg2, int arg3) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (!TextUtils.isEmpty(s)) {
+                        objMap.put("taxrate",s.toString());
+                        Double csje  = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(s.toString()) + 100) / 100;
+                        viewHolder2.tvHsdj.setText(csje.toString());
+                        objMap.put("taxunitprice",csje.toString());
+                    }
+
+                }
+            });
+            Double csje  = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(objMap.get("taxrate").toString()) + 100) / 100;
+            viewHolder2. tvHsdj.setText(csje.toString());
+            objMap.put("taxunitprice",csje.toString());
             return convertView;
         }
     }
-
-
-
- /*   static class ViewHolder {
-        TextView mcTextView;
-        TextView bhTextView;
-        TextView ggTextView;
-        TextView xhTextView;
-        TextView kcTextView;
-        CheckBox itemCheckBox;
-    }*/
-
-//    static class ViewHolder2 {
-//        EditText etBz;
-//        EditText djEditText;
-//        ImageView xzdjImageView;
-//        EditText zklEditText;
-//        SLView2 slView;
-//        EditText cpphEditText;
-//        //		EditText cpph2EditText;
-//        EditText scrqEditText;
-//        EditText yxqzEditText;
-//        LinearLayout item2LinearLayout;
-//        LinearLayout llBz;
-//        LinearLayout cpphLayout;
-//        LinearLayout scrqLayout;
-//        LinearLayout yxqzLayout;
-//        View cpphView;
-//        View scrqView;
-//    }
-
-
 
     static class ViewHolder {
         @BindView(R.id.mc_textview)

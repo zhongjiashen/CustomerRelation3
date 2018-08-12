@@ -279,6 +279,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     return;
                 }
 
+                intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
+                intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("tabname", "tb_received");
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
@@ -450,13 +452,16 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                                 Map<String, Object> map2 = cpList.get(i + 1);
                                 map.put("unitprice", map2.get("dj"));
                                 map.put("unitqty", map2.get("sl"));
-                                String amount = (Double.parseDouble(map2.get("dj").toString())
+                                String amount = (Double.parseDouble(map2.get("taxunitprice").toString())
                                         * Double.parseDouble(map2.get("sl").toString())) + "";
                                 map.put("amount", FigureTools.sswrFigure(amount + ""));
                                 map.put("disc", map2.get("zkl"));
                                 map.put("batchcode", map2.get("cpph"));
                                 map.put("produceddate", map2.get("scrq"));
                                 map.put("validdate", map2.get("yxqz"));
+
+                                map.put("taxrate", map2.get("taxrate"));//税率
+                                map.put("taxunitprice", map2.get("taxunitprice"));//含税单价
                                 list.add(map);
 //                            zje += Double.parseDouble(map.get("amount").toString());
                             }
@@ -730,8 +735,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
                 jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
-                jsonObject2.put("taxrate", "17.00");//税率%
-                jsonObject2.put("taxunitprice", "117.00");//含税单价
+                jsonObject2.put("taxrate", map.get("taxrate").toString());//税率%
+                jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
                 jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
             }
