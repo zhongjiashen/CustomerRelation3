@@ -53,7 +53,8 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
 	private String code;
 	private String storeid="0";
 	private String tabname="";
-
+	private String mTaxrate;//税率
+	private boolean issj;//发票类型是否是收据
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +75,8 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
 		jzrq = sdf.format(new Date())
 				+ calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 		searchDate();
+		mTaxrate=getIntent().getStringExtra("taxrate");
+		issj=getIntent().getBooleanExtra("issj",true);
 	}
 
 	/**
@@ -166,6 +169,8 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
 				obj2.put("scrq", "");
 				obj2.put("yxqz", "");
 				obj2.put("batchctrl", obj.get("batchctrl").toString());
+				obj2.put("taxrate", mTaxrate);//初始化税率
+				obj2.put("issj", issj);//发票类型是否是收据
 				list.add(obj2);
 			}
 		}

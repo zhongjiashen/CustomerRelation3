@@ -595,8 +595,6 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     ckId = data.getExtras().getString("id");
                     break;
                 case 12:
-                    xmEdittext.setText(data.getExtras().getString("xmname"));
-                    xmId = data.getExtras().getString("xmid");
                     xmEdittext.setText(data.getStringExtra("title"));
                     xmId = data.getStringExtra("projectid");
                     break;

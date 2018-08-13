@@ -25,6 +25,7 @@ import com.crcxj.activity.R;
  * @author Administrator
  * 
  */
+
 public class JxcCgglCgddXzspDetailActivity extends BaseActivity implements OnClickListener {
     TextView            mcTextView;
     TextView            bhTextView;

@@ -46,10 +46,11 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
 
     //发票类型ID
     var billtypeid: String? = ""
+    var mTaxrate: String? = ""//税率
     //项目ID
     var projectid: String? = ""
     private var time: Long = 0
-    var list = ArrayList<Map<String, Any?>>()
+    var list = ArrayList<MutableMap<String, Any?>>()
     var selectIndex: Int = 0
     var adapter = JxcXsglXsddDetailAdapter(list, this)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +66,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
         }
         et_fplx.setText("收据")
         billtypeid="1"
+        mTaxrate="0"
     }
 
     /**
@@ -76,6 +78,8 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
          */
         xzsp_linearlayout.setOnClickListener {
             val intent = Intent()
+            intent.putExtra("issj", et_fplx.getText().toString() == "收据")
+            intent.putExtra("taxrate", mTaxrate)
             intent.putExtra("tabname", "tb_sorder")
             intent.setClass(this, JxcCgglCgddXzsp2Activity::class.java)
             startActivityForResult(intent, 0)
@@ -197,6 +201,9 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                                     map["batchcode"] = map2["cpph"]
                                     map["produceddate"] = map2["scrq"]
                                     map["validdate"] = map2["yxqz"]
+
+                                    map["taxrate"] = map2["taxrate"]//税率
+                                    map["taxunitprice"] = map2["taxunitprice"]//含税单价
                                     list.add(map)
                                     //                            zje += Double.parseDouble(map.get("amount").toString());
                                 }
@@ -238,8 +245,27 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                     }
                 //选择发票类型
                     3 -> {
+                        if (billtypeid == data.getStringExtra("id"))
+                            return
                         et_fplx.setText(data.extras!!.getString("name"))
                         billtypeid = data.extras.getString("id")
+                        mTaxrate = data.extras.getString("taxrate")
+                        if (list != null) {
+                            for (i in list.indices) {
+                                list[i]["taxrate"] =mTaxrate
+                                val csje = java.lang.Double.parseDouble(list[i]["unitprice"].toString()) * (java.lang.Double.parseDouble(mTaxrate) + 100) / 100
+                                list[i].put("taxunitprice", csje.toString() + "")
+                                val amount = (csje * java.lang.Double.parseDouble(list[i]["unitqty"].toString())).toString() + ""
+                                list[i].put("amount", FigureTools.sswrFigure(amount + ""))
+                            }
+                            var je = 0.0
+                            for (m in list) {
+                                je += java.lang.Double.parseDouble(m["amount"].toString())
+                            }
+
+                            hjje_edittext.setText("￥" + FigureTools.sswrFigure(je.toString() + "") + "")
+                            adapter.notifyDataSetChanged()
+                        }
                     }
                 //修改选中的商品的详情
                     4 -> {
@@ -248,11 +274,11 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                             adapter.notifyDataSetChanged()
                         } else {
                             val map = data.extras!!
-                                    .getSerializable("object") as MutableMap<String, Any>
+                                    .getSerializable("object") as MutableMap<String, Any?>
                             list.removeAt(selectIndex)
                             map.put(
                                     "amount",
-                                    java.lang.Double.parseDouble(map["unitprice"].toString()) * java.lang.Double.parseDouble(map["unitqty"].toString()))
+                                    map["taxunitprice"].toString().toDouble() * map["unitqty"].toString().toDouble())
                             list.add(selectIndex, map)
                             adapter.notifyDataSetChanged()
                         }
@@ -394,8 +420,8 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                 jsonObject2.put("refertype", "")
                 jsonObject2.put("referbillid ", "")
                 jsonObject2.put("referitemno ", "")
-                jsonObject2.put("taxrate", "17.00")//税率%
-                jsonObject2.put("taxunitprice", "117.00")//含税单价
+                jsonObject2.put("taxrate", map["taxrate"].toString())//税率%
+                jsonObject2.put("taxunitprice",  map["taxunitprice"].toString())//含税单价
                 jsonObject2.put("memo", "")//备注
                 arrayDetail.put(jsonObject2)
             }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,10 @@ import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
 import com.crcxj.activity.R;
+import com.update.utils.EditTextHelper;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 
@@ -84,27 +89,16 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		int viewType = getItemViewType(position);
 		ViewHolder viewHolder = null;
-		ViewHolder2 viewHolder2 = null;
+
 		final Map<String, Object> objMap = list.get(position);
 		if (viewType == 0) {
 			// if (convertView == null) {
 			convertView = LayoutInflater.from(activity).inflate(
 					R.layout.activity_jxc_cggl_cgdd_xzsp_item, null);// 这个过程相当耗时间
-			viewHolder = new ViewHolder();
-			viewHolder.mcTextView = (TextView) convertView
-					.findViewById(R.id.mc_textview);
-			viewHolder.bhTextView = (TextView) convertView
-					.findViewById(R.id.bh_textview);
-			viewHolder.ggTextView = (TextView) convertView
-					.findViewById(R.id.gg_textview);
-			viewHolder.xhTextView = (TextView) convertView
-					.findViewById(R.id.xh_textview);
-			viewHolder.kcTextView = (TextView) convertView
-					.findViewById(R.id.kc_textview);
-			viewHolder.itemCheckBox = (CheckBox) convertView
-					.findViewById(R.id.itemcheck);
+			viewHolder = new ViewHolder(convertView);
+
 			convertView.setTag(viewHolder);
-			viewHolder.itemCheckBox
+			viewHolder.itemcheck
 					.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 						@Override
 						public void onCheckedChanged(CompoundButton arg0,
@@ -121,19 +115,19 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 			// viewHolder = (ViewHolder) convertView.getTag();
 			// }
 			if (objMap.get("ischecked").toString().equals("0")) {
-				viewHolder.itemCheckBox.setChecked(false);
+				viewHolder.itemcheck.setChecked(false);
 			} else {
-				viewHolder.itemCheckBox.setChecked(true);
+				viewHolder.itemcheck.setChecked(true);
 			}
-			viewHolder.mcTextView
+			viewHolder.mcTextview
 					.setText("名称：" + objMap.get("name").toString());
-			viewHolder.bhTextView
+			viewHolder.bhTextview
 					.setText("编号：" + objMap.get("code").toString());
-			viewHolder.ggTextView.setText("规格："
+			viewHolder.ggTextview.setText("规格："
 					+ objMap.get("specs").toString());
-			viewHolder.xhTextView.setText("型号："
+			viewHolder.xhTextview.setText("型号："
 					+ objMap.get("model").toString());
-			viewHolder.kcTextView.setText("库存："
+			viewHolder.kcTextview.setText("库存："
 					+ objMap.get("onhand").toString()
 					+ objMap.get("unitname").toString());
 			return convertView;
@@ -141,40 +135,16 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 //			if (convertView == null) {
 				convertView = LayoutInflater.from(activity).inflate(
 						R.layout.activity_jxc_cggl_cgdd_xzsp_item2, null);// 这个过程相当耗时间
-				viewHolder2 = new ViewHolder2();
-				viewHolder2.djEditText = (EditText) convertView
-						.findViewById(R.id.dj_edittext);
-				viewHolder2.xzdjImageView=(ImageView) convertView.findViewById(R.id.xzjg_iv);
-				viewHolder2.zklEditText = (EditText) convertView
-						.findViewById(R.id.zkl_edittext);
-				viewHolder2.slView = (SLView2) convertView
-						.findViewById(R.id.sl_view);
-				viewHolder2.cpphEditText = (EditText) convertView
-						.findViewById(R.id.cpph_edittext);
-				viewHolder2.scrqEditText = (EditText) convertView
-						.findViewById(R.id.scrq_edittext);
-				viewHolder2.yxqzEditText = (EditText) convertView
-						.findViewById(R.id.yxqz_edittext);
-				viewHolder2.item2LinearLayout = (LinearLayout) convertView
-						.findViewById(R.id.item2_linearlayout);
-				
-				viewHolder2.cpphLayout=(LinearLayout) convertView.findViewById(R.id.cpph_layout);
-				viewHolder2.scrqLayout=(LinearLayout) convertView.findViewById(R.id.scrq_layout);
-				viewHolder2.yxqzLayout=(LinearLayout) convertView.findViewById(R.id.yxqz_layout);
-				viewHolder2.cpphView=convertView.findViewById(R.id.cpph_view);
-				viewHolder2.scrqView=convertView.findViewById(R.id.scrq_view);
-				convertView.setTag(viewHolder2);
-//			} else {
-//				viewHolder2 = (ViewHolder2) convertView.getTag();
-//			}
+			final ViewHolder2 viewHolder2 = new ViewHolder2(convertView);
+
 			final Map<String, Object> objMap2 = list.get(position - 1);
 			if (objMap2.get("ischecked").toString().equals("0")) {
-				viewHolder2.item2LinearLayout.setVisibility(View.GONE);
+				viewHolder2.item2Linearlayout.setVisibility(View.GONE);
 			} else {
-				viewHolder2.item2LinearLayout.setVisibility(View.VISIBLE);
+				viewHolder2.item2Linearlayout.setVisibility(View.VISIBLE);
 			}
 			
-			viewHolder2.djEditText.addTextChangedListener(new TextWatcher() {
+			viewHolder2.djEdittext.addTextChangedListener(new TextWatcher() {
 
 				@Override
 				public void onTextChanged(CharSequence arg0, int arg1,
@@ -191,7 +161,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 				public void afterTextChanged(Editable arg0) {
 				}
 			});
-			viewHolder2.zklEditText.addTextChangedListener(new TextWatcher() {
+			viewHolder2.zklEdittext.addTextChangedListener(new TextWatcher() {
 
 				@Override
 				public void onTextChanged(CharSequence arg0, int arg1,
@@ -214,7 +184,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 					objMap.put("sl", "" + sl);
 				}
 			});
-			viewHolder2.scrqEditText.setOnClickListener(new OnClickListener() {
+			viewHolder2.scrqEdittext.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					SelectValueChange selectValueChange = new SelectValueChange() {
@@ -227,7 +197,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 					activity.date_init2(selectValueChange);
 				}
 			});
-			viewHolder2.yxqzEditText.setOnClickListener(new OnClickListener() {
+			viewHolder2.yxqzEdittext.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					SelectValueChange selectValueChange = new SelectValueChange() {
@@ -241,7 +211,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 				}
 			});
 			
-			viewHolder2.cpphEditText.setOnClickListener(new OnClickListener() {
+			viewHolder2.cpphEdittext.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					Intent intent = new Intent();
@@ -253,7 +223,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 					activity.startActivityForResult(intent, 0);
 				}
 			});
-			viewHolder2.xzdjImageView.setOnClickListener(new OnClickListener() {
+			viewHolder2.xzjgIv.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					Intent intent=new Intent();
@@ -269,10 +239,17 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 			});
 			if(objMap.get("batchctrl").equals("T")){
 				viewHolder2.cpphLayout.setVisibility(View.VISIBLE);
-				viewHolder2.scrqLayout.setVisibility(View.VISIBLE);
-				viewHolder2.yxqzLayout.setVisibility(View.VISIBLE);
 				viewHolder2.cpphView.setVisibility(View.VISIBLE);
+				viewHolder2.cpphEdittext.setText(objMap.get("cpph").toString());
+
+
+				viewHolder2.scrqLayout.setVisibility(View.VISIBLE);
 				viewHolder2.scrqView.setVisibility(View.VISIBLE);
+				viewHolder2.scrqEdittext.setText(objMap.get("scrq").toString());
+
+
+				viewHolder2.yxqzLayout.setVisibility(View.VISIBLE);
+				viewHolder2.yxqzEdittext.setText(objMap.get("yxqz").toString());
 				
 			}else{
                 viewHolder2.cpphLayout.setVisibility(View.GONE);
@@ -281,42 +258,103 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
                 viewHolder2.cpphView.setVisibility(View.GONE);
                 viewHolder2.scrqView.setVisibility(View.GONE);
 			}
-			viewHolder2.djEditText.setText(objMap.get("dj").toString());
-			viewHolder2.zklEditText.setText(objMap.get("zkl").toString());
+			viewHolder2.djEdittext.setText(objMap.get("dj").toString());
+			viewHolder2.zklEdittext.setText(objMap.get("zkl").toString());
 			viewHolder2.slView.setSl(Double.parseDouble(objMap.get("sl")
 					.toString()));
-			viewHolder2.cpphEditText.setText(objMap.get("cpph").toString());
-			viewHolder2.scrqEditText.setText(objMap.get("scrq").toString());
-			viewHolder2.yxqzEditText.setText(objMap.get("yxqz").toString());
+			//判断发票类型是否是收据
+			EditTextHelper.EditTextEnable(!(boolean) objMap.get("issj"), viewHolder2.etSl);
+			viewHolder2.etSl.setText(objMap.get("taxrate").toString());//设置税率
+			viewHolder2.etSl.addTextChangedListener(new TextWatcher() {
+
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1,
+										  int arg2, int arg3) {
+
+				}
+
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1,
+											  int arg2, int arg3) {
+				}
+
+				@Override
+				public void afterTextChanged(Editable s) {
+					if (!TextUtils.isEmpty(s)) {
+						objMap.put("taxrate",s.toString());
+						Double csje  = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(s.toString()) + 100) / 100;
+						viewHolder2.tvHsdj.setText(csje.toString());
+						objMap.put("taxunitprice",csje.toString());
+					}
+
+				}
+			});
+			Double csje  = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(objMap.get("taxrate").toString()) + 100) / 100;
+			viewHolder2. tvHsdj.setText(csje.toString());
+			objMap.put("taxunitprice",csje.toString());
 			return convertView;
 		}
 	}
 
+
 	static class ViewHolder {
-		TextView mcTextView;
-		TextView bhTextView;
-		TextView ggTextView;
-		TextView xhTextView;
-		TextView kcTextView;
-		CheckBox itemCheckBox;
+		@BindView(R.id.mc_textview)
+		TextView mcTextview;
+		@BindView(R.id.bh_textview)
+		TextView bhTextview;
+		@BindView(R.id.gg_textview)
+		TextView ggTextview;
+		@BindView(R.id.xh_textview)
+		TextView xhTextview;
+		@BindView(R.id.kc_textview)
+		TextView kcTextview;
+		@BindView(R.id.itemcheck)
+		CheckBox itemcheck;
+
+		ViewHolder(View view) {
+			ButterKnife.bind(this, view);
+		}
 	}
 
 	static class ViewHolder2 {
-		EditText djEditText;
-		ImageView xzdjImageView;
-		EditText zklEditText;
+		@BindView(R.id.zkl_edittext)
+		EditText zklEdittext;
+		@BindView(R.id.sl_view)
 		SLView2 slView;
-		EditText cpphEditText;
-//		EditText cpph2EditText;
-		EditText scrqEditText;
-		EditText yxqzEditText;
-		LinearLayout item2LinearLayout;
-		
+		@BindView(R.id.et_bz)
+		EditText etBz;
+		@BindView(R.id.ll_bz)
+		LinearLayout llBz;
+		@BindView(R.id.cpph_edittext)
+		EditText cpphEdittext;
+		@BindView(R.id.cpph_layout)
 		LinearLayout cpphLayout;
-		LinearLayout scrqLayout;
-		LinearLayout yxqzLayout;
+		@BindView(R.id.cpph_view)
 		View cpphView;
+		@BindView(R.id.scrq_edittext)
+		EditText scrqEdittext;
+		@BindView(R.id.scrq_layout)
+		LinearLayout scrqLayout;
+		@BindView(R.id.scrq_view)
 		View scrqView;
+		@BindView(R.id.yxqz_edittext)
+		EditText yxqzEdittext;
+		@BindView(R.id.yxqz_layout)
+		LinearLayout yxqzLayout;
+		@BindView(R.id.dj_edittext)
+		EditText djEdittext;
+		@BindView(R.id.xzjg_iv)
+		ImageView xzjgIv;
+		@BindView(R.id.et_sl)
+		EditText etSl;
+		@BindView(R.id.tv_hsdj)
+		TextView tvHsdj;
+		@BindView(R.id.item2_linearlayout)
+		LinearLayout item2Linearlayout;
+
+		ViewHolder2(View view) {
+			ButterKnife.bind(this, view);
+		}
 	}
 
 }
