@@ -26,6 +26,7 @@ import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzyyActivity;
 import com.cr.activity.common.CommonXzzdActivity;
+import com.cr.activity.jxc.cggl.KtCgglSpxqActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
@@ -173,7 +174,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
                 Intent intent = new Intent();
-                intent.setClass(activity, JxcCgglCgddXzspDetailActivity.class);
+                intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
+                intent.setClass(activity, KtCgglSpxqActivity.class);
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 startActivityForResult(intent, 4);
@@ -517,12 +519,11 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     } else {
                         Map<String, Object> map = (Map<String, Object>) data.getExtras()
                                 .getSerializable("object");
-                        list.remove(selectIndex);
                         map.put(
                                 "amount",
-                                map.put("amount", Double.parseDouble(map.get("unitprice").toString())
+                                map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
                                         * Double.parseDouble(map.get("unitqty").toString())));
-                        list.add(selectIndex, map);
+                        list.set(selectIndex, map);
                         adapter.notifyDataSetChanged();
                     }
                     xzspnumTextview.setText("共选择了" + list.size() + "商品");
@@ -600,9 +601,28 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     xmId = data.getStringExtra("projectid");
                     break;
                 case 13://选择发票类型
+                    if(billtypeid.equals(data.getStringExtra("id")))
+                        return;
                     etFplx.setText(data.getStringExtra("name"));
                     billtypeid = data.getStringExtra("id");
                     mTaxrate = data.getExtras().getString("taxrate");
+                    if(list!=null){
+                        for (int i=0;i<list.size();i++) {
+                            list.get(i).put("taxrate",mTaxrate);
+                            Double csje  = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            list.get(i).put("taxunitprice",csje+"");
+                            String amount = (csje
+                                    * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
+                            list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
+                        }
+                        double je = 0;
+                        for (Map<String, Object> m : list) {
+                            je += Double.parseDouble(m.get("amount").toString());
+                        }
+
+                        hjjeEdittext.setText("￥" + FigureTools.sswrFigure(je + "") + "");
+                        adapter.notifyDataSetChanged();
+                    }
                     break;
                 case 14://选择物流公司
                     mWlxxData = new Gson().fromJson(data.getStringExtra("data"),

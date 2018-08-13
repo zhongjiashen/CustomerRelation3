@@ -159,26 +159,18 @@ public class JxcCgglCgddXzspDetailActivity extends BaseActivity implements OnCli
     }
 
     /**
-     * 连接网络的操作(删除)
+     * 删除
      */
     private void searchDate() {
-        //        if (null != object.get("orderid")) {
-        //            Map<String, Object> parmMap = new HashMap<String, Object>();
-        //            parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        //            parmMap.put("tabname", "tb_porder");
-        //            parmMap.put("pkvalue", object.get("orderid").toString());
-        //            findServiceData2(0, ServerURL.BILLDELDETAIL, parmMap, false);
-        //        } else {
         object = null;
         Intent intent = new Intent();
         intent.putExtra("object", "");
         setResult(RESULT_OK, intent);
         finish();
-        //        }
     }
 
     /**
-     * 连接网络的操作(保存)
+     * 保存
      */
     private void searchDateSave() {
         //        if (null == object.get("orderid")) {
@@ -197,54 +189,7 @@ public class JxcCgglCgddXzspDetailActivity extends BaseActivity implements OnCli
         intent.putExtra("object", (Serializable) object);
         setResult(RESULT_OK, intent);
         finish();
-        //        } else {//暂时先不做保存单据后，再修改选择的商品
-        //            JSONArray arrayMaster = new JSONArray();
-        //            JSONArray arrayDetail = new JSONArray();
-        //            try {
-        //                JSONObject jsonObject = new JSONObject();
-        //                jsonObject.put("billid", "0");
-        //                jsonObject.put("code", "");
-        //                jsonObject.put("clientid", gysId);//供应商ID
-        //                jsonObject.put("linkmanid", lxrId);//联系人ID
-        //                jsonObject.put("billdate", djrqEditText.getText().toString());
-        //                jsonObject.put("phone", lxdhEditText.getText().toString());
-        //                jsonObject.put("billto", jhdzEditText.getText().toString());
-        //                jsonObject.put("amount", hjjeEditText.getText().toString());
-        //                jsonObject.put("exemanid", jbrId);
-        //                jsonObject.put("memo", bzxxEditText.getText().toString());
-        //                jsonObject.put("opid", ShareUserInfo.getUserId(context));
-        //                arrayMaster.put(jsonObject);
-        //                for (Map<String, Object> map : list) {
-        //                    JSONObject jsonObject2 = new JSONObject();
-        //                    jsonObject2.put("billid", "0");
-        //                    jsonObject2.put("itemno", "0");
-        //                    jsonObject2.put("goodsid", map.get("goodsid").toString());
-        //                    jsonObject2.put("unitid", map.get("unitid").toString());
-        //                    jsonObject2.put("unitprice", map.get("dj").toString());
-        //                    jsonObject2.put("unitqty", map.get("sl").toString());
-        //                    jsonObject2.put("disc", map.get("zkl").toString());
-        //                    jsonObject2.put("amount", map.get("hj").toString());
-        //                    jsonObject2.put("batchcode", map.get("cpph").toString());
-        //                    jsonObject2.put("produceddate", map.get("scrq").toString());
-        //                    jsonObject2.put("validdate", map.get("yxqz").toString());
-        //                    jsonObject2.put("refertype", "");
-        //                    jsonObject2.put("batchrefid", "");
-        //                    jsonObject2.put("referbillid ", "");
-        //                    jsonObject2.put("referitemno ", "");
-        //                    arrayDetail.put(jsonObject2);
-        //                }
-        //            } catch (JSONException e) {
-        //                e.printStackTrace();
-        //            }//代表新增
-        //            Map<String, Object> parmMap = new HashMap<String, Object>();
-        //            parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        //            //      parmMap.put("opid", ShareUserInfo.getUserId(context));
-        //            parmMap.put("tabname", "tb_porder");
-        //            parmMap.put("parms", "CGDD");
-        //            parmMap.put("master", arrayMaster.toString());
-        //            parmMap.put("detail", arrayDetail.toString());
-        //            findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
-        //        }
+
     }
 
     @Override

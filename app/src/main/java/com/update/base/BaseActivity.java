@@ -2,11 +2,15 @@ package com.update.base;
 
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jph.takephoto.app.TakePhoto;
@@ -20,6 +24,8 @@ import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.net.URISyntaxException;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import butterknife.ButterKnife;
 
@@ -41,7 +47,8 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     protected final int DATA_REFERSH = 10;//刷新
 
     protected Activity mActivity;
-
+    private DatePickerDialog dateDialog = null;
+    private TimePickerDialog timeDialog = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getTakePhoto().onCreate(savedInstanceState);
@@ -227,6 +234,39 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
             this.invokeParam = invokeParam;
         }
         return type;
+    }
+
+
+
+    /* 初始化日期的弹出选择框 */
+    public void date_init(final EditText editText) {
+        DatePickerDialog.OnDateSetListener otsl = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker arg0, int year, int month,
+                                  int dayOfMonth) {
+                month++;
+                String myMonth = "";
+                String myDay = "";
+                if (month < 10) {
+                    myMonth = "0" + month;
+                } else {
+                    myMonth = "" + month;
+                }
+                if (dayOfMonth < 10) {
+                    myDay = "0" + dayOfMonth;
+                } else {
+                    myDay = "" + dayOfMonth;
+                }
+                editText.setText(year + "-" + myMonth + "-" + myDay);
+                dateDialog.dismiss();
+            }
+        };
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        dateDialog = new DatePickerDialog(this, otsl, year, month, day);
+        dateDialog.show();
     }
 
 }
