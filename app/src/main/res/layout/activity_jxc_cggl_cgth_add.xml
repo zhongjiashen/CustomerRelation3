@@ -358,10 +358,7 @@
                     style="@style/edittext_bj2"
                     android:inputType="numberDecimal" />
             </LinearLayout>
-
-            <View
-                style="@style/underline"
-                android:visibility="gone" />
+            <View style="@style/underline" />
 
             <LinearLayout style="@style/detail_relativelayout">
 
@@ -457,6 +454,8 @@
 
             <View style="@style/underline" />
 
+
+
             <LinearLayout style="@style/detail_relativelayout">
 
                 <TextView
@@ -469,7 +468,6 @@
 
                 <ImageView style="@style/imageview_jt" />
             </LinearLayout>
-
             <View style="@style/underline" />
 
             <LinearLayout style="@style/detail_relativelayout">
