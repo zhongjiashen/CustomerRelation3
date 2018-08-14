@@ -757,6 +757,10 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
                 jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
+
+
+
+                jsonObject2.put("serialinfo", map.get("serialinfo").toString());//税率%
                 jsonObject2.put("taxrate", map.get("taxrate").toString());//税率%
                 jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
                 jsonObject2.put("memo", "");//备注

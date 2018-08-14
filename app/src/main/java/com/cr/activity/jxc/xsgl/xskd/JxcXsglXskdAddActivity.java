@@ -45,6 +45,7 @@ import com.update.actiity.logistics.ChooseLogisticsCompanyActivity;
 import com.update.actiity.logistics.KtWlxxActivity;
 import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.model.KtWlxxData;
+import com.update.model.Serial;
 import com.update.model.request.RqChoiceLogisticsListData;
 import com.update.utils.EditTextHelper;
 
@@ -162,6 +163,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
     String proxybankid;
     //发票类型ID
     String billtypeid;
+    private String mTaxrate;//税率
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -177,8 +179,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
      * 初始化Activity
      */
     private void initActivity() {
-        etFplx.setText("收据");
-        billtypeid = "1";
+
         xzspListview.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -227,9 +228,12 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
         khqkEdittext.setEnabled(false);
 
+
+
+        etFplx.setText("收据");
+        billtypeid = "1";
+        mTaxrate = "0";
         EditTextHelper.EditTextEnable(true, dsjeEdittext);
-
-
         skjeEdittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -297,6 +301,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     showToastPromopt("请先选择仓库信息！");
                     return;
                 }
+                intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
+                intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("rkckId", ckckId);
                 intent.putExtra("tabname", "tb_invoice");
                 intent.putExtra("xskd", true);
@@ -469,13 +475,18 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                                 Map<String, Object> map2 = cpList.get(i + 1);
                                 map.put("unitprice", map2.get("dj"));
                                 map.put("unitqty", map2.get("sl"));
-                                map.put("amount", Double.parseDouble(map2.get("dj").toString())
+                                map.put("amount", Double.parseDouble(map2.get("taxunitprice").toString())
                                         * Double.parseDouble(map2.get("sl").toString()));
                                 map.put("disc", map2.get("zkl"));
                                 map.put("batchcode", map2.get("cpph"));
                                 map.put("produceddate", map2.get("scrq"));
                                 map.put("validdate", map2.get("yxqz"));
                                 map.put("memo", map2.get("memo"));//备注
+
+                                map.put("taxrate", map2.get("taxrate"));//税率
+                                map.put("taxunitprice", map2.get("taxunitprice"));//含税单价
+                                map.put("serialinfo", map2.get("serialinfo").toString());
+                                map.put("serials", map2.get("serials"));
                                 list.add(map);
 //                            zje += Double.parseDouble(map.get("amount").toString());
                             }
@@ -534,7 +545,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                         list.remove(selectIndex);
                         map.put(
                                 "amount",
-                                map.put("amount", Double.parseDouble(map.get("unitprice").toString())
+                                map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
                                         * Double.parseDouble(map.get("unitqty").toString())));
                         list.add(selectIndex, map);
                         adapter.notifyDataSetChanged();
@@ -612,8 +623,28 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     xmId = data.getStringExtra("projectid");
                     break;
                 case 13://选择发票类型
+                    if(billtypeid.equals(data.getStringExtra("id")))
+                        return;
                     etFplx.setText(data.getStringExtra("name"));
                     billtypeid = data.getStringExtra("id");
+                    mTaxrate = data.getExtras().getString("taxrate");
+                    if(list!=null){
+                        for (int i=0;i<list.size();i++) {
+                            list.get(i).put("taxrate",mTaxrate);
+                            Double csje  = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            list.get(i).put("taxunitprice",csje+"");
+                            String amount = (csje
+                                    * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
+                            list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
+                        }
+                        double je = 0;
+                        for (Map<String, Object> m : list) {
+                            je += Double.parseDouble(m.get("amount").toString());
+                        }
+
+                        hjjeEdittext.setText("￥" + FigureTools.sswrFigure(je + "") + "");
+                        adapter.notifyDataSetChanged();
+                    }
                     break;
                 case 14://选择物流公司
                     mWlxxData = new Gson().fromJson(data.getStringExtra("data"),
@@ -702,6 +733,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
+        List<Serial> serialinfo=new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
@@ -760,10 +792,13 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
                 jsonObject2.put("memo", map.get("memo") == null ? "" : map.get("memo").toString());
 
-                jsonObject2.put("taxrate", "17.00");//税率%
-                jsonObject2.put("taxunitprice", "117.00");//含税单价
+
+                jsonObject2.put("taxrate", map.get("taxrate").toString());//税率%
+                jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
                 jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
+                serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -775,6 +810,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         parmMap.put("parms", "XSKD");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
+        parmMap.put("serialinfo", new Gson().toJson(serialinfo));
         findServiceData2(0, "billsavenew", parmMap, false);
     }
 

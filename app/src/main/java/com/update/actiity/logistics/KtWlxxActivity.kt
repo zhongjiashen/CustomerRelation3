@@ -32,55 +32,59 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
     override fun init() {
 
         titleBar.setTitleText(mActivity, "物流信息")
-        titleBar.setRightText("保存")
-        //保存
-        titleBar.setTitleOnlicListener { i ->
-            when (i) {
-                2 -> {
-                    if(TextUtils.isEmpty(wlxxData.logisticname)){
-                        showShortToast("请选择物流公司")
-                        return@setTitleOnlicListener
-                    }
-                    wlxxData.shipno=etWldh.text.toString()
-                    wlxxData.amount=etYfje.text.toString()
-                    setResult(Activity.RESULT_OK,intent.putExtra("data",Gson().toJson(wlxxData)))
-                    finish()
+        if(intent.getBooleanExtra("ck",true)){
+            titleBar.setRightText("保存")
+            //保存
+            titleBar.setTitleOnlicListener { i ->
+                when (i) {
+                    2 -> {
+                        if(TextUtils.isEmpty(wlxxData.logisticname)){
+                            showShortToast("请选择物流公司")
+                            return@setTitleOnlicListener
+                        }
+                        wlxxData.shipno=etWldh.text.toString()
+                        wlxxData.amount=etYfje.text.toString()
+                        setResult(Activity.RESULT_OK,intent.putExtra("data",Gson().toJson(wlxxData)))
+                        finish()
 
+                    }
                 }
             }
+            //选择物流公司
+            llWlgsXz.setOnClickListener {
+                startActivityForResult(Intent(mActivity, ChooseLogisticsCompanyActivity::class.java)
+                        .putExtra("kind", 3), 11)
+            }
+            //运输方式选择
+            llYsfsXz.setOnClickListener {
+                startActivityForResult(Intent(this, NetworkDataSingleOptionActivity::class.java)
+                        .putExtra("zdbm", "YSFS")
+                        .putExtra("title", "运输方式选择"),
+                        12)
+            }
+            //运费承担
+            llYfcdXz.setOnClickListener {
+                startActivityForResult(Intent(this, LocalDataSingleOptionActivity::class.java)
+                        .putExtra("kind", 4), 13)
+            }
+            //付款类型
+            llFklxXz.setOnClickListener {
+                startActivityForResult(Intent(this, CommonXzzdActivity::class.java)
+                        .putExtra("type", "FKLX"), 14)
+            }
+            //付款账户
+            llFkzhXz.setOnClickListener {
+                startActivityForResult(Intent(this, CommonXzzdActivity::class.java)
+                        .putExtra("type", "BANK"), 15)
+            }
+            //通知放货
+            llTzfhXz.setOnClickListener {
+                startActivityForResult(Intent(this, LocalDataSingleOptionActivity::class.java)
+                        .putExtra("kind", 2), 16)
+            }
         }
-        //选择物流公司
-        llWlgsXz.setOnClickListener {
-            startActivityForResult(Intent(mActivity, ChooseLogisticsCompanyActivity::class.java)
-                    .putExtra("kind", 3), 11)
-        }
-        //运输方式选择
-        llYsfsXz.setOnClickListener {
-            startActivityForResult(Intent(this, NetworkDataSingleOptionActivity::class.java)
-                    .putExtra("zdbm", "YSFS")
-                    .putExtra("title", "运输方式选择"),
-                    12)
-        }
-        //运费承担
-        llYfcdXz.setOnClickListener {
-            startActivityForResult(Intent(this, LocalDataSingleOptionActivity::class.java)
-                    .putExtra("kind", 4), 13)
-        }
-        //付款类型
-        llFklxXz.setOnClickListener {
-            startActivityForResult(Intent(this, CommonXzzdActivity::class.java)
-                    .putExtra("type", "FKLX"), 14)
-        }
-        //付款账户
-        llFkzhXz.setOnClickListener {
-            startActivityForResult(Intent(this, CommonXzzdActivity::class.java)
-                    .putExtra("type", "BANK"), 15)
-        }
-        //通知放货
-        llTzfhXz.setOnClickListener {
-            startActivityForResult(Intent(this, LocalDataSingleOptionActivity::class.java)
-                    .putExtra("kind", 2), 16)
-        }
+
+
         var data=intent.getStringExtra("data")
         if(data=="null"||data==null) {
             //运费承担默认我方，付款类型默认往来结算，通知放货默认为否，运费金额（要求大于等于0）默认0.00，其他默认为空，
