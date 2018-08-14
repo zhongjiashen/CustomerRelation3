@@ -26,6 +26,7 @@ import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzyyActivity;
 import com.cr.activity.common.CommonXzzdActivity;
+import com.cr.activity.jxc.cggl.KtCgglSpxqActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
@@ -185,7 +186,10 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
                 Intent intent = new Intent();
-                intent.setClass(activity, JxcCgglCgddXzspDetailActivity.class);
+//                intent.setClass(activity, JxcCgglCgddXzspDetailActivity.class);
+                intent.setClass(activity, KtCgglSpxqActivity.class);
+                intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
+                intent.putExtra("rkckId", ckckId);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 intent.putExtra("xskd", true);
                 startActivityForResult(intent, 4);
@@ -792,7 +796,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
                 jsonObject2.put("memo", map.get("memo") == null ? "" : map.get("memo").toString());
 
-
+                jsonObject2.put("serialinfo", map.get("serialinfo").toString());//税率%
                 jsonObject2.put("taxrate", map.get("taxrate").toString());//税率%
                 jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
                 jsonObject2.put("memo", "");//备注

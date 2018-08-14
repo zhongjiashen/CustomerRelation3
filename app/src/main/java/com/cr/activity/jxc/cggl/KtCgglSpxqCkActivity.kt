@@ -44,8 +44,8 @@ class KtCgglSpxqCkActivity : BaseActivity<BaseP>() {
             tv_spxh.text = "型号：" + data["model"].toString()
             if (data["onhand"] != null) {
                 tv_spkz.text = "库存：" + data["onhand"].toString().toDouble() + data["unitname"].toString()
-            }else{
-                tv_spkz.visibility=View.GONE
+            } else {
+                tv_spkz.visibility = View.GONE
             }
             //是批次商品的会显示批号、生产日期、有效日期
             if (data["batchctrl"].toString().equals("T")) {
@@ -69,9 +69,9 @@ class KtCgglSpxqCkActivity : BaseActivity<BaseP>() {
 
         tv_serial_number.setOnClickListener {
             startActivity(Intent(mActivity, SerialNumberDetailsActivity::class.java)
-                    .putExtra("billid", data["recievedid"].toString())
+                    .putExtra("billid", intent.getStringExtra("billid"))
                     .putExtra("serialinfo", data["serialinfo"].toString())
-                    .putExtra("tabname", "tb_received"))
+                    .putExtra("tabname", intent.getStringExtra("tabname")))
         }
 
 

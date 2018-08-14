@@ -123,6 +123,8 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
                 Intent intent = new Intent();
                 intent.setClass(activity, KtCgglSpxqCkActivity.class);
                 intent.putExtra("object", (Serializable) list.get(arg2));
+                intent.putExtra("tabname", "tb_received");
+                intent.putExtra("billid", getIntent().getStringExtra("billid"));
                 startActivityForResult(intent, 4);
             }
         });
@@ -183,7 +185,7 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGSH");
-        parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
+        parmMap.put("billid", this.getIntent().getStringExtra("billid"));
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false);
     }
 

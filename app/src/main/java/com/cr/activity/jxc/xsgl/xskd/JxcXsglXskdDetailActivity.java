@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.jxc.cggl.KtCgglSpxqCkActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetail2Activity;
 import com.cr.adapter.jxc.xsgl.xskd.JxcXsglXskdDetailAdapter;
@@ -28,6 +30,9 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.update.actiity.logistics.KtWlxxActivity;
+import com.update.model.KtWlxxData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,7 +83,7 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
     Map<String, Object> object;
     private EditText xmEditText;
     private EditText etBm;
-
+    private KtWlxxData mWlxxData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -115,9 +120,11 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
                 Intent intent = new Intent();
-                intent.setClass(activity, JxcCgglCgddXzspDetail2Activity.class);
+                intent.setClass(activity, KtCgglSpxqCkActivity.class);
+//                intent.setClass(activity, JxcCgglCgddXzspDetail2Activity.class);
                 intent.putExtra("object", (Serializable) list.get(arg2));
-                intent.putExtra("xskd", true);
+                intent.putExtra("tabname", "tb_invoice");
+                intent.putExtra("billid", getIntent().getStringExtra("billid"));
                 startActivityForResult(intent, 4);
             }
         });
@@ -244,7 +251,23 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
             jsfsEditText.setText(object.get("paytypename").toString());
             zjzhEditText.setText(object.get("bankname").toString());
 
-            etFplx.setText(object.get("billtypename").toString());
+            etFplx.setText(object.get("billtypename").toString());//发票类型
+            etShrq.setText(object.get("skrq").toString());////收款日期
+            etWlgs.setText(object.get("logisticname").toString());//物流公司
+            if (!TextUtils.isEmpty(object.get("logisticname").toString())) {
+                mWlxxData = new KtWlxxData();
+                mWlxxData.setLogisticname(object.get("logisticname").toString());//物流公司
+                mWlxxData.setShipno(object.get("shipno").toString());//物流单号
+                mWlxxData.setShiptypename(object.get("shiptypename").toString());//运输方式
+                mWlxxData.setBeartype(object.get("beartype").toString());///运费承担 0我方 1对方
+                mWlxxData.setLogisticispp(object.get("logisticispp").toString());//物流单号
+                mWlxxData.setLogisticbankaccount(object.get("logisticbankname").toString());//付款账户
+                mWlxxData.setAmount(object.get("amount").toString());//运费
+                mWlxxData.setIsnotice(object.get("isnotice").toString());//通知放货 0否 1是
+
+            }
+            etDszh.setText(object.get("proxybankname").toString());//代收账户
+            etDsje.setText(object.get("proxyamt").toString());//代收金额
             showZdr(object);
             searchDate2();//查询订单中的商品
         } else if (returnSuccessType == 1) {
@@ -277,6 +300,9 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
 
     @OnClick(R.id.et_wlgs)
     public void onClick() {
+        startActivity(new Intent(this, KtWlxxActivity.class)
+                .putExtra("ck", false)
+                .putExtra("data", new Gson().toJson(mWlxxData)));
     }
 
     @Override
