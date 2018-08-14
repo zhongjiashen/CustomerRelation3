@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.update.model.Serial;
 
 /**
  * 进销存-采购管理-采购订单-选择商品（采购收货、采购退货、销售开单、销售退货）
@@ -173,6 +177,9 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                 obj2.put("batchctrl", obj.get("batchctrl").toString());
                 obj2.put("taxrate", mTaxrate);//初始化税率
                 obj2.put("issj", issj);//发票类型是否是收据
+                UUID uuid = UUID.randomUUID();
+                obj2.put("serialinfo", uuid.toString().toUpperCase());//
+                obj2.put("serials", new ArrayList<Serial>());//
                 list.add(obj2);
             }
         }
@@ -250,26 +257,63 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 0) {
-                int index = Integer.parseInt(data.getExtras()
-                        .getString("index"));
-                list.get(index).put("cpph", data.getExtras().getString("name"));
-                list.get(index).put("scrq", data.getExtras().getString("scrq"));
-                list.get(index).put("yxqz", data.getExtras().getString("yxrq"));
-                adapter.notifyDataSetChanged();
-            } else if (requestCode == 1) {
-                // list.remove(adapter.getSelectIndex());
-                // adapter.notifyDataSetChanged();
-            } else if (requestCode == 2) {
-                code = data.getExtras().getString("id");
-                list.clear();
-                searchDate();
-            } else if (requestCode == 3) {
-                int index = Integer.parseInt(data.getExtras()
-                        .getString("index"));
-                list.get(index).put("dj", data.getExtras().getString("dj"));
-                adapter.notifyDataSetChanged();
+            switch (requestCode){
+                case 0:
+                    int index = Integer.parseInt(data.getExtras()
+                            .getString("index"));
+                    list.get(index).put("cpph", data.getExtras().getString("name"));
+                    list.get(index).put("scrq", data.getExtras().getString("scrq"));
+                    list.get(index).put("yxqz", data.getExtras().getString("yxrq"));
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 1:
+                    // list.remove(adapter.getSelectIndex());
+                    // adapter.notifyDataSetChanged();
+                    break;
+                case 2:
+                    code = data.getExtras().getString("id");
+                    list.clear();
+                    searchDate();
+                    break;
+                case 3:
+                    int i = Integer.parseInt(data.getExtras()
+                            .getString("index"));
+                    list.get(i).put("dj", data.getExtras().getString("dj"));
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 4:
+                    break;
+                case 11:
+                    int n =data.getExtras()
+                            .getInt("position");
+                    list.get(n).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+                    }.getType()));
+
+                    adapter.notifyDataSetChanged();
+                    break;
             }
+
         }
     }
 }
+/*
+ if (requestCode == 0) {
+         int index = Integer.parseInt(data.getExtras()
+         .getString("index"));
+         list.get(index).put("cpph", data.getExtras().getString("name"));
+         list.get(index).put("scrq", data.getExtras().getString("scrq"));
+         list.get(index).put("yxqz", data.getExtras().getString("yxrq"));
+         adapter.notifyDataSetChanged();
+         } else if (requestCode == 1) {
+         // list.remove(adapter.getSelectIndex());
+         // adapter.notifyDataSetChanged();
+         } else if (requestCode == 2) {
+         code = data.getExtras().getString("id");
+         list.clear();
+         searchDate();
+         } else if (requestCode == 3) {
+         int index = Integer.parseInt(data.getExtras()
+         .getString("index"));
+         list.get(index).put("dj", data.getExtras().getString("dj"));
+         adapter.notifyDataSetChanged();
+         }*/

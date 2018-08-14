@@ -20,10 +20,12 @@ import android.widget.TextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.SLView2;
 import com.cr.activity.common.CommonXzphActivity;
+import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
 import com.update.utils.EditTextHelper;
 import com.update.utils.LogUtils;
 
@@ -149,7 +151,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
 //			if (convertView == null) {
             convertView = LayoutInflater.from(activity).inflate(
                     R.layout.activity_jxc_cggl_cgdd_xzsp_item2, null);// 这个过程相当耗时间
-            final ViewHolder2 viewHolder2  = new ViewHolder2(convertView);
+            final ViewHolder2 viewHolder2 = new ViewHolder2(convertView);
 
             viewHolder2.etBz.setText(objMap.get("memo") == null ? "" : objMap.get("memo").toString());
 
@@ -284,6 +286,21 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                     activity.startActivityForResult(intent, 0);
                 }
             });
+
+            viewHolder2.tvSerialNumber.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    activity.startActivityForResult(new Intent(activity, KtSerialNumberAddActivity.class)
+                            .putExtra("itemno", "0")
+                            .putExtra("uuid", objMap.get("serialinfo")
+                                    .toString())
+                            .putExtra("position", position)
+                            .putExtra("DATA", new Gson().toJson(objMap.get("serials")
+                            )), 11);
+
+                }
+            });
             //  是批次商品的会显示批号、生产日期、有效日期
             if (objMap.get("batchctrl").equals("T")) {
                 //产品批号
@@ -332,20 +349,22 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                 @Override
                 public void afterTextChanged(Editable s) {
                     if (!TextUtils.isEmpty(s)) {
-                        objMap.put("taxrate",s.toString());
-                        Double csje  = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(s.toString()) + 100) / 100;
+                        objMap.put("taxrate", s.toString());
+                        Double csje = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(s.toString()) + 100) / 100;
                         viewHolder2.tvHsdj.setText(csje.toString());
-                        objMap.put("taxunitprice",csje.toString());
+                        objMap.put("taxunitprice", csje.toString());
                     }
 
                 }
             });
-            Double csje  = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(objMap.get("taxrate").toString()) + 100) / 100;
-            viewHolder2. tvHsdj.setText(csje.toString());
-            objMap.put("taxunitprice",csje.toString());
+            Double csje = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(objMap.get("taxrate").toString()) + 100) / 100;
+            viewHolder2.tvHsdj.setText(csje.toString());
+            objMap.put("taxunitprice", csje.toString());
             return convertView;
         }
     }
+
+
 
     static class ViewHolder {
         @BindView(R.id.mc_textview)
@@ -369,6 +388,8 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
     static class ViewHolder2 {
         @BindView(R.id.zkl_edittext)
         EditText zklEdittext;
+        @BindView(R.id.tv_serial_number)
+        TextView tvSerialNumber;
         @BindView(R.id.sl_view)
         SLView2 slView;
         @BindView(R.id.et_bz)
@@ -406,4 +427,6 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
             ButterKnife.bind(this, view);
         }
     }
+
+
 }
