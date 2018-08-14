@@ -53,8 +53,7 @@ public class JxcXsglXsthDetailAdapter extends BaseAdapter {
             (objMap.get("goodsname")==null?objMap.get("name").toString():objMap.get("goodsname").toString())+" "+
             (objMap.get("specs")==null?objMap.get("specs").toString():objMap.get("specs").toString())+" "+
             (objMap.get("model")==null?objMap.get("model").toString():objMap.get("model").toString()));
-        viewHolder.djTextView.setText("￥"+
-            (objMap.get("unitprice")==null?objMap.get("aprice").toString():objMap.get("unitprice").toString())+"*"+
+        viewHolder.djTextView.setText("￥"+ objMap.get("taxunitprice").toString()+"*"+
             (objMap.get("unitqty")==null?objMap.get("unitid").toString():objMap.get("unitqty").toString())+""+
             (objMap.get("unitname")==null?objMap.get("unit_name").toString():objMap.get("unitname").toString()));
         viewHolder.zjTextView.setText("￥"+FigureTools.sswrFigure(objMap.get("amount").toString()));

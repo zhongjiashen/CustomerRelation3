@@ -421,59 +421,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
                                     }
                                 }).setPositiveButton("取消", null).show();
                 break;
-//            case R.id.xzsp_linearlayout:
-//            	if(rkckEditText.getText().toString().equals("")){
-//            		showToastPromopt("请先选择仓库信息！");
-//            		return;
-//            	}
-//            	intent.putExtra("rkckId", rkckId);
-//                intent.setClass(this, JxcCgglCgddXzspActivity.class);
-//                startActivityForResult(intent, 0);
-//                break;
-//            case R.id.gys_edittext:
-//                intent.setClass(this, CommonXzdwActivity.class);
-//                intent.putExtra("type","2");
-//                startActivityForResult(intent, 1);
-//                break;
-//            case R.id.lxr_edittext:
-//                if (gysId.equals("")) {
-//                    showToastPromopt("请先选择供应商信息");
-//                    return;
-//                }
-//                intent.setClass(activity, CommonXzlxrActivity.class);
-//                intent.putExtra("clientid", gysId);
-//                startActivityForResult(intent, 2);
-//                break;
-//            case R.id.djrq_edittext:
-//                date_init(djrqEditText);
-//                break;
-//            case R.id.jbr_edittext:
-//                intent.setClass(activity, CommonXzjbrActivity.class);
-//                startActivityForResult(intent, 3);
-//                break;
-//            case R.id.save_imagebutton:
-//                searchDateSave();//保存
-//                break;
-//            case R.id.rkck_edittext:
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 5);
-//                break;
-//            case R.id.fklx_edittext:
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "TKLX");
-//                startActivityForResult(intent, 6);
-//                break;
-//            case R.id.jsfs_edittext:
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "PAYTYPE");
-//                startActivityForResult(intent, 7);
-//                break;
-//            case R.id.zjzh_edittext:
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "BANK");
-//                startActivityForResult(intent, 8);
-//                break;
+
         }
     }
 
