@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import com.cr.activity.BaseActivity
+import com.cr.activity.jxc.cggl.KtCgglSpxqCk2Activity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetail2Activity
 import com.cr.adapter.jxc.xsgl.xsdd.JxcXsglXsddDetailAdapter
@@ -14,7 +15,7 @@ import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
-import kotlinx.android.synthetic.main.activity_jxc_cggl_cgdd_detail.*
+import kotlinx.android.synthetic.main.activity_jxc_xsgl_xsdd_detail.*
 import java.io.Serializable
 import java.util.HashMap
 
@@ -28,7 +29,7 @@ class KtJxcXsglXsddDetailActivity: BaseActivity() {
     var list = ArrayList<MutableMap<String, Any?>>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_jxc_cggl_cgdd_detail)
+        setContentView(R.layout.activity_jxc_xsgl_xsdd_detail)
         searchDate()
         setOnClick()
         addFHMethod()
@@ -41,7 +42,8 @@ class KtJxcXsglXsddDetailActivity: BaseActivity() {
         xzsp_listview.setOnItemClickListener { parent, view, position, id ->
             selectIndex = position
             val intent = Intent()
-            intent.setClass(activity, JxcCgglCgddXzspDetail2Activity::class.java)
+//            intent.setClass(activity, JxcCgglCgddXzspDetail2Activity::class.java)
+            intent.setClass(activity, KtCgglSpxqCk2Activity::class.java)
             intent.putExtra("object", list[position] as Serializable)
             startActivityForResult(intent, 4)
         }

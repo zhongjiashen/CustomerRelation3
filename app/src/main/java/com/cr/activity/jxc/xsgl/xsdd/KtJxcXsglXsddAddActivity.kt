@@ -27,8 +27,9 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.Serializable
-import java.util.ArrayList
-import java.util.HashMap
+import java.text.SimpleDateFormat
+import java.util.*
+
 /**
  * 进销存-销售管理-销售订单-增加
  *
@@ -67,6 +68,9 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
         et_fplx.setText("收据")
         billtypeid="1"
         mTaxrate="0"
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        djrq_edittext.setText(sdf.format(Date()))
     }
 
     /**
