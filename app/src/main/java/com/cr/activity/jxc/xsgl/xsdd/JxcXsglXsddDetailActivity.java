@@ -33,7 +33,7 @@ import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
-import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspActivity;
+
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetail2Activity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity;
 import com.cr.adapter.jxc.xsgl.xsdd.JxcXsglXsddDetailAdapter;

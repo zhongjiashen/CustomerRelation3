@@ -35,7 +35,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
 /**
- * 进销存-采购管理-采购订单-选择商品
+ * 进销存-采购管理-采购订单-选择商品（采购收货、采购退货、销售开单、销售退货）
  *
  * @author Administrator
  */
