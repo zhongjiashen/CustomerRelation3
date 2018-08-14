@@ -46,6 +46,7 @@ import com.update.actiity.logistics.ChooseLogisticsCompanyActivity;
 import com.update.actiity.logistics.KtWlxxActivity;
 import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.model.KtWlxxData;
+import com.update.model.Serial;
 import com.update.utils.EditTextHelper;
 
 import org.json.JSONArray;
@@ -174,8 +175,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
                 Intent intent = new Intent();
-                intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                 intent.setClass(activity, KtCgglSpxqActivity.class);
+                intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 startActivityForResult(intent, 4);
@@ -464,6 +465,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
 
                                 map.put("taxrate", map2.get("taxrate"));//税率
                                 map.put("taxunitprice", map2.get("taxunitprice"));//含税单价
+                                map.put("serialinfo", map2.get("serialinfo").toString());
+                                map.put("serials", map2.get("serials"));
                                 list.add(map);
 //                            zje += Double.parseDouble(map.get("amount").toString());
                             }
@@ -694,6 +697,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
+        List<Serial> serialinfo=new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
@@ -757,6 +761,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
                 jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
+                serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -768,6 +773,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         parmMap.put("parms", "CGSH");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
+        parmMap.put("serialinfo", new Gson().toJson(serialinfo));
         findServiceData2(0, "billsavenew", parmMap, false);
     }
 

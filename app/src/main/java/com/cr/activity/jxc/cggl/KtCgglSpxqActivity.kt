@@ -7,9 +7,13 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import com.cr.activity.common.CommonXzphActivity
+import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity
 import com.crcxj.activity.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.update.base.BaseActivity
 import com.update.base.BaseP
+import com.update.model.Serial
 import com.update.utils.EditTextHelper
 import kotlinx.android.synthetic.main.activity_cggl_spxq.*
 import java.io.Serializable
@@ -88,6 +92,16 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
                 }
             }
         }
+
+        tv_serial_number.setOnClickListener {
+            val intent = Intent(mActivity, KtSerialNumberAddActivity::class.java)
+            intent.putExtra("itemno", "0")
+            intent.putExtra("uuid", data["serialinfo"].toString())
+            intent.putExtra("position", 0)
+            intent.putExtra("DATA", Gson().toJson(data["serials"]))
+            startActivityForResult(intent, 11)
+        }
+
         //产品批号
         ll_cpph.setOnClickListener {
             val intent = Intent()
@@ -117,16 +131,21 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
     override fun onMyActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onMyActivityResult(requestCode, resultCode, data)
         if (data != null) {
-            if (requestCode == 0) {
-                this.data["batchcode"] = data.getExtras().getString("name")
-                this.data["produceddate"] = data.getExtras()!!.getString("scrq")
-                this.data["validdate"] = data.getExtras()!!.getString("yxrq")
-                et_cpph.setText(this.data["batchcode"].toString())
-                et_scrq.setText(this.data["produceddate"].toString())
-                et_yxqz.setText(this.data["validdate"].toString())
+            when (requestCode) {
+                0 -> {
+                    this.data["batchcode"] = data.getExtras().getString("name")
+                    this.data["produceddate"] = data.getExtras()!!.getString("scrq")
+                    this.data["validdate"] = data.getExtras()!!.getString("yxrq")
+                    et_cpph.setText(this.data["batchcode"].toString())
+                    et_scrq.setText(this.data["produceddate"].toString())
+                    et_yxqz.setText(this.data["validdate"].toString())
 //                cpphId = data.getExtras()!!.getString("id")
+                }
+                11 -> {
+                   this.data["serials"]= Gson().fromJson<Any>(data.extras!!.getString("DATA"), object : TypeToken<List<Serial>>() {
+                    }.type)
+                }
             }
-
         }
     }
 }
