@@ -136,7 +136,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 				convertView = LayoutInflater.from(activity).inflate(
 						R.layout.activity_jxc_cggl_cgdd_xzsp_item2, null);// 这个过程相当耗时间
 			final ViewHolder2 viewHolder2 = new ViewHolder2(convertView);
-
+			viewHolder2.tvSerialNumber.setVisibility(View.GONE);
 			final Map<String, Object> objMap2 = list.get(position - 1);
 			if (objMap2.get("ischecked").toString().equals("0")) {
 				viewHolder2.item2Linearlayout.setVisibility(View.GONE);
@@ -319,6 +319,8 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 	static class ViewHolder2 {
 		@BindView(R.id.zkl_edittext)
 		EditText zklEdittext;
+		@BindView(R.id.tv_serial_number)
+		TextView tvSerialNumber;
 		@BindView(R.id.sl_view)
 		SLView2 slView;
 		@BindView(R.id.et_bz)

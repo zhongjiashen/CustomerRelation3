@@ -65,8 +65,7 @@ public class JxcCgglCgddAddAdapter extends BaseAdapter {
                                           + (objMap.get("model") == null ? objMap.get("model")
                                               .toString() : objMap.get("model").toString()));
         viewHolder.djTextView.setText("￥"
-                                      + (objMap.get("dj") == null ? objMap.get("unitprice")
-                                          .toString() : objMap.get("dj").toString())
+                                      + objMap.get("taxunitprice").toString()
                                       + "*"
                                       + (objMap.get("sl") == null ? objMap.get("unitqty")
                                           .toString() : objMap.get("sl").toString())

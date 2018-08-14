@@ -13,6 +13,7 @@ import android.widget.BaseAdapter
 
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.*
+import com.cr.activity.jxc.cggl.KtCgglSpxq2Activity
 import com.cr.activity.jxc.cggl.KtCgglSpxqActivity
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddAddAdapter
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
@@ -193,7 +194,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         xzsp_listview.setOnItemClickListener { parent, view, position, id ->
             selectIndex = position
             val intent = Intent()
-            intent.setClass(activity, KtCgglSpxqActivity::class.java)
+            intent.setClass(activity, KtCgglSpxq2Activity::class.java)
 //                intent.putExtra("rkckId", value)
             intent.putExtra("issj", et_fplx.getText().toString() == "收据")
             intent.putExtra("object", list!!.get(position) as Serializable)
@@ -392,12 +393,15 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
             jsonObject.put("linkmanid", lxrId)//联系人ID
             jsonObject.put("phone", lxdh_edittext.getText().toString())//电话
             jsonObject.put("billto", jhdz_edittext.getText().toString())//送货地址
-            jsonObject.put("billtypeid", billtypeid)//发票类型ID
-            jsonObject.put("revdate", et_jhrq.getText().toString())//交货日期
-            jsonObject.put("projectid", projectid)//项目ID
+
             jsonObject.put("billdate", djrq_edittext.getText().toString())//单据日期
             val hjje = hjje_edittext.getText().toString()
             jsonObject.put("amount", hjje.replace("￥", ""))
+
+
+            jsonObject.put("billtypeid", billtypeid)//发票类型ID
+            jsonObject.put("projectid", projectid)//项目ID
+            jsonObject.put("revdate", et_jhrq.getText().toString())//交货日期
             jsonObject.put("departmentid", departmentid)//部门ID
             jsonObject.put("exemanid", jbrId)//经办人
             jsonObject.put("memo", bzxx_edittext.getText().toString())

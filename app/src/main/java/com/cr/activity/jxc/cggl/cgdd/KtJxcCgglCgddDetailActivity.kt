@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import com.cr.activity.BaseActivity
+import com.cr.activity.jxc.cggl.KtCgglSpxqCk2Activity
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
 import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
@@ -41,7 +42,8 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
         xzsp_listview.setOnItemClickListener { parent, view, position, id ->
             selectIndex = position
             val intent = Intent()
-            intent.setClass(activity, JxcCgglCgddXzspDetail2Activity::class.java)
+//            intent.setClass(activity, JxcCgglCgddXzspDetail2Activity::class.java)
+            intent.setClass(activity, KtCgglSpxqCk2Activity::class.java)
             intent.putExtra("object", list.get(position) as Serializable)
             startActivityForResult(intent, 4)
         }
