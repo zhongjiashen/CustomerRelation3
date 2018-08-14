@@ -44,6 +44,7 @@ import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.actiity.logistics.KtWlxxActivity;
 import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.model.KtWlxxData;
+import com.update.model.Serial;
 import com.update.utils.EditTextHelper;
 
 import org.json.JSONArray;
@@ -419,6 +420,8 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
 
                                 map.put("taxrate", map2.get("taxrate"));//税率
                                 map.put("taxunitprice", map2.get("taxunitprice"));//含税单价
+                                map.put("serialinfo", map2.get("serialinfo").toString());
+                                map.put("serials", map2.get("serials"));
                                 list.add(map);
                             }
                         }
@@ -662,6 +665,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
+        List<Serial> serialinfo=new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
@@ -684,9 +688,20 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("projectid", xmId);
 //            String hjje = hjjeEditText.getText().toString();
 //            jsonObject.put("amount", hjje.replace("￥", ""));
-            Log.v("dddd", bzxxEdittext.getText().toString() + "::");
             jsonObject.put("memo", bzxxEdittext.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
+
+            jsonObject.put("billtypeid", billtypeid);//发票类型ID
+            if(mWlxxData!=null) {
+                jsonObject.put("logisticid", mWlxxData.getLogisticid());//新加物流公司ID
+                jsonObject.put("shipno", mWlxxData.getShipno());//物流单号
+                jsonObject.put("shiptype", mWlxxData.getShiptype());//运输方式
+                jsonObject.put("beartype", mWlxxData.getBeartype());//运费承担 0我方 1对方
+                jsonObject.put("logisticispp", mWlxxData.getLogisticispp());//付款类型 0往来结算 1现款结算
+                jsonObject.put("logisticbankid", mWlxxData.getLogisticbankid());//付款账户ID
+                jsonObject.put("amount", mWlxxData.getAmount());//运费
+                jsonObject.put("isnotice", mWlxxData.getIsnotice());// 通知放货 0否 1是
+            }
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
@@ -708,10 +723,14 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
                 jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
+
+
+                jsonObject2.put("serialinfo", map.get("serialinfo").toString());//
                 jsonObject2.put("taxrate", map.get("taxrate").toString());//税率%
                 jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
                 jsonObject2.put("memo", "");//备注
                 arrayDetail.put(jsonObject2);
+                serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -723,6 +742,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("parms", "CGTH");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
+        parmMap.put("serialinfo", new Gson().toJson(serialinfo));
         findServiceData2(0, "billsavenew", parmMap, false);
     }
 

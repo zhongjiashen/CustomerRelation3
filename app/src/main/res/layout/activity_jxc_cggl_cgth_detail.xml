@@ -160,6 +160,23 @@
 
                     <TextView
                         style="@style/font_default"
+                        android:text="@string/fplx" />
+
+                    <EditText
+                        android:id="@+id/et_fplx"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView
+                        style="@style/imageview_jt"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+                <View style="@style/underline" />
+
+
+                <LinearLayout style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
                         android:text="@string/xm" />
 
                     <EditText
@@ -168,7 +185,6 @@
 
                     <ImageView style="@style/imageview_jt" />
                 </LinearLayout>
-
                 <View
                     style="@style/underline"
                     android:visibility="gone" />
@@ -273,8 +289,7 @@
                 <View style="@style/underline" />
 
                 <LinearLayout
-                    style="@style/detail_relativelayout"
-                    android:visibility="gone">
+                    style="@style/detail_relativelayout">
 
                     <TextView
                         style="@style/font_default"
@@ -286,9 +301,7 @@
                         android:inputType="numberDecimal" />
                 </LinearLayout>
 
-                <View
-                    style="@style/underline"
-                    android:visibility="gone" />
+                <View style="@style/underline" />
 
                 <LinearLayout style="@style/detail_relativelayout">
 
@@ -301,7 +314,6 @@
                         style="@style/edittext_bj"
                         android:inputType="numberDecimal" />
                 </LinearLayout>
-
                 <View style="@style/underline" />
 
                 <LinearLayout style="@style/detail_relativelayout">
@@ -350,8 +362,24 @@
 
                     <ImageView style="@style/imageview_jt" />
                 </LinearLayout>
-
                 <View style="@style/underline" />
+
+                <LinearLayout style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="物流公司" />
+
+                    <EditText
+                        android:id="@+id/et_wlgs"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+                <View style="@style/underline" />
+
+
+
 
                 <LinearLayout style="@style/detail_relativelayout">
 

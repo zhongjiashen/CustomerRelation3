@@ -422,6 +422,9 @@
             </LinearLayout>
 
             <View style="@style/underline" />
+
+
+
             <LinearLayout style="@style/detail_relativelayout">
 
                 <TextView
@@ -434,9 +437,6 @@
 
                 <ImageView style="@style/imageview_jt" />
             </LinearLayout>
-
-
-
             <View style="@style/underline" />
 
             <LinearLayout style="@style/detail_relativelayout">
