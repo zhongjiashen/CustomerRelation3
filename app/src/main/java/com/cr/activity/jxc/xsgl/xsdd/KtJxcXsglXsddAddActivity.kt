@@ -65,6 +65,14 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
             gys_edittext.setText(map["cname"].toString())
             gysId = map["id"].toString()
         }
+
+
+        departmentid = ShareUserInfo.getKey(this, "departmentid")
+        et_bm.setText(ShareUserInfo.getKey(this, "depname"))
+        jbr_edittext.setText(ShareUserInfo.getKey(this, "opname"))
+        jbrId = ShareUserInfo.getKey(this, "empid")
+
+
         et_fplx.setText("收据")
         billtypeid="1"
         mTaxrate="0"

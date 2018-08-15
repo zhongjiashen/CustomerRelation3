@@ -142,6 +142,10 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+
+
+
+
         fklxEditText.setText("应付账款");
         fklxId ="0";
         EditTextHelper.EditTextEnable(false,fkjeEditText);

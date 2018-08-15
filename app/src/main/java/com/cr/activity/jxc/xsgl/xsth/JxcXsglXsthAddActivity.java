@@ -214,6 +214,13 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
         xzspListview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        jbrEdittext.setText(ShareUserInfo.getKey(this, "opname"));
+        jbrId =  ShareUserInfo.getKey(this, "empid");
+
+
         etFplx.setText("收据");
         billtypeid = "1";
         mTaxrate = "0";

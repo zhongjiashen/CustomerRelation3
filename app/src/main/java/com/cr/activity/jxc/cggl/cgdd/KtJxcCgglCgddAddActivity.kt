@@ -65,6 +65,14 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         xzsp_listview.adapter = adapter;
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         djrq_edittext.setText(sdf.format(Date()))
+
+
+        departmentid = ShareUserInfo.getKey(this, "departmentid")
+        et_bm.setText(ShareUserInfo.getKey(this, "depname"))
+        jbr_edittext.setText(ShareUserInfo.getKey(this, "opname"))
+        jbrId = ShareUserInfo.getKey(this, "empid")
+
+
         et_fplx.setText("收据")
         billtypeid="1"
         mTaxrate="0"
