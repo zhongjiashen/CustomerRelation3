@@ -81,6 +81,7 @@ public class CommonXzczyActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 			    Map<String, Object> map=list.get(arg2-1);
+				//[{"id":1,"opcode":"000","opname":"系统管理员","fullname":"000--系统管理员","empid":0,"departmentid":1,"depcode":"01","depname":"总部"},{"id":5,"opcode":"001","opname":"管理员","fullname":"001--管理员","empid":1,"departmentid":1,"depcode":"01","depname":"总部"},{"id":6,"opcode":"002","opname":"张凯","fullname":"002--张凯","empid":2,"departmentid":1,"depcode":"01","depname":"总部"},{"id":7,"opcode":"003","opname":"王月芳","fullname":"003--王月芳","empid":3,"departmentid":3,"depcode":"02","depname":"销售部"},{"id":8,"opcode":"004","opname":"王丽丽","fullname":"004--王丽丽","empid":4,"departmentid":3,"depcode":"02","depname":"销售部"},{"id":9,"opcode":"005","opname":"张青青","fullname":"005--张青青","empid":5,"departmentid":4,"depcode":"03","depname":"人事部"},{"id":10,"opcode":"006","opname":"李雯","fullname":"006--李雯","empid":68,"departmentid":4,"depcode":"03","depname":"人事部"}]
 			    Intent intent=new Intent();
 			    intent.putExtra("id",map.get("opcode").toString());
 			    intent.putExtra("name", map.get("fullname").toString());

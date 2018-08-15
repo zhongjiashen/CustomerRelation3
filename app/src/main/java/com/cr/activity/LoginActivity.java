@@ -140,6 +140,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                         ShareUserInfo.setKey(context, "bhId",  bhEditText.getText().toString());
                         ShareUserInfo.setKey(context, "zt", ztSpinner.getSelectedItem().toString());
                         ShareUserInfo.setDbName(context, dbName);
+
+                        ShareUserInfo.setKey(context, "empid", userLogin.getEmpid());//
+                        ShareUserInfo.setKey(context, "empname", userLogin.getOpname());//
+                        ShareUserInfo.setKey(context, "opname", userLogin.getOpname());//
+                        ShareUserInfo.setKey(context, "departmentid", userLogin.getDepartmentid());//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
+                        ShareUserInfo.setKey(context, "depname", userLogin.getDepname());//设置empid，报表的时候使用
+
                         String s = "#loguserinfo#" + userLogin.getId() + ","
                                    + userLogin.getOpname() + ","
                                    + ztSpinner.getSelectedItem().toString() + "," + dbName + ",1";
