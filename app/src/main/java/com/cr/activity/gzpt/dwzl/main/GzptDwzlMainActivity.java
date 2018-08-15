@@ -193,9 +193,9 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
         tabLayout= (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         dwView = new UnitView(this);
-        lxrView = new ContactView(this, clientId);
-        bfView = new VisitView(this, clientId, khmc);
-        jhView = new OpportunityView(this, clientId, khmc);
+        lxrView = new ContactView(this);
+//        bfView = new VisitView(this, clientId, khmc);
+//        jhView = new OpportunityView(this, clientId, khmc);
         fwView = new ServiceView(this);
         ddView = new OrdersView(this);
         xmView = new ProjectView(this);

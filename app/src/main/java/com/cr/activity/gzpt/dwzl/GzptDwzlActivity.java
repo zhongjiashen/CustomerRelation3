@@ -14,24 +14,20 @@ import com.cr.activity.BaseActivity;
 import com.cr.activity.gzpt.dwzl.main.FjzxPageAdapter;
 import com.cr.activity.gzpt.dwzl.main.view.BaseView;
 import com.cr.activity.gzpt.dwzl.main.view.ContactView;
+import com.cr.activity.gzpt.dwzl.main.view.KdView;
 import com.cr.activity.gzpt.dwzl.main.view.OpportunityView;
 import com.cr.activity.gzpt.dwzl.main.view.OrdersView;
 import com.cr.activity.gzpt.dwzl.main.view.ProjectView;
-import com.cr.activity.gzpt.dwzl.main.view.ServiceView;
 import com.cr.activity.gzpt.dwzl.main.view.UnitView;
 import com.cr.activity.gzpt.dwzl.main.view.VisitView;
-import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddAddActivity;
 import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddAddActivity;
 import com.cr.activity.khfw.KhfwAddActivity;
-import com.cr.activity.xm.XzxmActivity;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.project.AddProjectActivity;
-import com.update.actiity.project.ProjectManagementActivity;
 import com.update.actiity.sales.AddSalesOpportunitiesActivity;
-import com.update.actiity.sales.SalesOpportunitiesManagementActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,7 +45,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     FjzxPageAdapter myAdapter;
     List<BaseView> viewPage = new ArrayList<BaseView>();
     private LayoutInflater inflater;
-    private BaseView dwView, lxrView, bfView, jhView, fwView, ddView, xmView;
+    private BaseView dwView, lxrView, bfView, jhView, fwView, ddView, kdView, xmView;
 
     private boolean islxr = false, isBf = false, isJh = false, isFw = false,
             isDd = false, isXm = false;                                                                          // 是否是第一次加载
@@ -62,7 +58,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     List<Map<String, Object>> xmList = new ArrayList<Map<String, Object>>();
 
 
-    private String clientId = "", khdjid = "", khmc = "";                                                          // 单位的ID
+    public String clientId = "", khdjid = "", khmc = "";                                                          // 单位的ID
     private String types = "";                                                     //客户的类型
     private Map<String, Object> object = new HashMap<String, Object>();
     private Map<String, Object> dwObject = new HashMap<String, Object>();
@@ -84,191 +80,46 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         initActivity();
         addFHMethod();
         addZYMethod();
-        searchDateDw(0);
-        if (types.equals("1")) {//客户
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "项目"};
-            //设置可以滑动
-            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-            List<BaseView> v = new ArrayList<BaseView>();
-            for (int i = 0; i < viewPage.size(); i++) {
-                switch (i) {
-                    case 0:
 
-                        break;
-                    case 1:
 
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 5:
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-            viewPage.removeAll(v);
-
-        } else if (types.equals("2")) {//供应商
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
-            //设置
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-
-            List<BaseView> v = new ArrayList<BaseView>();
-            for (int i = 0; i < viewPage.size(); i++) {
-                switch (i) {
-                    case 0:
-
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 4:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 5:
-                        v.add(viewPage.get(i));
-                        break;
-                    default:
-                        break;
-                }
-            }
-            viewPage.removeAll(v);
-        } else if (types.equals("3")) {//竞争对手
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
-            //设置
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            List<BaseView> v = new ArrayList<BaseView>();
-            for (int i = 0; i < viewPage.size(); i++) {
-                switch (i) {
-                    case 0:
-
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 4:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 5:
-                        v.add(viewPage.get(i));
-                        break;
-                    default:
-                        break;
-                }
-            }
-            viewPage.removeAll(v);
-        } else if (types.equals("4")) {//渠道
-            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "项目"};
-            //设置可以滑动
-            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-            List<BaseView> v = new ArrayList<BaseView>();
-            for (int i = 0; i < viewPage.size(); i++) {
-                switch (i) {
-                    case 0:
-
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 5:
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-            viewPage.removeAll(v);
-        } else if (types.equals("5")) {//员工
-//            dwTextView.setText("基本信息");
-            myAdapter.mTitles = new String[]{"基本信息", "拜访", "项目"};
-            //设置
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            UnitView view = (UnitView) dwView;
-            view.Visibility();
-
-            List<BaseView> v = new ArrayList<BaseView>();
-            for (int i = 0; i < viewPage.size(); i++) {
-                switch (i) {
-                    case 0:
-
-                        break;
-                    case 1:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 4:
-                        v.add(viewPage.get(i));
-                        break;
-                    case 5:
-                        v.add(viewPage.get(i));
-                        break;
-                    default:
-                        break;
-                }
-            }
-            viewPage.removeAll(v);
-        }
-        myAdapter.setmViewList(viewPage);
-        myAdapter.notifyDataSetChanged();
     }
 
     /**
      * 初始化Activity
      */
     private void initActivity() {
-
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
         tabLayout.setupWithViewPager(viewPager);
-
         dwView = new UnitView(this);
-        lxrView = new ContactView(this, clientId);
-        bfView = new VisitView(this, clientId, khmc);
-        jhView = new OpportunityView(this, clientId, khmc);
-        fwView = new ServiceView(this);
-        ddView = new OrdersView(this);
-        xmView = new ProjectView(this);
         viewPage.add(dwView);
-        viewPage.add(lxrView);
+        if (!types.equals("5")) {
+            lxrView = new ContactView(this);
+            viewPage.add(lxrView);
+        }
+        bfView = new VisitView(this);
         viewPage.add(bfView);
-        viewPage.add(jhView);
-        viewPage.add(fwView);
-        viewPage.add(ddView);
+        if (types.equals("1") || types.equals("4")) {
+            jhView = new OpportunityView(this);
+            viewPage.add(jhView);
+        }
+//        fwView = new ServiceView(this);
+//        viewPage.add(fwView);
+        if (types.equals("1") || types.equals("4")) {
+            ddView = new OrdersView(this);
+            viewPage.add(ddView);
+        }
+//        客户和渠道对应的开单是销售开单列表
+        if (types.equals("1") || types.equals("4")) {
+            kdView = new KdView(this, 0);
+            viewPage.add(kdView);
+        }
+        // 供应商对应的是采购收货列表
+        if (types.equals("2")) {
+            kdView = new KdView(this, 1);
+            viewPage.add(kdView);
+        }
+        xmView = new ProjectView(this);
         viewPage.add(xmView);
         myAdapter = new FjzxPageAdapter();
         viewPager.setAdapter(myAdapter);
@@ -291,115 +142,197 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 // Log.v("dddd", "onPageScrollStateChanged");
             }
         });
+        switch (types) {
+            case "1"://客户
+                myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "开单", "项目"};
+                break;
+            case "2"://供应商
+                myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "开单", "项目"};
+                //设置
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                break;
+            case "3"://竞争对手
+                myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
+                //设置
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                break;
+            case "4"://渠道
+                myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "开单", "项目"};
+                //设置可以滑动
+                tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+                break;
+            case "5"://员工
+//            dwTextView.setText("基本信息");
+                myAdapter.mTitles = new String[]{"基本信息", "拜访", "项目"};
+                //设置
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                UnitView view = (UnitView) dwView;
+                view.Visibility();
+                break;
+        }
+
+//        if (types.equals("1")) {//客户
+//            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "项目"};
+//            //设置可以滑动
+//            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+//            List<BaseView> v = new ArrayList<BaseView>();
+//            for (int i = 0; i < viewPage.size(); i++) {
+//                switch (i) {
+//                    case 0:
+//
+//                        break;
+//                    case 1:
+//
+//                        break;
+//                    case 2:
+//
+//                        break;
+//                    case 3:
+//
+//                        break;
+//                    case 4:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 5:
+//
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//            viewPage.removeAll(v);
+//
+//        } else if (types.equals("2")) {//供应商
+//            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
+//            //设置
+//            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+//
+//            List<BaseView> v = new ArrayList<BaseView>();
+//            for (int i = 0; i < viewPage.size(); i++) {
+//                switch (i) {
+//                    case 0:
+//
+//                        break;
+//                    case 1:
+//
+//                        break;
+//                    case 2:
+//
+//                        break;
+//                    case 3:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 4:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 5:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//            viewPage.removeAll(v);
+//        } else if (types.equals("3")) {//竞争对手
+//            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
+//            //设置
+//            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+//            List<BaseView> v = new ArrayList<BaseView>();
+//            for (int i = 0; i < viewPage.size(); i++) {
+//                switch (i) {
+//                    case 0:
+//
+//                        break;
+//                    case 1:
+//
+//                        break;
+//                    case 2:
+//
+//                        break;
+//                    case 3:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 4:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 5:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//            viewPage.removeAll(v);
+//        } else if (types.equals("4")) {//渠道
+//            myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "项目"};
+//            //设置可以滑动
+//            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+//            List<BaseView> v = new ArrayList<BaseView>();
+//            for (int i = 0; i < viewPage.size(); i++) {
+//                switch (i) {
+//                    case 0:
+//
+//                        break;
+//                    case 1:
+//
+//                        break;
+//                    case 2:
+//
+//                        break;
+//                    case 3:
+//
+//                        break;
+//                    case 4:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 5:
+//
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//            viewPage.removeAll(v);
+//        } else if (types.equals("5")) {//员工
+////            dwTextView.setText("基本信息");
+//            myAdapter.mTitles = new String[]{"基本信息", "拜访", "项目"};
+//            //设置
+//            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+//            UnitView view = (UnitView) dwView;
+//            view.Visibility();
+//
+//            List<BaseView> v = new ArrayList<BaseView>();
+//            for (int i = 0; i < viewPage.size(); i++) {
+//                switch (i) {
+//                    case 0:
+//
+//                        break;
+//                    case 1:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 2:
+//
+//                        break;
+//                    case 3:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 4:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    case 5:
+//                        v.add(viewPage.get(i));
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//            viewPage.removeAll(v);
+//        }
+        myAdapter.setmViewList(viewPage);
+        myAdapter.notifyDataSetChanged();
+        viewPage.get(0).initData();//第一个页面加载数据
     }
 
-
-    /**
-     * 连接网络的操作(单位)
-     */
-    public void searchDateDw(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("clientid", clientId);
-        findServiceData(type, ServerURL.CLIENTINFO, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(联系人)
-     */
-    public void searchDateLxr(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        // parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("clientid", clientId);
-        parmMap.put("lxrname", "");
-        parmMap.put("curpage", currentPage);
-        parmMap.put("pagesize", pageSize);
-        findServiceData(type, ServerURL.LXRLIST, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(拜访)
-     */
-    public void searchDateBf(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("clientid ", clientId);
-        parmMap.put("curpage", currentPage);
-        parmMap.put("pagesize", pageSize);
-        findServiceData(type, ServerURL.VISITINFO, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(机会)
-     */
-    public void searchDateJh(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("tabname", "tb_chance");
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("qsrq", "1901-01-01");
-        parmMap.put("zzrq", "3000-01-01");
-        parmMap.put("clientid", clientId);
-        parmMap.put("curpage", currentPage);
-        parmMap.put("pagesize", pageSize);
-        findServiceData(type, ServerURL.BILLLIST, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(服务)
-     */
-    public void searchDateFw(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("clientid ", clientId);
-        parmMap.put("qsrq", "");
-        parmMap.put("zzrq", "");
-        parmMap.put("billcode", "");
-        parmMap.put("billtype", "");
-        parmMap.put("shzt", "");
-        parmMap.put("filter", "");
-        parmMap.put("curpage", currentPage);
-        parmMap.put("pagesize", pageSize);
-        findServiceData(type, ServerURL.SHWXINFO, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(订单)
-     */
-    public void searchDateDd(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("tabname", "tb_sorder");
-        parmMap.put("qsrq", "1901-01-01");
-        parmMap.put("zzrq", "3000-01-01");
-        parmMap.put("billcode", "");
-        parmMap.put("cname", "");
-        parmMap.put("clientid ", clientId);
-        parmMap.put("curpage", currentPage);
-        parmMap.put("pagesize", pageSize);
-        findServiceData(type, ServerURL.BILLLIST, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(項目)
-     */
-    public void searchDateXm(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("tabname", "tb_project");
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("clientid", clientId);
-        parmMap.put("qsrq", "1901-01-01");
-        parmMap.put("zzrq", "3000-01-01");
-        parmMap.put("cname", "");
-        parmMap.put("title", "");
-        parmMap.put("curpage", currentPage);
-        parmMap.put("pagesize", pageSize);
-        findServiceData(type, ServerURL.BILLLIST, parmMap);
-    }
 
     /**
      * 监听事件
@@ -549,6 +482,14 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                     xmView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
                 }
+            case 7:
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+//                    Toast.makeText(GzptDwzlActivity.this,"fasf",Toast.LENGTH_SHORT).show();
+                } else {
+                    kdView.setData((List<Map<String, Object>>) PaseJson
+                            .paseJsonToObject(returnJson));
+                }
 
                 break;
             default:
@@ -561,21 +502,31 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 0) {// 新增联系人
-                lxrView.initData();
-
-            } else if (requestCode == 1) {// 单位
-                dwView.initData();
-            } else if (requestCode == 2) {// 拜访
-                bfView.initData();
-            } else if (requestCode == 3) {// 机会
-                jhView.initData();
-            } else if (requestCode == 4) {// 服务
-                fwView.initData();
-            } else if (requestCode == 5) {// 订单
-                ddView.initData();
-            } else if (requestCode == 6) {// 項目
-                xmView.initData();
+            switch (requestCode) {
+                case 0:// 新增联系人
+                    lxrView.initData();
+                    break;
+                case 1:// 单位
+                    dwView.initData();
+                    break;
+                case 2:// 拜访
+                    bfView.initData();
+                    break;
+                case 3:// 机会
+                    jhView.initData();
+                    break;
+                case 4:// 服务
+                    fwView.initData();
+                    break;
+                case 5:// 订单
+                    ddView.initData();
+                    break;
+                case 6:// 項目
+                    xmView.initData();
+                    break;
+                case 7://开单
+                    kdView.initData();
+                    break;
             }
         }
     }

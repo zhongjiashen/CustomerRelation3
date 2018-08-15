@@ -1,7 +1,4 @@
-package com.cr.adapter.jxc.cggl.cgsh;
-
-import java.util.List;
-import java.util.Map;
+package com.cr.adapter.gzpt.dwzl;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -13,15 +10,22 @@ import android.widget.TextView;
 
 import com.crcxj.activity.R;
 
-public class JxcCgglCgshAdapter extends BaseAdapter {
+import java.util.List;
+import java.util.Map;
+
+public class GzptDwzlKdAdapter extends BaseAdapter {
 
 	List<Map<String, Object>> list;
 	private Activity activity;
 	private int selectIndex;
 
-	public JxcCgglCgshAdapter(List<Map<String, Object>> list,Activity activity) {
+	public GzptDwzlKdAdapter(List<Map<String, Object>> list, Activity activity) {
 		this.list=list;
 		this.activity=activity;
+	}
+	public void setList(List<Map<String, Object>> list) {
+		this.list = list;
+		notifyDataSetChanged();
 	}
 	@Override
 	public int getCount() {

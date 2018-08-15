@@ -9,10 +9,13 @@ import android.widget.TextView;
 import com.cr.activity.gzpt.dwzl.GzptDwzlLxrDetailActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlLxrAdapter;
 import com.cr.common.XListView;
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +30,8 @@ public class ContactView extends BaseView {
     List<Map<String, Object>>   lxrList  = new ArrayList<Map<String, Object>>();
 
     private TextView  xzlxrTextView;
+
+    private int page=1;
     /**
      * 刷新(联系人)
      */
@@ -39,9 +44,10 @@ public class ContactView extends BaseView {
         xListView.setRefreshTime(new Date().toLocaleString());
     }
 
-    public ContactView(Activity activity,String clientId) {
+    public ContactView(Activity activity) {
         super(activity);
-        this.clientId=clientId;
+
+        page=1;
     }
 
     @Override
@@ -62,8 +68,8 @@ public class ContactView extends BaseView {
                 activity.handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
                     @Override
                     public void run() {
-                        activity.currentPage++;
-                        activity.searchDateLxr(1);
+                        page++;
+                        searchDateLxr(1,page);
                         onLoadLxr();
                     }
                 }, 2000);
@@ -78,7 +84,7 @@ public class ContactView extends BaseView {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Intent intent = new Intent(activity, GzptDwzlLxrDetailActivity.class);
                 intent.putExtra("lxrid", lxrList.get(arg2 - 1).get("id").toString());
-                intent.putExtra("clientid", clientId);
+                intent.putExtra("clientid", activity.clientId);
                 activity.startActivity(intent);
             }
         });
@@ -92,7 +98,7 @@ public class ContactView extends BaseView {
     @Override
     public void initData() {
         lxrList.clear();
-        activity.searchDateLxr(1);
+       searchDateLxr(1, 1);
 
         isFirst=true;
     }
@@ -102,5 +108,19 @@ public class ContactView extends BaseView {
         lxrList.addAll(list);
         lxrAdapter.setList(lxrList);
         onLoadLxr();
+    }
+
+    /**
+     * 连接网络的操作(联系人)
+     */
+    public void searchDateLxr(int type,int page) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(activity));
+        // parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("clientid", activity.clientId);
+        parmMap.put("lxrname", "");
+        parmMap.put("curpage", page);
+        parmMap.put("pagesize", pageSize);
+       activity. findServiceData(type, ServerURL.LXRLIST, parmMap);
     }
 }

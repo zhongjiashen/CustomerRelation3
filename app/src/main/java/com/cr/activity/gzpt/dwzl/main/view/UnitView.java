@@ -6,8 +6,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +59,7 @@ public class UnitView extends BaseView{
 
     @Override
     public void initData() {
-        activity.searchDateDw(0);
+        searchDateDw(0);
         isFirst=true;
     }
 
@@ -74,5 +77,14 @@ public class UnitView extends BaseView{
         dzTextView.setText(list.get(0).get("address").toString());
         wzTextView.setText(list.get(0).get("cnet").toString());
         bzTextView.setText(list.get(0).get("memo").toString());
+    }
+    /**
+     * 连接网络的操作(单位)
+     */
+    public void searchDateDw(int type) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(activity));
+        parmMap.put("clientid", activity.clientId);
+        activity.findServiceData(type, ServerURL.CLIENTINFO, parmMap);
     }
 }

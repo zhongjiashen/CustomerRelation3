@@ -9,12 +9,15 @@ import android.widget.TextView;
 import com.cr.activity.gzpt.dwzl.GzptDwzlJhXzxsjhActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlJhAdapter;
 import com.cr.common.XListView;
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.sales.SalesOpportunitiesActivity;
 import com.update.actiity.sales.SalesOpportunitiesManagementActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,16 +26,15 @@ import java.util.Map;
  * 机会
  */
 
-public class OpportunityView extends BaseView{
+public class OpportunityView extends BaseView {
     List<Map<String, Object>> jhList = new ArrayList<Map<String, Object>>();
-    private GzptDwzlJhAdapter   jhAdapter;
-    private String khmc;
+    private GzptDwzlJhAdapter jhAdapter;
     private TextView xzxsjhTextView;
-
+    private int page = 1;
     /**
      * 刷新(机会)
      */
-    private XListView.IXListViewListener xListViewListenerJh ;
+    private XListView.IXListViewListener xListViewListenerJh;
 
     @SuppressWarnings("deprecation")
     private void onLoadJh() {// 停止刷新和加载功能，并且显示时间
@@ -41,10 +43,9 @@ public class OpportunityView extends BaseView{
         xListView.setRefreshTime(new Date().toLocaleString());
     }
 
-    public OpportunityView(Activity activity, String clientId, String khmc) {
+    public OpportunityView(Activity activity) {
         super(activity);
-        this.clientId = clientId;
-        this.khmc = khmc;
+        page = 1;
     }
 
     @Override
@@ -62,17 +63,17 @@ public class OpportunityView extends BaseView{
 
             @Override
             public void onLoadMore() {
-                activity. handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
+                activity.handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
                     @Override
                     public void run() {
-                        activity.currentPage++;
-                        activity.searchDateJh(3) ;
+                        page++;
+                        searchDateJh(3);
                         onLoadJh();
                     }
                 }, 2000);
             }
         };
-        view=  View.inflate(activity, R.layout.activity_gzpt_dwzl_jh, null);
+        view = View.inflate(activity, R.layout.activity_gzpt_dwzl_jh, null);
         xListView = (XListView) view.findViewById(R.id.listview);
         jhAdapter = new GzptDwzlJhAdapter(jhList, activity);
         xListView.setXListViewListener(xListViewListenerJh);
@@ -80,7 +81,7 @@ public class OpportunityView extends BaseView{
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 activity.startActivityForResult(new Intent(activity, SalesOpportunitiesActivity.class)
-                                .putExtra("billid", jhList.get(arg2 - 1).get("billid").toString()),3);
+                        .putExtra("billid", jhList.get(arg2 - 1).get("billid").toString()), 3);
 //                Intent intent = new Intent();
 //                intent.setClass(activity, GzptDwzlJhXzxsjhActivity.class);
 //                intent.putExtra("clientid", clientId);
@@ -101,15 +102,32 @@ public class OpportunityView extends BaseView{
     @Override
     public void initData() {
         jhList.clear();
-        activity.searchDateJh(3) ;
+        page = 1;
+        searchDateJh(3);
 
-        isFirst=true;
+        isFirst = true;
     }
 
     @Override
-    public  void setData(List<Map<String, Object>> list) {
+    public void setData(List<Map<String, Object>> list) {
         jhList.addAll(list);
         jhAdapter.setList(jhList);
         onLoadJh();
+    }
+
+    /**
+     * 连接网络的操作(机会)
+     */
+    public void searchDateJh(int type) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(activity));
+        parmMap.put("tabname", "tb_chance");
+        parmMap.put("opid", ShareUserInfo.getUserId(activity));
+        parmMap.put("qsrq", "1901-01-01");
+        parmMap.put("zzrq", "3000-01-01");
+        parmMap.put("clientid", activity.clientId);
+        parmMap.put("curpage", page);
+        parmMap.put("pagesize", pageSize);
+        activity.findServiceData(type, ServerURL.BILLLIST, parmMap);
     }
 }

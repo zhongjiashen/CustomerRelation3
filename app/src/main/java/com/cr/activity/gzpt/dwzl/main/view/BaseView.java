@@ -14,27 +14,14 @@ import java.util.Map;
  */
 
 public abstract class BaseView {
-    protected String              clientId="",khdjid="";
+
     protected XListView xListView;
     public boolean isFirst;
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
-
-    public String getKhdjid() {
-        return khdjid;
-    }
-
-    public void setKhdjid(String khdjid) {
-        this.khdjid = khdjid;
-    }
 
     protected GzptDwzlActivity activity;
     public View view;
+
+    public int pageSize = 10;// 每页的条数
     public BaseView(Activity activity) {
         this.activity = (GzptDwzlActivity) activity;
         initViews();

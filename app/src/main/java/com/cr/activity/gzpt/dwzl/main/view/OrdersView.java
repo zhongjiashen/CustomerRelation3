@@ -10,10 +10,13 @@ import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity;
 import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlDdAdapter;
 import com.cr.common.XListView;
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +30,7 @@ public class OrdersView extends BaseView{
     List<Map<String, Object>> ddList = new ArrayList<Map<String, Object>>();
     private GzptDwzlDdAdapter ddAdapter;
     private TextView xzxsddTextView ;
+    private int page = 1;
     public OrdersView(Activity activity) {
         super(activity);
     }
@@ -59,8 +63,8 @@ public class OrdersView extends BaseView{
                 activity.handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
                     @Override
                     public void run() {
-                        activity.currentPage++;
-                        activity.searchDateDd(5);
+                        page++;
+                        searchDateDd(5);
                         onLoadBf();
                     }
                 }, 2000);
@@ -89,7 +93,8 @@ public class OrdersView extends BaseView{
     @Override
     public void initData() {
         ddList.clear();
-        activity.searchDateDd(5);
+        page=1;
+        searchDateDd(5);
 
         isFirst=true;
     }
@@ -99,5 +104,22 @@ public class OrdersView extends BaseView{
         ddList.addAll(list);
         ddAdapter.setList(ddList);
         onLoadBf();
+    }
+    /**
+     * 连接网络的操作(订单)
+     */
+    public void searchDateDd(int type) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(activity));
+        parmMap.put("opid", ShareUserInfo.getUserId(activity));
+        parmMap.put("tabname", "tb_sorder");
+        parmMap.put("qsrq", "1901-01-01");
+        parmMap.put("zzrq", "3000-01-01");
+        parmMap.put("billcode", "");
+        parmMap.put("cname", "");
+        parmMap.put("clientid ", activity.clientId);
+        parmMap.put("curpage",page);
+        parmMap.put("pagesize", pageSize);
+        activity.findServiceData(type, ServerURL.BILLLIST, parmMap);
     }
 }

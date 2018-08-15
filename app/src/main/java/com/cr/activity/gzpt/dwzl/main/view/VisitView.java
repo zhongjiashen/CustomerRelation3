@@ -9,11 +9,14 @@ import android.widget.TextView;
 import com.cr.activity.gzpt.dwzl.GzptDwzlBfBflrDetailActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlBfAdapter;
 import com.cr.common.XListView;
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +28,9 @@ import java.util.Map;
 public class VisitView extends BaseView {
     List<Map<String, Object>> bfList = new ArrayList<Map<String, Object>>();
     private GzptDwzlBfAdapter bfAdapter;
-    private String khmc;
     private TextView bflrTextView;
+
+    private int page = 1;
     /**
      * 刷新（拜访）
      */
@@ -38,10 +42,9 @@ public class VisitView extends BaseView {
         xListView.stopLoadMore();
         xListView.setRefreshTime(new Date().toLocaleString());
     }
-    public VisitView(Activity activity, String clientId, String khmc) {
+    public VisitView(Activity activity) {
         super(activity);
-        this.clientId = clientId;
-        this.khmc = khmc;
+
     }
 
     @Override
@@ -62,8 +65,8 @@ public class VisitView extends BaseView {
                 activity.handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
                     @Override
                     public void run() {
-                        activity.currentPage++;
-                        activity.searchDateBf(2);
+                        page++;
+                        searchDateBf(2);
                         onLoadBf();
                     }
                 }, 2000);
@@ -83,8 +86,8 @@ public class VisitView extends BaseView {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Intent intent = new Intent();
                 intent.setClass(activity, GzptDwzlBfBflrDetailActivity.class);
-                intent.putExtra("clientname", khmc);
-                intent.putExtra("clientid", clientId);
+                intent.putExtra("clientname", activity.khmc);
+                intent.putExtra("clientid", activity.clientId);
                 intent.putExtra("object", (Serializable) bfList.get(arg2 - 1));
                 activity.startActivity(intent);
             }
@@ -94,7 +97,8 @@ public class VisitView extends BaseView {
     @Override
     public void initData() {
         bfList.clear();
-        activity.searchDateBf(2);
+        page=1;
+       searchDateBf(2);
 
         isFirst=true;
     }
@@ -104,5 +108,18 @@ public class VisitView extends BaseView {
         bfList.addAll(list);
         bfAdapter.setList(bfList);
         onLoadBf();
+    }
+
+    /**
+     * 连接网络的操作(拜访)
+     */
+    public void searchDateBf(int type) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(activity));
+        parmMap.put("opid", ShareUserInfo.getUserId(activity));
+        parmMap.put("clientid ", activity.clientId);
+        parmMap.put("curpage", page);
+        parmMap.put("pagesize", pageSize);
+        activity.findServiceData(type, ServerURL.VISITINFO, parmMap);
     }
 }

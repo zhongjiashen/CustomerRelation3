@@ -9,10 +9,13 @@ import android.widget.TextView;
 import com.cr.activity.khfw.KhfwDetailActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlFwAdapter;
 import com.cr.common.XListView;
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,14 +28,16 @@ public class ServiceView extends BaseView {
     private TextView xzfwdTextView;
     private GzptDwzlFwAdapter fwAdapter;
     List<Map<String, Object>> fwList = new ArrayList<Map<String, Object>>();
+    private int page = 1;
 
     public ServiceView(Activity activity) {
         super(activity);
     }
+
     /**
      * 刷新（服务）
      */
-    private XListView.IXListViewListener xListViewListenerFw ;
+    private XListView.IXListViewListener xListViewListenerFw;
 
     @SuppressWarnings("deprecation")
     private void onLoadBf() {// 停止刷新和加载功能，并且显示时间
@@ -40,6 +45,7 @@ public class ServiceView extends BaseView {
         xListView.stopLoadMore();
         xListView.setRefreshTime(new Date().toLocaleString());
     }
+
     @Override
     protected void initViews() {
         xListViewListenerFw = new XListView.IXListViewListener() {
@@ -58,8 +64,8 @@ public class ServiceView extends BaseView {
                 activity.handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
                     @Override
                     public void run() {
-                        activity.currentPage++;
-                        activity.searchDateFw(4);
+                        page++;
+                        searchDateFw(4);
                         onLoadBf();
                     }
                 }, 2000);
@@ -88,9 +94,10 @@ public class ServiceView extends BaseView {
     @Override
     public void initData() {
         fwList.clear();
-        activity.searchDateFw(4);
+        page = 1;
+        searchDateFw(4);
 
-        isFirst=true;
+        isFirst = true;
     }
 
     @Override
@@ -98,5 +105,23 @@ public class ServiceView extends BaseView {
         fwList.addAll(list);
         fwAdapter.setList(fwList);
         onLoadBf();
+    }
+
+    /**
+     * 连接网络的操作(服务)
+     */
+    public void searchDateFw(int type) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(activity));
+        parmMap.put("clientid ", activity.clientId);
+        parmMap.put("qsrq", "");
+        parmMap.put("zzrq", "");
+        parmMap.put("billcode", "");
+        parmMap.put("billtype", "");
+        parmMap.put("shzt", "");
+        parmMap.put("filter", "");
+        parmMap.put("curpage", page);
+        parmMap.put("pagesize", pageSize);
+        activity.findServiceData(type, ServerURL.SHWXINFO, parmMap);
     }
 }
