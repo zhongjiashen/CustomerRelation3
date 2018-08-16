@@ -53,9 +53,10 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     protected void onCreate(Bundle savedInstanceState) {
         getTakePhoto().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
+        mActivity=this;
         initVariables();
         setContentView(getLayout());
-        mActivity=this;
+
         ButterKnife.bind(this);
         init();
 

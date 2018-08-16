@@ -1,4 +1,4 @@
-package com.cr.activity;
+package com.cr.activity.index;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -32,6 +32,24 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
+import com.cr.activity.BaseActivity;
+import com.cr.activity.FKActivity;
+import com.cr.activity.GYActivity;
+import com.cr.activity.GzptHjzxXzjhActivity;
+import com.cr.activity.GzptJqxzdwActivity;
+import com.cr.activity.GzptKhglActivity;
+import com.cr.activity.GzptShhfActivity;
+import com.cr.activity.GzptXzldActivity;
+import com.cr.activity.GzptYybfActivity;
+import com.cr.activity.JhzjRjhActivity;
+import com.cr.activity.JhzjYjhActivity;
+import com.cr.activity.JhzjZdyjhActivity;
+import com.cr.activity.JhzjZjhActivity;
+import com.cr.activity.MainActivity;
+import com.cr.activity.MstxGrrcActivity;
+import com.cr.activity.MstxGsggActivity;
+import com.cr.activity.MstxGztxActivity;
+import com.cr.activity.QdXzqdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddActivity;
 import com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshActivity;
@@ -46,11 +64,13 @@ import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdActivity;
 import com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskActivity;
 import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthActivity;
 import com.cr.activity.khfw.KhfwActivity;
+import com.cr.activity.tjfx.fzb.KtTjfxFzbActivity;
 import com.cr.activity.tjfx.jyzk.TjfxJyzkActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbActivity;
 import com.cr.activity.tjfx.khbftj.TjfxKhbftjActivity;
 import com.cr.activity.tjfx.khdjtj.TjfxKhdjtjActivity;
 import com.cr.activity.tjfx.khfwtj.TjfxKhfwtjActivity;
+import com.cr.activity.tjfx.lrb.KtTjfxLrbActivity;
 import com.cr.activity.tjfx.xkhtj.TjfxXkhtjActivity;
 import com.cr.activity.tjfx.xsjdtj.TjfxXsjdtjActivity;
 import com.cr.activity.tjfx.xsjhtj.TjfxXsjhtjActivity;
@@ -256,30 +276,109 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         xjyhIndexModelList = new ArrayList<IndexModel>();
         tjfxIndexModelList = new ArrayList<IndexModel>();
         khgxbbIndexModelList = new ArrayList<IndexModel>();
+        mstx();//秘书提醒
+        gzpt();//工作平台
+        azwx();//安装维修
+        jhzj();//计划总结
+
+        cggl();//采购管理
+        xsgl();//销售管理
+        ckgl();//仓库管理
+
+        xjyh();//现金银行
+
+        khgxbb();//客户关系报表
+        cwtj();//财务统计
+
+        String category = ShareUserInfo.getKey(context, "zt");
+//        租赁企业版、IT企业版、IT专业版这三个版屏蔽客户服务(标准专业版版\汽配版等保留)，统计分析中客户服务统计也给屏蔽了
+//        if (category.equals("租赁企业版") || category.equals("IT企业版") || category.equals("IT专业版")) {
+//            gzptIndexModelList.remove(6);//屏蔽
+//            khgxbbIndexModelList.remove(5);//屏蔽
+//            ckglIndexModelList.remove(1);//屏蔽
+//            xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
+//            xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
+//
+//        }else {
+//            azwxGridView.setVisibility(View.GONE);
+//            tvAzwx.setVisibility(View.GONE);
+//        }
+        gzptIndexModelList.remove(6);//屏蔽客户服务
+        khgxbbIndexModelList.remove(5);//屏蔽
+
+//        xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
+//        xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
+
+//        ckglIndexModelList.remove(1);//屏蔽库存盘点
+        ckglIndexModelList.remove(2);//屏蔽存货调价
+        ckglIndexModelList.remove(3);//屏蔽库存变动
+
+
+        tjfxIndexModelList.remove(4);//屏蔽经营状况
+    }
+
+    /**
+     * 秘书提醒初始化和数据设置
+     */
+    private void mstx() {
         for (int i = 0; i < 4; i++) {
             IndexModel im = new IndexModel();
             switch (i) {
                 case 0:
                     im.setLogoId(R.drawable.index_gztx);
                     im.setLogoName("工作提醒");
+                    im.setIntent(new Intent(IndexActivity.this, MstxGztxActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 1:
                     im.setLogoId(R.drawable.index_gsgg);
                     im.setLogoName("公司公告");
+                    im.setIntent(new Intent(IndexActivity.this, MstxGsggActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 2:
                     im.setLogoId(R.drawable.index_qd);
                     im.setLogoName("签到");
+                    im.setIntent(new Intent(IndexActivity.this, QdXzqdActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 3:
                     im.setLogoId(R.drawable.index_grrc);
                     im.setLogoName("个人日程");
+                    im.setIntent(new Intent(IndexActivity.this, MstxGrrcActivity.class));
+                    im.setKhzlname("");
                     break;
                 default:
                     break;
             }
             mstxIndexModelList.add(im);
         }
+        mstxGridView.setAdapter(new IndexAdapter(context, mstxIndexModelList));
+        mstxGridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "mstx");//判断是否是采购订单
+                Intent intent = new Intent();
+                if (arg2 == 2) {
+                    if (isLocationEnabled()) {
+                        startActivity(mstxIndexModelList.get(arg2).getIntent());
+                    } else {
+                        Toast.makeText(IndexActivity.this, "定位服务未开启!请开启定位服务", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    startActivity(mstxIndexModelList.get(arg2).getIntent());
+                }
+
+            }
+        });
+    }
+
+    /**
+     * 工作平台初始化和数据设置
+     */
+    private void gzpt() {
+        //工作平台
         for (int i = 0; i < 11; i++) {
             IndexModel im = new IndexModel();
             switch (i) {
@@ -356,6 +455,334 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             gzptIndexModelList.add(im);
         }
+        wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
+        wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+                if (TextUtils.isEmpty(gzptIndexModelList.get(arg2).getKhzlname())) {
+                    ShareUserInfo.setKey(context, "khzlname", gzptIndexModelList.get(arg2).getKhzlname());
+                }
+                startActivity(gzptIndexModelList.get(arg2).getIntent());
+            }
+
+        });
+
+    }
+
+    /**
+     * 安装维修初始化和数据设置
+     */
+    private void azwx() {
+        //安装维修
+        for (int i = 0; i < 4; i++) {
+            IndexModel im = new IndexModel();
+            switch (i) {
+                case 0:
+                    im.setLogoId(R.mipmap.ic_registration);
+                    im.setLogoName("安装登记");
+                    break;
+                case 1:
+                    im.setLogoId(R.mipmap.ic_perform);
+                    im.setLogoName("安装执行");
+                    break;
+                case 2:
+                    im.setLogoId(R.mipmap.ic_registration);
+                    im.setLogoName("维修登记");
+                    break;
+                case 3:
+                    im.setLogoId(R.mipmap.ic_perform);
+                    im.setLogoName("检测维修");
+                    break;
+                default:
+                    break;
+            }
+            azwxIndexModelList.add(im);
+        }
+        azwxGridView.setAdapter(new IndexAdapter(context, azwxIndexModelList));
+        azwxGridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+//				ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+                Intent intent = new Intent();
+                switch (arg2) {
+                    case 0:
+                        intent.setClass(IndexActivity.this, InstallRegistrationActivity.class);
+//						ShareUserInfo.setKey(context, "khzlname", "hjzx");
+                        break;
+                    case 1:
+                        intent.setClass(IndexActivity.this,
+                                PerformInstallationActivity.class);
+//						ShareUserInfo.setKey(context, "khzlname", "yybf");
+                        break;
+                    case 2:
+                        intent.setClass(IndexActivity.this,
+                                MaintenanceRegistrationActivity.class);
+                        break;
+                    case 3:
+                        intent.setClass(IndexActivity.this,
+                                DetectionMaintenanceActivity.class);
+                        break;
+                    default:
+                        break;
+                }
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 计划总结初始化和数据设置
+     */
+    private void jhzj() {
+        //计划总结
+        for (int i = 0; i < 4; i++) {
+            IndexModel im = new IndexModel();
+            switch (i) {
+                case 0:
+                    im.setLogoId(R.drawable.index_rjh);
+                    im.setLogoName("日计划");
+                    break;
+                case 1:
+                    im.setLogoId(R.drawable.index_zjh);
+                    im.setLogoName("周计划");
+                    break;
+                case 2:
+                    im.setLogoId(R.drawable.index_yjh);
+                    im.setLogoName("月计划");
+                    break;
+                case 3:
+                    im.setLogoId(R.drawable.index_zdyjh);
+                    im.setLogoName("年计划");
+                    break;
+                default:
+                    break;
+            }
+            jhzjIndexModelList.add(im);
+        }
+        jhzjGridView.setAdapter(new IndexAdapter(context, jhzjIndexModelList));
+        jhzjGridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "jhzj");//判断是否是采购订单
+                Intent intent = new Intent();
+                switch (arg2) {
+                    case 0:
+                        intent.setClass(IndexActivity.this, JhzjRjhActivity.class);
+                        break;
+                    case 1:
+                        intent.setClass(IndexActivity.this, JhzjZjhActivity.class);
+                        break;
+                    case 2:
+                        intent.setClass(IndexActivity.this, JhzjYjhActivity.class);
+                        break;
+                    case 3:
+                        intent.setClass(IndexActivity.this, JhzjZdyjhActivity.class);
+                        break;
+                }
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    /***********************进存销***********************/
+    /**
+     * 采购管理初始化和数据设置
+     */
+    private void cggl() {
+        for (int i = 1; i < 5; i++) {
+            IndexModel im = new IndexModel();
+            switch (i) {
+                case 0:
+                    im.setLogoId(R.drawable.index_gztx);
+                    im.setLogoName("供应商");
+                    break;
+                case 1:
+                    im.setLogoId(R.drawable.menu_cgdd);
+                    im.setLogoName("采购订单");
+                    break;
+                case 2:
+                    im.setLogoId(R.drawable.menu_cgsh);
+                    im.setLogoName("采购收货");
+                    break;
+                case 3:
+                    im.setLogoId(R.drawable.menu_cgfk);
+                    im.setLogoName("采购付款");
+                    break;
+                case 4:
+                    im.setLogoId(R.drawable.menu_cgth);
+                    im.setLogoName("采购退货");
+                    break;
+                default:
+                    break;
+            }
+            cgglIndexModelList.add(im);
+        }
+        cgglGridView.setAdapter(new IndexAdapter(context, cgglIndexModelList));
+        cgglGridView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "cggl");//判断是否是采购订单
+                Intent intent = new Intent();
+                switch (arg2) {
+//				case 0:
+//				    intent.putExtra("type", "gys");
+//					intent.setClass(IndexActivity.this, GzptKhglActivity.class);
+//					break;
+                    case 0:
+                        intent.setClass(IndexActivity.this, JxcCgglCgddActivity.class);
+                        break;
+                    case 1:
+                        intent.setClass(IndexActivity.this, JxcCgglCgshActivity.class);
+                        break;
+                    case 2:
+                        intent.setClass(IndexActivity.this, JxcCgglCgfkActivity.class);
+                        break;
+                    case 3:
+                        intent.setClass(IndexActivity.this, JxcCgglCgthActivity.class);
+                        break;
+                }
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 销售管理初始化和数据设置
+     */
+    private void xsgl() {
+        for (int i = 1; i < 5; i++) {
+            IndexModel im = new IndexModel();
+            switch (i) {
+                case 0:
+                    im.setLogoId(R.drawable.index_gztx);
+                    im.setLogoName("客户");
+                    break;
+                case 1:
+                    im.setLogoId(R.drawable.menu_xsdd);
+                    im.setLogoName("销售订单");
+                    break;
+                case 2:
+                    im.setLogoId(R.drawable.menu_xskd);
+                    im.setLogoName("销售开单");
+                    break;
+                case 3:
+                    im.setLogoId(R.drawable.menu_xssk);
+                    im.setLogoName("销售收款");
+                    break;
+                case 4:
+                    im.setLogoId(R.drawable.menu_xsth);
+                    im.setLogoName("销售退货");
+                    break;
+                default:
+                    break;
+            }
+            xsglIndexModelList.add(im);
+        }
+        xsglGridView.setAdapter(new IndexAdapter(context, xsglIndexModelList));
+        xsglGridView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "xsgl");//判断是否是采购订单
+                Intent intent = new Intent();
+                switch (arg2) {
+//				case 0:
+//					intent.setClass(IndexActivity.this, GzptKhglActivity.class);
+//					break;
+                    case 0:
+                        intent.setClass(IndexActivity.this, JxcXsglXsddActivity.class);
+                        break;
+                    case 1:
+                        intent.setClass(IndexActivity.this, JxcXsglXskdActivity.class);
+                        break;
+                    case 2:
+                        intent.setClass(IndexActivity.this, JxcXsglXsskActivity.class);
+                        break;
+                    case 3:
+                        intent.setClass(IndexActivity.this, JxcXsglXsthActivity.class);
+                        break;
+                }
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    /**
+     * 仓库管理初始化和数据设置
+     */
+    private void ckgl() {
+        /*进存销——库存管理*/
+        for (int i = 0; i < 6; i++) {
+            IndexModel im = new IndexModel();
+            switch (i) {
+                case 0:
+                    im.setLogoId(R.drawable.menu_ckdb);
+                    im.setLogoName("仓库调拨");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglCkdbActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 1:
+                    im.setLogoId(R.drawable.menu_kcpd);
+                    im.setLogoName("库存盘点");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglKcpdActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 2:
+                    im.setLogoId(R.drawable.menu_chtj);
+                    im.setLogoName("存货调价");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglChtjActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 3:
+                    im.setLogoId(R.drawable.menu_kcbd);
+                    im.setLogoName("库存变动");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglKcbdActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 4:
+                    im.setLogoId(R.drawable.menu_zzcx);
+                    im.setLogoName("组装拆卸");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCkglZzcxActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 5:
+                    im.setLogoId(R.drawable.menu_kcbb);
+                    im.setLogoName("库存报表");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxKcbbActivity.class));
+                    im.setKhzlname("");
+
+                    break;
+                default:
+                    break;
+            }
+            ckglIndexModelList.add(im);
+        }
+        ckglGridView.setAdapter(new IndexAdapter(context, ckglIndexModelList));
+        ckglGridView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
+
+                startActivity(ckglIndexModelList.get(arg2).getIntent());
+            }
+        });
+    }
+
+    /**
+     * 现金银行初始化和数据设置
+     */
+    private void xjyh(){
         // 现金银行
         for (int i = 0; i < 5; i++) {
             IndexModel im = new IndexModel();
@@ -395,7 +822,21 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             xjyhIndexModelList.add(im);
         }
+        xjyhGridView.setAdapter(new IndexAdapter(context, xjyhIndexModelList));
+        xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
 
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                ShareUserInfo.setKey(context, "cpphType", "xjyh");//判断是否是采购订单
+                startActivity(xjyhIndexModelList.get(arg2).getIntent());
+            }
+        });
+    }
+    /**
+     * 客户关系报表初始化和数据设置
+     */
+    private void khgxbb(){
         //客户关系报表
         for (int i = 0; i < 6; i++) {
             IndexModel im = new IndexModel();
@@ -441,81 +882,6 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             khgxbbIndexModelList.add(im);
         }
-        /*进存销——库存管理*/
-        for (int i = 0; i < 5; i++) {
-            IndexModel im = new IndexModel();
-            switch (i) {
-                case 0:
-                    im.setLogoId(R.drawable.menu_ckdb);
-                    im.setLogoName("仓库调拨");
-                    im.setIntent(new Intent(IndexActivity.this, JxcCkglCkdbActivity.class));
-                    im.setKhzlname("");
-                    break;
-                case 1:
-                    im.setLogoId(R.drawable.menu_kcpd);
-                    im.setLogoName("库存盘点");
-                    im.setIntent(new Intent(IndexActivity.this, JxcCkglKcpdActivity.class));
-                    im.setKhzlname("");
-                    break;
-                case 2:
-                    im.setLogoId(R.drawable.menu_chtj);
-                    im.setLogoName("存货调价");
-                    im.setIntent(new Intent(IndexActivity.this, JxcCkglChtjActivity.class));
-                    im.setKhzlname("");
-                    break;
-                case 3:
-                    im.setLogoId(R.drawable.menu_kcbd);
-                    im.setLogoName("库存变动");
-                    im.setIntent(new Intent(IndexActivity.this, JxcCkglKcbdActivity.class));
-                    im.setKhzlname("");
-                    break;
-                case 4:
-                    im.setLogoId(R.drawable.menu_zzcx);
-                    im.setLogoName("组装拆卸");
-                    im.setIntent(new Intent(IndexActivity.this, JxcCkglZzcxActivity.class));
-                    im.setKhzlname("");
-                    break;
-                default:
-                    break;
-            }
-            ckglIndexModelList.add(im);
-        }
-        String category = ShareUserInfo.getKey(context, "zt");
-//        租赁企业版、IT企业版、IT专业版这三个版屏蔽客户服务(标准专业版版\汽配版等保留)，统计分析中客户服务统计也给屏蔽了
-//        if (category.equals("租赁企业版") || category.equals("IT企业版") || category.equals("IT专业版")) {
-//            gzptIndexModelList.remove(6);//屏蔽
-//            khgxbbIndexModelList.remove(5);//屏蔽
-//            ckglIndexModelList.remove(1);//屏蔽
-//            xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
-//            xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
-//
-//        }else {
-//            azwxGridView.setVisibility(View.GONE);
-//            tvAzwx.setVisibility(View.GONE);
-//        }
-        gzptIndexModelList.remove(6);//屏蔽客户服务
-        khgxbbIndexModelList.remove(5);//屏蔽
-
-//        xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
-//        xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
-
-//        ckglIndexModelList.remove(1);//屏蔽库存盘点
-        ckglIndexModelList.remove(2);//屏蔽存货调价
-        ckglIndexModelList.remove(3);//屏蔽库存变动
-
-        wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
-        wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
-                if (TextUtils.isEmpty(gzptIndexModelList.get(arg2).getKhzlname())) {
-                    ShareUserInfo.setKey(context, "khzlname", gzptIndexModelList.get(arg2).getKhzlname());
-                }
-                startActivity(gzptIndexModelList.get(arg2).getIntent());
-            }
-
-        });
         khgxbbGridView.setAdapter(new IndexAdapter(context, khgxbbIndexModelList));
         khgxbbGridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -525,358 +891,71 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 startActivity(khgxbbIndexModelList.get(arg2).getIntent());
             }
         });
-        ckglGridView.setAdapter(new IndexAdapter(context, ckglIndexModelList));
-        ckglGridView.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
-
-                startActivity(ckglIndexModelList.get(arg2).getIntent());
-            }
-        });
-        xjyhGridView.setAdapter(new IndexAdapter(context, xjyhIndexModelList));
-        xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "xjyh");//判断是否是采购订单
-                startActivity(xjyhIndexModelList.get(arg2).getIntent());
-            }
-        });
-
-        //安装维修
-        for (int i = 0; i < 4; i++) {
-            IndexModel im = new IndexModel();
-            switch (i) {
-                case 0:
-                    im.setLogoId(R.mipmap.ic_registration);
-                    im.setLogoName("安装登记");
-                    break;
-                case 1:
-                    im.setLogoId(R.mipmap.ic_perform);
-                    im.setLogoName("安装执行");
-                    break;
-                case 2:
-                    im.setLogoId(R.mipmap.ic_registration);
-                    im.setLogoName("维修登记");
-                    break;
-                case 3:
-                    im.setLogoId(R.mipmap.ic_perform);
-                    im.setLogoName("检测维修");
-                    break;
-                default:
-                    break;
-            }
-            azwxIndexModelList.add(im);
-        }
-
-        //计划总结
-        for (int i = 0; i < 4; i++) {
-            IndexModel im = new IndexModel();
-            switch (i) {
-                case 0:
-                    im.setLogoId(R.drawable.index_rjh);
-                    im.setLogoName("日计划");
-                    break;
-                case 1:
-                    im.setLogoId(R.drawable.index_zjh);
-                    im.setLogoName("周计划");
-                    break;
-                case 2:
-                    im.setLogoId(R.drawable.index_yjh);
-                    im.setLogoName("月计划");
-                    break;
-                case 3:
-                    im.setLogoId(R.drawable.index_zdyjh);
-                    im.setLogoName("年计划");
-                    break;
-                default:
-                    break;
-            }
-            jhzjIndexModelList.add(im);
-        }
-        for (int i = 1; i < 5; i++) {
-            IndexModel im = new IndexModel();
-            switch (i) {
-                case 0:
-                    im.setLogoId(R.drawable.index_gztx);
-                    im.setLogoName("供应商");
-                    break;
-                case 1:
-                    im.setLogoId(R.drawable.menu_cgdd);
-                    im.setLogoName("采购订单");
-                    break;
-                case 2:
-                    im.setLogoId(R.drawable.menu_cgsh);
-                    im.setLogoName("采购收货");
-                    break;
-                case 3:
-                    im.setLogoId(R.drawable.menu_cgfk);
-                    im.setLogoName("采购付款");
-                    break;
-                case 4:
-                    im.setLogoId(R.drawable.menu_cgth);
-                    im.setLogoName("采购退货");
-                    break;
-                default:
-                    break;
-            }
-            cgglIndexModelList.add(im);
-        }
-        for (int i = 1; i < 5; i++) {
-            IndexModel im = new IndexModel();
-            switch (i) {
-                case 0:
-                    im.setLogoId(R.drawable.index_gztx);
-                    im.setLogoName("客户");
-                    break;
-                case 1:
-                    im.setLogoId(R.drawable.menu_xsdd);
-                    im.setLogoName("销售订单");
-                    break;
-                case 2:
-                    im.setLogoId(R.drawable.menu_xskd);
-                    im.setLogoName("销售开单");
-                    break;
-                case 3:
-                    im.setLogoId(R.drawable.menu_xssk);
-                    im.setLogoName("销售收款");
-                    break;
-                case 4:
-                    im.setLogoId(R.drawable.menu_xsth);
-                    im.setLogoName("销售退货");
-                    break;
-                default:
-                    break;
-            }
-            xsglIndexModelList.add(im);
-        }
-
-
-
-        for (int i = 0; i <4; i++) {
+    }
+    /**
+     * 财务统计初始化和数据设置
+     */
+    private void cwtj(){
+        //财务统计
+        for (int i = 0; i < 7; i++) {
             IndexModel im = new IndexModel();
             switch (i) {
                 case 0:
                     im.setLogoId(R.drawable.menu_kcbb);
                     im.setLogoName("库存报表");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxKcbbActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 1:
                     im.setLogoId(R.drawable.menu_ysyf);
                     im.setLogoName("应收应付");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxYsyfActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 2:
                     im.setLogoId(R.drawable.menu_zjzh);
                     im.setLogoName("资金账户");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxZjzhActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 3:
                     im.setLogoId(R.drawable.menu_xsskhzb);
                     im.setLogoName("销售收款汇总表");
+                    im.setIntent(new Intent(IndexActivity.this, TjfxXsskhzbActivity.class));
+                    im.setKhzlname("");
                     break;
                 case 4:
                     im.setLogoId(R.drawable.menu_jyzk);
                     im.setLogoName("经营状况");
+                    im.setIntent(new Intent(IndexActivity.this,TjfxJyzkActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 5:
+                    im.setLogoId(R.drawable.menu_lrb);
+                    im.setLogoName("利润表");
+                    im.setIntent(new Intent(IndexActivity.this,KtTjfxLrbActivity.class));
+                    im.setKhzlname("");
+                    break;
+                case 6:
+                    im.setLogoId(R.drawable.menu_zcfzb);
+                    im.setLogoName("资产负债表");
+                    im.setIntent(new Intent(IndexActivity.this,KtTjfxFzbActivity.class));
+                    im.setKhzlname("");
                     break;
                 default:
                     break;
             }
             tjfxIndexModelList.add(im);
         }
-        mstxGridView.setAdapter(new IndexAdapter(context, mstxIndexModelList));
-
-        azwxGridView.setAdapter(new IndexAdapter(context, azwxIndexModelList));
-        jhzjGridView.setAdapter(new IndexAdapter(context, jhzjIndexModelList));
-        cgglGridView.setAdapter(new IndexAdapter(context, cgglIndexModelList));
-        xsglGridView.setAdapter(new IndexAdapter(context, xsglIndexModelList));
-
-
         tjfxGridView.setAdapter(new IndexAdapter(context, tjfxIndexModelList));
-
-
-        mstxGridView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "mstx");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-                    case 0:
-
-                        intent.setClass(IndexActivity.this, MstxGztxActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, MstxGsggActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 2:
-                        if (isLocationEnabled()) {
-                            intent.setClass(activity, QdXzqdActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(IndexActivity.this, "定位服务未开启!请开启定位服务", Toast.LENGTH_SHORT).show();
-
-                        }
-//					getQdData();// 查询出签到信息，并保存到服务器当中
-                        // saveQdMsg();
-//				    mLocationClient.start();//开启定位功能
-
-                        return;
-                    // break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, MstxGrrcActivity.class);
-                        startActivity(intent);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
-        azwxGridView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-//				ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-                    case 0:
-                        intent.setClass(IndexActivity.this, InstallRegistrationActivity.class);
-//						ShareUserInfo.setKey(context, "khzlname", "hjzx");
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this,
-                                PerformInstallationActivity.class);
-//						ShareUserInfo.setKey(context, "khzlname", "yybf");
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this,
-                                MaintenanceRegistrationActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this,
-                                DetectionMaintenanceActivity.class);
-                        break;
-                    default:
-                        break;
-                }
-                startActivity(intent);
-            }
-        });
-        jhzjGridView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "jhzj");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-                    case 0:
-                        intent.setClass(IndexActivity.this, JhzjRjhActivity.class);
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, JhzjZjhActivity.class);
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, JhzjYjhActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, JhzjZdyjhActivity.class);
-                        break;
-                }
-                startActivity(intent);
-            }
-        });
-        cgglGridView.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "cggl");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-//				case 0:
-//				    intent.putExtra("type", "gys");
-//					intent.setClass(IndexActivity.this, GzptKhglActivity.class);
-//					break;
-                    case 0:
-                        intent.setClass(IndexActivity.this, JxcCgglCgddActivity.class);
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, JxcCgglCgshActivity.class);
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, JxcCgglCgfkActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, JxcCgglCgthActivity.class);
-                        break;
-                }
-                startActivity(intent);
-            }
-        });
-        xsglGridView.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "xsgl");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-//				case 0:
-//					intent.setClass(IndexActivity.this, GzptKhglActivity.class);
-//					break;
-                    case 0:
-                        intent.setClass(IndexActivity.this, JxcXsglXsddActivity.class);
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, JxcXsglXskdActivity.class);
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, JxcXsglXsskActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, JxcXsglXsthActivity.class);
-                        break;
-                }
-                startActivity(intent);
-            }
-        });
-
-
-
         tjfxGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 ShareUserInfo.setKey(context, "cpphType", "tjfx");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-                    case 0:
-                        //统计分析库存报表
-                        intent.setClass(IndexActivity.this, TjfxKcbbActivity.class);
-                        break;
-                    case 1:
-                        //统计分析应收应付
-                        intent.setClass(IndexActivity.this, TjfxYsyfActivity.class);
-                        break;
-                    case 2:
-                        //统计分析资金账户
-                        intent.setClass(IndexActivity.this, TjfxZjzhActivity.class);
-                        break;
-                    case 3:
-                        //统计分析销售收款汇总表
-                        intent.setClass(IndexActivity.this, TjfxXsskhzbActivity.class);
-                        break;
-                    case 4:
-                        //统计分析经营状况
-                        intent.setClass(IndexActivity.this, TjfxJyzkActivity.class);
-                        break;
-                }
-                startActivity(intent);
+                startActivity(tjfxIndexModelList.get(arg2).getIntent());
+
             }
         });
     }
@@ -1247,3 +1326,60 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //                startActivity(intent);
 //            }
 //        });
+
+ /* switch (arg2) {
+          case 0:
+
+          intent.setClass(IndexActivity.this, MstxGztxActivity.class);
+        startActivity(intent);
+        break;
+        case 1:
+        intent.setClass(IndexActivity.this, MstxGsggActivity.class);
+        startActivity(intent);
+        break;
+        case 2:
+        if (isLocationEnabled()) {
+        intent.setClass(activity, QdXzqdActivity.class);
+        startActivity(intent);
+        } else {
+        Toast.makeText(IndexActivity.this, "定位服务未开启!请开启定位服务", Toast.LENGTH_SHORT).show();
+
+        }
+//					getQdData();// 查询出签到信息，并保存到服务器当中
+        // saveQdMsg();
+//				    mLocationClient.start();//开启定位功能
+
+        return;
+        // break;
+        case 3:
+        intent.setClass(IndexActivity.this, MstxGrrcActivity.class);
+        startActivity(intent);
+        break;
+default:
+        break;
+        }*/
+//
+//    Intent intent = new Intent();
+//                switch (arg2) {
+//                        case 0:
+//                        //统计分析库存报表
+//                        intent.setClass(IndexActivity.this, TjfxKcbbActivity.class);
+//        break;
+//        case 1:
+//        //统计分析应收应付
+//        intent.setClass(IndexActivity.this, TjfxYsyfActivity.class);
+//        break;
+//        case 2:
+//        //统计分析资金账户
+//        intent.setClass(IndexActivity.this, TjfxZjzhActivity.class);
+//        break;
+//        case 3:
+//        //统计分析销售收款汇总表
+//        intent.setClass(IndexActivity.this, TjfxXsskhzbActivity.class);
+//        break;
+//        case 4:
+//        //统计分析经营状况
+//        intent.setClass(IndexActivity.this, TjfxJyzkActivity.class);
+//        break;
+//        }
+//        startActivity(intent);

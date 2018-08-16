@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -30,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cr.activity.index.IndexActivity;
 import com.cr.myinterface.SelectValueChange;
 import com.cr.tools.MyApplication;
 import com.cr.tools.NetworkCheck;

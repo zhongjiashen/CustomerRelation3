@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
-import com.cr.activity.common.CommonXzczyActivity;
+import com.cr.activity.index.IndexActivity;
 import com.cr.model.UserLogin;
 import com.cr.model.ZT;
 import com.cr.service.SocThread;

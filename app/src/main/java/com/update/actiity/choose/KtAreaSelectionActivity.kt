@@ -12,11 +12,11 @@ import com.google.gson.reflect.TypeToken
 import com.update.base.BaseActivity
 import com.update.base.BaseP
 import com.update.base.BaseRecycleAdapter
+import com.update.model.KtAreaData
 
 
 import com.update.model.KtFplxData
 import com.update.utils.LogUtils
-import com.update.viewbar.refresh.PullToRefreshLayout
 import com.update.viewholder.ViewHolderFactory
 import kotlinx.android.synthetic.main.activity_state_audit_choice.*
 
@@ -24,17 +24,16 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 /**
- * 选择发票类型
+ * 选择区域
  */
-class KtXzfplxActivity : BaseActivity<BaseP>(){
-
+class KtAreaSelectionActivity : BaseActivity<BaseP>() {
     var mParmMap = TreeMap<String, Any>()
-    var mList = ArrayList<KtFplxData>()
+    var mList = ArrayList<KtAreaData>()
     override fun initVariables() {
         presenter = BaseP(this, this)
         mParmMap["dbname"] = ShareUserInfo.getDbName(this)
-        mParmMap["djlx"] = intent.getStringExtra("djlx")
-        presenter.post(0, "selectbilltype", mParmMap)
+
+        presenter.post(0, "areatypelist", mParmMap)
     }
 
     override fun getLayout(): Int {
@@ -42,21 +41,21 @@ class KtXzfplxActivity : BaseActivity<BaseP>(){
     }
 
     override fun init() {
-        titlebar.setTitleText(this, "发票类型")
+        titlebar.setTitleText(this, "选择区域")
         rv_list.layoutManager = LinearLayoutManager(this)
-        mAdapter = object : BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder, KtFplxData>(mList) {
+        mAdapter = object : BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder, KtAreaData>(mList) {
             override fun MyonCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
                 return ViewHolderFactory.getStateAuditChoiceHolder(mActivity, parent)
             }
 
-            override fun MyonBindViewHolder(holder: ViewHolderFactory.StateAuditChoiceHolder?, data: KtFplxData) {
+            override fun MyonBindViewHolder(holder: ViewHolderFactory.StateAuditChoiceHolder?, data: KtAreaData) {
                 if (holder != null) {
                     holder.tvText.setText(data.name)
                     holder.itemView.setOnClickListener {
                         setResult(Activity.RESULT_OK,
                                 intent.putExtra("id", data.id)
                                         .putExtra("name", data.name)
-                                        .putExtra("taxrate", data.taxrate))
+                        )
                         finish()
                     }
                 }
@@ -76,8 +75,8 @@ class KtXzfplxActivity : BaseActivity<BaseP>(){
     override fun returnData(requestCode: Int, data: Any) {
         LogUtils.e(data.toString())
         val gson = Gson()
-        mList!!.addAll(gson.fromJson<ArrayList<KtFplxData>>(data as String,
-                object : TypeToken<ArrayList<KtFplxData>>() {
+        mList!!.addAll(gson.fromJson<ArrayList<KtAreaData>>(data as String,
+                object : TypeToken<ArrayList<KtAreaData>>() {
                 }.type))
         mAdapter.notifyDataSetChanged()
 

@@ -24,6 +24,9 @@ import com.cr.activity.gzpt.dwzl.GzptDwzlDwBjdwActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.choose.KtAreaSelectionActivity;
+import com.update.actiity.choose.KtRegionMainActivity;
+import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -32,24 +35,43 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 工作平台-呼叫中心——客户管理
  */
 @SuppressLint("SimpleDateFormat")
 public class GzptKhglActivity extends BaseActivity implements OnClickListener {
-    TextView            xzdwTextView;
-    RadioButton         ybfRadioButton, wbfRadioButton;
-    LinearLayout        searchLayout;
-    EditText            ksrqEditText, jsrqEditText, dwEditText, xmEditText, dhEditText, qqEditText,
+    TextView xzdwTextView;
+    RadioButton ybfRadioButton, wbfRadioButton;
+    LinearLayout searchLayout;
+    EditText ksrqEditText, jsrqEditText, dwEditText, xmEditText, dhEditText, qqEditText,
             lxEditText, jdEditText;
-    ImageButton         cxButton, operButton;
-    private String      bf   = "0";                    // 未拜访(默认)
-    private String      flag = "1";
-    ImageView           khglImageView;
-    String              type = "kh";
-    String              jdId="", lxId="", xmjd="";
-    private CheckBox    xmjdCheckBox, bfCheckBox;
-    private RadioButton    qbRadioButton,yxRadioButton,wxRadioButton;
+    ImageButton cxButton, operButton;
+
+    @BindView(R.id.ll_dj)
+    LinearLayout llDj;
+    @BindView(R.id.tv_dj)
+    TextView tvDj;
+    @BindView(R.id.tv_qy)
+    TextView tvQy;
+    @BindView(R.id.tv_dq)
+    TextView tvDq;
+    private String bf = "0";                    // 未拜访(默认)
+    private String flag = "1";
+    ImageView khglImageView;
+    String type = "kh";
+    String jdId = "", xmjd = "";
+    private String mTypes;//单位类型
+    private String typeid;//客户等级
+    private String areatypeid;//区域ID
+    private String areaid;//省ID
+    private String cityid;//市ID
+    private String  countyid;//县区ID
+    private CheckBox xmjdCheckBox, bfCheckBox;
+    private RadioButton qbRadioButton, yxRadioButton, wxRadioButton;
 //    private ImageButton fhButton;
 
     // private int selectIndex;
@@ -58,7 +80,8 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gzpt_khgl);
-         addFHMethod();
+        ButterKnife.bind(this);
+        addFHMethod();
         addZYMethod();
         initActivity();
         initListView();
@@ -67,7 +90,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         if (this.getIntent().hasExtra("type")) {
             type = this.getIntent().getExtras().getString("type");
             lxEditText.setText("供应商");
-            lxId="2";
+            mTypes = "2";
         }
     }
 
@@ -75,9 +98,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
      * 初始化Activity
      */
     private void initActivity() {
-        // inflater=getLayoutInflater();
-//        fhButton = (ImageButton) findViewById(R.id.fh);
-//        fhButton.setOnClickListener(this);
+
         ksrqEditText = (EditText) findViewById(R.id.ksrq_edit);
         ksrqEditText.setOnClickListener(this);
         lxEditText = (EditText) findViewById(R.id.lx_edit);
@@ -85,7 +106,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         jdEditText = (EditText) findViewById(R.id.jd_edit);
         jdEditText.setOnClickListener(this);
         jdEditText.setText("全部");
-        jdId="0";
+        jdId = "0";
         jdEditText.setEnabled(false);
         ksrqEditText.setOnClickListener(this);
         searchLayout = (LinearLayout) findViewById(R.id.operLayout);
@@ -115,7 +136,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                 } else {
                     jdEditText.setEnabled(false);
                     jdEditText.setText("");
-                    jdId="";
+                    jdId = "";
                 }
             }
         });
@@ -158,7 +179,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-");
                     ksrqEditText.setText(sdf.format(new Date()) + "01");
                     jsrqEditText.setText(sdf.format(new Date())
-                                         + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                            + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                 } else {
                     ksrqEditText.setEnabled(true);
                     jsrqEditText.setEnabled(true);
@@ -167,10 +188,10 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-");
                     ksrqEditText.setText(sdf.format(new Date()) + "01");
                     jsrqEditText.setText(sdf.format(new Date())
-                                         + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                            + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                 }
             }
-            
+
         });
         wbfRadioButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -184,7 +205,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-");
                     ksrqEditText.setText(sdf.format(new Date()) + "01");
                     jsrqEditText.setText(sdf.format(new Date())
-                                         + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                            + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                 } else {
                     ksrqEditText.setEnabled(true);
                     jsrqEditText.setEnabled(true);
@@ -193,13 +214,13 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-");
                     ksrqEditText.setText(sdf.format(new Date()) + "01");
                     jsrqEditText.setText(sdf.format(new Date())
-                                         + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                            + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                 }
             }
-            
+
         });
         lxEditText.setText("客户");
-        lxId="1";
+        mTypes = "1";
 //        qbRadioButton=(RadioButton) findViewById(R.id.qb);
 //        qbRadioButton.setSelected(true);
 //        yxRadioButton=(RadioButton) findViewById(R.id.yx);
@@ -220,14 +241,22 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("types", lxId);
+        parmMap.put("types", mTypes);
+
+        parmMap.put("typeid",typeid );
+        parmMap.put("areatypeid", areatypeid);
+        parmMap.put("areaid", areaid);
+        parmMap.put("cityid", cityid);
+        parmMap.put("countyid", countyid);
+
+
         parmMap.put("dwmc", dwEditText.getText().toString());
         parmMap.put("lxrname", xmEditText.getText().toString());
         parmMap.put("phone", dhEditText.getText().toString());
         parmMap.put("qq", qqEditText.getText().toString());
         parmMap.put("xmjd", xmjdCheckBox.isChecked() ? jdId : "-1");
         parmMap.put("flag", flag);
-        parmMap.put("zt", bfCheckBox.isChecked() ? wbfRadioButton.isChecked()?"0":"1" : "-1");
+        parmMap.put("zt", bfCheckBox.isChecked() ? wbfRadioButton.isChecked() ? "0" : "1" : "-1");
         parmMap.put("qsrq", ksrqEditText.getText().toString());
         parmMap.put("zzrq", jsrqEditText.getText().toString());
         parmMap.put("curpage", currentPage);
@@ -248,13 +277,46 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    @OnClick({R.id.ll_dj, R.id.ll_qy, R.id.ll_dq})
+    public void onClickA(View view) {
+        switch (view.getId()) {
+            case R.id.ll_dj://等级选择
+                Intent intent = new Intent(activity, NetworkDataSingleOptionActivity.class);
+                intent.putExtra("title", "客户等级");
+                switch (mTypes) {
+                    case "1"://客户
+                    case "4"://渠道
+                        intent.putExtra("zdbm", "KHDJ");
+                        break;
+                    case "2"://供应商
+                        intent.putExtra("zdbm", "GYSDJ");
+                        break;
+                    case "3"://竞争对手
+                        intent.putExtra("zdbm", "DSDJ");
+                        break;
+                    case "6"://物流
+                        intent.putExtra("zdbm", "WLDJ");
+                        break;
+
+                }
+                startActivityForResult(intent, 3);
+                break;
+            case R.id.ll_qy://区域选择
+                startActivityForResult(new Intent(activity, KtAreaSelectionActivity.class), 4);
+                break;
+            case R.id.ll_dq://地区选择
+                startActivityForResult(new Intent(activity, KtRegionMainActivity.class), 5);
+                break;
+        }
+    }
+
     @Override
     public void onClick(View arg0) {
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.cx_but:
-                if(xmjdCheckBox.isChecked()){
-                    if(jdId.equals("")){
+                if (xmjdCheckBox.isChecked()) {
+                    if (jdId.equals("")) {
                         showToastPromopt("请选择项目进度");
                         return;
                     }
@@ -326,11 +388,11 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                         ksrqEditText.setText(year + "-" + myMonth + "-" + myDay);
                     }
                 }, c.get(Calendar.YEAR),
-                // 传入年份
-                    c.get(Calendar.MONTH),
-                    // 传入月份
-                    c.get(Calendar.DAY_OF_MONTH)
-                // 传入天数
+                        // 传入年份
+                        c.get(Calendar.MONTH),
+                        // 传入月份
+                        c.get(Calendar.DAY_OF_MONTH)
+                        // 传入天数
                 );
                 break;
             case 1:
@@ -353,11 +415,11 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                         jsrqEditText.setText(year + "-" + myMonth + "-" + myDay);
                     }
                 }, c.get(Calendar.YEAR),
-                // 传入年份
-                    c.get(Calendar.MONTH),
-                    // 传入月份
-                    c.get(Calendar.DAY_OF_MONTH)
-                // 传入天数
+                        // 传入年份
+                        c.get(Calendar.MONTH),
+                        // 传入月份
+                        c.get(Calendar.DAY_OF_MONTH)
+                        // 传入天数
                 );
                 break;
         }
@@ -379,21 +441,53 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 0) {
-                searchDate();
-            }else if(requestCode==1){
-                lxEditText.setText(data.getExtras().getString("name"));
-                lxId=data.getExtras().getString("id");
-                String name=data.getExtras().getString("name");
-                if(name.equals("客户")||name.equals("渠道")){
-                	xmjdCheckBox.setEnabled(true);
-                }else{
-                	xmjdCheckBox.setEnabled(false);
-                }
-            }else if(requestCode==2){
-                jdEditText.setText(data.getExtras().getString("dictmc"));
-                jdId=data.getExtras().getString("id");
+            switch (requestCode) {
+                case 0:
+                    searchDate();
+                    break;
+                case 1://客户类型选择
+                    lxEditText.setText(data.getExtras().getString("name"));
+                    mTypes = data.getExtras().getString("id");
+                    if (mTypes.equals("0") || mTypes.equals("5")) {
+                        llDj.setVisibility(View.GONE);
+                    } else {
+                        llDj.setVisibility(View.VISIBLE);
+                    }
+                    typeid = "";
+                    tvDj.setText("");
+                    String name = data.getExtras().getString("name");
+                    if (name.equals("客户") || name.equals("渠道")) {
+                        xmjdCheckBox.setEnabled(true);
+                    } else {
+                        xmjdCheckBox.setEnabled(false);
+                    }
+                    break;
+                case 2:
+                    jdEditText.setText(data.getExtras().getString("dictmc"));
+                    jdId = data.getExtras().getString("id");
+                    break;
+                case 3://客户等级
+                    typeid = data.getStringExtra("CHOICE_RESULT_ID");
+                    tvDj.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                    break;
+                case 4://区域
+                    areatypeid= data.getStringExtra("id");
+                    tvQy.setText(data.getStringExtra("name"));
+                    break;
+                case 5:
+                    tvDq.setText(data.getStringExtra("text"));
+                    /*areaid  省ID
+                    cityid 市ID
+                    countyid 县区ID*/
+                    areaid=data.getStringExtra("provinceId");
+                    cityid=data.getStringExtra("cityId");
+                    countyid=data.getStringExtra("areaId");
+                    break;
+
             }
+
         }
     }
+
+
 }

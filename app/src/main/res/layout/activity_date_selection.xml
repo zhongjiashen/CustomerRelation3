@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_line_color"
+    android:orientation="vertical">
+
+    <com.update.viewbar.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_start_time"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/background_white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="起始日期"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/word_jmedium"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_weight="1"
+            android:text="全部"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xyb_jt" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/background_white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="截止日期"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/word_jmedium"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_weight="1"
+            android:text="全部"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/word_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xyb_jt" />
+    </LinearLayout>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/background_white"
+        android:orientation="vertical"
+        android:padding="@dimen/margin">
+
+        <Button
+            android:id="@+id/bt_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="确定"
+            android:textSize="18sp"
+            android:textColor="@color/text_white"
+            android:background="@color/colorPrimary"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_white" />
+</LinearLayout>

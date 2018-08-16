@@ -5,6 +5,7 @@ import android.app.Activity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.google.gson.Gson
@@ -12,11 +13,12 @@ import com.google.gson.reflect.TypeToken
 import com.update.base.BaseActivity
 import com.update.base.BaseP
 import com.update.base.BaseRecycleAdapter
+import com.update.model.KtAreaData
 
 
 import com.update.model.KtFplxData
+import com.update.model.KtRegionData
 import com.update.utils.LogUtils
-import com.update.viewbar.refresh.PullToRefreshLayout
 import com.update.viewholder.ViewHolderFactory
 import kotlinx.android.synthetic.main.activity_state_audit_choice.*
 
@@ -24,17 +26,17 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 /**
- * 选择发票类型
+ * 选择区域
  */
-class KtXzfplxActivity : BaseActivity<BaseP>(){
-
+class KtRegionSelectionActivity : BaseActivity<BaseP>() {
     var mParmMap = TreeMap<String, Any>()
-    var mList = ArrayList<KtFplxData>()
+    var mList = ArrayList<KtRegionData>()
     override fun initVariables() {
         presenter = BaseP(this, this)
         mParmMap["dbname"] = ShareUserInfo.getDbName(this)
-        mParmMap["djlx"] = intent.getStringExtra("djlx")
-        presenter.post(0, "selectbilltype", mParmMap)
+        mParmMap["levels"] = intent.getStringExtra("levels")
+        mParmMap["parentid"] = intent.getStringExtra("parentid")
+        presenter.post(0, ServerURL.AREALIST, mParmMap)
     }
 
     override fun getLayout(): Int {
@@ -42,21 +44,21 @@ class KtXzfplxActivity : BaseActivity<BaseP>(){
     }
 
     override fun init() {
-        titlebar.setTitleText(this, "发票类型")
+        titlebar.setTitleText(this,intent.getStringExtra("title"))
         rv_list.layoutManager = LinearLayoutManager(this)
-        mAdapter = object : BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder, KtFplxData>(mList) {
+        mAdapter = object : BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder, KtRegionData>(mList) {
             override fun MyonCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
                 return ViewHolderFactory.getStateAuditChoiceHolder(mActivity, parent)
             }
 
-            override fun MyonBindViewHolder(holder: ViewHolderFactory.StateAuditChoiceHolder?, data: KtFplxData) {
+            override fun MyonBindViewHolder(holder: ViewHolderFactory.StateAuditChoiceHolder?, data: KtRegionData) {
                 if (holder != null) {
-                    holder.tvText.setText(data.name)
+                    holder.tvText.setText(data.cname)
                     holder.itemView.setOnClickListener {
                         setResult(Activity.RESULT_OK,
                                 intent.putExtra("id", data.id)
-                                        .putExtra("name", data.name)
-                                        .putExtra("taxrate", data.taxrate))
+                                        .putExtra("name", data.cname)
+                        )
                         finish()
                     }
                 }
@@ -76,8 +78,8 @@ class KtXzfplxActivity : BaseActivity<BaseP>(){
     override fun returnData(requestCode: Int, data: Any) {
         LogUtils.e(data.toString())
         val gson = Gson()
-        mList!!.addAll(gson.fromJson<ArrayList<KtFplxData>>(data as String,
-                object : TypeToken<ArrayList<KtFplxData>>() {
+        mList!!.addAll(gson.fromJson<ArrayList<KtRegionData>>(data as String,
+                object : TypeToken<ArrayList<KtRegionData>>() {
                 }.type))
         mAdapter.notifyDataSetChanged()
 

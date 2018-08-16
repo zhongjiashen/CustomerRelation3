@@ -82,6 +82,9 @@ public class CommonXzkhlxActivity extends BaseActivity implements OnClickListene
                 case 5:
                     map.put("dictmc", "员工");
                     break;
+                case 6:
+                    map.put("dictmc", "物流");
+                    break;
                 default:
                     break;
             }

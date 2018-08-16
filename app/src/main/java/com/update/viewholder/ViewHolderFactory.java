@@ -130,6 +130,26 @@ public class ViewHolderFactory {
         return new JxcCkglKcpdXzspHolder(LayoutInflater.from(context).inflate(R.layout.item_jxc_ckgl_kcdb_xzsp, parent, false));
     }
 
+    /**
+     * 利润表
+     *
+     * @param context
+     * @return
+     */
+    public static LrbHolder getLrbHolder(Context context, ViewGroup parent) {
+        return new LrbHolder(LayoutInflater.from(context).inflate(R.layout.item_lrb, parent, false));
+    }
+
+    /**
+     * 财务报表明细
+     *
+     * @param context
+     * @return
+     */
+    public static CwbbmxHolder getCwbbmxHolder(Context context, ViewGroup parent) {
+        return new CwbbmxHolder(LayoutInflater.from(context).inflate(R.layout.item_cwbbmx, parent, false));
+    }
+
     public static class InstallRegistrationHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_data)
         public TextView tvData;
@@ -350,4 +370,43 @@ public class ViewHolderFactory {
         }
     }
 
+
+    public static class LrbHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_mz)
+        public TextView tvMz;
+        @BindView(R.id.tv_je)
+        public TextView tvJe;
+        @BindView(R.id.tv_qcye)
+        public TextView tvQcye;
+        @BindView(R.id.tv_ljje)
+        public TextView tvLjje;
+
+        LrbHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public static class CwbbmxHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tv_data)
+        public TextView tvData;
+        @BindView(R.id.tv_djmc)
+        public TextView tvDjmc;
+        @BindView(R.id.tv_djlx)
+        public TextView tvDjlx;
+        @BindView(R.id.tv_djbh)
+        public TextView tvDjbh;
+        @BindView(R.id.tv_wldw)
+        public  TextView tvWldw;
+        @BindView(R.id.tv_je)
+        public TextView tvJe;
+        @BindView(R.id.tv_ftje)
+        public TextView tvFtje;
+
+        CwbbmxHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
 }

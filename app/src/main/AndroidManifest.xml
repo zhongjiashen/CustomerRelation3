@@ -116,7 +116,7 @@
 
         <!-- 主用户页面 -->
         <activity
-            android:name="com.cr.activity.IndexActivity"
+            android:name="com.cr.activity.index.IndexActivity"
             android:screenOrientation="portrait"/>
         <!-- 关于页面 -->
         <activity
@@ -1455,8 +1455,21 @@
             android:name="com.cr.activity.tjfx.khfwtj.TjfxKhfwtjSearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-
-
+        <!-- 统计分析-利润表 -->
+        <activity
+            android:name="com.cr.activity.tjfx.lrb.KtTjfxLrbActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!-- 统计分析-资产负债表  -->
+        <activity
+            android:name="com.cr.activity.tjfx.fzb.KtTjfxFzbActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!-- 统计分析-资产负债表  -->
+        <activity
+            android:name="com.cr.activity.tjfx.lrb.KtTjfxCwbbmxActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 选择销售机会-资筛选 -->
         <activity
             android:name="com.cr.activity.common.CommonXzjhSearchActivity"
@@ -1549,6 +1562,21 @@
         <!--选择发票类型-->
         <activity
             android:name="com.update.actiity.choose.KtXzfplxActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--选择区域-->
+        <activity
+            android:name="com.update.actiity.choose.KtAreaSelectionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--选择区域-->
+        <activity
+            android:name="com.update.actiity.choose.KtRegionMainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--选择区域-->
+        <activity
+            android:name="com.update.actiity.choose.KtRegionSelectionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!--录入序列号-->
