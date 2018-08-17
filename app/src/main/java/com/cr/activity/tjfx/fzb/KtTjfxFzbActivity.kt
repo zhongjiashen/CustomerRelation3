@@ -74,9 +74,14 @@ class KtTjfxFzbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
                     holder.tvLjje.text = "累计金额:" + data.endbalance
 
                     holder.itemView.setOnClickListener {
-                        startActivity(Intent(mActivity, KtTjfxCwbbmxActivity::class.java)
-                                .putExtra("title", data.name)
-                                .putExtra("subid", data.subid))
+                        if(data.flag==1) {
+                            startActivity(Intent(mActivity, KtTjfxCwbbmxActivity::class.java)
+                                    .putExtra("title", data.name)
+                                    .putExtra("subid", data.subid))
+                        }else{
+                            showShortToast("不能查看该科目明细!")
+                        }
+
                     }
                 }
             }

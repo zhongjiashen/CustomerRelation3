@@ -9,5 +9,6 @@ data class KtLrbData(
         @SerializedName("endbalance") var endbalance: Double = 0.0,
         @SerializedName("detailflag") var detailflag: String = "",
         @SerializedName("usercode") var usercode: String = "",
-        @SerializedName("inibalance") var inibalance: Double = 0.0
+        @SerializedName("inibalance") var inibalance: Double = 0.0,
+        @SerializedName("flag") var flag: Int = 0
 )
