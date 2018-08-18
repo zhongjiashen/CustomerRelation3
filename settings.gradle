@@ -1,1 +1,1 @@
-include ':app', ':pickerview', ':zxinglite'
+include ':app', ':pickerview', ':zxinglite', ':filter-lib'

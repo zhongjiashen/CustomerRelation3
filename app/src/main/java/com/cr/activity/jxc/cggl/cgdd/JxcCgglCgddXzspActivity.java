@@ -20,10 +20,21 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baiiu.filter.DropDownMenu;
+import com.baiiu.filter.adapter.DropMenuAdapter;
+import com.baiiu.filter.adapter.MenuAdapter;
+import com.baiiu.filter.adapter.SimpleTextAdapter;
+import com.baiiu.filter.entity.FilterUrl;
+import com.baiiu.filter.interfaces.OnFilterDoneListener;
+import com.baiiu.filter.interfaces.OnFilterItemClickListener;
+import com.baiiu.filter.typeview.SingleListView;
+import com.baiiu.filter.util.UIUtil;
+import com.baiiu.filter.view.FilterCheckedTextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzsplbActivity;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddXzspAdapter;
@@ -47,6 +58,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         OnClickListener {
     private JxcCgglCgddXzspAdapter adapter;
     private XListView listView;
+    DropDownMenu dropDownMenu;
     EditText searchEditText;
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     String qsrq, jzrq, shzt = "0", cname;
@@ -57,6 +69,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
     private String tabname = "";
     private String mTaxrate;//税率
     private boolean issj;//发票类型是否是收据
+    List<Map<String, Object>>fllist=new ArrayList<Map<String, Object>>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,16 +91,18 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         qsrq = sdf.format(new Date()) + "01";
         jzrq = sdf.format(new Date())
                 + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        searchDate();
+        fenleiDate();
 
-        mTaxrate=getIntent().getStringExtra("taxrate");
-        issj=getIntent().getBooleanExtra("issj",true);
+
+        mTaxrate = getIntent().getStringExtra("taxrate");
+        issj = getIntent().getBooleanExtra("issj", true);
     }
 
     /**
      * 初始化Activity
      */
     private void initActivity() {
+        dropDownMenu = findViewById(R.id.dropDownMenu);
         flImageButton = (ImageButton) findViewById(R.id.fl);
         flImageButton.setOnClickListener(this);
         qrTextView = (TextView) findViewById(R.id.qr_textview);
@@ -107,13 +122,15 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                         return false;
                     }
                 });
+
+
     }
 
     /**
      * 初始化ListView
      */
     private void initListView() {
-        listView = (XListView) findViewById(R.id.xlistview);
+        listView = (XListView) findViewById(R.id.mFilterContentView);
         adapter = new JxcCgglCgddXzspAdapter(list, this, storeid, getIntent().getBooleanExtra("xskd", false),
                 getIntent().getStringExtra("type"));
         listView.setAdapter(adapter);
@@ -151,39 +168,74 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         findServiceData2(0, ServerURL.SELECTGOODS, parmMap, false);
     }
 
+    /**
+     * 连接网络的操作
+     */
+    private void fenleiDate(){
+        Map<String, Object> parmMap=new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+
+        findServiceData2(1,ServerURL.GOODSTYPE,parmMap,true);
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
         if (returnJson.equals("")) {
             showToastPromopt(2);
         } else {
-            ArrayList<Map<String, Object>> myList = (ArrayList<Map<String, Object>>) PaseJson
-                    .paseJsonToObject(returnJson);
-            if (myList == null) {
-                return;
+            switch (returnSuccessType){
+                case 0:
+                    ArrayList<Map<String, Object>> myList = (ArrayList<Map<String, Object>>) PaseJson
+                            .paseJsonToObject(returnJson);
+                    if (myList == null) {
+                        return;
+                    }
+                    for (Map<String, Object> obj : myList) {
+                        obj.put("isDetail", "0");
+                        obj.put("ischecked", "0");
+                        list.add(obj);
+                        Map<String, Object> obj2 = new HashMap<String, Object>();
+                        obj2.put("isDetail", "1");
+                        obj2.put("dj", obj.get("aprice").toString());
+                        obj2.put("zkl", "100");
+                        obj2.put("sl", "1");
+                        obj2.put("cpph", "");
+                        obj2.put("scrq", "");
+                        obj2.put("yxqz", "");
+                        obj2.put("batchctrl", obj.get("batchctrl").toString());
+                        obj2.put("taxrate", mTaxrate);//初始化税率
+                        obj2.put("issj", issj);//发票类型是否是收据
+                        UUID uuid = UUID.randomUUID();
+                        obj2.put("serialinfo", uuid.toString().toUpperCase());//
+                        obj2.put("serials", new ArrayList<Serial>());//
+                        list.add(obj2);
+                    }
+                    adapter.notifyDataSetChanged();
+
+                    break;
+                case 1://获取分类数据
+                    fllist.addAll((List<Map<String, Object>>)PaseJson.paseJsonToObject(returnJson));
+                    String[] titleList = new String[]{"分类"};
+                    List[] contextList=new List[]{fllist};
+                    dropDownMenu.setMenuAdapter(new DropMenuAdapter(activity, titleList,contextList, new OnFilterDoneListener() {
+                        @Override
+                        public void onFilterDone(int position, Map map) {
+                            dropDownMenu.setPositionIndicatorText(position, map.get("name").toString());
+                            dropDownMenu.close();
+                            code = map.get("lcode").toString();
+                            list.clear();
+                            searchDate();
+                        }
+
+
+                    }));
+                    searchDate();
+                    break;
             }
-            for (Map<String, Object> obj : myList) {
-                obj.put("isDetail", "0");
-                obj.put("ischecked", "0");
-                list.add(obj);
-                Map<String, Object> obj2 = new HashMap<String, Object>();
-                obj2.put("isDetail", "1");
-                obj2.put("dj", obj.get("aprice").toString());
-                obj2.put("zkl", "100");
-                obj2.put("sl", "1");
-                obj2.put("cpph", "");
-                obj2.put("scrq", "");
-                obj2.put("yxqz", "");
-                obj2.put("batchctrl", obj.get("batchctrl").toString());
-                obj2.put("taxrate", mTaxrate);//初始化税率
-                obj2.put("issj", issj);//发票类型是否是收据
-                UUID uuid = UUID.randomUUID();
-                obj2.put("serialinfo", uuid.toString().toUpperCase());//
-                obj2.put("serials", new ArrayList<Serial>());//
-                list.add(obj2);
-            }
+
         }
-        adapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -257,7 +309,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode){
+            switch (requestCode) {
                 case 0:
                     int index = Integer.parseInt(data.getExtras()
                             .getString("index"));
@@ -284,7 +336,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                 case 4:
                     break;
                 case 11:
-                    int n =data.getExtras()
+                    int n = data.getExtras()
                             .getInt("position");
                     list.get(n).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
                     }.getType()));
@@ -295,6 +347,8 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
 
         }
     }
+
+
 }
 /*
  if (requestCode == 0) {
