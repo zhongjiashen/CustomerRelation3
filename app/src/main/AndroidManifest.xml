@@ -1475,6 +1475,11 @@
             android:name="com.cr.activity.common.CommonXzjhSearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!-- 选择销售机会-资筛选 -->
+        <activity
+            android:name="com.update.actiity.choose.KtDateSelectionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
         <!-- 项目-->
         <activity

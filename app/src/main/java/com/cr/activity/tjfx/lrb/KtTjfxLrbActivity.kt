@@ -10,6 +10,7 @@ import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.update.actiity.choose.KtDateSelectionActivity
 import com.update.actiity.choose.ScreeningProjectActivity
 import com.update.base.BaseActivity
 import com.update.base.BaseP
@@ -55,7 +56,7 @@ class KtTjfxLrbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
         titlebar.setTitleText(mActivity, "利润表 ")
         titlebar.setIvRightImageResource(R.drawable.oper)
         titlebar.setTitleOnlicListener {
-            startActivityForResult(Intent(mActivity, ScreeningProjectActivity::class.java)
+            startActivityForResult(Intent(mActivity, KtDateSelectionActivity::class.java)
                     .putExtra("kind", 1), 11)
 
         }
