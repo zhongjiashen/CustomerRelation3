@@ -42,6 +42,7 @@ import com.crcxj.activity.R;
  * @author Administrator
  * 
  */
+@Deprecated
 public class JxcCgglCgddDetailActivity extends BaseActivity implements
 		OnClickListener {
 	private ImageView shImageView;
