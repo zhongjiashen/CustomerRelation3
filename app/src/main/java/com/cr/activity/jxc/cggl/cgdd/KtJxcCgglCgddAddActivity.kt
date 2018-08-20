@@ -75,8 +75,8 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
 
 
         et_fplx.setText("收据")
-        billtypeid="1"
-        mTaxrate="0"
+        billtypeid = "1"
+        mTaxrate = "0"
     }
 
 
@@ -301,7 +301,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                         mTaxrate = data.extras.getString("taxrate")
                         if (list != null) {
                             for (i in list.indices) {
-                                list[i]["taxrate"] =mTaxrate
+                                list[i]["taxrate"] = mTaxrate
                                 val csje = java.lang.Double.parseDouble(list[i]["unitprice"].toString()) * (java.lang.Double.parseDouble(mTaxrate) + 100) / 100
                                 list[i].put("taxunitprice", csje.toString() + "")
                                 val amount = (csje * java.lang.Double.parseDouble(list[i]["unitqty"].toString())).toString() + ""
@@ -345,7 +345,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                         gldjcg_linearlayout.setVisibility(View.GONE)//显示展示详情的Linearlayout信息
                         mTogBtn.setSelected(false)
                         list.clear()
-                        list.addAll(data.extras!!.getSerializable("list") as List< MutableMap<String, Any?>>)
+                        list.addAll(data.extras!!.getSerializable("list") as List<MutableMap<String, Any?>>)
                         xzspnum_textview.setText("共选择了" + list.size + "商品")
 
                         adapter.notifyDataSetChanged()
@@ -371,19 +371,19 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                         jbr_edittext.setText(data.getStringExtra("CHOICE_RESULT_TEXT"))
                         jbrId = data.getStringExtra("CHOICE_RESULT_ID")
                     }
-                    //相关项目选择结果处理
+                //相关项目选择结果处理
                     9 -> {
                         projectid = data.getStringExtra("projectid")
                         et_xgxm.setText(data.getStringExtra("title"))
                     }
                 //扫一扫选择商品
-                    11->{
+                    11 -> {
                         val parmMap = java.util.HashMap<String, Any>()
                         parmMap["dbname"] = ShareUserInfo.getDbName(context)
                         parmMap["tabname"] = "tb_porder"
                         parmMap["storeid"] = "0"
                         parmMap["goodscode"] = ""
-                        parmMap["goodstype"] =""
+                        parmMap["goodstype"] = ""
                         parmMap["goodsname"] = ""
                         parmMap["goodsname"] = ""
                         // parmMap.put("opid", ShareUserInfo.getUserId(context));
@@ -467,7 +467,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                 jsonObject2.put("referbillid ", if (map["referbillid"] == null) "" else map["referbillid"].toString())
                 jsonObject2.put("referitemno ", if (map["referitemno"] == null) "" else map["referitemno"].toString())
                 jsonObject2.put("taxrate", map["taxrate"].toString())//税率%
-                jsonObject2.put("taxunitprice",  map["taxunitprice"].toString())//含税单价
+                jsonObject2.put("taxunitprice", map["taxunitprice"].toString())//含税单价
                 jsonObject2.put("memo", "")//备注
                 arrayDetail.put(jsonObject2)
             }
@@ -486,39 +486,62 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
     }
 
     override fun executeSuccess() {
-        if (returnSuccessType == 0) {
-            if (returnJson == "") {
-                showToastPromopt("保存成功")
-                setResult(Activity.RESULT_OK)
-                finish()
-            } else {
-                showToastPromopt("保存失败" + returnJson.substring(5))
+        when (returnSuccessType) {
+            0 -> {
+                if (returnJson == "") {
+                    showToastPromopt("保存成功")
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                } else {
+                    showToastPromopt("保存失败" + returnJson.substring(5))
+                }
             }
-        } else if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
-            if (returnJson == "") {
-                return
+            1 -> {
+                if (returnJson == "") {
+                    return
+                }
+                val `object` = (PaseJson
+                        .paseJsonToObject(returnJson) as List<Map<String, Any>>)[0]
+                gys_edittext.setText(`object`["cname"].toString())
+                lxr_edittext.setText(`object`["lxrname"].toString())
+                lxdh_edittext.setText(`object`["phone"].toString())
+                jhdz_edittext.setText(`object`["billto"].toString())
+                hjje_edittext.setText(`object`["amount"].toString())
+                djrq_edittext.setText(`object`["billdate"].toString())
+                jbr_edittext.setText(`object`["empname"].toString())
+                bzxx_edittext.setText(`object`["memo"].toString())
+                gysId = `object`["clientid"].toString()
+                lxrId = `object`["lxrid"].toString()
+                jbrId = `object`["empid"].toString()
+                searchDate2()//查询订单中的商品
             }
-            val `object` = (PaseJson
-                    .paseJsonToObject(returnJson) as List<Map<String, Any>>)[0]
-            gys_edittext.setText(`object`["cname"].toString())
-            lxr_edittext.setText(`object`["lxrname"].toString())
-            lxdh_edittext.setText(`object`["phone"].toString())
-            jhdz_edittext.setText(`object`["billto"].toString())
-            hjje_edittext.setText(`object`["amount"].toString())
-            djrq_edittext.setText(`object`["billdate"].toString())
-            jbr_edittext.setText(`object`["empname"].toString())
-            bzxx_edittext.setText(`object`["memo"].toString())
-            gysId = `object`["clientid"].toString()
-            lxrId = `object`["lxrid"].toString()
-            jbrId = `object`["empid"].toString()
-            searchDate2()//查询订单中的商品
-        } else if (returnSuccessType == 2) {//管理单据成功后把信息填到里面（从表）
-            list = PaseJson.paseJsonToObject(returnJson) as ArrayList< MutableMap<String, Any?>>
-            adapter = JxcCgglCgddDetailAdapter(list, this)
-            xzspnum_textview.setText("共选择了" + list.size + "商品")
-            xzsp_listview.setAdapter(adapter)
-            adapter.notifyDataSetChanged()
+            2 -> {
+                list = PaseJson.paseJsonToObject(returnJson) as ArrayList<MutableMap<String, Any?>>
+                adapter = JxcCgglCgddDetailAdapter(list, this)
+                xzspnum_textview.setText("共选择了" + list.size + "商品")
+                xzsp_listview.setAdapter(adapter)
+                adapter.notifyDataSetChanged()
+            }
+
+        //扫一扫选择商品
+            3 -> {
+                var map = (PaseJson.paseJsonToObject(returnJson) as ArrayList<MutableMap<String, Any?>>)[0]
+                map["unitprice"] = map["aprice"]//单价
+                map["unitqty"] = "1"
+                map["disc"] = "100"
+                map["batchcode"] = ""
+                map["produceddate"] = ""
+                map["validdate"] = ""
+                map["validdate"] = ""
+                map["taxrate"] = mTaxrate//税率
+                val csje = map["aprice"].toString().toDouble() * (mTaxrate.toString().toDouble() + 100) / 100
+                map["taxunitprice"] = csje.toString()
+                map["amount"] = FigureTools.sswrFigure(csje.toString())
+                list.add(map)
+                adapter.notifyDataSetChanged()
+            }
         }
+
     }
 
     /**

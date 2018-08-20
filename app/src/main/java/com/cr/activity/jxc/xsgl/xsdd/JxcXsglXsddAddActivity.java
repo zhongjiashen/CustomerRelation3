@@ -53,6 +53,7 @@ import com.crcxj.activity.R;
  * @author Administrator
  * 
  */
+@Deprecated
 public class JxcXsglXsddAddActivity extends BaseActivity implements OnClickListener {
     private ImageButton               saveImageButton;
     private ToggleButton              toggleButton;

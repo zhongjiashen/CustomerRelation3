@@ -17,6 +17,7 @@ import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
+import com.update.actiity.WeChatCaptureActivity
 import com.update.actiity.choose.ChooseDepartmentActivity
 import com.update.actiity.choose.KtXzfplxActivity
 import com.update.actiity.choose.SelectSalesmanActivity
@@ -185,7 +186,12 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                         .putExtra("dwmc", true)
                         .putExtra("typesname", mTypesname), 9)
         }
-
+        /**
+         * 扫描选择商品
+         */
+        iv_scan.setOnClickListener {
+            startActivityForResult(Intent(this, WeChatCaptureActivity::class.java), 11)
+        }
 
     }
 
@@ -332,6 +338,22 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                         et_xgxm.setText(data.getStringExtra("title"))
                     }
 
+                //扫一扫选择商品
+                    11->{
+                        val parmMap = java.util.HashMap<String, Any>()
+                        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+                        parmMap["tabname"] = "tb_porder"
+                        parmMap["storeid"] = "0"
+                        parmMap["goodscode"] = ""
+                        parmMap["goodstype"] =""
+                        parmMap["goodsname"] = ""
+                        parmMap["goodsname"] = ""
+                        // parmMap.put("opid", ShareUserInfo.getUserId(context));
+                        parmMap["barcode"] = "12001"//新增条码
+                        parmMap["curpage"] = currentPage
+                        parmMap["pagesize"] = pageSize
+                        findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false)
+                    }
                 }
             }
         }
@@ -339,15 +361,35 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
     }
 
     override fun executeSuccess() {
-        if (returnSuccessType == 0) {
-            if (returnJson == "") {
-                showToastPromopt("保存成功")
-                setResult(Activity.RESULT_OK)
-                finish()
-            } else {
-                showToastPromopt("保存失败" + returnJson.substring(5))
+        when(returnSuccessType){
+            0->{
+                if (returnJson == "") {
+                    showToastPromopt("保存成功")
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                } else {
+                    showToastPromopt("保存失败" + returnJson.substring(5))
+                }
             }
-        } /*else if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
+            //扫一扫选择商品
+            3->{
+                var map =(PaseJson.paseJsonToObject(returnJson) as ArrayList<MutableMap<String, Any?>>)[0]
+                map["unitprice"] = map["aprice"]//单价
+                map["unitqty"] = "1"
+                map["disc"] = "100"
+                map["batchcode"] = ""
+                map["produceddate"] = ""
+                map["validdate"] = ""
+                map["validdate"] = ""
+                map["taxrate"] = mTaxrate//税率
+                val csje = map["aprice"].toString().toDouble() * (mTaxrate.toString().toDouble() + 100) / 100
+                map["taxunitprice"] =csje.toString()
+                map["amount"] = FigureTools.sswrFigure(csje.toString())
+                list.add(map)
+                adapter.notifyDataSetChanged()
+            }
+        }
+        /*else if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
             if (returnJson == "") {
                 return
             }
