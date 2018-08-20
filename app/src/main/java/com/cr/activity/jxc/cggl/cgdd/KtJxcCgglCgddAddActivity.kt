@@ -22,6 +22,7 @@ import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
+import com.update.actiity.WeChatCaptureActivity
 import com.update.actiity.choose.ChooseDepartmentActivity
 import com.update.actiity.choose.KtXzfplxActivity
 import com.update.actiity.choose.SelectSalesmanActivity
@@ -208,6 +209,10 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
             intent.putExtra("object", list!!.get(position) as Serializable)
             startActivityForResult(intent, 4)
         }
+        /**
+         * 相关项目选择
+         *
+         */
         et_xgxm.setOnClickListener {
             if (TextUtils.isEmpty(gysId))
                 showToastPromopt("请先选择供应商")
@@ -219,6 +224,13 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                         .putExtra("typesname", mTypesname), 9)
         }
 
+
+        /**
+         * 扫描选择商品
+         */
+        iv_scan.setOnClickListener {
+            startActivityForResult(Intent(this, WeChatCaptureActivity::class.java), 11)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -363,6 +375,22 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                     9 -> {
                         projectid = data.getStringExtra("projectid")
                         et_xgxm.setText(data.getStringExtra("title"))
+                    }
+                //扫一扫选择商品
+                    11->{
+                        val parmMap = java.util.HashMap<String, Any>()
+                        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+                        parmMap["tabname"] = "tb_porder"
+                        parmMap["storeid"] = "0"
+                        parmMap["goodscode"] = ""
+                        parmMap["goodstype"] =""
+                        parmMap["goodsname"] = ""
+                        parmMap["goodsname"] = ""
+                        // parmMap.put("opid", ShareUserInfo.getUserId(context));
+                        parmMap["barcode"] = "12001"//新增条码
+                        parmMap["curpage"] = currentPage
+                        parmMap["pagesize"] = pageSize
+                        findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false)
                     }
 
                 }

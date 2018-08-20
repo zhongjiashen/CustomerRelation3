@@ -31,6 +31,7 @@ import java.io.Serializable
 import java.util.ArrayList
 import java.util.HashMap
 
+@Deprecated("")
 class KtJxcCgglCgshAddActivity: BaseActivity() {
     var time: Long = 0
     var gysId: String? = ""

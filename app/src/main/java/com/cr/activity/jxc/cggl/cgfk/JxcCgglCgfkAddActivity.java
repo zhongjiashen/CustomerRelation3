@@ -47,6 +47,7 @@ import com.update.utils.EditTextHelper;
  * @author Administrator
  * 
  */
+@Deprecated
 public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListener {
     private ImageButton               saveImageButton;
     private TextView                  xzspnumTextView;
