@@ -26,7 +26,8 @@ import com.crcxj.activity.R;
 
 /**
  * 公用模块-选择商品类别
- * 
+ *
+ *
  * @author caiyanfei
  * @version $Id: CommonXzdwActivity.java, v 0.1 2015-3-12 下午3:46:54 caiyanfei Exp $
  */

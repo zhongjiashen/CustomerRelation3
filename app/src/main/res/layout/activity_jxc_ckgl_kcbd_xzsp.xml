@@ -77,17 +77,24 @@
         android:layout_height="0.5dip"
         android:background="#808080" />
 
-    <com.cr.common.XListView
-        android:id="@+id/xlistview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="-1dip"
-        android:layout_weight="1"
-        android:divider="@color/gray_line_color"
-        android:dividerHeight="1dip"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none" >
-    </com.cr.common.XListView>
+
+    <com.baiiu.filter.DropDownMenu
+        android:id="@+id/dropDownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.cr.common.XListView
+            android:id="@+id/mFilterContentView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="-1dip"
+            android:layout_weight="1"
+            android:divider="@color/gray_line_color"
+            android:dividerHeight="1dip"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"/>
+    </com.baiiu.filter.DropDownMenu>
+
 
     <LinearLayout
         android:layout_width="fill_parent"

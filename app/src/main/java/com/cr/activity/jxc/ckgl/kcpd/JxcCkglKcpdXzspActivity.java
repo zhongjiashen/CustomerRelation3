@@ -23,6 +23,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baiiu.filter.DropDownMenu;
+import com.baiiu.filter.adapter.DropMenuAdapter;
+import com.baiiu.filter.interfaces.OnFilterDoneListener;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzsplbActivity;
 import com.cr.adapter.jxc.ckgl.kcpd.JxcCkglKcpdXzspAdapter;
@@ -51,7 +54,7 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
     private TextView qrTextView;
     ImageButton flImageButton;
     private String code;
-
+    DropDownMenu dropDownMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +68,16 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
         qsrq = sdf.format(new Date()) + "01";
         jzrq = sdf.format(new Date())
                 + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        searchDate();
+        fenleiDate();
     }
 
     /**
      * 初始化Activity
      */
     private void initActivity() {
+        dropDownMenu = findViewById(R.id.dropDownMenu);
+
+
         if (this.getIntent().hasExtra("pdckId")) {
             pdckId = this.getIntent().getExtras().getString("pdckId");
         }
@@ -100,7 +106,7 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
      * 初始化ListView
      */
     private void initListView() {
-        listView = (XListView) findViewById(R.id.xlistview);
+        listView = (XListView) findViewById(R.id.mFilterContentView);
         adapter = new JxcCkglKcpdXzspAdapter(list, this, pdckId);
         listView.setAdapter(adapter);
         listView.setXListViewListener(xListViewListener);
@@ -130,36 +136,68 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
         parmMap.put("pagesize", pageSize);
         findServiceData2(0, ServerURL.SELECTGOODSKCPD, parmMap, false);
     }
+    /**
+     * 连接网络的操作
+     */
+    private void fenleiDate(){
+        Map<String, Object> parmMap=new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
 
+        findServiceData2(1,ServerURL.GOODSTYPE,parmMap,true);
+    }
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
         if (returnJson.equals("")) {
             showToastPromopt(2);
         } else {
-            ArrayList<Map<String, Object>> myList = (ArrayList<Map<String, Object>>) PaseJson
-                    .paseJsonToObject(returnJson);
-            for (Map<String, Object> obj : myList) {
-                obj.put("isDetail", "0");
-                obj.put("ischecked", "0");
-                list.add(obj);
-                Map<String, Object> obj2 = new HashMap<String, Object>();
-                obj2.put("isDetail", "1");
-                obj2.put("zmsl", obj.get("onhand").toString());
-                obj2.put("spsl", obj.get("onhand").toString());
-                obj2.put("aprice", obj.get("aprice").toString());
-                obj2.put("yksl", "0");
-                obj2.put("cpph", "");
-                obj2.put("scrq", "");
-                obj2.put("yxqz", "");
-                obj2.put("batchctrl", obj.get("batchctrl").toString());
-                UUID uuid = UUID.randomUUID();
-                obj2.put("serialinfo", uuid.toString().toUpperCase());
-                obj2.put("serials", new ArrayList<Serial>());
-                list.add(obj2);
+            switch (returnSuccessType){
+                case 0:
+                    ArrayList<Map<String, Object>> myList = (ArrayList<Map<String, Object>>) PaseJson
+                            .paseJsonToObject(returnJson);
+                    for (Map<String, Object> obj : myList) {
+                        obj.put("isDetail", "0");
+                        obj.put("ischecked", "0");
+                        list.add(obj);
+                        Map<String, Object> obj2 = new HashMap<String, Object>();
+                        obj2.put("isDetail", "1");
+                        obj2.put("zmsl", obj.get("onhand").toString());
+                        obj2.put("spsl", obj.get("onhand").toString());
+                        obj2.put("aprice", obj.get("aprice").toString());
+                        obj2.put("yksl", "0");
+                        obj2.put("cpph", "");
+                        obj2.put("scrq", "");
+                        obj2.put("yxqz", "");
+                        obj2.put("batchctrl", obj.get("batchctrl").toString());
+                        UUID uuid = UUID.randomUUID();
+                        obj2.put("serialinfo", uuid.toString().toUpperCase());
+                        obj2.put("serials", new ArrayList<Serial>());
+                        list.add(obj2);
+                    }
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 1://获取分类数据
+
+                    String[] titleList = new String[]{"分类"};
+                    List[] contextList=new List[]{(List<Map<String, Object>>)PaseJson.paseJsonToObject(returnJson)};
+                    dropDownMenu.setMenuAdapter(new DropMenuAdapter(activity, titleList,contextList, new OnFilterDoneListener() {
+                        @Override
+                        public void onFilterDone(int position, Map map) {
+                            dropDownMenu.setPositionIndicatorText(position, map.get("name").toString());
+                            dropDownMenu.close();
+                            code = map.get("lcode").toString();
+                            list.clear();
+                            searchDate();
+                        }
+
+
+                    }));
+                    searchDate();
+                    break;
             }
+
         }
-        adapter.notifyDataSetChanged();
+
     }
 
     @Override
