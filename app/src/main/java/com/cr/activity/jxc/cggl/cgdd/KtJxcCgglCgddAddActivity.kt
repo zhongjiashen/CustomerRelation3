@@ -27,6 +27,7 @@ import com.update.actiity.choose.ChooseDepartmentActivity
 import com.update.actiity.choose.KtXzfplxActivity
 import com.update.actiity.choose.SelectSalesmanActivity
 import com.update.actiity.project.ChoiceProjectActivity
+import com.update.model.Serial
 import com.update.utils.LogUtils
 
 import kotlinx.android.synthetic.main.activity_jxc_cggl_cgdd_add.*
@@ -537,6 +538,9 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                 val csje = map["aprice"].toString().toDouble() * (mTaxrate.toString().toDouble() + 100) / 100
                 map["taxunitprice"] = csje.toString()
                 map["amount"] = FigureTools.sswrFigure(csje.toString())
+
+                map["issj"] =(et_fplx.getText().toString() == "收据")
+
                 list.add(map)
                 adapter.notifyDataSetChanged()
                 xzspnum_textview.setText("共选择了" + list.size + "商品")

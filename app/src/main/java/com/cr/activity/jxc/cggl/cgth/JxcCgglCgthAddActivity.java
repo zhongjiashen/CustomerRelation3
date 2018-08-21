@@ -38,6 +38,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.KtXzfplxActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
@@ -58,6 +59,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -125,9 +127,6 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
     EditText bzxxEdittext;
     @BindView(R.id.add_scrollview)
     ScrollView addScrollview;
-
-
-
 
 
     String gysId = "", gys2Id = "", lxrId = "", jbrId = "", rkckId = "", fklxId = "", jsfsId = "", zjzhId = "";
@@ -222,14 +221,12 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
         mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEdittext.setText(ShareUserInfo.getKey(this, "opname"));
-        jbrId =  ShareUserInfo.getKey(this, "empid");
-
+        jbrId = ShareUserInfo.getKey(this, "empid");
 
 
         etFplx.setText("收据");
         billtypeid = "1";
         mTaxrate = "0";
-
 
 
     }
@@ -248,7 +245,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
 
     private long time;
 
-    @OnClick({R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
+    @OnClick({R.id.iv_scan, R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -264,6 +261,13 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 intent.putExtra("type", "cgth");
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
+                break;
+            case R.id.iv_scan://扫一扫选择商品
+                if (rkckEdittext.getText().toString().equals("")) {
+                    showToastPromopt("请先选择仓库信息！");
+                    return;
+                }
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
                 break;
             case R.id.gys_edittext:
                 intent.setClass(this, CommonXzdwActivity.class);
@@ -389,7 +393,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             case R.id.et_wlgs:
                 //选择物流公司
                 startActivityForResult(new Intent(this, KtWlxxActivity.class)
-                                .putExtra("data",new Gson().toJson(mWlxxData))
+                                .putExtra("data", new Gson().toJson(mWlxxData))
                         , 14);
                 break;
 
@@ -570,16 +574,16 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                     xmId = data.getStringExtra("projectid");
                     break;
                 case 13://选择发票类型
-                    if(billtypeid.equals(data.getStringExtra("id")))
+                    if (billtypeid.equals(data.getStringExtra("id")))
                         return;
                     etFplx.setText(data.getStringExtra("name"));
                     billtypeid = data.getStringExtra("id");
                     mTaxrate = data.getExtras().getString("taxrate");
-                    if(list!=null){
-                        for (int i=0;i<list.size();i++) {
-                            list.get(i).put("taxrate",mTaxrate);
-                            Double csje  = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                            list.get(i).put("taxunitprice",csje+"");
+                    if (list != null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            list.get(i).put("taxrate", mTaxrate);
+                            Double csje = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            list.get(i).put("taxunitprice", csje + "");
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
                             list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
@@ -611,7 +615,19 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                     break;
                 case 17:
                     break;
-                case 18:
+                case 18://扫一扫选择商品
+                    Map<String, Object> parmMap = new HashMap<String, Object>();
+                    parmMap.put("dbname", ShareUserInfo.getDbName(context));
+                    parmMap.put("tabname","tb_preturn");
+                    parmMap.put("storeid", rkckId);
+                    parmMap.put("goodscode", "");
+                    parmMap.put("goodstype", "");
+                    parmMap.put("goodsname","");
+                    // parmMap.put("opid", ShareUserInfo.getUserId(context));
+                    parmMap.put("barcode","12001");//新增条码
+                    parmMap.put("curpage", currentPage);
+                    parmMap.put("pagesize", pageSize);
+                    findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false);
                     break;
 
             }
@@ -673,7 +689,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
-        List<Serial> serialinfo=new ArrayList<Serial>();
+        List<Serial> serialinfo = new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
@@ -700,7 +716,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
 
             jsonObject.put("billtypeid", billtypeid);//发票类型ID
-            if(mWlxxData!=null) {
+            if (mWlxxData != null) {
                 jsonObject.put("logisticid", mWlxxData.getLogisticid());//新加物流公司ID
                 jsonObject.put("shipno", mWlxxData.getShipno());//物流单号
                 jsonObject.put("shiptype", mWlxxData.getShiptype());//运输方式
@@ -757,15 +773,41 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-        if (returnSuccessType == 0) {
-            if (returnJson.equals("")) {
-                showToastPromopt("保存成功");
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                showToastPromopt("保存失败" + returnJson.substring(5));
-            }
-        } else if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
+        switch (returnSuccessType) {
+            case 0:
+                if (returnJson.equals("")) {
+                    showToastPromopt("保存成功");
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    showToastPromopt("保存失败" + returnJson.substring(5));
+                }
+                break;
+            case 3: //扫一扫选择商品
+                Map<String, Object> map =((ArrayList<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson)).get(0);
+                map.put("unitprice",map.get("aprice"));//单价
+                map.put("unitqty","1");//數量
+                map.put("disc","100");//单价
+                map.put("batchcode","");//单价
+                map.put("produceddate", "");//单价
+                map.put("validdate","");//单价
+                map.put("taxrate",mTaxrate);//税率
+                Double csje  = Double.parseDouble(map.get("aprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                map.put("taxunitprice",csje+"");//单价
+                map.put("amount", FigureTools.sswrFigure(csje.toString()));
+
+
+                map.put("issj", etFplx.getText().toString().equals("收据"));
+                UUID uuid = UUID.randomUUID();
+                map.put("serialinfo", uuid.toString().toUpperCase());//
+                map.put("serials", new ArrayList<Serial>());//
+                list.add(map);
+                adapter.notifyDataSetChanged();
+                xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                break;
+        }
+        if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
             if (returnJson.equals("")) {
                 return;
             }

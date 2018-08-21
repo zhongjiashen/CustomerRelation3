@@ -61,6 +61,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -845,6 +846,11 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 Double csje  = Double.parseDouble(map.get("aprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
                 map.put("taxunitprice",csje+"");//单价
                 map.put("amount", FigureTools.sswrFigure(csje.toString()));
+
+                map.put("issj", etFplx.getText().toString().equals("收据"));
+                UUID uuid = UUID.randomUUID();
+                map.put("serialinfo", uuid.toString().toUpperCase());//
+                map.put("serials", new ArrayList<Serial>());//
                 list.add(map);
                 adapter.notifyDataSetChanged();
                 xzspnumTextview.setText("共选择了" + list.size() + "商品");
