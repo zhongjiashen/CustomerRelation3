@@ -22,6 +22,7 @@ import java.util.HashMap
  *
  * @author Administrator
  */
+@Deprecated("")
 class KtJxcCkglCkdbAddActivity : BaseActivity() {
     var jbrId: String? = ""
     var rkckId: String? = ""

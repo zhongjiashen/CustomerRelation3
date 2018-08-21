@@ -33,7 +33,7 @@ import java.io.Serializable
 
 import java.text.SimpleDateFormat
 import java.util.*
-
+@Deprecated("")
 class KtJxcCkglCkdbXzspActivity : BaseActivity(), PullToRefreshLayout.OnRefreshListener {
     override fun onRefresh(pullToRefreshLayout: PullToRefreshLayout?) {
         mList.clear()
