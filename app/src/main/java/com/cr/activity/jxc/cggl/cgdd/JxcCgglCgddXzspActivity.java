@@ -1,18 +1,7 @@
 package com.cr.activity.jxc.cggl.cgdd;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,21 +9,13 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baiiu.filter.DropDownMenu;
 import com.baiiu.filter.adapter.DropMenuAdapter;
-import com.baiiu.filter.adapter.MenuAdapter;
-import com.baiiu.filter.adapter.SimpleTextAdapter;
-import com.baiiu.filter.entity.FilterUrl;
 import com.baiiu.filter.interfaces.OnFilterDoneListener;
-import com.baiiu.filter.interfaces.OnFilterItemClickListener;
-import com.baiiu.filter.typeview.SingleListView;
-import com.baiiu.filter.util.UIUtil;
-import com.baiiu.filter.view.FilterCheckedTextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzsplbActivity;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddXzspAdapter;
@@ -47,7 +28,22 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.model.Serial;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 进销存-采购管理-采购订单-选择商品（采购收货、采购退货、销售开单、销售退货）
@@ -56,6 +52,8 @@ import com.update.model.Serial;
  */
 public class JxcCgglCgddXzspActivity extends BaseActivity implements
         OnClickListener {
+    @BindView(R.id.tv_jxtj)
+    TextView tvJxtj;
     private JxcCgglCgddXzspAdapter adapter;
     private XListView listView;
     DropDownMenu dropDownMenu;
@@ -69,11 +67,14 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
     private String tabname = "";
     private String mTaxrate;//税率
     private boolean issj;//发票类型是否是收据
-    List<Map<String, Object>>fllist=new ArrayList<Map<String, Object>>();
+    private String barcode;//新增条码
+    List<Map<String, Object>> fllist = new ArrayList<Map<String, Object>>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jxc_cggl_cgdd_xzsp);
+        ButterKnife.bind(this);
         addFHMethod();
         if (this.getIntent().hasExtra("rkckId")) {
             storeid = this.getIntent().getExtras().getString("rkckId");
@@ -81,7 +82,11 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         if (this.getIntent().hasExtra("tabname")) {
             tabname = this.getIntent().getExtras().getString("tabname");
         }
-
+        //判断是否是扫一扫
+        if (this.getIntent().hasExtra("barcode")) {
+            barcode = this.getIntent().getExtras().getString("barcode");
+            tvJxtj.setVisibility(View.VISIBLE);
+        }
 
         initActivity();
         initListView();
@@ -171,11 +176,11 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
     /**
      * 连接网络的操作
      */
-    private void fenleiDate(){
-        Map<String, Object> parmMap=new HashMap<String, Object>();
+    private void fenleiDate() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
 
-        findServiceData2(1,ServerURL.GOODSTYPE,parmMap,true);
+        findServiceData2(1, ServerURL.GOODSTYPE, parmMap, true);
     }
 
     @SuppressWarnings("unchecked")
@@ -184,7 +189,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         if (returnJson.equals("")) {
             showToastPromopt(2);
         } else {
-            switch (returnSuccessType){
+            switch (returnSuccessType) {
                 case 0:
                     ArrayList<Map<String, Object>> myList = (ArrayList<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson);
@@ -215,10 +220,10 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
 
                     break;
                 case 1://获取分类数据
-                    fllist.addAll((List<Map<String, Object>>)PaseJson.paseJsonToObject(returnJson));
+                    fllist.addAll((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson));
                     String[] titleList = new String[]{"分类"};
-                    List[] contextList=new List[]{fllist};
-                    dropDownMenu.setMenuAdapter(new DropMenuAdapter(activity, titleList,contextList, new OnFilterDoneListener() {
+                    List[] contextList = new List[]{fllist};
+                    dropDownMenu.setMenuAdapter(new DropMenuAdapter(activity, titleList, contextList, new OnFilterDoneListener() {
                         @Override
                         public void onFilterDone(int position, Map map) {
                             dropDownMenu.setPositionIndicatorText(position, map.get("name").toString());
@@ -237,12 +242,18 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         }
 
     }
-
-    @Override
-    public void onClick(View arg0) {
+    @OnClick({R.id.fl, R.id.tv_jxtj, R.id.tv_qrxz})
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (arg0.getId()) {
-            case R.id.qr_textview:
+        switch (view.getId()) {
+            case R.id.fl:
+                intent.setClass(activity, CommonXzsplbActivity.class);
+                startActivityForResult(intent, 2);
+                break;
+            case R.id.tv_jxtj:
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
+                break;
+            case R.id.tv_qrxz:
                 for (int i = 0; i < list.size(); i++) {
                     Map<String, Object> map = list.get(i);
                     if (map.get("isDetail").equals("0")) {
@@ -264,12 +275,9 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                 setResult(RESULT_OK, intent);
                 finish();
                 break;
-            case R.id.fl:
-                intent.setClass(activity, CommonXzsplbActivity.class);
-                startActivityForResult(intent, 2);
-                break;
         }
     }
+
 
     /**
      * 刷新
@@ -343,13 +351,51 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
 
                     adapter.notifyDataSetChanged();
                     break;
+                case 18://扫一扫选择商品
+                    barcode="12001";
+                    searchDate();
+                    break;
             }
 
         }
     }
 
 
+
 }
+
+//    @Override
+//    public void onClick(View arg0) {
+//        Intent intent = new Intent();
+//        switch (arg0.getId()) {
+//            case R.id.qr_textview:
+//                for (int i = 0; i < list.size(); i++) {
+//                    Map<String, Object> map = list.get(i);
+//                    if (map.get("isDetail").equals("0")) {
+//                        if (map.get("ischecked").equals("1")) {
+//                            Map<String, Object> map2 = list.get(i + 1);
+//                            if (map2.get("sl").equals("0") || map2.get("sl").equals("")) {
+//                                Toast.makeText(activity, "请输入已选择商品的数量信息", Toast.LENGTH_SHORT).show();
+//                                return;
+//                            }
+//                            if (map2.get("batchctrl").equals("T") && map2.get("cpph").equals("")) {
+//                                Toast.makeText(activity, "选择的批号商品，必须填写批号信息", Toast.LENGTH_SHORT).show();
+//                                return;
+//                            }
+//                            map2.put("dj", FigureTools.sswrFigure(map2.get("dj").toString()));
+//                        }
+//                    }
+//                }
+//                intent.putExtra("object", (Serializable) list);
+//                setResult(RESULT_OK, intent);
+//                finish();
+//                break;
+//            case R.id.fl:
+//                intent.setClass(activity, CommonXzsplbActivity.class);
+//                startActivityForResult(intent, 2);
+//                break;
+//        }
+//    }
 /*
  if (requestCode == 0) {
          int index = Integer.parseInt(data.getExtras()
