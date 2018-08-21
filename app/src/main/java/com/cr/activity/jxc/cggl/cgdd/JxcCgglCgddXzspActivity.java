@@ -110,8 +110,6 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         dropDownMenu = findViewById(R.id.dropDownMenu);
         flImageButton = (ImageButton) findViewById(R.id.fl);
         flImageButton.setOnClickListener(this);
-        qrTextView = (TextView) findViewById(R.id.qr_textview);
-        qrTextView.setOnClickListener(this);
         searchEditText = (EditText) findViewById(R.id.search);
         searchEditText
                 .setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -166,6 +164,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         parmMap.put("storeid", storeid);
         parmMap.put("goodscode", "");
         parmMap.put("goodstype", code);
+        parmMap.put("barcode", barcode);//新增条码
         parmMap.put("goodsname", searchEditText.getText().toString());
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("curpage", currentPage);
