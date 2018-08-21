@@ -134,6 +134,7 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
         parmMap.put("goodscode", "");
         parmMap.put("goodstype", code);
         parmMap.put("tabname", "tb_inout");
+        parmMap.put("barcode", barcode);//新增条码
         parmMap.put("goodsname", searchEditText.getText().toString());
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("curpage", currentPage);
