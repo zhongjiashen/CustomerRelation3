@@ -97,8 +97,7 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
         }
         flImageButton = (ImageButton) findViewById(R.id.fl);
         flImageButton.setOnClickListener(this);
-        qrTextView = (TextView) findViewById(R.id.qr_textview);
-        qrTextView.setOnClickListener(this);
+
         searchEditText = (EditText) findViewById(R.id.search);
         searchEditText
                 .setOnEditorActionListener(new TextView.OnEditorActionListener() {
