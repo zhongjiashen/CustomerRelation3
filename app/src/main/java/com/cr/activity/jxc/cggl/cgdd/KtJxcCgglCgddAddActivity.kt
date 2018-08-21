@@ -539,6 +539,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                 map["amount"] = FigureTools.sswrFigure(csje.toString())
                 list.add(map)
                 adapter.notifyDataSetChanged()
+                xzspnum_textview.setText("共选择了" + list.size + "商品")
             }
         }
 

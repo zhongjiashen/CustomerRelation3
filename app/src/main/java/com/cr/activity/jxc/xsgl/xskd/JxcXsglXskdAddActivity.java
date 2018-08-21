@@ -39,6 +39,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.KtXzfplxActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
@@ -165,6 +166,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
     //发票类型ID
     String billtypeid;
     private String mTaxrate;//税率
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -235,7 +237,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEdittext.setText(ShareUserInfo.getKey(this, "opname"));
-        jbrId =  ShareUserInfo.getKey(this, "empid");
+        jbrId = ShareUserInfo.getKey(this, "empid");
 
         etFplx.setText("收据");
         billtypeid = "1";
@@ -258,7 +260,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     if (TextUtils.isEmpty(dsjeEdittext.getText().toString())) {
                         skhjEdittext.setText(Double.parseDouble(s.toString()) + "");
                     } else {
-                        skhjEdittext.setText((Double.parseDouble(s.toString()) + Double.parseDouble(dsjeEdittext.getText().toString()))+"");
+                        skhjEdittext.setText((Double.parseDouble(s.toString()) + Double.parseDouble(dsjeEdittext.getText().toString())) + "");
                     }
                 }
             }
@@ -280,7 +282,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     if (TextUtils.isEmpty(skjeEdittext.getText().toString())) {
                         skhjEdittext.setText(Double.parseDouble(s.toString()) + "");
                     } else {
-                        skhjEdittext.setText((Double.parseDouble(s.toString()) + Double.parseDouble(skjeEdittext.getText().toString()))+"");
+                        skhjEdittext.setText((Double.parseDouble(s.toString()) + Double.parseDouble(skjeEdittext.getText().toString())) + "");
                     }
                 }
 
@@ -299,7 +301,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
 //    }
 
 
-    @OnClick({R.id.save_imagebutton, R.id.mTogBtn, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.ckck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.et_shrq, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.khqk_edittext, R.id.hjje_edittext, R.id.skje_edittext, R.id.sklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.wlgs_edittext, R.id.dszh_edittext, R.id.dsje_edittext, R.id.skhj_edittext, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
+    @OnClick({R.id.iv_scan, R.id.save_imagebutton, R.id.mTogBtn, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.ckck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.et_shrq, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.khqk_edittext, R.id.hjje_edittext, R.id.skje_edittext, R.id.sklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.wlgs_edittext, R.id.dszh_edittext, R.id.dsje_edittext, R.id.skhj_edittext, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -315,6 +317,13 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 intent.putExtra("xskd", true);
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
+                break;
+            case R.id.iv_scan://扫一扫选择商品
+                if (ckckEdittext.getText().toString().equals("")) {
+                    showToastPromopt("请先选择仓库信息！");
+                    return;
+                }
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
                 break;
             case R.id.gys_edittext://单位选择
                 intent.setClass(this, CommonXzkhActivity.class);
@@ -434,7 +443,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 break;
             case R.id.wlgs_edittext://选择物流公司
                 startActivityForResult(new Intent(this, KtWlxxActivity.class)
-                                .putExtra("data",new Gson().toJson(mWlxxData))
+                                .putExtra("data", new Gson().toJson(mWlxxData))
                         , 14);
                 break;
             case R.id.jhdz_edittext:
@@ -630,16 +639,16 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     xmId = data.getStringExtra("projectid");
                     break;
                 case 13://选择发票类型
-                    if(billtypeid.equals(data.getStringExtra("id")))
+                    if (billtypeid.equals(data.getStringExtra("id")))
                         return;
                     etFplx.setText(data.getStringExtra("name"));
                     billtypeid = data.getStringExtra("id");
                     mTaxrate = data.getExtras().getString("taxrate");
-                    if(list!=null){
-                        for (int i=0;i<list.size();i++) {
-                            list.get(i).put("taxrate",mTaxrate);
-                            Double csje  = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                            list.get(i).put("taxunitprice",csje+"");
+                    if (list != null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            list.get(i).put("taxrate", mTaxrate);
+                            Double csje = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            list.get(i).put("taxunitprice", csje + "");
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
                             list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
@@ -673,6 +682,20 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     proxybankid = data.getStringExtra("id");
                     dszhEdittext.setText(data.getStringExtra("name"));
                     EditTextHelper.EditTextEnable(true, dsjeEdittext);
+                    break;
+                case 18://扫一扫选择商品
+                    Map<String, Object> parmMap = new HashMap<String, Object>();
+                    parmMap.put("dbname", ShareUserInfo.getDbName(context));
+                    parmMap.put("tabname", "tb_invoice");
+                    parmMap.put("storeid", ckckId);
+                    parmMap.put("goodscode", "");
+                    parmMap.put("goodstype", "");
+                    parmMap.put("goodsname", "");
+                    // parmMap.put("opid", ShareUserInfo.getUserId(context));
+                    parmMap.put("barcode", "12001");//新增条码
+                    parmMap.put("curpage", currentPage);
+                    parmMap.put("pagesize", pageSize);
+                    findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false);
                     break;
             }
 
@@ -740,7 +763,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
-        List<Serial> serialinfo=new ArrayList<Serial>();
+        List<Serial> serialinfo = new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
@@ -767,7 +790,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             jsonObject.put("skrq", etShrq.getText().toString());//收款日期
             jsonObject.put("proxybankid", proxybankid);//代收账户ID
             jsonObject.put("proxyamt", dsjeEdittext.getText().toString());//代收账户ID
-            if(mWlxxData!=null) {
+            if (mWlxxData != null) {
                 jsonObject.put("logisticid", mWlxxData.getLogisticid());//新加物流公司ID
                 jsonObject.put("shipno", mWlxxData.getShipno());//物流单号
                 jsonObject.put("shiptype", mWlxxData.getShiptype());//运输方式
@@ -824,15 +847,35 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-        if (returnSuccessType == 0) {
-            if (returnJson.equals("")) {
-                showToastPromopt("保存成功");
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                showToastPromopt("保存失败" + returnJson.substring(5));
-            }
-        } else if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
+        switch (returnSuccessType) {
+            case 0:
+                if (returnJson.equals("")) {
+                    showToastPromopt("保存成功");
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    showToastPromopt("保存失败" + returnJson.substring(5));
+                }
+                break;
+            case 3: //扫一扫选择商品
+                Map<String, Object> map = ((ArrayList<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson)).get(0);
+                map.put("unitprice", map.get("aprice"));//单价
+                map.put("unitqty", "1");//數量
+                map.put("disc", "100");//单价
+                map.put("batchcode", "");//单价
+                map.put("produceddate", "");//单价
+                map.put("validdate", "");//单价
+                map.put("taxrate", mTaxrate);//税率
+                Double csje = Double.parseDouble(map.get("aprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                map.put("taxunitprice", csje + "");//单价
+                map.put("amount", FigureTools.sswrFigure(csje.toString()));
+                list.add(map);
+                adapter.notifyDataSetChanged();
+                xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                break;
+        }
+        if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
             if (returnJson.equals("")) {
                 return;
             }

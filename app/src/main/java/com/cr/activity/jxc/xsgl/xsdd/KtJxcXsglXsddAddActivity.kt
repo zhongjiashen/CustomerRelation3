@@ -342,7 +342,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                     11->{
                         val parmMap = java.util.HashMap<String, Any>()
                         parmMap["dbname"] = ShareUserInfo.getDbName(context)
-                        parmMap["tabname"] = "tb_porder"
+                        parmMap["tabname"] = "tb_sorder"
                         parmMap["storeid"] = "0"
                         parmMap["goodscode"] = ""
                         parmMap["goodstype"] =""
@@ -387,6 +387,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                 map["amount"] = FigureTools.sswrFigure(csje.toString())
                 list.add(map)
                 adapter.notifyDataSetChanged()
+                xzspnum_textview.setText("共选择了" + list.size + "商品")
             }
         }
         /*else if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）

@@ -39,6 +39,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.KtXzfplxActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
@@ -279,7 +280,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         });
     }
     private long time;
-    @OnClick({R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.et_shrq, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.et_dszh, R.id.et_dsje, R.id.et_skhj, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
+    @OnClick({R.id.iv_scan,R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.et_shrq, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.et_dszh, R.id.et_dsje, R.id.et_skhj, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -295,6 +296,13 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 intent.putExtra("tabname", "tb_received");
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
+                break;
+            case R.id.iv_scan://扫一扫选择商品
+                if (rkckEdittext.getText().toString().equals("")) {
+                    showToastPromopt("请先选择仓库信息！");
+                    return;
+                }
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
                 break;
             case R.id.gys_edittext:
                 intent.setClass(this, CommonXzdwActivity.class);
@@ -653,7 +661,19 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     etDszh.setText(data.getStringExtra("name"));
                     EditTextHelper.EditTextEnable(true, etDsje);
                     break;
-                case 18:
+                case 18://扫一扫选择商品
+                    Map<String, Object> parmMap = new HashMap<String, Object>();
+                    parmMap.put("dbname", ShareUserInfo.getDbName(context));
+                    parmMap.put("tabname","tb_received");
+                    parmMap.put("storeid", rkckId);
+                    parmMap.put("goodscode", "");
+                    parmMap.put("goodstype", "");
+                    parmMap.put("goodsname","");
+                    // parmMap.put("opid", ShareUserInfo.getUserId(context));
+                    parmMap.put("barcode","12001");//新增条码
+                    parmMap.put("curpage", currentPage);
+                    parmMap.put("pagesize", pageSize);
+                    findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false);
                     break;
 
             }
@@ -802,15 +822,35 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-        if (returnSuccessType == 0) {
-            if (returnJson.equals("")) {
-                showToastPromopt("保存成功");
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                showToastPromopt("保存失败" + returnJson.substring(5));
-            }
-        } else if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
+        switch (returnSuccessType){
+            case 0:
+                if (returnJson.equals("")) {
+                    showToastPromopt("保存成功");
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    showToastPromopt("保存失败" + returnJson.substring(5));
+                }
+                break;
+            case 3: //扫一扫选择商品
+                Map<String, Object> map =((ArrayList<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson)).get(0);
+                map.put("unitprice",map.get("aprice"));//单价
+                map.put("unitqty","1");//數量
+                map.put("disc","100");//单价
+                map.put("batchcode","");//单价
+                map.put("produceddate", "");//单价
+                map.put("validdate","");//单价
+                map.put("taxrate",mTaxrate);//税率
+                Double csje  = Double.parseDouble(map.get("aprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                map.put("taxunitprice",csje+"");//单价
+                map.put("amount", FigureTools.sswrFigure(csje.toString()));
+                list.add(map);
+                adapter.notifyDataSetChanged();
+                xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                break;
+        }
+        if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
             if (returnJson.equals("")) {
                 return;
             }
