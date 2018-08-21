@@ -685,18 +685,31 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     EditTextHelper.EditTextEnable(true, dsjeEdittext);
                     break;
                 case 18://扫一扫选择商品
-                    Map<String, Object> parmMap = new HashMap<String, Object>();
-                    parmMap.put("dbname", ShareUserInfo.getDbName(context));
-                    parmMap.put("tabname", "tb_invoice");
-                    parmMap.put("storeid", ckckId);
-                    parmMap.put("goodscode", "");
-                    parmMap.put("goodstype", "");
-                    parmMap.put("goodsname", "");
-                    // parmMap.put("opid", ShareUserInfo.getUserId(context));
-                    parmMap.put("barcode", "12001");//新增条码
-                    parmMap.put("curpage", currentPage);
-                    parmMap.put("pagesize", pageSize);
-                    findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false);
+                    if (ckckEdittext.getText().toString().equals("")) {
+                        showToastPromopt("请先选择仓库信息！");
+                        return;
+                    }
+                    Intent intent=new Intent();
+                    intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
+                    intent.putExtra("taxrate", mTaxrate);
+                    intent.putExtra("rkckId", ckckId);
+                    intent.putExtra("tabname", "tb_invoice");
+                    intent.putExtra("barcode", "12001");
+                    intent.putExtra("xskd", true);
+                    intent.setClass(this, JxcCgglCgddXzspActivity.class);
+                    startActivityForResult(intent, 0);
+//                    Map<String, Object> parmMap = new HashMap<String, Object>();
+//                    parmMap.put("dbname", ShareUserInfo.getDbName(context));
+//                    parmMap.put("tabname", "tb_invoice");
+//                    parmMap.put("storeid", ckckId);
+//                    parmMap.put("goodscode", "");
+//                    parmMap.put("goodstype", "");
+//                    parmMap.put("goodsname", "");
+//                    // parmMap.put("opid", ShareUserInfo.getUserId(context));
+//                    parmMap.put("barcode", "12001");//新增条码
+//                    parmMap.put("curpage", currentPage);
+//                    parmMap.put("pagesize", pageSize);
+//                    findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false);
                     break;
             }
 
