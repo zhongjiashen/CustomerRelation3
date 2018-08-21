@@ -145,7 +145,7 @@ class KtJxcCkglCkdbXzspActivity : BaseActivity(), PullToRefreshLayout.OnRefreshL
             intent.setClass(activity, CommonXzsplbActivity::class.java)
             startActivityForResult(intent, 2)
         }
-        qr_textview.setOnClickListener {
+        tv_qrxz.setOnClickListener {
             for (data in mList) {
 
 

@@ -99,15 +99,24 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/cgdd_search_bg"
-        android:orientation="vertical"
         android:paddingBottom="10dip"
-        android:paddingTop="10dip" >
-
+        android:paddingTop="10dip">
         <TextView
-            android:id="@+id/qr_textview"
+            android:id="@+id/tv_jxtj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:gravity="center_horizontal"
+            android:text="继续添加"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+        <TextView
+            android:id="@+id/tv_qrxz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="@string/qrxz"
             android:textColor="@color/title_color"
             android:textSize="@dimen/jxc_cggl_cgdd" />

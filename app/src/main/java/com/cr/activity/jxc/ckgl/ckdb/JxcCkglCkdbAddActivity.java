@@ -1,18 +1,5 @@
 package com.cr.activity.jxc.ckgl.ckdb;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,11 +12,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
 import com.cr.adapter.jxc.ckgl.ckdb.JxcCkglCkdbAddAdapter;
@@ -39,9 +27,26 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.model.Serial;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 进销存-仓库管理-仓库调拨-增加
@@ -49,25 +54,49 @@ import com.update.model.Serial;
  * @author Administrator
  */
 public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListener {
-    private ImageButton saveImageButton;
-    private TextView xzspnumTextView;
-    private EditText bzxxEditText, djrqEditText, jbrEditText, rkckEditText, ckckEditText;
-    private CustomListView listview;
+    @BindView(R.id.fh)
+    ImageButton fh;
+    @BindView(R.id.save_imagebutton)
+    ImageButton saveImagebutton;
+    @BindView(R.id.ckck_edittext)
+    EditText ckckEdittext;
+    @BindView(R.id.rkck_edittext)
+    EditText rkckEdittext;
+    @BindView(R.id.xzspnum_textview)
+    TextView xzspnumTextview;
+    @BindView(R.id.iv_scan)
+    ImageView ivScan;
+    @BindView(R.id.xzsp_linearlayout)
+    LinearLayout xzspLinearlayout;
+    @BindView(R.id.xzsp_listview)
+    CustomListView xzspListview;
+    @BindView(R.id.djrq_edittext)
+    EditText djrqEdittext;
+    @BindView(R.id.et_bm)
+    EditText etBm;
+    @BindView(R.id.jbr_edittext)
+    EditText jbrEdittext;
+    @BindView(R.id.bzxx_edittext)
+    EditText bzxxEdittext;
+    @BindView(R.id.add_scrollview)
+    ScrollView addScrollview;
+
     String jbrId, rkckId, ckckId;
     private List<Map<String, Object>> list;
-    private LinearLayout xzspLinearLayout;
+
     BaseAdapter adapter;
-    //    LinearLayout                      xzxsddLinearLayout;
+
     private int selectIndex;
     String billid;//选择完关联的单据后返回的单据的ID
     private String mDepartmentid;//部门ID
-    private EditText etBm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jxc_ckgl_ckdb_add);
+        ButterKnife.bind(this);
         addFHMethod();
         initActivity();
         // searchDate();
@@ -77,16 +106,9 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
      * 初始化Activity
      */
     private void initActivity() {
-        etBm = (EditText) findViewById(R.id.et_bm);
-        etBm.setOnClickListener(this);
-        saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
-        saveImageButton.setOnClickListener(this);
-        rkckEditText = (EditText) findViewById(R.id.rkck_edittext);
-        rkckEditText.setOnClickListener(this);
-        ckckEditText = (EditText) findViewById(R.id.ckck_edittext);
-        ckckEditText.setOnClickListener(this);
-        listview = (CustomListView) findViewById(R.id.xzsp_listview);
-        listview.setOnItemClickListener(new OnItemClickListener() {
+
+
+        xzspListview.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
@@ -96,14 +118,11 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 4);
             }
         });
-        djrqEditText = (EditText) findViewById(R.id.djrq_edittext);
-        djrqEditText.setOnClickListener(this);
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        djrqEditText.setText(sdf.format(new Date()));
-        jbrEditText = (EditText) findViewById(R.id.jbr_edittext);
-        jbrEditText.setOnClickListener(this);
-        bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
-        bzxxEditText.setOnTouchListener(new OnTouchListener() {
+        djrqEdittext.setText(sdf.format(new Date()));
+
+        bzxxEdittext.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View view, MotionEvent event) {
                 // TODO Auto-generated method stub
                 view.getParent().requestDisallowInterceptTouchEvent(true);
@@ -116,13 +135,11 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 return false;
             }
         });
-        xzspnumTextView = (TextView) findViewById(R.id.xzspnum_textview);
-        xzspLinearLayout = (LinearLayout) findViewById(R.id.xzsp_linearlayout);
-        xzspLinearLayout.setOnClickListener(this);
+
         list = new ArrayList<Map<String, Object>>();
         adapter = new JxcCkglCkdbAddAdapter(list, this);
-        xzspnumTextView.setText("共选择了" + list.size() + "商品");
-        listview.setAdapter(adapter);
+        xzspnumTextview.setText("共选择了" + list.size() + "商品");
+        xzspListview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
@@ -152,40 +169,40 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
      * 连接网络的操作(保存)
      */
     private void searchDateSave() {
-        if (ckckEditText.getText().toString().equals("")) {
+        if (ckckEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择出库仓库");
             return;
-        } else if (rkckEditText.getText().toString().equals("")) {
+        } else if (rkckEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择入库仓库");
             return;
         } else if (list.size() == 0) {
             showToastPromopt("请选择商品");
             return;
-        } else if (djrqEditText.getText().toString().equals("")) {
+        } else if (djrqEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择单据日期");
             return;
         } else if (rkckId.equals(ckckId)) {
             showToastPromopt("调出仓库和调入仓库不能相同！");
             return;
         }
-        if (jbrEditText.getText().toString().equals("")) {
+        if (jbrEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择业务员");
             return;
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
-        List<Serial> serialinfo=new ArrayList<Serial>();
+        List<Serial> serialinfo = new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
             jsonObject.put("code", "");
-            jsonObject.put("billdate", djrqEditText.getText().toString());
+            jsonObject.put("billdate", djrqEdittext.getText().toString());
             jsonObject.put("insid", rkckId);
             jsonObject.put("outsid", ckckId);
             jsonObject.put("totalamt", "0");
             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
-            jsonObject.put("memo", bzxxEditText.getText().toString());
+            jsonObject.put("memo", bzxxEdittext.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
@@ -242,9 +259,9 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
 //            lxdhEditText.setText(object.get("phone").toString());
 //            jhdzEditText.setText(object.get("billto").toString());
 //            hjjeEditText.setText(object.get("amount").toString());
-            djrqEditText.setText(object.get("billdate").toString());
-            jbrEditText.setText(object.get("empname").toString());
-            bzxxEditText.setText(object.get("memo").toString());
+            djrqEdittext.setText(object.get("billdate").toString());
+            jbrEdittext.setText(object.get("empname").toString());
+            bzxxEdittext.setText(object.get("memo").toString());
 //            gysId = object.get("clientid").toString();
 //            lxrId = object.get("lxrid").toString();
             jbrId = object.get("empid").toString();
@@ -252,20 +269,20 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
         } else if (returnSuccessType == 2) {//管理单据成功后把信息填到里面（从表）
             list = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
             adapter = new JxcCgglCgddDetailAdapter(list, this);
-            xzspnumTextView.setText("共选择了" + list.size() + "商品");
-            listview.setAdapter(adapter);
+            xzspnumTextview.setText("共选择了" + list.size() + "商品");
+            xzspListview.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
     }
 
     private long time;
 
-    @Override
-    public void onClick(View arg0) {
+    @OnClick({R.id.save_imagebutton, R.id.ckck_edittext, R.id.rkck_edittext, R.id.xzspnum_textview, R.id.iv_scan, R.id.xzsp_linearlayout, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (arg0.getId()) {
+        switch (view.getId()) {
             case R.id.xzsp_linearlayout:
-                if (ckckEditText.getText().toString().equals("")) {
+                if (ckckEdittext.getText().toString().equals("")) {
                     showToastPromopt("请先选择出库仓库！");
                     return;
                 }
@@ -273,8 +290,15 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 intent.setClass(this, JxcCkglCkdbXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
+            case R.id.iv_scan:
+                if (ckckEdittext.getText().toString().equals("")) {
+                    showToastPromopt("请先选择出库仓库！");
+                    return;
+                }
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
+                break;
             case R.id.djrq_edittext:
-                date_init(djrqEditText);
+                date_init(djrqEdittext);
                 break;
             case R.id.et_bm:
                 startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
@@ -307,8 +331,17 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 7);
                 break;
+
+
+            case R.id.xzspnum_textview:
+                break;
+
+
+            case R.id.bzxx_edittext:
+                break;
         }
     }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -341,11 +374,11 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                         }
                     }
                 }
-                xzspnumTextView.setText("共选择了" + list.size() + "商品");
+                xzspnumTextview.setText("共选择了" + list.size() + "商品");
 //                hjjeEditText.setText("￥" + FigureTools.sswrFigure(zje+"") + "");
                 adapter.notifyDataSetChanged();
             } else if (requestCode == 3) {// 经办人
-                jbrEditText.setText(data.getExtras().getString("name"));
+                jbrEdittext.setText(data.getExtras().getString("name"));
                 jbrId = data.getExtras().getString("id");
             } else if (requestCode == 4) {//修改选中的商品的详情
                 if (data.getExtras().getSerializable("object").toString().equals("")) {//说明删除了
@@ -363,7 +396,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                     list.set(selectIndex, map);
                     adapter.notifyDataSetChanged();
                 }
-                xzspnumTextView.setText("共选择了" + list.size() + "商品");
+                xzspnumTextview.setText("共选择了" + list.size() + "商品");
 //                double zje = 0;
 //                for (int i = 0; i < list.size(); i++) {
 //                    Map<String, Object> map = list.get(i);
@@ -374,11 +407,11 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 billid = data.getExtras().getString("billid");
                 searchDate();//查询主表的数据填充
             } else if (requestCode == 6) {
-                rkckEditText.setText(data.getExtras().getString("dictmc"));
+                rkckEdittext.setText(data.getExtras().getString("dictmc"));
                 rkckId = data.getExtras().getString("id");
             } else if (requestCode == 7) {
-                if (!ckckEditText.getText().toString().equals(data.getExtras().getString("dictmc"))) {
-                    ckckEditText.setText(data.getExtras().getString("dictmc"));
+                if (!ckckEdittext.getText().toString().equals(data.getExtras().getString("dictmc"))) {
+                    ckckEdittext.setText(data.getExtras().getString("dictmc"));
                     ckckId = data.getExtras().getString("id");
                     list.clear();
                     adapter.notifyDataSetChanged();
@@ -387,11 +420,69 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
                 etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 jbrId = "";
-                jbrEditText.setText("");
+                jbrEdittext.setText("");
             } else if (requestCode == 16) {
-                jbrEditText.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
+                jbrEdittext.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
                 jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
+            } else if (requestCode == 18) {
+                Intent intent=new Intent();
+                intent.putExtra("storeid", ckckId);
+                intent.putExtra("barcode", "12001");
+                intent.setClass(this, JxcCkglCkdbXzspActivity.class);
+                startActivityForResult(intent, 0);
             }
         }
     }
+
+
 }
+
+//    @Override
+//    public void onClick(View arg0) {
+//        Intent intent = new Intent();
+//        switch (arg0.getId()) {
+//            case R.id.xzsp_linearlayout:
+//                if (ckckEditText.getText().toString().equals("")) {
+//                    showToastPromopt("请先选择出库仓库！");
+//                    return;
+//                }
+//                intent.putExtra("storeid", ckckId);
+//                intent.setClass(this, JxcCkglCkdbXzspActivity.class);
+//                startActivityForResult(intent, 0);
+//                break;
+//            case R.id.djrq_edittext:
+//                date_init(djrqEditText);
+//                break;
+//            case R.id.et_bm:
+//                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
+//                break;
+//            case R.id.jbr_edittext:
+//                if (TextUtils.isEmpty(mDepartmentid))
+//                    showToastPromopt("请先选择部门");
+//                else
+//                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+//                            .putExtra("depid", mDepartmentid), 16);
+////                intent.setClass(activity, CommonXzjbrActivity.class);
+////                startActivityForResult(intent, 3);
+//                break;
+//            case R.id.save_imagebutton:
+//                if (time == 0 || System.currentTimeMillis() - time > 5000) {
+//                    searchDateSave();//保存
+//                    time = System.currentTimeMillis();
+//                } else {
+//                    showToastPromopt("请不要频繁点击，防止重复保存");
+//
+//                }
+//                break;
+//            case R.id.rkck_edittext:
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "STORE");
+//                startActivityForResult(intent, 6);
+//                break;
+//            case R.id.ckck_edittext:
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "STORE");
+//                startActivityForResult(intent, 7);
+//                break;
+//        }
+//    }

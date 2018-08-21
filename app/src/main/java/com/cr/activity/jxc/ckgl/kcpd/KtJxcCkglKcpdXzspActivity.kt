@@ -16,6 +16,7 @@ import java.util.*
  * @author Administrator
  *
  */
+@Deprecated("")
 class KtJxcCkglKcpdXzspActivity:BaseActivity(){
     internal var qsrq: String?=""
     internal var jzrq:String?=""
