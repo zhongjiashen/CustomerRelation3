@@ -614,7 +614,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", rkckId);
-                    intent.putExtra("barcode", "12001");
+                    intent.putExtra("barcode", data.getStringExtra("qr"));
                     intent.putExtra("tabname", "tb_sreturn");
                     intent.putExtra("type", "xsth");
                     intent.setClass(this, JxcCgglCgddXzspActivity.class);
@@ -627,7 +627,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
 //                    parmMap.put("goodstype", "");
 //                    parmMap.put("goodsname", "");
 //                    // parmMap.put("opid", ShareUserInfo.getUserId(context));
-//                    parmMap.put("barcode", "12001");//新增条码
+//                    parmMap.put("barcode", data.getStringExtra("qr"));//新增条码
 //                    parmMap.put("curpage", currentPage);
 //                    parmMap.put("pagesize", pageSize);
 //                    findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false);

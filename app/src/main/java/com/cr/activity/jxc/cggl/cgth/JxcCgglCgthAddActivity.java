@@ -624,7 +624,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", rkckId);
-                    intent.putExtra("barcode", "12001");
+                    intent.putExtra("barcode", data.getStringExtra("qr"));
                     intent.putExtra("tabname", "tb_preturn");
                     intent.putExtra("type", "cgth");
                     intent.setClass(this, JxcCgglCgddXzspActivity.class);

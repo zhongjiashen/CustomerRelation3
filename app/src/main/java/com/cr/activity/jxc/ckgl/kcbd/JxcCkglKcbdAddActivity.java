@@ -378,7 +378,7 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
                     break;
                 case 18:
                     Intent intent = new Intent();
-                    intent.putExtra("barcode", "12001");
+                    intent.putExtra("barcode", data.getStringExtra("qr"));
                     intent.setClass(this, JxcCkglKcbdXzspActivity.class);
                     intent.putExtra("storeId", bdckId);
                     startActivityForResult(intent, 0);

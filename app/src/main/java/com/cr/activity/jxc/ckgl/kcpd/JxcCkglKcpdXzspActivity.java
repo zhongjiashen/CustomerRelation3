@@ -318,7 +318,7 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
                     adapter.notifyDataSetChanged();
                     break;
                 case 18://扫一扫选择商品
-                    barcode="12001";
+                   barcode= data.getStringExtra("qr");
                     searchDate();
                     break;
             }

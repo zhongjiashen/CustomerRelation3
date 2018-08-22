@@ -330,7 +330,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
                     adapter.notifyDataSetChanged();
                     break;
                 case 18:
-                    barcode="12001";
+                   barcode= data.getStringExtra("qr");
                     searchDate();
                     break;
             }

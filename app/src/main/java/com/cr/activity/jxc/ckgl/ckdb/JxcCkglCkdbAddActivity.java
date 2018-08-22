@@ -427,7 +427,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
             } else if (requestCode == 18) {
                 Intent intent=new Intent();
                 intent.putExtra("storeid", ckckId);
-                intent.putExtra("barcode", "12001");
+                intent.putExtra("barcode", data.getStringExtra("qr"));
                 intent.setClass(this, JxcCkglCkdbXzspActivity.class);
                 startActivityForResult(intent, 0);
             }

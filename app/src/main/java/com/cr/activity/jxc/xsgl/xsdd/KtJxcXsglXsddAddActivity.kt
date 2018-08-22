@@ -343,7 +343,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                         val intent = Intent()
                         intent.putExtra("issj", et_fplx.getText().toString() == "收据")
                         intent.putExtra("taxrate", mTaxrate)
-                        intent.putExtra("barcode", "12001")
+                        intent.putExtra("barcode", data.getStringExtra("qr"))
                         intent.putExtra("tabname", "tb_sorder")
                         intent.setClass(this, JxcCgglCgddXzsp2Activity::class.java)
                         startActivityForResult(intent, 0)

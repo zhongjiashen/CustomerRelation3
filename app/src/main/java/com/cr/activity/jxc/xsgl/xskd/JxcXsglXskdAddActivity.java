@@ -694,7 +694,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", ckckId);
                     intent.putExtra("tabname", "tb_invoice");
-                    intent.putExtra("barcode", "12001");
+                    intent.putExtra("barcode", data.getStringExtra("qr"));
                     intent.putExtra("xskd", true);
                     intent.setClass(this, JxcCgglCgddXzspActivity.class);
                     startActivityForResult(intent, 0);
@@ -706,7 +706,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
 //                    parmMap.put("goodstype", "");
 //                    parmMap.put("goodsname", "");
 //                    // parmMap.put("opid", ShareUserInfo.getUserId(context));
-//                    parmMap.put("barcode", "12001");//新增条码
+//                    parmMap.put("barcode", data.getStringExtra("qr"));//新增条码
 //                    parmMap.put("curpage", currentPage);
 //                    parmMap.put("pagesize", pageSize);
 //                    findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false);

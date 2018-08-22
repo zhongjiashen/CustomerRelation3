@@ -60,7 +60,7 @@ public class CommonXzkhlxActivity extends BaseActivity implements OnClickListene
                 finish();
             }
         });
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("id", i);
             switch (i) {

@@ -345,7 +345,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
             case R.id.qbbf:
                 flag = "0";
                 break;
-            case R.id.lx_edit:
+            case R.id.lx_edit://客户类型选择
                 intent.setClass(GzptKhglActivity.this, CommonXzkhlxActivity.class);
                 startActivityForResult(intent, 1);
                 break;
