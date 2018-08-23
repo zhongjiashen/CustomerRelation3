@@ -671,7 +671,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", rkckId);
-                    intent.putExtra("barcode", data.getStringExtra("qr"));
+                    intent.putExtra("barcode", "12001"/*data.getStringExtra("qr")*/);
                     intent.putExtra("tabname", "tb_received");
                     intent.setClass(this, JxcCgglCgddXzspActivity.class);
                     startActivityForResult(intent, 0);
