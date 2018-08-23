@@ -460,7 +460,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 0:// 选择商品
-                    list.clear();
+
                     List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
                             .getSerializableExtra("object");
                     double zje = 0;

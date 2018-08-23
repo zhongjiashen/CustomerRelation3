@@ -33,7 +33,7 @@ import kotlin.collections.ArrayList
  * 选择发票类型
  */
 class KtDateSelectionActivity : BaseActivity<BaseP>() {
-    private var mTimePickerView = TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY)//时间选择弹窗
+    private var mTimePickerView: TimePickerView? =null
     override fun initVariables() {
 
     }
@@ -43,7 +43,7 @@ class KtDateSelectionActivity : BaseActivity<BaseP>() {
     }
 
     override fun init() {
-
+        mTimePickerView = TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY)//时间选择弹窗
         val date = Date()
         val aCalendar = Calendar.getInstance(Locale.CHINA)
         val day = aCalendar.getActualMaximum(Calendar.DATE)
@@ -73,15 +73,15 @@ class KtDateSelectionActivity : BaseActivity<BaseP>() {
     }
 
     fun selectTime(i: Int) {
-        mTimePickerView.setTime(Date())
-        mTimePickerView.setOnTimeSelectListener(TimePickerView.OnTimeSelectListener { date ->
+        mTimePickerView!!.setTime(Date())
+        mTimePickerView!!.setOnTimeSelectListener(TimePickerView.OnTimeSelectListener { date ->
             val format = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)
             when (i) {
                 0 -> tv_start_time.setText(DateUtil.DateToString(date, "yyyy-MM-dd"))
                 1 -> tv_end_time.setText(DateUtil.DateToString(date, "yyyy-MM-dd"))
             }
         })
-        mTimePickerView.show()
+        mTimePickerView!!.show()
     }
 
 }

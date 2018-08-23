@@ -27,6 +27,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.model.Serial;
 
 import java.io.Serializable;
@@ -260,9 +261,9 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
                 startActivityForResult(intent, 2);
                 break;
             case R.id.tv_jxtj:
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
                 break;
             case R.id.tv_qrxz:
-            case R.id.qr_textview:
                 for (int i = 0; i < list.size(); i++) {
                     Map<String, Object> map = list.get(i);
                     if (map.get("isDetail").equals("0")) {

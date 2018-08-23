@@ -25,6 +25,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.WeChatCaptureActivity;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -248,6 +249,7 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
                 startActivityForResult(intent, 2);
                 break;
             case R.id.tv_jxtj:
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
                 break;
             case R.id.tv_qrxz:
                 for (int i = 0; i < list.size(); i++) {

@@ -12,6 +12,7 @@ import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.update.actiity.choose.KtDateSelectionActivity
 import com.update.actiity.choose.ScreeningProjectActivity
 import com.update.base.BaseActivity
 import com.update.base.BaseP
@@ -61,8 +62,7 @@ class KtTjfxCwbbmxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefres
         titlebar.setTitleText(mActivity, intent.getStringExtra("title"))
         titlebar.setIvRightImageResource(R.drawable.oper)
         titlebar.setTitleOnlicListener {
-            startActivityForResult(Intent(mActivity, ScreeningProjectActivity::class.java)
-                    .putExtra("kind", 1), 11)
+            startActivityForResult(Intent(mActivity, KtDateSelectionActivity::class.java), 11)
 
         }
         prl_view.setOnRefreshListener(this)

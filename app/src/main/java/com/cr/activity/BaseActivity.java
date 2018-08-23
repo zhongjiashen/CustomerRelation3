@@ -394,7 +394,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	 * 添加播放声音
 	 * 
 	 * @param context
-	 * @param timeInMillis
+	 * @param calendar
 	 *            type2,0个人日程
 	 */
 	public void setAlarmTime(Context context, Calendar calendar, int type,
