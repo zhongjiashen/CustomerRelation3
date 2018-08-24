@@ -36,16 +36,16 @@ import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
-    private String               dbName;
-    private EditText             bhEditText;
-    private String               bhId;            //选择的编号的ID
-    private EditText             mmEditText;
-    private ImageButton          loginButton;
-    private CheckBox             saveMsgCheckBox;
+    private String dbName;
+    private EditText bhEditText;
+    private String bhId;            //选择的编号的ID
+    private EditText mmEditText;
+    private ImageButton loginButton;
+    private CheckBox saveMsgCheckBox;
     private ArrayAdapter<String> adapter;
-    private Spinner              ztSpinner;
-    private List<ZT>             ztList;
-    private UserLogin            userLogin;
+    private Spinner ztSpinner;
+    private List<ZT> ztList;
+    private UserLogin userLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         ztSpinner = (Spinner) findViewById(R.id.zt_spinner);
         bhEditText = (EditText) findViewById(R.id.login_bh);
 //        bhEditText.setText(ShareUserInfo.getKey(context, "bh"));
-        bhId=ShareUserInfo.getKey(context, "bhId");
-        bhEditText.setText( bhId);
+        bhId = ShareUserInfo.getKey(context, "bhId");
+        bhEditText.setText(bhId);
         bhEditText.setOnClickListener(this);
         mmEditText = (EditText) findViewById(R.id.login_mm);
         mmEditText.setText(ShareUserInfo.getKey(context, "mm"));
@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
     /**
      * 数据返回成功执行的方法
-     * 
+     *
      * @see BaseActivity#executeSuccess()
      */
     @Override
@@ -121,7 +121,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     }
                 }
                 adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                    ztString);
+                        ztString);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 ztSpinner.setAdapter(adapter);
                 ztSpinner.setSelection(index);
@@ -137,19 +137,21 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     } else {
                         ShareUserInfo.setUserId(context, userLogin.getId());
                         ShareUserInfo.setUserName(context, userLogin.getOpname());
-                        ShareUserInfo.setKey(context, "bhId",  bhEditText.getText().toString());
+                        ShareUserInfo.setKey(context, "bhId", bhEditText.getText().toString());
                         ShareUserInfo.setKey(context, "zt", ztSpinner.getSelectedItem().toString());
                         ShareUserInfo.setDbName(context, dbName);
 
-                        ShareUserInfo.setKey(context, "empid", userLogin.getEmpid());//
-                        ShareUserInfo.setKey(context, "empname", userLogin.getOpname());//
-                        ShareUserInfo.setKey(context, "opname", userLogin.getOpname());//
-                        ShareUserInfo.setKey(context, "departmentid", userLogin.getDepartmentid());//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
-                        ShareUserInfo.setKey(context, "depname", userLogin.getDepname());//设置empid，报表的时候使用
 
+                        if (userLogin.getId().equals("1")) {
+                            ShareUserInfo.setKey(context, "empid", userLogin.getEmpid());//
+                            ShareUserInfo.setKey(context, "empname", userLogin.getOpname());//
+                            ShareUserInfo.setKey(context, "opname", userLogin.getOpname());//
+                            ShareUserInfo.setKey(context, "departmentid", userLogin.getDepartmentid());//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
+                            ShareUserInfo.setKey(context, "depname", userLogin.getDepname());//设置empid，报表的时候使用
+                        }
                         String s = "#loguserinfo#" + userLogin.getId() + ","
-                                   + userLogin.getOpname() + ","
-                                   + ztSpinner.getSelectedItem().toString() + "," + dbName + ",1";
+                                + userLogin.getOpname() + ","
+                                + ztSpinner.getSelectedItem().toString() + "," + dbName + ",1";
                         //					Log.v("dddd", s);
                         SocketService.sendMsg(s);
                         Intent intent = new Intent(this, IndexActivity.class);
@@ -177,13 +179,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     }
 
 
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         /* 返回键 */
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
             try {
-                if (SocThread.client!=null){
+                if (SocThread.client != null) {
                     SocThread.client.close();
                 }
 
@@ -198,13 +199,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onExecuteFailed() {
         new AlertDialog.Builder(LoginActivity.this).setTitle("提示信息！")
-            .setMessage("IP地址或端口设置错误，请返回后重新设置！")
-            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    finish();
-                }
-            }).show();
+                .setMessage("IP地址或端口设置错误，请返回后重新设置！")
+                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                    }
+                }).show();
     }
 
     /**
@@ -226,7 +227,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     }
                     Map<String, Object> params = new HashMap<String, Object>();
                     params.put("dbname", dbName);
-                   /* params.put("usercode", bhId);*/
+                    /* params.put("usercode", bhId);*/
                     params.put("usercode", bhEditText.getText().toString());
                     params.put("pwd", mmEditText.getText().toString());
                     findServiceData3(1, "login", params);
@@ -254,7 +255,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             showToastPromopt("请选择帐套信息！");
             return false;
         } else if (bhEditText.getText().toString().equals("")) {
-           /* showToastPromopt("请选择编号信息！");*/
+            /* showToastPromopt("请选择编号信息！");*/
             showToastPromopt("请输入择编号信息！");
             return false;
         }
@@ -266,40 +267,40 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     }
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-                                                     @Override
-                                                     public void onReceive(Context context,
-                                                                           Intent intent) {
-                                                         String action = intent.getAction();
-                                                         if (action.equals("LoginMax")) {
-                                                             AlertDialog.Builder builder = new AlertDialog.Builder(
-                                                                 context);
-                                                             builder.setTitle("提示信息");
-                                                             builder.setMessage("与服务器断开连接，您将被迫推出！");
-                                                             builder
-                                                                 .setPositiveButton(
-                                                                     "确定退出",
-                                                                     new DialogInterface.OnClickListener() {
-                                                                         public void onClick(DialogInterface dialog,
-                                                                                             int whichButton) {
-                                                                             //								Intent intent2=new
-                                                                             //										 Intent(LoginActivity.this,MainActivity.class);
-                                                                             //										 startActivity(intent2);
-                                                                             MyApplication
-                                                                                 .getInstance()
-                                                                                 .exit();
-                                                                         }
-                                                                     });
-                                                             builder.show();
-                                                         }
-                                                     }
+        @Override
+        public void onReceive(Context context,
+                              Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("LoginMax")) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        context);
+                builder.setTitle("提示信息");
+                builder.setMessage("与服务器断开连接，您将被迫推出！");
+                builder
+                        .setPositiveButton(
+                                "确定退出",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int whichButton) {
+                                        //								Intent intent2=new
+                                        //										 Intent(LoginActivity.this,MainActivity.class);
+                                        //										 startActivity(intent2);
+                                        MyApplication
+                                                .getInstance()
+                                                .exit();
+                                    }
+                                });
+                builder.show();
+            }
+        }
 
-                                                 };
+    };
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0) {
                 bhEditText.setText(data.getExtras().getString("name"));
-                bhId=data.getExtras().getString("id");
+                bhId = data.getExtras().getString("id");
                 ShareUserInfo.setKey(context, "empid", data.getExtras().getString("empid"));//设置empid，报表的时候使用
                 ShareUserInfo.setKey(context, "empname", data.getExtras().getString("name"));//设置empid，报表的时候使用
                 ShareUserInfo.setKey(context, "opname", data.getExtras().getString("opname"));//设置empid，报表的时候使用
@@ -308,7 +309,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
             }
         }
-    };
+    }
+
+    ;
 
     @Override
     protected void onDestroy() {

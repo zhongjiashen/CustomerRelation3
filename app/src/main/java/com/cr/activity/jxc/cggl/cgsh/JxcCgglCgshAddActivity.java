@@ -538,10 +538,9 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     } else {
                         Map<String, Object> map = (Map<String, Object>) data.getExtras()
                                 .getSerializable("object");
-                        map.put(
-                                "amount",
+
                                 map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
-                                        * Double.parseDouble(map.get("unitqty").toString())));
+                                        * Double.parseDouble(map.get("unitqty").toString()));
                         list.set(selectIndex, map);
                         adapter.notifyDataSetChanged();
                     }

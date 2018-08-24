@@ -205,8 +205,8 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                         obj2.put("zkl", "100");
                         obj2.put("sl", "1");
                         obj2.put("cpph", "");
-                        obj2.put("scrq", "");
-                        obj2.put("yxqz", "");
+                        obj2.put("scrq", "");//生产日期
+                        obj2.put("yxqz", "");//有效期至
                         obj2.put("batchctrl", obj.get("batchctrl").toString());
                         obj2.put("taxrate", mTaxrate);//初始化税率
                         obj2.put("issj", issj);//发票类型是否是收据
@@ -265,6 +265,12 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                             if (map2.get("batchctrl").equals("T") && map2.get("cpph").equals("")) {
                                 Toast.makeText(activity, "选择的批号商品，必须填写批号信息", Toast.LENGTH_SHORT).show();
                                 return;
+                            }
+                            if(map.get("inf_costingtypeid").equals("2")){
+                                if(map2.get("scrq").equals("")&& map2.get("yxqz").equals("")){
+                                    Toast.makeText(activity, "选择的批号商品，必须填写保质期", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                             }
                             map2.put("dj", FigureTools.sswrFigure(map2.get("dj").toString()));
                         }

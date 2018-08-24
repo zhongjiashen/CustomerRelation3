@@ -102,11 +102,7 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
         mParmMap = new ArrayMap<>();
         mDate = new Date();
 
-        mClientid = getIntent().getStringExtra("clientid");
-        mClientname = getIntent().getStringExtra("clientname");
-        mLxrid = getIntent().getStringExtra("lxrid");
-        mLxrname = getIntent().getStringExtra("lxrname");
-        mPhone = getIntent().getStringExtra("phone");
+
 
     }
 
@@ -126,6 +122,11 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        mClientid = getIntent().getStringExtra("clientid");
+        mClientname = getIntent().getStringExtra("clientname");
+        mLxrid = getIntent().getStringExtra("lxrid");
+        mLxrname = getIntent().getStringExtra("lxrname");
+        mPhone = getIntent().getStringExtra("phone");
         mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         tvDepartment.setText(ShareUserInfo.getKey(this, "depname"));
         mEmpid = ShareUserInfo.getKey(this, "empid");

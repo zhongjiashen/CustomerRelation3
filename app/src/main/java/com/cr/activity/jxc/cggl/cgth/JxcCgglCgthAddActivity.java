@@ -492,10 +492,9 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                         Map<String, Object> map = (Map<String, Object>) data.getExtras()
                                 .getSerializable("object");
                         list.remove(selectIndex);
-                        map.put(
-                                "amount",
-                                map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
-                                        * Double.parseDouble(map.get("unitqty").toString())));
+
+                        map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
+                                * Double.parseDouble(map.get("unitqty").toString()));
                         list.add(selectIndex, map);
                         adapter.notifyDataSetChanged();
                     }
@@ -620,7 +619,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                         showToastPromopt("请先选择仓库信息！");
                         return;
                     }
-                    Intent intent=new Intent();
+                    Intent intent = new Intent();
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", rkckId);
@@ -797,17 +796,17 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 }
                 break;
             case 3: //扫一扫选择商品
-                Map<String, Object> map =((ArrayList<Map<String, Object>>) PaseJson
+                Map<String, Object> map = ((ArrayList<Map<String, Object>>) PaseJson
                         .paseJsonToObject(returnJson)).get(0);
-                map.put("unitprice",map.get("aprice"));//单价
-                map.put("unitqty","1");//數量
-                map.put("disc","100");//单价
-                map.put("batchcode","");//单价
+                map.put("unitprice", map.get("aprice"));//单价
+                map.put("unitqty", "1");//數量
+                map.put("disc", "100");//单价
+                map.put("batchcode", "");//单价
                 map.put("produceddate", "");//单价
-                map.put("validdate","");//单价
-                map.put("taxrate",mTaxrate);//税率
-                Double csje  = Double.parseDouble(map.get("aprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                map.put("taxunitprice",csje+"");//单价
+                map.put("validdate", "");//单价
+                map.put("taxrate", mTaxrate);//税率
+                Double csje = Double.parseDouble(map.get("aprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                map.put("taxunitprice", csje + "");//单价
                 map.put("amount", FigureTools.sswrFigure(csje.toString()));
 
 
