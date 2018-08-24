@@ -180,6 +180,7 @@ public class XjyhSkdDetailActivity extends BaseActivity implements
             jsfsEditText.setText(object.get("paytypename").toString());
             jsfsId = object.get("paytypeid").toString();
             djrqEditText.setText(object.get("billdate").toString());
+            etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
             jbrId = object.get("exemanid").toString();
             bzxxEditText.setText(object.get("memo").toString());

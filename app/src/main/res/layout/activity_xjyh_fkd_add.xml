@@ -173,6 +173,21 @@
 
             <View style="@style/underline" />
 
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="部门" />
+
+                <EditText
+                    android:id="@+id/et_bm"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+            <View style="@style/underline" />
+
+
             <LinearLayout style="@style/detail_relativelayout" >
 
                 <TextView
@@ -185,7 +200,6 @@
 
                 <ImageView style="@style/imageview_jt" />
             </LinearLayout>
-
             <View style="@style/underline2" />
 
             <LinearLayout

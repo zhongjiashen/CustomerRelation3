@@ -1,13 +1,5 @@
 package com.cr.activity.xjyh.fkd;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,30 +15,39 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.common.CommonXzdwActivity;
-import com.cr.activity.common.CommonXzjbrActivity;
-import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 现金银行-付款单-详情
- * 
+ *
  * @author Administrator
- * 
  */
 public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListener {
-    private ImageView   shImageView;
+    @BindView(R.id.et_bm)
+    EditText etBm;
+    private ImageView shImageView;
     private ImageButton saveImageButton;
-    private TextView    djbhTextView;
-    private Button      shButton, sdButton;
-    private EditText    wldwEditText, fklxEditText, jsfsEditText, zjzhEditText, dqyfEditText,
+    private TextView djbhTextView;
+    private Button shButton, sdButton;
+    private EditText wldwEditText, fklxEditText, jsfsEditText, zjzhEditText, dqyfEditText,
             dqyf2EditText, fkjeEditText, djrqEditText, bzxxEditText, jbrEditText;
-    private String      wldwId, fklxId, jsfsId, zjzhId, jbrId;
-    private String      shzt;                                                    // 社会状态
+    private String wldwId, fklxId, jsfsId, zjzhId, jbrId;
+    private String shzt;                                                    // 社会状态
     Map<String, Object> object;
 
     @Override
@@ -54,6 +55,7 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xjyh_fkd_detail);
+        ButterKnife.bind(this);
         addFHMethod();
         initActivity();
         searchDate();
@@ -84,18 +86,18 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
         jbrEditText.setOnClickListener(this);
         bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
         bzxxEditText.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View view, MotionEvent event) {
-				// TODO Auto-generated method stub
-				view.getParent().requestDisallowInterceptTouchEvent(true);
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
-				case MotionEvent.ACTION_UP:
-					view.getParent().requestDisallowInterceptTouchEvent(
-							false);
-					break;
-				}
-				return false;
-			}
-		});
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP:
+                        view.getParent().requestDisallowInterceptTouchEvent(
+                                false);
+                        break;
+                }
+                return false;
+            }
+        });
         shButton = (Button) findViewById(R.id.sh_button);
         shButton.setOnClickListener(this);
         sdButton = (Button) findViewById(R.id.sd_button);
@@ -173,6 +175,7 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
             jsfsEditText.setText(object.get("paytypename").toString());
             jsfsId = object.get("paytypeid").toString();
             djrqEditText.setText(object.get("billdate").toString());
+            etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
             jbrId = object.get("exemanid").toString();
             bzxxEditText.setText(object.get("memo").toString());
@@ -211,31 +214,31 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
      * 连接网络的操作(保存)
      */
     private void searchDateSave() {
-    	if (wldwEditText.getText().toString().equals("")) {
+        if (wldwEditText.getText().toString().equals("")) {
             showToastPromopt("请选择往来单位");
             return;
         }
-		if (fklxEditText.getText().toString().equals("")) {
+        if (fklxEditText.getText().toString().equals("")) {
             showToastPromopt("请选择付款类型");
             return;
         }
-		if (jsfsEditText.getText().toString().equals("")) {
+        if (jsfsEditText.getText().toString().equals("")) {
             showToastPromopt("请选择结算方式");
             return;
         }
-		if (zjzhEditText.getText().toString().equals("")) {
+        if (zjzhEditText.getText().toString().equals("")) {
             showToastPromopt("请选择资金账户");
             return;
         }
-	    if (djrqEditText.getText().toString().equals("")) {
+        if (djrqEditText.getText().toString().equals("")) {
             showToastPromopt("请选择单据日期");
             return;
         }
-	    if (fkjeEditText.getText().toString().equals("")) {
+        if (fkjeEditText.getText().toString().equals("")) {
             showToastPromopt("请填写付款金额");
             return;
         }
-	    if (jbrEditText.getText().toString().equals("")) {
+        if (jbrEditText.getText().toString().equals("")) {
             showToastPromopt("请选择业务员");
             return;
         }
@@ -254,7 +257,7 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
             jsonObject.put("bankid", zjzhId);
             jsonObject.put("amount", fkjeEditText.getText().toString());
             jsonObject.put("factamount", fkjeEditText.getText().toString());
-            jsonObject.put("memo",bzxxEditText.getText().toString());
+            jsonObject.put("memo", bzxxEditText.getText().toString());
             arrayMaster.put(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -278,20 +281,20 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
                 intent.putExtra("opid", object.get("opid").toString());
                 intent.putExtra("billid", this.getIntent().getExtras().getString("billid"));
                 intent.setClass(activity, JxcCgglCgddShlcActivity.class);
-                startActivityForResult(intent,6);
+                startActivityForResult(intent, 6);
                 break;
             case R.id.sd_button:
-            	new AlertDialog.Builder(activity)
-				.setTitle("确定要删除当前记录吗？")
-				.setNegativeButton("删除",
-						new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(activity)
+                        .setTitle("确定要删除当前记录吗？")
+                        .setNegativeButton("删除",
+                                new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface arg0,
-									int arg1) {
-								searchDateSd();
-							}
-						}).setPositiveButton("取消", null).show();
+                                    @Override
+                                    public void onClick(DialogInterface arg0,
+                                                        int arg1) {
+                                        searchDateSd();
+                                    }
+                                }).setPositiveButton("取消", null).show();
                 break;
 //            case R.id.save_imagebutton:
 //                searchDateSave();// 保存
@@ -336,10 +339,10 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
                 wldwId = data.getExtras().getString("id");
                 String types = data.getExtras().getString("types");
                 if (types.equals("1") || types.equals("4")) {
-                	double yf=Double.parseDouble(data.getExtras().getString("yf"));
-					double yf2=Double.parseDouble(data.getExtras().getString("yf2"));
-				    dqyfEditText.setText((yf*-1)+"");
-                    dqyf2EditText.setText((yf2*-1)+"");
+                    double yf = Double.parseDouble(data.getExtras().getString("yf"));
+                    double yf2 = Double.parseDouble(data.getExtras().getString("yf2"));
+                    dqyfEditText.setText((yf * -1) + "");
+                    dqyf2EditText.setText((yf2 * -1) + "");
 //                    dqyfEditText.setText("-1" + data.getExtras().getString("yf"));
 //                    dqyf2EditText.setText("-1" + data.getExtras().getString("yf2"));
                 } else {
@@ -374,7 +377,7 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
             } else if (requestCode == 5) {// 经办人
                 jbrEditText.setText(data.getExtras().getString("name"));
                 jbrId = data.getExtras().getString("id");
-            }else if(requestCode==6){
+            } else if (requestCode == 6) {
                 searchDate();
             }
         }
