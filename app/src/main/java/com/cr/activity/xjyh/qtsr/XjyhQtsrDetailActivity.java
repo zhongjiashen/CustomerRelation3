@@ -1,14 +1,5 @@
 package com.cr.activity.xjyh.qtsr;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,9 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.common.CommonXzdwActivity;
-import com.cr.activity.common.CommonXzjbrActivity;
-import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.adapter.xjyh.fyzc.XjyhFyzcAddAdapter;
 import com.cr.tools.CustomListView;
@@ -40,34 +28,49 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 现金银行-其他收入-详情
- * 
+ *
  * @author Administrator
- * 
  */
 public class XjyhQtsrDetailActivity extends BaseActivity implements OnClickListener {
-    private ImageView                 shImageView;
-    private ImageButton               saveImageButton;
-    private Button                    shButton, sdButton;
-    private TextView                  djbhTextView;
-    private EditText                  wldwEditText, jslxEditText, zjzhEditText, fkfsEditText,
+    @BindView(R.id.et_bm)
+    EditText etBm;
+    private ImageView shImageView;
+    private ImageButton saveImageButton;
+    private Button shButton, sdButton;
+    private TextView djbhTextView;
+    private EditText wldwEditText, jslxEditText, zjzhEditText, fkfsEditText,
             fkjeEditText, djrqEditText, jbrEditText, bzxxEditText, hjjeEditText;
-    private String                    wldwId = "", jslxId = "", zjzhId = "", fkfsId = "",
+    private String wldwId = "", jslxId = "", zjzhId = "", fkfsId = "",
             jbrId = "";
-    private CustomListView            listview;
+    private CustomListView listview;
     private List<Map<String, Object>> list;
-    private LinearLayout              xzzcLinearLayout;
-    BaseAdapter                       adapter;
-    private int                       selectIndex;
-    private String                    shzt;                                     // 审核状态
-    Map<String, Object>               object;
+    private LinearLayout xzzcLinearLayout;
+    BaseAdapter adapter;
+    private int selectIndex;
+    private String shzt;                                     // 审核状态
+    Map<String, Object> object;
     private EditText xmEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xjyh_qtsr_detail);
+        ButterKnife.bind(this);
         addFHMethod();
         initActivity();
         searchDate();
@@ -110,19 +113,19 @@ public class XjyhQtsrDetailActivity extends BaseActivity implements OnClickListe
         hjjeEditText = (EditText) findViewById(R.id.hjje_edittext);
         bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
         bzxxEditText.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View view, MotionEvent event) {
-				// TODO Auto-generated method stub
-				view.getParent().requestDisallowInterceptTouchEvent(true);
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
-				case MotionEvent.ACTION_UP:
-					view.getParent().requestDisallowInterceptTouchEvent(
-							false);
-					break;
-				}
-				return false;
-			}
-		});
-        xmEditText=(EditText) findViewById(R.id.xm_edittext);
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP:
+                        view.getParent().requestDisallowInterceptTouchEvent(
+                                false);
+                        break;
+                }
+                return false;
+            }
+        });
+        xmEditText = (EditText) findViewById(R.id.xm_edittext);
         shButton = (Button) findViewById(R.id.sh_button);
         shButton.setOnClickListener(this);
         sdButton = (Button) findViewById(R.id.sd_button);
@@ -209,6 +212,7 @@ public class XjyhQtsrDetailActivity extends BaseActivity implements OnClickListe
             fkfsId = object.get("paytypeid").toString();
             fkjeEditText.setText(object.get("receipt").toString());
             djrqEditText.setText(object.get("billdate").toString());
+            etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
             jbrId = object.get("empid").toString();
             bzxxEditText.setText(object.get("memo").toString());
@@ -243,45 +247,45 @@ public class XjyhQtsrDetailActivity extends BaseActivity implements OnClickListe
      * 连接网络的操作(保存)
      */
     private void searchDateSave() {
-    	 if (wldwEditText.getText().toString().equals("")) {
-             showToastPromopt("请选择往来单位");
-             return;
-         } 
-    	 if (jslxEditText.getText().toString().equals("")) {
-             showToastPromopt("请选择结算类型");
-             return;
-         } 
-    	 if(jslxId.equals("1")){
-    		 if (zjzhEditText.getText().toString().equals("")) {
- 				showToastPromopt("请选择资金账户");
- 				return;
- 			}
- 			if (fkfsEditText.getText().toString().equals("")) {
- 				showToastPromopt("请选择结算方式");
- 				return;
- 			}
- 			if (list.size() == 0) {
- 				showToastPromopt("请增加收入类型");
- 				return;
- 			}
-             double hjje=0;
-             for(Map<String, Object>m:list){
-                 hjje+=Double.parseDouble(m.get("amount").toString().replace("￥", "").equals("")?"0":m.get("amount").toString().replace("￥", ""));
-             }
-             double fkje=Double.parseDouble(fkjeEditText.getText().toString().replace("￥", "").equals("")?"0":fkjeEditText.getText().toString().replace("￥", ""));
-             if(fkje<=0||fkje>hjje){
-                 showToastPromopt("收款金额不在范围内！");
-                 return;
-             }
-         }
-    	 if (list.size() == 0) {
-             showToastPromopt("请增加收入类型");
-             return;
-         } 
+        if (wldwEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择往来单位");
+            return;
+        }
+        if (jslxEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择结算类型");
+            return;
+        }
+        if (jslxId.equals("1")) {
+            if (zjzhEditText.getText().toString().equals("")) {
+                showToastPromopt("请选择资金账户");
+                return;
+            }
+            if (fkfsEditText.getText().toString().equals("")) {
+                showToastPromopt("请选择结算方式");
+                return;
+            }
+            if (list.size() == 0) {
+                showToastPromopt("请增加收入类型");
+                return;
+            }
+            double hjje = 0;
+            for (Map<String, Object> m : list) {
+                hjje += Double.parseDouble(m.get("amount").toString().replace("￥", "").equals("") ? "0" : m.get("amount").toString().replace("￥", ""));
+            }
+            double fkje = Double.parseDouble(fkjeEditText.getText().toString().replace("￥", "").equals("") ? "0" : fkjeEditText.getText().toString().replace("￥", ""));
+            if (fkje <= 0 || fkje > hjje) {
+                showToastPromopt("收款金额不在范围内！");
+                return;
+            }
+        }
+        if (list.size() == 0) {
+            showToastPromopt("请增加收入类型");
+            return;
+        }
         if (djrqEditText.getText().toString().equals("")) {
             showToastPromopt("请选择单据日期");
             return;
-        } 
+        }
         if (jbrEditText.getText().toString().equals("")) {
             showToastPromopt("请选择业务员");
             return;
@@ -333,20 +337,20 @@ public class XjyhQtsrDetailActivity extends BaseActivity implements OnClickListe
                 intent.putExtra("opid", object.get("opid").toString());
                 intent.putExtra("billid", this.getIntent().getExtras().getString("billid"));
                 intent.setClass(activity, JxcCgglCgddShlcActivity.class);
-                startActivityForResult(intent,6);
+                startActivityForResult(intent, 6);
                 break;
             case R.id.sd_button:
                 new AlertDialog.Builder(activity)
-				.setTitle("确定要删除当前记录吗？")
-				.setNegativeButton("删除",
-						new DialogInterface.OnClickListener() {
+                        .setTitle("确定要删除当前记录吗？")
+                        .setNegativeButton("删除",
+                                new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface arg0,
-									int arg1) {
-								searchDateSd();
-							}
-						}).setPositiveButton("取消", null).show();
+                                    @Override
+                                    public void onClick(DialogInterface arg0,
+                                                        int arg1) {
+                                        searchDateSd();
+                                    }
+                                }).setPositiveButton("取消", null).show();
                 break;
 //            case R.id.xzzc_linearlayout:
 //                intent.setClass(this, XjyhQtsrAddZcActivity.class);
@@ -431,7 +435,7 @@ public class XjyhQtsrDetailActivity extends BaseActivity implements OnClickListe
             } else if (requestCode == 5) {// 经办人
                 jbrEditText.setText(data.getExtras().getString("name"));
                 jbrId = data.getExtras().getString("id");
-            }else if(requestCode==6){
+            } else if (requestCode == 6) {
                 searchDate();
             }
         }

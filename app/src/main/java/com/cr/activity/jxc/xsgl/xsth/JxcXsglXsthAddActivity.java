@@ -46,6 +46,7 @@ import com.update.actiity.logistics.KtWlxxActivity;
 import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.model.KtWlxxData;
 import com.update.model.Serial;
+import com.update.utils.EditTextHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -526,6 +527,9 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 case 7:
                     fklxEdittext.setText(data.getExtras().getString("name"));
                     fklxId = data.getExtras().getString("id");
+                    tkjeEdittext.setText("");
+                    EditTextHelper.EditTextEnable(data.getExtras().getString("name").equals("退还现款"), tkjeEdittext);
+
                     if (data.getExtras().getString("id").equals("F")) {
                         jsfsEdittext.setEnabled(false);
                         zjzhEdittext.setEnabled(false);
@@ -610,7 +614,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                         showToastPromopt("请先选择仓库信息！");
                         return;
                     }
-                    Intent intent=new Intent();
+                    Intent intent = new Intent();
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", rkckId);

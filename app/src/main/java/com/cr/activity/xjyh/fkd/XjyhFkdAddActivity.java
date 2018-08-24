@@ -101,6 +101,10 @@ public class XjyhFkdAddActivity extends BaseActivity implements
                 return false;
             }
         });
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
+        jbrId =  ShareUserInfo.getKey(this, "empid");
     }
 
     @OnClick(R.id.et_bm)

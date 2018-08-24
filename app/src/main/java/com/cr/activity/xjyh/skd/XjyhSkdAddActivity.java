@@ -101,6 +101,11 @@ public class XjyhSkdAddActivity extends BaseActivity implements OnClickListener 
                 return false;
             }
         });
+
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
+        jbrId =  ShareUserInfo.getKey(this, "empid");
     }
 
 

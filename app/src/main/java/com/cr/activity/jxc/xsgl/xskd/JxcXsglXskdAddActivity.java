@@ -738,10 +738,10 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             showToastPromopt("请选择客户");
             return;
         }
-        if (etShrq.getText().toString().equals("")) {
-            showToastPromopt("请选择收款日期");
-            return;
-        }
+//        if (etShrq.getText().toString().equals("")) {
+//            showToastPromopt("请选择收款日期");
+//            return;
+//        }
         if (list.size() == 0) {
             showToastPromopt("请选择商品");
             return;
