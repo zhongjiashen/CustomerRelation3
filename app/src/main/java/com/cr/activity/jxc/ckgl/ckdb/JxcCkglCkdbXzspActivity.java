@@ -321,7 +321,8 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                     list.get(i).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
                     }.getType()));
                     break;
-                case 18://扫一扫选择商品
+               case 18://扫一扫选择商品
+                   currentPage = 1;
                    barcode= data.getStringExtra("qr");
                     searchDate();
                     break;

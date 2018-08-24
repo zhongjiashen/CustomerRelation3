@@ -185,15 +185,7 @@
 
             <View style="@style/underline2" />
 
-            <LinearLayout
-                android:id="@+id/xzsp_linearlayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:orientation="horizontal"
-                android:paddingBottom="10dip"
-                android:paddingTop="10dip" >
+            <LinearLayout                android:id="@+id/xzsp_linearlayout"                android:layout_width="fill_parent"                android:layout_height="wrap_content"                android:gravity="center_vertical"                android:layout_marginLeft="10dip"                android:layout_marginRight="10dip"                android:orientation="horizontal"                android:paddingBottom="10dip"                android:paddingTop="10dip" >
 
                 <ImageView
                     android:layout_width="wrap_content"

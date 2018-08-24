@@ -59,6 +59,7 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
     private String code;
     DropDownMenu dropDownMenu;
     private String barcode;//新增条码
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,7 +207,6 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
     }
 
 
-
     /**
      * 刷新
      */
@@ -240,6 +240,7 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
         listView.stopLoadMore();
         listView.setRefreshTime(new Date().toLocaleString());
     }
+
     @OnClick({R.id.fl, R.id.tv_jxtj, R.id.tv_qrxz})
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -275,11 +276,12 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode){
+            switch (requestCode) {
                 case 0:
                     int index = Integer.parseInt(data.getExtras()
                             .getString("index"));
@@ -300,7 +302,8 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
                 case 11:
                     break;
                 case 18://扫一扫选择商品
-                   barcode= data.getStringExtra("qr");
+                    currentPage = 1;
+                    barcode = data.getStringExtra("qr");
                     searchDate();
                     break;
             }

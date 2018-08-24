@@ -23,6 +23,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.WeChatCaptureActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -194,6 +195,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(intent, 0);
                 break;
             case R.id.iv_scan:
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
                 break;
         }
     }
@@ -201,14 +203,21 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 0) {
-                storeid = data.getExtras().getString("storeid");
-                storename = data.getExtras().getString("storename");
-                goodsname = data.getExtras().getString("goodsname");
-                list.clear();
-                currentPage = 1;
-                searchDate();
+            switch (requestCode){
+                case 0:
+                    storeid = data.getExtras().getString("storeid");
+                    storename = data.getExtras().getString("storename");
+                    goodsname = data.getExtras().getString("goodsname");
+                    list.clear();
+                    currentPage = 1;
+                    searchDate();
+                    break;
+               case 18://扫一扫选择商品                    currentPage = 1;
+                    currentPage = 1;
+                    searchDate();
+                    break;
             }
+
         }
     }
 }

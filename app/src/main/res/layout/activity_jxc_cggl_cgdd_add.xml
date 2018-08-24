@@ -255,6 +255,7 @@
                 android:id="@+id/xzsp_linearlayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:orientation="horizontal"
@@ -281,8 +282,8 @@
                     android:gravity="right" />
                 <ImageView
                     android:id="@+id/iv_scan"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@mipmap/scan"/>
                 <ImageView style="@style/imageview_jt"
                     android:layout_gravity="center_vertical"/>
