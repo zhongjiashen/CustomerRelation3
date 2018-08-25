@@ -42,7 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 进销存-采购管理-采购订单-选择商品(批号不是必填)
+ * 进销存-采购管理-采购订单-选择商品(批号不是必填)（采购订单、销售订单）
  *
  * @author Administrator
  */

@@ -24,6 +24,7 @@ import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.update.utils.EditTextHelper;
@@ -328,7 +329,31 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
             viewHolder2.zklEdittext.setText(objMap.get("zkl").toString());
             viewHolder2.slView.setSl(Double.parseDouble(objMap.get("sl")
                     .toString()));
+            viewHolder2.djEdittext.addTextChangedListener(new TextWatcher() {
 
+                @Override
+                public void onTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence arg0, int arg1,
+                                              int arg2, int arg3) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (!TextUtils.isEmpty(s)) {
+                        objMap.put("dj", s.toString());
+                        Double csje = Double.parseDouble(s.toString()) * (Double.parseDouble(objMap.get("taxrate").toString()) + 100) / 100;
+                        objMap.put("taxunitprice", FigureTools.sswrFigure(csje));
+                        viewHolder2.tvHsdj.setText(objMap.get("taxunitprice").toString());
+
+                    }
+
+                }
+            });
 
             //判断发票类型是否是收据
             EditTextHelper.EditTextEnable(!(boolean) objMap.get("issj"), viewHolder2.etSl);
@@ -351,15 +376,16 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                     if (!TextUtils.isEmpty(s)) {
                         objMap.put("taxrate", s.toString());
                         Double csje = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(s.toString()) + 100) / 100;
-                        viewHolder2.tvHsdj.setText(csje.toString());
-                        objMap.put("taxunitprice", csje.toString());
+                        objMap.put("taxunitprice", FigureTools.sswrFigure(csje));
+                        viewHolder2.tvHsdj.setText(objMap.get("taxunitprice").toString());
                     }
 
                 }
             });
             Double csje = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(objMap.get("taxrate").toString()) + 100) / 100;
-            viewHolder2.tvHsdj.setText(csje.toString());
-            objMap.put("taxunitprice", csje.toString());
+            objMap.put("taxunitprice", FigureTools.sswrFigure(csje));
+            viewHolder2.tvHsdj.setText(objMap.get("taxunitprice").toString());
+
             return convertView;
         }
     }
