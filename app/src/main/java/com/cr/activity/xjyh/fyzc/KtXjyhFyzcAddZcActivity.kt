@@ -14,6 +14,7 @@ import android.view.View.VISIBLE
 import android.widget.TextView
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.CommonXzzdActivity
+import com.cr.tools.FigureTools
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
@@ -78,7 +79,7 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
                     // 输入后的监听
                     if (!TextUtils.isEmpty(s)) {
                         val csje: Double = s.toString().toDouble() * (mTaxrate + 100) / 100
-                        et_jshj.setText(csje.toString())
+                        et_jshj.setText(FigureTools.sswrFigure(csje))
                     }
                 }
             }
@@ -106,7 +107,7 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
                         mTaxrate = s.toString().toDouble()
                     }
                     val csje: Double = et_csje.text.toString().toDouble() * (mTaxrate + 100) / 100
-                    et_jshj.setText(csje.toString())
+                    et_jshj.setText(FigureTools.sswrFigure(csje))
                 }
             }
         })
@@ -129,7 +130,8 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
                     if (TextUtils.isEmpty(s)) {
                         et_csje.setText("0.00")
                     } else {
-                        et_csje.setText((s.toString().toDouble() * 100 / (mTaxrate + 100)).toString())
+                        val csje: Double = s.toString().toDouble() * 100 / (mTaxrate + 100)
+                        et_csje.setText(FigureTools.sswrFigure(csje))
                     }
                 }
 
