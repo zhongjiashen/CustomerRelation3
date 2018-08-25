@@ -2,6 +2,7 @@ package com.cr.activity.jxc.ckgl.kcbd;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +28,8 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.WeChatCaptureActivity;
+import com.update.actiity.choose.ChooseDepartmentActivity;
+import com.update.actiity.choose.SelectSalesmanActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,13 +79,15 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
     ScrollView addScrollview;
 
     String jbrId = "", bdlxId = "", bdckId = "";
+    @BindView(R.id.et_bm)
+    EditText etBm;
     private List<Map<String, Object>> list;
-//    private LinearLayout xzspLinearLayout;
+    //    private LinearLayout xzspLinearLayout;
     BaseAdapter adapter;
     //    LinearLayout                      xzxsddLinearLayout;
     private int selectIndex;
     String billid;//选择完关联的单据后返回的单据的ID
-
+    private String mDepartmentid;//部门ID
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -134,10 +139,10 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
         xzspListview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-//        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
-//        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEdittext.setText(ShareUserInfo.getKey(this, "opname"));
-        jbrId =  ShareUserInfo.getKey(this, "empid");
+        jbrId = ShareUserInfo.getKey(this, "empid");
     }
 
     /**
@@ -258,7 +263,7 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
     private long time;
 
 
-    @OnClick({R.id.save_imagebutton, R.id.bdlx_edittext, R.id.bdck_edittext, R.id.xzspnum_textview, R.id.iv_scan, R.id.xzsp_linearlayout, R.id.djrq_edittext, R.id.jbr_edittext, R.id.bzxx_edittext})
+    @OnClick({R.id.save_imagebutton, R.id.bdlx_edittext, R.id.bdck_edittext, R.id.xzspnum_textview, R.id.iv_scan, R.id.xzsp_linearlayout, R.id.djrq_edittext,R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -281,9 +286,17 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
             case R.id.djrq_edittext:
                 date_init(djrqEdittext);
                 break;
+            case R.id.et_bm:
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
+                break;
             case R.id.jbr_edittext:
-                intent.setClass(activity, CommonXzjbrActivity.class);
-                startActivityForResult(intent, 3);
+                if (TextUtils.isEmpty(mDepartmentid))
+                    showToastPromopt("请先选择部门");
+                else
+                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+                            .putExtra("depid", mDepartmentid), 16);
+//                intent.setClass(activity, CommonXzjbrActivity.class);
+//                startActivityForResult(intent, 3);
                 break;
             case R.id.save_imagebutton:
                 if (time == 0 || System.currentTimeMillis() - time > 5000) {
@@ -314,13 +327,14 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
                 break;
         }
     }
+
     @SuppressWarnings("unchecked")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode){
+            switch (requestCode) {
                 case 0:// 选择商品
 //                list.clear();
                     List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
@@ -440,6 +454,7 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
 //            }
         }
     }
+
 
 
 }

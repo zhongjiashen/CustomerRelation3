@@ -1,15 +1,5 @@
 package com.cr.activity.jxc.ckgl.kcbd;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.common.CommonXzjbrActivity;
-import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.adapter.jxc.ckgl.kcbd.JxcCkglKcbdAddAdapter;
 import com.cr.tools.CustomListView;
@@ -39,31 +27,47 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 进销存-仓库管理-库存变动-详情
- * @author Administrator
  *
+ * @author Administrator
  */
 public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickListener {
-    private ImageView                 shImageView;
-    private ImageButton               saveImageButton;
-    private Button                    shButton, sdButton;
-    private TextView                  xzspnumTextView, djbhTextView;
-    private EditText                  bdlxEditText,bdckEditText,bzxxEditText, djrqEditText, jbrEditText;
-    private CustomListView            listview;
-    String                            jbrId,bdlxId,bdckId;
-    private List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
-    private LinearLayout              xzspLinearLayout;
-    BaseAdapter                       adapter;
-    private int                       selectIndex;
-    private String                    shzt="";                                               //社会状态
-    Map<String, Object>               object;
+    @BindView(R.id.et_bm)
+    EditText etBm;
+    private ImageView shImageView;
+    private ImageButton saveImageButton;
+    private Button shButton, sdButton;
+    private TextView xzspnumTextView, djbhTextView;
+    private EditText bdlxEditText, bdckEditText, bzxxEditText, djrqEditText, jbrEditText;
+    private CustomListView listview;
+    String jbrId, bdlxId, bdckId;
+    private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    private LinearLayout xzspLinearLayout;
+    BaseAdapter adapter;
+    private int selectIndex;
+    private String shzt = "";                                               //社会状态
+    Map<String, Object> object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jxc_ckgl_kcbd_detail);
+        ButterKnife.bind(this);
         addFHMethod();
         initActivity();
         searchDate();
@@ -96,18 +100,18 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
         jbrEditText.setOnClickListener(this);
         bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
         bzxxEditText.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View view, MotionEvent event) {
-				// TODO Auto-generated method stub
-				view.getParent().requestDisallowInterceptTouchEvent(true);
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
-				case MotionEvent.ACTION_UP:
-					view.getParent().requestDisallowInterceptTouchEvent(
-							false);
-					break;
-				}
-				return false;
-			}
-		});
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP:
+                        view.getParent().requestDisallowInterceptTouchEvent(
+                                false);
+                        break;
+                }
+                return false;
+            }
+        });
         xzspnumTextView = (TextView) findViewById(R.id.xzspnum_textview);
         shButton = (Button) findViewById(R.id.sh_button);
         shButton.setOnClickListener(this);
@@ -165,6 +169,9 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
             object = ((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson)).get(0);
             djbhTextView.setText(object.get("code").toString());
             djrqEditText.setText(object.get("billdate").toString());
+            if(object.get("depname")!=null) {
+                etBm.setText(object.get("depname").toString());
+            }
             jbrEditText.setText(object.get("empname").toString());
             bzxxEditText.setText(object.get("memo").toString());
             if (object.get("shzt").toString().equals("0")) {
@@ -176,15 +183,15 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
             }
             jbrId = object.get("exemanid").toString();
             shzt = object.get("shzt").toString();
-            bdlxId=object.get("satid").toString();
+            bdlxId = object.get("satid").toString();
             bdlxEditText.setText(object.get("satname").toString());
-            bdckId=object.get("storeid").toString();
+            bdckId = object.get("storeid").toString();
             bdckEditText.setText(object.get("storename").toString());
             showZdr(object);
             searchDate2();//查询订单中的商品
         } else if (returnSuccessType == 1) {
-            if(returnJson.equals("")){
-            	return;
+            if (returnJson.equals("")) {
+                return;
             }
             list.clear();
             list.addAll((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson));
@@ -217,19 +224,20 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
             showToastPromopt("该单据在审核阶段，不能进行修改");
             return;
         }
-        if(bdckEditText.getText().toString().equals("")){
+        if (bdckEditText.getText().toString().equals("")) {
             showToastPromopt("请选择变动仓库");
             return;
-        }else if(bdlxEditText.getText().toString().equals("")){
+        } else if (bdlxEditText.getText().toString().equals("")) {
             showToastPromopt("请选择变动类型");
             return;
-        }else if (list.size() == 0) {
+        } else if (list.size() == 0) {
             showToastPromopt("请选择商品");
             return;
-        }else if(djrqEditText.getText().toString().equals("")){
+        } else if (djrqEditText.getText().toString().equals("")) {
             showToastPromopt("请选择单据日期");
             return;
-        } if (jbrEditText.getText().toString().equals("")) {
+        }
+        if (jbrEditText.getText().toString().equals("")) {
             showToastPromopt("请选择业务员");
             return;
         }
@@ -242,7 +250,7 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
             jsonObject.put("billdate", djrqEditText.getText().toString());
             jsonObject.put("satid", bdlxId);
             jsonObject.put("storeid", bdckId);
-            jsonObject.put("totalamt","0" );
+            jsonObject.put("totalamt", "0");
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
@@ -254,12 +262,12 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
                 jsonObject2.put("goodsid", map.get("goodsid").toString());
                 jsonObject2.put("unitid", map.get("unitid").toString());
                 jsonObject2.put("unitprice", "");
-                jsonObject2.put("unitqty", map.get("bdsl")==null?map.get("unitqty").toString():map.get("bdsl").toString());
-                jsonObject2.put("amount","0");
+                jsonObject2.put("unitqty", map.get("bdsl") == null ? map.get("unitqty").toString() : map.get("bdsl").toString());
+                jsonObject2.put("amount", "0");
                 jsonObject2.put("batchcode", "");
                 jsonObject2.put("produceddate", "");
                 jsonObject2.put("validdate", "");
-                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
+                jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
@@ -280,24 +288,24 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.sh_button:
-            	intent.putExtra("tb", "tb_inout");
-            	intent.putExtra("opid", object.get("opid").toString());
+                intent.putExtra("tb", "tb_inout");
+                intent.putExtra("opid", object.get("opid").toString());
                 intent.putExtra("billid", this.getIntent().getExtras().getString("billid"));
                 intent.setClass(activity, JxcCgglCgddShlcActivity.class);
-                startActivityForResult(intent,8);
+                startActivityForResult(intent, 8);
                 break;
             case R.id.sd_button:
-            	new AlertDialog.Builder(activity)
-				.setTitle("确定要删除当前记录吗？")
-				.setNegativeButton("删除",
-						new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(activity)
+                        .setTitle("确定要删除当前记录吗？")
+                        .setNegativeButton("删除",
+                                new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface arg0,
-									int arg1) {
-								searchDateSd();
-							}
-						}).setPositiveButton("取消", null).show();
+                                    @Override
+                                    public void onClick(DialogInterface arg0,
+                                                        int arg1) {
+                                        searchDateSd();
+                                    }
+                                }).setPositiveButton("取消", null).show();
                 break;
 //            case R.id.xzsp_linearlayout:
 //            	if(bdckEditText.getText().toString().equals("")){
@@ -340,7 +348,7 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
             if (requestCode == 0) {// 选择商品
 //                list.clear();
                 List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
-                    .getSerializableExtra("object");
+                        .getSerializableExtra("object");
                 for (int i = 0; i < cpList.size(); i++) {
                     Map<String, Object> map = cpList.get(i);
                     if (map.get("isDetail").equals("0")) {
@@ -362,7 +370,7 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
                     adapter.notifyDataSetChanged();
                 } else {
                     Map<String, Object> map = (Map<String, Object>) data.getExtras()
-                        .getSerializable("object");
+                            .getSerializable("object");
                     list.remove(selectIndex);
                     list.add(selectIndex, map);
                     adapter.notifyDataSetChanged();
@@ -371,10 +379,10 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
             } else if (requestCode == 6) {// 变动类型
                 bdlxEditText.setText(data.getExtras().getString("dictmc"));
                 bdlxId = data.getExtras().getString("id");
-            }else if (requestCode == 7) {// 变动仓库
+            } else if (requestCode == 7) {// 变动仓库
                 bdckEditText.setText(data.getExtras().getString("dictmc"));
                 bdckId = data.getExtras().getString("id");
-            }else if(requestCode==8){
+            } else if (requestCode == 8) {
                 searchDate();
             }
         }

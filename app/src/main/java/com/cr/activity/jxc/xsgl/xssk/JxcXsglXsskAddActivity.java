@@ -216,10 +216,10 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
                 return;
             }
         }
-        if (jbrEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
+//        if (jbrEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择业务员");
+//            return;
+//        }
 
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
@@ -235,6 +235,7 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("clientid", gysId);//供应商ID
             jsonObject.put("amount", fkjeEditText.getText().toString());
             jsonObject.put("factamount", fkjeEditText.getText().toString());
+            jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
