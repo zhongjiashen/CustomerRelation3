@@ -133,6 +133,11 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
         xzspnumTextview.setText("共选择了" + list.size() + "商品");
         xzspListview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+//        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
+//        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        jbrEdittext.setText(ShareUserInfo.getKey(this, "opname"));
+        jbrId =  ShareUserInfo.getKey(this, "empid");
     }
 
     /**

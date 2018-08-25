@@ -157,6 +157,11 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
         xzspnumTextView.setText("共选择了" + list.size() + "引用");
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
+        jbrId =  ShareUserInfo.getKey(this, "empid");
     }
 
     /**
