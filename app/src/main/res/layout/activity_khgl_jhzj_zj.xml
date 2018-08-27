@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.update.viewbar.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+            <TextView
+                android:id="@+id/tv_jjh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="计划类型"
+                android:padding="15dp"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/word_jmedium" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color" />
+            <EditText
+                android:id="@+id/et_jjh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:hint="请输入今日工作计划"
+                android:background="@color/text_white"
+                android:minHeight="150dp"
+                android:padding="@dimen/margin"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/gray_line_color" />
+            <TextView
+                android:id="@+id/tv_zj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="计划类型"
+                android:padding="15dp"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/word_jmedium" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color" />
+            <EditText
+                android:id="@+id/et_zj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:hint="请输入今日工作计划"
+                android:background="@color/text_white"
+                android:minHeight="150dp"
+                android:padding="@dimen/margin"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/gray_line_color" />
+            <TextView
+                android:id="@+id/tv_mjh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="计划类型"
+                android:padding="15dp"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/word_jmedium" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black_line_color" />
+            <EditText
+                android:id="@+id/et_mjh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:hint="请输入今日工作计划"
+                android:background="@color/text_white"
+                android:minHeight="150dp"
+                android:padding="@dimen/margin"/>
+           
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

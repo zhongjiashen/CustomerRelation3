@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.cr.activity.JhzjJrzjActivity;
 import com.cr.activity.JhzjXzxmActivity;
 import com.cr.activity.khgl.KtKhglJhzjXzxmActivity;
+import com.cr.activity.khgl.jhzj.KtZjActivity;
 import com.cr.model.JHRW;
 import com.crcxj.activity.R;
 
@@ -82,11 +83,15 @@ public class JhzjZdyjhAdapter extends BaseAdapter {
 		viewHolder.jrzj.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent=new Intent(activity,JhzjJrzjActivity.class);
-				intent.putExtra("jhid",sb.getId());
-				intent.putExtra("type","zdyjh");
-				intent.putExtra("shzt",sb.getShzt());
+				Intent intent=new Intent(activity,KtZjActivity.class);
+				intent.putExtra("mid",sb.getId());
+				intent.putExtra("kind",3);
 				activity.startActivity(intent);
+//				Intent intent=new Intent(activity,JhzjJrzjActivity.class);
+//				intent.putExtra("jhid",sb.getId());
+//				intent.putExtra("type","zdyjh");
+//				intent.putExtra("shzt",sb.getShzt());
+//				activity.startActivity(intent);
 			}
 		});
 		return convertView;

@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.view.View
 import com.airsaid.pickerviewlibrary.TimePickerView
 import com.bumptech.glide.Glide
+import com.cr.activity.khgl.jhzj.KtJhzjXmzxData
 import com.cr.model.JHRW
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo

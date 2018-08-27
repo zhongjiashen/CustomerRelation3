@@ -218,7 +218,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("unitid", map.get("unitid").toString());
                 jsonObject2.put("unitprice", map.get("unitprice").toString());
                 jsonObject2.put("unitqty", map.get("unitqty").toString());
-                jsonObject2.put("amount", "0");
+                jsonObject2.put("amount", map.get("amount").toString());
                 jsonObject2.put("batchcode", map.get("batchcode").toString());
                 jsonObject2.put("produceddate", map.get("produceddate").toString());
                 jsonObject2.put("validdate", map.get("validdate").toString());
