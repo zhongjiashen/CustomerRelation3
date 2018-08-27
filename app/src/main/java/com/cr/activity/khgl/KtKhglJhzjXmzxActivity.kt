@@ -25,11 +25,7 @@ import com.update.actiity.sales.ChoiceOpportunitiesActivity
 import com.update.base.BaseActivity
 import com.update.base.BaseP
 import com.update.dialog.DialogFactory
-
-import com.update.utils.DateUtil
-import com.update.utils.EditTextHelper
-import com.update.utils.FileUtils
-import com.update.utils.LogUtils
+import com.update.utils.*
 
 
 import kotlinx.android.synthetic.main.activity_khgl_jhzj_xmzx.*
@@ -498,6 +494,9 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
                         for (i in attfilesList) {
                             if(i.lb=="0"){
                                 Glide.with(mActivity).load(FileUtils.getPath(mActivity, "AZDJ/",  i.filenames)).error(R.mipmap.ic_file).into(siv_fjck)
+                                siv_fjck.setOnClickListener{
+                                    SeeFileUtils.openFile(mActivity, FileUtils.getPath(mActivity, "AZDJ/",  i.filenames))
+                                }
                             }else{
                                 Glide.with(mActivity).load(FileUtils.getPath(mActivity, "AZDJ/",  i.filenames)).error(R.mipmap.ic_file).into(siv_image)
                             }

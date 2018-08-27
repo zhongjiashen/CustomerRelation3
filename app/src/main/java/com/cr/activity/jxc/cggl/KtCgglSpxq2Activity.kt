@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import com.cr.activity.common.CommonXzphActivity
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity
+import com.cr.tools.FigureTools
 import com.crcxj.activity.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -37,11 +38,22 @@ class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
 
         if (intent.hasExtra("object")) {
             data = intent.getExtras().getSerializable("object") as HashMap<String, Any>
-            tv_spmc.text = "名称：" + data["name"].toString()
-            tv_spbm.text = "编码：" + data["code"].toString()
+            if(data["name"]==null){
+                tv_spmc.text = "名称：" + data["goodsname"].toString()
+            }else {
+                tv_spmc.text = "名称：" + data["name"].toString()
+            }
+            if(data["name"]==null){
+                tv_spbm.text = "编码：" + data["goodscode"].toString()
+            }else {
+                tv_spbm.text = "编码：" + data["code"].toString()
+            }
             tv_spgg.text = "规格：" + data["specs"].toString()
             tv_spxh.text = "型号：" + data["model"].toString()
-            tv_spkz.text = "库存：" + data["onhand"].toString().toDouble() + data["unitname"].toString()
+            if (data["onhand"] != null) {
+                tv_spkz.text = "库存：" + data["onhand"]!!.toString().toDouble() + data["unitname"].toString()
+            }
+
             //是批次商品的会显示批号、生产日期、有效日期
             if (data["batchctrl"].toString().equals("T")) {
                 ll_pcsp.visibility = View.VISIBLE
@@ -57,13 +69,32 @@ class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
             EditTextHelper.EditTextEnable(!intent.getBooleanExtra("issj", true), et_sl)
             tv_hsdj.setText(data["taxunitprice"].toString())//含税单价
         }
+        et_dj.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (!TextUtils.isEmpty(s)) {
+                    data["unitprice"] = s.toString()
+                    val csje = data["unitprice"].toString().toDouble() * (data["taxrate"].toString().toDouble() + 100) / 100
+                    data["taxunitprice"] = FigureTools.sswrFigure(csje)
+                    tv_hsdj.setText(data["taxunitprice"].toString())//含税单价
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
         et_sl.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (!TextUtils.isEmpty(s)) {
                     data["taxrate"] = s.toString()
 
                     val csje = data["unitprice"].toString().toDouble() * (s.toString().toDouble() + 100) / 100
-                    data["taxunitprice"] = csje.toString()
+                    data["taxunitprice"] = FigureTools.sswrFigure(csje)
                     tv_hsdj.setText(data["taxunitprice"].toString())//含税单价
                 }
             }

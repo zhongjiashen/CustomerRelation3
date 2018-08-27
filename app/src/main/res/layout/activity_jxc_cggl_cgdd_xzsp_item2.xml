@@ -161,6 +161,8 @@
                 android:id="@+id/dj_edittext"
                 style="@style/edittext_bj"
                 android:layout_marginLeft="20dip"
+                android:digits="0123456789."
+                android:maxLength="15"
                 android:layout_weight="1"
                 android:gravity="left"
                 android:inputType="numberDecimal" />

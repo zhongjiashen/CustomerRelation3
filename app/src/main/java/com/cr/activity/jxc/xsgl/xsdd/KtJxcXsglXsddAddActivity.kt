@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.View
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.*
+import com.cr.activity.jxc.cggl.KtCgglSpxq2Activity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzsp2Activity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
@@ -176,7 +177,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
         xzsp_listview.setOnItemClickListener { parent, view, position, id ->
             selectIndex = position
             val intent = Intent()
-            intent.setClass(activity, JxcCgglCgddXzspDetailActivity::class.java)
+            intent.setClass(activity, KtCgglSpxq2Activity::class.java)
 //                intent.putExtra("rkckId", value)
             intent.putExtra("object", list!!.get(position) as Serializable)
             startActivityForResult(intent, 4)

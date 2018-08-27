@@ -49,6 +49,7 @@ import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.model.KtWlxxData;
 import com.update.model.Serial;
 import com.update.utils.EditTextHelper;
+import com.update.utils.LogUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -558,11 +559,28 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     mTogBtn.setChecked(false);
                     list.clear();
                     list.addAll((List<Map<String, Object>>) data.getExtras().getSerializable("list"));
+                    LogUtils.e(new Gson().toJson(list));
+
                     yyList.clear();
                     yyList.addAll((List<Map<String, Object>>) data.getExtras().getSerializable("list"));
-                    xzspnumTextview.setText("共选择了" + list.size() + "商品");
-                    hjjeEdittext.setText(data.getExtras().getString("totalAmount"));
-                    adapter.notifyDataSetChanged();
+                    if(list!=null){
+                        for (int i=0;i<list.size();i++) {
+                            list.get(i).put("taxrate",mTaxrate);
+                            Double csje  = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            list.get(i).put("taxunitprice",FigureTools.sswrFigure(csje));
+                            String amount = (csje
+                                    * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
+                            list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
+                        }
+                        double je = 0;
+                        for (Map<String, Object> m : list) {
+                            je += Double.parseDouble(m.get("amount").toString());
+                        }
+                        xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                        hjjeEdittext.setText("￥" + FigureTools.sswrFigure(je + "") + "");
+                        adapter.notifyDataSetChanged();
+                    }
+
                     break;
                 case 6:
                     if (!rkckEdittext.getText().toString().equals(data.getExtras().getString("dictmc"))) {
@@ -626,7 +644,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                         for (int i=0;i<list.size();i++) {
                             list.get(i).put("taxrate",mTaxrate);
                             Double csje  = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                            list.get(i).put("taxunitprice",csje+"");
+                            list.get(i).put("taxunitprice",FigureTools.sswrFigure(csje));
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
                             list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
