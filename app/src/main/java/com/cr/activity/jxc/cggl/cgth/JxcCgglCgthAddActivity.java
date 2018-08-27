@@ -107,8 +107,8 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
     EditText gysqkEdittext;
     @BindView(R.id.hjje_edittext)
     EditText hjjeEdittext;
-    @BindView(R.id.fkje_edittext)
-    EditText fkjeEdittext;
+    @BindView(R.id.tkje_edittext)
+    EditText tkjeEdittext;
     @BindView(R.id.fklx_edittext)
     EditText fklxEdittext;
     @BindView(R.id.jsfs_edittext)
@@ -444,7 +444,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                         Map<String, Object> map2 = list.get(i);
                         zje += Double.parseDouble(map2.get("amount").toString());
                     }
-                    fkjeEdittext.setText("" + FigureTools.sswrFigure(zje + "") + "");
+                    hjjeEdittext.setText("" + FigureTools.sswrFigure(zje + "") + "");
                     adapter.notifyDataSetChanged();
                     break;
                 case 1:
@@ -504,7 +504,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                         Map<String, Object> map = list.get(i);
                         ze += Double.parseDouble(map.get("amount").toString());
                     }
-                    fkjeEdittext.setText("" + FigureTools.sswrFigure(ze + "") + "");
+                    hjjeEdittext.setText("" + FigureTools.sswrFigure(ze + "") + "");
                     break;
                 case 5://选中单据成功后返回
                     addScrollview.setVisibility(View.VISIBLE);//隐藏关联销售单据的Linearlayout
@@ -515,7 +515,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                     yyList.clear();
                     yyList.addAll((List<Map<String, Object>>) data.getExtras().getSerializable("list"));
                     xzspnumTextview.setText("共选择了" + list.size() + "商品");
-                    fkjeEdittext.setText(data.getExtras().getString("totalAmount"));
+                    hjjeEdittext.setText(data.getExtras().getString("totalAmount"));
                     adapter.notifyDataSetChanged();
                     break;
                 case 6:
@@ -527,7 +527,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                     fklxId = data.getExtras().getString("id");
                     if (data.getExtras().getString("id").equals("0")) {
 //                	fkjeEditText.setText("0");
-                        fkjeEdittext.setEnabled(false);
+                        hjjeEdittext.setEnabled(false);
                         jsfsEdittext.setEnabled(false);
                         zjzhEdittext.setEnabled(false);
                         jsfsEdittext.setText("");
@@ -535,13 +535,13 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                         jsfsId = "";
                         zjzhId = "";
                     } else {
-                        fkjeEdittext.setEnabled(false);
+                        hjjeEdittext.setEnabled(false);
                         double je = 0;
                         for (int i = 0; i < list.size(); i++) {
                             Map<String, Object> map = list.get(i);
                             je += Double.parseDouble(map.get("amount").toString());
                         }
-                        fkjeEdittext.setText("" + FigureTools.sswrFigure(je + "") + "");
+                        hjjeEdittext.setText("" + FigureTools.sswrFigure(je + "") + "");
                         jsfsEdittext.setEnabled(true);
                         zjzhEdittext.setEnabled(true);
                     }
@@ -675,9 +675,9 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             return;
         } else if (fklxId.equals("1")) {
             double hjje = Double.parseDouble(hjjeEdittext.getText().toString().replace("￥", "").equals("") ? "0" : hjjeEdittext.getText().toString().replace("￥", ""));
-            double fkje = Double.parseDouble(fkjeEdittext.getText().toString().replace("￥", "").equals("") ? "0" : fkjeEdittext.getText().toString().replace("￥", ""));
+//            double fkje = Double.parseDouble(fkjeEdittext.getText().toString().replace("￥", "").equals("") ? "0" : fkjeEdittext.getText().toString().replace("￥", ""));
             //            37.采购收货、采购退货、销售开单、销售退货不再限制收款（或付款、退款）金额是否大于单据合计金额，收款（或付款、退款）金额大于0即可
-            if (fkje < 0/*||fkje>hjje*/) {
+            if (hjje < 0/*||fkje>hjje*/) {
                 showToastPromopt("付款金额不在范围内！");
                 return;
             }
@@ -713,7 +713,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("bankid", zjzhId);
 //            jsonObject.put("receipt",fkjeEditText.getText().toString());
             jsonObject.put("privilege", "");
-            jsonObject.put("totalamt", fkjeEdittext.getText().toString());
+            jsonObject.put("totalamt", hjjeEdittext.getText().toString());
             jsonObject.put("clientid", gysId);//供应商ID
             jsonObject.put("linkmanid", lxrId);//联系人ID
             jsonObject.put("phone", lxdhEdittext.getText().toString());
@@ -830,7 +830,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             lxdhEdittext.setText(object.get("phone").toString());
             jhdzEdittext.setText(object.get("billto").toString());
 //            hjjeEditText.setText(object.get("amount").toString());
-            fkjeEdittext.setText(object.get("totalamt").toString());
+           hjjeEdittext.setText(object.get("totalamt").toString());
             djrqEdittext.setText(object.get("billdate").toString());
             jbrEdittext.setText(object.get("empname").toString());
             bzxxEdittext.setText(object.get("memo").toString());

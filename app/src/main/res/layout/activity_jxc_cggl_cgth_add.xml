@@ -371,7 +371,7 @@
                     android:text="@string/tkje" />
 
                 <EditText
-                    android:id="@+id/fkje_edittext"
+                    android:id="@+id/tkje_edittext"
                     style="@style/edittext_bj"
                     android:inputType="numberDecimal" />
             </LinearLayout>
