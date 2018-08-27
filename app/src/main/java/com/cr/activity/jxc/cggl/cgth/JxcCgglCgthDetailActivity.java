@@ -64,7 +64,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
     private TextView xzspnumTextView, djbhTextView;
     private EditText bzxxEditText, gysEditText, lxrEditText, lxdhEditText,
             jhdzEditText, hjjeEditText, djrqEditText, jbrEditText, rkckEditText, gysqkEditText,
-            fkjeEditText, fklxEditText, jsfsEditText, zjzhEditText;
+            tkjeEditText, fklxEditText, jsfsEditText, zjzhEditText;
     private CustomListView listview;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     private LinearLayout xzspLinearLayout;
@@ -150,7 +150,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
         sdButton = (Button) findViewById(R.id.sd_button);
         sdButton.setOnClickListener(this);
         gysqkEditText = (EditText) findViewById(R.id.gysqk_edittext);
-        fkjeEditText = (EditText) findViewById(R.id.fkje_edittext);
+        tkjeEditText = (EditText) findViewById(R.id.tkje_edittext);
         fklxEditText = (EditText) findViewById(R.id.fklx_edittext);
         fklxEditText.setOnClickListener(this);
         jsfsEditText = (EditText) findViewById(R.id.jsfs_edittext);
@@ -207,7 +207,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
             lxrEditText.setText(object.get("contator").toString());
             lxdhEditText.setText(object.get("phone").toString());
 //            jhdzEditText.setText(object.get("billto").toString());
-            fkjeEditText.setText(object.get("totalamt").toString());
+            hjjeEditText.setText(object.get("totalamt").toString());
             djrqEditText.setText(object.get("billdate").toString());
             etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
@@ -228,12 +228,12 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
             rkckId = object.get("storeid").toString();
             fklxId = object.get("backmoney").toString();
             if (fklxId.equals("0")) {
-                fkjeEditText.setText("0");
-                fkjeEditText.setEnabled(false);
+                hjjeEditText.setText("0");
+                hjjeEditText.setEnabled(false);
                 jsfsEditText.setEnabled(false);
                 zjzhEditText.setEnabled(false);
             } else {
-                fkjeEditText.setEnabled(false);
+                hjjeEditText.setEnabled(false);
                 jsfsEditText.setEnabled(true);
                 zjzhEditText.setEnabled(true);
             }
@@ -273,7 +273,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
                 Map<String, Object> map = list.get(i);
                 zje += Double.parseDouble(map.get("amount").toString());
             }
-            fkjeEditText.setText("" + FigureTools.sswrFigure(zje + "") + "");
+            hjjeEditText.setText("" + FigureTools.sswrFigure(zje + "") + "");
         } else if (returnSuccessType == 2) {
             if (returnJson.equals("")) {
                 showToastPromopt("删除成功");
@@ -293,104 +293,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
         }
     }
 
-    /**
-     * 连接网络的操作(保存)
-     */
-    private void searchDateSave() {
-        if (rkckEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择出库仓库");
-            return;
-        } else if (gysEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择供应商");
-            return;
-        } else if (list.size() == 0) {
-            showToastPromopt("请选择商品");
-            return;
-        } else if (fklxEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择退款类型");
-            return;
-        } else if (fklxId.equals("1")) {
-//            double hjje=Double.parseDouble(hjjeEditText.getText().toString().replace("￥", "").equals("")?"0":hjjeEditText.getText().toString().replace("￥", ""));
-//            double fkje=Double.parseDouble(fkjeEditText.getText().toString().replace("￥", "").equals("")?"0":fkjeEditText.getText().toString().replace("￥", ""));
-//            if(fkje<0||fkje>hjje){
-//                showToastPromopt("付款金额不在范围内！");
-//                return;
-//            }else 
-            if (jsfsEditText.getText().toString().equals("")) {
-                showToastPromopt("请选择结算方式");
-                return;
-            } else if (zjzhEditText.getText().toString().equals("")) {
-                showToastPromopt("请选择资金账户");
-                return;
-            }
-        }
-        if (djrqEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择单据日期");
-            return;
-        }
-        if (jbrEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
-        JSONArray arrayMaster = new JSONArray();
-        JSONArray arrayDetail = new JSONArray();
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("billid", this.getIntent().getExtras().getString("billid"));
-            jsonObject.put("code", object.get("code").toString());
-            jsonObject.put("billdate", djrqEditText.getText().toString());
-            jsonObject.put("storeid", rkckId);
-            jsonObject.put("backmoney", fklxId);
-            jsonObject.put("paytypeid", jsfsId);
-            jsonObject.put("bankid", zjzhId);
-//            jsonObject.put("receipt",fkjeEditText.getText().toString());
-            jsonObject.put("privilege", "");
-            jsonObject.put("totalamt", fkjeEditText.getText().toString());
-            jsonObject.put("clientid", gysId);//供应商ID
-            jsonObject.put("linkmanid", lxrId);//联系人ID
-            jsonObject.put("phone", lxdhEditText.getText().toString());
-//            jsonObject.put("billto", jhdzEditText.getText().toString());
-            jsonObject.put("exemanid", jbrId);
-//            String hjje = hjjeEditText.getText().toString();
-//            jsonObject.put("amount", hjje.replace("￥", ""));
-            jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
-            arrayMaster.put(jsonObject);
-            for (Map<String, Object> map : list) {
-                JSONObject jsonObject2 = new JSONObject();
-                jsonObject2.put("billid", this.getIntent().getExtras().getString("billid"));
-                jsonObject2.put("itemno", "0");
-                jsonObject2.put("goodsid", map.get("goodsid").toString());
-                jsonObject2.put("unitid", map.get("unitid").toString());
-                jsonObject2.put("unitprice", map.get("unitprice").toString());
-                jsonObject2.put("unitqty", map.get("unitqty").toString());
-//                String disc=map.get("disc").toString();
-                String disc = ((int) Double.parseDouble(map.get("disc").toString())) + "";
-                jsonObject2.put("disc", disc);
-                jsonObject2.put("amount", map.get("amount").toString());
-                jsonObject2.put("batchcode", map.get("batchcode").toString());
-                jsonObject2.put("produceddate", map.get("produceddate").toString());
-                jsonObject2.put("validdate", map.get("validdate").toString());
-                jsonObject2.put("ispresent", "");
 
-                jsonObject2.put("refertype", map.get("refertype") == null ? "" : map.get("refertype").toString());
-                jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
-                jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
-                jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
-                arrayDetail.put(jsonObject2);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }//代表新增
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        //      parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("tabname", "tb_preturn");
-        parmMap.put("parms", "CGTH");
-        parmMap.put("master", arrayMaster.toString());
-        parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(3, ServerURL.BILLSAVE, parmMap, false);
-    }
     @OnClick(R.id.et_wlgs)
     public void onClick() {
         startActivity(new Intent(this, KtWlxxActivity.class)
@@ -460,7 +363,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
                     Map<String, Object> map2 = list.get(i);
                     zje += Double.parseDouble(map2.get("amount").toString());
                 }
-                fkjeEditText.setText("" + FigureTools.sswrFigure(zje + "") + "");
+                hjjeEditText.setText("" + FigureTools.sswrFigure(zje + "") + "");
                 adapter.notifyDataSetChanged();
             } else if (requestCode == 1) {
                 gysEditText.setText(data.getExtras().getString("name"));
@@ -493,7 +396,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
                     Map<String, Object> map = list.get(i);
                     zje += Double.parseDouble(map.get("amount").toString());
                 }
-                fkjeEditText.setText("" + FigureTools.sswrFigure(zje + "") + "");
+                hjjeEditText.setText("" + FigureTools.sswrFigure(zje + "") + "");
             } else if (requestCode == 5) {
                 if (!rkckEditText.getText().toString().equals(data.getExtras().getString("dictmc"))) {
                     list.clear();
@@ -505,7 +408,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
                 fklxEditText.setText(data.getExtras().getString("dictmc"));
                 fklxId = data.getExtras().getString("id");
                 if (data.getExtras().getString("id").equals("0")) {
-                    fkjeEditText.setEnabled(false);
+                    hjjeEditText.setEnabled(false);
                     jsfsEditText.setEnabled(false);
                     zjzhEditText.setEnabled(false);
 //                	fkjeEditText.setText("0");
@@ -514,13 +417,13 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
                     jsfsId = "";
                     zjzhId = "";
                 } else {
-                    fkjeEditText.setEnabled(false);
+                    hjjeEditText.setEnabled(false);
                     double zje = 0;
                     for (int i = 0; i < list.size(); i++) {
                         Map<String, Object> map = list.get(i);
                         zje += Double.parseDouble(map.get("amount").toString());
                     }
-                    fkjeEditText.setText("" + FigureTools.sswrFigure(zje + "") + "");
+                    hjjeEditText.setText("" + FigureTools.sswrFigure(zje + "") + "");
                     jsfsEditText.setEnabled(true);
                     zjzhEditText.setEnabled(true);
                 }
@@ -537,3 +440,101 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
         }
     }
 }
+//    /**
+//     * 连接网络的操作(保存)
+//     */
+//    private void searchDateSave() {
+//        if (rkckEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择出库仓库");
+//            return;
+//        } else if (gysEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择供应商");
+//            return;
+//        } else if (list.size() == 0) {
+//            showToastPromopt("请选择商品");
+//            return;
+//        } else if (fklxEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择退款类型");
+//            return;
+//        } else if (fklxId.equals("1")) {
+////            double hjje=Double.parseDouble(hjjeEditText.getText().toString().replace("￥", "").equals("")?"0":hjjeEditText.getText().toString().replace("￥", ""));
+////            double fkje=Double.parseDouble(fkjeEditText.getText().toString().replace("￥", "").equals("")?"0":fkjeEditText.getText().toString().replace("￥", ""));
+////            if(fkje<0||fkje>hjje){
+////                showToastPromopt("付款金额不在范围内！");
+////                return;
+////            }else
+//            if (jsfsEditText.getText().toString().equals("")) {
+//                showToastPromopt("请选择结算方式");
+//                return;
+//            } else if (zjzhEditText.getText().toString().equals("")) {
+//                showToastPromopt("请选择资金账户");
+//                return;
+//            }
+//        }
+//        if (djrqEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择单据日期");
+//            return;
+//        }
+//        if (jbrEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择业务员");
+//            return;
+//        }
+//        JSONArray arrayMaster = new JSONArray();
+//        JSONArray arrayDetail = new JSONArray();
+//        try {
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("billid", this.getIntent().getExtras().getString("billid"));
+//            jsonObject.put("code", object.get("code").toString());
+//            jsonObject.put("billdate", djrqEditText.getText().toString());
+//            jsonObject.put("storeid", rkckId);
+//            jsonObject.put("backmoney", fklxId);
+//            jsonObject.put("paytypeid", jsfsId);
+//            jsonObject.put("bankid", zjzhId);
+////            jsonObject.put("receipt",fkjeEditText.getText().toString());
+//            jsonObject.put("privilege", "");
+//            jsonObject.put("totalamt", hjjeEditText.getText().toString());
+//            jsonObject.put("clientid", gysId);//供应商ID
+//            jsonObject.put("linkmanid", lxrId);//联系人ID
+//            jsonObject.put("phone", lxdhEditText.getText().toString());
+////            jsonObject.put("billto", jhdzEditText.getText().toString());
+//            jsonObject.put("exemanid", jbrId);
+////            String hjje = hjjeEditText.getText().toString();
+////            jsonObject.put("amount", hjje.replace("￥", ""));
+//            jsonObject.put("memo", bzxxEditText.getText().toString());
+//            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+//            arrayMaster.put(jsonObject);
+//            for (Map<String, Object> map : list) {
+//                JSONObject jsonObject2 = new JSONObject();
+//                jsonObject2.put("billid", this.getIntent().getExtras().getString("billid"));
+//                jsonObject2.put("itemno", "0");
+//                jsonObject2.put("goodsid", map.get("goodsid").toString());
+//                jsonObject2.put("unitid", map.get("unitid").toString());
+//                jsonObject2.put("unitprice", map.get("unitprice").toString());
+//                jsonObject2.put("unitqty", map.get("unitqty").toString());
+////                String disc=map.get("disc").toString();
+//                String disc = ((int) Double.parseDouble(map.get("disc").toString())) + "";
+//                jsonObject2.put("disc", disc);
+//                jsonObject2.put("amount", map.get("amount").toString());
+//                jsonObject2.put("batchcode", map.get("batchcode").toString());
+//                jsonObject2.put("produceddate", map.get("produceddate").toString());
+//                jsonObject2.put("validdate", map.get("validdate").toString());
+//                jsonObject2.put("ispresent", "");
+//
+//                jsonObject2.put("refertype", map.get("refertype") == null ? "" : map.get("refertype").toString());
+//                jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
+//                jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
+//                jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
+//                arrayDetail.put(jsonObject2);
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }//代表新增
+//        Map<String, Object> parmMap = new HashMap<String, Object>();
+//        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+//        //      parmMap.put("opid", ShareUserInfo.getUserId(context));
+//        parmMap.put("tabname", "tb_preturn");
+//        parmMap.put("parms", "CGTH");
+//        parmMap.put("master", arrayMaster.toString());
+//        parmMap.put("detail", arrayDetail.toString());
+//        findServiceData2(3, ServerURL.BILLSAVE, parmMap, false);
+//    }

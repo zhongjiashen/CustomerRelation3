@@ -245,7 +245,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
 
     private long time;
 
-    @OnClick({R.id.iv_scan, R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
+    @OnClick({R.id.iv_scan, R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext,  R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -387,8 +387,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 break;
             case R.id.hjje_edittext:
                 break;
-            case R.id.fkje_edittext:
-                break;
+
 
             case R.id.et_wlgs:
                 //选择物流公司
@@ -491,11 +490,9 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                     } else {
                         Map<String, Object> map = (Map<String, Object>) data.getExtras()
                                 .getSerializable("object");
-                        list.remove(selectIndex);
-
                         map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
                                 * Double.parseDouble(map.get("unitqty").toString()));
-                        list.add(selectIndex, map);
+                        list.set(selectIndex, map);
                         adapter.notifyDataSetChanged();
                     }
                     xzspnumTextview.setText("共选择了" + list.size() + "商品");

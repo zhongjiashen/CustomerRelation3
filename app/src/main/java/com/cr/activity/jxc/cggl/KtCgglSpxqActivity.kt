@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import com.cr.activity.common.CommonXzphActivity
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity
+import com.cr.tools.FigureTools
 import com.crcxj.activity.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -57,6 +58,27 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
             EditTextHelper.EditTextEnable(!intent.getBooleanExtra("issj", true), et_sl)
             tv_hsdj.setText(data["taxunitprice"].toString())//含税单价
         }
+        et_dj.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (!TextUtils.isEmpty(s)) {
+                    data["unitprice"] = s.toString()
+                    val csje = data["unitprice"].toString().toDouble() * (data["taxrate"].toString().toDouble() + 100) / 100
+                    data["taxunitprice"] = FigureTools.sswrFigure(csje)
+                    tv_hsdj.setText(data["taxunitprice"].toString())//含税单价
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
+
+
         et_sl.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (!TextUtils.isEmpty(s)) {
