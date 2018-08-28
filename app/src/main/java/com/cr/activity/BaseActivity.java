@@ -2,6 +2,8 @@ package com.cr.activity;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -34,8 +36,13 @@ import com.cr.myinterface.SelectValueChange;
 import com.cr.tools.MyApplication;
 import com.cr.tools.NetworkCheck;
 import com.cr.tools.ServerRequest;
+import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.update.model.KtQxpdData;
+import com.update.model.Serial;
 
 @SuppressLint("HandlerLeak")
 public abstract class BaseActivity extends AppCompatActivity {
@@ -112,7 +119,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 					if (isShowDialog) {
 						progressDialog.dismiss();
 					}
-					executeSuccess();
+					if(returnSuccessType==9){//如果是权限判断请求
+						List<KtQxpdData> list = new Gson().fromJson(returnJson, new TypeToken<List<KtQxpdData>>() {
+						}.getType());
+						if(list.size()>0){
+							ShareUserInfo.setKey(context, "ll", list.get(0).getNExplore()+"");//
+							ShareUserInfo.setKey(context, "xz", list.get(0).getNInsert()+"");//
+							ShareUserInfo.setKey(context, "bj", list.get(0).getNUpdate()+"");//
+							ShareUserInfo.setKey(context, "sc", list.get(0).getNDelete()+"");//
+							UserPermissionsCallBack();
+						}
+					}else {
+						executeSuccess();
+					}
 					break;
 				case FIELD:
 					if (isShowDialog) {
@@ -145,6 +164,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 	}
 
 	/**
+	 * 用户权限回调
+	 */
+	protected void UserPermissionsCallBack(){
+
+	}
+
+	/**
 	 * 添加返回的退出方法
 	 */
 	public void addZYMethod() {
@@ -157,6 +183,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
+	}
+
+
+	public void CheckOperPriv(String menuid){
+		Map<String, Object> parmMap = new HashMap<String, Object>();
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("menuid", menuid);
+		findServiceData2(9, "checkoperpriv", parmMap, true);
 	}
 
 	// 调用网络查询出特定接口的数据

@@ -7,6 +7,7 @@ public class IndexModel {
 	private String logoName;
 	private Intent mIntent;
 	private String khzlname;
+	private String menuid;
 	public int getLogoId() {
 		return logoId;
 	}
@@ -34,5 +35,13 @@ public class IndexModel {
 
 	public void setKhzlname(String khzlname) {
 		this.khzlname = khzlname;
+	}
+
+	public String getMenuid() {
+		return menuid;
+	}
+
+	public void setMenuid(String menuid) {
+		this.menuid = menuid;
 	}
 }

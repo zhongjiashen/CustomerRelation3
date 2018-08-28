@@ -258,10 +258,10 @@ public class XjyhFkdAddActivity extends BaseActivity implements
             showToastPromopt("请填写付款金额");
             return;
         }
-        if (jbrEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
+//        if (jbrEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择业务员");
+//            return;
+//        }
         JSONArray arrayMaster = new JSONArray();
 //		JSONArray arrayDetail = new JSONArray();
         try {

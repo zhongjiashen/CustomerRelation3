@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.cr.activity.common.CommonXzczyActivity;
 import com.cr.activity.index.IndexActivity;
 import com.cr.model.UserLogin;
 import com.cr.model.ZT;
@@ -142,7 +143,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                         ShareUserInfo.setDbName(context, dbName);
 
 
-                        if (userLogin.getId().equals("1")) {
+                        if (userLogin.getId().equals("1")) {//是系统管理员
+                            ShareUserInfo.setKey(context, "empid", "");//
+                            ShareUserInfo.setKey(context, "empname", "");//
+                            ShareUserInfo.setKey(context, "opname", "");//
+                            ShareUserInfo.setKey(context, "departmentid", "");//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
+                            ShareUserInfo.setKey(context, "depname", "");//设置empid，报表的时候使用
+                        } else {
                             ShareUserInfo.setKey(context, "empid", userLogin.getEmpid());//
                             ShareUserInfo.setKey(context, "empname", userLogin.getOpname());//
                             ShareUserInfo.setKey(context, "opname", userLogin.getOpname());//

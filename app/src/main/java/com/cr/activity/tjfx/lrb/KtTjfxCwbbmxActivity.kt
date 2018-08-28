@@ -66,7 +66,7 @@ class KtTjfxCwbbmxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefres
 
         }
         prl_view.setOnRefreshListener(this)
-        prv_view.layoutManager = LinearLayoutManager(this)
+        prv_view.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
         mAdapter = object : BaseRecycleAdapter<ViewHolderFactory.CwbbmxHolder, KtCwbbmxData>(mList) {
             override fun MyonCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
                 return ViewHolderFactory.getCwbbmxHolder(mActivity, parent)
@@ -89,8 +89,8 @@ class KtTjfxCwbbmxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefres
                         holder.tvWldw.visibility = View.VISIBLE
                         holder.tvWldw.text = data.cname
                     }
-                    holder.tvJe.text = data.amount.toString()
-                    holder.tvFtje.text = data.purappamt.toString()
+                    holder.tvJe.text = "开单金额"+data.amount.toString()
+                    holder.tvFtje.text = "分摊金额"+data.purappamt.toString()
 
                 }
             }

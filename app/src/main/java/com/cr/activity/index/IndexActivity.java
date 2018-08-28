@@ -133,6 +133,9 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
 
+
+    private Intent mIntent;//当前跳转视图
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -600,22 +603,36 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 case 0:
                     im.setLogoId(R.drawable.index_gztx);
                     im.setLogoName("供应商");
+//                    im.setIntent(new Intent(IndexActivity.this, ProjectManagementActivity.class));
+
                     break;
                 case 1:
                     im.setLogoId(R.drawable.menu_cgdd);
                     im.setLogoName("采购订单");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCgglCgddActivity.class));
+                    im.setKhzlname("");
+                    im.setMenuid("400101");
                     break;
                 case 2:
                     im.setLogoId(R.drawable.menu_cgsh);
                     im.setLogoName("采购收货");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCgglCgshActivity.class));
+                    im.setKhzlname("");
+                    im.setMenuid("400102");
                     break;
                 case 3:
                     im.setLogoId(R.drawable.menu_cgfk);
                     im.setLogoName("采购付款");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCgglCgfkActivity.class));
+                    im.setKhzlname("");
+                    im.setMenuid("400104");
                     break;
                 case 4:
                     im.setLogoId(R.drawable.menu_cgth);
                     im.setLogoName("采购退货");
+                    im.setIntent(new Intent(IndexActivity.this, JxcCgglCgthActivity.class));
+                    im.setKhzlname("");
+                    im.setMenuid("400103");
                     break;
                 default:
                     break;
@@ -628,27 +645,34 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "cggl");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-//				case 0:
-//				    intent.putExtra("type", "gys");
-//					intent.setClass(IndexActivity.this, GzptKhglActivity.class);
-//					break;
-                    case 0:
-                        intent.setClass(IndexActivity.this, JxcCgglCgddActivity.class);
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, JxcCgglCgshActivity.class);
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, JxcCgglCgfkActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, JxcCgglCgthActivity.class);
-                        break;
+                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+                if (TextUtils.isEmpty(cgglIndexModelList.get(arg2).getKhzlname())) {
+                    ShareUserInfo.setKey(context, "khzlname", cgglIndexModelList.get(arg2).getKhzlname());
                 }
-                startActivity(intent);
+                CheckOperPriv(cgglIndexModelList.get(arg2).getMenuid());
+                mIntent=cgglIndexModelList.get(arg2).getIntent();
+//                startActivity(cgglIndexModelList.get(arg2).getIntent());
+//                ShareUserInfo.setKey(context, "cpphType", "cggl");//判断是否是采购订单
+//                Intent intent = new Intent();
+//                switch (arg2) {
+////				case 0:
+////				    intent.putExtra("type", "gys");
+////					intent.setClass(IndexActivity.this, GzptKhglActivity.class);
+////					break;
+//                    case 0:
+//                        intent.setClass(IndexActivity.this, JxcCgglCgddActivity.class);
+//                        break;
+//                    case 1:
+//                        intent.setClass(IndexActivity.this, JxcCgglCgshActivity.class);
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, JxcCgglCgfkActivity.class);
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, JxcCgglCgthActivity.class);
+//                        break;
+//                }
+//                startActivity(intent);
             }
         });
     }
@@ -667,18 +691,30 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 case 1:
                     im.setLogoId(R.drawable.menu_xsdd);
                     im.setLogoName("销售订单");
+                    im.setIntent(new Intent(IndexActivity.this, JxcXsglXsddActivity.class));
+                    im.setKhzlname("");
+                    im.setMenuid("400201");
                     break;
                 case 2:
                     im.setLogoId(R.drawable.menu_xskd);
                     im.setLogoName("销售开单");
+                    im.setIntent(new Intent(IndexActivity.this, JxcXsglXskdActivity.class));
+                    im.setKhzlname("");
+                    im.setMenuid("400202");
                     break;
                 case 3:
                     im.setLogoId(R.drawable.menu_xssk);
                     im.setLogoName("销售收款");
+                    im.setIntent(new Intent(IndexActivity.this,JxcXsglXsskActivity.class));
+                    im.setKhzlname("");
+                    im.setMenuid("400204");
                     break;
                 case 4:
                     im.setLogoId(R.drawable.menu_xsth);
                     im.setLogoName("销售退货");
+                    im.setIntent(new Intent(IndexActivity.this, JxcXsglXsthActivity.class));
+                    im.setKhzlname("");
+                    im.setMenuid("400203");
                     break;
                 default:
                     break;
@@ -691,26 +727,32 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "xsgl");//判断是否是采购订单
-                Intent intent = new Intent();
-                switch (arg2) {
-//				case 0:
-//					intent.setClass(IndexActivity.this, GzptKhglActivity.class);
-//					break;
-                    case 0:
-                        intent.setClass(IndexActivity.this, JxcXsglXsddActivity.class);
-                        break;
-                    case 1:
-                        intent.setClass(IndexActivity.this, JxcXsglXskdActivity.class);
-                        break;
-                    case 2:
-                        intent.setClass(IndexActivity.this, JxcXsglXsskActivity.class);
-                        break;
-                    case 3:
-                        intent.setClass(IndexActivity.this, JxcXsglXsthActivity.class);
-                        break;
+                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+                if (TextUtils.isEmpty(xsglIndexModelList.get(arg2).getKhzlname())) {
+                    ShareUserInfo.setKey(context, "khzlname", xsglIndexModelList.get(arg2).getKhzlname());
                 }
-                startActivity(intent);
+                CheckOperPriv(cgglIndexModelList.get(arg2).getMenuid());
+                mIntent=cgglIndexModelList.get(arg2).getIntent();
+//                ShareUserInfo.setKey(context, "cpphType", "xsgl");//判断是否是采购订单
+//                Intent intent = new Intent();
+//                switch (arg2) {
+////				case 0:
+////					intent.setClass(IndexActivity.this, GzptKhglActivity.class);
+////					break;
+//                    case 0:
+//                        intent.setClass(IndexActivity.this, JxcXsglXsddActivity.class);
+//                        break;
+//                    case 1:
+//                        intent.setClass(IndexActivity.this, JxcXsglXskdActivity.class);
+//                        break;
+//                    case 2:
+//                        intent.setClass(IndexActivity.this, JxcXsglXsskActivity.class);
+//                        break;
+//                    case 3:
+//                        intent.setClass(IndexActivity.this, JxcXsglXsthActivity.class);
+//                        break;
+//                }
+//                startActivity(intent);
             }
         });
 
@@ -729,37 +771,42 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                     im.setLogoName("仓库调拨");
                     im.setIntent(new Intent(IndexActivity.this, JxcCkglCkdbActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("400301");
                     break;
                 case 1:
                     im.setLogoId(R.drawable.menu_kcpd);
                     im.setLogoName("库存盘点");
                     im.setIntent(new Intent(IndexActivity.this, JxcCkglKcpdActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("400302");
                     break;
                 case 2:
                     im.setLogoId(R.drawable.menu_chtj);
                     im.setLogoName("存货调价");
                     im.setIntent(new Intent(IndexActivity.this, JxcCkglChtjActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("400304");
                     break;
                 case 3:
                     im.setLogoId(R.drawable.menu_kcbd);
                     im.setLogoName("库存变动");
                     im.setIntent(new Intent(IndexActivity.this, JxcCkglKcbdActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("400305");
                     break;
                 case 4:
                     im.setLogoId(R.drawable.menu_zzcx);
                     im.setLogoName("组装拆卸");
                     im.setIntent(new Intent(IndexActivity.this, JxcCkglZzcxActivity.class));
                     im.setKhzlname("");
+//                    im.setMenuid("400201");
                     break;
                 case 5:
                     im.setLogoId(R.drawable.menu_kcbb);
                     im.setLogoName("库存报表");
                     im.setIntent(new Intent(IndexActivity.this, TjfxKcbbActivity.class));
                     im.setKhzlname("");
-
+                    im.setMenuid("500410");
                     break;
                 default:
                     break;
@@ -773,8 +820,9 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
-
-                startActivity(ckglIndexModelList.get(arg2).getIntent());
+                CheckOperPriv(ckglIndexModelList.get(arg2).getMenuid());
+                mIntent=ckglIndexModelList.get(arg2).getIntent();
+//                startActivity(ckglIndexModelList.get(arg2).getIntent());
             }
         });
     }
@@ -1054,6 +1102,16 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 break;
         }
     }
+
+    @Override
+    protected void UserPermissionsCallBack() {
+        if(!ShareUserInfo.getKey(this, "ll").equals("1")){
+            showToastPromopt("你没有该权限，请向管理员申请权限！");
+            return;
+        }
+        startActivity(mIntent);
+    }
+
 
     /**
      * 获得签到信息
