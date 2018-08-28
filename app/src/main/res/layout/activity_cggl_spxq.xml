@@ -150,6 +150,7 @@
             style="@style/edittext_bj"
             android:layout_marginLeft="20dip"
             android:layout_weight="1"
+            android:maxLength="10"
             android:gravity="left"
             android:inputType="numberDecimal" />
 

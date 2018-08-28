@@ -22,6 +22,7 @@
                 android:id="@+id/dj_edittext"
                 style="@style/edittext_bj"
                 android:focusable="false"
+                android:maxLength="10"
                 android:editable="false"
                 android:layout_marginLeft="20dip"
                 android:inputType="numberDecimal"
