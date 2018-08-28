@@ -61,7 +61,7 @@
         <EditText
             android:id="@+id/et_csje"
             style="@style/edittext_bj" 
-            android:maxLength="7"
+            android:maxLength="15"
             android:inputType="numberDecimal"/>
     </LinearLayout>
     <View style="@style/underline" />
@@ -87,7 +87,7 @@
         <EditText
             android:id="@+id/et_jshj"
             style="@style/edittext_bj"
-            android:maxLength="7"
+
             android:inputType="numberDecimal"/>
     </LinearLayout>
 	<View style="@style/underline" />
