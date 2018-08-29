@@ -29,6 +29,7 @@ import com.cr.myinterface.SelectValueChange;
 import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.update.utils.EditTextHelper;
+import com.update.utils.LogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -145,23 +146,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 				viewHolder2.item2Linearlayout.setVisibility(View.VISIBLE);
 			}
 			
-			viewHolder2.djEdittext.addTextChangedListener(new TextWatcher() {
 
-				@Override
-				public void onTextChanged(CharSequence arg0, int arg1,
-						int arg2, int arg3) {
-					objMap.put("dj", arg0.toString());
-				}
-
-				@Override
-				public void beforeTextChanged(CharSequence arg0, int arg1,
-						int arg2, int arg3) {
-				}
-
-				@Override
-				public void afterTextChanged(Editable arg0) {
-				}
-			});
 			viewHolder2.zklEdittext.addTextChangedListener(new TextWatcher() {
 
 				@Override
@@ -278,14 +263,16 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 
 				@Override
 				public void afterTextChanged(Editable s) {
+					LogUtils.e(objMap.get("dj").toString());
 					if (!TextUtils.isEmpty(s)) {
 						objMap.put("dj", s.toString());
+						LogUtils.e(objMap.get("dj").toString());
 						Double csje = Double.parseDouble(s.toString()) * (Double.parseDouble(objMap.get("taxrate").toString()) + 100) / 100;
 						objMap.put("taxunitprice", FigureTools.sswrFigure(csje));
 						viewHolder2.tvHsdj.setText(objMap.get("taxunitprice").toString());
 
 					}
-
+					LogUtils.e(objMap.get("dj").toString());
 				}
 			});
 			//判断发票类型是否是收据
@@ -315,6 +302,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 
 				}
 			});
+			LogUtils.e(objMap.get("dj").toString());
 			Double csje  = Double.parseDouble(objMap.get("dj").toString()) * (Double.parseDouble(objMap.get("taxrate").toString()) + 100) / 100;
 			objMap.put("taxunitprice", FigureTools.sswrFigure(csje));
 			viewHolder2.tvHsdj.setText(objMap.get("taxunitprice").toString());

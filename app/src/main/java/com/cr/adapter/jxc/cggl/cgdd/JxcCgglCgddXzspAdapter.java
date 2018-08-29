@@ -207,23 +207,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
 
                 }
             });
-            viewHolder2.djEdittext.addTextChangedListener(new TextWatcher() {
 
-                @Override
-                public void onTextChanged(CharSequence arg0, int arg1,
-                                          int arg2, int arg3) {
-                    objMap.put("dj", arg0.toString());
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence arg0, int arg1,
-                                              int arg2, int arg3) {
-                }
-
-                @Override
-                public void afterTextChanged(Editable arg0) {
-                }
-            });
             viewHolder2.zklEdittext.addTextChangedListener(new TextWatcher() {
 
                 @Override

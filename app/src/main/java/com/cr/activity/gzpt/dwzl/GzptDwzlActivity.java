@@ -169,6 +169,11 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 UnitView view = (UnitView) dwView;
                 view.Visibility();
                 break;
+            case "6"://物流
+                myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
+                //设置
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                break;
         }
 
 //        if (types.equals("1")) {//客户
