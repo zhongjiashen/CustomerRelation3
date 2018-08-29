@@ -19,6 +19,7 @@ import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.update.utils.EditTextHelper
+import kotlinx.android.synthetic.main.activity_jxc_cggl_cgsh_add.*
 import kotlinx.android.synthetic.main.activity_xjyh_fyzc_add_zc.*
 
 
@@ -37,7 +38,7 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
         setOnClick()
         addFHMethod()
         //如果单据发票类型为收据时税率为0且不可修改
-        if (intent.getStringExtra("billtypeid")!=null&&intent.getStringExtra("billtypeid").equals("1")) {
+        if (intent.getStringExtra("billtypeid") != null && intent.getStringExtra("billtypeid").equals("1")) {
             EditTextHelper.EditTextEnable(false, et_sl)
         } else {
             EditTextHelper.EditTextEnable(false, et_sl)
@@ -156,10 +157,15 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
             if (fymc_edittext.getText().toString() == "") {
                 showToastPromopt("请选择费用名称")
 
-            } else if (et_csje.getText().toString() == "") {
+            }
+            else if (et_csje.getText().toString() == "") {
                 showToastPromopt("请填写初始金额信息")
 
-            } else {
+            }
+            else if (!(et_jshj.text.toString().toDouble() > 0)) {
+                showToastPromopt("合计金额为不能小于等于0")
+
+            }else {
                 val intent = Intent()
                 intent.putExtra("name", fymc_edittext.getText().toString())
                 intent.putExtra("ietypeid", fymcId)
@@ -169,6 +175,7 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             }
+
         }
 
     }
@@ -178,14 +185,14 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 0) {
-                fymcId = data.extras!!.getString("id")
+                fymcId = data!!.extras.getString("id")
                 fymc_edittext.setText(data.extras!!.getString("dictmc")!!.replace(">>", ""))
             }
         }
     }
+
 }

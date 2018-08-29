@@ -300,8 +300,9 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                         map.put("ietypeid", d.get("ietypeid"));
                         map.put("initamt", d.get("initamt"));
                         map.put("taxrate", mTaxrate);
-                        map.put("amount", ((Double.parseDouble(mTaxrate) + 100) * Double.parseDouble(d.get("initamt").toString()) / 100) + "");
-                        hjfy += Double.parseDouble(map.get("amount").toString());
+                        Double amount=(Double.parseDouble(mTaxrate) + 100) * Double.parseDouble(d.get("initamt").toString()) / 100;
+                        map.put("amount", FigureTools.sswrFigure(amount));
+                        hjfy += amount;
                         list.set(i, map);
                     }
                     adapter.notifyDataSetChanged();
