@@ -208,6 +208,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
             lxdhEditText.setText(object.get("phone").toString());
 //            jhdzEditText.setText(object.get("billto").toString());
             hjjeEditText.setText(object.get("totalamt").toString());
+            tkjeEditText.setText(object.get("receipt").toString());
             djrqEditText.setText(object.get("billdate").toString());
             etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
@@ -228,7 +229,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
             rkckId = object.get("storeid").toString();
             fklxId = object.get("backmoney").toString();
             if (fklxId.equals("0")) {
-                hjjeEditText.setText("0");
+                tkjeEditText.setText("0");
                 hjjeEditText.setEnabled(false);
                 jsfsEditText.setEnabled(false);
                 zjzhEditText.setEnabled(false);

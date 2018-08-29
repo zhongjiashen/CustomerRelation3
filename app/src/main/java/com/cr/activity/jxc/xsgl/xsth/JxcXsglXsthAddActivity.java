@@ -321,7 +321,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 6);
                 break;
-            case R.id.fklx_edittext:
+            case R.id.fklx_edittext://退款类型
                 intent.setClass(activity, CommonXztklxActivity.class);
                 startActivityForResult(intent, 7);
 
@@ -527,7 +527,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 case 7:
                     fklxEdittext.setText(data.getExtras().getString("name"));
                     fklxId = data.getExtras().getString("id");
-                    tkjeEdittext.setText("");
+                    tkjeEdittext.setText("0");
                     EditTextHelper.EditTextEnable(data.getExtras().getString("name").equals("退还现款"), tkjeEdittext);
 
                     if (data.getExtras().getString("id").equals("F")) {
@@ -703,12 +703,12 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
             jsonObject.put("linkmanid", "");// 联系人ID
             jsonObject.put("backmoney", fklxId);
             jsonObject.put("phone", "");
-            // jsonObject.put("receipt",fkjeEditText.getText().toString());
             jsonObject.put("paytypeid", jsfsId);
             jsonObject.put("bankid", zjzhId);
             jsonObject.put("privilege", "");
             String hjje = hjjeEdittext.getText().toString();
             jsonObject.put("totalamt", hjje.replace("￥", ""));
+            jsonObject.put("receipt", tkjeEdittext.getText().toString());//退款金额
             jsonObject.put("projectid", xmId);
             // jsonObject.put("shipto", jhdzEditText.getText().toString());
             jsonObject.put("exemanid", jbrId);

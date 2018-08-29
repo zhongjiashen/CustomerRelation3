@@ -333,7 +333,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 6);
                 break;
-            case R.id.fklx_edittext:
+            case R.id.fklx_edittext://退款类型
                 intent.setClass(activity, CommonXzzdActivity.class);
                 intent.putExtra("type", "TKLX");
                 startActivityForResult(intent, 7);
@@ -522,26 +522,33 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 case 7:
                     fklxEdittext.setText(data.getExtras().getString("dictmc"));
                     fklxId = data.getExtras().getString("id");
-                    if (data.getExtras().getString("id").equals("0")) {
-//                	fkjeEditText.setText("0");
-                        hjjeEdittext.setEnabled(false);
-                        jsfsEdittext.setEnabled(false);
-                        zjzhEdittext.setEnabled(false);
-                        jsfsEdittext.setText("");
-                        zjzhEdittext.setText("");
-                        jsfsId = "";
-                        zjzhId = "";
-                    } else {
-                        hjjeEdittext.setEnabled(false);
-                        double je = 0;
-                        for (int i = 0; i < list.size(); i++) {
-                            Map<String, Object> map = list.get(i);
-                            je += Double.parseDouble(map.get("amount").toString());
-                        }
-                        hjjeEdittext.setText("" + FigureTools.sswrFigure(je + "") + "");
-                        jsfsEdittext.setEnabled(true);
-                        zjzhEdittext.setEnabled(true);
+                    //在退款类型为退还现款的情况下改成可以修改（退款类型为冲抵往来退货金额清0）
+                    if(data.getStringExtra("dictmc").equals("退还现款")){
+                        EditTextHelper.EditTextEnable(true,tkjeEdittext);
+                    }else {
+                        tkjeEdittext.setText("0");
+                        EditTextHelper.EditTextEnable(false,tkjeEdittext);
                     }
+//                    if (data.getExtras().getString("id").equals("0")) {
+////                	fkjeEditText.setText("0");
+//                        hjjeEdittext.setEnabled(false);
+//                        jsfsEdittext.setEnabled(false);
+//                        zjzhEdittext.setEnabled(false);
+//                        jsfsEdittext.setText("");
+//                        zjzhEdittext.setText("");
+//                        jsfsId = "";
+//                        zjzhId = "";
+//                    } else {
+//                        hjjeEdittext.setEnabled(false);
+//                        double je = 0;
+//                        for (int i = 0; i < list.size(); i++) {
+//                            Map<String, Object> map = list.get(i);
+//                            je += Double.parseDouble(map.get("amount").toString());
+//                        }
+//                        hjjeEdittext.setText("" + FigureTools.sswrFigure(je + "") + "");
+//                        jsfsEdittext.setEnabled(true);
+//                        zjzhEdittext.setEnabled(true);
+//                    }
                     break;
                 case 8:
                     jsfsEdittext.setText(data.getExtras().getString("dictmc"));
@@ -710,7 +717,8 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("bankid", zjzhId);
 //            jsonObject.put("receipt",fkjeEditText.getText().toString());
             jsonObject.put("privilege", "");
-            jsonObject.put("totalamt", hjjeEdittext.getText().toString());
+            jsonObject.put("totalamt", hjjeEdittext.getText().toString());//合计金额
+            jsonObject.put("receipt", tkjeEdittext.getText().toString());//退款金额
             jsonObject.put("clientid", gysId);//供应商ID
             jsonObject.put("linkmanid", lxrId);//联系人ID
             jsonObject.put("phone", lxdhEdittext.getText().toString());

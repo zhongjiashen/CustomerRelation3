@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.jxc.cggl.KtCgglSpxqCkActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
-import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetail2Activity;
 import com.cr.adapter.jxc.xsgl.xsth.JxcXsglXsthDetailAdapter;
 import com.cr.tools.CustomListView;
 import com.cr.tools.FigureTools;
@@ -33,10 +32,6 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.update.actiity.logistics.KtWlxxActivity;
 import com.update.model.KtWlxxData;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -59,6 +54,8 @@ public class JxcXsglXsthDetailActivity extends BaseActivity implements OnClickLi
     EditText etWlgs;
     @BindView(R.id.et_bm)
     EditText etBm;
+    @BindView(R.id.tkje_edittext)
+    EditText tkjeEdittext;
     private ImageView shImageView;
     private ImageButton saveImageButton;
     private Button shButton, sdButton;
@@ -76,6 +73,7 @@ public class JxcXsglXsthDetailActivity extends BaseActivity implements OnClickLi
     Map<String, Object> object;
     private EditText xmEditText;
     private KtWlxxData mWlxxData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -199,6 +197,7 @@ public class JxcXsglXsthDetailActivity extends BaseActivity implements OnClickLi
 //            lxdhEditText.setText(object.get("phone").toString());
             // jhdzEditText.setText(object.get("billto").toString());
             hjjeEditText.setText(object.get("totalamt").toString());
+            tkjeEdittext.setText(object.get("receipt").toString());
             djrqEditText.setText(object.get("billdate").toString());
             jbrEditText.setText(object.get("empname").toString());
             bzxxEditText.setText(object.get("memo").toString());
@@ -277,103 +276,6 @@ public class JxcXsglXsthDetailActivity extends BaseActivity implements OnClickLi
         }
     }
 
-    /**
-     * 连接网络的操作(保存)
-     */
-    private void searchDateSave() {
-        if (rkckEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择入库仓库");
-            return;
-        } else if (gysEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择客户");
-            return;
-        } else if (list.size() == 0) {
-            showToastPromopt("请选择商品");
-            return;
-        } else if (fklxEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择退款类型");
-            return;
-        } else if (fklxId.equals("T")) {
-//          double hjje=Double.parseDouble(hjjeEditText.getText().toString().replace("￥", "").equals("")?"0":hjjeEditText.getText().toString().replace("￥", ""));
-//          double fkje=Double.parseDouble(fkjeEditText.getText().toString().replace("￥", "").equals("")?"0":fkjeEditText.getText().toString().replace("￥", ""));
-//          if(fkje<0||fkje>hjje){
-//              showToastPromopt("付款金额不在范围内！");
-//              return;
-//          }else 
-            if (jsfsEditText.getText().toString().equals("")) {
-                showToastPromopt("请选择结算方式");
-                return;
-            } else if (zjzhEditText.getText().toString().equals("")) {
-                showToastPromopt("请选择资金账户");
-                return;
-            }
-        }
-        if (djrqEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择单据日期");
-            return;
-        }
-        if (jbrEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
-        JSONArray arrayMaster = new JSONArray();
-        JSONArray arrayDetail = new JSONArray();
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("billid", this.getIntent().getExtras().getString("billid"));
-            jsonObject.put("code", object.get("code").toString());
-            jsonObject.put("billdate", djrqEditText.getText().toString());
-            jsonObject.put("storeid", rkckId);
-            jsonObject.put("backmoney", fklxId);
-            jsonObject.put("paytypeid", jsfsId);
-            jsonObject.put("bankid", zjzhId);
-            // jsonObject.put("receipt",fkjeEditText.getText().toString());
-            jsonObject.put("privilege", "");
-            String hjje = hjjeEditText.getText().toString();
-            jsonObject.put("totalamt", hjje.replace("￥", ""));
-            jsonObject.put("clientid", gysId);// 供应商ID
-            jsonObject.put("linkmanid", "");// 联系人ID
-            jsonObject.put("phone", "");
-            // jsonObject.put("billto", jhdzEditText.getText().toString());
-            jsonObject.put("exemanid", jbrId);
-            // String hjje = hjjeEditText.getText().toString();
-            // jsonObject.put("amount", hjje.replace("￥", ""));
-            jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
-            arrayMaster.put(jsonObject);
-            for (Map<String, Object> map : list) {
-                JSONObject jsonObject2 = new JSONObject();
-                jsonObject2.put("billid", this.getIntent().getExtras().getString("billid"));
-                jsonObject2.put("itemno", "0");
-                jsonObject2.put("goodsid", map.get("goodsid").toString());
-                jsonObject2.put("unitid", map.get("unitid").toString());
-                jsonObject2.put("unitprice", map.get("unitprice").toString());
-                jsonObject2.put("unitqty", map.get("unitqty").toString());
-                String disc = map.get("disc").toString();
-                jsonObject2.put("disc", disc);
-                jsonObject2.put("amount", map.get("amount").toString());
-                jsonObject2.put("batchcode", map.get("batchcode").toString());
-                jsonObject2.put("produceddate", map.get("produceddate").toString());
-                jsonObject2.put("validdate", map.get("validdate").toString());
-                jsonObject2.put("ispresent", "");
-                jsonObject2.put("refertype", map.get("refertype") == null ? "" : map.get("refertype").toString());
-                jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
-                jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
-                jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
-                arrayDetail.put(jsonObject2);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }// 代表新增
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        // parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("tabname", "tb_sreturn");
-        parmMap.put("parms", "XSTH");
-        parmMap.put("master", arrayMaster.toString());
-        parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(3, ServerURL.BILLSAVE, parmMap, false);
-    }
 
     @Override
     public void onClick(View arg0) {
@@ -514,3 +416,100 @@ public class JxcXsglXsthDetailActivity extends BaseActivity implements OnClickLi
                 .putExtra("data", new Gson().toJson(mWlxxData)));
     }
 }
+/**
+ * 连接网络的操作(保存)
+ */
+//    private void searchDateSave() {
+//        if (rkckEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择入库仓库");
+//            return;
+//        } else if (gysEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择客户");
+//            return;
+//        } else if (list.size() == 0) {
+//            showToastPromopt("请选择商品");
+//            return;
+//        } else if (fklxEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择退款类型");
+//            return;
+//        } else if (fklxId.equals("T")) {
+////          double hjje=Double.parseDouble(hjjeEditText.getText().toString().replace("￥", "").equals("")?"0":hjjeEditText.getText().toString().replace("￥", ""));
+////          double fkje=Double.parseDouble(fkjeEditText.getText().toString().replace("￥", "").equals("")?"0":fkjeEditText.getText().toString().replace("￥", ""));
+////          if(fkje<0||fkje>hjje){
+////              showToastPromopt("付款金额不在范围内！");
+////              return;
+////          }else
+//            if (jsfsEditText.getText().toString().equals("")) {
+//                showToastPromopt("请选择结算方式");
+//                return;
+//            } else if (zjzhEditText.getText().toString().equals("")) {
+//                showToastPromopt("请选择资金账户");
+//                return;
+//            }
+//        }
+//        if (djrqEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择单据日期");
+//            return;
+//        }
+//        if (jbrEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择业务员");
+//            return;
+//        }
+//        JSONArray arrayMaster = new JSONArray();
+//        JSONArray arrayDetail = new JSONArray();
+//        try {
+//            JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("billid", this.getIntent().getExtras().getString("billid"));
+//            jsonObject.put("code", object.get("code").toString());
+//            jsonObject.put("billdate", djrqEditText.getText().toString());
+//            jsonObject.put("storeid", rkckId);
+//            jsonObject.put("backmoney", fklxId);
+//            jsonObject.put("paytypeid", jsfsId);
+//            jsonObject.put("bankid", zjzhId);
+//            // jsonObject.put("receipt",fkjeEditText.getText().toString());
+//            jsonObject.put("privilege", "");
+//            String hjje = hjjeEditText.getText().toString();
+//            jsonObject.put("totalamt", hjje.replace("￥", ""));
+//            jsonObject.put("clientid", gysId);// 供应商ID
+//            jsonObject.put("linkmanid", "");// 联系人ID
+//            jsonObject.put("phone", "");
+//            // jsonObject.put("billto", jhdzEditText.getText().toString());
+//            jsonObject.put("exemanid", jbrId);
+//            // String hjje = hjjeEditText.getText().toString();
+//            // jsonObject.put("amount", hjje.replace("￥", ""));
+//            jsonObject.put("memo", bzxxEditText.getText().toString());
+//            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+//            arrayMaster.put(jsonObject);
+//            for (Map<String, Object> map : list) {
+//                JSONObject jsonObject2 = new JSONObject();
+//                jsonObject2.put("billid", this.getIntent().getExtras().getString("billid"));
+//                jsonObject2.put("itemno", "0");
+//                jsonObject2.put("goodsid", map.get("goodsid").toString());
+//                jsonObject2.put("unitid", map.get("unitid").toString());
+//                jsonObject2.put("unitprice", map.get("unitprice").toString());
+//                jsonObject2.put("unitqty", map.get("unitqty").toString());
+//                String disc = map.get("disc").toString();
+//                jsonObject2.put("disc", disc);
+//                jsonObject2.put("amount", map.get("amount").toString());
+//                jsonObject2.put("batchcode", map.get("batchcode").toString());
+//                jsonObject2.put("produceddate", map.get("produceddate").toString());
+//                jsonObject2.put("validdate", map.get("validdate").toString());
+//                jsonObject2.put("ispresent", "");
+//                jsonObject2.put("refertype", map.get("refertype") == null ? "" : map.get("refertype").toString());
+//                jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
+//                jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
+//                jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
+//                arrayDetail.put(jsonObject2);
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }// 代表新增
+//        Map<String, Object> parmMap = new HashMap<String, Object>();
+//        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+//        // parmMap.put("opid", ShareUserInfo.getUserId(context));
+//        parmMap.put("tabname", "tb_sreturn");
+//        parmMap.put("parms", "XSTH");
+//        parmMap.put("master", arrayMaster.toString());
+//        parmMap.put("detail", arrayDetail.toString());
+//        findServiceData2(3, ServerURL.BILLSAVE, parmMap, false);
+//    }

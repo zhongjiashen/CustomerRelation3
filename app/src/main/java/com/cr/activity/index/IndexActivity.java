@@ -788,8 +788,8 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 if (TextUtils.isEmpty(xsglIndexModelList.get(arg2).getKhzlname())) {
                     ShareUserInfo.setKey(context, "khzlname", xsglIndexModelList.get(arg2).getKhzlname());
                 }
-                CheckOperPriv(cgglIndexModelList.get(arg2).getMenuid());
-                mIntent = cgglIndexModelList.get(arg2).getIntent();
+                CheckOperPriv(xsglIndexModelList.get(arg2).getMenuid());
+                mIntent = xsglIndexModelList.get(arg2).getIntent();
 //                ShareUserInfo.setKey(context, "cpphType", "xsgl");//判断是否是采购订单
 //                Intent intent = new Intent();
 //                switch (arg2) {
