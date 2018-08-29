@@ -332,13 +332,14 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                     im.setLogoName("工作提醒");
                     im.setIntent(new Intent(IndexActivity.this, MstxGztxActivity.class));
                     im.setKhzlname("");
-
+                    im.setMenuid("401408");
                     break;
                 case 1:
                     im.setLogoId(R.drawable.index_gsgg);
                     im.setLogoName("公司公告");
                     im.setIntent(new Intent(IndexActivity.this, MstxGsggActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("401407");
                     break;
                 case 2:
                     im.setLogoId(R.drawable.index_qd);
@@ -364,16 +365,32 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 ShareUserInfo.setKey(context, "cpphType", "mstx");//判断是否是采购订单
-                Intent intent = new Intent();
-                if (arg2 == 2) {
-                    if (isLocationEnabled()) {
-                        startActivity(mstxIndexModelList.get(arg2).getIntent());
-                    } else {
-                        Toast.makeText(IndexActivity.this, "定位服务未开启!请开启定位服务", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    startActivity(mstxIndexModelList.get(arg2).getIntent());
+                switch (mstxIndexModelList.get(arg2).getLogoName()) {
+
+                    case "个人日程":
+                        startActivity(gzptIndexModelList.get(arg2).getIntent());
+                        break;
+                    case "签到":
+                        if (!isLocationEnabled()) {
+                            showToastPromopt("定位服务未开启!请开启定位服务");
+                            return;
+                        }
+                    default:
+                        mIntent = mstxIndexModelList.get(arg2).getIntent();
+                        CheckOperPriv(mstxIndexModelList.get(arg2).getMenuid());
+
+                        break;
+
                 }
+//                if (arg2 == 2) {
+//                    if (isLocationEnabled()) {
+//                        startActivity(mstxIndexModelList.get(arg2).getIntent());
+//                    } else {
+//                        Toast.makeText(IndexActivity.this, "定位服务未开启!请开启定位服务", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    startActivity(mstxIndexModelList.get(arg2).getIntent());
+//                }
 
             }
         });

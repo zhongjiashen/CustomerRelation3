@@ -58,6 +58,7 @@ public class MstxGztxActivity extends BaseActivity {
 				}else {
 					intent = new Intent(context,MstxGztx2Activity.class);
 					intent.putExtra("typecode", gztxList.get(arg2).get("typecode").toString());
+					intent.putExtra("title", gztxList.get(arg2).get("typename").toString());
 				}
 				startActivity(intent);
 
