@@ -46,8 +46,8 @@ class KtTjfxCwbbmxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefres
 
     override fun initVariables() {
         presenter = BaseP(this, mActivity)
-        mQsrq = DateUtil.DateToString(mDate, "yyyy-MM-") + "01"
-        mZzrq = DateUtil.DateToString(mDate, "yyyy-MM-dd")
+        mQsrq = intent.getStringExtra("qsrq")
+        mZzrq = intent.getStringExtra("zzrq")
         mParmMap["dbname"] = ShareUserInfo.getDbName(this)
         mParmMap["pagesize"] = "10"
         mParmMap["subid"] = intent.getStringExtra("subid")
@@ -89,8 +89,8 @@ class KtTjfxCwbbmxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefres
                         holder.tvWldw.visibility = View.VISIBLE
                         holder.tvWldw.text = data.cname
                     }
-                    holder.tvJe.text = "开单金额"+data.amount.toString()
-                    holder.tvFtje.text = "分摊金额"+data.purappamt.toString()
+                    holder.tvJe.text = "开单金额："+data.amount.toString()
+                    holder.tvFtje.text = "分摊金额："+data.purappamt.toString()
 
                 }
             }

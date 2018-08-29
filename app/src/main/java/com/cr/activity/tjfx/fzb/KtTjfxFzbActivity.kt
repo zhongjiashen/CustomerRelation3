@@ -78,7 +78,9 @@ class KtTjfxFzbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
                         if(data.flag==1) {
                             startActivity(Intent(mActivity, KtTjfxCwbbmxActivity::class.java)
                                     .putExtra("title", data.name)
-                                    .putExtra("subid", data.subid))
+                                    .putExtra("subid", data.subid)
+                                    .putExtra("qsrq", mQsrq)
+                                    .putExtra("zzrq", mZzrq))
                         }else{
                             showShortToast("不能查看该科目明细!")
                         }
