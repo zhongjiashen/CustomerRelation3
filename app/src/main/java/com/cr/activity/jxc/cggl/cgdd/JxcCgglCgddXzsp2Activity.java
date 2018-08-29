@@ -305,7 +305,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode){
+            switch (requestCode) {
                 case 0:
                     int index = Integer.parseInt(data.getExtras()
                             .getString("index"));
@@ -330,8 +330,8 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
                     adapter.notifyDataSetChanged();
                     break;
                 case 18:
-                    currentPage=1;
-                   barcode= data.getStringExtra("qr");
+                    currentPage = 1;
+                    barcode = data.getStringExtra("qr");
                     searchDate();
                     break;
             }
