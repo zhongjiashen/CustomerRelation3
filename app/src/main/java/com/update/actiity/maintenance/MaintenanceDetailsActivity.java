@@ -241,6 +241,10 @@ public class MaintenanceDetailsActivity extends BaseActivity {
 //                presenter.post(3, "billshlist", map);
                 break;
             case R.id.bt_delete:
+                if (!ShareUserInfo.getKey(mActivity, "sc").equals("1")) {
+                    showShortToast("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
                 DialogFactory.getButtonDialog(this, "确定要删除该单据吗？", new OnDialogClickInterface() {
                     @Override
                     public void OnClick(int requestCode, Object object) {

@@ -59,6 +59,10 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
         }
 
         sd_button.setOnClickListener {
+            if (ShareUserInfo.getKey(activity, "sc") != "1") {
+                showToastPromopt("你没有该权限，请向管理员申请权限！")
+               return@setOnClickListener
+            }
             AlertDialog.Builder(activity)
                     .setTitle("确定要删除当前记录吗？")
                     .setNegativeButton("删除"

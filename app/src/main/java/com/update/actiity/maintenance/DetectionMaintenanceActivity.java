@@ -180,7 +180,7 @@ public class DetectionMaintenanceActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivityForResult(new Intent(DetectionMaintenanceActivity.this, DetectionDetailsActivity.class)
+                        startActivityForResult(new Intent(mActivity, DetectionDetailsActivity.class)
                                 .putExtra("itemno", data.getItemno() + "")
                                 .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                     }

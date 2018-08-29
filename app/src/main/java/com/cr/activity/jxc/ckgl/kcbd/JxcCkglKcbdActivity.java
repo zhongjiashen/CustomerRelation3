@@ -164,6 +164,10 @@ public class JxcCkglKcbdActivity extends BaseActivity implements OnClickListener
                 startActivityForResult(intent, 0);
                 break;
             case R.id.xz:
+                if (!ShareUserInfo.getKey(activity, "xz").equals("1")) {
+                    showToastPromopt("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
                 intent.setClass(context, JxcCkglKcbdAddActivity.class);
                 startActivityForResult(intent, 1);
                 break;

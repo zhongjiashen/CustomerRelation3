@@ -169,7 +169,7 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
             object = ((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson)).get(0);
             djbhTextView.setText(object.get("code").toString());
             djrqEditText.setText(object.get("billdate").toString());
-            if(object.get("depname")!=null) {
+            if (object.get("depname") != null) {
                 etBm.setText(object.get("depname").toString());
             }
             jbrEditText.setText(object.get("empname").toString());
@@ -295,6 +295,10 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
                 startActivityForResult(intent, 8);
                 break;
             case R.id.sd_button:
+                if (!ShareUserInfo.getKey(activity, "sc").equals("1")) {
+                    showToastPromopt("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
                 new AlertDialog.Builder(activity)
                         .setTitle("确定要删除当前记录吗？")
                         .setNegativeButton("删除",

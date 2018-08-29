@@ -43,30 +43,30 @@ import com.crcxj.activity.R;
 
 /**
  * 进销存-仓库管理-组装拆卸-详情
- * @author Administrator
  *
+ * @author Administrator
  */
 public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickListener {
-    private ImageView                 shImageView;
-    private ImageButton               saveImageButton;
-    private Button                    shButton, sdButton;
-    private TextView                  xzspnumTextView, djbhTextView;
-    private EditText                  djlxEditText, ckEditText, bzxxEditText, djrqEditText,
+    private ImageView shImageView;
+    private ImageButton saveImageButton;
+    private Button shButton, sdButton;
+    private TextView xzspnumTextView, djbhTextView;
+    private EditText djlxEditText, ckEditText, bzxxEditText, djrqEditText,
             jbrEditText;
-    private CustomListView            listview;
+    private CustomListView listview;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-    private LinearLayout              xzspLinearLayout;
-    BaseAdapter                       adapter;
-    String                            jbrId, djlxId, ckId;
-    private int                       selectIndex;
-    private int                       selectIndex2;
-    private String                    shzt;                                       //社会状态
-    Map<String, Object>               object;
-    private TextView                  xzspnumTextView2;
-    private CustomListView            listview2;
+    private LinearLayout xzspLinearLayout;
+    BaseAdapter adapter;
+    String jbrId, djlxId, ckId;
+    private int selectIndex;
+    private int selectIndex2;
+    private String shzt;                                       //社会状态
+    Map<String, Object> object;
+    private TextView xzspnumTextView2;
+    private CustomListView listview2;
     private List<Map<String, Object>> list2;
-    private LinearLayout              xzspLinearLayout2;
-    BaseAdapter                       adapter2;
+    private LinearLayout xzspLinearLayout2;
+    BaseAdapter adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,18 +120,18 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
         jbrEditText.setOnClickListener(this);
         bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
         bzxxEditText.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View view, MotionEvent event) {
-				// TODO Auto-generated method stub
-				view.getParent().requestDisallowInterceptTouchEvent(true);
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
-				case MotionEvent.ACTION_UP:
-					view.getParent().requestDisallowInterceptTouchEvent(
-							false);
-					break;
-				}
-				return false;
-			}
-		});
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP:
+                        view.getParent().requestDisallowInterceptTouchEvent(
+                                false);
+                        break;
+                }
+                return false;
+            }
+        });
         xzspnumTextView = (TextView) findViewById(R.id.xzspnum_textview);
         xzspnumTextView.setVisibility(View.GONE);
         shButton = (Button) findViewById(R.id.sh_button);
@@ -171,6 +171,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false);
     }
+
     /**
      * 连接网络的操作（查询从表的内容(根据选定的主表，查询出已经选择的从表的内容)）
      */
@@ -182,6 +183,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
         parmMap.put("goodsid", goodsid);
         findServiceData2(1, ServerURL.SELECTGOODSCMB, parmMap, false);
     }
+
     /**
      * 连接网络的操作(删单)
      */
@@ -202,7 +204,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
                 return;
             }
             List<Map<String, Object>> l = (List<Map<String, Object>>) PaseJson
-                .paseJsonToObject(returnJson);
+                    .paseJsonToObject(returnJson);
             object = l.get(0);
             djbhTextView.setText(object.get("code").toString());
             djrqEditText.setText(object.get("billdate").toString());
@@ -229,7 +231,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
             searchDate2();//查询订单中的商品
         } else if (returnSuccessType == 1) {
 //            list2.clear();
-            if(returnJson.equals("")){
+            if (returnJson.equals("")) {
                 return;
             }
             list2.addAll((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson));
@@ -274,7 +276,8 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
         } else if (ckEditText.getText().toString().equals("")) {
             showToastPromopt("仓库不能为空");
             return;
-        } if (jbrEditText.getText().toString().equals("")) {
+        }
+        if (jbrEditText.getText().toString().equals("")) {
             showToastPromopt("请选择业务员");
             return;
         }
@@ -295,17 +298,17 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
             jsonObject.put("goodsid", myMap.get("goodsid").toString());
             jsonObject.put("unitid", myMap.get("unitid").toString());
             jsonObject.put("unitqty", myMap.get("sl") == null ? myMap.get("unitqty").toString()
-                : myMap.get("sl").toString());
+                    : myMap.get("sl").toString());
             jsonObject.put("unitprice", myMap.get("dj") == null ? myMap.get("unitprice").toString()
-                : myMap.get("dj").toString());
+                    : myMap.get("dj").toString());
             jsonObject.put("totalamt", "");
             jsonObject.put("batchcode", "");
             jsonObject.put("produceddate", "");
             jsonObject.put("validdate", "");
             double bZe = Double.parseDouble(myMap.get("sl") == null ? myMap.get("unitqty").toString()
-                : myMap.get("sl").toString())
-                         * Double.parseDouble(myMap.get("dj") == null ? myMap.get("unitprice").toString()
-                             : myMap.get("dj").toString());
+                    : myMap.get("sl").toString())
+                    * Double.parseDouble(myMap.get("dj") == null ? myMap.get("unitprice").toString()
+                    : myMap.get("dj").toString());
             double sZe = 0;
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list2) {
@@ -326,17 +329,17 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
                 jsonObject2.put("goodsid", map.get("goodsid").toString());
                 jsonObject2.put("unitid", map.get("unitid").toString());
                 jsonObject2.put("unitprice", map.get("dj") == null ? map.get("unitprice")
-                    .toString() : map.get("dj").toString());
+                        .toString() : map.get("dj").toString());
                 jsonObject2.put("unitqty", map.get("sl") == null ? map.get("unitqty")
-                    .toString() : map.get("sl").toString());
+                        .toString() : map.get("sl").toString());
                 jsonObject2.put("amount", "0");
                 jsonObject2.put("batchcode", "");
                 jsonObject2.put("produceddate", "");
                 jsonObject2.put("validdate", "");
-                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
+                jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
                 sZe += Double.parseDouble(map.get("sl") == null ? map.get("unitqty").toString()
-                    : map.get("sl").toString())
-                    * Double.parseDouble(map.get("dj") == null ? map.get("unitprice").toString()
+                        : map.get("sl").toString())
+                        * Double.parseDouble(map.get("dj") == null ? map.get("unitprice").toString()
                         : map.get("dj").toString());
                 arrayDetail.put(jsonObject2);
             }
@@ -366,20 +369,24 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
                 intent.putExtra("opid", object.get("opid").toString());
                 intent.putExtra("billid", this.getIntent().getExtras().getString("billid"));
                 intent.setClass(activity, JxcCgglCgddShlcActivity.class);
-                startActivityForResult(intent,11);
+                startActivityForResult(intent, 11);
                 break;
             case R.id.sd_button:
-            	new AlertDialog.Builder(activity)
-				.setTitle("确定要删除当前记录吗？")
-				.setNegativeButton("删除",
-						new DialogInterface.OnClickListener() {
+                if (!ShareUserInfo.getKey(activity, "sc").equals("1")) {
+                    showToastPromopt("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
+                new AlertDialog.Builder(activity)
+                        .setTitle("确定要删除当前记录吗？")
+                        .setNegativeButton("删除",
+                                new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface arg0,
-									int arg1) {
-								searchDateSd();
-							}
-						}).setPositiveButton("取消", null).show();
+                                    @Override
+                                    public void onClick(DialogInterface arg0,
+                                                        int arg1) {
+                                        searchDateSd();
+                                    }
+                                }).setPositiveButton("取消", null).show();
                 break;
 //            case R.id.xzsp_linearlayout:
 //                intent.setClass(this, JxcCkglZzcxXzspActivity.class);
@@ -423,9 +430,9 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 0) {// 选择商品
-                            list.clear();
+                list.clear();
                 List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
-                    .getSerializableExtra("object");
+                        .getSerializableExtra("object");
                 for (int i = 0; i < cpList.size(); i++) {
                     Map<String, Object> map = cpList.get(i);
                     if (map.get("isDetail").equals("0")) {
@@ -449,7 +456,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
                     adapter.notifyDataSetChanged();
                 } else {
                     Map<String, Object> map = (Map<String, Object>) data.getExtras()
-                        .getSerializable("object");
+                            .getSerializable("object");
                     list.remove(selectIndex);
                     list.add(selectIndex, map);
                     adapter.notifyDataSetChanged();
@@ -464,7 +471,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
             } else if (requestCode == 9) {
 //                list2.clear();
                 List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
-                    .getSerializableExtra("object");
+                        .getSerializableExtra("object");
                 for (int i = 0; i < cpList.size(); i++) {
                     Map<String, Object> map = cpList.get(i);
                     if (map.get("isDetail").equals("0")) {
@@ -484,13 +491,13 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
                     adapter2.notifyDataSetChanged();
                 } else {
                     Map<String, Object> map = (Map<String, Object>) data.getExtras()
-                        .getSerializable("object");
+                            .getSerializable("object");
                     list2.remove(selectIndex2);
                     list2.add(selectIndex2, map);
                     adapter2.notifyDataSetChanged();
                 }
                 xzspnumTextView2.setText("共选择了" + list2.size() + "商品");
-            }else if(requestCode==11){
+            } else if (requestCode == 11) {
                 searchDate();
             }
         }

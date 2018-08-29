@@ -244,6 +244,10 @@ public class InstallationDetailsActivity extends BaseActivity {
                                 public void onClick(int i) {
                                     switch (i) {
                                         case 2:
+                                            if (!ShareUserInfo.getKey(mActivity, "bj").equals("1")) {
+                                                showShortToast("你没有该权限，请向管理员申请权限！");
+                                                return;
+                                            }
                                             mData.setPlaninfo(etInstallationMeasures.getText().toString());
                                             titlebar.setTvRightEnabled(false);
                                             saveData();

@@ -332,6 +332,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                     im.setLogoName("工作提醒");
                     im.setIntent(new Intent(IndexActivity.this, MstxGztxActivity.class));
                     im.setKhzlname("");
+
                     break;
                 case 1:
                     im.setLogoId(R.drawable.index_gsgg);
@@ -344,6 +345,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                     im.setLogoName("签到");
                     im.setIntent(new Intent(IndexActivity.this, QdXzqdActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("401409");
                     break;
                 case 3:
                     im.setLogoId(R.drawable.index_grrc);
@@ -391,67 +393,77 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                     im.setIntent(new Intent(this,
                             GzptHjzxXzjhActivity.class));
                     im.setKhzlname("hjzx");
+                    im.setMenuid("3003");
                     break;
                 case 1:
                     im.setLogoId(R.drawable.index_yybf);
                     im.setLogoName("预约拜访");
                     im.setIntent(new Intent(IndexActivity.this, GzptYybfActivity.class));
                     im.setKhzlname("yybf");
+                    im.setMenuid("3003");
                     break;
                 case 2:
                     im.setLogoId(R.drawable.index_shhf);
                     im.setLogoName("售后回访");
                     im.setIntent(new Intent(IndexActivity.this, GzptShhfActivity.class));
                     im.setKhzlname("shhf");
+                    im.setMenuid("3003");
                     break;
                 case 3:
                     im.setLogoId(R.drawable.index_khgl);
                     im.setLogoName("自定义拜访");
                     im.setIntent(new Intent(IndexActivity.this, GzptKhglActivity.class));
                     im.setKhzlname("khgl");
+                    im.setMenuid("3003");
                     break;
                 case 4:
                     im.setLogoId(R.drawable.index_xzld);
                     im.setLogoName("来电录入");
                     im.setIntent(new Intent(IndexActivity.this, GzptXzldActivity.class));
                     im.setKhzlname("xzld");
-
+                    im.setMenuid("3003");
                     break;
                 case 5:
                     im.setLogoId(R.drawable.menu_xzjqdw);
                     im.setLogoName("近期新增单位");
                     im.setIntent(new Intent(IndexActivity.this, GzptJqxzdwActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("3003");
                     break;
                 case 6:
                     im.setLogoId(R.drawable.menu_khfw);
                     im.setLogoName("客户服务");
                     im.setIntent(new Intent(IndexActivity.this, KhfwActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("3005");
                     break;
                 case 7:
                     im.setLogoId(R.mipmap.menu_wlgl);
                     im.setLogoName("物流管理");
                     im.setIntent(new Intent(IndexActivity.this, LogisticsManagementActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("400602");
                     break;
                 case 8:
                     im.setLogoId(R.mipmap.menu_xsjh);
                     im.setLogoName("销售机会");
                     im.setIntent(new Intent(IndexActivity.this, SalesOpportunitiesManagementActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("3012");
                     break;
                 case 9:
                     im.setLogoId(R.mipmap.menu_htgl);
                     im.setLogoName("合同管理");
                     im.setIntent(new Intent(IndexActivity.this, ContractManagementActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("3014");
                     break;
                 case 10:
                     im.setLogoId(R.mipmap.menu_xmgl);
                     im.setLogoName("项目管理");
                     im.setIntent(new Intent(IndexActivity.this, ProjectManagementActivity.class));
                     im.setKhzlname("");
+                    im.setMenuid("3021");
                     break;
                 default:
                     break;
@@ -467,7 +479,20 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 if (TextUtils.isEmpty(gzptIndexModelList.get(arg2).getKhzlname())) {
                     ShareUserInfo.setKey(context, "khzlname", gzptIndexModelList.get(arg2).getKhzlname());
                 }
-                startActivity(gzptIndexModelList.get(arg2).getIntent());
+//                switch (gzptIndexModelList.get(arg2).getLogoName()) {
+//                    case "客户拜访统计":
+//                    case "客户服务统计":
+//                    case "新客户统计":
+//                        startActivity(gzptIndexModelList.get(arg2).getIntent());
+//                        break;
+//                    default:
+                mIntent = gzptIndexModelList.get(arg2).getIntent();
+                CheckOperPriv(gzptIndexModelList.get(arg2).getMenuid());
+
+//                        break;
+//
+//                }
+//                startActivity(gzptIndexModelList.get(arg2).getIntent());
             }
 
         });

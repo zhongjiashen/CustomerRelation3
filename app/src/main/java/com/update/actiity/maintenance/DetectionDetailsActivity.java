@@ -251,6 +251,10 @@ public class DetectionDetailsActivity extends BaseActivity {
 //                                                    || TextUtils.isEmpty(tvEndTime.getText().toString()))
 //                                                showShortToast("请选择起始结束时间");
 //                                            else
+                                            if (!ShareUserInfo.getKey(mActivity, "bj").equals("1")) {
+                                                showShortToast("你没有该权限，请向管理员申请权限！");
+                                                return;
+                                            }
                                             saveData();
                                             titlebar.setTvRightEnabled(false);
                                             break;

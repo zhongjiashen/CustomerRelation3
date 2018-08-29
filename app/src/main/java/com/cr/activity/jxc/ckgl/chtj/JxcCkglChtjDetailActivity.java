@@ -41,23 +41,23 @@ import com.crcxj.activity.R;
 
 /**
  * 进销存-仓库管理-存货调价-详情
- * @author Administrator
  *
+ * @author Administrator
  */
 public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickListener {
-    private ImageView                 shImageView;
-    private ImageButton               saveImageButton;
-    private Button                    shButton, sdButton;
-    private TextView                  xzspnumTextView, djbhTextView;
-    private EditText                  bzxxEditText, djrqEditText, jbrEditText,wjphEditText;
-    private CustomListView            listview;
-    private List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
-    private LinearLayout              xzspLinearLayout;
-    BaseAdapter                       adapter;
-    String                            jbrId;
-    private int                       selectIndex;
-    private String                    shzt;                                               //社会状态
-    Map<String, Object>               object;
+    private ImageView shImageView;
+    private ImageButton saveImageButton;
+    private Button shButton, sdButton;
+    private TextView xzspnumTextView, djbhTextView;
+    private EditText bzxxEditText, djrqEditText, jbrEditText, wjphEditText;
+    private CustomListView listview;
+    private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    private LinearLayout xzspLinearLayout;
+    BaseAdapter adapter;
+    String jbrId;
+    private int selectIndex;
+    private String shzt;                                               //社会状态
+    Map<String, Object> object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,18 +96,18 @@ public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickLi
         jbrEditText.setOnClickListener(this);
         bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
         bzxxEditText.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View view, MotionEvent event) {
-				// TODO Auto-generated method stub
-				view.getParent().requestDisallowInterceptTouchEvent(true);
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
-				case MotionEvent.ACTION_UP:
-					view.getParent().requestDisallowInterceptTouchEvent(
-							false);
-					break;
-				}
-				return false;
-			}
-		});
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP:
+                        view.getParent().requestDisallowInterceptTouchEvent(
+                                false);
+                        break;
+                }
+                return false;
+            }
+        });
         wjphEditText = (EditText) findViewById(R.id.wjph_edittext);
         xzspnumTextView = (TextView) findViewById(R.id.xzspnum_textview);
         shButton = (Button) findViewById(R.id.sh_button);
@@ -208,16 +208,17 @@ public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickLi
             showToastPromopt("该单据在审核阶段，不能进行修改");
             return;
         }
-        if(wjphEditText.getText().toString().equals("")){
+        if (wjphEditText.getText().toString().equals("")) {
             showToastPromopt("文件批号不能为空！");
             return;
-        }else if (list.size() == 0) {
+        } else if (list.size() == 0) {
             showToastPromopt("请选择商品");
             return;
-        }else if(djrqEditText.getText().toString().equals("")){
+        } else if (djrqEditText.getText().toString().equals("")) {
             showToastPromopt("请选择单据日期");
             return;
-        } if (jbrEditText.getText().toString().equals("")) {
+        }
+        if (jbrEditText.getText().toString().equals("")) {
             showToastPromopt("请选择业务员");
             return;
         }
@@ -228,28 +229,28 @@ public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickLi
             jsonObject.put("billid", this.getIntent().getExtras().getString("billid"));
             jsonObject.put("code", object.get("code").toString());
             jsonObject.put("billdate", djrqEditText.getText().toString());
-            jsonObject.put("fileno",wjphEditText.getText().toString() );
+            jsonObject.put("fileno", wjphEditText.getText().toString());
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
-            
-            double tzce=0;
+
+            double tzce = 0;
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
                 jsonObject2.put("billid", this.getIntent().getExtras().getString("billid"));
                 jsonObject2.put("itemno", "0");
                 jsonObject2.put("goodsid", map.get("goodsid").toString());
                 jsonObject2.put("unitid", map.get("unitid").toString());
-                String sl=map.get("sl")==null?map.get("unitqty").toString():map.get("sl").toString();
-                String thdj=map.get("thdj")==null?map.get("anprice").toString():map.get("thdj").toString();
-                String tqdj=map.get("tqdj")==null?map.get("aoprice").toString():map.get("tqdj").toString();
-                jsonObject2.put("unitqty",sl );
+                String sl = map.get("sl") == null ? map.get("unitqty").toString() : map.get("sl").toString();
+                String thdj = map.get("thdj") == null ? map.get("anprice").toString() : map.get("thdj").toString();
+                String tqdj = map.get("tqdj") == null ? map.get("aoprice").toString() : map.get("tqdj").toString();
+                jsonObject2.put("unitqty", sl);
                 jsonObject2.put("anprice", thdj);
                 jsonObject2.put("aoprice", tqdj);
-                tzce=(Double.parseDouble(thdj)-Double.parseDouble(tqdj))*Double.parseDouble(sl);
+                tzce = (Double.parseDouble(thdj) - Double.parseDouble(tqdj)) * Double.parseDouble(sl);
                 arrayDetail.put(jsonObject2);
             }
-            jsonObject.put("totalamt",tzce );
+            jsonObject.put("totalamt", tzce);
             arrayMaster.put(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -269,24 +270,28 @@ public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickLi
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.sh_button:
-            	intent.putExtra("tb", "tb_adjap");
-            	intent.putExtra("opid", object.get("opid").toString());
+                intent.putExtra("tb", "tb_adjap");
+                intent.putExtra("opid", object.get("opid").toString());
                 intent.putExtra("billid", this.getIntent().getExtras().getString("billid"));
                 intent.setClass(activity, JxcCgglCgddShlcActivity.class);
-                startActivityForResult(intent,5);
+                startActivityForResult(intent, 5);
                 break;
             case R.id.sd_button:
-            	new AlertDialog.Builder(activity)
-				.setTitle("确定要删除当前记录吗？")
-				.setNegativeButton("删除",
-						new DialogInterface.OnClickListener() {
+                if (!ShareUserInfo.getKey(activity, "sc").equals("1")) {
+                    showToastPromopt("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
+                new AlertDialog.Builder(activity)
+                        .setTitle("确定要删除当前记录吗？")
+                        .setNegativeButton("删除",
+                                new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface arg0,
-									int arg1) {
-								searchDateSd();
-							}
-						}).setPositiveButton("取消", null).show();
+                                    @Override
+                                    public void onClick(DialogInterface arg0,
+                                                        int arg1) {
+                                        searchDateSd();
+                                    }
+                                }).setPositiveButton("取消", null).show();
                 break;
 //            case R.id.xzsp_linearlayout:
 //                intent.setClass(this, JxcCkglChtjXzspActivity.class);
@@ -319,7 +324,7 @@ public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickLi
             if (requestCode == 0) {// 选择商品
 //                list.clear();
                 List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
-                    .getSerializableExtra("object");
+                        .getSerializableExtra("object");
                 for (int i = 0; i < cpList.size(); i++) {
                     Map<String, Object> map = cpList.get(i);
                     if (map.get("isDetail").equals("0")) {
@@ -344,13 +349,13 @@ public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickLi
                     adapter.notifyDataSetChanged();
                 } else {
                     Map<String, Object> map = (Map<String, Object>) data.getExtras()
-                        .getSerializable("object");
+                            .getSerializable("object");
                     list.remove(selectIndex);
                     list.add(selectIndex, map);
                     adapter.notifyDataSetChanged();
                 }
                 xzspnumTextView.setText("共选择了" + list.size() + "商品");
-            } else if(requestCode==5){
+            } else if (requestCode == 5) {
                 searchDate();
             }
         }

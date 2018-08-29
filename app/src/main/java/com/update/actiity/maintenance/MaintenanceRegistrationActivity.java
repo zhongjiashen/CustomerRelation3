@@ -168,7 +168,7 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivityForResult(new Intent(MaintenanceRegistrationActivity.this, MaintenanceDetailsActivity.class)
+                        startActivityForResult(new Intent(mActivity, MaintenanceDetailsActivity.class)
                                 .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                     }
                 });
@@ -201,6 +201,10 @@ public class MaintenanceRegistrationActivity extends BaseActivity implements
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
+                        if (!ShareUserInfo.getKey(mActivity, "xz").equals("1")) {
+                            showShortToast("你没有该权限，请向管理员申请权限！");
+                            return;
+                        }
                         startActivity(new Intent(MaintenanceRegistrationActivity.this, NewMaintenanceRegistrationActivity.class));
                         break;
                     case 1://打开右边侧滑菜单

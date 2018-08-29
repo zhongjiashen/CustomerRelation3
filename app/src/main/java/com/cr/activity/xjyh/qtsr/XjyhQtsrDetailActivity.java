@@ -340,6 +340,10 @@ public class XjyhQtsrDetailActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 6);
                 break;
             case R.id.sd_button:
+                if (!ShareUserInfo.getKey(activity, "sc").equals("1")) {
+                    showToastPromopt("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
                 new AlertDialog.Builder(activity)
                         .setTitle("确定要删除当前记录吗？")
                         .setNegativeButton("删除",

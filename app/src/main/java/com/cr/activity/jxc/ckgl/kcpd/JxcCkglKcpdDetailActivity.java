@@ -41,23 +41,23 @@ import com.crcxj.activity.R;
 
 /**
  * 进销存-仓库管理-库存盘点-详情
- * @author Administrator
  *
+ * @author Administrator
  */
 public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickListener {
-    private ImageView                 shImageView;
-    private ImageButton               saveImageButton;
-    private Button                    shButton, sdButton;
-    private TextView                  xzspnumTextView, djbhTextView;
-    private EditText                  bzxxEditText, djrqEditText, jbrEditText,pdckEditText;
-    private CustomListView            listview;
-    private List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
-    private LinearLayout              xzspLinearLayout;
-    BaseAdapter                       adapter;
-    String                            jbrId,pdckId;
-    private int                       selectIndex;
-    private String                    shzt;                                               //社会状态
-    Map<String, Object>               object;
+    private ImageView shImageView;
+    private ImageButton saveImageButton;
+    private Button shButton, sdButton;
+    private TextView xzspnumTextView, djbhTextView;
+    private EditText bzxxEditText, djrqEditText, jbrEditText, pdckEditText;
+    private CustomListView listview;
+    private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    private LinearLayout xzspLinearLayout;
+    BaseAdapter adapter;
+    String jbrId, pdckId;
+    private int selectIndex;
+    private String shzt;                                               //社会状态
+    Map<String, Object> object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,18 +98,18 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
         jbrEditText.setOnClickListener(this);
         bzxxEditText = (EditText) findViewById(R.id.bzxx_edittext);
         bzxxEditText.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View view, MotionEvent event) {
-				// TODO Auto-generated method stub
-				view.getParent().requestDisallowInterceptTouchEvent(true);
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
-				case MotionEvent.ACTION_UP:
-					view.getParent().requestDisallowInterceptTouchEvent(
-							false);
-					break;
-				}
-				return false;
-			}
-		});
+            public boolean onTouch(View view, MotionEvent event) {
+                // TODO Auto-generated method stub
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP:
+                        view.getParent().requestDisallowInterceptTouchEvent(
+                                false);
+                        break;
+                }
+                return false;
+            }
+        });
         xzspnumTextView = (TextView) findViewById(R.id.xzspnum_textview);
         shButton = (Button) findViewById(R.id.sh_button);
         shButton.setOnClickListener(this);
@@ -174,13 +174,13 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
                 shImageView.setBackgroundResource(R.drawable.shz);
             }
             jbrId = object.get("exemanid").toString();
-            pdckId=object.get("storeid").toString();
+            pdckId = object.get("storeid").toString();
             shzt = object.get("shzt").toString();
             showZdr(object);
             searchDate2();//查询订单中的商品
         } else if (returnSuccessType == 1) {
             list.clear();
-            if(returnJson.equals("")){
+            if (returnJson.equals("")) {
                 return;
             }
             list.addAll((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson));
@@ -213,16 +213,17 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
             showToastPromopt("该单据在审核阶段，不能进行修改");
             return;
         }
-        if(pdckEditText.getText().toString().equals("")){
+        if (pdckEditText.getText().toString().equals("")) {
             showToastPromopt("请选择盘点仓库");
             return;
-        }else if (list.size() == 0) {
+        } else if (list.size() == 0) {
             showToastPromopt("请选择商品");
             return;
-        }else if(djrqEditText.getText().toString().equals("")){
+        } else if (djrqEditText.getText().toString().equals("")) {
             showToastPromopt("请选择单据日期");
             return;
-        } if (jbrEditText.getText().toString().equals("")) {
+        }
+        if (jbrEditText.getText().toString().equals("")) {
             showToastPromopt("请选择业务员");
             return;
         }
@@ -234,7 +235,7 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
             jsonObject.put("code", object.get("code").toString());
             jsonObject.put("billdate", djrqEditText.getText().toString());
             jsonObject.put("balsid", pdckId);
-            jsonObject.put("totalamt","" );
+            jsonObject.put("totalamt", "");
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
@@ -246,12 +247,12 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
                 jsonObject2.put("goodsid", map.get("goodsid").toString());
                 jsonObject2.put("unitid", map.get("unitid").toString());
                 jsonObject2.put("unitprice", "0");
-                jsonObject2.put("unitqty", map.get("spsl")==null?map.get("unitqty").toString():map.get("spsl").toString());
+                jsonObject2.put("unitqty", map.get("spsl") == null ? map.get("unitqty").toString() : map.get("spsl").toString());
                 jsonObject2.put("amount", "0");
                 jsonObject2.put("batchcode", "");
                 jsonObject2.put("produceddate", "");
                 jsonObject2.put("validdate", "");
-                jsonObject2.put("batchrefid",  map.get("batchrefid")==null?"":map.get("batchrefid").toString());
+                jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
@@ -272,24 +273,28 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.sh_button:
-            	intent.putExtra("tb", "tb_balitem");
-            	intent.putExtra("opid", object.get("opid").toString());
+                intent.putExtra("tb", "tb_balitem");
+                intent.putExtra("opid", object.get("opid").toString());
                 intent.putExtra("billid", this.getIntent().getExtras().getString("billid"));
                 intent.setClass(activity, JxcCgglCgddShlcActivity.class);
-                startActivityForResult(intent,7);
+                startActivityForResult(intent, 7);
                 break;
             case R.id.sd_button:
-            	new AlertDialog.Builder(activity)
-				.setTitle("确定要删除当前记录吗？")
-				.setNegativeButton("删除",
-						new DialogInterface.OnClickListener() {
+                if (!ShareUserInfo.getKey(activity, "sc").equals("1")) {
+                    showToastPromopt("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
+                new AlertDialog.Builder(activity)
+                        .setTitle("确定要删除当前记录吗？")
+                        .setNegativeButton("删除",
+                                new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface arg0,
-									int arg1) {
-								searchDateSd();
-							}
-						}).setPositiveButton("取消", null).show();
+                                    @Override
+                                    public void onClick(DialogInterface arg0,
+                                                        int arg1) {
+                                        searchDateSd();
+                                    }
+                                }).setPositiveButton("取消", null).show();
                 break;
 //            case R.id.xzsp_linearlayout:
 //                if(pdckEditText.getText().toString().equals("")){
@@ -327,7 +332,7 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
             if (requestCode == 0) {// 选择商品
 //                list.clear();
                 List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
-                    .getSerializableExtra("object");
+                        .getSerializableExtra("object");
                 for (int i = 0; i < cpList.size(); i++) {
                     Map<String, Object> map = cpList.get(i);
                     if (map.get("isDetail").equals("0")) {
@@ -351,7 +356,7 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
                     adapter.notifyDataSetChanged();
                 } else {
                     Map<String, Object> map = (Map<String, Object>) data.getExtras()
-                        .getSerializable("object");
+                            .getSerializable("object");
                     list.remove(selectIndex);
                     list.add(selectIndex, map);
                     adapter.notifyDataSetChanged();
@@ -360,7 +365,7 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
             } else if (requestCode == 6) {// 经办人
                 pdckEditText.setText(data.getExtras().getString("dictmc"));
                 pdckId = data.getExtras().getString("id");
-            }else if(requestCode==7){
+            } else if (requestCode == 7) {
                 searchDate();
             }
         }

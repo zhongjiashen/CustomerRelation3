@@ -1,10 +1,13 @@
 package com.cr.activity.jxc.cggl.cgfk
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.cr.activity.BaseActivity
+import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity
 import com.cr.adapter.jxc.cggl.cgfk.JxcCgglCgfkAddAdapter
 import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
@@ -53,6 +56,25 @@ class KtJxcCgglCgfkDetailActivity:BaseActivity(){
             intent.putExtra("object", map as Serializable)
             startActivityForResult(intent, 4)
         }
+        sh_button.setOnClickListener {
+            intent.putExtra("tb", "tb_pay")
+            intent.putExtra("opid", data["opid"].toString())
+            intent.putExtra("billid",
+                    this.intent.extras!!.getString("billid"))
+            intent.setClass(activity, JxcCgglCgddShlcActivity::class.java)
+            startActivityForResult(intent, 10)
+        }
+
+        sd_button.setOnClickListener {
+            if (ShareUserInfo.getKey(activity, "sc") != "1") {
+                showToastPromopt("你没有该权限，请向管理员申请权限！")
+                return@setOnClickListener
+            }
+            AlertDialog.Builder(activity)
+                    .setTitle("确定要删除当前记录吗？")
+                    .setNegativeButton("删除"
+                    ) { arg0, arg1 -> searchDateSd() }.setPositiveButton("取消", null).show()
+        }
 
 
 
@@ -78,6 +100,18 @@ class KtJxcCgglCgfkDetailActivity:BaseActivity(){
         parmMap["parms"] = "CGFK"
         parmMap["billid"] = billid
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false)
+    }
+
+    /**
+     * 连接网络的操作(删单)
+     */
+    private fun searchDateSd() {
+        val parmMap = HashMap<String, Any>()
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["opid"] = ShareUserInfo.getUserId(context)
+        parmMap["tabname"] = "tb_pay"
+        parmMap["pkvalue"] = this.intent.extras!!.getString("billid")
+        findServiceData2(3, ServerURL.BILLDELMASTER, parmMap, false)
     }
     override fun executeSuccess() {
         if (returnSuccessType == 1) {// 管理单据成功后把信息填到里面（主表）
