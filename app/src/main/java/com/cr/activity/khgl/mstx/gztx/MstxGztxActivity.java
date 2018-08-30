@@ -1,4 +1,4 @@
-package com.cr.activity;
+package com.cr.activity.khgl.mstx.gztx;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.cr.activity.BaseActivity;
 import com.cr.adapter.MstxGztxAdapter;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
@@ -56,7 +57,8 @@ public class MstxGztxActivity extends BaseActivity {
 				if(gztxList.get(arg2).get("typecode").toString().equals("MYSH")){
 					intent = new Intent(context,MyAuditListActivity.class);
 				}else {
-					intent = new Intent(context,MstxGztx2Activity.class);
+					intent = new Intent(context,KtGztxXxActivity.class);
+//					intent = new Intent(context,MstxGztx2Activity.class);
 					intent.putExtra("typecode", gztxList.get(arg2).get("typecode").toString());
 					intent.putExtra("title", gztxList.get(arg2).get("typename").toString());
 				}

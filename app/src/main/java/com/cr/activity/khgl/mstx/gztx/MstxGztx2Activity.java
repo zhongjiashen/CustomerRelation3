@@ -1,4 +1,4 @@
-package com.cr.activity;
+package com.cr.activity.khgl.mstx.gztx;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
+import com.cr.activity.BaseActivity;
 import com.cr.activity.gzpt.dwzl.GzptDwzlActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddDetailActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity;
-import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity;
 import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity;
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity;
 import com.cr.adapter.MstxGztx2Adapter;
