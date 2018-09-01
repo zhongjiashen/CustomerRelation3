@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 
+import com.cr.activity.khgl.mstx.gztx.MstxGsggDetailActivity;
 import com.cr.adapter.MstxGsggAdapter;
 import com.cr.common.XListView;
 import com.cr.common.XListView.IXListViewListener;

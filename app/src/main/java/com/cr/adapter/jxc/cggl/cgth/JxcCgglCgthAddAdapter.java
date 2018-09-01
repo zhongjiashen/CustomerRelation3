@@ -52,7 +52,7 @@ public class JxcCgglCgthAddAdapter extends BaseAdapter {
 		String name=objMap.get("name")==null?objMap.get("goodsname").toString():objMap.get("name").toString();
 		viewHolder.bhmcggTextView.setText(code+name+" / "+objMap.get("specs").toString()+" / "+objMap.get("model").toString());
 		viewHolder.djTextView.setText("￥"+objMap.get("taxunitprice").toString()+"*"+objMap.get("unitqty").toString()+""+objMap.get("unitname").toString());
-		viewHolder.zjTextView.setText("￥"+FigureTools.sswrFigure(Double.parseDouble(objMap.get("unitprice").toString())*Double.parseDouble(objMap.get("unitqty").toString())));
+		viewHolder.zjTextView.setText("￥"+objMap.get("amount").toString());
 		return convertView;
 	}
 

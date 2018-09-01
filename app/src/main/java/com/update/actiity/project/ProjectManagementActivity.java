@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,7 +119,7 @@ public class ProjectManagementActivity extends BaseActivity implements
      */
     @Override
     protected int getLayout() {
-        return R.layout.activity_list;
+        return R.layout.activity_search_list;
     }
 
     /**

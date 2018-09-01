@@ -128,7 +128,7 @@
             android:screenOrientation="portrait"/>
         <!-- 秘书提醒-工作提醒 -->
         <activity
-            android:name="com.cr.activity.MstxGztxActivity"
+            android:name="com.cr.activity.khgl.mstx.gztx.MstxGztxActivity"
             android:screenOrientation="portrait"/>
         <!-- 秘书提醒-工作提醒-我的审核列表 -->
         <activity
@@ -136,7 +136,10 @@
             android:screenOrientation="portrait"/>
         <!-- 秘书提醒-工作提醒2 -->
         <activity
-            android:name="com.cr.activity.MstxGztx2Activity"
+            android:name="com.cr.activity.khgl.mstx.gztx.MstxGztx2Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.cr.activity.khgl.mstx.gztx.KtGztxXxActivity"
             android:screenOrientation="portrait"/>
         <!-- 秘书提醒-工作提醒 -详情-->
         <activity
@@ -148,7 +151,7 @@
             android:screenOrientation="portrait"/>
         <!-- 秘书提醒-公司公告 -详情-->
         <activity
-            android:name="com.cr.activity.MstxGsggDetailActivity"
+            android:name="com.cr.activity.khgl.mstx.gztx.MstxGsggDetailActivity"
             android:screenOrientation="portrait"/>
         <!-- 秘书提醒-个人日程-->
         <activity
@@ -401,7 +404,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity
-            android:name="com.cr.activity.khgl.KtKhglJhzjXzxmActivity"
+            android:name="com.cr.activity.khgl.jhzj.KtKhglJhzjXzxmActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 计划总结-新增项目——执行-->
@@ -410,7 +413,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity
-            android:name="com.cr.activity.khgl.KtKhglJhzjXmzxActivity"
+            android:name="com.cr.activity.khgl.jhzj.KtKhglJhzjXmzxActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 计划总结-新增项目——执行——查看-->

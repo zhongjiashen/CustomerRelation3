@@ -5,9 +5,7 @@ import android.graphics.Color;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddDetailActivity;
-import com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkDetailActivity;
 import com.cr.activity.jxc.cggl.cgfk.KtJxcCgglCgfkDetailActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity;
 import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthDetailActivity;
@@ -24,7 +21,6 @@ import com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjDetailActivity;
 import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdDetailActivity;
 import com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdDetailActivity;
 import com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxDetailActivity;
-import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity;
 import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity;
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity;
 import com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskDetailActivity;
@@ -34,7 +30,6 @@ import com.cr.activity.xjyh.fyzc.XjyhFyzcDetailActivity;
 import com.cr.activity.xjyh.qtsr.XjyhQtsrDetailActivity;
 import com.cr.activity.xjyh.skd.XjyhSkdDetailActivity;
 import com.cr.activity.xjyh.yhcq.XjyhYhcqDetailActivity;
-import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -149,7 +144,7 @@ public class MyAuditListActivity extends BaseActivity implements
      */
     @Override
     protected int getLayout() {
-        return R.layout.activity_list;
+        return R.layout.activity_search_list;
     }
 
     /**

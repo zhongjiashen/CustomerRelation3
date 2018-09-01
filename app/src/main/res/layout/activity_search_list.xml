@@ -11,7 +11,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cgdd_search_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/search_bg" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="输入单位名称/商品"
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
+    </LinearLayout>
 
     <com.update.viewbar.refresh.PullToRefreshLayout
         android:id="@+id/prl_view"

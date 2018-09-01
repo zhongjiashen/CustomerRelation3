@@ -83,6 +83,7 @@ public class BaseP {
                         LogUtils.e(s);
                         returnData(requestCode, s);
                         progressDialog.dismiss();
+                        view.httpfaile(requestCode);
                     }
 
                     @Override

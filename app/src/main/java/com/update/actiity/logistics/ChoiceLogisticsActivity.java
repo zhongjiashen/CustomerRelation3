@@ -7,16 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshAddActivity;
-import com.cr.activity.jxc.cggl.cgsh.KtJxcCgglCgshAddActivity;
-import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthActivity;
 import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthAddActivity;
-import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdActivity;
 import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdAddActivity;
-import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdActivity;
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdAddActivity;
-import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthActivity;
 import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthAddActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -24,12 +18,10 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ScreeningProjectActivity;
-import com.update.actiity.contract.AddContractActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.request.RqChoiceLogisticsListData;
-import com.update.model.request.RqProjectListData;
 import com.update.model.request.WldlxtTabData;
 import com.update.utils.DateUtil;
 import com.update.viewbar.TitleBar;
@@ -115,7 +107,7 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
      */
     @Override
     protected int getLayout() {
-        return R.layout.activity_list;
+        return R.layout.activity_search_list;
     }
 
     /**

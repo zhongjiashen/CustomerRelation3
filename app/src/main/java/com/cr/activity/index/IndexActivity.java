@@ -48,7 +48,7 @@ import com.cr.activity.JhzjZjhActivity;
 import com.cr.activity.MainActivity;
 import com.cr.activity.MstxGrrcActivity;
 import com.cr.activity.MstxGsggActivity;
-import com.cr.activity.MstxGztxActivity;
+import com.cr.activity.khgl.mstx.gztx.MstxGztxActivity;
 import com.cr.activity.QdXzqdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddActivity;
 import com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkActivity;

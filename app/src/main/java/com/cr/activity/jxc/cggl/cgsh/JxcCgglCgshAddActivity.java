@@ -158,6 +158,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
     //发票类型ID
     String billtypeid;
     private String mTaxrate;//税率
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -224,8 +225,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEdittext.setText(ShareUserInfo.getKey(this, "opname"));
-        jbrId =  ShareUserInfo.getKey(this, "empid");
-
+        jbrId = ShareUserInfo.getKey(this, "empid");
 
 
         etFplx.setText("收据");
@@ -252,7 +252,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     if (TextUtils.isEmpty(etDsje.getText().toString())) {
                         etSkhj.setText(Double.parseDouble(s.toString()) + "");
                     } else {
-                        etSkhj.setText((Double.parseDouble(s.toString()) + Double.parseDouble(etDsje.getText().toString()))+"");
+                        etSkhj.setText((Double.parseDouble(s.toString()) + Double.parseDouble(etDsje.getText().toString())) + "");
                     }
                 }
             }
@@ -274,15 +274,17 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     if (TextUtils.isEmpty(fkjeEdittext.getText().toString())) {
                         etSkhj.setText(Double.parseDouble(s.toString()) + "");
                     } else {
-                        etSkhj.setText((Double.parseDouble(s.toString()) + Double.parseDouble(fkjeEdittext.getText().toString()))+"");
+                        etSkhj.setText((Double.parseDouble(s.toString()) + Double.parseDouble(fkjeEdittext.getText().toString())) + "");
                     }
                 }
 
             }
         });
     }
+
     private long time;
-    @OnClick({R.id.iv_scan,R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.et_shrq, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.et_dszh, R.id.et_dsje, R.id.et_skhj, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
+
+    @OnClick({R.id.iv_scan, R.id.save_imagebutton, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.lxr_edittext, R.id.lxdh_edittext, R.id.et_fplx, R.id.et_shrq, R.id.xm_edittext, R.id.jhdz_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.gysqk_edittext, R.id.hjje_edittext, R.id.fkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.et_dszh, R.id.et_dsje, R.id.et_skhj, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -431,7 +433,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             case R.id.et_wlgs:
                 //选择物流公司
                 startActivityForResult(new Intent(this, KtWlxxActivity.class)
-                                .putExtra("data",new Gson().toJson(mWlxxData))
+                                .putExtra("data", new Gson().toJson(mWlxxData))
                         , 14);
                 break;
             case R.id.et_dszh:
@@ -448,9 +450,6 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
 
         }
     }
-
-
-
 
 
     @SuppressWarnings("unchecked")
@@ -540,8 +539,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                         Map<String, Object> map = (Map<String, Object>) data.getExtras()
                                 .getSerializable("object");
 
-                                map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
-                                        * Double.parseDouble(map.get("unitqty").toString()));
+                        map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
+                                * Double.parseDouble(map.get("unitqty").toString()));
                         list.set(selectIndex, map);
                         adapter.notifyDataSetChanged();
                     }
@@ -563,11 +562,15 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
 
                     yyList.clear();
                     yyList.addAll((List<Map<String, Object>>) data.getExtras().getSerializable("list"));
-                    if(list!=null){
-                        for (int i=0;i<list.size();i++) {
-                            list.get(i).put("taxrate",mTaxrate);
-                            Double csje  = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                            list.get(i).put("taxunitprice",FigureTools.sswrFigure(csje));
+                    if (list != null) {
+                        for (int i = 0; i < list.size(); i++) {
+
+                            UUID uuid = UUID.randomUUID();
+                            list.get(i).put("serialinfo", uuid.toString().toUpperCase());
+                            list.get(i).put("serials", new ArrayList<Serial>());//
+                            list.get(i).put("taxrate", mTaxrate);
+                            Double csje = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            list.get(i).put("taxunitprice", FigureTools.sswrFigure(csje));
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
                             list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
@@ -635,16 +638,16 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     xmId = data.getStringExtra("projectid");
                     break;
                 case 13://选择发票类型
-                    if(billtypeid.equals(data.getStringExtra("id")))
+                    if (billtypeid.equals(data.getStringExtra("id")))
                         return;
                     etFplx.setText(data.getStringExtra("name"));
                     billtypeid = data.getStringExtra("id");
                     mTaxrate = data.getExtras().getString("taxrate");
-                    if(list!=null){
-                        for (int i=0;i<list.size();i++) {
-                            list.get(i).put("taxrate",mTaxrate);
-                            Double csje  = Double.parseDouble(list.get(i).get("taxunitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                            list.get(i).put("taxunitprice",FigureTools.sswrFigure(csje));
+                    if (list != null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            list.get(i).put("taxrate", mTaxrate);
+                            Double csje = Double.parseDouble(list.get(i).get("taxunitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            list.get(i).put("taxunitprice", FigureTools.sswrFigure(csje));
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
                             list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
@@ -754,7 +757,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
-        List<Serial> serialinfo=new ArrayList<Serial>();
+        List<Serial> serialinfo = new ArrayList<Serial>();
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("billid", "0");
@@ -785,7 +788,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             jsonObject.put("skrq", etShrq.getText().toString());//收款日期
             jsonObject.put("proxybankid", proxybankid);//代收账户ID
             jsonObject.put("proxyamt", etDsje.getText().toString());//代收金额
-            if(mWlxxData!=null) {
+            if (mWlxxData != null) {
                 jsonObject.put("logisticid", mWlxxData.getLogisticid());//新加物流公司ID
                 jsonObject.put("shipno", mWlxxData.getShipno());//物流单号
                 jsonObject.put("shiptype", mWlxxData.getShiptype());//运输方式
@@ -814,7 +817,6 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
                 jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
-
 
 
                 jsonObject2.put("serialinfo", map.get("serialinfo").toString());//税率%
@@ -852,7 +854,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-        switch (returnSuccessType){
+        switch (returnSuccessType) {
             case 0:
                 if (returnJson.equals("")) {
                     showToastPromopt("保存成功");
@@ -863,17 +865,17 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 }
                 break;
             case 3: //扫一扫选择商品
-                Map<String, Object> map =((ArrayList<Map<String, Object>>) PaseJson
+                Map<String, Object> map = ((ArrayList<Map<String, Object>>) PaseJson
                         .paseJsonToObject(returnJson)).get(0);
-                map.put("unitprice",map.get("aprice"));//单价
-                map.put("unitqty","1");//數量
-                map.put("disc","100");//单价
-                map.put("batchcode","");//单价
+                map.put("unitprice", map.get("aprice"));//单价
+                map.put("unitqty", "1");//數量
+                map.put("disc", "100");//单价
+                map.put("batchcode", "");//单价
                 map.put("produceddate", "");//单价
-                map.put("validdate","");//单价
-                map.put("taxrate",mTaxrate);//税率
-                Double csje  = Double.parseDouble(map.get("aprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                map.put("taxunitprice",csje+"");//单价
+                map.put("validdate", "");//单价
+                map.put("taxrate", mTaxrate);//税率
+                Double csje = Double.parseDouble(map.get("aprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                map.put("taxunitprice", csje + "");//单价
                 map.put("amount", FigureTools.sswrFigure(csje.toString()));
 
                 map.put("issj", etFplx.getText().toString().equals("收据"));

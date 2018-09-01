@@ -12,9 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cr.activity.JhzjJrzjActivity;
-import com.cr.activity.JhzjXzxmActivity;
-import com.cr.activity.khgl.KtKhglJhzjXzxmActivity;
+import com.cr.activity.khgl.jhzj.KtKhglJhzjXzxmActivity;
 import com.cr.activity.khgl.jhzj.KtZjActivity;
 import com.cr.model.JHRW;
 import com.crcxj.activity.R;

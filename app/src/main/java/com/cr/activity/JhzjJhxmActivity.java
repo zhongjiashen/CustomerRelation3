@@ -10,8 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cr.activity.khgl.KtKhglJhzjXmzxActivity;
-import com.cr.activity.khgl.KtKhglJhzjXzxmActivity;
+import com.cr.activity.khgl.jhzj.KtKhglJhzjXmzxActivity;
+import com.cr.activity.khgl.jhzj.KtKhglJhzjXzxmActivity;
 import com.cr.adapter.JhzjJhxmAdapter;
 import com.cr.common.XListView;
 import com.cr.common.XListView.IXListViewListener;
