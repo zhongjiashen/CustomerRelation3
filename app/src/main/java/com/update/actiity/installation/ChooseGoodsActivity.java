@@ -1,6 +1,7 @@
 package com.update.actiity.installation;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -8,15 +9,21 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
+import com.baiiu.filter.DropDownMenu;
+import com.baiiu.filter.adapter.DropMenuAdapter;
+import com.baiiu.filter.interfaces.OnFilterDoneListener;
 import com.cr.myinterface.SLViewValueChange;
+import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.EnterSerialNumberActivity;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
@@ -35,6 +42,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -56,8 +64,12 @@ public class ChooseGoodsActivity extends BaseActivity implements
     EditText search;
     @BindView(R.id.pullRecycle_view)
     PullableRecyclerView pullRecycleView;
-    @BindView(R.id.pullToRefreshLayout_view)
+    @BindView(R.id.mFilterContentView)
     PullToRefreshLayout pullToRefreshLayoutView;
+    @BindView(R.id.bt_jxtj)
+    Button btJxtj;
+    @BindView(R.id.dropDownMenu)
+    DropDownMenu dropDownMenu;
     private Map<String, Object> mParmMap;
     private int page_number;
     private List<ChooseGoodsData> mList;
@@ -66,6 +78,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
     private Gson mGson;
 
     private int kind;
+    private String barcode;//新增条码
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -76,11 +89,14 @@ public class ChooseGoodsActivity extends BaseActivity implements
         mGson = new Gson();
         page_number = 1;
         presenter = new BaseP(this, this);
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(mActivity));
+        presenter.post(3, ServerURL.GOODSTYPE,parmMap);
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("curpage", page_number);
         mParmMap.put("pagesize", 10);
-        presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
+
     }
 
     /**
@@ -252,6 +268,13 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
             }
         });
+        //判断是否是扫一扫
+        if (this.getIntent().hasExtra("barcode")) {
+            barcode = this.getIntent().getExtras().getString("barcode");
+            btJxtj.setVisibility(View.VISIBLE);
+            mParmMap. put("barcode", barcode);//新增条码
+
+        }
     }
 
     /**
@@ -293,16 +316,20 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     @Override
     public void returnData(int requestCode, Object data) {
-        Gson gson = new Gson();
-        List<ChooseGoodsData> list = gson.fromJson((String) data,
-                new TypeToken<List<ChooseGoodsData>>() {
-                }.getType());
+
+
         switch (requestCode) {
             case 0://第一次加载数据或者刷新数据
-                mList = list;
+                mList = mGson.fromJson((String) data,
+                        new TypeToken<List<ChooseGoodsData>>() {
+                        }.getType());
+                ;
                 mAdapter.setList(mList);
                 break;
             case 1:
+                List<ChooseGoodsData> list = mGson.fromJson((String) data,
+                        new TypeToken<List<ChooseGoodsData>>() {
+                        }.getType());
                 if (list == null || list.size() == 0) {
 
                 } else {
@@ -310,6 +337,25 @@ public class ChooseGoodsActivity extends BaseActivity implements
                     mList.addAll(list);
                     mAdapter.setList(mList);
                 }
+                break;
+            case 3:
+
+                String[] titleList = new String[]{"分类"};
+                List[] contextList = new List[]{(List<Map<String, Object>>) PaseJson.paseJsonToObject(data.toString())};
+                dropDownMenu.setMenuAdapter(new DropMenuAdapter(mActivity, titleList, contextList, new OnFilterDoneListener() {
+                    @Override
+                    public void onFilterDone(int position, Map map) {
+                        dropDownMenu.setPositionIndicatorText(position, map.get("name").toString());
+                        dropDownMenu.close();
+                        mList.clear();
+                        mParmMap.put("goodstype", map.get("lcode").toString());
+                        mParmMap.put("curpage", page_number);
+                        presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
+                    }
+
+
+                }));
+                presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
                 break;
         }
 
@@ -333,6 +379,27 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     }
 
+    @OnClick({R.id.bt_jxtj, R.id.bt_view})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.bt_jxtj:
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
+                break;
+            case R.id.bt_view:
+                if (mList == null || mList.size() == 0)//判断选择商品数据是否为空
+                    return;
+                List<ChooseGoodsData> list = new ArrayList<>();
+                for (int i = 0; i < mList.size(); i++) {//挑出选中商品
+                    ChooseGoodsData chooseGoodsData = mList.get(i);
+                    if (chooseGoodsData.isCheck())//判断商品选中状态
+                        list.add(chooseGoodsData);
+                }
+                setResult(RESULT_OK, new Intent().putExtra("DATA", mGson.toJson(list)));
+                finish();
+                break;
+        }
+    }
+
     @Override
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -352,23 +419,22 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 mList.get(possion).setFaultname(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 mAdapter.setList(mList);
                 break;
+            case 18://扫一扫选择商品
+                page_number = 1;
+                barcode = data.getStringExtra("qr");
+                mParmMap.put("barcode", barcode);//新增条码
+                mParmMap.put("curpage", page_number);
+                presenter.post(1, ServerURL.SELECTGOODS, mParmMap);
+                break;
         }
 
     }
 
-    @OnClick(R.id.bt_view)
-    public void onClick() {
-        if (mList == null || mList.size() == 0)//判断选择商品数据是否为空
-            return;
-        List<ChooseGoodsData> list = new ArrayList<>();
-        for (int i = 0; i < mList.size(); i++) {//挑出选中商品
-            ChooseGoodsData chooseGoodsData = mList.get(i);
-            if (chooseGoodsData.isCheck())//判断商品选中状态
-                list.add(chooseGoodsData);
-        }
-        setResult(RESULT_OK, new Intent().putExtra("DATA", mGson.toJson(list)));
-        finish();
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
-
 }

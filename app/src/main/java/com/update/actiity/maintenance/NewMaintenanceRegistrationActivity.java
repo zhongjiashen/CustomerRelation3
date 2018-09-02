@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.jph.takephoto.model.TResult;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
@@ -273,7 +274,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.ll_unit_name_choice, R.id.ll_contacts_choice, R.id.ll_related_projects_choice, R.id.ll_submit_time_choice, R.id.ll_service_mode_choice, R.id.ll_rating_category_choice, R.id.ll_priority_choice, R.id.tv_choose_goods, R.id.tv_adding_profile, R.id.rl_profile_information, R.id.ll_document_date_choice, R.id.ll_department_choice, R.id.ll_salesman_choice})
+    @OnClick({R.id.iv_scan,R.id.ll_unit_name_choice, R.id.ll_contacts_choice, R.id.ll_related_projects_choice, R.id.ll_submit_time_choice, R.id.ll_service_mode_choice, R.id.ll_rating_category_choice, R.id.ll_priority_choice, R.id.tv_choose_goods, R.id.tv_adding_profile, R.id.rl_profile_information, R.id.ll_document_date_choice, R.id.ll_department_choice, R.id.ll_salesman_choice})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_unit_name_choice://单位选择
@@ -315,6 +316,9 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             case R.id.tv_choose_goods://商品选择
                 startActivityForResult(new Intent(this, ChooseGoodsActivity.class)
                         .putExtra("kind", 1), 17);
+                break;
+            case R.id.iv_scan://扫一扫选择商品
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 30);
                 break;
             case R.id.tv_adding_profile://增加概况
                 if (rlProfileInformation.getVisibility() == View.VISIBLE) {
@@ -424,6 +428,10 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             case 22://业务员选择结果处理
                 empid = data.getStringExtra("CHOICE_RESULT_ID");
                 tvSalesman.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
+                break;
+            case 30:
+                startActivityForResult(new Intent(this, ChooseGoodsActivity.class)
+                        .putExtra("barcode", data.getStringExtra("qr")), 17);
                 break;
             case FILE_SELECT_CODE://文件选择处理结果
                 Uri uri = data.getData();
