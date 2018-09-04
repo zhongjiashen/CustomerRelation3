@@ -493,9 +493,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
-                if (TextUtils.isEmpty(gzptIndexModelList.get(arg2).getKhzlname())) {
-                    ShareUserInfo.setKey(context, "khzlname", gzptIndexModelList.get(arg2).getKhzlname());
-                }
+                ShareUserInfo.setKey(context, "khzlname", gzptIndexModelList.get(arg2).getKhzlname());
 //                switch (gzptIndexModelList.get(arg2).getLogoName()) {
 //                    case "客户拜访统计":
 //                    case "客户服务统计":

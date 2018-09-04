@@ -19,6 +19,8 @@ import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.actiity.sales.AddSalesOpportunitiesActivity;
+
 /**
  * 客户资料-拜访-拜访录入
  * @author Administrator
@@ -145,7 +147,7 @@ public class GzptDwzlBfBflrActivity extends BaseActivity implements OnClickListe
                 }
                 break;
             case R.id.addXsjh://新增销售机会
-            	 intent.setClass(this, GzptDwzlJhXzxsjhActivity.class);
+            	 intent.setClass(this,AddSalesOpportunitiesActivity.class);
                  // intent.putExtra("lxrid", "0");
                  intent.putExtra("clientid", clientId);
                  intent.putExtra("clientname", clientName);

@@ -302,7 +302,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                         if (list != null) {
                             for (i in list.indices) {
                                 list[i]["taxrate"] = mTaxrate
-                                val csje = list[i]["taxunitprice"].toString().toDouble() * (mTaxrate.toString().toDouble() + 100) / 100
+                                val csje = list[i]["unitprice"].toString().toDouble() * (mTaxrate.toString().toDouble() + 100) / 100
                                 list[i].put("taxunitprice",FigureTools.sswrFigure(csje ))
                                 val amount = csje * list[i]["unitqty"].toString().toDouble()
                                 list[i].put("amount", FigureTools.sswrFigure(amount ))

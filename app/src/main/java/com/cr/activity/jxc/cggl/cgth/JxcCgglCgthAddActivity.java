@@ -528,7 +528,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                             je += Double.parseDouble(m.get("amount").toString());
                         }
                         xzspnumTextview.setText("共选择了" + list.size() + "商品");
-                        hjjeEdittext.setText("￥" + FigureTools.sswrFigure(je + "") + "");
+                        hjjeEdittext.setText( FigureTools.sswrFigure(je + "") + "");
                         adapter.notifyDataSetChanged();
                     }
 //                    xzspnumTextview.setText("共选择了" + list.size() + "商品");

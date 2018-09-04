@@ -365,7 +365,10 @@ public class AddSalesOpportunitiesActivity extends BaseActivity {
             titlebar.setTvRightEnabled(true);
         } else {
             showShortToast("添加成功");
-            setResult(RESULT_OK);
+            Intent intent=new Intent();
+            intent.putExtra("name",mMap.get("title").toString());
+            intent.putExtra("id",data.toString());
+            setResult(RESULT_OK,intent);
             finish();
         }
     }

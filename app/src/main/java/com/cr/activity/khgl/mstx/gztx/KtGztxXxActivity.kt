@@ -17,6 +17,8 @@ import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
+import com.update.actiity.contract.ContractActivity
+import com.update.actiity.sales.SalesOpportunitiesActivity
 import com.update.base.BaseActivity
 import com.update.base.BaseP
 import com.update.base.BaseRecycleAdapter
@@ -109,14 +111,14 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                                 startActivity(intent)
                             }
                         }
-                        //实施项目
-                        "SSXM"->{
+                    //实施项目
+                        "SSXM" -> {
                             holder.tvA.visibility = View.VISIBLE
                             holder.tvA.text = data["cname"].toString()
                             holder.tvB.visibility = View.VISIBLE
                             holder.tvB.text = "项目名称：" + data["title"].toString()
                             holder.tvC.visibility = View.VISIBLE
-                            holder.tvC.text =  "日期：" + data["rq"].toString()
+                            holder.tvC.text = "日期：" + data["rq"].toString()
                             holder.itemView.setOnClickListener {
                                 val map = java.util.HashMap<String, Any>()
                                 map["clientid"] = data["clientid"].toString()
@@ -223,15 +225,15 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvE.visibility = View.VISIBLE
                             holder.tvE.text = "预定完成日期：" + data["wcrq"].toString()
                             holder.itemView.setOnClickListener {
-                                when(data["billtypename"].toString()){
-                                    "销售订单"->{
+                                when (data["billtypename"].toString()) {
+                                    "销售订单" -> {
                                         val intent = Intent(mActivity, KtJxcXsglXsddDetailActivity::class.java)
                                         intent.putExtra("billid", data["id"].toString())
                                         startActivity(intent)
                                     }
-                                    "采购订单"->{
+                                    "采购订单" -> {
                                         val intent = Intent(mActivity, KtJxcCgglCgddDetailActivity::class.java)
-                                        intent.putExtra("billid",  data["id"].toString())
+                                        intent.putExtra("billid", data["id"].toString())
                                         startActivity(intent)
                                     }
                                 }
@@ -309,6 +311,14 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvE.text = "欠款：" + data["oweamt"].toString()
                             holder.tvF.visibility = View.VISIBLE
                             holder.tvF.text = "信誉额度：" + data["xyed"].toString()
+                            holder.itemView.setOnClickListener {
+                                val map = HashMap<String, Any>()
+                                map["clientid"] = data["id"].toString()
+                                map["types"] = data["typesid"].toString()
+                                val intent = Intent(mActivity, GzptDwzlActivity::class.java)
+                                intent.putExtra("object", map as Serializable)
+                                startActivity(intent)
+                            }
                         }
                     //合同提醒
                         "HTTX" -> {
@@ -324,6 +334,10 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvE.text = "起始日期：" + data["qsrq"].toString()
                             holder.tvF.visibility = View.VISIBLE
                             holder.tvF.text = "截止日期：" + data["zzrq"].toString()
+                            holder.itemView.setOnClickListener {
+                                startActivity(Intent(mActivity, ContractActivity::class.java)
+                                        .putExtra("billid", data["id"].toString()))
+                            }
                         }
                     //销售机会提醒
                         "JHTX" -> {
@@ -339,6 +353,10 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvE.text = "开始日期：" + data["qsrq"].toString()
                             holder.tvF.visibility = View.VISIBLE
                             holder.tvF.text = "预计成交日期：" + data["zzrq"].toString()
+                            holder.itemView.setOnClickListener {
+                                startActivity(Intent(mActivity, SalesOpportunitiesActivity::class.java)
+                                        .putExtra("billid", data["id"].toString()))
+                            }
                         }
                     }
                 }

@@ -179,7 +179,7 @@ public class ContractManagementActivity extends BaseActivity implements
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(ContractManagementActivity.this, ContractActivity.class)
+                        startActivity(new Intent(mActivity, ContractActivity.class)
                                 .putExtra("billid", data.getBillid() + "")
                                 .putExtra("shzt", data.getShzt()));
                     }
