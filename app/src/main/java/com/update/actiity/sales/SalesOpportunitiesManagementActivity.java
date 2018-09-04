@@ -172,7 +172,7 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(SalesOpportunitiesManagementActivity.this, SalesOpportunitiesActivity.class)
+                        startActivity(new Intent(mActivity, SalesOpportunitiesActivity.class)
                                 .putExtra("billid", data.getBillid() + "")
                                 .putExtra("shzt", data.getShzt()));
                     }
@@ -195,6 +195,10 @@ public class SalesOpportunitiesManagementActivity extends BaseActivity implement
             public void onClick(int i) {
                 switch (i) {
                     case 0://增加安装登记
+                        if (!ShareUserInfo.getKey(mActivity, "xz").equals("1")) {
+                            showShortToast("你没有该权限，请向管理员申请权限！");
+                            return;
+                        }
                         startActivity(new Intent(SalesOpportunitiesManagementActivity.this, AddSalesOpportunitiesActivity.class));
                         break;
                     case 1://打开右边侧滑菜单
