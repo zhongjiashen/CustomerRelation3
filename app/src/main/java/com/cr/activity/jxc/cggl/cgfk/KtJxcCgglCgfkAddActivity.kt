@@ -50,6 +50,12 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
         xzspnum_textview.setText("共选择了" + list.size + "引用")
         fklx_edittext.setText("应付账款")
         fklxId = "0"
+
+
+        departmentid = ShareUserInfo.getKey(this, "departmentid")
+        et_bm.setText(ShareUserInfo.getKey(this, "depname"))
+        jbr_edittext.setText(ShareUserInfo.getKey(this, "opname"))
+        jbrId = ShareUserInfo.getKey(this, "empid")
     }
 
     /**

@@ -156,6 +156,11 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
+        jbrId = ShareUserInfo.getKey(this, "empid");
     }
 
 
@@ -390,10 +395,10 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
             showToastPromopt("请选择单据日期");
             return;
         }
-        if (jbrEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
+//        if (jbrEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择业务员");
+//            return;
+//        }
 
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
