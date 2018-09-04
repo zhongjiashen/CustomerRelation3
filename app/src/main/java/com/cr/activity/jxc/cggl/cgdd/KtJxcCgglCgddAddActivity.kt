@@ -251,9 +251,8 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                                     var map2 = cpList[i + 1]
                                     map["unitprice"] = map2["dj"]
                                     map["unitqty"] = map2["sl"]
-                                    val amount = (java.lang.Double.parseDouble(map2["taxunitprice"].toString()) * java.lang.Double
-                                            .parseDouble(map2["sl"].toString())).toString() + ""
-                                    map["amount"] = FigureTools.sswrFigure(amount + "")
+                                    val amount = map2["taxunitprice"].toString().toDouble() * map2["sl"].toString().toDouble()
+                                    map["amount"] = FigureTools.sswrFigure(amount )
                                     map["disc"] = map2["zkl"]
                                     map["batchcode"] = map2["cpph"]
                                     map["produceddate"] = map2["scrq"]
@@ -303,10 +302,10 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                         if (list != null) {
                             for (i in list.indices) {
                                 list[i]["taxrate"] = mTaxrate
-                                val csje = java.lang.Double.parseDouble(list[i]["taxunitprice"].toString()) * (java.lang.Double.parseDouble(mTaxrate) + 100) / 100
-                                list[i].put("taxunitprice", csje.toString() + "")
-                                val amount = (csje * java.lang.Double.parseDouble(list[i]["unitqty"].toString())).toString() + ""
-                                list[i].put("amount", FigureTools.sswrFigure(amount + ""))
+                                val csje = list[i]["taxunitprice"].toString().toDouble() * (mTaxrate.toString().toDouble() + 100) / 100
+                                list[i].put("taxunitprice",FigureTools.sswrFigure(csje ))
+                                val amount = csje * list[i]["unitqty"].toString().toDouble()
+                                list[i].put("amount", FigureTools.sswrFigure(amount ))
                             }
                             var je = 0.0
                             for (m in list) {

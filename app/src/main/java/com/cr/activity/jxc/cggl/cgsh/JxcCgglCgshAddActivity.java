@@ -650,7 +650,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                             list.get(i).put("taxunitprice", FigureTools.sswrFigure(csje));
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
-                            list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
+                            list.get(i).put("amount", FigureTools.sswrFigure(amount));
                         }
                         double je = 0;
                         for (Map<String, Object> m : list) {

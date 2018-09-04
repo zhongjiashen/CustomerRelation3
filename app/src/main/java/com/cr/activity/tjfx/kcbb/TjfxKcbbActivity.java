@@ -50,6 +50,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
 
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     String storeid = "", storename = "", goodsname = "";
+    private String barcode;//新增条码
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,19 +67,19 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
      * 初始化Activity
      */
     private void initActivity() {
-       search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-           public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-               if (actionId == EditorInfo.IME_ACTION_SEARCH
-                       || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                   list.clear();
-                   currentPage = 1;
-                   goodsname=search.getText().toString();
-                   searchDate();
-                   return true;
-               }
-               return false;
-           }
-       });
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    list.clear();
+                    currentPage = 1;
+                    goodsname = search.getText().toString();
+                    searchDate();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     /**
@@ -115,6 +116,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("storeid", storeid.equals("") ? "0" : storeid);
+        parmMap.put("barcode", barcode);//新增条码
         parmMap.put("goodsname", goodsname);
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
@@ -144,7 +146,6 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         }
         adapter.notifyDataSetChanged();
     }
-
 
 
     /**
@@ -182,7 +183,6 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
     }
 
 
-
     @OnClick({R.id.sx, R.id.iv_scan})
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -199,11 +199,12 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode){
+            switch (requestCode) {
                 case 0:
                     storeid = data.getExtras().getString("storeid");
                     storename = data.getExtras().getString("storename");
@@ -212,8 +213,9 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                     currentPage = 1;
                     searchDate();
                     break;
-               case 18://扫一扫选择商品                    currentPage = 1;
+                case 18://扫一扫选择商品                    currentPage = 1;
                     currentPage = 1;
+                    barcode = data.getStringExtra("qr");
                     searchDate();
                     break;
             }

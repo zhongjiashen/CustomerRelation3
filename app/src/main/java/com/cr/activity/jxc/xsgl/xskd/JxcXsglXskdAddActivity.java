@@ -648,7 +648,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                         for (int i = 0; i < list.size(); i++) {
                             list.get(i).put("taxrate", mTaxrate);
                             Double csje = Double.parseDouble(list.get(i).get("taxunitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                            list.get(i).put("taxunitprice", csje + "");
+                            list.get(i).put("taxunitprice",FigureTools.sswrFigure( csje ));
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
                             list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
