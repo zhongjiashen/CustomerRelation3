@@ -296,6 +296,7 @@ public class XjyhYhcqDetailActivity extends BaseActivity implements
                 jbrId = data.getExtras().getString("id");
             } else if (requestCode == 4) {
                 searchDate();
+                setResult(RESULT_OK);
             }
         }
     }

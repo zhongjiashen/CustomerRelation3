@@ -383,6 +383,7 @@ public class XjyhFkdDetailActivity extends BaseActivity implements OnClickListen
                 jbrId = data.getExtras().getString("id");
             } else if (requestCode == 6) {
                 searchDate();
+                setResult(RESULT_OK);
             }
         }
     }

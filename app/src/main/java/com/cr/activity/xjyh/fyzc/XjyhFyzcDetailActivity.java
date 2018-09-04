@@ -464,6 +464,7 @@ public class XjyhFyzcDetailActivity extends BaseActivity implements
                 jbrId = data.getExtras().getString("id");
             } else if (requestCode == 6) {
                 searchDate();
+                setResult(RESULT_OK);
             }
         }
     }
