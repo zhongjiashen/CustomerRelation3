@@ -346,6 +346,21 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                         mTogBtn.setSelected(false)
                         list.clear()
                         list.addAll(data.extras!!.getSerializable("list") as List<MutableMap<String, Any?>>)
+
+                        if (list != null) {
+                            for (i in list) {
+
+                                val uuid = UUID.randomUUID()
+//                                i["serialinfo"] = uuid.toString().toUpperCase()
+//                                i["serials"] = ArrayList<Serial>()//
+                                i["taxrate"] = mTaxrate
+                                val csje = i["unitprice"].toString().toDouble() * (mTaxrate.toString().toDouble() + 100) / 100
+                                i["taxunitprice"] = FigureTools.sswrFigure(csje)
+                                val amount = (csje * java.lang.Double.parseDouble(i["unitqty"].toString())).toString() + ""
+                                i["amount"] = FigureTools.sswrFigure(amount + "")
+                            }
+                        }
+
                         xzspnum_textview.setText("共选择了" + list.size + "商品")
 
                         adapter.notifyDataSetChanged()
