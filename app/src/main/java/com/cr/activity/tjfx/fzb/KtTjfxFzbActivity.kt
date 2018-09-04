@@ -57,7 +57,9 @@ class KtTjfxFzbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
         titlebar.setIvRightImageResource(R.drawable.oper)
         titlebar.setTitleOnlicListener {
             startActivityForResult(Intent(mActivity, KtDateSelectionActivity::class.java)
-                    .putExtra("kind", 1), 11)
+                    .putExtra("kind", 1)
+                    .putExtra("qsrq", mQsrq)
+                    .putExtra("zzrq", mZzrq), 11)
 
         }
         prl_view.setOnRefreshListener(this)

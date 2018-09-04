@@ -33,7 +33,9 @@ import kotlin.collections.ArrayList
  * 选择发票类型
  */
 class KtDateSelectionActivity : BaseActivity<BaseP>() {
-    private var mTimePickerView: TimePickerView? =null
+    private var mTimePickerView: TimePickerView? = null
+    private var mQsrq: String = ""//开始日期
+    private var mZzrq: String = ""//截止日期
     override fun initVariables() {
 
     }
@@ -44,15 +46,11 @@ class KtDateSelectionActivity : BaseActivity<BaseP>() {
 
     override fun init() {
         mTimePickerView = TimePickerView(this, TimePickerView.Type.YEAR_MONTH_DAY)//时间选择弹窗
-        val date = Date()
-        val aCalendar = Calendar.getInstance(Locale.CHINA)
-        val day = aCalendar.getActualMaximum(Calendar.DATE)
-        val rq = DateUtil.DateToString(date, "yyyy-MM-")
-        tv_start_time.setText(rq + "01")
-        if (day > 9)
-            tv_end_time.setText(rq + day)
-        else
-            tv_end_time.setText(rq + "0" + day)
+        mQsrq = intent.getStringExtra("qsrq")
+        mZzrq = intent.getStringExtra("zzrq")
+        tv_start_time.setText(mQsrq)
+
+        tv_end_time.setText(mZzrq)
         titlebar.setTitleText(this, "筛选")
 
         ll_start_time.setOnClickListener {

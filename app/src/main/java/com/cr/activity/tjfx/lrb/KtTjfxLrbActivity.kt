@@ -56,7 +56,9 @@ class KtTjfxLrbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
         titlebar.setTitleText(mActivity, "利润表 ")
         titlebar.setIvRightImageResource(R.drawable.oper)
         titlebar.setTitleOnlicListener {
-            startActivityForResult(Intent(mActivity, KtDateSelectionActivity::class.java), 11)
+            startActivityForResult(Intent(mActivity, KtDateSelectionActivity::class.java)
+                    .putExtra("qsrq", mQsrq)
+                    .putExtra("zzrq", mZzrq), 11)
 
         }
         prl_view.setOnRefreshListener(this)
