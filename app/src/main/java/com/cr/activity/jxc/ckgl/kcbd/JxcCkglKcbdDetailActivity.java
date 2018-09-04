@@ -388,6 +388,7 @@ public class JxcCkglKcbdDetailActivity extends BaseActivity implements OnClickLi
                 bdckId = data.getExtras().getString("id");
             } else if (requestCode == 8) {
                 searchDate();
+                setResult(RESULT_OK);
             }
         }
     }

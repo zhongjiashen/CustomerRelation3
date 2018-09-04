@@ -59,7 +59,7 @@ public class JxcCkglKcbdActivity extends BaseActivity implements OnClickListener
         qsrq = sdf.format(new Date()) + "01";
         jzrq = sdf.format(new Date()) + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         searchDate();
-    }
+}
 
     /**
      * 初始化Activity

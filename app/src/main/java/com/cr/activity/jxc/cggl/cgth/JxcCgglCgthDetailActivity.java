@@ -440,6 +440,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
                 zjzhId = data.getExtras().getString("id");
             } else if (requestCode == 9) {
                 searchDate();
+                setResult(RESULT_OK);
             }
 
         }

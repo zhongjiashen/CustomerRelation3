@@ -499,6 +499,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
                 xzspnumTextView2.setText("共选择了" + list2.size() + "商品");
             } else if (requestCode == 11) {
                 searchDate();
+                setResult(RESULT_OK);
             }
         }
     }

@@ -337,7 +337,7 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 0) {// 选择商品
+           /* if (requestCode == 0) {// 选择商品
 //                list.clear();
                 List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
                         .getSerializableExtra("object");
@@ -429,8 +429,9 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
             } else if (requestCode == 8) {
                 zjzhEditText.setText(data.getExtras().getString("dictmc"));
                 zjzhId = data.getExtras().getString("id");
-            } else if (requestCode == 9) {
+            } else*/ if (requestCode == 9) {
                 searchDate();
+                setResult(RESULT_OK);
             }
 
         }

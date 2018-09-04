@@ -511,6 +511,7 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
                 zjzhId = data.getExtras().getString("id");
             } else if (requestCode == 10) {
                 searchDate();
+                setResult(RESULT_OK);
             }
         }
     }

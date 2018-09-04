@@ -79,6 +79,7 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
             when (requestCode) {
                 5 -> {
                     searchDate()
+                    setResult(Activity.RESULT_OK)
                 }
 
             }

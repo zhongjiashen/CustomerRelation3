@@ -367,6 +367,7 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
                 pdckId = data.getExtras().getString("id");
             } else if (requestCode == 7) {
                 searchDate();
+                setResult(RESULT_OK);
             }
         }
     }

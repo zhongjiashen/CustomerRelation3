@@ -455,6 +455,7 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
                 ckckId = data.getExtras().getString("id");
             } else if (requestCode == 10) {
                 searchDate();
+                setResult(RESULT_OK);
             }
 
         }

@@ -1,5 +1,6 @@
 package com.cr.activity.jxc.cggl.cgfk
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -79,7 +80,20 @@ class KtJxcCgglCgfkDetailActivity:BaseActivity(){
 
 
     }
+    @SuppressLint("SetTextI18n")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
 
+            when (requestCode) {
+                10 -> {
+                    searchDate()
+                    setResult(Activity.RESULT_OK)
+                }
+
+            }
+        }
+    }
     /**
      * 连接网络的操作(查询主表的内容)
      */
