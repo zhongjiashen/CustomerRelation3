@@ -29,6 +29,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.project.ChoiceProjectActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -200,8 +201,11 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
                 }
                 break;
             case R.id.xm_edittext:
-                intent.setClass(activity, XmActivity.class);
-                startActivityForResult(intent, 12);
+                startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
+                               ,
+                        12);
+//                intent.setClass(activity, XmActivity.class);
+//                startActivityForResult(intent, 12);
                 break;
         }
     }
@@ -265,8 +269,10 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
                 jbrEditText.setText(data.getExtras().getString("name"));
                 jbrId = data.getExtras().getString("id");
             } else if (requestCode == 12) {
-                xmEditText.setText(data.getExtras().getString("xmname"));
-                xmId = data.getExtras().getString("xmid");
+                xmEditText.setText(data.getStringExtra("title"));
+                xmId = data.getStringExtra("projectid");
+//                xmEditText.setText(data.getExtras().getString("xmname"));
+//                xmId = data.getExtras().getString("xmid");
             }
         }
     }
