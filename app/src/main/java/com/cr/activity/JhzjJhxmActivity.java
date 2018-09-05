@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cr.activity.khgl.jhzj.KtKhglJhzjXmCkActivity;
 import com.cr.activity.khgl.jhzj.KtKhglJhzjXmzxActivity;
 import com.cr.activity.khgl.jhzj.KtKhglJhzjXzxmActivity;
 import com.cr.adapter.JhzjJhxmAdapter;
@@ -82,9 +83,9 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 					Intent intent = new Intent(context, KtKhglJhzjXmzxActivity/*JhzjXzxmZxActivity*/.class);
 					intent.putExtra("jhid", jhrw.getId());
 					intent.putExtra("object",jhrw2);
-					startActivity(intent);
+					startActivityForResult(intent,0);
 				}else{
-					Intent intent = new Intent(context,JhzjXzxmZxCkActivity.class);
+					Intent intent = new Intent(context,KtKhglJhzjXmCkActivity/*JhzjXzxmZxCkActivity*/.class);
 					intent.putExtra("jhid", jhrw.getId());
 					intent.putExtra("object",jhrw2);
 					startActivity(intent);

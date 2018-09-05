@@ -421,6 +421,10 @@
             android:name="com.cr.activity.JhzjXzxmZxCkActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.cr.activity.khgl.jhzj.KtKhglJhzjXmCkActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 计划总结-今日总结-->
         <activity
             android:name="com.cr.activity.JhzjJrzjActivity"

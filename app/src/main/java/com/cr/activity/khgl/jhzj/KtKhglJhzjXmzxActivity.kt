@@ -28,6 +28,7 @@ import com.update.utils.*
 
 
 import kotlinx.android.synthetic.main.activity_khgl_jhzj_xmzx.*
+
 import rx.Observable
 import rx.Observer
 import rx.android.schedulers.AndroidSchedulers
@@ -398,6 +399,15 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
                     isused = ktJhzjXmzxData.isused.toString()
                     issy = ktJhzjXmzxData.issy.toString()
                     tv_jhlx.setText(ktJhzjXmzxData.zjlxname)
+                    if(ktJhzjXmzxData.zjlxname.equals( "工作任务")){
+                        //此时的计划项目可以手动输入内容,不可以点击
+                        EditTextHelper.EditTextEnable(true, et_jhxm)
+                        ll_jhxm_choice.isEnabled = false
+                    }else{
+                        EditTextHelper.EditTextEnable(false, et_jhxm)
+                        ll_jhxm_choice.isEnabled = true
+                    }
+
                     et_jhxm.setText(ktJhzjXmzxData.items)
                     tv_khmc.setText(ktJhzjXmzxData.cname)
                     tv_dqjd.setText(ktJhzjXmzxData.gmmc)
