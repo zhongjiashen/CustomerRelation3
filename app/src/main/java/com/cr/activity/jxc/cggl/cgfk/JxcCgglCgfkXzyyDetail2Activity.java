@@ -133,10 +133,10 @@ public class JxcCgglCgfkXzyyDetail2Activity extends BaseActivity implements OnCl
         // if (null == object.get("orderid")) {
         double bcjs=Double.parseDouble(bcjsEditText.getText().toString());
         double wfje=Double.parseDouble(object.get("shouldpayamt").toString());
-        if(bcjs<0||bcjs>wfje){
-            showToastPromopt("本次结算金额必须小于等于未付款金额！");
-            return;
-        }
+//        if(bcjs<0||bcjs>wfje){
+//            showToastPromopt("本次结算金额必须小于等于未付款金额！");
+//            return;
+//        }
         object.put("bcjs", bcjsEditText.getText().toString());
         Intent intent = new Intent();
         intent.putExtra("object", (Serializable) object);

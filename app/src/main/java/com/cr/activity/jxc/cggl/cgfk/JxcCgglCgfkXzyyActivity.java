@@ -171,10 +171,10 @@ public class JxcCgglCgfkXzyyActivity extends BaseActivity implements
                         double bcjs=Double.parseDouble(map2.get("bcjs").toString());
 
                         double wfje=Double.parseDouble(map.get("shouldpayamt").toString());
-                        if(bcjs<0||bcjs>wfje){
-                            showToastPromopt("本次结算金额必须小于等于未付款金额！");
-                            return;
-                        }
+//                        if(bcjs<0||bcjs>wfje){
+//                            showToastPromopt("本次结算金额必须小于等于未付款金额！");
+//                            return;
+//                        }
                         map.put("bcjs", map2.get("bcjs"));
                         l.add(map);
                     }

@@ -73,17 +73,18 @@ class KtZjActivity: BaseActivity<BaseP>(){
                 showShortToast(et_jjh.hint.toString())
                 return@setTitleOnlicListener
             }
-            if(TextUtils.isEmpty(et_zj.text.toString())){
-                showShortToast(et_zj.hint.toString())
-                return@setTitleOnlicListener
-            }
-            if(TextUtils.isEmpty(et_mjh.text.toString())){
-                showShortToast(et_mjh.hint.toString())
-                return@setTitleOnlicListener
-            }
+//            if(TextUtils.isEmpty(et_zj.text.toString())){
+//                showShortToast(et_zj.hint.toString())
+//                return@setTitleOnlicListener
+//            }
+//            if(TextUtils.isEmpty(et_mjh.text.toString())){
+//                showShortToast(et_mjh.hint.toString())
+//                return@setTitleOnlicListener
+//            }
             var mParmMap = HashMap<String, Any?>()
             mParmMap.put("dbname", ShareUserInfo.getDbName(this))
-            mParmMap.put("mid", intent.getStringExtra("mid"))
+//            mParmMap.put("mid", intent.getStringExtra("mid"))
+            mParmMap.put("jhid", intent.getStringExtra("mid"))
             mParmMap.put("jhinfo", et_jjh.text.toString())//今日计划（本周、本月、本年）
             mParmMap.put("zwzj", et_zj.text.toString())// 总结内容
             mParmMap.put("nextjhinfo", et_mjh.text.toString())
