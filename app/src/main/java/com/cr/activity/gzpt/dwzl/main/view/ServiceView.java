@@ -102,9 +102,11 @@ public class ServiceView extends BaseView {
 
     @Override
     public void setData(List<Map<String, Object>> list) {
-        fwList.addAll(list);
-        fwAdapter.setList(fwList);
-        onLoadBf();
+        if(list!=null) {
+            fwList.addAll(list);
+            fwAdapter.setList(fwList);
+            onLoadBf();
+        }
     }
 
     /**

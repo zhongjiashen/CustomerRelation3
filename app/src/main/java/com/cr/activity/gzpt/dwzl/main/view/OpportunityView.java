@@ -110,9 +110,11 @@ public class OpportunityView extends BaseView {
 
     @Override
     public void setData(List<Map<String, Object>> list) {
-        jhList.addAll(list);
-        jhAdapter.setList(jhList);
-        onLoadJh();
+        if (list != null) {
+            jhList.addAll(list);
+            jhAdapter.setList(jhList);
+            onLoadJh();
+        }
     }
 
     /**

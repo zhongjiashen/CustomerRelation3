@@ -52,7 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	final static String noNetWork = "网络连接不可用，请检查网络！";// 没有网络的提示
 	final static String getDateException = "获取服务器数据失败！";// 获取数据异常提示
 	final static String noDate = "没有找到符合条件的数据";// 服务器获取的数据为空的提示
-
+	final static String nmyqx="没有查看该功能权限!";//没有查看该功能权限!
 	public int returnSuccessType = 0;// 用于区分调用的次数，以便在返回的时候分别给予应答（默认就一次）
 
 	public ProgressDialog progressDialog;// 弹出框进度条
@@ -342,9 +342,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 					Toast.LENGTH_SHORT).show();
 			break;
 		case 2:
-			Toast.makeText(BaseActivity.this, noDate, Toast.LENGTH_SHORT)
-					.show();
-			break;
+				Toast.makeText(BaseActivity.this, noDate, Toast.LENGTH_SHORT)
+						.show();
+				break;
+			case 3:
+				Toast.makeText(BaseActivity.this, nmyqx, Toast.LENGTH_SHORT)
+						.show();
+				break;
 		default:
 			break;
 		}

@@ -65,18 +65,20 @@ public class UnitView extends BaseView{
 
     @Override
     public  void setData(List<Map<String, Object>> list) {
-        khbhTextView.setText(list.get(0).get("code").toString());
-        khmcTextView.setText(list.get(0).get("cname").toString());
-        khdjTextView.setText(list.get(0).get("typename").toString());
-        khlxTextView.setText(list.get(0).get("khtypename").toString());
-        hylxTextView.setText(list.get(0).get("hylxname").toString());
-        khlyTextView.setText(list.get(0).get("khlyname").toString());
-        dqTextView.setText(list.get(0).get("areafullname").toString());
-        frdbTextView.setText(list.get(0).get("frdb").toString());
-        czTextView.setText(list.get(0).get("fax").toString());
-        dzTextView.setText(list.get(0).get("address").toString());
-        wzTextView.setText(list.get(0).get("cnet").toString());
-        bzTextView.setText(list.get(0).get("memo").toString());
+        if(list!=null) {
+            khbhTextView.setText(list.get(0).get("code").toString());
+            khmcTextView.setText(list.get(0).get("cname").toString());
+            khdjTextView.setText(list.get(0).get("typename").toString());
+            khlxTextView.setText(list.get(0).get("khtypename").toString());
+            hylxTextView.setText(list.get(0).get("hylxname").toString());
+            khlyTextView.setText(list.get(0).get("khlyname").toString());
+            dqTextView.setText(list.get(0).get("areafullname").toString());
+            frdbTextView.setText(list.get(0).get("frdb").toString());
+            czTextView.setText(list.get(0).get("fax").toString());
+            dzTextView.setText(list.get(0).get("address").toString());
+            wzTextView.setText(list.get(0).get("cnet").toString());
+            bzTextView.setText(list.get(0).get("memo").toString());
+        }
     }
     /**
      * 连接网络的操作(单位)

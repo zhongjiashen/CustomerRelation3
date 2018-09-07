@@ -105,9 +105,11 @@ public class VisitView extends BaseView {
 
     @Override
     public void setData(List<Map<String, Object>> list) {
-        bfList.addAll(list);
-        bfAdapter.setList(bfList);
-        onLoadBf();
+        if(list!=null) {
+            bfList.addAll(list);
+            bfAdapter.setList(bfList);
+            onLoadBf();
+        }
     }
 
     /**

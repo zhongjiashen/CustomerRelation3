@@ -24,8 +24,8 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.Serializable
-import java.util.ArrayList
-import java.util.HashMap
+import java.text.SimpleDateFormat
+import java.util.*
 
 class KtJxcCgglCgfkAddActivity : BaseActivity() {
     var time: Long = 0
@@ -51,6 +51,9 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
         fklx_edittext.setText("应付账款")
         fklxId = "0"
 
+        //单据日期应该默认为当天
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        djrq_edittext.setText(sdf.format(Date()))
 
         departmentid = ShareUserInfo.getKey(this, "departmentid")
         et_bm.setText(ShareUserInfo.getKey(this, "depname"))
@@ -212,7 +215,7 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
                         fkje_edittext.setText(b.toString() + "")
                     }
                 //资金账户选择
-                    5->{
+                    5 -> {
                         zjzh_edittext.setText(data.extras!!.getString("dictmc"))
                         zjzhId = data.extras!!.getString("id")
                     }

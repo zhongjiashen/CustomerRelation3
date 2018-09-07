@@ -108,9 +108,10 @@ public class ProjectView extends BaseView {
 
     @Override
     public void setData(List<Map<String, Object>> list) {
-        xmList.addAll(list);
-        xmAdapter.setList(xmList);
-
+        if(list!=null) {
+            xmList.addAll(list);
+            xmAdapter.setList(xmList);
+        }
 
     }
 

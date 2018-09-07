@@ -28,6 +28,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.project.AddProjectActivity;
 import com.update.actiity.sales.AddSalesOpportunitiesActivity;
+import com.update.utils.LogUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -425,6 +426,10 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 if (returnJson.equals("")) {
                     return;
                 }
+                if (returnJson.equals("nmyqx")) {
+                    showToastPromopt(3);
+                    return;
+                }
                 dwObject = ((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson))
                         .get(0);
                 khdjid = dwObject.get("typeid").toString();
@@ -435,66 +440,98 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
             case 1:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
-                } else {
+                    return;
+                }
+                if (returnJson.equals("nmyqx")) {
+                    showToastPromopt(3);
+                    return;
+                }
                     lxrView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
-                }
+
 
                 break;
             case 2:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
-                } else {
+                    return;
+                }
+                if (returnJson.equals("nmyqx")) {
+                    showToastPromopt(3);
+                    return;
+                }
                     bfView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
 
-                }
+
 
                 break;
             case 3:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
-                } else {
+                    return;
+                }
+                if (returnJson.equals("nmyqx")) {
+                    showToastPromopt(3);
+                    return;
+                }
                     jhView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
 
-                }
+
 
                 break;
             case 4:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
-                } else {
+                    return;
+                }
+                if (returnJson.equals("nmyqx")) {
+                    showToastPromopt(3);
+                    return;
+                }
                     fwView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
-                }
+
 
                 break;
             case 5:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
-                } else {
+                    return;
+                }
+                if (returnJson.equals("nmyqx")) {
+                    showToastPromopt(3);
+                    return;
+                }
                     ddView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
-                }
 
                 break;
             case 6:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
-//                    Toast.makeText(GzptDwzlActivity.this,"fasf",Toast.LENGTH_SHORT).show();
-                } else {
+                    return;
+                }
+                if (returnJson.equals("nmyqx")) {
+                    showToastPromopt(3);
+                    return;
+                }
                     xmView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
-                }
+
             case 7:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
-//                    Toast.makeText(GzptDwzlActivity.this,"fasf",Toast.LENGTH_SHORT).show();
-                } else {
+                    return;
+                }
+                if (returnJson.equals("nmyqx")) {
+                    showToastPromopt(3);
+                    return;
+                }
                     kdView.setData((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
-                }
+
 
                 break;
             default:

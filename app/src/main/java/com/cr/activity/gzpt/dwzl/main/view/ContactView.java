@@ -105,9 +105,11 @@ public class ContactView extends BaseView {
 
     @Override
     public void setData(List<Map<String, Object>> list) {
-        lxrList.addAll(list);
-        lxrAdapter.setList(lxrList);
-        onLoadLxr();
+        if(list!=null) {
+            lxrList.addAll(list);
+            lxrAdapter.setList(lxrList);
+            onLoadLxr();
+        }
     }
 
     /**

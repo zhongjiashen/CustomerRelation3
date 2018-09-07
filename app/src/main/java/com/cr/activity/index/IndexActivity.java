@@ -312,8 +312,8 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //        xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
 //        xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入
 
-//        ckglIndexModelList.remove(1);//屏蔽库存盘点
-        ckglIndexModelList.remove(2);//屏蔽存货调价
+        ckglIndexModelList.remove(1);//屏蔽库存盘点
+//        ckglIndexModelList.remove(2);//屏蔽存货调价
         ckglIndexModelList.remove(3);//屏蔽库存变动
 
 

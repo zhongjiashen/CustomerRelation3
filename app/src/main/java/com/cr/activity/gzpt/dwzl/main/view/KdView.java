@@ -142,9 +142,11 @@ public class KdView extends BaseView {
 
     @Override
     public void setData(List<Map<String, Object>> list) {
-        kdList.addAll(list);
-        kdAdapter.setList(kdList);
-        onLoadBf();
+        if (list != null) {
+            kdList.addAll(list);
+            kdAdapter.setList(kdList);
+            onLoadBf();
+        }
     }
 
     /**

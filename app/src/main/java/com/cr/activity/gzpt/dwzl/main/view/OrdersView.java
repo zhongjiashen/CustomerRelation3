@@ -101,9 +101,11 @@ public class OrdersView extends BaseView{
 
     @Override
     public  void setData(List<Map<String, Object>> list) {
-        ddList.addAll(list);
-        ddAdapter.setList(ddList);
-        onLoadBf();
+        if(list!=null) {
+            ddList.addAll(list);
+            ddAdapter.setList(ddList);
+            onLoadBf();
+        }
     }
     /**
      * 连接网络的操作(订单)

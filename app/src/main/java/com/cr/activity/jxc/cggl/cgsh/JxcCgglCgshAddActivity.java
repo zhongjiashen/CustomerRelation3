@@ -767,7 +767,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             jsonObject.put("ispp", fklxId);
             jsonObject.put("paytypeid", jsfsId);
             jsonObject.put("bankid", zjzhId);
-            jsonObject.put("receipt", fkjeEdittext.getText().toString());
+            jsonObject.put("receipt", fkjeEdittext.getText().toString());//付款金额
             jsonObject.put("privilege", "");
             String hjje = hjjeEdittext.getText().toString();
             jsonObject.put("totalamt", hjje.replace("￥", ""));
