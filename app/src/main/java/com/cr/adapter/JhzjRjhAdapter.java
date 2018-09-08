@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cr.activity.JhzjJrzjActivity;
 import com.cr.activity.khgl.jhzj.KtKhglJhzjXzxmActivity;
 import com.cr.activity.khgl.jhzj.KtZjActivity;
 import com.cr.model.JHRW;
@@ -78,6 +79,7 @@ public class JhzjRjhAdapter extends BaseAdapter {
 			public void onClick(View arg0) {
 				Intent intent=new Intent(activity,KtZjActivity.class);
 				intent.putExtra("mid",sb.getId());
+				intent.putExtra("shzt",sb.getShzt());
 				activity.startActivity(intent);
 //				Intent intent=new Intent(activity,JhzjJrzjActivity.class);
 //				intent.putExtra("jhid",sb.getId());
