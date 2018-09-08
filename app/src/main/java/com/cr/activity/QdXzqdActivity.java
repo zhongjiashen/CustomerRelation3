@@ -20,6 +20,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
 import com.baidu.location.Poi;
+import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.tools.PicUtil;
 import com.cr.tools.ServerURL;
@@ -359,7 +360,9 @@ public class QdXzqdActivity extends BaseActivity implements OnClickListener, Tak
                 searchDate2();
                 break;
             case R.id.kh:
-                intent.setClass(activity, CommonXzkhActivity.class);
+                intent.setClass(this, CommonXzdwActivity.class);
+                intent.putExtra("type","1");
+//                intent.setClass(activity, CommonXzkhActivity.class);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.pz:

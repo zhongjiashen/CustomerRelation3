@@ -41,8 +41,18 @@ class KtTjfxLrbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
 
     override fun initVariables() {
         presenter = BaseP(this, mActivity)
+
+        val aCalendar = Calendar.getInstance(Locale.CHINA)
+        val day = aCalendar.getActualMaximum(Calendar.DATE)
+        val rq = DateUtil.DateToString(mDate, "yyyy-MM-")
         mQsrq = DateUtil.DateToString(mDate, "yyyy-MM-") + "01"
-        mZzrq = DateUtil.DateToString(mDate, "yyyy-MM-dd")
+        mZzrq
+        if (day > 9)
+            mZzrq = rq + day
+        else
+            mZzrq = rq + "0" + day
+
+
         mParmMap["dbname"] = ShareUserInfo.getDbName(this)
         mParmMap["pagesize"] = "10"
         http(0)
@@ -76,14 +86,14 @@ class KtTjfxLrbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
                     holder.tvLjje.text = "累计金额:" + data.endbalance
 
                     holder.itemView.setOnClickListener {
-                        if(data.flag==1) {
+                        if (data.flag == 1) {
                             startActivity(Intent(mActivity, KtTjfxCwbbmxActivity::class.java)
                                     .putExtra("title", data.name)
                                     .putExtra("subid", data.subid)
                                     .putExtra("qsrq", mQsrq)
                                     .putExtra("zzrq", mZzrq)
-                                 )
-                        }else{
+                            )
+                        } else {
                             showShortToast("不能查看该科目明细!")
                         }
                     }

@@ -41,8 +41,16 @@ class KtTjfxFzbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
 
     override fun initVariables() {
         presenter = BaseP(this, mActivity)
+        val aCalendar = Calendar.getInstance(Locale.CHINA)
+        val day = aCalendar.getActualMaximum(Calendar.DATE)
+        val rq = DateUtil.DateToString(mDate, "yyyy-MM-")
         mQsrq = DateUtil.DateToString(mDate, "yyyy-MM-") + "01"
-        mZzrq = DateUtil.DateToString(mDate, "yyyy-MM-dd")
+        mZzrq
+        if (day > 9)
+            mZzrq = rq + day
+        else
+            mZzrq = rq + "0" + day
+
         mParmMap["dbname"] = ShareUserInfo.getDbName(this)
         mParmMap["pagesize"] = "10"
         http(0)
