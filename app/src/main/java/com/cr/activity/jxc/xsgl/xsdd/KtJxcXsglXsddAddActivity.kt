@@ -108,8 +108,13 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
          */
         gys_edittext.setOnClickListener {
             val intent = Intent()
-            intent.setClass(this, CommonXzkhActivity::class.java)
+            intent.setClass(this, CommonXzdwActivity::class.java)
+            intent.putExtra("type","1")
             startActivityForResult(intent, 1)
+
+//            val intent = Intent()
+//            intent.setClass(this, CommonXzkhActivity::class.java)
+//            startActivityForResult(intent, 1)
         }
         //交货日期
         et_jhrq.setOnClickListener {

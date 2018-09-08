@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshActivity;
@@ -206,8 +207,8 @@ public class AddLogisticsActivity extends BaseActivity {
                         .putExtra("kind", 3), 11);
                 break;
             case R.id.ll_logistics_company_choice://物流公司选择
-                startActivityForResult(new Intent(this, ChooseLogisticsCompanyActivity.class)
-                        .putExtra("kind", 3), 12);
+                startActivityForResult(new Intent(this, CommonXzdwActivity.class)
+                        .putExtra("type", "6"), 12);
                 break;
             case R.id.ll_document_type_choice://单据类型选择
                 startActivityForResult(new Intent(this, NetworkDataSingleOptionActivity.class)

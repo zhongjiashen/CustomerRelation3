@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXztklxActivity;
@@ -265,11 +266,15 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
                 break;
             case R.id.gys_edittext:
-                intent.setClass(this, CommonXzkhActivity.class);
+                intent.setClass(this, CommonXzdwActivity.class);
+                intent.putExtra("type","1");
+//                intent.setClass(this, CommonXzkhActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.gys2_edittext:
-                intent.setClass(this, CommonXzkhActivity.class);
+                intent.setClass(this, CommonXzdwActivity.class);
+                intent.putExtra("type","1");
+//                intent.setClass(this, CommonXzkhActivity.class);
                 startActivityForResult(intent, 10);
                 break;
             // case R.id.lxr_edittext:
