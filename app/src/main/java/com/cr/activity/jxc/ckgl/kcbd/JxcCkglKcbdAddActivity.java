@@ -184,10 +184,10 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
             showToastPromopt("请选择单据日期");
             return;
         }
-        if (jbrEdittext.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
+//        if (jbrEdittext.getText().toString().equals("")) {
+//            showToastPromopt("请选择业务员");
+//            return;
+//        }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
         try {

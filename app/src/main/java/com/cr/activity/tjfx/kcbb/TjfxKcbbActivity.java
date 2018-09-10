@@ -140,6 +140,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         }
         if (returnJson.equals("")) {
             showToastPromopt(2);
+
         } else {
             list.addAll((List<Map<String, Object>>) PaseJson
                     .paseJsonToObject(returnJson));
@@ -216,6 +217,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                 case 18://扫一扫选择商品                    currentPage = 1;
                     currentPage = 1;
                     barcode = data.getStringExtra("qr");
+                    list.clear();
                     searchDate();
                     break;
             }
