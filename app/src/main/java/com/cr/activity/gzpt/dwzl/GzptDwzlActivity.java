@@ -65,6 +65,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
     private Map<String, Object> dwObject = new HashMap<String, Object>();
     TabLayout tabLayout;
 
+    private String mTypesname;// 单位类型
+
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,24 +147,29 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         });
         switch (types) {
             case "1"://客户
+                mTypesname="客户";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "开单", "项目"};
                 break;
             case "2"://供应商
+                mTypesname="供应商";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "开单", "项目"};
                 //设置
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
                 break;
             case "3"://竞争对手
+                mTypesname="竞争对手";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
                 //设置
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
                 break;
             case "4"://渠道
+                mTypesname="渠道";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "开单", "项目"};
                 //设置可以滑动
                 tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
                 break;
             case "5"://员工
+                mTypesname="员工";
 //            dwTextView.setText("基本信息");
                 myAdapter.mTitles = new String[]{"基本信息", "拜访", "项目"};
                 //设置
@@ -171,6 +178,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 view.Visibility();
                 break;
             case "6"://物流
+                mTypesname="物流";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
                 //设置
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -402,8 +410,10 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(intent, 5);
                 break;
             case R.id.xzxm_textview:
+
                 startActivityForResult(new Intent(this, AddProjectActivity.class)
                                 .putExtra("clientid", clientId)
+                                .putExtra("typesname", mTypesname)// 单位类型
                                 .putExtra("clientname", dwObject.get("cname").toString())
                         , 6);
 //                intent.setClass(this, XzxmActivity.class);
