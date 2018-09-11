@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
+import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -346,6 +347,7 @@ public class InstallationDetailsActivity extends BaseActivity {
             case 4:
                 LogUtils.e(data.toString());
                 if (data.toString().equals("")) {
+                    presenter.post(0, ServerURL.BILLDETAIL, mParmMap);
                     btBottom.setText("弃审");
                     tvAuditStatus.setText("已审核");
                     titlebar.setRightText("");
@@ -356,6 +358,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                 break;
             case 5:
                 if (data.toString().equals("")) {
+                    presenter.post(0, ServerURL.BILLDETAIL, mParmMap);
                     tvAuditStatus.setText("未审核");
                     btBottom.setText("审核");
                     titlebar.setRightText("保存");
@@ -497,6 +500,14 @@ public class InstallationDetailsActivity extends BaseActivity {
                 selectTime(1);
                 break;
             case R.id.bt_bottom://审核/弃审
+//                intent.putExtra("tb", "tb_installjobdetail");
+//                intent.putExtra("opid", object.get("opid").toString());
+//                intent.putExtra("billid", this.getIntent().getExtras().getString("billid"));
+//                intent.setClass(activity, JxcCgglCgddShlcActivity.class);
+//                startActivityForResult(new Intent(mActivity,JxcCgglCgddShlcActivity.class)
+//                        .putExtra("tb", "tb_preturn")
+//                        .putExtra("opid", object.get("opid").toString())
+//                        .putExtra("billid", this.getIntent().getExtras().getString("billid")), 9);
 //                Map map = new ArrayMap<>();
 //                map.put("dbname", ShareUserInfo.getDbName(this));
 //                map.put("tabname", "tb_installjob");

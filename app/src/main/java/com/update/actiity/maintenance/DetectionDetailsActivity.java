@@ -354,6 +354,7 @@ public class DetectionDetailsActivity extends BaseActivity {
             case 4:
                 LogUtils.e(data.toString());
                 if (data.toString().equals("")) {
+                    presenter.post(0, ServerURL.BILLDETAIL, mParmMap);
                     btBottom.setText("弃审");
                     tvAuditStatus.setText("已审核");
                     titlebar.setRightText("");
@@ -364,6 +365,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                 break;
             case 5:
                 if (data.toString().equals("")) {
+                    presenter.post(0, ServerURL.BILLDETAIL, mParmMap);
                     tvAuditStatus.setText("未审核");
                     btBottom.setText("审核");
                     titlebar.setRightText("保存");
