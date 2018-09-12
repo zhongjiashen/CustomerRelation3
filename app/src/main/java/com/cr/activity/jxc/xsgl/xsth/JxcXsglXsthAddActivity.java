@@ -228,19 +228,14 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
         etFplx.setText("收据");
         billtypeid = "1";
         mTaxrate = "0";
-    }
 
-    /**
-     * 连接网络的操作(查询主表的内容)
-     */
-    private void searchDate() {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("parms", "XSTH");
-        parmMap.put("billid", billid);
-        findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
-    }
+        fklxEdittext.setText("冲抵往来");
+        fklxId = "F";
+        tkjeEdittext.setText("0");
+        EditTextHelper.EditTextEnable(false, tkjeEdittext);
 
+        getMrck();
+    }
     @OnClick({R.id.iv_scan, R.id.save_imagebutton, R.id.mTogBtn, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.et_fplx, R.id.xm_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.hjje_edittext, R.id.tkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -662,6 +657,27 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
 
         }
     }
+    /**
+     * 获取默认仓库信息
+     */
+    private void getMrck() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("zdbm", "STORE");
+        findServiceData2(4, ServerURL.DATADICT, parmMap, false);
+    }
+    /**
+     * 连接网络的操作(查询主表的内容)
+     */
+    private void searchDate() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("parms", "XSTH");
+        parmMap.put("billid", billid);
+        findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
+    }
+
+
 
 
     /**
@@ -829,6 +845,21 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 list.add(map);
                 adapter.notifyDataSetChanged();
                 xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                break;
+            case 4://获取默认仓库信息
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+                } else {
+                    List<Map<String, Object>> ckList= (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+                    if(ckList.size()==1){
+                        rkckEdittext.setText(ckList.get(0).get("dictmc").toString());
+                        rkckId =  ckList.get(0).get("id").toString();
+                        ckEdittext.setText(ckList.get(0).get("dictmc").toString());
+                        ckId =  ckList.get(0).get("id").toString();
+
+                    }
+
+                }
                 break;
         }
         if (returnSuccessType == 1) {// 管理单据成功后把信息填到里面（主表）
