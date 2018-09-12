@@ -147,29 +147,29 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
         });
         switch (types) {
             case "1"://客户
-                mTypesname="客户";
+                mTypesname = "客户";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "开单", "项目"};
                 break;
             case "2"://供应商
-                mTypesname="供应商";
+                mTypesname = "供应商";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "开单", "项目"};
                 //设置
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
                 break;
             case "3"://竞争对手
-                mTypesname="竞争对手";
+                mTypesname = "竞争对手";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
                 //设置
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
                 break;
             case "4"://渠道
-                mTypesname="渠道";
+                mTypesname = "渠道";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "机会", /*"服务",*/ "订单", "开单", "项目"};
                 //设置可以滑动
                 tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
                 break;
             case "5"://员工
-                mTypesname="员工";
+                mTypesname = "员工";
 //            dwTextView.setText("基本信息");
                 myAdapter.mTitles = new String[]{"基本信息", "拜访", "项目"};
                 //设置
@@ -178,7 +178,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 view.Visibility();
                 break;
             case "6"://物流
-                mTypesname="物流";
+                mTypesname = "物流";
                 myAdapter.mTitles = new String[]{"单位", "联系人", "拜访", "项目"};
                 //设置
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -456,8 +456,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                     showToastPromopt(3);
                     return;
                 }
-                    lxrView.setData((List<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson));
+                lxrView.setData((List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson));
 
 
                 break;
@@ -470,9 +470,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                     showToastPromopt(3);
                     return;
                 }
-                    bfView.setData((List<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson));
-
+                bfView.setData((List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson));
 
 
                 break;
@@ -485,9 +484,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                     showToastPromopt(3);
                     return;
                 }
-                    jhView.setData((List<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson));
-
+                jhView.setData((List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson));
 
 
                 break;
@@ -500,8 +498,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                     showToastPromopt(3);
                     return;
                 }
-                    fwView.setData((List<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson));
+                fwView.setData((List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson));
 
 
                 break;
@@ -514,8 +512,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                     showToastPromopt(3);
                     return;
                 }
-                    ddView.setData((List<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson));
+                ddView.setData((List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson));
 
                 break;
             case 6:
@@ -527,9 +525,9 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                     showToastPromopt(3);
                     return;
                 }
-                    xmView.setData((List<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson));
-
+                xmView.setData((List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson));
+                break;
             case 7:
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
@@ -539,10 +537,8 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                     showToastPromopt(3);
                     return;
                 }
-                    kdView.setData((List<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson));
-
-
+                kdView.setData((List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson));
                 break;
             default:
                 break;

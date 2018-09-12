@@ -446,7 +446,7 @@
 
                 <TextView
                     style="@style/font_default"
-                    android:text="代收账户" />
+                    android:text="代付账户" />
 
                 <EditText
                     android:id="@+id/et_dszh"
@@ -459,7 +459,7 @@
 
                 <TextView
                     style="@style/font_default"
-                    android:text="代收金额" />
+                    android:text="代付金额" />
 
                 <EditText
                     android:id="@+id/et_dsje"
@@ -471,7 +471,7 @@
 
                 <TextView
                     style="@style/font_default"
-                    android:text="收款合计" />
+                    android:text="付款合计" />
 
                 <EditText
                     android:id="@+id/et_skhj"

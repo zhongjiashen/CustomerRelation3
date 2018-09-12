@@ -83,6 +83,7 @@ public class JhzjZdyjhAdapter extends BaseAdapter {
 			public void onClick(View arg0) {
 				Intent intent=new Intent(activity,KtZjActivity.class);
 				intent.putExtra("mid",sb.getId());
+				intent.putExtra("shzt",sb.getShzt());
 				intent.putExtra("kind",3);
 				activity.startActivity(intent);
 //				Intent intent=new Intent(activity,JhzjJrzjActivity.class);
