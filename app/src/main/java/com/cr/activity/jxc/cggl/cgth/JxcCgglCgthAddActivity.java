@@ -229,6 +229,10 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
         mTaxrate = "0";
 
 
+        //s设置默认退款类型
+        fklxEdittext.setText("冲抵往来");
+        fklxId = "0";
+        getMrck();
     }
 
     /**
@@ -672,6 +676,17 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
     }
 
     /**
+     * 获取默认仓库信息
+     */
+    private void getMrck() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("zdbm", "STORE");
+        findServiceData2(4, ServerURL.DATADICT, parmMap, false);
+    }
+
+
+    /**
      * 连接网络的操作（查询从表的内容）
      */
     private void searchDate2() {
@@ -843,6 +858,19 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 list.add(map);
                 adapter.notifyDataSetChanged();
                 xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                break;
+
+            case 4://获取默认仓库信息
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+                } else {
+                    List<Map<String, Object>> ckList= (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+                    if(ckList.size()==1){
+                        rkckEdittext.setText(ckList.get(0).get("dictmc").toString());
+                        rkckId = ckList.get(0).get("id").toString();
+                    }
+
+                }
                 break;
         }
         if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）

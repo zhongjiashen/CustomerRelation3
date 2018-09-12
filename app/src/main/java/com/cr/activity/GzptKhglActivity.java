@@ -1,8 +1,10 @@
 package com.cr.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,15 +26,20 @@ import com.cr.activity.gzpt.dwzl.GzptDwzlDwBjdwActivity;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.KtAreaSelectionActivity;
 import com.update.actiity.choose.KtRegionMainActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
+import com.update.model.DataDictionaryData;
+import com.update.model.KtRegionData;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -69,12 +76,18 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
     private String areatypeid;//区域ID
     private String areaid;//省ID
     private String cityid;//市ID
-    private String  countyid;//县区ID
+    private String countyid;//县区ID
     private CheckBox xmjdCheckBox, bfCheckBox;
     private RadioButton qbRadioButton, yxRadioButton, wxRadioButton;
 //    private ImageButton fhButton;
 
     // private int selectIndex;
+
+
+    private List<KtRegionData> mProvinceDatas;
+    private List<KtRegionData> mCityDatas;
+    private List<KtRegionData> mAreaDatas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -243,7 +256,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("types", mTypes);
 
-        parmMap.put("typeid",typeid );
+        parmMap.put("typeid", typeid);
         parmMap.put("areatypeid", areatypeid);
         parmMap.put("areaid", areaid);
         parmMap.put("cityid", cityid);
@@ -266,15 +279,47 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         startActivity(intent);
     }
 
+
+    private void getAddressData(String levels, String parentid, int returnSuccessType) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("levels", levels);
+        parmMap.put("parentid", parentid);
+        findServiceData(returnSuccessType, ServerURL.AREALIST, parmMap);
+    }
+
     @Override
     public void executeSuccess() {
-        if (returnSuccessType == 0) {
-
-        } else if (returnSuccessType == 1) {
-
-        } else if (returnSuccessType == 2) {
-
+        if (returnJson.equals("")) {
+            showToastPromopt(2);
+            return;
         }
+        Gson gson = new Gson();
+        switch (returnSuccessType) {
+            case 0:
+                mProvinceDatas = gson.fromJson(returnJson,
+                        new TypeToken<List<KtRegionData>>() {
+                        }.getType());
+                mProvinceDatas.add(0,new KtRegionData("0","全部"));
+                showAddressDialog("选择省",mProvinceDatas,0);
+                break;
+            case 1:
+                mCityDatas = gson.fromJson(returnJson,
+                        new TypeToken<List<KtRegionData>>() {
+                        }.getType());
+                mCityDatas.add(0,new KtRegionData("0","全部"));
+                showAddressDialog("选择市", mCityDatas,1);
+                break;
+            case 2:
+                mAreaDatas = gson.fromJson(returnJson,
+                        new TypeToken<List<KtRegionData>>() {
+                        }.getType());
+                mAreaDatas.add(0,new KtRegionData("0","全部"));
+                showAddressDialog("选择区（县）",mAreaDatas,2);
+                break;
+        }
+
+
     }
 
     @OnClick({R.id.ll_dj, R.id.ll_qy, R.id.ll_dq})
@@ -305,7 +350,12 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(new Intent(activity, KtAreaSelectionActivity.class), 4);
                 break;
             case R.id.ll_dq://地区选择
-                startActivityForResult(new Intent(activity, KtRegionMainActivity.class), 5);
+//                if(mProvinceDatas==null||mProvinceDatas.size()==0) {
+                    getAddressData("2", "0", 0);
+//                }else {
+//
+//                }
+//                startActivityForResult(new Intent(activity, KtRegionMainActivity.class), 5);
                 break;
         }
     }
@@ -433,7 +483,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("zdbm", "XMGM");
-        findServiceData2(1, ServerURL.DATADICT, parmMap, false);
+        findServiceData2(4, ServerURL.DATADICT, parmMap, false);
     }
 
     @Override
@@ -471,7 +521,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                     tvDj.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                     break;
                 case 4://区域
-                    areatypeid= data.getStringExtra("id");
+                    areatypeid = data.getStringExtra("id");
                     tvQy.setText(data.getStringExtra("name"));
                     break;
                 case 5:
@@ -479,9 +529,9 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                     /*areaid  省ID
                     cityid 市ID
                     countyid 县区ID*/
-                    areaid=data.getStringExtra("provinceId");
-                    cityid=data.getStringExtra("cityId");
-                    countyid=data.getStringExtra("areaId");
+                    areaid = data.getStringExtra("provinceId");
+                    cityid = data.getStringExtra("cityId");
+                    countyid = data.getStringExtra("areaId");
                     break;
 
             }
@@ -489,5 +539,53 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+
+    /**
+     * 选择省
+     */
+    private void showAddressDialog(String title, final List<KtRegionData> list, final int kind) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(title);
+
+        String[] strings = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            strings[i] = list.get(i).getCname();
+        }
+        // 设置一个下拉的列表选择项
+        builder.setItems(strings, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (kind) {
+                    case 0:
+                        areaid = list.get(which).getId();
+                        if (areaid.equals("0")) {
+                            tvDq.setText("全部");
+                            cityid = "0";
+                            countyid = "0";
+                        }else {
+                            tvDq.setText(list.get(which).getCname());
+                            getAddressData("3",areaid,1);
+                        }
+                        break;
+                    case 1:
+                        cityid = list.get(which).getId();
+                        if (areaid.equals("0")) {
+                            tvDq.setText(tvDq.getText().toString()+"-"+list.get(which).getCname());
+                            countyid = "0";
+                        }else {
+                            tvDq.setText(tvDq.getText().toString()+"-"+list.get(which).getCname());
+                            getAddressData("4",areaid,2);
+                        }
+                        break;
+                    case 2:
+                        countyid = list.get(which).getId();
+                        tvDq.setText(tvDq.getText().toString()+"-"+list.get(which).getCname());
+
+                        break;
+                }
+            }
+        });
+        builder.show();
+    }
 
 }

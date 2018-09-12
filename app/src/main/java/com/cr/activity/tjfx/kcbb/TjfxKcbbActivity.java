@@ -124,6 +124,9 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         findServiceData2(0, ServerURL.STOREQUERYRPT, parmMap, false);
     }
 
+    private void fenlei(){}
+
+
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {

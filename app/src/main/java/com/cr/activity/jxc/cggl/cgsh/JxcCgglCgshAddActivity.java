@@ -167,7 +167,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         ButterKnife.bind(this);
         addFHMethod();
         initActivity();
-        // searchDate();
+//         searchDate();
+        getMrck();
     }
 
     /**
@@ -232,9 +233,11 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         billtypeid = "1";
         mTaxrate = "0";
 
+
+        fklxEdittext.setText("往来结算");
+        fklxId = "0";
+
         EditTextHelper.EditTextEnable(true, etDsje);
-
-
         fkjeEdittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -714,6 +717,18 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
         }
     }
 
+
+    /**
+     * 获取默认仓库信息
+     */
+    private void getMrck() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("zdbm", "STORE");
+        findServiceData2(4, ServerURL.DATADICT, parmMap, false);
+    }
+
+
     /**
      * 连接网络的操作(保存)
      */
@@ -864,6 +879,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     showToastPromopt("保存失败" + returnJson.substring(5));
                 }
                 break;
+
             case 3: //扫一扫选择商品
                 Map<String, Object> map = ((ArrayList<Map<String, Object>>) PaseJson
                         .paseJsonToObject(returnJson)).get(0);
@@ -885,6 +901,19 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 list.add(map);
                 adapter.notifyDataSetChanged();
                 xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                break;
+
+            case 4://获取默认仓库信息
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+                } else {
+                    List<Map<String, Object>> ckList= (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+                    if(ckList.size()==1){
+                        rkckEdittext.setText(ckList.get(0).get("dictmc").toString());
+                        rkckId = ckList.get(0).get("id").toString();
+                    }
+
+                }
                 break;
         }
         if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
