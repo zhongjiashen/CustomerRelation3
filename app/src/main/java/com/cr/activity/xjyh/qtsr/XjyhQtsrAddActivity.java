@@ -71,6 +71,7 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
     private String xmId;
     private long time;
     private String mDepartmentid;//部门ID
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -143,7 +144,18 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
         mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
-        jbrId =  ShareUserInfo.getKey(this, "empid");
+        jbrId = ShareUserInfo.getKey(this, "empid");
+
+        jslxEditText.setText("往来结算");
+        jslxId = "0";
+        fkjeEditText.setText("0");
+        fkjeEditText.setEnabled(false);
+        zjzhEditText.setEnabled(false);
+        fkfsEditText.setEnabled(false);
+        zjzhEditText.setText("");
+        zjzhId = "";
+        fkfsEditText.setText("");
+        fkfsId = "";
     }
 
     @OnClick(R.id.et_bm)
@@ -202,7 +214,7 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
                 break;
             case R.id.xm_edittext:
                 startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
-                               ,
+                        ,
                         12);
 //                intent.setClass(activity, XmActivity.class);
 //                startActivityForResult(intent, 12);

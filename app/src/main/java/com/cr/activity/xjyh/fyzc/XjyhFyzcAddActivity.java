@@ -161,6 +161,18 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
         jbrId = ShareUserInfo.getKey(this, "empid");
+
+
+        jslxEditText.setText("往来结算");
+        jslxId = "0";
+        fkjeEditText.setText("0");
+        fkjeEditText.setEnabled(false);
+        fkfsEditText.setEnabled(false);
+        zjzhEditText.setEnabled(false);
+        fkfsEditText.setText("");
+        zjzhEditText.setText("");
+        fkfsId = "";
+        zjzhId = "";
     }
 
 
@@ -179,17 +191,17 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                 intent.putExtra("type", "0");//
                 startActivityForResult(intent, 1);
                 break;
-            case R.id.jslx_edittext:
+            case R.id.jslx_edittext://结算类型
                 intent.setClass(activity, CommonXzzdActivity.class);
                 intent.putExtra("type", "FKLX");
                 startActivityForResult(intent, 4);
                 break;
-            case R.id.zjzh_edittext:
+            case R.id.zjzh_edittext://资金账户
                 intent.setClass(activity, CommonXzzdActivity.class);
                 intent.putExtra("type", "BANK");
                 startActivityForResult(intent, 3);
                 break;
-            case R.id.fkfs_edittext:
+            case R.id.fkfs_edittext://付款方式
                 intent.setClass(activity, CommonXzzdActivity.class);
                 intent.putExtra("type", "PAYTYPE");
                 startActivityForResult(intent, 2);
@@ -305,7 +317,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                         map.put("ietypeid", d.get("ietypeid"));
                         map.put("initamt", d.get("initamt"));
                         map.put("taxrate", mTaxrate);
-                        Double amount=(Double.parseDouble(mTaxrate) + 100) * Double.parseDouble(d.get("initamt").toString()) / 100;
+                        Double amount = (Double.parseDouble(mTaxrate) + 100) * Double.parseDouble(d.get("initamt").toString()) / 100;
                         map.put("amount", FigureTools.sswrFigure(amount));
                         hjfy += amount;
                         list.set(i, map);

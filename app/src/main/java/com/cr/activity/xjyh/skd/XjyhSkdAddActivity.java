@@ -106,6 +106,9 @@ public class XjyhSkdAddActivity extends BaseActivity implements OnClickListener 
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
         jbrId =  ShareUserInfo.getKey(this, "empid");
+
+        fklxEditText.setText("往来收款");
+        fklxId ="0";
     }
 
 
@@ -132,7 +135,7 @@ public class XjyhSkdAddActivity extends BaseActivity implements OnClickListener 
                 intent.putExtra("type", "BANK");
                 startActivityForResult(intent, 3);
                 break;
-            case R.id.fklx_edittext:
+            case R.id.fklx_edittext://收款类型
                 intent.setClass(activity, CommonXzzdActivity.class);
                 intent.putExtra("type", "SKDFKLX");
                 startActivityForResult(intent, 4);
