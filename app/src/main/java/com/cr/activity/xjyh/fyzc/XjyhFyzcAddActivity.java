@@ -180,7 +180,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
     public void onClick(View arg0) {
         Intent intent = new Intent();
         switch (arg0.getId()) {
-            case R.id.xzzc_linearlayout:
+            case R.id.xzzc_linearlayout://新增支出
                 intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("billtypeid", billtypeid);
                 intent.setClass(this, KtXjyhFyzcAddZcActivity.class);
