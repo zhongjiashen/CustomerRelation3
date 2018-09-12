@@ -266,6 +266,7 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
                 mWlxxData.setIsnotice(object.get("isnotice").toString());//通知放货 0否 1是
 
             }
+            etSkhj.setText(object.get("sumamt").toString());//收款合计
             etDszh.setText(object.get("proxybankname").toString());//代收账户
             etDsje.setText(object.get("proxyamt").toString());//代收金额
             showZdr(object);
