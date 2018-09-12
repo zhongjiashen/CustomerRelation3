@@ -139,6 +139,9 @@ public class NetworkDataSingleOptionActivity extends BaseActivity {
         mList = gson.fromJson((String) data,
                 new TypeToken<List<DataDictionaryData>>() {
                 }.getType());
+        if(getIntent().getBooleanExtra("isAll",false)){
+            mList.add(new DataDictionaryData(0,"全部"));
+        }
         rvList.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder,DataDictionaryData>( mList) {
 //
             @Override

@@ -78,6 +78,7 @@ class KtAreaSelectionActivity : BaseActivity<BaseP>() {
         mList!!.addAll(gson.fromJson<ArrayList<KtAreaData>>(data as String,
                 object : TypeToken<ArrayList<KtAreaData>>() {
                 }.type))
+        mList.add(KtAreaData("0", "全部"))
         mAdapter.notifyDataSetChanged()
 
 //

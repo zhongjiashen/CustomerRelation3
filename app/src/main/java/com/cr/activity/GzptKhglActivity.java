@@ -344,6 +344,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                         break;
 
                 }
+                intent.putExtra("isAll", true);
                 startActivityForResult(intent, 3);
                 break;
             case R.id.ll_qy://区域选择

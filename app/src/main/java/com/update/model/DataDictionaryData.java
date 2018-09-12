@@ -25,6 +25,13 @@ public class DataDictionaryData {
     @SerializedName("dictmc")
     private String dictmc;
 
+    public DataDictionaryData(int id, String dictmc) {
+        this.id = id;
+        this.dictmc = dictmc;
+    }
+
+
+
     public void setId(int id) {
         this.id = id;
     }
