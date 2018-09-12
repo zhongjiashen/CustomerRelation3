@@ -248,7 +248,14 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
 
         sklxEdittext.setText("往来结算");
         sklxId  = "0";
-
+        skjeEdittext.setText("0");
+        skjeEdittext.setEnabled(false);
+        jsfsEdittext.setEnabled(false);
+        zjzhEdittext.setEnabled(false);
+        jsfsEdittext.setText("");
+        zjzhEdittext.setText("");
+        jsfsId = "";
+        zjzhId = "";
 
         EditTextHelper.EditTextEnable(true, dsjeEdittext);
         skjeEdittext.addTextChangedListener(new TextWatcher() {

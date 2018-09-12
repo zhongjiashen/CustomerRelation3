@@ -163,6 +163,14 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
         jbrId =  ShareUserInfo.getKey(this, "empid");
+
+
+        fklxEditText.setText("应收账款");
+        fklxId = "0";
+        fkjeEditText.setEnabled(false);
+        showYydLinearLayout.setVisibility(View.VISIBLE);
+
+
     }
 
     /**

@@ -232,6 +232,11 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
         //s设置默认退款类型
         fklxEdittext.setText("冲抵往来");
         fklxId = "0";
+        tkjeEdittext.setText("0");
+        EditTextHelper.EditTextEnable(false,tkjeEdittext);
+
+
+
         getMrck();
     }
 
