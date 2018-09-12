@@ -328,6 +328,7 @@ class KtKhglJhzjXzxmActivity : BaseActivity<BaseP>() {
         mParmMap.put("startdate", startdate)//提醒日期
         mParmMap.put("starttime", starttime)//提醒时间
         mParmMap.put("lb", "0")//类别（0计划制订 1计划执行）
+        mParmMap.put("opid", ShareUserInfo.getUserId(this))//登录操作员ID
         if(!path.equals("")){
             mParmMap.put("filenames", File(path).name)
             mParmMap.put("xx", FileUtils.encodeBase64File(path))

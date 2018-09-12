@@ -369,6 +369,7 @@ class KtKhglJhzjXmzxActivity : BaseActivity<BaseP>() {
         mParmMap.put("issy", issy)//是否提醒 0否 1是
         mParmMap.put("syrq", syrq)//提醒日期
         mParmMap.put("lb", "1")//类别（0计划制订 1计划执行）
+        mParmMap.put("opid", ShareUserInfo.getUserId(this))//登录操作员ID
         if(!path.equals("")){
             mParmMap.put("filenames", File(path).name)
             mParmMap.put("xx", FileUtils.encodeBase64File(path))

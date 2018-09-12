@@ -63,15 +63,15 @@ public class JhzjRjhAdapter extends BaseAdapter {
 		viewHolder.xzxm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if(sb.getShzt().equals("1")){
-					Toast.makeText(activity,"该计划已经审核，不能新增项目！",Toast.LENGTH_SHORT).show();
-				}else {
+//				if(sb.getShzt().equals("1")){
+//					Toast.makeText(activity,"该计划已经审核，不能新增项目！",Toast.LENGTH_SHORT).show();
+//				}else {
 					Intent intent = new Intent(activity, KtKhglJhzjXzxmActivity/*JhzjXzxmActivity*/.class);
 					intent.putExtra("jhid", sb.getId());
 					intent.putExtra("start", "0");
 					intent.putExtra("object", sb);
 					activity.startActivity(intent);
-				}
+//				}
 			}
 		});
 		viewHolder.jrzj.setOnClickListener(new OnClickListener() {
