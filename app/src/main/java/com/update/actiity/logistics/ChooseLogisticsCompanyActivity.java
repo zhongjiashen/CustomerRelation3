@@ -29,6 +29,7 @@ import butterknife.BindView;
 
 /**
  * Created by 1363655717 on 2018-04-10.
+ * 采购收货、销售开单
  */
 
 public class ChooseLogisticsCompanyActivity extends BaseActivity {
@@ -135,6 +136,11 @@ public class ChooseLogisticsCompanyActivity extends BaseActivity {
         mList = gson.fromJson((String) data,
                 new TypeToken<List<RqLogisticsCompanyData>>() {
                 }.getType());
+
+        RqLogisticsCompanyData rqLogisticsCompanyData=new RqLogisticsCompanyData();
+        rqLogisticsCompanyData.setCname("取消选择");
+        mList.add(rqLogisticsCompanyData);
+
         mAdapter.setList(mList);
 
     }

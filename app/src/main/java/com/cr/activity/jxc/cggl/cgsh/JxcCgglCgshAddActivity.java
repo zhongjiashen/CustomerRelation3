@@ -268,6 +268,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 }
             }
         });
+
+        EditTextHelper.EditTextEnable(false, etDsje);
         etDsje.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -447,9 +449,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                                 .putExtra("data", new Gson().toJson(mWlxxData))
                         , 14);
                 break;
-            case R.id.et_dszh:
-                //代收账户
-                startActivityForResult(new Intent(this, ChooseLogisticsCompanyActivity.class)
+            case R.id.et_dszh://代收账户
+                startActivityForResult(new Intent(activity, ChooseLogisticsCompanyActivity.class)
                         .putExtra("kind", 3), 17);
                 break;
             case R.id.et_dsje:
@@ -689,9 +690,15 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
                     break;
                 case 17://代收账户
-                    proxybankid = data.getStringExtra("id");
-                    etDszh.setText(data.getStringExtra("name"));
-                    EditTextHelper.EditTextEnable(true, etDsje);
+                    String name = data.getStringExtra("name");
+                    if (!name.equals("取消选择")) {
+                        proxybankid = data.getStringExtra("id");
+                        etDszh.setText(name);
+                        EditTextHelper.EditTextEnable(true, etDsje);
+                    }else {
+                        etDsje.setText("0");
+                        EditTextHelper.EditTextEnable(false, etDsje);
+                    }
                     break;
                 case 18://扫一扫选择商品
                     if (rkckEdittext.getText().toString().equals("")) {
@@ -915,8 +922,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
                 } else {
-                    List<Map<String, Object>> ckList= (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
-                    if(ckList.size()==1){
+                    List<Map<String, Object>> ckList = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+                    if (ckList.size() == 1) {
                         rkckEdittext.setText(ckList.get(0).get("dictmc").toString());
                         rkckId = ckList.get(0).get("id").toString();
                     }

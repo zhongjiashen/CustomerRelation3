@@ -719,9 +719,16 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
                     break;
                 case 17://代收账户
-                    proxybankid = data.getStringExtra("id");
-                    dszhEdittext.setText(data.getStringExtra("name"));
-                    EditTextHelper.EditTextEnable(true, dsjeEdittext);
+                    String name = data.getStringExtra("name");
+                    if (!name.equals("取消选择")) {
+                        proxybankid = data.getStringExtra("id");
+                        dszhEdittext.setText(name);
+                        EditTextHelper.EditTextEnable(true,  dsjeEdittext);
+                    }else {
+                        dsjeEdittext.setText("0");
+                        EditTextHelper.EditTextEnable(false,  dsjeEdittext);
+                    }
+
                     break;
                 case 18://扫一扫选择商品
                     if (ckckEdittext.getText().toString().equals("")) {
