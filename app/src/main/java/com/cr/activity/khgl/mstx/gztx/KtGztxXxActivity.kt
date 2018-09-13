@@ -297,6 +297,21 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvF.visibility = View.VISIBLE
                             holder.tvF.text = "预期库存：" + data["uponhand"].toString()
                         }
+                    //发票提醒
+                        "FPTX" -> {
+                            holder.tvA.visibility = View.VISIBLE
+                            holder.tvA.text = "单据编号：" + data["code"].toString()
+                            holder.tvB.visibility = View.VISIBLE
+                            holder.tvB.text = "单位名称：" + data["cname"].toString()
+                            holder.tvC.visibility = View.VISIBLE
+                            holder.tvC.text = "开票类型：" + data["billtypename"].toString()
+                            holder.tvD.visibility = View.VISIBLE
+                            holder.tvD.text = "发票日期:" + data["billdate"].toString()
+                            holder.tvE.visibility = View.VISIBLE
+                            holder.tvE.text = "票号：" + data["checkno"].toString()
+                            holder.tvF.visibility = View.VISIBLE
+                            holder.tvF.text = "开票金额：" + data["totalamt"].toString()
+                        }
                     //信誉额度
                         "XYED" -> {
                             holder.tvA.visibility = View.VISIBLE

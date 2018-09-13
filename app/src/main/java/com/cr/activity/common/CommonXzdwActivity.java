@@ -54,10 +54,17 @@ public class CommonXzdwActivity extends BaseActivity implements OnClickListener 
         addFHMethod();
         initActivity();
         initListView();
-        list.clear();
+
         if (this.getIntent().hasExtra("type")) {
             type = this.getIntent().getExtras().getString("type");
         }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        list.clear();
         searchDate();
     }
 
