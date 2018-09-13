@@ -344,8 +344,8 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                 }
                 hjjeEditText.setText(FigureTools.sswrFigure(hjfy));
             } else if (requestCode == 12) {
-                xmEditText.setText(data.getExtras().getString("xmname"));
-                xmId = data.getExtras().getString("xmid");
+                xmEditText.setText(data.getExtras().getString("title"));
+                xmId = data.getExtras().getString("projectid");
             } else if (requestCode == 15) {// 经办人
                 mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
                 etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));

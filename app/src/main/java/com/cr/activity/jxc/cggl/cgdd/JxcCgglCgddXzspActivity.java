@@ -1,5 +1,6 @@
 package com.cr.activity.jxc.cggl.cgdd;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -208,6 +209,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                         obj2.put("scrq", "");//生产日期
                         obj2.put("yxqz", "");//有效期至
                         obj2.put("batchctrl", obj.get("batchctrl").toString());
+                        obj2.put("serialctrl", obj.get("serialctrl").toString());
                         obj2.put("taxrate", mTaxrate);//初始化税率
                         obj2.put("issj", issj);//发票类型是否是收据
                         UUID uuid = UUID.randomUUID();
@@ -271,6 +273,15 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                                     Toast.makeText(activity, "选择的批号商品，必须填写保质期", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
+                            }
+
+                            if(map.get("serialctrl").equals("T")){
+                                ArrayList<Serial> serials= (ArrayList<Serial>) map2.get("serials");
+                                if(serials.size()!=Integer.parseInt(map2.get("sl").toString())){
+                                    Toast.makeText(activity, "商品序列号个数与数量不一致", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
                             }
                             map2.put("dj", FigureTools.sswrFigure(map2.get("dj").toString()));
                         }
