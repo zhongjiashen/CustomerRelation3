@@ -64,6 +64,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
     private String storeid = "";
     DropDownMenu dropDownMenu;
     private String barcode;//新增条码
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,6 +192,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                         obj2.put("scrq", "");
                         obj2.put("yxqz", "");
                         obj2.put("batchctrl", obj.get("batchctrl").toString());
+                        obj2.put("serialctrl", obj.get("serialctrl").toString());
                         UUID uuid = UUID.randomUUID();
                         obj2.put("serialinfo", uuid.toString().toUpperCase());
                         obj2.put("serials", new ArrayList<Serial>());
@@ -222,7 +224,6 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
         }
 
     }
-
 
 
     /**
@@ -258,6 +259,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
         listView.stopLoadMore();
         listView.setRefreshTime(new Date().toLocaleString());
     }
+
     @OnClick({R.id.fl, R.id.tv_jxtj, R.id.tv_qrxz})
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -283,6 +285,14 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                                 Toast.makeText(activity, "选择的批号商品，必须填写批号信息", Toast.LENGTH_SHORT).show();
                                 return;
                             }
+                            if (map.get("serialctrl").equals("T")) {
+                                ArrayList<Serial> serials = (ArrayList<Serial>) map2.get("serials");
+                                if (serials.size() != Integer.parseInt(map2.get("sl").toString())) {
+                                    Toast.makeText(activity, "商品序列号个数与数量不一致", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                            }
 //                        map2.put("dj",FigureTools.sswrFigure(map2.get("dj").toString()) );
                         }
                     }
@@ -293,11 +303,12 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode){
+            switch (requestCode) {
                 case 0:
                     int index = Integer.parseInt(data.getExtras()
                             .getString("index"));
@@ -320,10 +331,15 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                             .getInt("position");
                     list.get(i).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
                     }.getType()));
+
+                    if (list.size() != 0 && list.get(i).get("serialctrl").equals("T")) {
+                        list.get(i).put("sl", list.size());
+                    }
+                    adapter.notifyDataSetChanged();
                     break;
-               case 18://扫一扫选择商品
-                   currentPage = 1;
-                   barcode= data.getStringExtra("qr");
+                case 18://扫一扫选择商品
+                    currentPage = 1;
+                    barcode = data.getStringExtra("qr");
                     searchDate();
                     break;
             }

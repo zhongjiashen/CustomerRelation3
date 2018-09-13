@@ -201,7 +201,14 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
                         .putExtra("itemno", "0")
                         .putExtra("uuid", object.get("serialinfo")
                                 .toString())
+
+                        .putExtra("storied", getIntent().getStringExtra("rkckId"))
+                        .putExtra("goodsid", object.get("goodsid").toString())
+                        .putExtra("isStrict", object.get("serialctrl").toString().equals("T"))
+
                         .putExtra("position", 0)
+
+
                         .putExtra("DATA", new Gson().toJson(object.get("serials")
                         )), 11);
                 break;
@@ -227,10 +234,10 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
             if (requestCode == 0) {
                 cpphEditText.setText(data.getExtras().getString("name"));
                 cpphId = data.getExtras().getString("id");
-            }else if (requestCode == 11) {
-                int index =data.getExtras()
+            } else if (requestCode == 11) {
+                int index = data.getExtras()
                         .getInt("position");
-               object.put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+                object.put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
                 }.getType()));
 
             }

@@ -259,6 +259,12 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
                             .putExtra("uuid", objMap.get("serialinfo")
                                     .toString())
                             .putExtra("position", position)
+
+
+                            .putExtra("storied", storeid)
+                            .putExtra("goodsid", objMap2.get("goodsid")
+                                    .toString())
+                            .putExtra("isStrict", objMap.get("serialctrl").toString().equals("T"))
                             .putExtra("DATA", new Gson().toJson(objMap.get("serials")
                             )), 11);
 

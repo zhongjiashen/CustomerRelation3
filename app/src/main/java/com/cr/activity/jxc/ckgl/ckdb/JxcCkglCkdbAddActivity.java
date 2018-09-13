@@ -114,6 +114,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 selectIndex = arg2;
                 Intent intent = new Intent();
                 intent.setClass(activity, JxcCkglCkdbXzspDetailActivity.class);
+                intent.putExtra("rkckId", rkckId);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 startActivityForResult(intent, 4);
             }
