@@ -38,14 +38,14 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
 
         if (intent.hasExtra("object")) {
             data = intent.getExtras().getSerializable("object") as HashMap<String, Any>
-            if(data["name"]==null){
+            if (data["name"] == null) {
                 tv_spmc.text = "名称：" + data["goodsname"].toString()
-            }else {
+            } else {
                 tv_spmc.text = "名称：" + data["name"].toString()
             }
-            if(data["name"]==null){
+            if (data["name"] == null) {
                 tv_spbm.text = "编码：" + data["goodscode"].toString()
-            }else {
+            } else {
                 tv_spbm.text = "编码：" + data["code"].toString()
             }
             tv_spgg.text = "规格：" + data["specs"].toString()
@@ -130,6 +130,11 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
             intent.putExtra("itemno", "0")
             intent.putExtra("uuid", data["serialinfo"].toString())
             intent.putExtra("position", 0)
+
+
+            intent.putExtra("storied", intent.getStringExtra("rkckId"))
+            intent.putExtra("goodsid", data["goodsid"].toString())
+            intent.putExtra("isStrict", data["serialctrl"].toString().equals("T"))
             intent.putExtra("DATA", Gson().toJson(data["serials"]))
             startActivityForResult(intent, 11)
         }

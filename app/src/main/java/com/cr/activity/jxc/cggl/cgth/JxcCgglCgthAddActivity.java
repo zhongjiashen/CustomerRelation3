@@ -174,6 +174,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                 Intent intent = new Intent();
                 intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                 intent.setClass(activity, KtCgglSpxqActivity.class);
+                intent.putExtra("rkckId", rkckId);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 startActivityForResult(intent, 4);
             }

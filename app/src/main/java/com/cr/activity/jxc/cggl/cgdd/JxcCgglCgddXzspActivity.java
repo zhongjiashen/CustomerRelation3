@@ -244,6 +244,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         }
 
     }
+
     @OnClick({R.id.fl, R.id.tv_jxtj, R.id.tv_qrxz})
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -269,16 +270,16 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                                 Toast.makeText(activity, "选择的批号商品，必须填写批号信息", Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                            if(map.get("inf_costingtypeid").equals("2")){
-                                if(map2.get("scrq").equals("")&& map2.get("yxqz").equals("")){
+                            if (map.get("inf_costingtypeid").equals("2")) {
+                                if (map2.get("scrq").equals("") && map2.get("yxqz").equals("")) {
                                     Toast.makeText(activity, "选择的批号商品，必须填写保质期", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                             }
 
-                            if(map.get("serialctrl").equals("T")){
-                                ArrayList<Serial> serials= (ArrayList<Serial>) map2.get("serials");
-                                if(serials.size()!=Integer.parseInt(map2.get("sl").toString())){
+                            if (map.get("serialctrl").equals("T")) {
+                                ArrayList<Serial> serials = (ArrayList<Serial>) map2.get("serials");
+                                if (serials.size() != Integer.parseInt(map2.get("sl").toString())) {
                                     Toast.makeText(activity, "商品序列号个数与数量不一致", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -366,18 +367,21 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                     list.get(n).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
                     }.getType()));
 
+                    if (list.size()!=0&&list.get(n).get("serialctrl").equals("T")) {
+                        list.get(n).put("sl", list.size());
+                    }
+
                     adapter.notifyDataSetChanged();
                     break;
-               case 18://扫一扫选择商品
-                   currentPage = 1;
-                   barcode= data.getStringExtra("qr");
+                case 18://扫一扫选择商品
+                    currentPage = 1;
+                    barcode = data.getStringExtra("qr");
                     searchDate();
                     break;
             }
 
         }
     }
-
 
 
 }
