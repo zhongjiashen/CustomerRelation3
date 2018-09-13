@@ -295,7 +295,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 intent.setClass(this, JxcCkglCkdbXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
-            case R.id.iv_scan:
+            case R.id.iv_scan://扫一扫
                 if (ckckEdittext.getText().toString().equals("")) {
                     showToastPromopt("请先选择出库仓库！");
                     return;
@@ -305,10 +305,10 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
             case R.id.djrq_edittext:
                 date_init(djrqEdittext);
                 break;
-            case R.id.et_bm:
+            case R.id.et_bm://部门选择
                 startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
                 break;
-            case R.id.jbr_edittext:
+            case R.id.jbr_edittext://业务员选择
                 if (TextUtils.isEmpty(mDepartmentid))
                     showToastPromopt("请先选择部门");
                 else
@@ -317,7 +317,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
 //                intent.setClass(activity, CommonXzjbrActivity.class);
 //                startActivityForResult(intent, 3);
                 break;
-            case R.id.save_imagebutton:
+            case R.id.save_imagebutton://保存
                 if (time == 0 || System.currentTimeMillis() - time > 5000) {
                     searchDateSave();//保存
                     time = System.currentTimeMillis();

@@ -332,6 +332,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 intent.putExtra("rkckId", ckckId);
                 intent.putExtra("tabname", "tb_invoice");
                 intent.putExtra("xskd", true);
+                intent.putExtra("isStrict", true);
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;

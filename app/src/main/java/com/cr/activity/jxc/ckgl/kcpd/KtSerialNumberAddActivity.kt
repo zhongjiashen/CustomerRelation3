@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import com.cr.tools.ServerURL
+import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -17,10 +19,11 @@ import com.update.base.BaseRecycleAdapter
 import com.update.dialog.DialogFactory
 import com.update.dialog.OnDialogClickInterface
 import com.update.model.Serial
+import com.update.utils.LogUtils
 import com.update.viewholder.ViewHolderFactory
 
 import kotlinx.android.synthetic.main.activity_serial_number_add.*
-import java.util.ArrayList
+import java.util.*
 
 class KtSerialNumberAddActivity : BaseActivity<BaseP>() {
     var mGson = Gson()
@@ -28,15 +31,22 @@ class KtSerialNumberAddActivity : BaseActivity<BaseP>() {
     var serials = ArrayList<Serial>()
     private var serialinfo: String? = ""    //序列号GUID
     private var itemno: String? = ""    //主单据ID
+
+    private var storeid: String? = ""//仓库id
+    private var isStrict: Boolean = false//是否需要严格序列好
+    private var goodsid: String? = ""//
+    var mParmMap = TreeMap<String, Any>()
+
     override fun initVariables() {
         itemno = intent.getStringExtra("itemno")
         serialinfo = intent.getStringExtra("uuid")
-        var data=intent.getStringExtra("DATA")
-        if (data!="")
+        var data = intent.getStringExtra("DATA")
+        if (data != "")
             serials = mGson.fromJson<ArrayList<Serial>>(intent.getStringExtra("DATA"), object : TypeToken<ArrayList<Serial>>() {
             }.type)
         position = intent.getIntExtra("position", 0)
-
+        isStrict = intent.getBooleanExtra("isStrict", false)
+        presenter = BaseP(this, this)
     }
 
     override fun getLayout(): Int {
@@ -106,6 +116,7 @@ class KtSerialNumberAddActivity : BaseActivity<BaseP>() {
         }
     }
 
+    var serial_number: String = ""
     private fun addSerialNumber(serial_number: String) {
         if (serials == null)
             serials = ArrayList()
@@ -117,6 +128,20 @@ class KtSerialNumberAddActivity : BaseActivity<BaseP>() {
                 }
             }
         }
+        this.serial_number = serial_number
+        if (isStrict) {
+            mParmMap["dbname"] = ShareUserInfo.getDbName(this)
+            mParmMap["storeid"] = intent.getStringExtra("storied")//仓库id
+            mParmMap["goodsid"] = intent.getStringExtra("goodsid")//商品ID
+            mParmMap["serno"] = serial_number//序列号
+            presenter.post(0, "checksernoexists", mParmMap)
+        } else
+            addSerialNumber()
+
+    }
+
+    private fun addSerialNumber() {
+
         val serial = Serial()
         serial.billid = itemno
         serial.serialinfo = serialinfo
@@ -126,5 +151,26 @@ class KtSerialNumberAddActivity : BaseActivity<BaseP>() {
         mAdapter.list = serials
         et_serial_number.setText("")
 
+    }
+
+    /**
+     * 网路请求返回数据
+     *
+     * @param requestCode 请求码
+     * @param data        数据
+     */
+    override fun returnData(requestCode: Int, data: Any) {
+        LogUtils.e(data.toString())
+        when (data.toString()) {
+            "F" -> showShortToast("库中未录入该序列号！")
+            "T" -> addSerialNumber()
+        }
+//        val gson = Gson()
+//        mList!!.addAll(gson.fromJson<ArrayList<KtRegionData>>(data as String,
+//                object : TypeToken<ArrayList<KtRegionData>>() {
+//                }.type))
+//        mAdapter.notifyDataSetChanged()
+
+//
     }
 }

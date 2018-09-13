@@ -70,6 +70,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
     private boolean issj;//发票类型是否是收据
     private String barcode;//新增条码
     List<Map<String, Object>> fllist = new ArrayList<Map<String, Object>>();
+    private boolean isStrict;//是否需要严格序列好
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
