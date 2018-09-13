@@ -238,14 +238,13 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                 }
                 break;
             case R.id.xm_edittext:
-                if (wldwId.equals("")) {
-                    showToastPromopt("请先选择供应商！");
-                    return;
-                }
+
                 startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
                                 .putExtra("clientid", wldwId)
                                 .putExtra("clientname", wldwEditText.getText().toString())
-                                .putExtra("dwmc", true)
+                                .putExtra("dwmc", false)
+
+
                                 .putExtra("typesname", mTypesname),
                         12);
 //         	intent.setClass(activity, XmActivity.class);
