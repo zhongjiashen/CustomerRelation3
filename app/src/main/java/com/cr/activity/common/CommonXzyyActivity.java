@@ -153,6 +153,8 @@ public class CommonXzyyActivity extends BaseActivity implements OnClickListener 
 			}
 			adapter.notifyDataSetChanged();
 		}else if(returnSuccessType==1){
+//			returnJson.replace("}]\"}","}]}");
+//			returnJson.replace("\"serials\":\"[","\"serials\":[");
 			List<Map<String, Object>> l=(List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
 			double totalAmount=0;
 			if(l!=null) {

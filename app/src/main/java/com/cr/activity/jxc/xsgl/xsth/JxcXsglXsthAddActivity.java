@@ -512,9 +512,19 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                     yyList.addAll((List<Map<String, Object>>) data.getExtras()
                             .getSerializable("list")); if (list != null) {
                     for (int i = 0; i < list.size(); i++) {
-                        UUID uuid = UUID.randomUUID();
-                        list.get(i).put("serialinfo", uuid.toString().toUpperCase());
-                        list.get(i).put("serials", new ArrayList<Serial>());//
+                        if(list.get(i).get("serialinfo")==null||list.get(i).get("serialinfo").equals("")){
+                            UUID uuid = UUID.randomUUID();
+                            list.get(i).put("serialinfo", uuid.toString().toUpperCase());
+                            list.get(i).put("serials", new ArrayList<Serial>());//
+                        }else {
+                            List<Serial> serials = new Gson().fromJson(list.get(i).get("serials").toString(), new TypeToken<List<Serial>>() {
+                            }.getType());
+                            for (int l=0;l<serials.size();l++){
+                                serials.get(l).setBillid("0");
+                            }
+                            list.get(i).put("serials", serials);//
+                        }
+
                         list.get(i).put("taxrate", mTaxrate);
                         Double csje = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
                         list.get(i).put("taxunitprice", FigureTools.sswrFigure(csje));
