@@ -705,6 +705,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                         etDszh.setText(name);
                         EditTextHelper.EditTextEnable(true, etDsje);
                     }else {
+                        etDszh.setText("");
                         etDsje.setText("0");
                         EditTextHelper.EditTextEnable(false, etDsje);
                     }

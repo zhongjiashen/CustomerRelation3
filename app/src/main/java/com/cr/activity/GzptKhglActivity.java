@@ -570,7 +570,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                         break;
                     case 1:
                         cityid = list.get(which).getId();
-                        if (areaid.equals("0")) {
+                        if (cityid .equals("0")) {
                             tvDq.setText(tvDq.getText().toString()+"-"+list.get(which).getCname());
                             countyid = "0";
                         }else {

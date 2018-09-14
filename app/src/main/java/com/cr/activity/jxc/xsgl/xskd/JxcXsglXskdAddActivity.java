@@ -257,7 +257,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         jsfsId = "";
         zjzhId = "";
 
-        EditTextHelper.EditTextEnable(true, dsjeEdittext);
+
+        EditTextHelper.EditTextEnable(false,  dsjeEdittext);
         skjeEdittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -727,6 +728,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                         EditTextHelper.EditTextEnable(true,  dsjeEdittext);
                     }else {
                         dsjeEdittext.setText("0");
+                        dszhEdittext.setText("");
                         EditTextHelper.EditTextEnable(false,  dsjeEdittext);
                     }
 
