@@ -66,7 +66,7 @@ public class CommonXzzdActivity extends BaseActivity implements OnClickListener 
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Map<String, Object> map = list.get(arg2);
                 String dictmc= map.get("dictmc").toString();
-                if(type.equals("ZCLB")){
+                if(type.equals("ZCLB")||type.equals("SRLB")){
                    String c = String.valueOf(dictmc.charAt(0));
                     if(!c.equals("|")){
                         showToastPromopt("必须选到最低级别");
