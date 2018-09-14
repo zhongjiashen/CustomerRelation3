@@ -10,10 +10,18 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baiiu.filter.DropDownMenu;
+import com.baiiu.filter.adapter.DropMenuAdapter;
+import com.baiiu.filter.adapter.MyMenuAdapter;
+import com.baiiu.filter.adapter.SimpleTextAdapter;
+import com.baiiu.filter.interfaces.OnFilterDoneListener;
+import com.baiiu.filter.interfaces.OnFilterItemClickListener;
+import com.baiiu.filter.typeview.SingleListView;
+import com.baiiu.filter.util.UIUtil;
+import com.baiiu.filter.view.FilterCheckedTextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.xjyh.fkd.XjyhFkdDetailActivity;
 import com.cr.adapter.tjfx.kcbb.TjfxKcbbAdapter;
@@ -44,13 +52,18 @@ import butterknife.OnClick;
 public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
     @BindView(R.id.search)
     EditText search;
-    @BindView(R.id.xlistview)
+    @BindView(R.id.mFilterContentView)
     XListView xlistview;
+    @BindView(R.id.dropDownMenu)
+    DropDownMenu dropDownMenu;
     private TjfxKcbbAdapter adapter;
 
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-    String storeid = "", storename = "", goodsname = "";
+    String  storename = "", goodsname = "";
     private String barcode;//新增条码
+
+    private String storeid= "";
+    private String goodstypeid ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +73,8 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         addFHMethod();
         initActivity();
         initListView();
-        searchDate();
+//        searchDate();
+        fenlei();
     }
 
     /**
@@ -115,8 +129,11 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("storeid", storeid.equals("") ? "0" : storeid);
+
         parmMap.put("barcode", barcode);//新增条码
+        parmMap.put("storeid", storeid.equals("") ? "0" : storeid);
+        parmMap.put("goodstypeid ", goodstypeid);
+
         parmMap.put("goodsname", goodsname);
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
@@ -124,33 +141,105 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         findServiceData2(0, ServerURL.STOREQUERYRPT, parmMap, false);
     }
 
-    private void fenlei(){}
+    private void fenlei() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        findServiceData2(1, "multitype", parmMap, false);
+    }
 
 
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-        if (returnJson.equals("nmyqx")) {
-            Toast.makeText(this, "您没有该功能菜单的权限！请与管理员联系！", Toast.LENGTH_SHORT)
-                    .show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    finish();
+        switch (returnSuccessType) {
+            case 0:
+                if (returnJson.equals("nmyqx")) {
+                    Toast.makeText(this, "您没有该功能菜单的权限！请与管理员联系！", Toast.LENGTH_SHORT)
+                            .show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finish();
+                        }
+                    }, 300);
+                    return;
                 }
-            }, 300);
-            return;
-        }
-        if (returnJson.equals("")) {
-            showToastPromopt(2);
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
 
-        } else {
-            list.addAll((List<Map<String, Object>>) PaseJson
-                    .paseJsonToObject(returnJson));
+                } else {
+                    list.addAll((List<Map<String, Object>>) PaseJson
+                            .paseJsonToObject(returnJson));
+                }
+                adapter.notifyDataSetChanged();
+                break;
+            case 1:
+                searchDate();
+                List<Map<String, Object>> fenlinList = (List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson);
+                List<Map<String, Object>> ckList = new ArrayList<>();
+                List<Map<String, Object>> lbList = new ArrayList<>();
+                for (int i = 0; i < fenlinList.size(); i++) {
+                    switch (fenlinList.get(i).get("lb").toString()) {
+                        case "1":
+                            ckList.add(fenlinList.get(i));
+                            break;
+                        case "2":
+                            lbList.add(fenlinList.get(i));
+                            break;
+                    }
+                }
+                setMenu(ckList,lbList);
+                break;
         }
-        adapter.notifyDataSetChanged();
+
     }
 
+    private void setMenu( List<Map<String, Object>> ckList,List<Map<String, Object>> lbList){
+        String[] titleList = new String[]{"仓库","类别"};
+        List<View> views=new ArrayList<>();
+        views.add(createSingleListView(ckList,0));
+        views.add(createSingleListView(lbList,1));
+        dropDownMenu.setMenuAdapter(new MyMenuAdapter(activity, titleList, views));
+    }
+    private View createSingleListView(List<Map<String, Object>> items, final int kind) {
+        SingleListView<Map<String, Object>> singleListView = new SingleListView<Map<String, Object>>(activity)
+                .adapter(new SimpleTextAdapter<Map<String, Object>>(null, activity) {
+                    @Override
+                    public String provideText(Map<String, Object> string) {
+                        return string.get("name").toString();
+                    }
+
+                    @Override
+                    protected void initCheckedTextView(FilterCheckedTextView checkedTextView) {
+                        int dp = UIUtil.dp(activity, 15);
+                        checkedTextView.setPadding(dp, dp, 0, dp);
+                    }
+                })
+                .onItemClick(new OnFilterItemClickListener<Map<String, Object>>() {
+                    @Override
+                    public void onItemClick(Map<String, Object> item) {
+                        dropDownMenu.close();
+                       dropDownMenu.setPositionIndicatorText(kind,item.get("name").toString());
+                       switch (kind){
+                           case 0:
+                               storeid=item.get("id").toString();
+                               break;
+                           case 1:
+                               goodstypeid=item.get("id").toString();
+                               break;
+                       }
+                        list.clear();
+                        searchDate();
+
+                    }
+                });
+
+
+        singleListView.setList(items, -1);
+
+        return singleListView;
+    }
 
     /**
      * 刷新
