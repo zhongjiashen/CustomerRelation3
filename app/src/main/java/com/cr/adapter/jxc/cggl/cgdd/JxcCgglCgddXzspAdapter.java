@@ -46,7 +46,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
     private String storeid;
     private boolean bz_isTrue;
     private String type;
-    private String document_name;//单据名称
+    private boolean sfjc;//单据名称
     public JxcCgglCgddXzspAdapter(List<Map<String, Object>> list,
                                   BaseActivity activity, String storeid) {
         this.list = list;
@@ -64,8 +64,12 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
         this.type = type;
     }
 
-    public void setDocument_name(String document_name) {
-        this.document_name = document_name;
+    /**
+     * 设置添加是否需要对序列号判断库中是否存在
+     * @param sfjc
+     */
+    public void setSfjc(boolean sfjc) {
+        this.sfjc = sfjc;
     }
 
     @Override
@@ -299,7 +303,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                             .putExtra("storied", storeid)
                             .putExtra("goodsid", objMap2.get("goodsid")
                                     .toString())
-                            .putExtra("document_name", document_name)
+                            .putExtra("sfjc",sfjc)
                             .putExtra("isStrict", objMap.get("serialctrl").toString().equals("T"))
                             .putExtra("DATA", new Gson().toJson(objMap.get("serials")
                             )), 11);

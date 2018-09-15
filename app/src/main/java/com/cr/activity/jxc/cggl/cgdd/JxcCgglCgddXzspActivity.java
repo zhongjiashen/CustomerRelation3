@@ -72,8 +72,8 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
     List<Map<String, Object>> fllist = new ArrayList<Map<String, Object>>();
     private boolean isStrict;//是否需要严格序列好
 
-    private String document_name;//单据名称
 
+    private boolean sfjc;//是否检测单据序列号
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +91,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
             barcode = this.getIntent().getExtras().getString("barcode");
             tvJxtj.setVisibility(View.VISIBLE);
         }
-        document_name=getIntent().getStringExtra("document_name");
+        sfjc=getIntent().getBooleanExtra("sfjc",true);
         initActivity();
         initListView();
         Calendar calendar = Calendar.getInstance();
@@ -140,7 +140,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
         listView = (XListView) findViewById(R.id.mFilterContentView);
         adapter = new JxcCgglCgddXzspAdapter(list, this, storeid, getIntent().getBooleanExtra("xskd", false),
                 getIntent().getStringExtra("type"));
-        adapter.setDocument_name(document_name);
+        adapter.setSfjc(sfjc);
         listView.setAdapter(adapter);
         listView.setXListViewListener(xListViewListener);
         listView.setPullLoadEnable(true);
