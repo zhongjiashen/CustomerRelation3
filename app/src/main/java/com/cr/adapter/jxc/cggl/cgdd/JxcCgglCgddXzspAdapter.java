@@ -225,6 +225,15 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                 public void afterTextChanged(Editable arg0) {
                 }
             });
+
+            if (objMap2.get("serialctrl").equals("T")) {
+                LogUtils.e("严格序列商品");
+                viewHolder2.slView.setVisibility(View.GONE);
+                viewHolder2.tvSl.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder2.slView.setVisibility(View.VISIBLE);
+                viewHolder2.tvSl.setVisibility(View.GONE);
+            }
             viewHolder2.slView.setOnValueChange(new SLViewValueChange() {
                 @Override
                 public void onValueChange(double sl) {
@@ -272,7 +281,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                 }
             });
 
-            viewHolder2.tvSerialNumber.setOnClickListener(new View.OnClickListener() {
+            viewHolder2.tvSerialNumber.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -319,6 +328,8 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
             viewHolder2.zklEdittext.setText(objMap.get("zkl").toString());
             viewHolder2.slView.setSl(Double.parseDouble(objMap.get("sl")
                     .toString()));
+            viewHolder2.tvSl.setText(objMap.get("sl")
+                    .toString());
             viewHolder2.djEdittext.addTextChangedListener(new TextWatcher() {
 
                 @Override
@@ -381,6 +392,8 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
     }
 
 
+
+
     static class ViewHolder {
         @BindView(R.id.mc_textview)
         TextView mcTextview;
@@ -437,11 +450,13 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
         TextView tvHsdj;
         @BindView(R.id.item2_linearlayout)
         LinearLayout item2Linearlayout;
-
+        @BindView(R.id.tv_sl)
+        TextView tvSl;
         ViewHolder2(View view) {
             ButterKnife.bind(this, view);
         }
     }
+
 
 
 }

@@ -31,6 +31,9 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+/**
+ * 年计划列表
+ */
 public class JhzjZdyjhActivity extends BaseActivity implements OnClickListener{
 	private BaseAdapter adapter;
 	private XListView rjhListView;

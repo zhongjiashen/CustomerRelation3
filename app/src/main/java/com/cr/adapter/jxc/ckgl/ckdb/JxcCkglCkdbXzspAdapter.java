@@ -26,6 +26,9 @@ import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.update.utils.LogUtils;
+
+import butterknife.BindView;
 
 public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
 
@@ -157,7 +160,8 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
                     .findViewById(R.id.yxqz_edittext);
             viewHolder2.item2LinearLayout = (LinearLayout) convertView
                     .findViewById(R.id.item2_linearlayout);
-
+            viewHolder2.tvSl = (TextView) convertView
+                    .findViewById(R.id.tv_sl);
             convertView.setTag(viewHolder2);
 //			} else {
 //				viewHolder2 = (ViewHolder2) convertView.getTag();
@@ -203,12 +207,25 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
                 }
             });
             viewHolder2.zklEditText.setVisibility(View.GONE);
+            viewHolder2.slView.setSl(Double.parseDouble(objMap.get("sl")
+                    .toString()));
+            viewHolder2.tvSl.setText(objMap.get("sl")
+                    .toString());
+            if (objMap2.get("serialctrl").equals("T")) {
+                LogUtils.e("严格序列商品");
+                viewHolder2.slView.setVisibility(View.GONE);
+                viewHolder2.tvSl.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder2.slView.setVisibility(View.VISIBLE);
+                viewHolder2.tvSl.setVisibility(View.GONE);
+            }
             viewHolder2.slView.setOnValueChange(new SLViewValueChange() {
                 @Override
                 public void onValueChange(double sl) {
                     objMap.put("sl", "" + sl);
                 }
             });
+
 //			viewHolder2.scrqEditText.setVisibility(View.GONE);
             viewHolder2.scrqEditText.setOnClickListener(new OnClickListener() {
                 @Override
@@ -272,8 +289,7 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
             });
             viewHolder2.djEditText.setText(objMap.get("dj").toString());
             viewHolder2.zklEditText.setText(objMap.get("zkl").toString());
-            viewHolder2.slView.setSl(Double.parseDouble(objMap.get("sl")
-                    .toString()));
+
             viewHolder2.cpphEditText.setText(objMap.get("cpph").toString());
             viewHolder2.scrqEditText.setText(objMap.get("scrq").toString());
             viewHolder2.yxqzEditText.setText(objMap.get("yxqz").toString());
@@ -323,6 +339,8 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
         View scrqView;
         LinearLayout item2LinearLayout;
         TextView tvSerialNumber;
+
+        TextView tvSl;
     }
 
 }

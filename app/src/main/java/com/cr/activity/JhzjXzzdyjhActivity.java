@@ -61,8 +61,8 @@ public class JhzjXzzdyjhActivity extends BaseActivity implements OnClickListener
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("jhid", "0");
-        parmMap.put("jhrq", ksrqEditText.getText().toString());
-        findServiceData(0, ServerURL.JHRWGZZJZDYSAVE, parmMap);
+        parmMap.put("nd", ksrqEditText.getText().toString());
+        findServiceData(0, "jhrwgzzjnzjsave", parmMap);
     }
 
     @Override
@@ -102,9 +102,9 @@ public class JhzjXzzdyjhActivity extends BaseActivity implements OnClickListener
 		mTimePickerView.show();
 }
 
-    /**
+   /* *//**
      * 创建日期及时间选择对话框
-     */
+     *//*
     @Override
     protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
@@ -141,7 +141,7 @@ public class JhzjXzzdyjhActivity extends BaseActivity implements OnClickListener
                 break;
         }
         return dialog;
-    }
+    }*/
 
     @SuppressWarnings("deprecation")
     @Override
