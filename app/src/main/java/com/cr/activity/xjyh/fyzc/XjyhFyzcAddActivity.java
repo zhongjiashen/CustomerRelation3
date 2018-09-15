@@ -239,14 +239,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                 break;
             case R.id.xm_edittext:
 
-                startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
-                                .putExtra("clientid", wldwId)
-                                .putExtra("clientname", wldwEditText.getText().toString())
-                                .putExtra("dwmc", false)
-
-
-                                .putExtra("typesname", mTypesname),
-                        12);
+                startActivityForResult(new Intent(this, ChoiceProjectActivity.class), 12);
 //         	intent.setClass(activity, XmActivity.class);
 //             startActivityForResult(intent, 12);
                 break;
