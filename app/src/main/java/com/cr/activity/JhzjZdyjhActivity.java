@@ -73,9 +73,9 @@ public class JhzjZdyjhActivity extends BaseActivity implements OnClickListener{
 		xzjhImageView.setOnClickListener(this);
 		Calendar calendar=Calendar.getInstance();
 		calendar.setTime(new Date());
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-");
-		ksrqEditText.setText(sdf.format(new Date())+"01");
-		jsrqEditText.setText(sdf.format(new Date())+calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy");
+		ksrqEditText.setText(sdf.format(new Date()));
+//		jsrqEditText.setText(sdf.format(new Date()));
 	}
 	/**
 	 * 初始化ListView
@@ -113,11 +113,11 @@ public class JhzjZdyjhActivity extends BaseActivity implements OnClickListener{
 		Map<String, Object> parmMap=new HashMap<String, Object>();
 		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("opid", ShareUserInfo.getUserId(context));
-		parmMap.put("qsrq", ksrqEditText.getText().toString());
-		parmMap.put("zzrq", jsrqEditText.getText().toString());
+		parmMap.put("years", ksrqEditText.getText().toString());
+//		parmMap.put("zzrq", jsrqEditText.getText().toString());
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
-		findServiceData2(0,ServerURL.JHRWGZZJZDY,parmMap,true);
+		findServiceData2(0,"jhrwgzzjnzj",parmMap,true);
 	}
 	@Override
 	public void executeSuccess() {
