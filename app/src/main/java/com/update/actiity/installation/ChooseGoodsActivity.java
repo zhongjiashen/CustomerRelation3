@@ -282,17 +282,17 @@ public class ChooseGoodsActivity extends BaseActivity implements
      */
     private void setTitlebar() {
         titlebar.setTitleText(this, "选择商品");
-        titlebar.setIvRightImageResource(R.drawable.oper);
-        titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
-            @Override
-            public void onClick(int i) {
-                switch (i) {
-                    case 0://增加安装登记
-
-                        break;
-                }
-            }
-        });
+//        titlebar.setIvRightImageResource(R.drawable.oper);
+//        titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
+//            @Override
+//            public void onClick(int i) {
+//                switch (i) {
+//                    case 0://增加安装登记
+//
+//                        break;
+//                }
+//            }
+//        });
     }
 
     /**

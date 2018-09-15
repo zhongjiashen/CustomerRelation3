@@ -315,7 +315,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //        ckglIndexModelList.remove(1);//屏蔽库存盘点
 //        ckglIndexModelList.remove(2);//屏蔽存货调价
         ckglIndexModelList.remove(3);//屏蔽库存变动
-
+        ckglIndexModelList.remove(3);//屏蔽库存变动
 
         tjfxIndexModelList.remove(4);//屏蔽经营状况
     }

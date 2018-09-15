@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.WeChatCaptureActivity;
 import com.update.model.Serial;
+import com.update.utils.LogUtils;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -367,11 +368,15 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                 case 11:
                     int n = data.getExtras()
                             .getInt("position");
-                    list.get(n).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
-                    }.getType()));
+
+                    List<Serial> serials=new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+                    }.getType());
+                    list.get(n).put("serials", serials );
 
                     if (list.size()!=0&&list.get(n).get("serialctrl").equals("T")) {
-                        list.get(n).put("sl", list.size());
+
+                        list.get(n).put("sl",  serials.size());
+
                     }
 
                     adapter.notifyDataSetChanged();

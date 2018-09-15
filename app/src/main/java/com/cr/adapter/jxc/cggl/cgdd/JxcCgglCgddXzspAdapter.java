@@ -339,6 +339,8 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                     .toString()));
             viewHolder2.tvSl.setText(objMap.get("sl")
                     .toString());
+            LogUtils.e(objMap.get("sl")
+                    .toString());
             viewHolder2.djEdittext.addTextChangedListener(new TextWatcher() {
 
                 @Override

@@ -329,11 +329,13 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                 case 11:
                     int i = data.getExtras()
                             .getInt("position");
-                    list.get(i).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
-                    }.getType()));
+                    List<Serial> serials=new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+                    }.getType());
+
+                    list.get(i).put("serials", serials);
 
                     if (list.size() != 0 && list.get(i).get("serialctrl").equals("T")) {
-                        list.get(i).put("sl", list.size());
+                        list.get(i).put("sl", serials.size());
                     }
                     adapter.notifyDataSetChanged();
                     break;
