@@ -33,11 +33,14 @@ class KtSerialNumberAddActivity : BaseActivity<BaseP>() {
     private var itemno: String? = ""    //主单据ID
 
     private var storeid: String? = ""//仓库id
-    private var isStrict: Boolean = false//是否需要严格序列好
+    private var isStrict: Boolean = false//是否是严格序号商品
     private var goodsid: String? = ""//
     var mParmMap = TreeMap<String, Any>()
-
+   var document_name:String=""
     override fun initVariables() {
+        if(intent.getStringExtra("document_name")!=null) {
+            document_name = intent.getStringExtra("document_name")
+        }
         itemno = intent.getStringExtra("itemno")
         serialinfo = intent.getStringExtra("uuid")
         var data = intent.getStringExtra("DATA")
@@ -130,11 +133,15 @@ class KtSerialNumberAddActivity : BaseActivity<BaseP>() {
         }
         this.serial_number = serial_number
         if (isStrict) {
-            mParmMap["dbname"] = ShareUserInfo.getDbName(this)
-            mParmMap["storeid"] = intent.getStringExtra("storied")//仓库id
-            mParmMap["goodsid"] = intent.getStringExtra("goodsid")//商品ID
-            mParmMap["serno"] = serial_number//序列号
-            presenter.post(0, "checksernoexists", mParmMap)
+            if(document_name.equals("cgsh")){
+                addSerialNumber()
+            }else {
+                mParmMap["dbname"] = ShareUserInfo.getDbName(this)
+                mParmMap["storeid"] = intent.getStringExtra("storied")//仓库id
+                mParmMap["goodsid"] = intent.getStringExtra("goodsid")//商品ID
+                mParmMap["serno"] = serial_number//序列号
+                presenter.post(0, "checksernoexists", mParmMap)
+            }
         } else
             addSerialNumber()
 

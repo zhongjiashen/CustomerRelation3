@@ -311,6 +311,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("tabname", "tb_received");
+                intent.putExtra("document_name","cgsh");
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
