@@ -91,7 +91,7 @@ public class ChoiceProjectActivity extends BaseActivity implements
         mParmMap.put("opid", ShareUserInfo.getUserId(this));//登录操作员ID
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("tabname", "tb_project");
-        mParmMap.put("clientid", mClientid);
+
         mParmMap.put("depid", "0");//
         mParmMap.put("pagesize", "10");//每页加载数据大小
 
@@ -99,7 +99,7 @@ public class ChoiceProjectActivity extends BaseActivity implements
 
     private void http() {
         page_number = 1;
-
+        mParmMap.put("clientid", mClientid);
         mParmMap.put("qsrq", mQsrq);//
         mParmMap.put("zzrq", mZzrq);//
         mParmMap.put("cname", mCname);//
@@ -210,8 +210,11 @@ public class ChoiceProjectActivity extends BaseActivity implements
                 mGmid = data.getStringExtra("gmid");
                 mEmpid = data.getStringExtra("empid");
                 mShzt = data.getStringExtra("shzt");
+                if(!TextUtils.isEmpty(mCname)){
+                    mClientid="0";
+                }
 
-                http();
+//                http();
                 break;
         }
     }

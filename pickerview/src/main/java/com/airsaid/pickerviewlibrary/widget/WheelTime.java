@@ -245,6 +245,14 @@ public class WheelTime {
 				wv_day.setVisibility(View.GONE);
 				wv_hours.setVisibility(View.GONE);
 				wv_mins.setVisibility(View.GONE);
+				break;
+			case YEAR:
+				textSize = textSize * 4;
+				wv_month.setVisibility(View.GONE);
+				wv_day.setVisibility(View.GONE);
+				wv_hours.setVisibility(View.GONE);
+				wv_mins.setVisibility(View.GONE);
+				break;
 		}
 		wv_day.setTextSize(textSize);
 		wv_month.setTextSize(textSize);
