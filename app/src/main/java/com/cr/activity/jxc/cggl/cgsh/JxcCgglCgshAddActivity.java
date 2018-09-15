@@ -311,7 +311,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("tabname", "tb_received");
-                intent.putExtra("sfjc",false);
+                intent.putExtra("sfjc", false);
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
@@ -577,14 +577,14 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     yyList.addAll((List<Map<String, Object>>) data.getExtras().getSerializable("list"));
                     if (list != null) {
                         for (int i = 0; i < list.size(); i++) {
-                            if(list.get(i).get("serialinfo")==null||list.get(i).get("serialinfo").equals("")){
+                            if (list.get(i).get("serialinfo") == null || list.get(i).get("serialinfo").equals("")) {
                                 UUID uuid = UUID.randomUUID();
                                 list.get(i).put("serialinfo", uuid.toString().toUpperCase());
                                 list.get(i).put("serials", new ArrayList<Serial>());//
-                            }else {
+                            } else {
                                 List<Serial> serials = new Gson().fromJson(list.get(i).get("serials").toString(), new TypeToken<List<Serial>>() {
                                 }.getType());
-                                for (int l=0;l<serials.size();l++){
+                                for (int l = 0; l < serials.size(); l++) {
                                     serials.get(l).setBillid("0");
                                 }
                                 list.get(i).put("serials", serials);//
@@ -705,7 +705,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                         proxybankid = data.getStringExtra("id");
                         etDszh.setText(name);
                         EditTextHelper.EditTextEnable(true, etDsje);
-                    }else {
+                    } else {
+                        proxybankid = "";
                         etDszh.setText("");
                         etDsje.setText("0");
                         EditTextHelper.EditTextEnable(false, etDsje);

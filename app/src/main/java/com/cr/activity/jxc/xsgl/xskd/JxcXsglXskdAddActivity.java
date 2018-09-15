@@ -247,7 +247,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
 
 
         sklxEdittext.setText("往来结算");
-        sklxId  = "0";
+        sklxId = "0";
         skjeEdittext.setText("0");
         skjeEdittext.setEnabled(false);
         jsfsEdittext.setEnabled(false);
@@ -258,7 +258,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
         zjzhId = "";
 
 
-        EditTextHelper.EditTextEnable(false,  dsjeEdittext);
+        EditTextHelper.EditTextEnable(false, dsjeEdittext);
         skjeEdittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -346,13 +346,13 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 break;
             case R.id.gys_edittext://单位选择
                 intent.setClass(this, CommonXzdwActivity.class);
-                intent.putExtra("type","1");
+                intent.putExtra("type", "1");
 //                intent.setClass(this, CommonXzkhActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.gys2_edittext:
                 intent.setClass(this, CommonXzdwActivity.class);
-                intent.putExtra("type","1");
+                intent.putExtra("type", "1");
                 startActivityForResult(intent, 10);
 //                intent.setClass(this, CommonXzkhActivity.class);
 //                startActivityForResult(intent, 10);
@@ -584,8 +584,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                                 .getSerializable("object");
                         list.remove(selectIndex);
 
-                                map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
-                                        * Double.parseDouble(map.get("unitqty").toString()));
+                        map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
+                                * Double.parseDouble(map.get("unitqty").toString()));
                         list.add(selectIndex, map);
                         adapter.notifyDataSetChanged();
                     }
@@ -690,7 +690,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                         for (int i = 0; i < list.size(); i++) {
                             list.get(i).put("taxrate", mTaxrate);
                             Double csje = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                            list.get(i).put("taxunitprice",FigureTools.sswrFigure( csje ));
+                            list.get(i).put("taxunitprice", FigureTools.sswrFigure(csje));
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
                             list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
@@ -725,11 +725,12 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     if (!name.equals("取消选择")) {
                         proxybankid = data.getStringExtra("id");
                         dszhEdittext.setText(name);
-                        EditTextHelper.EditTextEnable(true,  dsjeEdittext);
-                    }else {
+                        EditTextHelper.EditTextEnable(true, dsjeEdittext);
+                    } else {
+                        proxybankid = "";
                         dsjeEdittext.setText("0");
                         dszhEdittext.setText("");
-                        EditTextHelper.EditTextEnable(false,  dsjeEdittext);
+                        EditTextHelper.EditTextEnable(false, dsjeEdittext);
                     }
 
                     break;
@@ -738,7 +739,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                         showToastPromopt("请先选择仓库信息！");
                         return;
                     }
-                    Intent intent=new Intent();
+                    Intent intent = new Intent();
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", ckckId);
@@ -958,12 +959,12 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
                 } else {
-                    List<Map<String, Object>> ckList= (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
-                    if(ckList.size()==1){
+                    List<Map<String, Object>> ckList = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+                    if (ckList.size() == 1) {
                         ckckEdittext.setText(ckList.get(0).get("dictmc").toString());
-                        ckckId =  ckList.get(0).get("id").toString();
+                        ckckId = ckList.get(0).get("id").toString();
                         ckEdittext.setText(ckList.get(0).get("dictmc").toString());
-                        ckId =  ckList.get(0).get("id").toString();
+                        ckId = ckList.get(0).get("id").toString();
 
                     }
 

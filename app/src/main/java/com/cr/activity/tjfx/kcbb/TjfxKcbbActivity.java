@@ -234,6 +234,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                                goodstypeid=item.get("id").toString();
                                break;
                        }
+                        currentPage=1;
                         list.clear();
                         searchDate();
 
