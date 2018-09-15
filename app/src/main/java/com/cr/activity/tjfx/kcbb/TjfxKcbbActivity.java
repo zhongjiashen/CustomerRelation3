@@ -179,6 +179,11 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                         .paseJsonToObject(returnJson);
                 List<Map<String, Object>> ckList = new ArrayList<>();
                 List<Map<String, Object>> lbList = new ArrayList<>();
+                Map<String, Object> map=new HashMap<>();
+                map.put("name","全部");
+                map.put("id","0");
+                lbList.add(map);
+                ckList.add(map);
                 for (int i = 0; i < fenlinList.size(); i++) {
                     switch (fenlinList.get(i).get("lb").toString()) {
                         case "1":
