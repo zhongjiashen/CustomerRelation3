@@ -43,6 +43,11 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
         } else {
             EditTextHelper.EditTextEnable(false, et_sl)
         }
+        if(intent.getStringExtra("title").equals("其他收入")){
+            tv_title.setText(intent.getStringExtra("title"))
+            tv_mc.setText("收入名称")
+        }
+
         if (this.getIntent().hasExtra("object")) {
             if (intent.getBooleanExtra("update", true)) {
                 bt_view.visibility = VISIBLE

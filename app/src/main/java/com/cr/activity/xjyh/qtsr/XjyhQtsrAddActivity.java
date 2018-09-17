@@ -16,9 +16,8 @@ import android.widget.LinearLayout;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzdwActivity;
-import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
-import com.cr.activity.xm.XmActivity;
+import com.cr.activity.xjyh.fyzc.KtXjyhFyzcAddZcActivity;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
 import com.cr.adapter.xjyh.fyzc.XjyhFyzcAddAdapter;
 import com.cr.tools.CustomListView;
@@ -28,6 +27,7 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.choose.ChooseDepartmentActivity;
+import com.update.actiity.choose.KtXzfplxActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
 import com.update.actiity.project.ChoiceProjectActivity;
 
@@ -55,6 +55,8 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
         OnClickListener {
     @BindView(R.id.et_bm)
     EditText etBm;
+    @BindView(R.id.et_fplx)
+    EditText etFplx;
     private ImageButton saveImageButton;
     private EditText wldwEditText, jslxEditText, zjzhEditText, fkfsEditText,
             fkjeEditText, djrqEditText, jbrEditText, hjjeEditText;
@@ -71,6 +73,8 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
     private String xmId;
     private long time;
     private String mDepartmentid;//部门ID
+    private String mTaxrate;//税率
+    private String billtypeid;// 发票类型类型
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,27 +160,39 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
         zjzhId = "";
         fkfsEditText.setText("");
         fkfsId = "";
+
+
+        etFplx.setText("收据");
+        billtypeid = "1";
+        mTaxrate = "0";
     }
 
-    @OnClick(R.id.et_bm)
-    public void onClick() {
-        startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
-    }
 
-    @Override
-    public void onClick(View arg0) {
+    @OnClick({R.id.save_imagebutton, R.id.wldw_edittext, R.id.et_fplx, R.id.xm_edittext, R.id.jslx_edittext, R.id.zjzh_edittext, R.id.fkfs_edittext, R.id.xzzc_linearlayout, R.id.hjje_edittext, R.id.fkje_edittext, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (arg0.getId()) {
-            case R.id.xzzc_linearlayout:
-                intent.setClass(this, XjyhQtsrAddZcActivity.class);
-                startActivityForResult(intent, 0);
+        switch (view.getId()) {
+            case R.id.save_imagebutton:
+                if (time == 0 || System.currentTimeMillis() - time > 5000) {
+                    searchDateSave();//保存
+                    time = System.currentTimeMillis();
+                } else {
+                    showToastPromopt("请不要频繁点击，防止重复保存");
+
+                }
                 break;
             case R.id.wldw_edittext:
                 intent.setClass(this, CommonXzdwActivity.class);
                 intent.putExtra("type", "0");//
                 startActivityForResult(intent, 1);
                 break;
-            case R.id.jslx_edittext:
+            case R.id.et_fplx:
+                startActivityForResult(new Intent(activity, KtXzfplxActivity.class).putExtra("djlx", "1"), 5);
+                break;
+            case R.id.xm_edittext:
+                startActivityForResult(new Intent(this, ChoiceProjectActivity.class), 12);
+                break;
+            case R.id.jslx_edittext://结算类型
                 intent.setClass(activity, CommonXzzdActivity.class);
                 intent.putExtra("type", "FKLX");
                 startActivityForResult(intent, 4);
@@ -191,8 +207,22 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
                 intent.putExtra("type", "PAYTYPE");
                 startActivityForResult(intent, 2);
                 break;
+            case R.id.xzzc_linearlayout://新增支出
+                intent.putExtra("taxrate", mTaxrate);
+                intent.putExtra("billtypeid", billtypeid);
+                intent.putExtra("tiltle", "其他收入");
+                intent.setClass(this, KtXjyhFyzcAddZcActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.hjje_edittext:
+                break;
+            case R.id.fkje_edittext:
+                break;
             case R.id.djrq_edittext:
                 date_init(djrqEditText);
+                break;
+            case R.id.et_bm:
+                startActivityForResult(new Intent(this, ChooseDepartmentActivity.class), 15);
                 break;
             case R.id.jbr_edittext:
                 if (TextUtils.isEmpty(mDepartmentid))
@@ -200,27 +230,64 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
                 else
                     startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
                             .putExtra("depid", mDepartmentid), 16);
-//                intent.setClass(activity, CommonXzjbrActivity.class);
-//                startActivityForResult(intent, 5);
                 break;
-            case R.id.save_imagebutton:
-                if (time == 0 || System.currentTimeMillis() - time > 5000) {
-                    searchDateSave();//保存
-                    time = System.currentTimeMillis();
-                } else {
-                    showToastPromopt("请不要频繁点击，防止重复保存");
-
-                }
-                break;
-            case R.id.xm_edittext:
-                startActivityForResult(new Intent(this, ChoiceProjectActivity.class)
-                        ,
-                        12);
-//                intent.setClass(activity, XmActivity.class);
-//                startActivityForResult(intent, 12);
+            case R.id.bzxx_edittext:
                 break;
         }
     }
+
+//    @Override
+//    public void onClick(View arg0) {
+//        Intent intent = new Intent();
+//        switch (arg0.getId()) {
+//            case R.id.xzzc_linearlayout://新增支出
+//                intent.setClass(this, XjyhQtsrAddZcActivity.class);
+//                startActivityForResult(intent, 0);
+//                break;
+//            case R.id.wldw_edittext:
+//                intent.setClass(this, CommonXzdwActivity.class);
+//                intent.putExtra("type", "0");//
+//                startActivityForResult(intent, 1);
+//                break;
+//            case R.id.jslx_edittext://结算类型
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "FKLX");
+//                startActivityForResult(intent, 4);
+//                break;
+//            case R.id.zjzh_edittext:
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "BANK");
+//                startActivityForResult(intent, 3);
+//                break;
+//            case R.id.fkfs_edittext:
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "PAYTYPE");
+//                startActivityForResult(intent, 2);
+//                break;
+//            case R.id.djrq_edittext:
+//                date_init(djrqEditText);
+//                break;
+//            case R.id.jbr_edittext:
+//                if (TextUtils.isEmpty(mDepartmentid))
+//                    showToastPromopt("请先选择部门");
+//                else
+//                    startActivityForResult(new Intent(this, SelectSalesmanActivity.class)
+//                            .putExtra("depid", mDepartmentid), 16);
+////                intent.setClass(activity, CommonXzjbrActivity.class);
+////                startActivityForResult(intent, 5);
+//                break;
+//            case R.id.save_imagebutton:
+//                if (time == 0 || System.currentTimeMillis() - time > 5000) {
+//                    searchDateSave();//保存
+//                    time = System.currentTimeMillis();
+//                } else {
+//                    showToastPromopt("请不要频繁点击，防止重复保存");
+//
+//                }
+//                break;
+
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -228,6 +295,82 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case 0:// 增加费用
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("name", data.getExtras().getString("name"));
+                    map.put("ietypeid", data.getExtras().getString("ietypeid"));
+                    map.put("initamt", data.getExtras().getString("initamt"));
+                    map.put("taxrate", data.getExtras().getString("taxrate"));
+                    map.put("amount", data.getExtras().getString("amount"));
+                    list.add(map);
+                    adapter.notifyDataSetChanged();
+                    double hjfy = 0;
+                    for (Map<String, Object> m : list) {
+                        hjfy += Double.parseDouble(m.get("amount").toString());
+                    }
+                    hjjeEditText.setText(FigureTools.sswrFigure(hjfy));
+                    break;
+                case 1:// 往来单位
+                    wldwEditText.setText(data.getExtras().getString("cname"));
+                    wldwId = data.getExtras().getString("id");
+                    break;
+                case 2:// 付款方式
+                    fkfsEditText.setText(data.getExtras().getString("dictmc"));
+                    fkfsId = data.getExtras().getString("id");
+                    break;
+                case 3:// 资金账户
+                    zjzhEditText.setText(data.getExtras().getString("dictmc"));
+                    zjzhId = data.getExtras().getString("id");
+                    break;
+
+                case 4:// 结算类型
+                    jslxEditText.setText(data.getExtras().getString("dictmc"));
+                    jslxId = data.getExtras().getString("id");
+                    if (data.getExtras().getString("id").equals("0")) {
+                        fkjeEditText.setText("0");
+                        fkjeEditText.setEnabled(false);
+                        zjzhEditText.setEnabled(false);
+                        fkfsEditText.setEnabled(false);
+                        zjzhEditText.setText("");
+                        zjzhId = "";
+                        fkfsEditText.setText("");
+                        fkfsId = "";
+                    } else {
+                        fkjeEditText.setEnabled(true);
+                        fkfsEditText.setEnabled(true);
+                        zjzhEditText.setEnabled(true);
+                    }
+                    break;
+                case 5:// 发票类型
+                    etFplx.setText(data.getExtras().getString("name"));
+                    billtypeid = data.getExtras().getString("id");
+                    if (billtypeid.equals("1")) {
+                        mTaxrate = "0";
+                    } else {
+                        mTaxrate = data.getExtras().getString("taxrate");
+                    }
+                    if (list != null && list.size() > 0) {
+                        double hj = 0;
+                        for (int i = 0; i < list.size(); i++) {
+                            Map<String, Object> d = list.get(i);
+                            Map<String, Object> map1 = new HashMap<String, Object>();
+                            map1.put("name", d.get("name"));
+                            map1.put("ietypeid", d.get("ietypeid"));
+                            map1.put("initamt", d.get("initamt"));
+                            map1.put("taxrate", mTaxrate);
+                            Double amount = (Double.parseDouble(mTaxrate) + 100) * Double.parseDouble(d.get("initamt").toString()) / 100;
+                            map1.put("amount", FigureTools.sswrFigure(amount));
+                            hj += amount;
+                            list.set(i, map1);
+                        }
+                        adapter.notifyDataSetChanged();
+                        hjjeEditText.setText(FigureTools.sswrFigure(hj));
+                    }
+                    break;
+                case 12:
+                    xmEditText.setText(data.getStringExtra("title"));
+                    xmId = data.getStringExtra("projectid");
+                    break;
                 case 15://选择部门
                     mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
                     etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
@@ -239,53 +382,53 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
                     jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
                     break;
             }
-            if (requestCode == 0) {// 增加费用
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("name", data.getExtras().getString("name"));
-                map.put("amount", data.getExtras().getString("amount"));
-                map.put("ietypeid", data.getExtras().getString("ietypeid"));
-                list.add(map);
-                adapter.notifyDataSetChanged();
-                double hjfy = 0;
-                for (Map<String, Object> m : list) {
-                    hjfy += Double.parseDouble(m.get("amount").toString());
-                }
-                hjjeEditText.setText(FigureTools.sswrFigure(hjfy));
-            } else if (requestCode == 1) {// 往来单位
-                wldwEditText.setText(data.getExtras().getString("cname"));
-                wldwId = data.getExtras().getString("id");
-            } else if (requestCode == 2) {// 付款方式
-                fkfsEditText.setText(data.getExtras().getString("dictmc"));
-                fkfsId = data.getExtras().getString("id");
-            } else if (requestCode == 3) {// 资金账户
-                zjzhEditText.setText(data.getExtras().getString("dictmc"));
-                zjzhId = data.getExtras().getString("id");
-            } else if (requestCode == 4) {// 结算类型
-                jslxEditText.setText(data.getExtras().getString("dictmc"));
-                jslxId = data.getExtras().getString("id");
-                if (data.getExtras().getString("id").equals("0")) {
-                    fkjeEditText.setText("0");
-                    fkjeEditText.setEnabled(false);
-                    zjzhEditText.setEnabled(false);
-                    fkfsEditText.setEnabled(false);
-                    zjzhEditText.setText("");
-                    zjzhId = "";
-                    fkfsEditText.setText("");
-                    fkfsId = "";
-                } else {
-                    fkjeEditText.setEnabled(true);
-                    fkfsEditText.setEnabled(true);
-                    zjzhEditText.setEnabled(true);
-                }
-            } else if (requestCode == 5) {// 经办人
-                jbrEditText.setText(data.getExtras().getString("name"));
-                jbrId = data.getExtras().getString("id");
-            } else if (requestCode == 12) {
-                xmEditText.setText(data.getStringExtra("title"));
-                xmId = data.getStringExtra("projectid");
-//                xmEditText.setText(data.getExtras().getString("xmname"));
-//                xmId = data.getExtras().getString("xmid");
-            }
+//            if (requestCode == 0) {// 增加费用
+//                Map<String, Object> map = new HashMap<String, Object>();
+//                map.put("name", data.getExtras().getString("name"));
+//                map.put("amount", data.getExtras().getString("amount"));
+//                map.put("ietypeid", data.getExtras().getString("ietypeid"));
+//                list.add(map);
+//                adapter.notifyDataSetChanged();
+//                double hjfy = 0;
+//                for (Map<String, Object> m : list) {
+//                    hjfy += Double.parseDouble(m.get("amount").toString());
+//                }
+//                hjjeEditText.setText(FigureTools.sswrFigure(hjfy));
+//            } else if (requestCode == 1) {// 往来单位
+//                wldwEditText.setText(data.getExtras().getString("cname"));
+//                wldwId = data.getExtras().getString("id");
+//            } else if (requestCode == 2) {// 付款方式
+//                fkfsEditText.setText(data.getExtras().getString("dictmc"));
+//                fkfsId = data.getExtras().getString("id");
+//            } else if (requestCode == 3) {// 资金账户
+//                zjzhEditText.setText(data.getExtras().getString("dictmc"));
+//                zjzhId = data.getExtras().getString("id");
+//            } else if (requestCode == 4) {// 结算类型
+//                jslxEditText.setText(data.getExtras().getString("dictmc"));
+//                jslxId = data.getExtras().getString("id");
+//                if (data.getExtras().getString("id").equals("0")) {
+//                    fkjeEditText.setText("0");
+//                    fkjeEditText.setEnabled(false);
+//                    zjzhEditText.setEnabled(false);
+//                    fkfsEditText.setEnabled(false);
+//                    zjzhEditText.setText("");
+//                    zjzhId = "";
+//                    fkfsEditText.setText("");
+//                    fkfsId = "";
+//                } else {
+//                    fkjeEditText.setEnabled(true);
+//                    fkfsEditText.setEnabled(true);
+//                    zjzhEditText.setEnabled(true);
+//                }
+//            } else if (requestCode == 5) {// 经办人
+//                jbrEditText.setText(data.getExtras().getString("name"));
+//                jbrId = data.getExtras().getString("id");
+//            } else if (requestCode == 12) {
+//                xmEditText.setText(data.getStringExtra("title"));
+//                xmId = data.getStringExtra("projectid");
+////                xmEditText.setText(data.getExtras().getString("xmname"));
+////                xmId = data.getExtras().getString("xmid");
+//            }
         }
     }
 
@@ -365,7 +508,9 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
                 jsonObject2.put("billid", "0");
                 jsonObject2.put("itemno", "0");
                 jsonObject2.put("ietypeid", map.get("ietypeid").toString());
-                jsonObject2.put("amount ", map.get("amount").toString());
+                jsonObject2.put("initamt", map.get("initamt").toString());
+                jsonObject2.put("taxrate ", map.get("taxrate").toString());
+                jsonObject2.put("amount", map.get("amount").toString());
                 arrayDetail.put(jsonObject2);
             }
         } catch (JSONException e) {
@@ -410,4 +555,6 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
             adapter.notifyDataSetChanged();
         }
     }
+
+
 }

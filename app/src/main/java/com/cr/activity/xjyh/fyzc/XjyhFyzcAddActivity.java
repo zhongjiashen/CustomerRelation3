@@ -111,8 +111,7 @@ public class XjyhFyzcAddActivity extends BaseActivity implements
                                     long arg3) {
                 selectIndex = arg2;
                 Intent intent = new Intent();
-                intent.setClass(activity,
-                        KtXjyhFyzcAddZcActivity.class);
+                intent.setClass(activity, KtXjyhFyzcAddZcActivity.class);
                 intent.putExtra("billtypeid", billtypeid);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 startActivityForResult(intent, 10);
