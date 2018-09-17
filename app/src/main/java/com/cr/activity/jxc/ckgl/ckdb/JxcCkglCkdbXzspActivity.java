@@ -15,12 +15,19 @@ import android.widget.Toast;
 
 import com.baiiu.filter.DropDownMenu;
 import com.baiiu.filter.adapter.DropMenuAdapter;
+import com.baiiu.filter.adapter.MyMenuAdapter;
+import com.baiiu.filter.adapter.SimpleTextAdapter;
 import com.baiiu.filter.interfaces.OnFilterDoneListener;
+import com.baiiu.filter.interfaces.OnFilterItemClickListener;
+import com.baiiu.filter.typeview.SingleListView;
+import com.baiiu.filter.util.UIUtil;
+import com.baiiu.filter.view.FilterCheckedTextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzsplbActivity;
 import com.cr.adapter.jxc.ckgl.ckdb.JxcCkglCkdbXzspAdapter;
 import com.cr.common.XListView;
 import com.cr.common.XListView.IXListViewListener;
+import com.cr.tools.AppData;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -64,6 +71,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
     private String storeid = "";
     DropDownMenu dropDownMenu;
     private String barcode;//新增条码
+    private String cartypeid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +87,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
         qsrq = sdf.format(new Date()) + "01";
         jzrq = sdf.format(new Date())
                 + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        fenleiDate();
+        fenlei();
     }
 
     /**
@@ -141,6 +149,12 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
         });
     }
 
+    private void fenlei() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        findServiceData2(1, "multitype", parmMap, false);
+    }
+
     /**
      * 连接网络的操作
      */
@@ -150,6 +164,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
         parmMap.put("tabname", "tb_allot");
         parmMap.put("goodscode", "");
         parmMap.put("goodstype", code);
+        parmMap.put("cartypeid", cartypeid);
         parmMap.put("storeid", storeid);
         parmMap.put("barcode", barcode);//新增条码
         parmMap.put("goodsname", searchEditText.getText().toString());
@@ -159,73 +174,122 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
         findServiceData2(0, ServerURL.SELECTGOODS, parmMap, false);
     }
 
-    /**
-     * 连接网络的操作
-     */
-    private void fenleiDate() {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-
-        findServiceData2(1, ServerURL.GOODSTYPE, parmMap, true);
-    }
 
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-        if (returnJson.equals("")) {
-            showToastPromopt(2);
-        } else {
-            switch (returnSuccessType) {
-                case 0:
-                    ArrayList<Map<String, Object>> myList = (ArrayList<Map<String, Object>>) PaseJson
-                            .paseJsonToObject(returnJson);
-                    for (Map<String, Object> obj : myList) {
-                        obj.put("isDetail", "0");
-                        obj.put("ischecked", "0");
-                        list.add(obj);
-                        Map<String, Object> obj2 = new HashMap<String, Object>();
-                        obj2.put("isDetail", "1");
-                        obj2.put("dj", "个");
-                        obj2.put("zkl", "100");
-                        obj2.put("sl", "1");
-                        obj2.put("cpph", "");
-                        obj2.put("scrq", "");
-                        obj2.put("yxqz", "");
-                        obj2.put("batchctrl", obj.get("batchctrl").toString());
-                        obj2.put("serialctrl", obj.get("serialctrl").toString());
-                        UUID uuid = UUID.randomUUID();
-                        obj2.put("serialinfo", uuid.toString().toUpperCase());
-                        obj2.put("serials", new ArrayList<Serial>());
-                        list.add(obj2);
+
+        switch (returnSuccessType) {
+            case 0:
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+                    return;
+                }
+                ArrayList<Map<String, Object>> myList = (ArrayList<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson);
+                for (Map<String, Object> obj : myList) {
+                    obj.put("isDetail", "0");
+                    obj.put("ischecked", "0");
+                    list.add(obj);
+                    Map<String, Object> obj2 = new HashMap<String, Object>();
+                    obj2.put("isDetail", "1");
+                    obj2.put("dj", "个");
+                    obj2.put("zkl", "100");
+                    obj2.put("sl", "1");
+                    obj2.put("cpph", "");
+                    obj2.put("scrq", "");
+                    obj2.put("yxqz", "");
+                    obj2.put("batchctrl", obj.get("batchctrl").toString());
+                    obj2.put("serialctrl", obj.get("serialctrl").toString());
+                    UUID uuid = UUID.randomUUID();
+                    obj2.put("serialinfo", uuid.toString().toUpperCase());
+                    obj2.put("serials", new ArrayList<Serial>());
+                    list.add(obj2);
+                }
+                adapter.notifyDataSetChanged();
+
+                break;
+            case 1://获取分类数据
+                searchDate();
+                List<Map<String, Object>> fenlinList = (List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson);
+
+                List<Map<String, Object>> lbList = new ArrayList<>();
+                List<Map<String, Object>> cllxList = new ArrayList<>();
+                Map<String, Object> map=new HashMap<>();
+                map.put("name","全部");
+                map.put("id","0");
+                map.put("lcode","0");
+                lbList.add(map);
+                cllxList.add(map);
+                for (int i = 0; i < fenlinList.size(); i++) {
+                    switch (fenlinList.get(i).get("lb").toString()) {
+
+                        case "2":
+                            lbList.add(fenlinList.get(i));
+                            break;
+                        case "3":
+                            cllxList.add(fenlinList.get(i));
+                            break;
                     }
-                    adapter.notifyDataSetChanged();
-
-                    break;
-                case 1://获取分类数据
-
-                    String[] titleList = new String[]{"分类"};
-                    List[] contextList = new List[]{(List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson)};
-                    dropDownMenu.setMenuAdapter(new DropMenuAdapter(activity, titleList, contextList, new OnFilterDoneListener() {
-                        @Override
-                        public void onFilterDone(int position, Map map) {
-                            dropDownMenu.setPositionIndicatorText(position, map.get("name").toString());
-                            dropDownMenu.close();
-                            code = map.get("lcode").toString();
-                            list.clear();
-                            searchDate();
-                        }
-
-
-                    }));
-                    searchDate();
-                    break;
-            }
-
+                }
+                setMenu(lbList,cllxList);
+                break;
         }
 
     }
+    private void setMenu( List<Map<String, Object>> lbList,List<Map<String, Object>> cllxList){
+        String[] titleList;
+        List<View> views=new ArrayList<>();
+        views.add(createSingleListView(lbList,0));
+        if(AppData.AppType==1){//判断是否是汽配版
+            titleList = new String[]{"类别","车辆类别"};
+            views.add(createSingleListView(cllxList,1));
+        }else {
+            titleList = new String[]{"类别"};
+        }
+        dropDownMenu.setMenuAdapter(new MyMenuAdapter(activity, titleList, views));
+    }
+    private View createSingleListView(List<Map<String, Object>> items, final int kind) {
+        SingleListView<Map<String, Object>> singleListView = new SingleListView<Map<String, Object>>(activity)
+                .adapter(new SimpleTextAdapter<Map<String, Object>>(null, activity) {
+                    @Override
+                    public String provideText(Map<String, Object> string) {
+                        return string.get("name").toString();
+                    }
+
+                    @Override
+                    protected void initCheckedTextView(FilterCheckedTextView checkedTextView) {
+                        int dp = UIUtil.dp(activity, 15);
+                        checkedTextView.setPadding(dp, dp, 0, dp);
+                    }
+                })
+                .onItemClick(new OnFilterItemClickListener<Map<String, Object>>() {
+                    @Override
+                    public void onItemClick(Map<String, Object> item) {
+                        dropDownMenu.close();
+                        dropDownMenu.setPositionIndicatorText(kind,item.get("name").toString());
+                        switch (kind){
+                            case 0://商品类别
+                                code=item.get("id").toString();
+                                break;
+                            case 1://车辆类别
+                                cartypeid=item.get("id").toString();
+                                break;
+
+                        }
+                        currentPage=1;
+                        list.clear();
+                        searchDate();
+
+                    }
+                });
 
 
+        singleListView.setList(items, -1);
+
+        return singleListView;
+    }
     /**
      * 刷新
      */
@@ -329,7 +393,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                 case 11:
                     int i = data.getExtras()
                             .getInt("position");
-                    List<Serial> serials=new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+                    List<Serial> serials = new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
                     }.getType());
 
                     list.get(i).put("serials", serials);

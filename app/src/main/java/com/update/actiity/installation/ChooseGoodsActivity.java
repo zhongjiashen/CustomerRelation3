@@ -14,8 +14,15 @@ import android.widget.EditText;
 
 import com.baiiu.filter.DropDownMenu;
 import com.baiiu.filter.adapter.DropMenuAdapter;
+import com.baiiu.filter.adapter.MyMenuAdapter;
+import com.baiiu.filter.adapter.SimpleTextAdapter;
 import com.baiiu.filter.interfaces.OnFilterDoneListener;
+import com.baiiu.filter.interfaces.OnFilterItemClickListener;
+import com.baiiu.filter.typeview.SingleListView;
+import com.baiiu.filter.util.UIUtil;
+import com.baiiu.filter.view.FilterCheckedTextView;
 import com.cr.myinterface.SLViewValueChange;
+import com.cr.tools.AppData;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -79,7 +86,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     private int kind;
     private String barcode;//新增条码
-
+    private String cartypeid;
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
@@ -91,7 +98,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
         presenter = new BaseP(this, this);
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(mActivity));
-        presenter.post(3, ServerURL.GOODSTYPE,parmMap);
+        presenter.post(3, "multitype",parmMap);
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("curpage", page_number);
@@ -316,8 +323,6 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
     @Override
     public void returnData(int requestCode, Object data) {
-
-
         switch (requestCode) {
             case 0://第一次加载数据或者刷新数据
                 mList = mGson.fromJson((String) data,
@@ -339,7 +344,7 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 }
                 break;
             case 3:
-
+                presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
                 String[] titleList = new String[]{"分类"};
                 List[] contextList = new List[]{(List<Map<String, Object>>) PaseJson.paseJsonToObject(data.toString())};
                 dropDownMenu.setMenuAdapter(new DropMenuAdapter(mActivity, titleList, contextList, new OnFilterDoneListener() {
@@ -355,10 +360,88 @@ public class ChooseGoodsActivity extends BaseActivity implements
 
 
                 }));
-                presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
+                List<Map<String, Object>> fenlinList = (List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(data.toString());
+
+                List<Map<String, Object>> lbList = new ArrayList<>();
+                List<Map<String, Object>> cllxList = new ArrayList<>();
+                Map<String, Object> map=new HashMap<>();
+                map.put("name","全部");
+                map.put("id","0");
+                map.put("lcode","0");
+                lbList.add(map);
+                cllxList.add(map);
+                for (int i = 0; i < fenlinList.size(); i++) {
+                    switch (fenlinList.get(i).get("lb").toString()) {
+
+                        case "2":
+                            lbList.add(fenlinList.get(i));
+                            break;
+                        case "3":
+                            cllxList.add(fenlinList.get(i));
+                            break;
+                    }
+                }
+                setMenu(lbList,cllxList);
                 break;
         }
 
+    }
+    private void setMenu( List<Map<String, Object>> lbList,List<Map<String, Object>> cllxList){
+        String[] titleList;
+        List<View> views=new ArrayList<>();
+        views.add(createSingleListView(lbList,0));
+        if(AppData.AppType==1){//判断是否是汽配版
+            titleList = new String[]{"类别","车辆类别"};
+            views.add(createSingleListView(cllxList,1));
+        }else {
+            titleList = new String[]{"类别"};
+        }
+        dropDownMenu.setMenuAdapter(new MyMenuAdapter(mActivity, titleList, views));
+    }
+    private View createSingleListView(List<Map<String, Object>> items, final int kind) {
+        SingleListView<Map<String, Object>> singleListView = new SingleListView<Map<String, Object>>(mActivity)
+                .adapter(new SimpleTextAdapter<Map<String, Object>>(null, mActivity) {
+                    @Override
+                    public String provideText(Map<String, Object> string) {
+                        return string.get("name").toString();
+                    }
+
+                    @Override
+                    protected void initCheckedTextView(FilterCheckedTextView checkedTextView) {
+                        int dp = UIUtil.dp(mActivity, 15);
+                        checkedTextView.setPadding(dp, dp, 0, dp);
+                    }
+                })
+                .onItemClick(new OnFilterItemClickListener<Map<String, Object>>() {
+                    @Override
+                    public void onItemClick(Map<String, Object> item) {
+                        dropDownMenu.close();
+                        dropDownMenu.setPositionIndicatorText(kind,item.get("name").toString());
+                        page_number=1;
+                        mParmMap.put("curpage", page_number);
+                        switch (kind){
+                            case 0://商品类别
+                                page_number=1;
+                                mParmMap.put("goodstype", item.get("id").toString());
+                                presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
+                                break;
+                            case 1://车辆类别
+                                page_number=1;
+                                mParmMap.put("cartypeid", item.get("id").toString());
+                                presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
+                                break;
+
+                        }
+
+
+                    }
+                });
+
+
+        singleListView.setList(items, -1);
+
+        return singleListView;
     }
 
     @Override

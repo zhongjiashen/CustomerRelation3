@@ -27,6 +27,7 @@ import com.cr.activity.xjyh.fkd.XjyhFkdDetailActivity;
 import com.cr.adapter.tjfx.kcbb.TjfxKcbbAdapter;
 import com.cr.common.XListView;
 import com.cr.common.XListView.IXListViewListener;
+import com.cr.tools.AppData;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -64,7 +65,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
 
     private String storeid= "";
     private String goodstypeid ;
-
+    private String cartypeid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +134,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         parmMap.put("barcode", barcode);//新增条码
         parmMap.put("storeid", storeid.equals("") ? "0" : storeid);
         parmMap.put("goodstypeid ", goodstypeid);
-
+        parmMap.put("cartypeid", cartypeid);
         parmMap.put("goodsname", goodsname);
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
@@ -179,12 +180,14 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                         .paseJsonToObject(returnJson);
                 List<Map<String, Object>> ckList = new ArrayList<>();
                 List<Map<String, Object>> lbList = new ArrayList<>();
+                List<Map<String, Object>> cllxList = new ArrayList<>();
                 Map<String, Object> map=new HashMap<>();
                 map.put("name","全部");
                 map.put("id","0");
                 map.put("lcode","0");
                 lbList.add(map);
                 ckList.add(map);
+                cllxList.add(map);
                 for (int i = 0; i < fenlinList.size(); i++) {
                     switch (fenlinList.get(i).get("lb").toString()) {
                         case "1":
@@ -193,19 +196,28 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                         case "2":
                             lbList.add(fenlinList.get(i));
                             break;
+                        case "3":
+                            cllxList.add(fenlinList.get(i));
+                            break;
                     }
                 }
-                setMenu(ckList,lbList);
+                setMenu(ckList,lbList,cllxList);
                 break;
         }
 
     }
 
-    private void setMenu( List<Map<String, Object>> ckList,List<Map<String, Object>> lbList){
+    private void setMenu( List<Map<String, Object>> ckList, List<Map<String, Object>> lbList,List<Map<String, Object>>cllxList ){
         String[] titleList = new String[]{"仓库","类别"};
         List<View> views=new ArrayList<>();
         views.add(createSingleListView(ckList,0));
         views.add(createSingleListView(lbList,1));
+        if(AppData.AppType==1){//判断是否是汽配版
+            titleList = new String[]{"仓库","类别","车辆类别"};
+            views.add(createSingleListView(cllxList,2));
+        }else {
+            titleList = new String[]{"仓库","类别"};
+        }
         dropDownMenu.setMenuAdapter(new MyMenuAdapter(activity, titleList, views));
     }
     private View createSingleListView(List<Map<String, Object>> items, final int kind) {
@@ -232,7 +244,10 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                                storeid=item.get("id").toString();
                                break;
                            case 1:
-                               goodstypeid=item.get("lcode").toString();
+                               goodstypeid=item.get("id").toString();
+                               break;
+                           case 2:
+                               cartypeid=item.get("id").toString();
                                break;
                        }
                         currentPage=1;
