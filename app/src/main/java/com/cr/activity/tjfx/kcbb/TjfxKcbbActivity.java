@@ -182,6 +182,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                 Map<String, Object> map=new HashMap<>();
                 map.put("name","全部");
                 map.put("id","0");
+                map.put("lcode","0");
                 lbList.add(map);
                 ckList.add(map);
                 for (int i = 0; i < fenlinList.size(); i++) {
@@ -231,7 +232,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
                                storeid=item.get("id").toString();
                                break;
                            case 1:
-                               goodstypeid=item.get("id").toString();
+                               goodstypeid=item.get("lcode").toString();
                                break;
                        }
                         currentPage=1;

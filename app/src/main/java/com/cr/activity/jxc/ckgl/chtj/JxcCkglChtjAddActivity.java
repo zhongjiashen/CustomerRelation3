@@ -116,6 +116,12 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
         xzspnumTextView.setText("共选择了" + list.size() + "商品");
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+
+        mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
+        jbrId =  ShareUserInfo.getKey(this, "empid");
     }
     /**
      * 连接网络的操作(查询主表的内容)
@@ -145,16 +151,19 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
         if(wjphEditText.getText().toString().equals("")){
             showToastPromopt("文件批号不能为空！");
             return;
-        }else if (list.size() == 0) {
+        }
+        if (list.size() == 0) {
             showToastPromopt("请选择商品");
             return;
-        }else if(djrqEditText.getText().toString().equals("")){
+        }
+        if(djrqEditText.getText().toString().equals("")){
             showToastPromopt("请选择单据日期");
             return;
-        } if (jbrEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
         }
+//        if (jbrEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择业务员");
+//            return;
+//        }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
         try {
@@ -195,7 +204,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("parms", "CHTJ");
         parmMap.put("master", arrayMaster.toString());
         parmMap.put("detail", arrayDetail.toString());
-        findServiceData2(0, "billsavenew", parmMap, false);
+        findServiceData2(0, "billsave", parmMap, false);
     }
 
     @SuppressWarnings("unchecked")
