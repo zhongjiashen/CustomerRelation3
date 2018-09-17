@@ -24,6 +24,7 @@ import com.cr.activity.common.CommonXzsplbActivity;
 import com.cr.adapter.jxc.ckgl.chtj.JxcCkglChtjXzspAdapter;
 import com.cr.common.XListView;
 import com.cr.common.XListView.IXListViewListener;
+import com.cr.tools.AppData;
 import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
@@ -59,6 +60,8 @@ public class JxcCkglChtjXzspActivity extends BaseActivity implements
     private TextView qrTextView;
     ImageButton flImageButton;
     private String code;
+
+    private String cartypeid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +138,7 @@ public class JxcCkglChtjXzspActivity extends BaseActivity implements
         parmMap.put("tabname", "tb_adjap");
         parmMap.put("goodscode", "");
         parmMap.put("goodstype", code);
+        parmMap.put("cartypeid", cartypeid);
         parmMap.put("goodsname", searchEditText.getText().toString());
 
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
@@ -172,34 +176,41 @@ public class JxcCkglChtjXzspActivity extends BaseActivity implements
                 searchDate();
                 List<Map<String, Object>> fenlinList = (List<Map<String, Object>>) PaseJson
                         .paseJsonToObject(returnJson);
-                List<Map<String, Object>> ckList = new ArrayList<>();
+
                 List<Map<String, Object>> lbList = new ArrayList<>();
+                List<Map<String, Object>> cllxList = new ArrayList<>();
                 Map<String, Object> map=new HashMap<>();
                 map.put("name","全部");
                 map.put("id","0");
                 map.put("lcode","0");
                 lbList.add(map);
-                ckList.add(map);
+                cllxList.add(map);
                 for (int i = 0; i < fenlinList.size(); i++) {
                     switch (fenlinList.get(i).get("lb").toString()) {
-                        case "1":
-                            ckList.add(fenlinList.get(i));
-                            break;
+
                         case "2":
                             lbList.add(fenlinList.get(i));
                             break;
+                        case "3":
+                            cllxList.add(fenlinList.get(i));
+                            break;
                     }
                 }
-                setMenu(ckList,lbList);
+                setMenu(lbList,cllxList);
                 break;
         }
 
     }
-    private void setMenu( List<Map<String, Object>> ckList,List<Map<String, Object>> lbList){
-        String[] titleList = new String[]{"类别"};
+    private void setMenu( List<Map<String, Object>> lbList,List<Map<String, Object>> cllxList){
+        String[] titleList;
         List<View> views=new ArrayList<>();
-//        views.add(createSingleListView(ckList,0));
         views.add(createSingleListView(lbList,0));
+        if(AppData.AppType==1){//判断是否是汽配版
+            titleList = new String[]{"类别","车辆类别"};
+            views.add(createSingleListView(cllxList,1));
+        }else {
+            titleList = new String[]{"类别"};
+        }
         dropDownMenu.setMenuAdapter(new MyMenuAdapter(activity, titleList, views));
     }
     private View createSingleListView(List<Map<String, Object>> items, final int kind) {
@@ -224,6 +235,9 @@ public class JxcCkglChtjXzspActivity extends BaseActivity implements
                         switch (kind){
                             case 0://商品类别
                                 code=item.get("id").toString();
+                                break;
+                            case 1://车辆类别
+                                cartypeid=item.get("id").toString();
                                 break;
 
                         }
