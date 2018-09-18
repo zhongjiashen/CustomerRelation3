@@ -298,8 +298,6 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                             .putExtra("uuid", objMap.get("serialinfo")
                                     .toString())
                             .putExtra("position", position)
-
-
                             .putExtra("storied", storeid)
                             .putExtra("goodsid", objMap2.get("goodsid")
                                     .toString())
