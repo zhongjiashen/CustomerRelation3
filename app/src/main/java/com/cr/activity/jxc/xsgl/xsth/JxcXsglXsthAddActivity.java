@@ -485,11 +485,8 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                         Map<String, Object> map = (Map<String, Object>) data
                                 .getExtras().getSerializable("object");
                         list.remove(selectIndex);
-                        map.put("amount", map.put(
-                                "amount",
-                                Double.parseDouble(map.get("taxunitprice").toString())
-                                        * Double.parseDouble(map.get("unitqty")
-                                        .toString())));
+                        map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
+                                * Double.parseDouble(map.get("unitqty").toString()));
                         list.add(selectIndex, map);
                         adapter.notifyDataSetChanged();
                     }
