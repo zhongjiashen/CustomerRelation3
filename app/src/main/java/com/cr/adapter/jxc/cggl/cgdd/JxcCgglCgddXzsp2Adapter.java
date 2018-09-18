@@ -244,6 +244,14 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
                 viewHolder2.cpphView.setVisibility(View.GONE);
                 viewHolder2.scrqView.setVisibility(View.GONE);
 			}
+			if (objMap2.get("serialctrl").equals("T")) {
+				LogUtils.e("严格序列商品");
+				viewHolder2.slView.setVisibility(View.GONE);
+				viewHolder2.tvSl.setVisibility(View.VISIBLE);
+			} else {
+				viewHolder2.slView.setVisibility(View.VISIBLE);
+				viewHolder2.tvSl.setVisibility(View.GONE);
+			}
 			viewHolder2.djEdittext.setText(objMap.get("dj").toString());
 			viewHolder2.zklEdittext.setText(objMap.get("zkl").toString());
 			viewHolder2.slView.setSl(Double.parseDouble(objMap.get("sl")
@@ -368,7 +376,8 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 		TextView tvHsdj;
 		@BindView(R.id.item2_linearlayout)
 		LinearLayout item2Linearlayout;
-
+		@BindView(R.id.tv_sl)
+		TextView tvSl;
 		ViewHolder2(View view) {
 			ButterKnife.bind(this, view);
 		}

@@ -210,6 +210,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
                     obj2.put("scrq", "");
                     obj2.put("yxqz", "");
                     obj2.put("batchctrl", obj.get("batchctrl").toString());
+                    obj2.put("serialctrl", obj.get("serialctrl").toString());
                     obj2.put("taxrate", mTaxrate);//初始化税率
                     obj2.put("issj", issj);//发票类型是否是收据
                     list.add(obj2);
