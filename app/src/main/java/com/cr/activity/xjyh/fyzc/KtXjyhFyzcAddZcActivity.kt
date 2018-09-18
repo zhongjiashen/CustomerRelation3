@@ -150,6 +150,9 @@ class KtXjyhFyzcAddZcActivity : BaseActivity() {
      */
     open fun setOnClick() {
         fymc_edittext.setOnClickListener {
+            if(intent.getStringExtra("title")!=null&&intent.getStringExtra("title").equals("其他收入")){
+                intent.putExtra("type", "SRLB")
+            }else
             intent.putExtra("type", "ZCLB")
             intent.setClass(activity, CommonXzzdActivity::class.java)
             startActivityForResult(intent, 0)
