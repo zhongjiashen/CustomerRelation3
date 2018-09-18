@@ -759,7 +759,7 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("bankid", zjzhId);
 //            jsonObject.put("receipt",fkjeEditText.getText().toString());
             jsonObject.put("privilege", "");
-            jsonObject.put("totalamt", hjjeEdittext.getText().toString());//合计金额
+            jsonObject.put("totalamt", hjjeEdittext.getText().toString().replace("￥",""));//合计金额
             jsonObject.put("receipt", tkjeEdittext.getText().toString());//退款金额
             jsonObject.put("clientid", gysId);//供应商ID
             jsonObject.put("linkmanid", lxrId);//联系人ID
