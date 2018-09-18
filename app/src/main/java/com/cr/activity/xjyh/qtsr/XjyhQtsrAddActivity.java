@@ -210,7 +210,7 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
             case R.id.xzzc_linearlayout://新增支出
                 intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("billtypeid", billtypeid);
-                intent.putExtra("tiltle", "其他收入");
+                intent.putExtra("title", "其他收入");
                 intent.setClass(this, KtXjyhFyzcAddZcActivity.class);
                 startActivityForResult(intent, 0);
                 break;
