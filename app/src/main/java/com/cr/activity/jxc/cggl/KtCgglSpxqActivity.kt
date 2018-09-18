@@ -21,7 +21,7 @@ import java.io.Serializable
 
 
 /**
- * 采购管理商品详情
+ * 采购管理商品详情（采购收货、采购退货、销售开单、销售退货）
  */
 class KtCgglSpxqActivity : BaseActivity<BaseP>() {
 

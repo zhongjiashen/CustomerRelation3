@@ -15,7 +15,7 @@ public class FigureTools {
      * @return
      */
     public static String sswrFigure(String resourceDate) {
-        String sf = "#.00";//保留两位
+        String sf = "0.00";//保留两位
         DecimalFormat df = new DecimalFormat(sf);
 
         String str = df.format(Double.parseDouble(resourceDate));
