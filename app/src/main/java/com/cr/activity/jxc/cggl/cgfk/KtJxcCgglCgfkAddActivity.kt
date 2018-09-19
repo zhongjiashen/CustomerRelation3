@@ -6,9 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.MotionEvent
+import android.view.View
 import android.widget.BaseAdapter
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.CommonXzdwActivity
+import com.cr.activity.common.CommonXzfklx2Activity
 import com.cr.activity.common.CommonXzzdActivity
 
 import com.cr.adapter.jxc.cggl.cgfk.JxcCgglCgfkAddAdapter
@@ -17,6 +19,7 @@ import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.update.actiity.choose.ChooseDepartmentActivity
 import com.update.actiity.choose.SelectSalesmanActivity
+import com.update.utils.EditTextHelper
 
 
 import kotlinx.android.synthetic.main.activity_jxc_cggl_cgfk_add.*
@@ -92,6 +95,12 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
             intent.putExtra("type", "2")
             startActivityForResult(intent, 1)
         }
+        //付款类型
+        fklx_edittext.setOnClickListener{
+
+            startActivityForResult(Intent(activity, CommonXzfklx2Activity::class.java), 7)
+        }
+
         xzsp_listview.setOnItemClickListener { parent, view, position, id ->
             selectIndex = position
             val intent = Intent()
@@ -218,6 +227,19 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
                     5 -> {
                         zjzh_edittext.setText(data.extras!!.getString("dictmc"))
                         zjzhId = data.extras!!.getString("id")
+                    }
+                    7->{
+                        fklx_edittext.setText(data.extras!!.getString("name"))
+                        fklxId = data.extras!!.getString("id")
+                        EditTextHelper.EditTextEnable(fklxId == "1", fklx_edittext)
+                        show_yyd_layout.setVisibility(View.GONE)
+                        if (fklxId == "1") {
+                            show_yyd_layout.setVisibility(View.GONE)
+                            list.clear()
+                            adapter.notifyDataSetChanged()
+                        } else {
+                            show_yyd_layout.setVisibility(View.VISIBLE)
+                        }
                     }
 
 

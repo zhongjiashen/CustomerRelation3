@@ -168,9 +168,9 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
 
         fklxEditText.setText("应收账款");
         fklxId = "0";
-        fkjeEditText.setEnabled(false);
-        showYydLinearLayout.setVisibility(View.VISIBLE);
 
+        showYydLinearLayout.setVisibility(View.VISIBLE);
+        EditTextHelper.EditTextEnable(true,fkjeEditText);
 
     }
 
@@ -495,7 +495,7 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
                 case 7:
                     fklxEditText.setText(data.getExtras().getString("name"));
                     fklxId = data.getExtras().getString("id");
-                    EditTextHelper.EditTextEnable(fklxId.equals("1"),fkjeEditText);
+
                     if (data.getExtras().getString("id").equals("1")) {//选择了当前预收
                         fkjeEditText.setEnabled(true);
                         list.clear();
