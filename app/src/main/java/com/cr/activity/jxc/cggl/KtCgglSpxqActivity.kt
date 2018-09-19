@@ -170,6 +170,7 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
         if (data != null) {
             when (requestCode) {
                 0 -> {
+                    this.data["batchrefid"] =data.getExtras().getString("id")
                     this.data["batchcode"] = data.getExtras().getString("name")
                     this.data["produceddate"] = data.getExtras()!!.getString("scrq")
                     this.data["validdate"] = data.getExtras()!!.getString("yxrq")

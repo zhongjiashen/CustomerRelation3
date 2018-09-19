@@ -379,6 +379,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                     list.get(index).put("cpph", data.getExtras().getString("name"));
                     list.get(index).put("scrq", data.getExtras().getString("scrq"));
                     list.get(index).put("yxqz", data.getExtras().getString("yxrq"));
+                    list.get(index).put("batchrefid", data.getExtras().getString("id"));
                     adapter.notifyDataSetChanged();
                     break;
                 case 1:

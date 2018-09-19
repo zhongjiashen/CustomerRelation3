@@ -496,6 +496,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                                 map.put("taxunitprice", map2.get("taxunitprice"));//含税单价
                                 map.put("serialinfo", map2.get("serialinfo").toString());
                                 map.put("serials", map2.get("serials"));
+                                map.put("batchrefid", map2.get("batchrefid"));//
                                 list.add(map);
 //                            zje += Double.parseDouble(map.get("amount").toString());
                             }

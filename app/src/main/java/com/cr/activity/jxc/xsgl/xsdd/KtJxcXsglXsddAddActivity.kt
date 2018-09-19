@@ -233,6 +233,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
 
                                     map["taxrate"] = map2["taxrate"]//税率
                                     map["taxunitprice"] = map2["taxunitprice"]//含税单价
+                                    map["batchrefid"] = map2["batchrefid"]//
                                     list.add(map)
                                     //                            zje += Double.parseDouble(map.get("amount").toString());
                                 }
