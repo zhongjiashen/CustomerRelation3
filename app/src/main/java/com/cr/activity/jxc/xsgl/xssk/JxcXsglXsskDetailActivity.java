@@ -182,82 +182,7 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
         findServiceData2(3, ServerURL.BILLDELMASTER, parmMap, false);
     }
 
-    /**
-     * 连接网络的操作(保存)
-     */
-    private void searchDateSave() {
-        if (gysEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择客户");
-            return;
-        } else if (fklxEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择收款类型");
-            return;
-        } else if (jsfsEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择结算方式");
-            return;
-        } else if (zjzhEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择资金账户");
-            return;
-        } else if (fklxId.equals("1")) {
-            if (fkjeEditText.getText().toString().equals("")) {
-                showToastPromopt("请填写收款金额");
-                return;
-            }
-        }
-        if (!fklxId.equals("1")) {//不选择选择了当前预收
-            if (list.size() == 0) {
-                showToastPromopt("请选择单据引用");
-                return;
-            }
-        }
-        if (jbrEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
-        JSONArray arrayMaster = new JSONArray();
-        JSONArray arrayDetail = new JSONArray();
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("billid", billid);
-            jsonObject.put("code", object.get("code").toString());
-            jsonObject.put("billdate", object.get("billdate").toString());
-            jsonObject.put("ispc", fklxId);
-            jsonObject.put("paytypeid", jsfsId);
-            jsonObject.put("bankid", zjzhId);
-            jsonObject.put("clientid", gysId);//供应商ID
-            jsonObject.put("factamount", fkjeEditText.getText().toString());
-            jsonObject.put("exemanid", jbrId);
-            jsonObject.put("amount", fkjeEditText.getText().toString());
-            jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
-            arrayMaster.put(jsonObject);
-            for (Map<String, Object> map : list) {
-                JSONObject jsonObject2 = new JSONObject();
-                jsonObject2.put("billid", this.getIntent().getExtras().getString("billid"));
-                jsonObject2.put("itemno", "0");
-                jsonObject2.put("refertype", map.get("refertype") == null ? map.get("billtypeid")
-                        .toString() : map.get("refertype").toString());
-                jsonObject2.put("referbillid ", map.get("referbillid") == null ? map.get("billid")
-                        .toString() : map.get("referbillid").toString());
-                jsonObject2.put("amount ", map.get("bcjs") == null ? map.get("amount").toString()
-                        : map.get("bcjs").toString());
-                arrayDetail.put(jsonObject2);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("tabname", "tb_charge");
-        parmMap.put("parms", "XSSK");
-        parmMap.put("master", arrayMaster.toString());
-        if (list.size() == 0) {
-            parmMap.put("detail", "");
-        } else {
-            parmMap.put("detail", arrayDetail.toString());
-        }
-        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
-    }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -514,5 +439,82 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
                 setResult(RESULT_OK);
             }
         }
+    }
+
+    /**
+     * 连接网络的操作(保存)
+     */
+    private void searchDateSave() {
+        if (gysEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择客户");
+            return;
+        } else if (fklxEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择收款类型");
+            return;
+        } else if (jsfsEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择结算方式");
+            return;
+        } else if (zjzhEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择资金账户");
+            return;
+        } else if (fklxId.equals("1")) {
+            if (fkjeEditText.getText().toString().equals("")) {
+                showToastPromopt("请填写收款金额");
+                return;
+            }
+        }
+        if (!fklxId.equals("1")) {//不选择选择了当前预收
+            if (list.size() == 0) {
+                showToastPromopt("请选择单据引用");
+                return;
+            }
+        }
+        if (jbrEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择业务员");
+            return;
+        }
+        JSONArray arrayMaster = new JSONArray();
+        JSONArray arrayDetail = new JSONArray();
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("billid", billid);
+            jsonObject.put("code", object.get("code").toString());
+            jsonObject.put("billdate", object.get("billdate").toString());
+            jsonObject.put("ispc", fklxId);
+            jsonObject.put("paytypeid", jsfsId);
+            jsonObject.put("bankid", zjzhId);
+            jsonObject.put("clientid", gysId);//供应商ID
+            jsonObject.put("factamount", fkjeEditText.getText().toString());
+            jsonObject.put("exemanid", jbrId);
+            jsonObject.put("amount", fkjeEditText.getText().toString());
+            jsonObject.put("memo", bzxxEditText.getText().toString());
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+            arrayMaster.put(jsonObject);
+            for (Map<String, Object> map : list) {
+                JSONObject jsonObject2 = new JSONObject();
+                jsonObject2.put("billid", this.getIntent().getExtras().getString("billid"));
+                jsonObject2.put("itemno", "0");
+                jsonObject2.put("refertype", map.get("refertype") == null ? map.get("billtypeid")
+                        .toString() : map.get("refertype").toString());
+                jsonObject2.put("referbillid ", map.get("referbillid") == null ? map.get("billid")
+                        .toString() : map.get("referbillid").toString());
+                jsonObject2.put("amount ", map.get("bcjs") == null ? map.get("amount").toString()
+                        : map.get("bcjs").toString());
+                arrayDetail.put(jsonObject2);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("tabname", "tb_charge");
+        parmMap.put("parms", "XSSK");
+        parmMap.put("master", arrayMaster.toString());
+        if (list.size() == 0) {
+            parmMap.put("detail", "");
+        } else {
+            parmMap.put("detail", arrayDetail.toString());
+        }
+        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false);
     }
 }

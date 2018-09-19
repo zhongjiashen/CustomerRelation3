@@ -36,6 +36,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.utils.EditTextHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -494,6 +495,7 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
                 case 7:
                     fklxEditText.setText(data.getExtras().getString("name"));
                     fklxId = data.getExtras().getString("id");
+                    EditTextHelper.EditTextEnable(fklxId.equals("1"),fkjeEditText);
                     if (data.getExtras().getString("id").equals("1")) {//选择了当前预收
                         fkjeEditText.setEnabled(true);
                         list.clear();

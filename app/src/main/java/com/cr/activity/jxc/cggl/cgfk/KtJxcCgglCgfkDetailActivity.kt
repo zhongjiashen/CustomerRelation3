@@ -188,7 +188,7 @@ class KtJxcCgglCgfkDetailActivity:BaseActivity(){
                         else
                             map.get("bcjs").toString())
             }
-            fkje_edittext.setText(b.toString() + "")
+//            fkje_edittext.setText(b.toString() + "")
         } else if (returnSuccessType == 3) {
             if (returnJson == "") {
                 showToastPromopt("删除成功")
