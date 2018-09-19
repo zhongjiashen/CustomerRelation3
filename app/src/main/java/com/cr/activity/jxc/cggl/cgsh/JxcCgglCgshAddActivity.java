@@ -312,6 +312,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("tabname", "tb_received");
                 intent.putExtra("sfjc", false);
+                intent.putExtra("type", "cgsh");
                 intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;

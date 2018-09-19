@@ -1,11 +1,5 @@
 package com.cr.activity.common;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +23,15 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 公用模块-选择批号
  *
@@ -36,6 +39,8 @@ import com.crcxj.activity.R;
  * @version $Id: CommonXzdwActivity.java, v 0.1 2015-3-12 下午3:46:54 caiyanfei Exp $
  */
 public class CommonXzphActivity extends BaseActivity implements OnClickListener {
+    @BindView(R.id.xz)
+    ImageButton xz;
     private CommonXzphAdapter adapter;
     private XListView listView;
     private EditText searchEditText;
@@ -49,6 +54,7 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_xzph);
+        ButterKnife.bind(this);
         addFHMethod();
         initActivity();
         initListView();
@@ -61,6 +67,10 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
         //        }
         if (this.getIntent().hasExtra("index")) {
             index = this.getIntent().getExtras().get("index").toString();
+        }
+
+        if(getIntent().getStringExtra("type").equals("cgsh")){
+            xz.setVisibility(View.VISIBLE);
         }
         searchDate();
     }
