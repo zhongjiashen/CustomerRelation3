@@ -438,7 +438,7 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
                         zje += Double.parseDouble(map.get("bcjs").toString());
                     }
                     fkjeEditText.setText(FigureTools.sswrFigure(zje + "") + "");
-                    fkjeEditText.setEnabled(false);
+
                     adapter.notifyDataSetChanged();
                     break;
                 case 1:
