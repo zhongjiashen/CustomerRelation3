@@ -184,6 +184,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("object", (Serializable) list.get(arg2));
+                intent.putExtra("type", "cgsh");
                 startActivityForResult(intent, 4);
             }
         });

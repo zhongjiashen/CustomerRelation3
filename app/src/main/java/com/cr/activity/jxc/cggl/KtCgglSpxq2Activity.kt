@@ -139,6 +139,9 @@ class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
             intent.setClass(mActivity, CommonXzphActivity::class.java)
             intent.putExtra("storied", getIntent().getExtras().getString("rkckId"))
             intent.putExtra("goodsid", data["goodsid"].toString())
+            if(getIntent().getStringExtra("type")!=null){
+                intent.putExtra("type",getIntent().getStringExtra("type"))
+            }
             startActivityForResult(intent, 0)
         }
 

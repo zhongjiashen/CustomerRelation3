@@ -40,7 +40,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 	List<Map<String, Object>> oldList;
 	private BaseActivity activity;
 	private int selectIndex;
-	
+    private String type;//单据名称
 	private String storeid;
 
 	public JxcCgglCgddXzsp2Adapter(List<Map<String, Object>> list,
@@ -48,8 +48,15 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 		this.list = list;
 		this.activity = activity;
 		this.storeid=storeid;
+        type="";
 	}
-
+    public JxcCgglCgddXzsp2Adapter(List<Map<String, Object>> list,
+                                   BaseActivity activity,String storeid,String type) {
+        this.list = list;
+        this.activity = activity;
+        this.storeid=storeid;
+        this.type=type;
+    }
 	@Override
 	public int getCount() {
 		return list.size();
@@ -206,6 +213,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
 							.toString());
 					intent.putExtra("storied",storeid );
 					intent.putExtra("index", position);
+					intent.putExtra("type", type);
 					activity.startActivityForResult(intent, 0);
 				}
 			});

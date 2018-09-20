@@ -113,6 +113,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
             intent.putExtra("taxrate", mTaxrate)
             intent.putExtra("rkckId", "0")
             intent.putExtra("tabname", "tb_porder")
+            intent.putExtra("type", "cgdd")
             intent.setClass(this, JxcCgglCgddXzsp2Activity::class.java)
             startActivityForResult(intent, 0)
         }
@@ -208,6 +209,8 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
 //                intent.putExtra("rkckId", value)
             intent.putExtra("issj", et_fplx.getText().toString() == "收据")
             intent.putExtra("object", list!!.get(position) as Serializable)
+            intent.putExtra("rkckId", "0")
+            intent.putExtra("type", "cgdd")
             startActivityForResult(intent, 4)
         }
         /**
