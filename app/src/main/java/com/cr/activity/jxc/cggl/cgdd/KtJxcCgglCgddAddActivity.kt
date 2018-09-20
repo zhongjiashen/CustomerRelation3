@@ -17,10 +17,7 @@ import com.cr.activity.jxc.cggl.KtCgglSpxq2Activity
 import com.cr.activity.jxc.cggl.KtCgglSpxqActivity
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddAddAdapter
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
-import com.cr.tools.FigureTools
-import com.cr.tools.PaseJson
-import com.cr.tools.ServerURL
-import com.cr.tools.ShareUserInfo
+import com.cr.tools.*
 import com.crcxj.activity.R
 import com.update.actiity.WeChatCaptureActivity
 import com.update.actiity.choose.ChooseDepartmentActivity
@@ -447,6 +444,11 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
 //            showToastPromopt("请选择业务员")
 //            return
 //        }
+
+        if(DateUtil.StringTolongDate(djrq_edittext.getText().toString(),"yy-MM-dd")> DateUtil.StringTolongDate(et_jhrq.getText().toString(),"yy-MM-dd")){
+            showToastPromopt("交货日期不能早于单据日期")
+            return
+        }
         val arrayMaster = JSONArray()
         val arrayDetail = JSONArray()
         try {

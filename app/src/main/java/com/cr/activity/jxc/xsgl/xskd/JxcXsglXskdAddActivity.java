@@ -50,6 +50,7 @@ import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.model.KtWlxxData;
 import com.update.model.Serial;
 import com.update.model.request.RqChoiceLogisticsListData;
+import com.update.utils.DateUtil;
 import com.update.utils.EditTextHelper;
 
 import org.json.JSONArray;
@@ -837,6 +838,11 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
 //            showToastPromopt("请选择业务员");
 //            return;
 //        }
+
+        if(DateUtil.StringTolongDate(djrqEdittext.getText().toString(),"yy-MM-dd")>DateUtil.StringTolongDate(etShrq.getText().toString(),"yy-MM-dd")){
+            showToastPromopt("收款日期不能早于单据日期");
+            return;
+        }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
         List<Serial> serialinfo = new ArrayList<Serial>();

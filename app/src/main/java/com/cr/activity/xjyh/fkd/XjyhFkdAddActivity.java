@@ -14,6 +14,7 @@ import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -53,6 +54,7 @@ public class XjyhFkdAddActivity extends BaseActivity implements
     String billid; // 选择完关联的单据后返回的单据的ID
     private long time;
     private String mDepartmentid;//部门ID
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -104,7 +106,7 @@ public class XjyhFkdAddActivity extends BaseActivity implements
         mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEditText.setText(ShareUserInfo.getKey(this, "opname"));
-        jbrId =  ShareUserInfo.getKey(this, "empid");
+        jbrId = ShareUserInfo.getKey(this, "empid");
 
         fklxEditText.setText("往来付款");
         fklxId = "0";
@@ -168,7 +170,7 @@ public class XjyhFkdAddActivity extends BaseActivity implements
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode){
+            switch (requestCode) {
                 case 15://选择部门
                     mDepartmentid = data.getStringExtra("CHOICE_RESULT_ID");
                     etBm.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
@@ -194,13 +196,13 @@ public class XjyhFkdAddActivity extends BaseActivity implements
                 if (types.equals("1") || types.equals("4")) {
                     double yf = Double.parseDouble(data.getExtras().getString("yf"));
                     double yf2 = Double.parseDouble(data.getExtras().getString("yf2"));
-                    dqyfEditText.setText((yf * -1) + "");
-                    dqyf2EditText.setText((yf2 * -1) + "");
+                    dqyfEditText.setText(FigureTools.sswrFigure((yf * -1)));
+                    dqyf2EditText.setText(FigureTools.sswrFigure((yf2 * -1)));
 //                    dqyfEditText.setText("-1"+data.getExtras().getString("yf"));
 //                    dqyf2EditText.setText("-1"+data.getExtras().getString("yf2"));
                 } else {
-                    dqyfEditText.setText(data.getExtras().getString("yf"));
-                    dqyf2EditText.setText(data.getExtras().getString("yf2"));
+                    dqyfEditText.setText(FigureTools.sswrFigure(data.getExtras().getString("yf")));
+                    dqyf2EditText.setText(FigureTools.sswrFigure(data.getExtras().getString("yf2")));
                 }
             } else if (requestCode == 2) {// 结算类型
                 jsfsEditText.setText(data.getExtras().getString("dictmc"));

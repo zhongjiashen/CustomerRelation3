@@ -30,6 +30,7 @@ import com.cr.activity.xjyh.fyzc.XjyhFyzcDetailActivity;
 import com.cr.activity.xjyh.qtsr.XjyhQtsrDetailActivity;
 import com.cr.activity.xjyh.skd.XjyhSkdDetailActivity;
 import com.cr.activity.xjyh.yhcq.XjyhYhcqDetailActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -211,7 +212,7 @@ public class MyAuditListActivity extends BaseActivity implements
                         holder.tvAuditStatus.setBackgroundColor(Color.parseColor("#00CC00"));
                         break;
                 }
-                holder.tvPhase.setText("￥" + data.getAmount());
+                holder.tvPhase.setText("￥" + FigureTools.sswrFigure(data.getAmount().toString()));
                 holder.tvProjectName.setText(data.getBilltypename());
                 holder.tvMoney.setText(data.getOpname());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
