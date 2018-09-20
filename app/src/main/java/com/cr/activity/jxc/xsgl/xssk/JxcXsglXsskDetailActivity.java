@@ -221,11 +221,11 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
             }
             jsfsEditText.setText(object.get("paytypename").toString());
             zjzhEditText.setText(object.get("bankname").toString());
-            dqyfEditText.setText(object.get("suramt").toString());
-            dqyf2EditText.setText(object.get("balance").toString());
-            fkjeEditText.setText(object.get("amount").toString());
-            cyfjeEditText.setText(object.get("yushouje").toString());
-            sfjeEditText.setText(object.get("factamount").toString());
+            dqyfEditText.setText(FigureTools.sswrFigure(object.get("suramt").toString()));
+            dqyf2EditText.setText(FigureTools.sswrFigure(object.get("balance").toString()));
+            fkjeEditText.setText(FigureTools.sswrFigure(object.get("amount").toString()));
+            cyfjeEditText.setText(FigureTools.sswrFigure(object.get("yushouje").toString()));
+            sfjeEditText.setText(FigureTools.sswrFigure(object.get("factamount").toString()));
             djrqEditText.setText(object.get("billdate").toString());
             if(object.get("depname")!=null) {
                 etBm.setText(object.get("depname").toString());
