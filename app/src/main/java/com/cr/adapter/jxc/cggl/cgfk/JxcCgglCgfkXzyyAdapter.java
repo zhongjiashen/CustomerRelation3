@@ -1,5 +1,7 @@
 package com.cr.adapter.jxc.cggl.cgfk;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class JxcCgglCgfkXzyyAdapter extends BaseAdapter {
@@ -125,10 +128,10 @@ public class JxcCgglCgfkXzyyAdapter extends BaseAdapter {
 					+ objMap.get("billdate").toString());
 			viewHolder.zeTextView.setText("总额："
 					+ objMap.get("total").toString());
-			viewHolder.yfTextView.setText("已付："
-					+ objMap.get("totalrcvd").toString());
-			viewHolder.wfTextView.setText("未付："
-					+ objMap.get("shouldpayamt").toString());
+			DecimalFormat df = new DecimalFormat("#,##0.00");
+			viewHolder.yfTextView.setText("已付："+ FigureTools.sswrFigure(Double.parseDouble(objMap.get("totalrcvd").toString()))
+					);
+			viewHolder.wfTextView.setText("未付："+FigureTools.sswrFigure(Double.parseDouble(objMap.get("shouldpayamt").toString())));
 			return convertView;
 		} else {
 			if (convertView == null) {

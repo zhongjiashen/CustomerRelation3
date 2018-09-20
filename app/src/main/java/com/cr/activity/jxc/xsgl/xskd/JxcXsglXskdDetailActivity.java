@@ -231,7 +231,7 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
             jbrId = object.get("exemanid").toString();
             shzt = object.get("shzt").toString();
             ckckId = object.get("storeid").toString();
-            khqkEditText.setText(object.get("oweamt").toString());
+            khqkEditText.setText(FigureTools.sswrFigure(Double.parseDouble(object.get("oweamt").toString())));//客户欠款
             sklxId = object.get("ispc").toString();
             sklxEditText.setText(object.get("ispc").toString().equals("0") ? "往来结算" : "现款结算");
             xmEditText.setText(object.get("projectname").toString());
