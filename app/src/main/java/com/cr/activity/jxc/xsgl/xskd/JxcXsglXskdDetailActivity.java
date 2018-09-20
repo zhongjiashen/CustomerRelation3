@@ -213,7 +213,7 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
             lxrEditText.setText(object.get("contator").toString());
             lxdhEditText.setText(object.get("phone").toString());
             jhdzEditText.setText(object.get("shipto").toString());
-            hjjeEditText.setText(object.get("totalamt").toString());
+            hjjeEditText.setText(FigureTools.sswrFigure(object.get("totalamt").toString()));
             skjeEditText.setText(object.get("receipt").toString());
             djrqEditText.setText(object.get("billdate").toString());
             etBm.setText(object.get("depname").toString());
@@ -266,9 +266,9 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
                 mWlxxData.setIsnotice(object.get("isnotice").toString());//通知放货 0否 1是
 
             }
-            etSkhj.setText(object.get("sumamt").toString());//收款合计
+            etSkhj.setText(FigureTools.sswrFigure(object.get("sumamt").toString()));//收款合计
             etDszh.setText(object.get("proxybankname").toString());//代收账户
-            etDsje.setText(object.get("proxyamt").toString());//代收金额
+            etDsje.setText(FigureTools.sswrFigure(object.get("proxyamt").toString()));//代收金额
             showZdr(object);
             searchDate2();//查询订单中的商品
         } else if (returnSuccessType == 1) {
