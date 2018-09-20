@@ -279,10 +279,10 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
             showToastPromopt("付款金额不能为空！")
             return
         }
-        if (jbr_edittext.getText().toString() == "") {
-            showToastPromopt("请选择业务员")
-            return
-        }
+//        if (jbr_edittext.getText().toString() == "") {
+//            showToastPromopt("请选择业务员")
+//            return
+//        }
 
         val arrayMaster = JSONArray()
         val arrayDetail = JSONArray()

@@ -68,9 +68,10 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
         if (this.getIntent().hasExtra("index")) {
             index = this.getIntent().getExtras().get("index").toString();
         }
-
-        if(getIntent().getStringExtra("type").equals("cgsh")){
-            xz.setVisibility(View.VISIBLE);
+        if(getIntent().getStringExtra("type")!=null) {
+            if (getIntent().getStringExtra("type").equals("cgsh")) {
+                xz.setVisibility(View.VISIBLE);
+            }
         }
         searchDate();
     }

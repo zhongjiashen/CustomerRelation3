@@ -833,10 +833,10 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 return;
             }
         }
-        if (jbrEdittext.getText().toString().equals("")) {
-            showToastPromopt("请选择业务员");
-            return;
-        }
+//        if (jbrEdittext.getText().toString().equals("")) {
+//            showToastPromopt("请选择业务员");
+//            return;
+//        }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
         List<Serial> serialinfo = new ArrayList<Serial>();

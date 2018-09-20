@@ -368,7 +368,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 switch (mstxIndexModelList.get(arg2).getLogoName()) {
 
                     case "个人日程":
-                        startActivity(gzptIndexModelList.get(arg2).getIntent());
+                        startActivity(mstxIndexModelList.get(arg2).getIntent());
                         break;
                     case "签到":
                         if (!isLocationEnabled()) {

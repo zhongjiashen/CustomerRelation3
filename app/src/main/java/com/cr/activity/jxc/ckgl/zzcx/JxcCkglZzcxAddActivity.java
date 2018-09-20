@@ -195,10 +195,10 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
         }else if(ckEditText.getText().toString().equals("")){
             showToastPromopt("仓库不能为空");
             return;
-        } if (jbrEditText.getText().toString().equals("")) {
+        } /*if (jbrEditText.getText().toString().equals("")) {
             showToastPromopt("请选择业务员");
             return;
-        }
+        }*/
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
         try {

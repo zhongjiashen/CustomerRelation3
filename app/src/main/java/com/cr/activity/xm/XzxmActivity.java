@@ -224,10 +224,10 @@ public class XzxmActivity extends BaseActivity implements
 			showToastPromopt("请填写项目名称！");
 			return false;
 		}
-		if (ywyEditText.getText().toString().equals("")) {
-			showToastPromopt("请选择业务员");
-			return false;
-		}
+//		if (ywyEditText.getText().toString().equals("")) {
+//			showToastPromopt("请选择业务员");
+//			return false;
+//		}
 
 //		if (bfnrEditText.getText().toString().equals("")) {
 //			showToastPromopt("拜访内容不能为空");
