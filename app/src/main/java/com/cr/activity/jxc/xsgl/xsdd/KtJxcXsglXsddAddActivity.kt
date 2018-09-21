@@ -456,7 +456,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
 //            showToastPromopt("请选择业务员")
 //            return
 //        }
-        if(DateUtil.StringTolongDate(djrq_edittext.getText().toString(),"yy-MM-dd")>DateUtil.StringTolongDate(et_jhrq.getText().toString(),"yy-MM-dd")){
+        if(!TextUtils.isEmpty(et_jhrq.text.toString())&&DateUtil.StringTolongDate(djrq_edittext.getText().toString(),"yy-MM-dd")>DateUtil.StringTolongDate(et_jhrq.getText().toString(),"yy-MM-dd")){
             showToastPromopt("交货日期不能早于单据日期")
             return
         }

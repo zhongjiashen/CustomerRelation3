@@ -801,7 +801,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
 //            showToastPromopt("请选择业务员");
 //            return;
 //        }
-        if(DateUtil.StringTolongDate(djrqEdittext.getText().toString(),"yy-MM-dd")>DateUtil.StringTolongDate(etShrq.getText().toString(),"yy-MM-dd")){
+        if(!TextUtils.isEmpty(etShrq.getText().toString())&&DateUtil.StringTolongDate(djrqEdittext.getText().toString(),"yy-MM-dd")>DateUtil.StringTolongDate(etShrq.getText().toString(),"yy-MM-dd")){
             showToastPromopt("收货日期不能早于单据日期");
             return;
         }

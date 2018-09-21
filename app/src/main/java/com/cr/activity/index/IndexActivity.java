@@ -86,6 +86,7 @@ import com.cr.adapter.IndexAdapter;
 import com.cr.adapter.SlidePageAdapter;
 import com.cr.model.IndexModel;
 import com.cr.service.SocketService;
+import com.cr.tools.AppData;
 import com.cr.tools.CustomGridView;
 import com.cr.tools.MyApplication;
 import com.cr.tools.ServerURL;
@@ -135,6 +136,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 
 
     private Intent mIntent;//当前跳转视图
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -307,7 +309,23 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
 //            tvAzwx.setVisibility(View.GONE);
 //        }
 //        gzptIndexModelList.remove(6);//屏蔽客户服务
-        khgxbbIndexModelList.remove(5);//屏蔽
+
+        switch (AppData.AppType){
+            case 1:// 1、汽配版
+            case 2://2、标准专业版
+                tvAzwx.setVisibility(View.GONE);
+                azwxGridView.setVisibility(View.GONE);
+                break;
+            case 3://3、租赁企业版
+            case 4://3、内部版
+            case 5://3、IT企业版
+            case 6://3、IT专业版
+                tvAzwx.setVisibility(View.VISIBLE);
+                azwxGridView.setVisibility(View.VISIBLE);
+                gzptIndexModelList.remove(6);
+                break;
+        }
+        khgxbbIndexModelList.remove(5);//屏蔽客户服务统计
 
 //        xjyhIndexModelList.remove(0);//屏蔽现金银行费用支出
 //        xjyhIndexModelList.remove(3);//屏蔽现金银行其他收入

@@ -101,7 +101,7 @@
 
                     <TextView
                         style="@style/font_default"
-                        android:text="@string/gys" />
+                        android:text="@string/kh" />
 
                     <EditText
                         android:id="@+id/gys_edittext"
