@@ -1,10 +1,10 @@
 <resources>
-    <!--<string name="app_name">恒视CRM_IT专业版</string>-->
-    <string name="app_name">恒视CRM_IT专业版</string>
-    <!--<string name="tgb">IT专业版V1.0</string>-->
-    <string name="tgb">IT专业版V1.0</string>
-    <!-- <string name="hscrm">恒视CRM_IT专业版</string>-->
-    <string name="hscrm">恒视CRM_IT专业版</string>
+    <!--<string name="app_name">恒视CRM_汽配版</string>-->
+    <string name="app_name">恒视CRM_汽配版</string>
+    <!--<string name="tgb">汽配版V1.0</string>-->
+    <string name="tgb">汽配版V1.0</string>
+    <!-- <string name="hscrm">恒视CRM_汽配版</string>-->
+    <string name="hscrm">恒视CRM_汽配版</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 

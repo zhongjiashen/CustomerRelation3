@@ -1,15 +1,5 @@
 package com.cr.activity.jxc.ckgl.chtj;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.common.CommonXzdwActivity;
-import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.adapter.jxc.ckgl.chtj.JxcCkglChtjAddAdapter;
 import com.cr.tools.CustomListView;
@@ -39,12 +27,27 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 进销存-仓库管理-存货调价-详情
  *
  * @author Administrator
  */
 public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickListener {
+    @BindView(R.id.et_bm)
+    EditText etBm;
     private ImageView shImageView;
     private ImageButton saveImageButton;
     private Button shButton, sdButton;
@@ -64,6 +67,7 @@ public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickLi
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jxc_ckgl_chtj_detail);
+        ButterKnife.bind(this);
         addFHMethod();
         initActivity();
         searchDate();
@@ -162,6 +166,7 @@ public class JxcCkglChtjDetailActivity extends BaseActivity implements OnClickLi
             object = ((List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson)).get(0);
             djbhTextView.setText(object.get("code").toString());
             djrqEditText.setText(object.get("billdate").toString());
+            etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
             bzxxEditText.setText(object.get("memo").toString());
             wjphEditText.setText(object.get("fileno").toString());
