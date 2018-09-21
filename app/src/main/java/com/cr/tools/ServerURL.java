@@ -25,7 +25,7 @@ public class ServerURL {
     //IT企业版
 //    public static String       endPoint          = "/crmenpserver/n_crmwebserver.asmx?WSDL";
     //IT专业版
-    public static String       endPoint          = "/crmitserver/n_crmwebserver.asmx?WSDL";
+//    public static String       endPoint          = "/crmitserver/n_crmwebserver.asmx?WSDL";
     //租赁企业版
 //    public static String       endPoint          = "/leasenpserver/n_crmwebserver.asmx?WSDL";
 
@@ -33,7 +33,7 @@ public class ServerURL {
 //    public static String       endPoint          = "/crmintserver/n_crmwebserver.asmx?WSDL";
 
     //汽配版
-//    public static String       endPoint          = "/crmcarserver/n_crmwebserver.asmx?WSDL";
+    public static String       endPoint          = "/crmcarserver/n_crmwebserver.asmx?WSDL";
     //标准专业版
 //    public static String       endPoint          = "/crmjxcserver/n_crmwebserver.asmx?WSDL";
 
