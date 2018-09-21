@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class TjfxKcbbSpjgAdapter extends BaseAdapter {
@@ -56,7 +57,7 @@ public class TjfxKcbbSpjgAdapter extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.bhTextView.setText(objMap.get("typesname").toString()+"：￥"+objMap.get("price").toString());
+		viewHolder.bhTextView.setText(objMap.get("typesname").toString()+"：￥"+ FigureTools.sswrFigure(objMap.get("price").toString()));
 //		viewHolder.mcTextView.setText("名称："+objMap.get("goodsname").toString());
 //		viewHolder.ggTextView.setText("规格："+objMap.get("specs").toString());
 //		viewHolder.xhTextView.setText("型号："+objMap.get("model").toString());

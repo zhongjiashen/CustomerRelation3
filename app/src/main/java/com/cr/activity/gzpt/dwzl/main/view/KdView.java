@@ -164,7 +164,7 @@ public class KdView extends BaseView {
                 parmMap.put("tabname", "tb_received");
                 break;
         }
-
+        parmMap.put("clientid", activity.clientId);
         parmMap.put("qsrq", "1901-01-01");
         parmMap.put("zzrq", "3000-01-01");
         parmMap.put("billcode", "");

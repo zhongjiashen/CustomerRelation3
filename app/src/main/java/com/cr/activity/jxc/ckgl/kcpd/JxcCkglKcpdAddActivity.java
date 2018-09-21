@@ -195,7 +195,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("code", "");
             jsonObject.put("billdate", djrqEdittext.getText().toString());
             jsonObject.put("balsid", pdckId);
-
+            jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEdittext.getText().toString());
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
@@ -206,7 +206,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("itemno", "0");//明细ID
                 jsonObject2.put("goodsid", map.get("goodsid").toString());//商品ID
                 jsonObject2.put("unitid", map.get("unitid").toString());//计量单位ID
-                jsonObject2.put("unitprice", map.get("aprice").toString());//单价
+                jsonObject2.put("unitprice", FigureTools.sswrFigure(map.get("aprice").toString()));//单价
                 jsonObject2.put("unitqty", map.get("yksl").toString());//盈亏数量
                 jsonObject2.put("amount", map.get("amount").toString());//金额
                 amount += Double.parseDouble(map.get("amount").toString());//
@@ -221,7 +221,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 arrayDetail.put(jsonObject2);
                 serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
             }
-            jsonObject.put("totalamt", amount + "");
+            jsonObject.put("totalamt", FigureTools.sswrFigure(amount ));
             arrayMaster.put(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
