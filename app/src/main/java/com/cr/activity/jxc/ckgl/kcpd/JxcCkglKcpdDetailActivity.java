@@ -1,15 +1,5 @@
 package com.cr.activity.jxc.ckgl.kcpd;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.common.CommonXzjbrActivity;
-import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.adapter.jxc.ckgl.kcpd.JxcCkglKcpdDetailAdapter;
 import com.cr.tools.CustomListView;
@@ -39,12 +27,27 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 进销存-仓库管理-库存盘点-详情
  *
  * @author Administrator
  */
 public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickListener {
+    @BindView(R.id.et_bm)
+    EditText etBm;
     private ImageView shImageView;
     private ImageButton saveImageButton;
     private Button shButton, sdButton;
@@ -64,6 +67,7 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jxc_ckgl_kcpd_detail);
+        ButterKnife.bind(this);
         addFHMethod();
         initActivity();
         searchDate();
@@ -164,6 +168,7 @@ public class JxcCkglKcpdDetailActivity extends BaseActivity implements OnClickLi
             djbhTextView.setText(object.get("code").toString());
             djrqEditText.setText(object.get("billdate").toString());
             jbrEditText.setText(object.get("empname").toString());
+            etBm.setText(object.get("depname").toString());
             pdckEditText.setText(object.get("storename").toString());
             bzxxEditText.setText(object.get("memo").toString());
             if (object.get("shzt").toString().equals("0")) {

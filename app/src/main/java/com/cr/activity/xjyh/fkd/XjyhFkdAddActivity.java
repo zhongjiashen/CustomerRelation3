@@ -276,6 +276,7 @@ public class XjyhFkdAddActivity extends BaseActivity implements
             jsonObject.put("billdate", djrqEditText.getText().toString());
             jsonObject.put("ispp", fklxId);
             jsonObject.put("clientid", wldwId);
+            jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("paytypeid", jsfsId);
             jsonObject.put("opid", ShareUserInfo.getUserId(context));
