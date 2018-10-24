@@ -946,6 +946,8 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     if (ckList.size() == 1) {
                         rkckEdittext.setText(ckList.get(0).get("dictmc").toString());
                         rkckId = ckList.get(0).get("id").toString();
+                        ckEdittext.setText(ckList.get(0).get("dictmc").toString());
+                        ckId = ckList.get(0).get("id").toString();
                     }
 
                 }

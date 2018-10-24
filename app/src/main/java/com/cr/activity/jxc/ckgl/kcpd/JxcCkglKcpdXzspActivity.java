@@ -344,6 +344,14 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
                                 Toast.makeText(activity, "选择的批号商品，必须填写批号信息", Toast.LENGTH_SHORT).show();
                                 return;
                             }
+                            if (map.get("serialctrl").equals("T")) {
+                                ArrayList<Serial> serials = (ArrayList<Serial>) map2.get("serials");
+                                if (serials.size() != Integer.parseInt(map2.get("sl").toString())) {
+                                    Toast.makeText(activity, "商品序列号个数与数量不一致", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                            }
 //                        map2.put("dj",FigureTools.sswrFigure(map2.get("dj").toString()) );
                         }
                     }
@@ -382,8 +390,14 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
                 case 11:
                     int i = data.getExtras()
                             .getInt("position");
-                    list.get(i).put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
-                    }.getType()));
+                    List<Serial> serials = new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+                    }.getType());
+                    list.get(i).put("serials", serials);
+                    if (list.size() != 0 && list.get(i).get("serialctrl").equals("T")) {
+
+                        list.get(i).put("sl", serials.size());
+
+                    }
                     adapter.notifyDataSetChanged();
                     break;
                 case 18://扫一扫选择商品

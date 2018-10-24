@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
 
     compileSdkVersion 27
+    flavorDimensions "27"
     defaultConfig {
         applicationId "com.crenp.activity"
         minSdkVersion 15
@@ -22,6 +23,66 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+
+    /* 多渠道打包配置*/
+
+    productFlavors {
+
+
+//        QPB {
+//            buildConfigField "int", "TYPE", "1"
+//            buildConfigField "String", "URL", "\"/crmcarserver/n_crmwebserver.asmx?WSDL\""
+//            resValue("string", "app_name", "恒视CRM_汽配版")
+//            resValue("string", "tgb", "汽配版V1.0")
+//            resValue("string", "hscrm", "恒视CRM_汽配版")
+//            applicationId 'com.crenp.activity1'
+//
+//        }
+//        BZZYB {
+//            buildConfigField "int", "TYPE", "2"
+//            buildConfigField "String", "URL", "\"/crmjxcserver/n_crmwebserver.asmx?WSDL\""
+//            resValue("string", "app_name", "恒视CRM_标准专业版")
+//            resValue("string", "tgb", "标准专业版V1.0")
+//            resValue("string", "hscrm", "恒视CRM_标准专业版")
+//            applicationId 'com.crenp.activity2'
+//
+//        }
+//        ZPQYB {
+//            buildConfigField "int", "TYPE", "3"
+//            buildConfigField "String", "URL", "\"/leasenpserver/n_crmwebserver.asmx?WSDL\""
+//            resValue("string", "app_name", "恒视CRM_租赁企业版")
+//            resValue("string", "tgb", "租赁企业版V1.0")
+//            resValue("string", "hscrm", "恒视CRM_租赁企业版")
+//            applicationId 'com.crenp.activity3'
+//
+//        }
+//        NBB {
+//            buildConfigField "int", "TYPE", "4"
+//            buildConfigField "String", "URL", "\"/crmintserver/n_crmwebserver.asmx?WSDL\""
+//            resValue("string", "app_name", "恒视CRM_内部版")
+//            resValue("string", "tgb", "内部版V1.0")
+//            resValue("string", "hscrm", "恒视CRM_内部版")
+//            applicationId 'com.crenp.activity4'
+//
+//        }
+        ITQYB {
+            buildConfigField "int", "TYPE", "5"
+            buildConfigField "String", "URL", "\"/crmenpserver/n_crmwebserver.asmx?WSDL\""
+            resValue("string", "app_name", "恒视CRM_IT企业版")
+            resValue("string", "tgb", "IT企业版V1.0")
+            resValue("string", "hscrm", "恒视CRM_IT企业版")
+            applicationId 'com.crenp.activity5'
+        }
+//        ITZYB {
+//            buildConfigField "int", "TYPE", "6"
+//            buildConfigField "String", "URL", "\"/crmitserver/n_crmwebserver.asmx?WSDL\""
+//            resValue("string", "app_name", "恒视CRM_IT专业版")
+//            resValue("string", "tgb", "IT专业版V1.0")
+//            resValue("string", "hscrm", "恒视CRM_IT专业版")
+//            applicationId 'com.crenp.activity6'
+//        }
+
     }
 }
 

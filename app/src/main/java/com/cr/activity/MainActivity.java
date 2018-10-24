@@ -247,11 +247,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		if (ipList.size() == 0) {
 			for (int j = 0; j < 2; j++) {
 				ClientIP ip = new ClientIP();
-				ip.setDk("8032");
+				ip.setDk("8031");
 				if (j == 0) {
-					ip.setIp("hengvideocrm.oicp.net");
-				} else if (j == 1) {
 					ip.setIp("hengshicrm.eicp.net");
+				} else if (j == 1) {
+					ip.setIp("hengvideocrm.oicp.net");
 				}
 				ClientIPDao cipdao = new ClientIPDao(context);
 				cipdao.add(ip);

@@ -1,5 +1,7 @@
 package com.cr.tools;
 
+import com.crcxj.activity.BuildConfig;
+
 /**
  * 保存请求服务器的地址
  * @author xXzX
@@ -33,7 +35,7 @@ public class ServerURL {
 //    public static String       endPoint          = "/crmintserver/n_crmwebserver.asmx?WSDL";
 
     //汽配版
-    public static String       endPoint          = "/crmcarserver/n_crmwebserver.asmx?WSDL";
+//    public static String       endPoint          = "/crmcarserver/n_crmwebserver.asmx?WSDL";
     //标准专业版
 //    public static String       endPoint          = "/crmjxcserver/n_crmwebserver.asmx?WSDL";
 
@@ -44,6 +46,9 @@ public class ServerURL {
     //	public static String endPoint = "/bxserver/n_crmwebserver.asmx?WSDL";
     //	public static String endPoint = "http://192.168.1.198:8031/crmglxtserver/n_crmwebserver.asmx?WSDL";
     //	private static String endPart="?wsdl";
+
+    public static String       endPoint= BuildConfig.URL;
+
     //查询帐套的方法名
     public static String       ACCSET            = "accset";
     //秘书提醒-工作提醒
