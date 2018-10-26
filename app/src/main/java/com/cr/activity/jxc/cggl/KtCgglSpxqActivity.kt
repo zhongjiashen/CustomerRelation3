@@ -16,6 +16,7 @@ import com.update.base.BaseActivity
 import com.update.base.BaseP
 import com.update.model.Serial
 import com.update.utils.EditTextHelper
+import com.update.utils.LogUtils
 import kotlinx.android.synthetic.main.activity_cggl_spxq.*
 import java.io.Serializable
 
@@ -132,7 +133,8 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
             intent.putExtra("position", 0)
 
 
-            intent.putExtra("storied", intent.getStringExtra("rkckId"))
+            intent.putExtra("storied", this.intent.getStringExtra("rkckId"))
+            LogUtils.e(intent.getStringExtra("rkckId"))
             intent.putExtra("goodsid", data["goodsid"].toString())
             intent.putExtra("isStrict", data["serialctrl"].toString().equals("T"))
             intent.putExtra("DATA", Gson().toJson(data["serials"]))
