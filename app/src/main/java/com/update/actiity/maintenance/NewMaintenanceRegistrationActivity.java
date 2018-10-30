@@ -571,6 +571,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
             overviewData.setEnsureid(chooseGoodsData.getEnsureid());
             overviewData.setFaultid(chooseGoodsData.getFaultid());
             overviewData.setFaultinfo(chooseGoodsData.getFaultinfo());
+            overviewData.setMemo(chooseGoodsData.getMemo());
             goodsOrOverviewDataList.add(overviewData);
             if (chooseGoodsData.getSerials() != null)
                 serialList.addAll(chooseGoodsData.getSerials());

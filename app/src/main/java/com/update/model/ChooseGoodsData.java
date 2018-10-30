@@ -66,7 +66,7 @@ public class ChooseGoodsData {
      * 备注
      */
     @SerializedName("memo")
-    private String  memo;
+    private String  memo="";
 
     /**
      * 是否被选中

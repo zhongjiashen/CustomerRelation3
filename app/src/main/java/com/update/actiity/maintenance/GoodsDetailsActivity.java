@@ -1,6 +1,7 @@
 package com.update.actiity.maintenance;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import com.update.viewbar.TitleBar;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -62,6 +64,8 @@ public class GoodsDetailsActivity extends BaseActivity {
     TextView tvFaultType;
     @BindView(R.id.et_fault_description)
     EditText etFaultDescription;
+    @BindView(R.id.et_bz)
+    EditText etBz;
 
     private int mKind;//
     ChooseGoodsData chooseGoodsData;
@@ -139,11 +143,12 @@ public class GoodsDetailsActivity extends BaseActivity {
                 tvWarrantyStatus.setText(chooseGoodsData.getEnsurename());
                 tvFaultType.setText(chooseGoodsData.getFaultname());
                 etFaultDescription.setText(chooseGoodsData.getFaultinfo());
+                etBz.setText(chooseGoodsData.getMemo());
                 break;
             case 2://只能查看概况
-                if(getIntent().getBooleanExtra("xlh",true)) {
+                if (getIntent().getBooleanExtra("xlh", true)) {
                     tvSerialNumber.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     tvSerialNumber.setVisibility(View.GONE);
                 }
                 btView.setVisibility(View.GONE);
@@ -158,6 +163,8 @@ public class GoodsDetailsActivity extends BaseActivity {
                 tvWarrantyStatus.setText(mGoodsOrOverviewData.getEnsurename());
                 tvFaultType.setText(mGoodsOrOverviewData.getFaultname());
                 etFaultDescription.setText(mGoodsOrOverviewData.getFaultinfo());
+                if (mGoodsOrOverviewData.getMemo() != null)
+                    etBz.setText(mGoodsOrOverviewData.getMemo());
                 break;
         }
     }
@@ -216,4 +223,6 @@ public class GoodsDetailsActivity extends BaseActivity {
 
 
     }
+
+
 }

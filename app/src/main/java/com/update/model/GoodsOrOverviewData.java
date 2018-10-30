@@ -30,11 +30,11 @@ public class GoodsOrOverviewData {
     @SerializedName("serialinfo")
     private String serialinfo;//序列号GUID
     @SerializedName("ensureid")
-    private String ensureid;// 保修状态ID
+    private String ensureid="";// 保修状态ID
     @SerializedName("ensurename")
     private String ensurename;// 保修状态名称
     @SerializedName("faultid")
-    private String faultid;// 故障类别ID
+    private String faultid="";// 故障类别ID
     @SerializedName("faultname")
     private String faultname;// 故障类别名称
     @SerializedName("faultinfo")
