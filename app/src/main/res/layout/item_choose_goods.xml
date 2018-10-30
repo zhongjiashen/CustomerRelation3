@@ -1,109 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_white"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/tv_good_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="名称：恒视软件"
-        android:textColor="@color/text_black"
-        android:textSize="@dimen/word_jmedium"
-        android:padding="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:id="@+id/tv_coding"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_good_name"
-        android:text="编码：恒视软件"
-        android:textColor="@color/text_black"
-        android:textSize="@dimen/word_jmedium"
-        android:padding="5dp"
-        android:layout_marginLeft="@dimen/margin"/>
-    <TextView
-        android:id="@+id/tv_specifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_coding"
-        android:text="规格：恒视软件"
-        android:textColor="@color/text_black"
-        android:textSize="@dimen/word_jmedium"
-        android:padding="5dp"
-        android:layout_marginLeft="@dimen/margin"/>
-    <TextView
-        android:id="@+id/tv_model"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_specifications"
-        android:text="型号：恒视软件"
-        android:textColor="@color/text_black"
-        android:textSize="@dimen/word_jmedium"
-        android:padding="5dp"
-        android:layout_marginLeft="@dimen/margin"/>
-    <TextView
-        android:id="@+id/tv_unit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_model"
-        android:text="单位：恒视软件"
-        android:textColor="@color/text_black"
-        android:textSize="@dimen/word_jmedium"
-        android:padding="5dp"
-        android:layout_marginLeft="@dimen/margin"/>
+
+        <TextView
+            android:id="@+id/tv_good_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:text="名称：恒视软件"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tv_coding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_good_name"
+            android:layout_marginLeft="@dimen/margin"
+            android:padding="5dp"
+            android:text="编码：恒视软件"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tv_specifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_coding"
+            android:layout_marginLeft="@dimen/margin"
+            android:padding="5dp"
+            android:text="规格：恒视软件"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tv_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_specifications"
+            android:layout_marginLeft="@dimen/margin"
+            android:padding="5dp"
+            android:text="型号：恒视软件"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
+
+        <TextView
+            android:id="@+id/tv_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_model"
+            android:layout_marginLeft="@dimen/margin"
+            android:padding="5dp"
+            android:text="单位：恒视软件"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/word_jmedium" />
 
         <CheckBox
             android:id="@+id/cb_view"
             style="@style/CustomCheckboxTheme2"
             android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_height="wrap_content" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="@color/black_line_color"/>
+        android:background="@color/black_line_color" />
+
+
+
     <LinearLayout
         android:id="@+id/ll_number"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/context_hight"
-        android:gravity="center_vertical"
-        >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
 
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/context_hight"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_weight="1"
+                android:text="数量"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/word_jmedium" />
+
+            <TextView
+                android:id="@+id/tv_serial_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin"
+                android:background="@drawable/shape_button_color_primary_line"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="序列号"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/word_jmedium" />
+
+            <com.cr.activity.SLView2
+                android:id="@+id/sl_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin"></com.cr.activity.SLView2>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black_line_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_weight="1"
-            android:text="数量"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/word_jmedium" />
-        <TextView
-            android:id="@+id/tv_serial_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:background="@drawable/shape_button_color_primary_line"
-            android:text="序列号"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/word_jmedium" />
-        <com.cr.activity.SLView2
-            android:id="@+id/sl_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin"></com.cr.activity.SLView2>
+            android:gravity="center_vertical"
+            android:padding="@dimen/margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注"
+                android:textColor="@color/black_color"
+                android:textSize="@dimen/word_jmedium"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_bz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@color/background_white"
+                android:hint="请输入备注"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/word_small" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <View
@@ -111,13 +161,15 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/black_line_color"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/ll_maintenance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone">
+
         <LinearLayout
             android:id="@+id/ll_warranty_status"
             android:layout_width="match_parent"
@@ -133,7 +185,7 @@
                 android:text="保修状态"
                 android:textColor="@color/black_color"
                 android:textSize="@dimen/word_jmedium"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_warranty_status"
@@ -144,18 +196,18 @@
                 android:layout_weight="1"
 
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/word_small"/>
+                android:textSize="@dimen/word_small" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/xyb_jt"/>
+                android:src="@drawable/xyb_jt" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black_line_color"/>
+            android:background="@color/black_line_color" />
 
         <LinearLayout
             android:id="@+id/ll_fault_type"
@@ -172,7 +224,7 @@
                 android:text="故障类别"
                 android:textColor="@color/black_color"
                 android:textSize="@dimen/word_jmedium"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_fault_type"
@@ -182,18 +234,19 @@
                 android:layout_marginRight="@dimen/margin"
                 android:layout_weight="1"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/word_small"/>
+                android:textSize="@dimen/word_small" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/xyb_jt"/>
+                android:src="@drawable/xyb_jt" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black_line_color"/>
+            android:background="@color/black_line_color" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -220,9 +273,10 @@
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/word_small" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black_line_color"/>
+            android:background="@color/black_line_color" />
     </LinearLayout>
 </LinearLayout>

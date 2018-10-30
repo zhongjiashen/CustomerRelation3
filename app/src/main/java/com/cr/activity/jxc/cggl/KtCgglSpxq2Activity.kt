@@ -21,7 +21,7 @@ import java.io.Serializable
 
 
 /**
- * 采购管理商品详情(销售订单不带序列号)
+ * 采购管理商品详情(销售订单不带序列号)(采购订单、销售订单)
  */
 class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
 

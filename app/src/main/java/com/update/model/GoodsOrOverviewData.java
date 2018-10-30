@@ -57,7 +57,11 @@ public class GoodsOrOverviewData {
     private String model;
     @SerializedName("unitname")
     private String unitname;
-
+    /**
+     * 备注
+     */
+    @SerializedName("memo")
+    private String  memo="";
     public String getEnsurename() {
         return ensurename;
     }
@@ -200,5 +204,14 @@ public class GoodsOrOverviewData {
 
     public String getUnitname() {
         return unitname;
+    }
+
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 }

@@ -63,6 +63,16 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
             } else {
                 ll_pcsp.visibility = View.GONE
             }
+            //严格序列号商品处理
+            if (data["serialctrl"].toString().equals("T")) {
+                LogUtils.e("严格序列商品")
+                slv_sl.visibility = View.GONE
+                tv_sl.visibility = View.VISIBLE
+            } else {
+                slv_sl.visibility = View.VISIBLE
+                tv_sl.visibility = View.GONE
+            }
+            tv_sl.text = data["unitqty"].toString()
             slv_sl.sl = data["unitqty"].toString().toDouble()
             et_dj.setText(data["unitprice"].toString())//单价
             et_sl.setText(data["taxrate"].toString())//税率
@@ -116,7 +126,17 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
         titlebar.setTitleOnlicListener { i ->
             when (i) {
                 2 -> {
-                    data["unitqty"] = slv_sl.sl.toString()
+
+                    if (this.data["serialctrl"].toString().equals("T")) {
+                        data["unitqty"] = tv_sl.text.toString()
+                        if (data["unitqty"].toString().toInt() == 0) {
+                            showShortToast("商品数量不能为0")
+                            return@setTitleOnlicListener
+                        }
+
+                    } else {
+                        data["unitqty"] = slv_sl.sl.toString()
+                    }
                     val intent = Intent()
                     intent.putExtra("object", data as Serializable)
                     setResult(Activity.RESULT_OK, intent)
@@ -147,8 +167,8 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
             intent.setClass(mActivity, CommonXzphActivity::class.java)
             intent.putExtra("storied", getIntent().getExtras().getString("rkckId"))
             intent.putExtra("goodsid", data["goodsid"].toString())
-            if(getIntent().getStringExtra("type")!=null){
-                intent.putExtra("type",getIntent().getStringExtra("type"))
+            if (getIntent().getStringExtra("type") != null) {
+                intent.putExtra("type", getIntent().getStringExtra("type"))
             }
             startActivityForResult(intent, 0)
         }
@@ -175,7 +195,7 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
         if (data != null) {
             when (requestCode) {
                 0 -> {
-                    this.data["batchrefid"] =data.getExtras().getString("id")
+                    this.data["batchrefid"] = data.getExtras().getString("id")
                     this.data["batchcode"] = data.getExtras().getString("name")
                     this.data["produceddate"] = data.getExtras()!!.getString("scrq")
                     this.data["validdate"] = data.getExtras()!!.getString("yxrq")
@@ -185,8 +205,12 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
 //                cpphId = data.getExtras()!!.getString("id")
                 }
                 11 -> {
-                    this.data["serials"] = Gson().fromJson<Any>(data.extras!!.getString("DATA"), object : TypeToken<List<Serial>>() {
+                    var serials = Gson().fromJson<List<Serial>>(data.extras!!.getString("DATA"), object : TypeToken<List<Serial>>() {
                     }.type)
+                    this.data["serials"] = serials
+                    if (this.data["serialctrl"].toString().equals("T")) {
+                        tv_sl.text = serials.size.toString()
+                    }
                 }
             }
         }

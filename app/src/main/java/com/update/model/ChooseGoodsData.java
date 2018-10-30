@@ -61,6 +61,13 @@ public class ChooseGoodsData {
     private String batchctrl;
     @SerializedName("serialctrl")
     private String serialctrl;
+
+    /**
+     * 备注
+     */
+    @SerializedName("memo")
+    private String  memo;
+
     /**
      * 是否被选中
      */
@@ -266,5 +273,13 @@ public class ChooseGoodsData {
 
     public void setSerialctrl(String serialctrl) {
         this.serialctrl = serialctrl;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 }

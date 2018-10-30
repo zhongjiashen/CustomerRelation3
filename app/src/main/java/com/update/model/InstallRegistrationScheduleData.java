@@ -53,7 +53,11 @@ public class InstallRegistrationScheduleData {
     private double unitqty;
     @SerializedName("serialinfo")
     private String serialinfo;
-
+    /**
+     * 备注
+     */
+    @SerializedName("memo")
+    private String  memo="";
     public void setInstallregid(int installregid) {
         this.installregid = installregid;
     }
@@ -148,5 +152,13 @@ public class InstallRegistrationScheduleData {
 
     public String getSerialinfo() {
         return serialinfo;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 }

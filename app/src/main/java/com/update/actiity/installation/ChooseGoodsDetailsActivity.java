@@ -1,8 +1,10 @@
 package com.update.actiity.installation;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cr.activity.SLView2;
@@ -22,6 +24,7 @@ import com.update.viewbar.TitleBar;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -53,6 +56,8 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
     SLView2 slView;
     @BindView(R.id.bt_view)
     Button btView;
+    @BindView(R.id.et_bz)
+    EditText etBz;
 
     private int mKind;//
     ChooseGoodsData chooseGoodsData;
@@ -69,7 +74,7 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
     protected void initVariables() {
         mKind = getIntent().getIntExtra("kind", 0);
         mGson = new Gson();
-        xlh=getIntent().getBooleanExtra("xlh",true);
+        xlh = getIntent().getBooleanExtra("xlh", true);
 
     }
 
@@ -89,9 +94,9 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
-        if(xlh) {
+        if (xlh) {
             tvSerialNumber.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             tvSerialNumber.setVisibility(View.GONE);
         }
     }
@@ -133,6 +138,7 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
                         chooseGoodsData.setNumber(sl);
                     }
                 });
+                etBz.setText(chooseGoodsData.getMemo());
                 break;
             case 2://只能查看概况
 
@@ -145,6 +151,8 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
                 tvModel.setText("型号：" + installRegistrationScheduleData.getModel());
                 tvUnit.setText("单位：" + installRegistrationScheduleData.getUnitname());
                 slView.setSl(installRegistrationScheduleData.getUnitqty());//设置数量
+                if (installRegistrationScheduleData.getMemo() != null)
+                    etBz.setText(installRegistrationScheduleData.getMemo());
                 break;
         }
     }
@@ -179,4 +187,6 @@ public class ChooseGoodsDetailsActivity extends BaseActivity {
         chooseGoodsData.setSerials(serials);
 
     }
+
+
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.cr.activity.SLView2;
 import com.crcxj.activity.R;
+import com.update.utils.CustomTextWatcher;
 import com.update.viewbar.SquareImageView;
 
 import butterknife.BindView;
@@ -29,6 +30,8 @@ import butterknife.ButterKnife;
  * 2018/2/26 0026         申中佳               V1.0
  */
 public class ViewHolderFactory {
+
+
 
 
     /**
@@ -229,6 +232,8 @@ public class ViewHolderFactory {
         public EditText etFaultDescription;
         @BindView(R.id.ll_maintenance)
         public LinearLayout llMaintenance;
+        @BindView(R.id.et_bz)
+        public EditText etBz;
 
         ChooseGoodsHolder(View view) {
             super(view);
@@ -398,7 +403,7 @@ public class ViewHolderFactory {
         @BindView(R.id.tv_djbh)
         public TextView tvDjbh;
         @BindView(R.id.tv_wldw)
-        public  TextView tvWldw;
+        public TextView tvWldw;
         @BindView(R.id.tv_je)
         public TextView tvJe;
         @BindView(R.id.tv_ftje)

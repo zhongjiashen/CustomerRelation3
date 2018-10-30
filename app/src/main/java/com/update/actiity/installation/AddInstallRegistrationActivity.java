@@ -573,6 +573,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
             overviewData.setUnitqty(chooseGoodsData.getNumber());
             overviewData.setUnitid(chooseGoodsData.getUnitid() + "");
             overviewData.setSerialinfo(chooseGoodsData.getSerialinfo());
+            overviewData.setMemo(chooseGoodsData.getMemo());
             goodsOrOverviewDataList.add(overviewData);
 
             if (chooseGoodsData.getSerials() != null)

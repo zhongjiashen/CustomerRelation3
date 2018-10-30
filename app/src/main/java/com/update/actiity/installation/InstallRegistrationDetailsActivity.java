@@ -187,7 +187,8 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                startActivity(new Intent(InstallRegistrationDetailsActivity.this, IncreaseOverviewActivity.class).putExtra("kind", 2)
+                                startActivity(new Intent(InstallRegistrationDetailsActivity.this, IncreaseOverviewActivity.class)
+                                        .putExtra("kind", 2)
                                         .putExtra("DATA", new Gson().toJson(mGoodsOrOverviewDatas.get(holder.getLayoutPosition()))));
                             }
                         });
