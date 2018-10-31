@@ -147,6 +147,18 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
     }
 
     /**
+     * 获取默认仓库信息
+     */
+    private void getMrck() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("zdbm", "STORE");
+        findServiceData2(4, ServerURL.DATADICT, parmMap, false);
+    }
+
+
+
+    /**
      * 连接网络的操作(查询主表的内容)
      */
     private void searchDate() {
@@ -217,7 +229,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("serialinfo", map.get("serialinfo").toString());//序列号GUID
                 jsonObject2.put("zmonhand", map.get("zmsl").toString());//账面数量
                 jsonObject2.put("sponhand", map.get("spsl").toString());//实盘数量
-                jsonObject2.put("memo", "");//备注
+                jsonObject2.put("memo",  map.get("memo").toString());//备注
                 arrayDetail.put(jsonObject2);
                 serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
             }
@@ -366,6 +378,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                             map.put("validdate", map2.get("yxqz"));
                             map.put("serialinfo", map2.get("serialinfo").toString());
                             map.put("serials", map2.get("serials"));
+                            map.put("memo", map2.get("memo"));
                             list.add(map);
                         }
                     }

@@ -45,7 +45,7 @@ public class JxcCkglKcpdXzspDetail2Activity extends BaseActivity implements OnCl
     EditText yxqzEditText;
     Map<String, Object> object = new HashMap<String, Object>();
     TextView tvSerialNumber;
-
+    EditText etBz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +76,7 @@ public class JxcCkglKcpdXzspDetail2Activity extends BaseActivity implements OnCl
         cpphEditText = (EditText) findViewById(R.id.cpph_edittext);
         scrqEditText = (EditText) findViewById(R.id.scrq_edittext);
         yxqzEditText = (EditText) findViewById(R.id.yxqz_edittext);
+        etBz = (EditText) findViewById(R.id.et_bz);
         scTextView.setOnClickListener(this);
         saveImageButton = (ImageButton) findViewById(R.id.save_imagebutton);
         saveImageButton.setOnClickListener(this);
@@ -106,6 +107,7 @@ public class JxcCkglKcpdXzspDetail2Activity extends BaseActivity implements OnCl
             cpphEditText.setText(object.get("batchcode").toString());
             scrqEditText.setText(object.get("produceddate").toString());
             yxqzEditText.setText(object.get("validdate").toString());
+            etBz.setText(object.get("memo").toString());
             if (object.get("zmsl") != null) {
                 zmsl = Double.parseDouble(object.get("zmsl").toString().equals("") ? "0" : object.get("zmsl").toString());
                 spsl = Double.parseDouble(object.get("spsl").toString().equals("") ? "0" : object.get("spsl").toString());

@@ -7,6 +7,9 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -49,6 +52,7 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
 	EditText yxqzEditText;
     Map<String, Object> object = new HashMap<String, Object>();
     TextView tvSerialNumber;
+    EditText etBz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,12 +86,37 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
         zmslView = (EditText) findViewById(R.id.zmsl_edittext);
         spslView = (SLView2) findViewById(R.id.spsl_view);
         ykslView = (SLView2) findViewById(R.id.yksl_view);
+        etBz = (EditText) findViewById(R.id.et_bz);
         cpphEditText = (EditText) findViewById(R.id.cpph_edittext);
 		cpphEditText.setOnClickListener(this);
 		scrqEditText = (EditText) findViewById(R.id.scrq_edittext);
 		scrqEditText.setOnClickListener(this);
 		yxqzEditText = (EditText) findViewById(R.id.yxqz_edittext);
 		yxqzEditText.setOnClickListener(this);
+
+        etBz.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1,
+                                      int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s)) {
+                    object.put("memo", s.toString());
+
+                }
+            }
+        });
+
+
         if (this.getIntent().hasExtra("object")) {
             object = (Map<String, Object>) this.getIntent().getExtras().getSerializable("object");
             mcTextView.setText("名称："
@@ -110,6 +139,7 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
             cpphEditText.setText(object.get("batchcode").toString());
 			scrqEditText.setText(object.get("produceddate").toString());
 			yxqzEditText.setText(object.get("validdate").toString());
+			etBz.setText(object.get("memo").toString());
             if (object.get("zmsl") != null) {
                 zmsl = Double.parseDouble(object.get("zmsl").toString().equals("")?"0":object.get("zmsl").toString());
                 spsl=  Double.parseDouble(object.get("spsl").toString().equals("")?"0":object.get("spsl").toString());

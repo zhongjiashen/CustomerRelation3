@@ -76,8 +76,6 @@
         </LinearLayout>
 
         <View style="@style/underline" />
-
-
         <LinearLayout
             android:id="@+id/ll_bz"
             style="@style/detail_relativelayout">
@@ -97,7 +95,7 @@
                 android:textSize="@dimen/jxc_cggl_cgdd" />
 
         </LinearLayout>
-
+        <View style="@style/underline" />
         <LinearLayout
             android:id="@+id/cpph_layout"
             style="@style/detail_relativelayout">

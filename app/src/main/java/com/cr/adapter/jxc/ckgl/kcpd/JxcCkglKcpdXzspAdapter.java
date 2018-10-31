@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,7 +161,8 @@ public class JxcCkglKcpdXzspAdapter extends BaseAdapter {
                     .findViewById(R.id.scrq_edittext);
             viewHolder2.yxqzEditText = (EditText) convertView
                     .findViewById(R.id.yxqz_edittext);
-            convertView.setTag(viewHolder2);
+            viewHolder2.etBz = convertView
+                    .findViewById(R.id.et_bz);
 //			} else {
 //				viewHolder2 = (ViewHolder2) convertView.getTag();
 //			}
@@ -234,7 +236,7 @@ public class JxcCkglKcpdXzspAdapter extends BaseAdapter {
                                     .toString())
                             .putExtra("position", position)
                             .putExtra("DATA", new Gson().toJson(objMap.get("serials")
-                                   )), 11);
+                            )), 11);
 
                 }
             });
@@ -253,6 +255,30 @@ public class JxcCkglKcpdXzspAdapter extends BaseAdapter {
                     activity.startActivityForResult(intent, 0);
                 }
             });
+
+            viewHolder2.etBz.setText(objMap.get("memo").toString());//设置备注
+            viewHolder2.etBz.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void onTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence arg0, int arg1,
+                                              int arg2, int arg3) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (!TextUtils.isEmpty(s)) {
+                        objMap.put("memo", s.toString());
+
+                    }
+                }
+            });
+
             viewHolder2.cpphEditText.setText(objMap.get("cpph").toString());
             viewHolder2.scrqEditText.setText(objMap.get("scrq").toString());
             viewHolder2.yxqzEditText.setText(objMap.get("yxqz").toString());
@@ -296,6 +322,7 @@ public class JxcCkglKcpdXzspAdapter extends BaseAdapter {
         EditText cpphEditText;
         EditText scrqEditText;
         EditText yxqzEditText;
+        EditText etBz;
         LinearLayout cpphLayout;
         LinearLayout scrqLayout;
         LinearLayout yxqzLayout;
