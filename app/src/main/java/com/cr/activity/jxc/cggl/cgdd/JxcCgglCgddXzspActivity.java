@@ -229,6 +229,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                     UUID uuid = UUID.randomUUID();
                     obj2.put("serialinfo", uuid.toString().toUpperCase());//
                     obj2.put("serials", new ArrayList<Serial>());//
+                    obj2.put("memo", "");
                     list.add(obj2);
                 }
                 adapter.notifyDataSetChanged();

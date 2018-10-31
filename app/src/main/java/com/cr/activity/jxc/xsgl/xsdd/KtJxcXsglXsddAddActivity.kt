@@ -231,6 +231,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                                     map["taxrate"] = map2["taxrate"]//税率
                                     map["taxunitprice"] = map2["taxunitprice"]//含税单价
                                     map["batchrefid"] = map2["batchrefid"]//
+                                    map["memo"] = map2["memo"]//
                                     list.add(map)
                                     //                            zje += Double.parseDouble(map.get("amount").toString());
                                 }
@@ -500,7 +501,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                 jsonObject2.put("referitemno ", "")
                 jsonObject2.put("taxrate", map["taxrate"].toString())//税率%
                 jsonObject2.put("taxunitprice",  map["taxunitprice"].toString())//含税单价
-                jsonObject2.put("memo", "")//备注
+                jsonObject2.put("memo",  map["memo"].toString())//备注
                 arrayDetail.put(jsonObject2)
             }
         } catch (e: JSONException) {

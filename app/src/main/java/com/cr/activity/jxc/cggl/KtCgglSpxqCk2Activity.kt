@@ -38,6 +38,7 @@ class KtCgglSpxqCk2Activity : BaseActivity<BaseP>() {
             tv_spbm.text = "编码：" + data["goodscode"].toString()
             tv_spgg.text = "规格：" + data["specs"].toString()
             tv_spxh.text = "型号：" + data["model"].toString()
+            et_bz.setText(data["memo"].toString())
             if (data["onhand"] != null) {
                 tv_spkz.text = "库存：" + data["onhand"].toString().toDouble() + data["unitname"].toString()
             } else {

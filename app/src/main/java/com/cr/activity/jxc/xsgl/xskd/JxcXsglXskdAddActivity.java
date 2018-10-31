@@ -529,6 +529,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                                 map.put("serialinfo", map2.get("serialinfo").toString());
                                 map.put("serials", map2.get("serials"));
                                 map.put("batchrefid", map2.get("batchrefid"));//
+                                map.put("memo", map2.get("memo"));//
                                 list.add(map);
 //                            zje += Double.parseDouble(map.get("amount").toString());
                             }
@@ -902,12 +903,12 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 jsonObject2.put("batchrefid", map.get("batchrefid") == null ? "" : map.get("batchrefid").toString());
                 jsonObject2.put("referbillid ", map.get("referbillid") == null ? "" : map.get("referbillid").toString());
                 jsonObject2.put("referitemno ", map.get("referitemno") == null ? "" : map.get("referitemno").toString());
-                jsonObject2.put("memo", map.get("memo") == null ? "" : map.get("memo").toString());
+
 
                 jsonObject2.put("serialinfo", map.get("serialinfo").toString());//税率%
                 jsonObject2.put("taxrate", map.get("taxrate").toString());//税率%
                 jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
-                jsonObject2.put("memo", "");//备注
+                jsonObject2.put("memo", map.get("memo") == null ? "" : map.get("memo").toString());//备注
                 arrayDetail.put(jsonObject2);
                 serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
 

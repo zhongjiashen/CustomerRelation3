@@ -77,10 +77,10 @@
 
         <View style="@style/underline" />
 
+
         <LinearLayout
             android:id="@+id/ll_bz"
-            style="@style/detail_relativelayout"
-            android:visibility="gone">
+            style="@style/detail_relativelayout">
 
             <TextView
                 style="@style/font_default"

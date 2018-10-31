@@ -162,7 +162,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                     R.layout.activity_jxc_cggl_cgdd_xzsp_item2, null);// 这个过程相当耗时间
             final ViewHolder2 viewHolder2 = new ViewHolder2(convertView);
 
-            viewHolder2.etBz.setText(objMap.get("memo") == null ? "" : objMap.get("memo").toString());
+
 
 //			} else {
 //				viewHolder2 = (ViewHolder2) convertView.getTag();
@@ -173,13 +173,13 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
             } else {
                 viewHolder2.item2Linearlayout.setVisibility(View.VISIBLE);
             }
-            if (bz_isTrue) {
-                LogUtils.e("显示备注");
-                viewHolder2.llBz.setVisibility(View.VISIBLE);
-            } else {
-                LogUtils.e("隐藏备注");
-                viewHolder2.llBz.setVisibility(View.GONE);
-            }
+//            if (bz_isTrue) {
+//                LogUtils.e("显示备注");
+//                viewHolder2.llBz.setVisibility(View.VISIBLE);
+//            } else {
+//                LogUtils.e("隐藏备注");
+//                viewHolder2.llBz.setVisibility(View.GONE);
+//            }
             viewHolder2.xzjgIv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -193,13 +193,14 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                     activity.startActivityForResult(intent, 3);
                 }
             });
-            viewHolder2.etBz.setTag(position);
+//            viewHolder2.etBz.setText(objMap.get("memo") == null ? "" : objMap.get("memo").toString());
+            viewHolder2.etBz.setText(objMap.get("memo").toString());//设置备注
             viewHolder2.etBz.addTextChangedListener(new TextWatcher() {
 
                 @Override
                 public void onTextChanged(CharSequence arg0, int arg1,
                                           int arg2, int arg3) {
-                    objMap.put("memo", arg0.toString());
+
                 }
 
                 @Override
@@ -208,11 +209,11 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                 }
 
                 @Override
-                public void afterTextChanged(Editable arg0) {
-                    //关键点：1.给edittext设置tag，此tag用来与position做对比校验，验证当前选中的edittext是否为需要的控件;
-//                            2.焦点判断：只有当前有焦点的edittext才有更改数据的权限，否则会造成数据紊乱
-//                            3.edittext内数据变动直接直接更改datalist的数据值，以便滑动view时显示正确
+                public void afterTextChanged(Editable s) {
+                    if (!TextUtils.isEmpty(s)) {
+                        objMap.put("memo", s.toString());
 
+                    }
                 }
             });
 

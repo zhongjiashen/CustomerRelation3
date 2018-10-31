@@ -438,6 +438,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                                 map.put("serialinfo", map2.get("serialinfo").toString());
                                 map.put("serials", map2.get("serials"));
                                 map.put("batchrefid", map2.get("batchrefid"));//
+                                map.put("memo", map2.get("memo"));//
                                 list.add(map);
                                 // zje +=
                                 // Double.parseDouble(map.get("amount").toString());
@@ -801,7 +802,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 jsonObject2.put("serialinfo", map.get("serialinfo").toString());//
                 jsonObject2.put("taxrate", map.get("taxrate").toString());//税率%
                 jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
-                jsonObject2.put("memo", "");//备注
+                jsonObject2.put("memo",  map.get("memo").toString());//备注
                 arrayDetail.put(jsonObject2);
                 serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
             }
