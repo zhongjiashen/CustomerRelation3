@@ -7,6 +7,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,7 +42,7 @@ public class JxcCkglChtjXzspDetailActivity extends BaseActivity implements OnCli
     EditText            thjeEditText;
     EditText            tzjeEditText;
     Map<String, Object> object = new HashMap<String, Object>();
-
+    EditText etBz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,30 @@ public class JxcCkglChtjXzspDetailActivity extends BaseActivity implements OnCli
         tqdjEditText = (EditText) findViewById(R.id.tqdj_edittext);
         tqjeEditText = (EditText) findViewById(R.id.tqje_edittext);
         thdjEditText = (EditText) findViewById(R.id.thdj_edittext);
+        etBz = (EditText) findViewById(R.id.et_bz);
+        etBz.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1,
+                                      int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s)) {
+                    object.put("memo", s.toString());
+
+                }
+            }
+        });
+
+
         thdjEditText.addTextChangedListener(new TextWatcher() {
             
             @Override
@@ -98,6 +123,7 @@ public class JxcCkglChtjXzspDetailActivity extends BaseActivity implements OnCli
                                    : object.get("code").toString()));
             ggTextView.setText("规格：" + object.get("specs").toString());
             xhTextView.setText("型号：" + object.get("model").toString());
+            etBz.setText(object.get("memo").toString());
             if(object.get("onhand")==null){
                 kcTextView.setVisibility(View.GONE);
             }else{

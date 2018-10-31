@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -162,6 +163,8 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
                     .findViewById(R.id.item2_linearlayout);
             viewHolder2.tvSl = (TextView) convertView
                     .findViewById(R.id.tv_sl);
+            viewHolder2.etBz = convertView
+                    .findViewById(R.id.et_bz);
             convertView.setTag(viewHolder2);
 //			} else {
 //				viewHolder2 = (ViewHolder2) convertView.getTag();
@@ -172,6 +175,29 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
             } else {
                 viewHolder2.item2LinearLayout.setVisibility(View.VISIBLE);
             }
+            viewHolder2.etBz.setText(objMap.get("memo").toString());//设置备注
+            viewHolder2.etBz.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void onTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence arg0, int arg1,
+                                              int arg2, int arg3) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (!TextUtils.isEmpty(s)) {
+                        objMap.put("memo", s.toString());
+
+                    }
+                }
+            });
+
             viewHolder2.djEditText.addTextChangedListener(new TextWatcher() {
 
                 @Override
@@ -341,6 +367,8 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
         TextView tvSerialNumber;
 
         TextView tvSl;
+
+        EditText etBz;
     }
 
 }

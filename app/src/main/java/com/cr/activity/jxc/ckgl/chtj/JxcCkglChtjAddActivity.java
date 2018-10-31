@@ -189,7 +189,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("unitqty",sl );
                 jsonObject2.put("anprice", thdj);
                 jsonObject2.put("aoprice", tqdj);
-                jsonObject2.put("memo", "");//备注
+                jsonObject2.put("memo", map.get("memo").toString());//备注
                 tzce=(Double.parseDouble(thdj)-Double.parseDouble(tqdj))*Double.parseDouble(sl);
                 arrayDetail.put(jsonObject2);
             }
@@ -292,6 +292,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
                             map.put("sl", map2.get("sl"));
                             map.put("tqdj", map2.get("tqdj").toString());
                             map.put("thdj", map2.get("thdj").toString());
+                            map.put("memo", map2.get("memo").toString());
                             list.add(map);
                         }
                     }

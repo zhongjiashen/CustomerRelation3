@@ -199,6 +199,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                     obj2.put("cpph", "");
                     obj2.put("scrq", "");
                     obj2.put("yxqz", "");
+                    obj2.put("memo", "");
                     obj2.put("batchctrl", obj.get("batchctrl").toString());
                     obj2.put("serialctrl", obj.get("serialctrl").toString());
                     UUID uuid = UUID.randomUUID();

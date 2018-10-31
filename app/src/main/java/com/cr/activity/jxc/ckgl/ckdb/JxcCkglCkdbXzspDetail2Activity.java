@@ -55,7 +55,7 @@ public class JxcCkglCkdbXzspDetail2Activity extends BaseActivity implements
     View yxrqView;
     Map<String, Object> object = new HashMap<String, Object>();
     TextView tvSerialNumber;
-
+    EditText etBz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +91,7 @@ public class JxcCkglCkdbXzspDetail2Activity extends BaseActivity implements
         zjEditText = (EditText) findViewById(R.id.zj_edittext);
         dwEditText = (EditText) findViewById(R.id.dw_edittext);
         slView = (SLView2) findViewById(R.id.sl_view);
+        etBz = (EditText) findViewById(R.id.et_bz);
         if (this.getIntent().hasExtra("object")) {
             object = (Map<String, Object>) this.getIntent().getExtras()
                     .getSerializable("object");
@@ -121,6 +122,7 @@ public class JxcCkglCkdbXzspDetail2Activity extends BaseActivity implements
             yxqzEditText.setText(object.get("validdate").toString());
             slView.setSl((int) Double.parseDouble(object.get("unitqty")
                     .toString()));
+            etBz.setText(object.get("memo").toString());
             if (object.get("batchctrl").toString().equals("T")) {
                 cpphLayout.setVisibility(View.VISIBLE);
                 cpphView.setVisibility(View.VISIBLE);

@@ -7,6 +7,9 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -55,7 +58,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
     View yxrqView;
     Map<String, Object> object = new HashMap<String, Object>();
     TextView tvSerialNumber;
-
+    EditText etBz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +94,28 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
         zjEditText = (EditText) findViewById(R.id.zj_edittext);
         dwEditText = (EditText) findViewById(R.id.dw_edittext);
         slView = (SLView2) findViewById(R.id.sl_view);
+        etBz = (EditText) findViewById(R.id.et_bz);
+        etBz.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1,
+                                      int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s)) {
+                    object.put("memo", s.toString());
+
+                }
+            }
+        });
         if (this.getIntent().hasExtra("object")) {
             object = (Map<String, Object>) this.getIntent().getExtras()
                     .getSerializable("object");
@@ -121,7 +146,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
             scrqView = findViewById(R.id.scrq_view);
             yxrqLayout = (LinearLayout) findViewById(R.id.yxrq_layout);
             yxrqView = findViewById(R.id.yxrq_view);
-
+            etBz.setText(object.get("memo").toString());
             if (object.get("batchctrl").toString().equals("T")) {
                 cpphLayout.setVisibility(View.VISIBLE);
                 cpphView.setVisibility(View.VISIBLE);

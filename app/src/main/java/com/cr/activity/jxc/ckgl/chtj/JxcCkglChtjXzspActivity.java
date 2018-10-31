@@ -164,6 +164,7 @@ public class JxcCkglChtjXzspActivity extends BaseActivity implements
                         Map<String, Object> obj2 = new HashMap<String, Object>();
                         obj2.put("isDetail", "1");
                         obj2.put("dw", "个");
+                        obj2.put("memo", "");
                         obj2.put("sl", obj.get("onhand").toString());
                         obj2.put("tqdj", FigureTools.sswrFigure(obj.get("aprice").toString()));
                         obj2.put("thdj", "");
