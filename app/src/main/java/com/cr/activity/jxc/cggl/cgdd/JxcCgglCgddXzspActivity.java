@@ -242,10 +242,10 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
 
                 List<Map<String, Object>> lbList = new ArrayList<>();
                 List<Map<String, Object>> cllxList = new ArrayList<>();
-                Map<String, Object> map=new HashMap<>();
-                map.put("name","全部");
-                map.put("id","0");
-                map.put("lcode","0");
+                Map<String, Object> map = new HashMap<>();
+                map.put("name", "全部");
+                map.put("id", "0");
+                map.put("lcode", "0");
                 lbList.add(map);
                 cllxList.add(map);
                 for (int i = 0; i < fenlinList.size(); i++) {
@@ -259,23 +259,25 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                             break;
                     }
                 }
-                setMenu(lbList,cllxList);
+                setMenu(lbList, cllxList);
                 break;
         }
 
     }
-    private void setMenu( List<Map<String, Object>> lbList,List<Map<String, Object>> cllxList){
+
+    private void setMenu(List<Map<String, Object>> lbList, List<Map<String, Object>> cllxList) {
         String[] titleList;
-        List<View> views=new ArrayList<>();
-        views.add(createSingleListView(lbList,0));
-        if(AppData.AppType==1){//判断是否是汽配版
-            titleList = new String[]{"类别","车辆类别"};
-            views.add(createSingleListView(cllxList,1));
-        }else {
+        List<View> views = new ArrayList<>();
+        views.add(createSingleListView(lbList, 0));
+        if (AppData.AppType == 1) {//判断是否是汽配版
+            titleList = new String[]{"类别", "车辆类别"};
+            views.add(createSingleListView(cllxList, 1));
+        } else {
             titleList = new String[]{"类别"};
         }
         dropDownMenu.setMenuAdapter(new MyMenuAdapter(activity, titleList, views));
     }
+
     private View createSingleListView(List<Map<String, Object>> items, final int kind) {
         SingleListView<Map<String, Object>> singleListView = new SingleListView<Map<String, Object>>(activity)
                 .adapter(new SimpleTextAdapter<Map<String, Object>>(null, activity) {
@@ -294,17 +296,17 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                     @Override
                     public void onItemClick(Map<String, Object> item) {
                         dropDownMenu.close();
-                        dropDownMenu.setPositionIndicatorText(kind,item.get("name").toString());
-                        switch (kind){
+                        dropDownMenu.setPositionIndicatorText(kind, item.get("name").toString());
+                        switch (kind) {
                             case 0://商品类别
-                                code=item.get("id").toString();
+                                code = item.get("id").toString();
                                 break;
                             case 1://车辆类别
-                                cartypeid=item.get("id").toString();
+                                cartypeid = item.get("id").toString();
                                 break;
 
                         }
-                        currentPage=1;
+                        currentPage = 1;
                         list.clear();
                         searchDate();
 
@@ -338,17 +340,26 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                                 Toast.makeText(activity, "请输入已选择商品的数量信息", Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                            if (map2.get("batchctrl").equals("T") && map2.get("cpph").equals("")) {
-                                Toast.makeText(activity, "选择的批号商品，必须填写批号信息", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            if (map.get("inf_costingtypeid").equals("2")) {
+                            if (map2.get("batchctrl").equals("T")) {
+                                if (map2.get("cpph").equals("")) {
+                                    Toast.makeText(activity, "选择的批号商品，必须填写批号信息", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                                 if (map2.get("scrq").equals("") && map2.get("yxqz").equals("")) {
                                     Toast.makeText(activity, "选择的批号商品，必须填写保质期", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                            }
 
+
+                            }
+                            /*inf_costingtypeid成本核算方法
+                                1	移动加权法
+                                2	个别指定法
+                                3	全月一次法
+                                4	先进先出法*/
+                            /*if (map.get("inf_costingtypeid").equals("2")) {
+
+                            }*/
                             if (map.get("serialctrl").equals("T")) {
                                 ArrayList<Serial> serials = (ArrayList<Serial>) map2.get("serials");
                                 if (serials.size() != Integer.parseInt(map2.get("sl").toString())) {
@@ -366,6 +377,7 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                 finish();
                 break;
         }
+
     }
 
 

@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.SLView2;
@@ -24,6 +25,7 @@ import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
+import com.cr.tools.DateUtil;
 import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -265,6 +267,10 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
             viewHolder2.yxqzEdittext.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
+                    if( objMap.get("scrq")==null||objMap.get("scrq").toString().equals("")){
+                        Toast.makeText(activity,"请先选择生产日期",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     SelectValueChange selectValueChange = new SelectValueChange() {
                         @Override
                         public void onValueChange(String str) {
@@ -272,7 +278,7 @@ public class JxcCgglCgddXzspAdapter extends BaseAdapter {
                             notifyDataSetChanged();
                         }
                     };
-                    activity.date_init2(selectValueChange);
+                    activity.date_init2(selectValueChange, DateUtil.StringTolongDate(objMap.get("scrq").toString(),"yyyy-MM-dd"));
                 }
             });
 

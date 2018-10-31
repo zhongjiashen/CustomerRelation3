@@ -507,9 +507,41 @@ public abstract class BaseActivity extends AppCompatActivity {
 		dateDialog = new DatePickerDialog(this, otsl, year, month, day);
 		dateDialog.show();
 	}
-
 	/* 初始化日期的弹出选择框 */
 	public void date_init2(final SelectValueChange selectValueChange) {
+		DatePickerDialog.OnDateSetListener otsl = new DatePickerDialog.OnDateSetListener() {
+			@Override
+			public void onDateSet(DatePicker arg0, int year, int month,
+								  int dayOfMonth) {
+				month++;
+				String myMonth = "";
+				String myDay = "";
+				if (month < 10) {
+					myMonth = "0" + month;
+				} else {
+					myMonth = "" + month;
+				}
+				if (dayOfMonth < 10) {
+					myDay = "0" + dayOfMonth;
+				} else {
+					myDay = "" + dayOfMonth;
+				}
+				// editText.setText(year + "-"+ myMonth + "-"+ myDay);
+				selectValueChange.onValueChange(year + "-" + myMonth + "-"
+						+ myDay);
+				dateDialog.dismiss();
+			}
+		};
+		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		dateDialog = new DatePickerDialog(this, otsl, year, month, day);
+
+		dateDialog.show();
+	}
+	/* 初始化日期的弹出选择框 */
+	public void date_init2(final SelectValueChange selectValueChange,long qsrq) {
 		DatePickerDialog.OnDateSetListener otsl = new DatePickerDialog.OnDateSetListener() {
 			@Override
 			public void onDateSet(DatePicker arg0, int year, int month,
@@ -538,6 +570,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 		int month = calendar.get(Calendar.MONTH);
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		dateDialog = new DatePickerDialog(this, otsl, year, month, day);
+		DatePicker datePicker=dateDialog.getDatePicker();
+		datePicker.setMinDate(qsrq);
 		dateDialog.show();
 	}
 
