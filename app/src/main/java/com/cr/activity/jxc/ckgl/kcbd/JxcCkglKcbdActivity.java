@@ -34,17 +34,16 @@ import com.crcxj.activity.R;
 
 /**
  * 进销存-仓库管理-库存变动
- * 
+ *
  * @author Administrator
- * 
  */
 public class JxcCkglKcbdActivity extends BaseActivity implements OnClickListener {
     private JxcCkglKcbdAdapter adapter;
-    private XListView          listView;
-    EditText                   searchEditText;
-    ImageButton                sxButton, xzButton;
-    List<Map<String, Object>>  list = new ArrayList<Map<String, Object>>();
-    String                     qsrq, jzrq, shzt = "0", cname;
+    private XListView listView;
+    EditText searchEditText;
+    ImageButton sxButton, xzButton;
+    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    String qsrq, jzrq, shzt = "0", cname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +57,15 @@ public class JxcCkglKcbdActivity extends BaseActivity implements OnClickListener
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-");
         qsrq = sdf.format(new Date()) + "01";
         jzrq = sdf.format(new Date()) + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        list.clear();
         searchDate();
-}
+    }
 
     /**
      * 初始化Activity
@@ -69,7 +75,7 @@ public class JxcCkglKcbdActivity extends BaseActivity implements OnClickListener
         searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
-                    || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     list.clear();
                     currentPage = 1;
                     searchDate();
@@ -99,12 +105,12 @@ public class JxcCkglKcbdActivity extends BaseActivity implements OnClickListener
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Intent intent = new Intent(context, JxcCkglKcbdDetailActivity.class);
-                intent.putExtra("billid", list.get(arg2-1).get("billid").toString());
-                if(JxcCkglKcbdActivity.this.getIntent().hasExtra("select")){//如果是添加订单时候关联的操作
-                    setResult(RESULT_OK,intent);
+                intent.putExtra("billid", list.get(arg2 - 1).get("billid").toString());
+                if (JxcCkglKcbdActivity.this.getIntent().hasExtra("select")) {//如果是添加订单时候关联的操作
+                    setResult(RESULT_OK, intent);
                     finish();
-                }else{//否则就是正常情况的打开
-                    startActivityForResult(intent,1);
+                } else {//否则就是正常情况的打开
+                    startActivityForResult(intent, 1);
                     adapter.setSelectIndex(arg2);
                 }
             }
@@ -132,17 +138,17 @@ public class JxcCkglKcbdActivity extends BaseActivity implements OnClickListener
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-    	if(returnJson.equals("nmyqx")){
-    		Toast.makeText(this,"您没有该功能菜单的权限！请与管理员联系！", Toast.LENGTH_SHORT)
-			.show();
-    		new Handler().postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					finish();
-				}
-			}, 300);
-    		return;
-    	}
+        if (returnJson.equals("nmyqx")) {
+            Toast.makeText(this, "您没有该功能菜单的权限！请与管理员联系！", Toast.LENGTH_SHORT)
+                    .show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 300);
+            return;
+        }
         if (returnJson.equals("")) {
             showToastPromopt(2);
         } else {
@@ -178,28 +184,28 @@ public class JxcCkglKcbdActivity extends BaseActivity implements OnClickListener
      * 刷新
      */
     private IXListViewListener xListViewListener = new IXListViewListener() {
-                                                     @Override
-                                                     public void onRefresh() {
-                                                         handler.postDelayed(new Runnable() {// 实现延迟2秒加载刷新
-                                                                 @Override
-                                                                 public void run() {
-                                                                     // 不实现顶部刷新
-                                                                 }
-                                                             }, 2000);
-                                                     }
+        @Override
+        public void onRefresh() {
+            handler.postDelayed(new Runnable() {// 实现延迟2秒加载刷新
+                @Override
+                public void run() {
+                    // 不实现顶部刷新
+                }
+            }, 2000);
+        }
 
-                                                     @Override
-                                                     public void onLoadMore() {
-                                                         handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
-                                                                 @Override
-                                                                 public void run() {
-                                                                     currentPage++;
-                                                                     searchDate();
-                                                                     onLoad();
-                                                                 }
-                                                             }, 2000);
-                                                     }
-                                                 };
+        @Override
+        public void onLoadMore() {
+            handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
+                @Override
+                public void run() {
+                    currentPage++;
+                    searchDate();
+                    onLoad();
+                }
+            }, 2000);
+        }
+    };
 
     @SuppressWarnings("deprecation")
     private void onLoad() {// 停止刷新和加载功能，并且显示时间

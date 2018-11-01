@@ -57,6 +57,13 @@ public class JxcCkglChtjActivity extends BaseActivity implements OnClickListener
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-");
         qsrq = sdf.format(new Date()) + "01";
         jzrq = sdf.format(new Date()) + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        list.clear();
         searchDate();
     }
 
