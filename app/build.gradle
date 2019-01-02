@@ -39,15 +39,15 @@ android {
 //            applicationId 'com.crenp.activity1'
 //
 //        }
-//        BZZYB {
-//            buildConfigField "int", "TYPE", "2"
-//            buildConfigField "String", "URL", "\"/crmjxcserver/n_crmwebserver.asmx?WSDL\""
-//            resValue("string", "app_name", "恒视CRM_标准专业版")
-//            resValue("string", "tgb", "标准专业版V1.0")
-//            resValue("string", "hscrm", "恒视CRM_标准专业版")
-//            applicationId 'com.crenp.activity2'
-//
-//        }
+        BZZYB {
+            buildConfigField "int", "TYPE", "2"
+            buildConfigField "String", "URL", "\"/crmjxcserver/n_crmwebserver.asmx?WSDL\""
+            resValue("string", "app_name", "恒视CRM_标准专业版")
+            resValue("string", "tgb", "标准专业版V1.0")
+            resValue("string", "hscrm", "恒视CRM_标准专业版")
+            applicationId 'com.crenp.activity2'
+
+        }
 //        ZPQYB {
 //            buildConfigField "int", "TYPE", "3"
 //            buildConfigField "String", "URL", "\"/leasenpserver/n_crmwebserver.asmx?WSDL\""
@@ -66,14 +66,14 @@ android {
 //            applicationId 'com.crenp.activity4'
 //
 //        }
-        ITQYB {
-            buildConfigField "int", "TYPE", "5"
-            buildConfigField "String", "URL", "\"/crmenpserver/n_crmwebserver.asmx?WSDL\""
-            resValue("string", "app_name", "恒视CRM_IT企业版")
-            resValue("string", "tgb", "IT企业版V1.0")
-            resValue("string", "hscrm", "恒视CRM_IT企业版")
-            applicationId 'com.crenp.activity5'
-        }
+//        ITQYB {
+//            buildConfigField "int", "TYPE", "5"
+//            buildConfigField "String", "URL", "\"/crmenpserver/n_crmwebserver.asmx?WSDL\""
+//            resValue("string", "app_name", "恒视CRM_IT企业版")
+//            resValue("string", "tgb", "IT企业版V1.0")
+//            resValue("string", "hscrm", "恒视CRM_IT企业版")
+//            applicationId 'com.crenp.activity5'
+//        }
 //        ITZYB {
 //            buildConfigField "int", "TYPE", "6"
 //            buildConfigField "String", "URL", "\"/crmitserver/n_crmwebserver.asmx?WSDL\""
@@ -82,6 +82,16 @@ android {
 //            resValue("string", "hscrm", "恒视CRM_IT专业版")
 //            applicationId 'com.crenp.activity6'
 //        }
+
+       /* GMB {
+            buildConfigField "int", "TYPE", "3"
+            buildConfigField "String", "URL", "\"/crmerpserver/n_crmwebserver.asmx?WSDL\""
+            resValue("string", "app_name", "恒视CRM_工贸版")
+            resValue("string", "tgb", "工贸版V1.0")
+            resValue("string", "hscrm", "恒视CRM_工贸版")
+            applicationId 'com.crenp.activity8'
+
+        }*/
 
     }
 }

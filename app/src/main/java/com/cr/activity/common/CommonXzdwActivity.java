@@ -65,6 +65,7 @@ public class CommonXzdwActivity extends BaseActivity implements OnClickListener 
     protected void onResume() {
         super.onResume();
         list.clear();
+        currentPage = 1;
         searchDate();
     }
 
@@ -169,9 +170,7 @@ public class CommonXzdwActivity extends BaseActivity implements OnClickListener 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
            if (requestCode == 0) {//新增成功
-                list.clear();
-                currentPage = 1;
-                searchDate();
+
             }
         }
     }

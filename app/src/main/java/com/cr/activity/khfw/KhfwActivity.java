@@ -63,6 +63,7 @@ public class KhfwActivity extends BaseActivity implements OnClickListener {
     protected void onResume() {
         super.onResume();
         list.clear();
+        currentPage = 1;
         searchDate();
     }
     /**
@@ -237,13 +238,9 @@ public class KhfwActivity extends BaseActivity implements OnClickListener {
                 djlx=data.getExtras().getString("djlx");
                 djztid=data.getExtras().getString("djztid");
                 djzt=data.getExtras().getString("djzt");
-                list.clear();
-                currentPage = 1;
-                searchDate();
+
             } else if (requestCode == 1) {//新增成功
-                list.clear();
-                currentPage = 1;
-                searchDate();
+
             }
         }
     }

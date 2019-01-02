@@ -57,11 +57,15 @@ class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
             //是批次商品的会显示批号、生产日期、有效日期
             if (data["batchctrl"].toString().equals("T")) {
                 ll_pcsp.visibility = View.VISIBLE
+                tv_sl.visibility = View.VISIBLE
+                ll_pcsp.visibility = View.VISIBLE
                 et_cpph.setText(data["batchcode"].toString())
                 et_scrq.setText(data["produceddate"].toString())
                 et_yxqz.setText(data["validdate"].toString())
             } else {
                 ll_pcsp.visibility = View.GONE
+                slv_sl.visibility = View.VISIBLE
+                tv_sl.visibility = View.GONE
             }
             slv_sl.sl = data["unitqty"].toString().toDouble()
             et_dj.setText(data["unitprice"].toString())//单价
@@ -114,7 +118,16 @@ class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
         titlebar.setTitleOnlicListener { i ->
             when (i) {
                 2 -> {
-                    data["unitqty"] = slv_sl.sl.toString()
+                    if (this.data["serialctrl"].toString().equals("T")) {
+                        data["unitqty"] = tv_sl.text.toString()
+                        if (data["unitqty"].toString().toInt() == 0) {
+                            showShortToast("商品数量不能为0")
+                            return@setTitleOnlicListener
+                        }
+
+                    } else {
+                        data["unitqty"] = slv_sl.sl.toString()
+                    }
                     val intent = Intent()
                     intent.putExtra("object", data as Serializable)
                     setResult(Activity.RESULT_OK, intent)

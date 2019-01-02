@@ -161,6 +161,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                                 + ztSpinner.getSelectedItem().toString() + "," + dbName + ",1";
                         //					Log.v("dddd", s);
                         SocketService.sendMsg(s);
+                        SocketService.keepAlive();
                         Intent intent = new Intent(this, IndexActivity.class);
                         startActivity(intent);
                         // Intent intent2=new Intent(this,TxService.class);

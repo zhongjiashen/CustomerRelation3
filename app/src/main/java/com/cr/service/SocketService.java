@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.cr.activity.LoginActivity;
 import com.cr.tools.ShareUserInfo;
+import com.update.utils.LogUtils;
 
 public class SocketService extends Service {
     public static Socket  socket;
@@ -113,6 +114,31 @@ public class SocketService extends Service {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+
+    public static void keepAlive(){
+        new Thread(new MyThread()).start();
+    }
+
+    private static class MyThread implements Runnable {
+        @Override
+        public void run() {
+            // TODO Auto-generated method stub
+            while (true) {
+                try {
+                    if(!SocThread.client.isConnected()){
+                       break;
+                    }
+                    Thread.sleep(5000);// 线程暂停10秒，单位毫秒
+                    SocketService.sendMsg("#cltconntest" );
+                    LogUtils.d("保活");
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

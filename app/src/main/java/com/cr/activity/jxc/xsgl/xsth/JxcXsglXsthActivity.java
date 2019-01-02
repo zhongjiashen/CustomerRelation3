@@ -65,6 +65,7 @@ public class JxcXsglXsthActivity extends BaseActivity implements OnClickListener
     protected void onResume() {
         super.onResume();
         list.clear();
+        currentPage=1;
         searchDate();
     }
 
@@ -224,13 +225,9 @@ public class JxcXsglXsthActivity extends BaseActivity implements OnClickListener
                 jzrq = data.getExtras().getString("zr");
                 shzt = data.getExtras().getString("sh");
                 cname = data.getExtras().getString("kh");
-                list.clear();
-                currentPage = 1;
-                searchDate();
+
             } else if (requestCode == 1) {//新增成功
-                list.clear();
-                currentPage = 1;
-                searchDate();
+
             }
         }
     }
