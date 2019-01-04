@@ -17,7 +17,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="10dip"
 	        android:layout_centerVertical="true"/>
-	    <TextView 
+	    <TextView
 	        android:id="@+id/khzlname"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
 	        android:gravity="center"
 	        android:layout_weight="1"
 	        android:text="@string/bjlxr"/> -->
-	     <!-- <TextView 
+	     <!-- <TextView
 	        android:id="@+id/xzlxr"
 	        android:layout_width="0dip"
 	        android:textSize="15sp"
@@ -91,7 +91,7 @@
 	        android:gravity="center"
 	        android:layout_weight="1"
 	        android:text="@string/xzlxr"/> -->
-	    <!-- <TextView 
+	    <!-- <TextView
 	        android:id="@+id/xzxsd"
 	        android:layout_width="0dip"
 	        android:textSize="15sp"
@@ -101,14 +101,14 @@
 	        android:gravity="center"
 	        android:layout_weight="1"
 	        android:text="@string/xzxsd"/>
-	    <LinearLayout 
+	    <LinearLayout
 	        android:id="@+id/operLayout"
 	        android:layout_width="50dip"
 	        android:layout_height="fill_parent"
 	        android:gravity="center"
 	        >
-	        
-		    <ImageView 
+
+		    <ImageView
 		        android:id="@+id/oper"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"

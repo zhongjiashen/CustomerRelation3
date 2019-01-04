@@ -11,6 +11,7 @@ import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
 import com.cr.tools.ShareUserInfo;
+import com.update.utils.LogUtils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -106,6 +107,7 @@ public class SocThread extends Thread {
 					    }
 					} catch (IOException e) {
 						e.printStackTrace();
+						LogUtils.e("链接超时————————————————————————————————"+e.toString());
 						inHandler.sendEmptyMessage(3);
 						isRun=false;
 						close();

@@ -657,6 +657,11 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <!-- 单位资料-联系人-联系人详情-联系方式 -->
         <activity
+            android:name="com.cr.activity.gzpt.dwzl.xzdw.XzDwActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!-- 单位资料-联系人-联系人详情-联系方式 -->
+        <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlLxrLxfsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
