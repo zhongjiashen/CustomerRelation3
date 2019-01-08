@@ -75,6 +75,9 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         et_fplx.setText("收据")
         billtypeid = "1"
         mTaxrate = "0"
+
+
+        getMrck()
     }
 
 
@@ -515,6 +518,15 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         findServiceData2(0, ServerURL.BILLSAVE, parmMap, false)
     }
 
+    /**
+     * 获取默认仓库信息
+     */
+    private fun getMrck() {
+        val parmMap = java.util.HashMap<String, Any>()
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["zdbm"] = "STORE"
+        findServiceData2(4, ServerURL.DATADICT, parmMap, false)
+    }
     override fun executeSuccess() {
         when (returnSuccessType) {
             0 -> {
@@ -573,6 +585,18 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                 list.add(map)
                 adapter.notifyDataSetChanged()
                 xzspnum_textview.setText("共选择了" + list.size + "商品")
+            }
+            4->{
+                if (returnJson == "") {
+                    showToastPromopt(2)
+                } else {
+                    val ckList = PaseJson.paseJsonToObject(returnJson) as List<Map<String, Any>>
+                    if (ckList.size == 1) {
+                        rkck_edittext.setText(ckList[0]["dictmc"].toString())
+
+                    }
+
+                }
             }
         }
 

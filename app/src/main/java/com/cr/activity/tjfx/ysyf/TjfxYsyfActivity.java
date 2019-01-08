@@ -36,7 +36,7 @@ public class TjfxYsyfActivity extends BaseActivity implements OnClickListener {
 	private XListView listView;
 	ImageButton sxButton, xzButton;
 	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-	String lxid="0",lxname="全部",mc="";
+	String lxid="0",lxname="全部",mc="",qkflag="1";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +94,7 @@ public class TjfxYsyfActivity extends BaseActivity implements OnClickListener {
 		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("types",lxid);
 		parmMap.put("cname", mc);
+		parmMap.put("qkflag",qkflag);
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
 		findServiceData2(0, ServerURL.CLIENTINOUTRPT, parmMap, false);
@@ -131,6 +132,7 @@ public class TjfxYsyfActivity extends BaseActivity implements OnClickListener {
 			intent.putExtra("lxid", lxid);
 			intent.putExtra("lxname", lxname);
 			intent.putExtra("mc", mc);
+			intent.putExtra("qkflag",qkflag);
 			startActivityForResult(intent, 0);
 			break;
 		}
@@ -178,6 +180,7 @@ public class TjfxYsyfActivity extends BaseActivity implements OnClickListener {
 				lxid = data.getExtras().getString("lxid");
 				lxname=data.getExtras().getString("lxname");
 				mc = data.getExtras().getString("mc");
+				qkflag = data.getExtras().getString("qkflag");
 				list.clear();
 				currentPage = 1;
 				searchDate();
