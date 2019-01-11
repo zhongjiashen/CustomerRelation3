@@ -27,6 +27,8 @@ import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzyyActivity;
 import com.cr.activity.common.CommonXzzdActivity;
+import com.cr.activity.jxc.JxcXzspActivity;
+import com.cr.activity.jxc.JxcXzyydActivity;
 import com.cr.activity.jxc.cggl.KtCgglSpxqActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity;
@@ -329,13 +331,15 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     showToastPromopt("请先选择仓库信息！");
                     return;
                 }
+                intent.putExtra("parms","XSKD");//类型
                 intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                 intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("rkckId", ckckId);
                 intent.putExtra("tabname", "tb_invoice");
                 intent.putExtra("xskd", true);
                 intent.putExtra("isStrict", true);
-                intent.setClass(this, JxcCgglCgddXzspActivity.class);
+//                intent.setClass(this, JxcCgglCgddXzspActivity.class);
+                intent.setClass(this, JxcXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.iv_scan://扫一扫选择商品
@@ -403,7 +407,8 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 }
                 intent.putExtra("clientid", gys2Id);
                 intent.putExtra("reftypeid", "1");
-                intent.setClass(activity, CommonXzyyActivity.class);
+//                intent.setClass(activity, CommonXzyyActivity.class);
+                intent.setClass(activity, JxcXzyydActivity.class);
                 startActivityForResult(intent, 5);
                 break;
             case R.id.ckck_edittext:
@@ -564,8 +569,6 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     mTypesname = data.getStringExtra("typesname");
                     khqkEdittext.setText(data.getExtras().getString("qk"));
                     // 清楚項目
-                    xmEdittext.setText("");
-                    xmId = "";
                     xmEdittext.setText("");
                     xmId = "";
                     break;

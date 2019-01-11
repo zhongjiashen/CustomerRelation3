@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.crcxj.activity">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
@@ -21,73 +21,67 @@
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <!-- 访问网络，网络定位需要上网-->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- SD卡读取权限，用户写入离线定位数据-->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions"></uses-permission>
     <!-- 获取手机经度维度信息 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-    <uses-permission
-        android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Wifi related  -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
 
     <!-- 打电话 -->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-    <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <!-- 获取手机经度维度信息 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE">
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE">
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE">
-    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
     <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE">
-    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">
-    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
-        tools:ignore="ProtectedPermissions">
-    </uses-permission>
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions"></uses-permission>
     <!-- 允许应用读取低级别的系统日志文件 -->
-    <uses-permission android:name="android.permission.READ_LOGS"
-        tools:ignore="ProtectedPermissions">
-    </uses-permission>
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions"></uses-permission>
     <application
         android:name="com.cr.activity.MyApplication"
         android:allowBackup="true"
@@ -102,1421 +96,1436 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.permission.PermissionsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 登录页面 -->
         <activity
             android:name="com.cr.activity.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <!-- 主用户页面 -->
         <activity
             android:name="com.cr.activity.index.IndexActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 关于页面 -->
         <activity
             android:name="com.cr.activity.GYActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 反馈页面 -->
         <activity
             android:name="com.cr.activity.FKActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 秘书提醒-工作提醒 -->
         <activity
             android:name="com.cr.activity.khgl.mstx.gztx.MstxGztxActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 秘书提醒-工作提醒-我的审核列表 -->
         <activity
             android:name="com.update.actiity.audit.MyAuditListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 秘书提醒-工作提醒2 -->
         <activity
             android:name="com.cr.activity.khgl.mstx.gztx.MstxGztx2Activity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.cr.activity.khgl.mstx.gztx.KtGztxXxActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 秘书提醒-工作提醒 -详情-->
         <activity
             android:name="com.cr.activity.MstxGztxDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 秘书提醒-公司公告 -->
         <activity
             android:name="com.cr.activity.MstxGsggActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 秘书提醒-公司公告 -详情-->
         <activity
             android:name="com.cr.activity.khgl.mstx.gztx.MstxGsggDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 秘书提醒-个人日程-->
         <activity
             android:name="com.cr.activity.MstxGrrcActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 秘书提醒-个人日程-详细-->
         <activity
             android:name="com.cr.activity.MstxGrrcDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 签到-新增签到-->
         <activity
             android:name="com.cr.activity.QdXzqdActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <!-- 工作平台-呼叫中心-选择计划-->
         <activity
             android:name="com.cr.activity.GzptHjzxXzjhActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-呼叫中心-呼叫中心-->
         <activity
             android:name="com.cr.activity.GzptHjzxHjzxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-呼叫中心-客户资料-->
         <activity
             android:name="com.cr.activity.GzptHjzxKhzlActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-呼叫中心-联系人-->
         <activity
             android:name="com.cr.activity.GzptKhzlLxrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-预约拜访-->
         <activity
             android:name="com.cr.activity.GzptYybfActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-售后回访-->
         <activity
             android:name="com.cr.activity.GzptShhfActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-客户管理-->
         <activity
             android:name="com.cr.activity.GzptKhglActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-客户管理-查询结果-->
         <activity
             android:name="com.cr.activity.GzptKhglResultActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-新增来电-->
         <activity
             android:name="com.cr.activity.GzptXzldActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-销售单据-->
         <activity
             android:name="com.cr.activity.GzptXsdjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-销售单据-销售单-->
         <activity
             android:name="com.cr.activity.GzptXsdjXsdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-销售单据-新增销售单-->
         <activity
             android:name="com.cr.activity.GzptXsdjXzxsdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-销售单据-销售单-选择产品-->
         <activity
             android:name="com.cr.activity.GzptXsdjXsdXzcpActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 工作平台-物流管理列表 -->
         <activity
             android:name="com.update.actiity.logistics.LogisticsManagementActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-新增物流单 -->
         <activity
             android:name="com.update.actiity.logistics.AddLogisticsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-新增物流单 -->
         <activity
             android:name="com.update.actiity.logistics.LogisticsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
 
         <activity
             android:name="com.update.actiity.logistics.KtWlxxActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-新增物流单_选择物流公司 -->
         <activity
             android:name="com.update.actiity.logistics.ChooseLogisticsCompanyActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-新增物流单_选择关联单据 -->
         <activity
             android:name="com.update.actiity.logistics.ChoiceLogisticsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-销售机会列表 -->
         <activity
             android:name="com.update.actiity.sales.SalesOpportunitiesManagementActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-销售机会列表 -->
         <activity
             android:name="com.update.actiity.sales.ChoiceOpportunitiesActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-销售机会详情 -->
         <activity
             android:name="com.update.actiity.sales.SalesOpportunitiesActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-新增销售机会 -->
         <activity
             android:name="com.update.actiity.sales.AddSalesOpportunitiesActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-合同管理列表 -->
         <activity
             android:name="com.update.actiity.contract.ContractManagementActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-合同管理列表 -->
         <activity
             android:name="com.update.actiity.contract.ChoiceContractActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-合同详情 -->
         <activity
             android:name="com.update.actiity.contract.ContractActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-新怎合同管理 -->
         <activity
             android:name="com.update.actiity.contract.AddContractActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-项目管理列表 -->
         <activity
             android:name="com.update.actiity.project.ProjectManagementActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-项目管理列表 -->
         <activity
             android:name="com.update.actiity.project.ChoiceProjectActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-新增项目 -->
         <activity
             android:name="com.update.actiity.project.AddProjectActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 工作平台-项目详情 -->
         <activity
             android:name="com.update.actiity.project.ProjectActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-安装登记列表 -->
         <activity
             android:name="com.update.actiity.installation.InstallRegistrationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-安装登记列表详情 -->
         <activity
             android:name="com.update.actiity.installation.InstallRegistrationDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-增加安装登记 -->
         <activity
             android:name="com.update.actiity.installation.AddInstallRegistrationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-增加安装登记-增加概况-->
         <activity
             android:name="com.update.actiity.installation.IncreaseOverviewActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 安装维修-安装执行列表 -->
         <activity
             android:name="com.update.actiity.installation.PerformInstallationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-安装执行列表详情 -->
         <activity
             android:name="com.update.actiity.installation.InstallationDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-维修登记列表 -->
         <activity
             android:name="com.update.actiity.maintenance.MaintenanceRegistrationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-维修登记列表详情 -->
         <activity
             android:name="com.update.actiity.maintenance.MaintenanceDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-维修登记列表详情 -->
         <activity
             android:name="com.update.actiity.maintenance.GoodsDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-维修登记列表 -->
         <activity
             android:name="com.update.actiity.maintenance.NewMaintenanceRegistrationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-概况 -->
         <activity
             android:name="com.update.actiity.maintenance.OverviewActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <!-- 安装维修-检测维修列表 -->
         <activity
             android:name="com.update.actiity.maintenance.DetectionMaintenanceActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!-- 安装维修-检测维修列表详情 -->
         <activity
             android:name="com.update.actiity.maintenance.DetectionDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
 
         <!-- 计划总结-日计划-->
         <activity
             android:name="com.cr.activity.JhzjRjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-月计划-->
         <activity
             android:name="com.cr.activity.JhzjYjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-周计划-->
         <activity
             android:name="com.cr.activity.JhzjZjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-新增周计划-->
         <activity
             android:name="com.cr.activity.JhzjXzzjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-选择计划列表-->
         <activity
             android:name="com.cr.activity.common.CommonXzzjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!-- 计划总结-年计划-->
         <activity
             android:name="com.cr.activity.JhzjZdyjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-计划项目-->
         <activity
             android:name="com.cr.activity.JhzjJhxmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-新增项目-->
         <activity
             android:name="com.cr.activity.JhzjXzxmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.khgl.jhzj.KtKhglJhzjXzxmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-新增项目——执行-->
         <activity
             android:name="com.cr.activity.JhzjXzxmZxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.khgl.jhzj.KtKhglJhzjXmzxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-新增项目——执行——查看-->
         <activity
             android:name="com.cr.activity.JhzjXzxmZxCkActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.khgl.jhzj.KtKhglJhzjXmCkActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-今日总结-->
         <activity
             android:name="com.cr.activity.JhzjJrzjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.khgl.jhzj.KtZjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-新增日计划-->
         <activity
             android:name="com.cr.activity.JhzjXzrjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-新增月计划-->
         <activity
             android:name="com.cr.activity.JhzjXzyjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 计划总结-新增年计划-->
         <activity
             android:name="com.cr.activity.JhzjXzzdyjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-拜访录入-->
         <activity
             android:name="com.cr.activity.GzptBflrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-选择项目-->
         <activity
             android:name="com.cr.activity.GzptSelectXzxmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-新增单位-->
         <activity
             android:name="com.cr.activity.GzptKhzlXzdwActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-拜访录入-新增项目-->
         <activity
             android:name="com.cr.activity.GzptBflrXzxmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-新增项目-->
         <activity
             android:name="com.cr.activity.GzptXzxmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-选择单位-->
         <activity
             android:name="com.cr.activity.GzptXzdwActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-选择联系人-->
         <activity
             android:name="com.cr.activity.GzptXzlxrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-客户资料-拜访-拜访内容-->
         <activity
             android:name="com.cr.activity.GzptHjzxKhzlBfnrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 公用模块-选择单位 -->
         <activity
             android:name="com.cr.activity.common.CommonXzdwActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择经办人 -->
         <activity
             android:name="com.cr.activity.common.CommonXzjbrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择操作员 -->
         <activity
             android:name="com.cr.activity.common.CommonXzczyActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择联系人 -->
         <activity
             android:name="com.cr.activity.common.CommonXzlxrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择批号 -->
         <activity
             android:name="com.cr.activity.common.CommonXzphActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择机会 -->
         <activity
             android:name="com.cr.activity.common.CommonXzjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择字典 -->
         <activity
             android:name="com.cr.activity.common.CommonXzzdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 公用模块-选择供应商-->
         <activity
             android:name="com.cr.activity.common.CommonXzgysActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择客户-->
         <activity
             android:name="com.cr.activity.common.CommonXzkhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择单位类别-->
         <activity
             android:name="com.cr.activity.common.CommonXzdwlbActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择付款类型-->
         <activity
             android:name="com.cr.activity.common.CommonXzfklxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择付款类型（采购付款中用到）-->
         <activity
             android:name="com.cr.activity.common.CommonXzfklx2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择收款类型-->
         <activity
             android:name="com.cr.activity.common.CommonXzsklxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择付款类型-->
         <activity
             android:name="com.cr.activity.common.CommonXztklxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择单据类型-->
         <activity
             android:name="com.cr.activity.common.CommonXzdjlxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择单据类型（服务单中用）-->
         <activity
             android:name="com.cr.activity.common.CommonXzdjlx2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择单据类型-->
         <activity
             android:name="com.cr.activity.common.CommonXzdjztActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择是否-->
         <activity
             android:name="com.cr.activity.common.CommonXzsfActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择客户类型-->
         <activity
             android:name="com.cr.activity.common.CommonXzkhlxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择客户类型2(没有全部项)-->
         <activity
             android:name="com.cr.activity.common.CommonXzkhlx2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择审核状态-->
         <activity
             android:name="com.cr.activity.common.CommonXzshztActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择商品分类-->
         <activity
             android:name="com.cr.activity.common.CommonXzsplbActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 公用模块-选择引用-->
+        <activity
+            android:name="com.cr.activity.jxc.JxcXzyydActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择引用-->
         <activity
             android:name="com.cr.activity.common.CommonXzyyActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择业务员-->
         <activity
             android:name="com.cr.activity.common.CommonXzywyActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 公用模块-选择业务员2-->
         <activity
             android:name="com.cr.activity.common.CommonXzywy2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!-- 展示图片-->
         <activity
             android:name="com.cr.activity.ShowImgActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
 
         <!-- 单位资料 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料新 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.main.GzptDwzlMainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-单位-联系方式 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlDwLxfsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-单位-编辑单位 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlDwBjdwActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-单位-编辑单位-添加编辑单位电话 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlDwBjdwLxfsAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-联系人-联系人详情 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlLxrDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-联系人-联系人详情-联系方式 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.xzdw.XzDwActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-联系人-联系人详情-联系方式 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlLxrLxfsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-联系人-编辑联系人 -->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlLxrBjlxrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-联系人-编辑联系人 -添加编辑联系人电话-->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlLxrBjlxrLxfsAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-拜访-拜访录入-->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlBfBflrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 工作平台-近期新增单位-->
         <activity
             android:name="com.cr.activity.GzptJqxzdwActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 单位资料-拜访-拜访录入-查看拜访录入的内容-->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlBfBflrDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 单位资料-机会-新增销售机会-->
         <activity
             android:name="com.cr.activity.gzpt.dwzl.GzptDwzlJhXzxsjhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 客户服务-->
         <activity
             android:name="com.cr.activity.khfw.KhfwActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 客户服务-查询-->
         <activity
             android:name="com.cr.activity.khfw.KhfwSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 客户服务-详情-->
         <activity
             android:name="com.cr.activity.khfw.KhfwDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 客户服务-增加-->
         <activity
             android:name="com.cr.activity.khfw.KhfwAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 客户服务-增加-增加服务产品-->
         <activity
             android:name="com.cr.activity.khfw.KhfwAddXzfwcpActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 客户服务-增加-编辑服务产品-->
         <activity
             android:name="com.cr.activity.khfw.KhfwAddBjfwcpActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 客户服务-增加-编辑服务产品-->
         <activity
             android:name="com.cr.activity.khfw.KhfwAddBjfwcp2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 客户服务-增加-增加服务产品-选择产品的名字-->
         <activity
             android:name="com.cr.activity.khfw.KhfwXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 工作平台保存联系方式-->
         <activity
             android:name="com.cr.activity.GzptXzldBclxfsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!-- 进销存-采购管理-采购订单-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-查询-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-详情-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.KtJxcCgglCgddDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-增加-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.KtJxcCgglCgddAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 进销存-采购管理-采购订单-选择商品-->
+        <activity
+            android:name="com.cr.activity.jxc.JxcXzspActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 进销存-采购管理-采购订单-选择商品-->
+        <activity
+            android:name="com.cr.activity.jxc.XzXlhActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-选择商品（批号不是必填）-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzsp2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-采购管理-采购订单-审核流程-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-审核流程-查询-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-采购管理-采购订单-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
-        android:name="com.cr.activity.jxc.cggl.KtCgglSpxqActivity"
-        android:screenOrientation="portrait"
-        android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:name="com.cr.activity.jxc.cggl.KtCgglSpxqActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.KtCgglSpxq2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.KtCgglSpxqCkActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.KtCgglSpxqCk2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetail2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!-- 进销存-采购管理-采购付款-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购付款-查询-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购付款-详情-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.KtJxcCgglCgfkDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-采购管理-采购付款-增加-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.KtJxcCgglCgfkAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购付款-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkXzyyActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购付款-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkXzyyDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购付款-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkXzyyDetail2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!-- 进销存-采购管理-采购收货-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购收货-查询-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购收货-详情-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购收货-增加-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.cgsh.KtJxcCgglCgshAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购退货-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgth.JxcCgglCgthActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购退货-查询-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgth.JxcCgglCgthSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购退货-详情-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgth.JxcCgglCgthDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购退货-增加-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgth.JxcCgglCgthAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-销售管理-销售订单-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售订单-查询-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售订单-详情-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-销售管理-销售订单-增加-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售开单-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售开单-查询-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售开单-详情-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存盘点-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售开单-增加-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-销售管理-销售收款-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售收款-查询-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售收款-详情-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售收款-增加-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!-- 进销存-销售管理-销售退货-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售退货-查询-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售退货-详情-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售退货-增加-->
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-仓库管理-仓库调拨-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-仓库调拨-查询-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-仓库调拨-详情-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-仓库调拨-增加-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.KtJxcCkglCkdbAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-仓库调拨-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.KtJxcCkglCkdbXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-仓库调拨-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbXzspDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-仓库调拨-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbXzspDetail2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-仓库管理-存货调价-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-存货调价-查询-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-存货调价-详情-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-存货调价-增加-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-存货调价-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-存货调价-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjXzspDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-存货调价-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.chtj.JxcCkglChtjXzspDetail2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-仓库管理-库存变动-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存变动-查询-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存变动-详情-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存变动-增加-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存变动-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存变动-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdXzspDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存变动-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdXzspDetail2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-仓库管理-库存盘点-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存盘点-查询-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存盘点-详情-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存盘点-增加-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存盘点-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.KtJxcCkglKcpdXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-仓库管理-库存盘点-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdXzspDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-库存盘点-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdXzspDetail2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 进销存-仓库管理-组装拆卸-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-组装拆卸-查询-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-组装拆卸-详情-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-组装拆卸-增加-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-组装拆卸-选择商品-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxXzspActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-组装拆卸-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxXzspDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-组装拆卸-选择商品（组装拆卸的部件商品信息）-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxXzsp2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-仓库管理-组装拆卸-选中产品的详细信息（组装拆卸的部件商品信息）-->
         <activity
             android:name="com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxXzspDetail2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!--现金银行 -费用支出-->
         <activity
             android:name="com.cr.activity.xjyh.fyzc.XjyhFyzcActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -费用支出-查询-->
         <activity
             android:name="com.cr.activity.xjyh.fyzc.XjyhFyzcSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -费用支出-详情-->
         <activity
             android:name="com.cr.activity.xjyh.fyzc.XjyhFyzcDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -费用支出-增加-->
         <activity
             android:name="com.cr.activity.xjyh.fyzc.XjyhFyzcAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -费用支出-增加-增加费用类型-->
         <activity
             android:name="com.cr.activity.xjyh.fyzc.XjyhFyzcAddZcActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.xjyh.fyzc.KtXjyhFyzcAddZcActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--现金银行 -其他收入-->
         <activity
             android:name="com.cr.activity.xjyh.qtsr.XjyhQtsrActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -其他收入-查询-->
         <activity
             android:name="com.cr.activity.xjyh.qtsr.XjyhQtsrSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -其他收入-详情-->
         <activity
             android:name="com.cr.activity.xjyh.qtsr.XjyhQtsrDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -其他收入-增加-->
         <activity
             android:name="com.cr.activity.xjyh.qtsr.XjyhQtsrAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -其他收入-增加-增加费用类型-->
         <activity
             android:name="com.cr.activity.xjyh.qtsr.XjyhQtsrAddZcActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!--现金银行 -付款单-->
         <activity
             android:name="com.cr.activity.xjyh.fkd.XjyhFkdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -付款单-查询-->
         <activity
             android:name="com.cr.activity.xjyh.fkd.XjyhFkdSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -付款单-详情-->
         <activity
             android:name="com.cr.activity.xjyh.fkd.XjyhFkdDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -付款单-增加-->
         <activity
             android:name="com.cr.activity.xjyh.fkd.XjyhFkdAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!--现金银行 -收款单-->
         <activity
             android:name="com.cr.activity.xjyh.skd.XjyhSkdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -收款单-查询-->
         <activity
             android:name="com.cr.activity.xjyh.skd.XjyhSkdSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -收款单-详情-->
         <activity
             android:name="com.cr.activity.xjyh.skd.XjyhSkdDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -收款单-增加-->
         <activity
             android:name="com.cr.activity.xjyh.skd.XjyhSkdAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!--现金银行 -银行存取-->
         <activity
             android:name="com.cr.activity.xjyh.yhcq.XjyhYhcqActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -银行存取-查询-->
         <activity
             android:name="com.cr.activity.xjyh.yhcq.XjyhYhcqSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -银行存取-详情-->
         <activity
             android:name="com.cr.activity.xjyh.yhcq.XjyhYhcqDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 现金银行 -银行存取-增加-->
         <activity
             android:name="com.cr.activity.xjyh.yhcq.XjyhYhcqAddActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-库存报表 -->
         <activity
             android:name="com.cr.activity.tjfx.kcbb.TjfxKcbbActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-库存报表-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.kcbb.TjfxKcbbSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-库存报表-商品价格-->
         <activity
             android:name="com.cr.activity.tjfx.kcbb.TjfxKcbbSpjgActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-库存报表-商品价格-->
         <activity
             android:name="com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-经营状况 -->
         <activity
             android:name="com.cr.activity.tjfx.jyzk.TjfxJyzkActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-经营状况-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.jyzk.TjfxJyzkSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-应收应付 -->
         <activity
             android:name="com.cr.activity.tjfx.ysyf.TjfxYsyfActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-应收应付-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.ysyf.TjfxYsyfSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-资金账户 -->
         <activity
             android:name="com.cr.activity.tjfx.zjzh.TjfxZjzhActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-客户拜访统计 -->
         <activity
             android:name="com.cr.activity.tjfx.khbftj.TjfxKhbftjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-客户拜访统计-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.khbftj.TjfxKhbftjSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!-- 统计分析-新客户统计 -->
         <activity
             android:name="com.cr.activity.tjfx.xkhtj.TjfxXkhtjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-新客户统计-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.xkhtj.TjfxXkhtjSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-销售机会统计 -->
         <activity
             android:name="com.cr.activity.tjfx.xsjhtj.TjfxXsjhtjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-销售机会统计-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.xsjhtj.TjfxXsjhtjSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-客户等级统计 -->
         <activity
             android:name="com.cr.activity.tjfx.khdjtj.TjfxKhdjtjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-客户等级统计明细 -->
         <activity
             android:name="com.cr.activity.tjfx.khdjtj.TjfxKhdjtj2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-客户等级统计-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.khdjtj.TjfxKhdjtjSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-销售阶段统计 -->
         <activity
             android:name="com.cr.activity.tjfx.xsjdtj.TjfxXsjdtjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-销售阶段统计明细 -->
         <activity
             android:name="com.cr.activity.tjfx.xsjdtj.TjfxXsjdtj2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-销售阶段统计-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.xsjdtj.TjfxXsjdtjSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 统计分析-销售收款汇总表 -->
         <activity
             android:name="com.cr.activity.tjfx.xsskhzb.TjfxXsskhzbActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-销售收款汇总表 明细 -->
         <activity
             android:name="com.cr.activity.tjfx.xsskhzb.TjfxXsskhzb2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-销售收款汇总表 -查询 -->
         <activity
             android:name="com.cr.activity.tjfx.xsskhzb.TjfxXsskhzbSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!-- 统计分析-客户服务统计 -->
         <activity
             android:name="com.cr.activity.tjfx.khfwtj.TjfxKhfwtjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-客户服务统计-查询 -->
         <activity
             android:name="com.cr.activity.tjfx.khfwtj.TjfxKhfwtjSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-利润表 -->
         <activity
             android:name="com.cr.activity.tjfx.lrb.KtTjfxLrbActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-资产负债表  -->
         <activity
             android:name="com.cr.activity.tjfx.fzb.KtTjfxFzbActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 统计分析-资产负债表  -->
         <activity
             android:name="com.cr.activity.tjfx.lrb.KtTjfxCwbbmxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 选择销售机会-资筛选 -->
         <activity
             android:name="com.cr.activity.common.CommonXzjhSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 选择销售机会-资筛选 -->
         <activity
             android:name="com.update.actiity.choose.KtDateSelectionActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <!-- 项目-->
         <activity
             android:name="com.cr.activity.xm.XmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 项目-筛选-->
         <activity
             android:name="com.cr.activity.xm.XmSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 项目-新增项目-->
         <activity
             android:name="com.cr.activity.xm.XzxmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 项目-编辑项目-->
         <activity
             android:name="com.cr.activity.xm.BjxmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
 
         <!--选择-->
@@ -1524,97 +1533,97 @@
         <activity
             android:name="com.update.actiity.choose.ScreeningActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--筛选(物流单列表筛选条件)-->
         <activity
             android:name="com.update.actiity.choose.ScreeningLogisicsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--筛选(我的审核列表筛选条件)-->
         <activity
             android:name="com.update.actiity.choose.ScreeningAuditActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--筛选(合同管理列表筛选、销售机会列表筛选)-->
         <activity
             android:name="com.update.actiity.choose.ScreeningProjectActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--审核状态选择-->
         <activity
             android:name="com.update.actiity.choose.StateAuditChoiceActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--本地数据单项选择-->
         <activity
             android:name="com.update.actiity.choose.LocalDataSingleOptionActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--网络数据单项选择-->
         <activity
             android:name="com.update.actiity.choose.NetworkDataSingleOptionActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--项目选择-->
         <activity
             android:name="com.update.actiity.choose.ProjectSelectionActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--商品选择-->
         <activity
             android:name="com.update.actiity.installation.ChooseGoodsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--商品选择条目详情-->
         <activity
             android:name="com.update.actiity.installation.ChooseGoodsDetailsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--部门选择-->
         <activity
             android:name="com.update.actiity.choose.ChooseDepartmentActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--业务员选择-->
         <activity
             android:name="com.update.actiity.choose.SelectSalesmanActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--选择发票类型-->
         <activity
             android:name="com.update.actiity.choose.KtXzfplxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--选择区域-->
         <activity
             android:name="com.update.actiity.choose.KtAreaSelectionActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--选择区域-->
         <activity
             android:name="com.update.actiity.choose.KtRegionMainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--选择区域-->
         <activity
             android:name="com.update.actiity.choose.KtRegionSelectionActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--录入序列号-->
         <activity
             android:name="com.update.actiity.EnterSerialNumberActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--查看序列号-->
         <activity
             android:name="com.update.actiity.SerialNumberDetailsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--扫一扫-->
         <activity
             android:name="com.update.actiity.WeChatCaptureActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 提醒 --><!--
         <service android:name="com.cr.service.TxService" android:label="消息推送" >
         </service> -->
@@ -1624,19 +1633,18 @@
             android:name="com.cr.service.AlarmReceiver"
             android:process=":remote">
             <intent-filter>
-                <action android:name="android.alarm.demo.action"/>
+                <action android:name="android.alarm.demo.action" />
             </intent-filter>
         </receiver>
         <!-- 百度地图定位功能 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote">
-        </service>
+            android:process=":remote"></service>
         <!-- 百度地图正式的KEY -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="WPBIm8dGW9wEbdQNwvU4NcPXU74Cvnr2"/>
+            android:value="WPBIm8dGW9wEbdQNwvU4NcPXU74Cvnr2" />
     </application>
 
 
