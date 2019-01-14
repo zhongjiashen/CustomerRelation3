@@ -625,12 +625,12 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                     jbrId = data.getExtras().getString("id");
                     break;
                 case 4://修改选中的商品的详情
-                    if (data.getExtras().getSerializable("object").toString().equals("")) {//说明删除了
+                    if (data.getExtras().getSerializable("data").toString().equals("")) {//说明删除了
                         list.remove(selectIndex);
                         adapter.notifyDataSetChanged();
                     } else {
                         Map<String, Object> map = (Map<String, Object>) data.getExtras()
-                                .getSerializable("object");
+                                .getSerializable("data");
                         list.remove(selectIndex);
 
                         map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
@@ -669,8 +669,30 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                         list.clear();
                         yyList.clear();
                         for (int i=0;i<maps.size();i++){
-
+                            Map<String, Object> map=maps.get(i);
+                            map.put("code",map.get("goodscode"));//编码
+                            map.put("name",map.get("goodsname"));//名称
+                            map.put("taxrate",mTaxrate);//税率
+                            Double csje = Double.parseDouble(map.get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            map.put("taxunitprice",FigureTools.sswrFigure(csje));//含税单价
+                            map.put("amount", Double.parseDouble(map.get("taxunitprice").toString()) * Double.parseDouble(map.get("unitqty").toString()));
+                            if(map.get("serialinfo")==null||TextUtils.isEmpty(map.get("serialinfo").toString())){
+                                UUID uuid = UUID.randomUUID();
+                                map.put("serialinfo", uuid.toString().toUpperCase());
+                            }
+                            if(map.get("serials")==null||TextUtils.isEmpty(map.get("serials").toString())){
+                                map.put("serials", new ArrayList<>());
+                            }
+                            list.add(map);
+                            yyList.add(map);
                         }
+                        double je = 0;
+                        for (Map<String, Object> m : list) {
+                            je += Double.parseDouble(m.get("amount").toString());
+                        }
+                        xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                        hjjeEdittext.setText("￥" + FigureTools.sswrFigure(je + "") + "");
+                        adapter.notifyDataSetChanged();
                     }
 
                     //                    list.clear();

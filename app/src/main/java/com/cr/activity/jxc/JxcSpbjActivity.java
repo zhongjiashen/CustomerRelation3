@@ -97,7 +97,12 @@ public class JxcSpbjActivity extends BaseActivity {
         tvSpbm.setText("编码：" + mMap.get("code").toString());
         tvSpgg.setText("规格：" + mMap.get("specs").toString());
         tvSpxh.setText("编码：" + mMap.get("model").toString());
-        tvSpkz.setText("库存：" + mMap.get("onhand").toString() + mMap.get("unitname").toString());
+        if(mMap.get("onhand")==null||TextUtils.isEmpty(mMap.get("onhand").toString())){
+            tvSpkz.setVisibility(View.GONE);
+        }else {
+            tvSpkz.setVisibility(View.VISIBLE);
+            tvSpkz.setText("库存：" + mMap.get("onhand").toString() + mMap.get("unitname").toString());
+        }
         //严格序列号商品处理
         if (mMap.get("serialctrl").toString().equals("T")) {
             LogUtils.e("严格序列商品");
@@ -109,7 +114,12 @@ public class JxcSpbjActivity extends BaseActivity {
             tvSl.setVisibility(View.GONE);
             slvSl.setSl(Double.parseDouble(mMap.get("unitqty").toString()));
         }
-        etBz.setText(mMap.get("memo").toString());
+        if(mMap.get("memo")==null||TextUtils.isEmpty(mMap.get("memo").toString())){
+            etBz.setText("");
+        }else {
+            etBz.setText(mMap.get("memo").toString());
+        }
+
         //是批次商品的会显示批号、生产日期、有效日期
         if (mMap.get("batchctrl").toString().equals("T")) {
             llPcsp.setVisibility(View.VISIBLE);

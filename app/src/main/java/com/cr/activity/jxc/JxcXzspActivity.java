@@ -391,7 +391,7 @@ public class JxcXzspActivity extends BaseActivity {
                                 showShortToast("商品数量不能为0");
                                 return;
                             }
-                            if (serials.size() == ktXzspData.getNumber()) {
+                            if (serials.size() != ktXzspData.getNumber()) {
                                 showShortToast("商品序列号个数与数量不一致");
                                 return;
                             }
