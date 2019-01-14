@@ -44,7 +44,7 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
             } else {
                 tv_spmc.text = "名称：" + data["name"].toString()
             }
-            if (data["name"] == null) {
+            if (data["code"] == null) {
                 tv_spbm.text = "编码：" + data["goodscode"].toString()
             } else {
                 tv_spbm.text = "编码：" + data["code"].toString()

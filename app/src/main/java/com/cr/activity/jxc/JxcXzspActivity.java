@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baiiu.filter.DropDownMenu;
 import com.baiiu.filter.adapter.MyMenuAdapter;
@@ -19,8 +20,10 @@ import com.baiiu.filter.interfaces.OnFilterItemClickListener;
 import com.baiiu.filter.typeview.SingleListView;
 import com.baiiu.filter.util.UIUtil;
 import com.baiiu.filter.view.FilterCheckedTextView;
+import com.cr.activity.common.CommonXzphActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
 import com.cr.tools.AppData;
+import com.cr.tools.DateUtil;
 import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
@@ -31,7 +34,10 @@ import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
+import com.update.dialog.DateSelectDialog;
+import com.update.dialog.OnDialogClickInterface;
 import com.update.model.ChooseGoodsData;
+import com.update.model.Serial;
 import com.update.utils.CustomTextWatcher;
 import com.update.utils.EditTextHelper;
 import com.update.utils.LogUtils;
@@ -45,6 +51,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -77,7 +84,7 @@ public class JxcXzspActivity extends BaseActivity {
     private String tabname = "";
     private Map<String, Object> mParmMap;
     List<KtXzspData> list = new ArrayList<KtXzspData>();
-
+    List<KtXzspData> result = new ArrayList<KtXzspData>();
     private String parms;
 
     @Override
@@ -98,7 +105,7 @@ public class JxcXzspActivity extends BaseActivity {
         }
         mTaxrate = getIntent().getStringExtra("taxrate");
         issj = getIntent().getBooleanExtra("issj", true);
-        parms=getIntent().getStringExtra("parms");
+        parms = getIntent().getStringExtra("parms");
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("pagesize", "10");
         mParmMap.put("dbname", ShareUserInfo.getDbName(mActivity));
@@ -118,19 +125,19 @@ public class JxcXzspActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
-       search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    public boolean onEditorAction(TextView v, int actionId,
-                                                  KeyEvent event) {
-                        if (actionId == EditorInfo.IME_ACTION_SEARCH
-                                || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                            list.clear();
-                            page_number=0;
-                            http(1);
-                            return true;
-                        }
-                        return false;
-                    }
-                });
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId,
+                                          KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    list.clear();
+                    page_number = 0;
+                    http(1);
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
         mFilterContentView.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
@@ -172,6 +179,7 @@ public class JxcXzspActivity extends BaseActivity {
                 holder.tvKc.setText("库存：" + data.getOnhand() + data.getUnitname());
                 if (data.getSerialctrl().equals("T")) {
                     LogUtils.e("严格序列商品");
+
                     holder.slView.setVisibility(View.GONE);
                     holder.tvSl.setVisibility(View.VISIBLE);
                 } else {
@@ -183,12 +191,11 @@ public class JxcXzspActivity extends BaseActivity {
                 //是批次商品的会显示批号、生产日期、有效日期
                 if (data.getBatchctrl().equals("T")) {
                     holder.llCpph.setVisibility(View.VISIBLE);
-//                            holder.etCpph.setText(data.getc);
-//                            viewHolder2.cpphEdittext.setText(objMap.get("cpph").toString());
+                    holder.etCpph.setText(data.getCpph());
                     holder.llScrq.setVisibility(View.VISIBLE);
-//                            viewHolder2.scrqEdittext.setText(objMap.get("scrq").toString());
+                    holder.etScrq.setText(data.getScrq());
                     holder.llYxqz.setVisibility(View.VISIBLE);
-//                            viewHolder2.yxqzEdittext.setText(objMap.get("yxqz").toString());
+                    holder.etYxqz.setText(data.getYxqz());
                 } else {
                     holder.llCpph.setVisibility(View.GONE);
                     holder.llScrq.setVisibility(View.GONE);
@@ -223,9 +230,9 @@ public class JxcXzspActivity extends BaseActivity {
                 holder.etSl.addTextChangedListener(new CustomTextWatcher(new CustomTextWatcher.UpdateTextListener() {
                     @Override
                     public void updateText(String string) {
-                        if ((Integer) holder.etSl.getTag() == position && holder.etSl.hasFocus()&&!TextUtils.isEmpty(string)) {
+                        if ((Integer) holder.etSl.getTag() == position && holder.etSl.hasFocus() && !TextUtils.isEmpty(string)) {
                             data.setTaxrate(string);
-                            Double csje =data.getAprice() * (Double.parseDouble(data.getTaxrate()) + 100) / 100;
+                            Double csje = data.getAprice() * (Double.parseDouble(data.getTaxrate()) + 100) / 100;
                             data.setTaxunitprice(FigureTools.sswrFigure(csje));
                             holder.tvHsdj.setText(data.getTaxunitprice());
                         }
@@ -245,7 +252,7 @@ public class JxcXzspActivity extends BaseActivity {
                         }
                     }
                 }));
-                Double csje =data.getAprice() * (Double.parseDouble(data.getTaxrate()) + 100) / 100;
+                Double csje = data.getAprice() * (Double.parseDouble(data.getTaxrate()) + 100) / 100;
                 data.setTaxunitprice(FigureTools.sswrFigure(csje));
                 holder.tvHsdj.setText(data.getTaxunitprice());
 
@@ -260,6 +267,51 @@ public class JxcXzspActivity extends BaseActivity {
                             data.setCheck(true);
                             holder.llBottom.setVisibility(View.GONE);
                         }
+                    }
+                });
+                //产品批号
+                holder.llCpph.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setClass(mActivity, CommonXzphActivity.class);
+                        intent.putExtra("goodsid", data.getGoodsid() + "");
+                        intent.putExtra("storied", storeid);
+                        intent.putExtra("index", position);
+                        startActivityForResult(intent, 1);
+                    }
+                });
+                //生产日期
+                holder.llScrq.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new DateSelectDialog(mActivity, 0, new OnDialogClickInterface() {
+                            @Override
+                            public void OnClick(int requestCode, Object object) {
+
+                                data.setScrq((String) object);
+                                holder.etScrq.setText(data.getScrq());
+                            }
+                        }).show();
+
+                    }
+                });
+                //有效期至
+                holder.llYxqz.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (TextUtils.isEmpty(data.getScrq())) {
+                            showShortToast("请先选择生产日期");
+                            return;
+                        }
+                        new DateSelectDialog(mActivity, DateUtil.StringTolongDate(data.getScrq(), "yyyy-MM-dd"), new OnDialogClickInterface() {
+                            @Override
+                            public void OnClick(int requestCode, Object object) {
+                                data.setYxqz((String) object);
+                                holder.etYxqz.setText(data.getYxqz());
+                            }
+                        }).show();
+
                     }
                 });
                 holder.ivXzjg.setOnClickListener(new View.OnClickListener() {
@@ -279,19 +331,25 @@ public class JxcXzspActivity extends BaseActivity {
                 holder.tvXlh.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent();
+                        if (TextUtils.isEmpty(data.getSerialinfo())) {
+                            UUID uuid = UUID.randomUUID();
+                            data.setSerialinfo(uuid.toString().toUpperCase());
+                        }
+                        intent.putExtra("position", position);
+                        intent.putExtra("billid", "0");
+                        intent.putExtra("serialinfo", data.getSerialinfo());
+                        intent.putExtra("serials", new Gson().toJson(data.getMSerials()));
                         if (data.getSerialctrl().equals("T")) {
                             LogUtils.e("严格序列商品");
-                           startActivityForResult(new Intent(mActivity,XzXlhActivity.class)
-                                   .putExtra("parms",parms)
-                                   .putExtra("storeid",storeid)
-                                   .putExtra("goodsid",data.getGoodsid()+"")
-                                   .putExtra("refertype","0")
-                                   .putExtra("referitemno","0"),5);
-
-
+                            startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
+                                    .putExtra("parms", parms)
+                                    .putExtra("storeid", storeid)
+                                    .putExtra("goodsid", data.getGoodsid() + "")
+                                    .putExtra("refertype", "0")
+                                    .putExtra("referitemno", "0"), 5);
                         } else {
-
+                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class),5);
                         }
                     }
                 });
@@ -314,6 +372,35 @@ public class JxcXzspActivity extends BaseActivity {
             case R.id.bt_jxtj:
                 break;
             case R.id.bt_view:
+                for (int i = 0; i < list.size(); i++) {
+                    KtXzspData ktXzspData = list.get(i);
+                    if (ktXzspData.isCheck()) {
+                        if (ktXzspData.getBatchctrl().equals("T")) {
+                            if (TextUtils.isEmpty(ktXzspData.getCpph())) {
+                                showShortToast("选择的批号商品，必须填写批号信息");
+                                return;
+                            }
+                            if (TextUtils.isEmpty(ktXzspData.getScrq())||TextUtils.isEmpty(ktXzspData.getYxqz())) {
+                                showShortToast( "选择的批号商品，必须填写保质期");
+                                return;
+                            }
+                        }
+                        if (ktXzspData.getSerialctrl().equals("T")) {
+                            ArrayList<Serial> serials = (ArrayList<Serial>) ktXzspData.getMSerials();
+                            if(serials==null||serials.size()==0){
+                                showShortToast("商品数量不能为0");
+                                return;
+                            }
+                            if (serials.size() == ktXzspData.getNumber()) {
+                                showShortToast("商品序列号个数与数量不一致");
+                                return;
+                            }
+                        }
+                        result.add(ktXzspData);
+                    }
+                }
+                setResult(RESULT_OK, new Intent().putExtra("data",mPGson.toJson(result)));
+                finish();
                 break;
         }
     }
@@ -406,11 +493,27 @@ public class JxcXzspActivity extends BaseActivity {
         super.onMyActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
+                int index = Integer.parseInt(data.getExtras()
+                        .getString("index"));
+                list.get(index).setCpph(data.getExtras().getString("name"));
+                list.get(index).setScrq(data.getExtras().getString("scrq"));
+                list.get(index).setYxqz(data.getExtras().getString("yxrq"));
+                list.get(index).setBatchrefid(data.getExtras().getString("id"));
+                mAdapter.notifyDataSetChanged();
                 break;
             case 4://选择价格
                 int i = Integer.parseInt(data.getExtras()
                         .getString("index"));
                 list.get(i).setAprice(Double.parseDouble(data.getExtras().getString("dj")));
+                mAdapter.notifyDataSetChanged();
+                break;
+            case 5:
+                List<Serial> serials = new Gson().fromJson(data.getExtras().getString("data"), new TypeToken<List<Serial>>() {
+                }.getType());
+                list.get(data.getExtras().getInt("position")).setMSerials(serials);
+                if (list.get(data.getExtras().getInt("position")).getSerialctrl().equals("T")) {
+                    list.get(data.getExtras().getInt("position")).setNumber(serials.size());
+                }
                 mAdapter.notifyDataSetChanged();
                 break;
         }

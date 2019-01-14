@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
 import com.jph.takephoto.compress.CompressConfig;
@@ -49,11 +50,13 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     protected Activity mActivity;
     private DatePickerDialog dateDialog = null;
     private TimePickerDialog timeDialog = null;
+    protected Gson mPGson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getTakePhoto().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         mActivity=this;
+        mPGson=new Gson();
         initVariables();
         setContentView(getLayout());
 
