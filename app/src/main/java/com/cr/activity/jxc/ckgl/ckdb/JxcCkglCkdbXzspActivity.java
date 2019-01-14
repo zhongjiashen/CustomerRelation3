@@ -393,10 +393,13 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
                     searchDate();
                     break;
                 case 11:
+
                     int i = data.getExtras()
                             .getInt("position");
-                    List<Serial> serials = new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+                    List<Serial> serials = new Gson().fromJson(data.getExtras().getString("data"), new TypeToken<List<Serial>>() {
                     }.getType());
+//                    List<Serial> serials = new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+//                    }.getType());
 
                     list.get(i).put("serials", serials);
 

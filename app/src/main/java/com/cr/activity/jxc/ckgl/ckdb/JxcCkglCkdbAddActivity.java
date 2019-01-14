@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzzdActivity;
+import com.cr.activity.jxc.JxcSpbjActivity;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
 import com.cr.adapter.jxc.ckgl.ckdb.JxcCkglCkdbAddAdapter;
 import com.cr.tools.CustomListView;
@@ -112,9 +113,10 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
+//
                 Intent intent = new Intent();
                 intent.setClass(activity, JxcCkglCkdbXzspDetailActivity.class);
-                intent.putExtra("rkckId", rkckId);
+                intent.putExtra("rkckId", ckckId);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 startActivityForResult(intent, 4);
             }

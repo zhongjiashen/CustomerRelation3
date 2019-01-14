@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.SLView2;
 import com.cr.activity.common.CommonXzphActivity;
+import com.cr.activity.jxc.JxcTjXlhActivity;
+import com.cr.activity.jxc.XzXlhActivity;
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -44,6 +46,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
     EditText zklEditText;
     EditText zjEditText;
     SLView2 slView;
+    TextView tvSl;
     EditText cpphEditText;
     EditText scrqEditText;
     EditText yxqzEditText;
@@ -59,6 +62,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
     Map<String, Object> object = new HashMap<String, Object>();
     TextView tvSerialNumber;
     EditText etBz;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +82,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
         xhTextView = (TextView) findViewById(R.id.xh_textview);
         kcTextView = (TextView) findViewById(R.id.kc_textview);
         scTextView = (TextView) findViewById(R.id.sc_textview);
+        tvSl = findViewById(R.id.tv_sl);
         scTextView.setOnClickListener(this);
         tvSerialNumber = findViewById(R.id.tv_serial_number);
         tvSerialNumber.setOnClickListener(this);
@@ -137,8 +142,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
             cpphEditText.setText(object.get("batchcode").toString());
             scrqEditText.setText(object.get("produceddate").toString());
             yxqzEditText.setText(object.get("validdate").toString());
-            slView.setSl((int) Double.parseDouble(object.get("unitqty")
-                    .toString()));
+
 
             cpphLayout = (LinearLayout) findViewById(R.id.cpph_layout);
             cpphView = findViewById(R.id.cpph_view);
@@ -147,6 +151,17 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
             yxrqLayout = (LinearLayout) findViewById(R.id.yxrq_layout);
             yxrqView = findViewById(R.id.yxrq_view);
             etBz.setText(object.get("memo").toString());
+            if (object.get("serialctrl").toString().equals("T")) {
+                tvSl.setVisibility(View.VISIBLE);
+                slView.setVisibility(View.GONE);
+                tvSl.setText(object.get("unitqty").toString());
+            } else {
+                tvSl.setVisibility(View.GONE);
+                slView.setVisibility(View.VISIBLE);
+                slView.setSl((int) Double.parseDouble(object.get("unitqty")
+                        .toString()));
+            }
+
             if (object.get("batchctrl").toString().equals("T")) {
                 cpphLayout.setVisibility(View.VISIBLE);
                 cpphView.setVisibility(View.VISIBLE);
@@ -222,20 +237,37 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
                 activity.startActivityForResult(intent, 0);
                 break;
             case R.id.tv_serial_number:
-                startActivityForResult(new Intent(activity, KtSerialNumberAddActivity.class)
-                        .putExtra("itemno", "0")
-                        .putExtra("uuid", object.get("serialinfo")
-                                .toString())
-
-                        .putExtra("storied", getIntent().getStringExtra("rkckId"))
-                        .putExtra("goodsid", object.get("goodsid").toString())
-                        .putExtra("isStrict", object.get("serialctrl").toString().equals("T"))
-
-                        .putExtra("position", 0)
-
-
-                        .putExtra("DATA", new Gson().toJson(object.get("serials")
-                        )), 11);
+                //严格序列号商品处理
+                Intent intent1 = new Intent();
+                intent1.putExtra("position", 0);
+                intent1.putExtra("billid", "0");
+                intent1.putExtra("serialinfo",object.get("serialinfo").toString());
+                intent1.putExtra("serials",  new Gson().toJson(object.get("serials")));
+                if (object.get("serialctrl").toString().equals("T")) {
+                    intent1.putExtra("refertype", "0");
+                    intent1.putExtra("referitemno", "0");
+                    startActivityForResult(intent1.setClass(activity, XzXlhActivity.class)
+                                    .putExtra("parms", "CKDB")
+                                    .putExtra("storeid", getIntent().getStringExtra("rkckId"))
+                                    .putExtra("goodsid",object.get("goodsid").toString())
+                            , 11);
+                }else {
+                    startActivityForResult(intent1.setClass(activity, JxcTjXlhActivity.class),11);
+                }
+//                startActivityForResult(new Intent(activity, KtSerialNumberAddActivity.class)
+//                        .putExtra("itemno", "0")
+//                        .putExtra("uuid", object.get("serialinfo")
+//                                .toString())
+//
+//                        .putExtra("storied", getIntent().getStringExtra("rkckId"))
+//                        .putExtra("goodsid", object.get("goodsid").toString())
+//                        .putExtra("isStrict", object.get("serialctrl").toString().equals("T"))
+//
+//                        .putExtra("position", 0)
+//
+//
+//                        .putExtra("DATA", new Gson().toJson(object.get("serials")
+//                        )), 11);
                 break;
             case R.id.scrq_edittext:
                 date_init(scrqEditText);
@@ -260,10 +292,19 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
                 cpphEditText.setText(data.getExtras().getString("name"));
                 cpphId = data.getExtras().getString("id");
             } else if (requestCode == 11) {
-                int index = data.getExtras()
-                        .getInt("position");
-                object.put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
-                }.getType()));
+                List<Serial> serials = new Gson().fromJson(data.getExtras().getString("data"), new TypeToken<List<Serial>>() {
+                }.getType());
+                object.put("serials", serials);
+                //严格序列号商品处理
+                if (object.get("serialctrl").toString().equals("T")) {
+                    object.put("unitqty", serials.size() + ".0");
+                    tvSl.setText(object.get("unitqty").toString());
+                }
+
+//                int index = data.getExtras()
+//                        .getInt("position");
+//                object.put("serials", new Gson().fromJson(data.getExtras().getString("DATA"), new TypeToken<List<Serial>>() {
+//                }.getType()));
 
             }
         }

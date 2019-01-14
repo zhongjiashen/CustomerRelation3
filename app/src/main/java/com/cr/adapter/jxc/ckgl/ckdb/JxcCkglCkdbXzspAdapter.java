@@ -22,6 +22,8 @@ import android.widget.TextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.SLView2;
 import com.cr.activity.common.CommonXzphActivity;
+import com.cr.activity.jxc.JxcTjXlhActivity;
+import com.cr.activity.jxc.XzXlhActivity;
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
@@ -296,20 +298,39 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
             viewHolder2.tvSerialNumber.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("position", position);
+                    intent.putExtra("billid", "0");
+                    intent.putExtra("serialinfo",  objMap.get("serialinfo")
+                            .toString());
+                    intent.putExtra("serials", new Gson().toJson(objMap.get("serials")));
+                    if (objMap2.get("serialctrl").equals("T")) {
+                        LogUtils.e("严格序列商品");
+                        activity.startActivityForResult(intent.setClass( activity, XzXlhActivity.class)
+                                .putExtra("parms", "CKDB")
+                                .putExtra("storeid", storeid)
+                                .putExtra("goodsid",  objMap2.get("goodsid")
+                                        .toString())
+                                .putExtra("refertype", "0")
+                                .putExtra("referitemno", "0"), 11);
 
-                    activity.startActivityForResult(new Intent(activity, KtSerialNumberAddActivity.class)
-                            .putExtra("itemno", "0")
-                            .putExtra("uuid", objMap.get("serialinfo")
-                                    .toString())
-                            .putExtra("position", position)
+                    } else {
+                        activity.startActivityForResult(intent.setClass(activity, JxcTjXlhActivity.class),11);
+                    }
 
-
-                            .putExtra("storied", storeid)
-                            .putExtra("goodsid", objMap2.get("goodsid")
-                                    .toString())
-                            .putExtra("isStrict", objMap.get("serialctrl").toString().equals("T"))
-                            .putExtra("DATA", new Gson().toJson(objMap.get("serials")
-                            )), 11);
+//                    activity.startActivityForResult(new Intent(activity, KtSerialNumberAddActivity.class)
+//                            .putExtra("itemno", "0")
+//                            .putExtra("uuid", objMap.get("serialinfo")
+//                                    .toString())
+//                            .putExtra("position", position)
+//
+//
+//                            .putExtra("storied", storeid)
+//                            .putExtra("goodsid", objMap2.get("goodsid")
+//                                    .toString())
+//                            .putExtra("isStrict", objMap.get("serialctrl").toString().equals("T"))
+//                            .putExtra("DATA", new Gson().toJson(objMap.get("serials")
+//                            )), 11);
 
                 }
             });

@@ -196,12 +196,19 @@ public class JxcSpbjActivity extends BaseActivity {
                 intent.putExtra("serialinfo", mMap.get("serialinfo").toString());
                 intent.putExtra("serials", mPGson.toJson(mMap.get("serials")));
                 if (mMap.get("serialctrl").toString().equals("T")) {
+                    if(mParms.equals("CGTH")&&mMap.get("referitemno")!=null) {
+                        LogUtils.e("fdasf");
+                        intent.putExtra("refertype","7");
+                        intent.putExtra("referitemno", mMap.get("referitemno").toString());
+                    }else {
+                        intent.putExtra("refertype", "0");
+                        intent.putExtra("referitemno", "0");
+                    }
                     startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
                             .putExtra("parms", mParms)
                             .putExtra("storeid", mStoreid)
                             .putExtra("goodsid", mMap.get("goodsid").toString())
-                            .putExtra("refertype", "0")
-                            .putExtra("referitemno", "0"), 1);
+                            , 1);
                 } else {
                     startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class),1);
                 }

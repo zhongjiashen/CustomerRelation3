@@ -86,8 +86,8 @@ public class XzXlhActivity extends BaseActivity {
         mFilterContentView.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                page_number = 0;
-                http(0);
+//                page_number = 0;
+////                http(0);
             }
 
             @Override
