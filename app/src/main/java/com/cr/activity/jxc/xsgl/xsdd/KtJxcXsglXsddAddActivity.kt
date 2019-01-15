@@ -8,6 +8,9 @@ import android.text.TextUtils
 import android.view.View
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.*
+import com.cr.activity.jxc.JxcSpbjActivity
+import com.cr.activity.jxc.JxcXzspActivity
+import com.cr.activity.jxc.KtXzspData
 import com.cr.activity.jxc.cggl.KtCgglSpxq2Activity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzsp2Activity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity
@@ -15,6 +18,8 @@ import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
 import com.cr.adapter.jxc.xsgl.xsdd.JxcXsglXsddDetailAdapter
 import com.cr.tools.*
 import com.crcxj.activity.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.update.actiity.WeChatCaptureActivity
 import com.update.actiity.choose.ChooseDepartmentActivity
 import com.update.actiity.choose.KtXzfplxActivity
@@ -94,10 +99,13 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
          */
         xzsp_linearlayout.setOnClickListener {
             val intent = Intent()
+            intent.putExtra("parms", "XSDD")//类型
+            intent.putExtra("rkckId", "0")
             intent.putExtra("issj", et_fplx.getText().toString() == "收据")
             intent.putExtra("taxrate", mTaxrate)
             intent.putExtra("tabname", "tb_sorder")
-            intent.setClass(this, JxcCgglCgddXzsp2Activity::class.java)
+            intent.setClass(this, JxcXzspActivity::class.java)
+//            intent.setClass(this, JxcCgglCgddXzsp2Activity::class.java)
             startActivityForResult(intent, 0)
         }
         /**
@@ -178,11 +186,16 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
          */
         xzsp_listview.setOnItemClickListener { parent, view, position, id ->
             selectIndex = position
-            val intent = Intent()
-            intent.setClass(activity, KtCgglSpxq2Activity::class.java)
-                intent.putExtra("rkckId", "")
-            intent.putExtra("object", list!!.get(position) as Serializable)
-            startActivityForResult(intent, 4)
+            startActivityForResult(Intent(activity, JxcSpbjActivity::class.java)
+                    .putExtra("data", list[position] as Serializable)
+                    .putExtra("parms", "XSDD")
+                    .putExtra("storeid", "0")
+                    .putExtra("issj", et_fplx.getText().toString() == "收据"), 4)
+//            val intent = Intent()
+//            intent.setClass(activity, KtCgglSpxq2Activity::class.java)
+//                intent.putExtra("rkckId", "")
+//            intent.putExtra("object", list!!.get(position) as Serializable)
+//            startActivityForResult(intent, 4)
         }
         et_xgxm.setOnClickListener {
             if (TextUtils.isEmpty(gysId))
@@ -211,40 +224,77 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                 when (requestCode) {
                 // 选择商品
                     0 -> {
-                        val cpList = data?.getSerializableExtra("object") as List<MutableMap<String, Any?>>
+                        val result = Gson().fromJson<List<KtXzspData>>(data.getStringExtra("data"), object : TypeToken<List<KtXzspData>>() {
+
+                        }.type)
                         var zje = 0.0
-                        for (i in cpList.indices) {
-                            var map = cpList[i]
-                            if (map["isDetail"] == "0") {
-                                if (map["ischecked"] == "1") {
-                                    var map2 = cpList[i + 1]
-                                    map["unitprice"] = map2["dj"]
-                                    map["unitqty"] = map2["sl"]
-                                    val amount = map2["taxunitprice"].toString().toDouble() * map2["sl"].toString().toDouble()
-                                    map["amount"] = FigureTools.sswrFigure(amount)
-
-                                    map["disc"] = map2["zkl"]
-                                    map["batchcode"] = map2["cpph"]
-                                    map["produceddate"] = map2["scrq"]
-                                    map["validdate"] = map2["yxqz"]
-
-                                    map["taxrate"] = map2["taxrate"]//税率
-                                    map["taxunitprice"] = map2["taxunitprice"]//含税单价
-                                    map["batchrefid"] = map2["batchrefid"]//
-                                    map["memo"] = map2["memo"]//
-                                    list.add(map)
-                                    //                            zje += Double.parseDouble(map.get("amount").toString());
-                                }
-                            }
+                        for (i in result.indices) {
+                            val (goodsid, code, name, specs, model, _, _, _, onhand, aprice, unitid, unitname, batchctrl, serialctrl, _, memo, cpph, batchrefid, scrq, yxqz, number, serialinfo, mSerials, taxrate, taxunitprice) = result[i]
+                            val map = HashMap<String, Any?>()
+                            map["goodsid"] = goodsid.toString() + ""
+                            map["code"] = code//编码
+                            map["name"] = name//名称
+                            map["specs"] = specs//规格
+                            map["model"] = model//型号
+                            map["onhand"] = onhand//库存
+                            map["unitprice"] = aprice.toString() + ""//单价
+                            map["unitqty"] = number.toString() + ""//数量
+                            map["unitname"] = unitname//单位
+                            map["unitid"] = unitid//单位id
+                            map["batchctrl"] = batchctrl//批次商品T
+                            map["serialctrl"] = serialctrl//严格序列商品T
+                            map["disc"] = "100"
+                            map["batchcode"] = cpph//产品批号
+                            map["batchrefid"] = batchrefid//产品批号id
+                            map["produceddate"] = scrq//生产日期
+                            map["validdate"] = yxqz//有效期至
+                            map["memo"] = memo//备注
+                            map["taxrate"] = taxrate//税率
+                            map["taxunitprice"] = taxunitprice//含税单价
+                            map["amount"] = java.lang.Double.parseDouble(taxunitprice) * number
+                            map["serialinfo"] = serialinfo
+                            map["serials"] = mSerials
+                            zje += java.lang.Double.parseDouble(map["amount"].toString())
+                            list.add(map)
                         }
-                        for (m in list) {
-                            LogUtils.e(m.toString())
-                            zje += java.lang.Double.parseDouble(m["amount"].toString())
-                        }
+                        xzspnum_textview.setText("共选择了" + list.size + "商品")
 
-                        xzspnum_textview.text = "共选择了" + list.size + "商品"
                         hjje_edittext.setText("￥" + FigureTools.sswrFigure(zje))
                         adapter.notifyDataSetChanged()
+//                        val cpList = data?.getSerializableExtra("object") as List<MutableMap<String, Any?>>
+//                        var zje = 0.0
+//                        for (i in cpList.indices) {
+//                            var map = cpList[i]
+//                            if (map["isDetail"] == "0") {
+//                                if (map["ischecked"] == "1") {
+//                                    var map2 = cpList[i + 1]
+//                                    map["unitprice"] = map2["dj"]
+//                                    map["unitqty"] = map2["sl"]
+//                                    val amount = map2["taxunitprice"].toString().toDouble() * map2["sl"].toString().toDouble()
+//                                    map["amount"] = FigureTools.sswrFigure(amount)
+//
+//                                    map["disc"] = map2["zkl"]
+//                                    map["batchcode"] = map2["cpph"]
+//                                    map["produceddate"] = map2["scrq"]
+//                                    map["validdate"] = map2["yxqz"]
+//
+//                                    map["taxrate"] = map2["taxrate"]//税率
+//                                    map["taxunitprice"] = map2["taxunitprice"]//含税单价
+//                                    map["batchrefid"] = map2["batchrefid"]//
+//                                    map["memo"] = map2["memo"]//
+//                                    list.add(map)
+//                                    //                            zje += Double.parseDouble(map.get("amount").toString());
+//                                }
+//                            }
+//                        }
+//                        for (m in list) {
+//                            LogUtils.e(m.toString())
+//                            zje += java.lang.Double.parseDouble(m["amount"].toString())
+//                        }
+//
+//                        xzspnum_textview.text = "共选择了" + list.size + "商品"
+//                        hjje_edittext.setText("￥" + FigureTools.sswrFigure(zje))
+//                        adapter.notifyDataSetChanged()
                     }
                 //供应商
                     1 -> {
@@ -298,12 +348,12 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                     }
                 //修改选中的商品的详情
                     4 -> {
-                        if (data.extras!!.getSerializable("object")!!.toString() == "") {//说明删除了
+                        if (data.extras!!.getSerializable("data")!!.toString() == "") {//说明删除了
                             list.removeAt(selectIndex)
                             adapter.notifyDataSetChanged()
                         } else {
                             val map = data.extras!!
-                                    .getSerializable("object") as MutableMap<String, Any?>
+                                    .getSerializable("data") as MutableMap<String, Any?>
                             list.removeAt(selectIndex)
                             map.put(
                                     "amount",

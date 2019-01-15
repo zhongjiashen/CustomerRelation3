@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.cr.activity.SLView2;
 import com.cr.activity.common.CommonXzphActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
+import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.DateUtil;
 import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
@@ -70,6 +71,8 @@ public class JxcSpbjActivity extends BaseActivity {
     TextView tvHsdj;
     @BindView(R.id.et_bz)
     EditText etBz;
+    @BindView(R.id.tv_serial_number)
+    TextView tvSerialNumber;
 
 
     private Map<String, Object> mMap;
@@ -97,26 +100,44 @@ public class JxcSpbjActivity extends BaseActivity {
         tvSpbm.setText("编码：" + mMap.get("code").toString());
         tvSpgg.setText("规格：" + mMap.get("specs").toString());
         tvSpxh.setText("编码：" + mMap.get("model").toString());
-        if(mMap.get("onhand")==null||TextUtils.isEmpty(mMap.get("onhand").toString())){
+        if (mMap.get("onhand") == null || TextUtils.isEmpty(mMap.get("onhand").toString())) {
             tvSpkz.setVisibility(View.GONE);
-        }else {
+        } else {
             tvSpkz.setVisibility(View.VISIBLE);
             tvSpkz.setText("库存：" + mMap.get("onhand").toString() + mMap.get("unitname").toString());
         }
-        //严格序列号商品处理
-        if (mMap.get("serialctrl").toString().equals("T")) {
-            LogUtils.e("严格序列商品");
-            slvSl.setVisibility(View.GONE);
-            tvSl.setVisibility(View.VISIBLE);
-            tvSl.setText(mMap.get("unitqty").toString());
-        } else {
-            slvSl.setVisibility(View.VISIBLE);
-            tvSl.setVisibility(View.GONE);
-            slvSl.setSl(Double.parseDouble(mMap.get("unitqty").toString()));
+        switch (mParms) {
+            case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）
+            case "XSDD":
+                tvSerialNumber.setVisibility(View.GONE);
+                slvSl.setVisibility(View.VISIBLE);
+                tvSl.setVisibility(View.GONE);
+                slvSl.setSl(Double.parseDouble(mMap.get("unitqty").toString()));
+                break;
+            default:
+                //严格序列号商品处理
+                if (mMap.get("serialctrl").toString().equals("T")) {
+                    LogUtils.e("严格序列商品");
+                    slvSl.setVisibility(View.GONE);
+                    tvSl.setVisibility(View.VISIBLE);
+                    tvSl.setText(mMap.get("unitqty").toString());
+                } else {
+                    slvSl.setVisibility(View.VISIBLE);
+                    tvSl.setVisibility(View.GONE);
+                    slvSl.setSl(Double.parseDouble(mMap.get("unitqty").toString()));
+                }
+                break;
         }
-        if(mMap.get("memo")==null||TextUtils.isEmpty(mMap.get("memo").toString())){
+        slvSl.setOnValueChange(new SLViewValueChange() {
+            @Override
+            public void onValueChange(double sl) {
+                mMap.put("unitqty", sl + "");
+            }
+        });
+
+        if (mMap.get("memo") == null || TextUtils.isEmpty(mMap.get("memo").toString())) {
             etBz.setText("");
-        }else {
+        } else {
             etBz.setText(mMap.get("memo").toString());
         }
 
@@ -169,12 +190,20 @@ public class JxcSpbjActivity extends BaseActivity {
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
-                if (mMap.get("serialctrl").toString().equals("T")) {
-                    ArrayList<Serial> serials = (ArrayList<Serial>)mMap.get("serials");
-                    if(serials==null||serials.size()==0){
-                        showShortToast("商品数量不能为0");
-                        return;
-                    }
+                switch (mParms) {
+                    case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）
+                    case "XSDD":
+                        break;
+                    default:
+                        //严格序列号商品处理
+                        if (mMap.get("serialctrl").toString().equals("T")) {
+                            ArrayList<Serial> serials = (ArrayList<Serial>) mMap.get("serials");
+                            if (serials == null || serials.size() == 0) {
+                                showShortToast("商品数量不能为0");
+                                return;
+                            }
+                        }
+                        break;
                 }
 
                 mMap.put("memo", etBz.getText().toString());
@@ -196,21 +225,11 @@ public class JxcSpbjActivity extends BaseActivity {
                 intent.putExtra("serialinfo", mMap.get("serialinfo").toString());
                 intent.putExtra("serials", mPGson.toJson(mMap.get("serials")));
                 if (mMap.get("serialctrl").toString().equals("T")) {
-                    if(mParms.equals("CGTH")&&mMap.get("referitemno")!=null) {
-                        LogUtils.e("fdasf");
-                        intent.putExtra("refertype","7");
-                        intent.putExtra("referitemno", mMap.get("referitemno").toString());
-                    }else {
-                        intent.putExtra("refertype", "0");
-                        intent.putExtra("referitemno", "0");
-                    }
-                    startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
-                            .putExtra("parms", mParms)
-                            .putExtra("storeid", mStoreid)
-                            .putExtra("goodsid", mMap.get("goodsid").toString())
-                            , 1);
+                    intent.putExtra("refertype", "0");
+                    intent.putExtra("referitemno", "0");
+                    xzxlh(intent);
                 } else {
-                    startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class),1);
+                    lrxlh(intent);
                 }
                 break;
             case R.id.ll_cpph:
@@ -291,5 +310,27 @@ public class JxcSpbjActivity extends BaseActivity {
                 break;
 
         }
+    }
+
+    /**
+     * 选择序列号
+     *
+     * @param intent
+     */
+    private void xzxlh(Intent intent) {
+        startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
+                        .putExtra("parms", mParms)
+                        .putExtra("storeid", mStoreid)
+                        .putExtra("goodsid", mMap.get("goodsid").toString())
+                , 1);
+    }
+
+    /**
+     * 录入序列号
+     *
+     * @param intent
+     */
+    private void lrxlh(Intent intent) {
+        startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
     }
 }

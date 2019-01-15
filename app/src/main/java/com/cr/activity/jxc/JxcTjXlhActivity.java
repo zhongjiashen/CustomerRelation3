@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import com.update.actiity.EnterSerialNumberActivity;
 import com.update.actiity.WeChatCaptureActivity;
 import com.update.base.BaseActivity;
+import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.dialog.DialogFactory;
 import com.update.dialog.OnDialogClickInterface;
@@ -45,13 +46,17 @@ public class JxcTjXlhActivity extends BaseActivity {
     private String mBillid;//主单id
     private String mSerialinfo;//序列号
 
+    private boolean mRechecking;
+
     @Override
     protected void initVariables() {
+        mRechecking=getIntent().getBooleanExtra("rechecking",false);
         mPosition = getIntent().getIntExtra("position", 0);
         mBillid = getIntent().getStringExtra("billid");
         mSerialinfo = getIntent().getStringExtra("serialinfo");
         mSerials = new Gson().fromJson(getIntent().getStringExtra("serials"), new TypeToken<List<Serial>>() {
         }.getType());
+        presenter = new BaseP(this, this);
     }
 
     @Override

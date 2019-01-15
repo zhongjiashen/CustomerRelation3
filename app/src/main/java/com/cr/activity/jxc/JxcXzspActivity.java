@@ -22,6 +22,7 @@ import com.baiiu.filter.util.UIUtil;
 import com.baiiu.filter.view.FilterCheckedTextView;
 import com.cr.activity.common.CommonXzphActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
+import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.AppData;
 import com.cr.tools.DateUtil;
 import com.cr.tools.FigureTools;
@@ -85,7 +86,7 @@ public class JxcXzspActivity extends BaseActivity {
     private Map<String, Object> mParmMap;
     List<KtXzspData> list = new ArrayList<KtXzspData>();
     List<KtXzspData> result = new ArrayList<KtXzspData>();
-    private String parms;
+    private String mParms;
 
     @Override
     protected void initVariables() {
@@ -105,7 +106,7 @@ public class JxcXzspActivity extends BaseActivity {
         }
         mTaxrate = getIntent().getStringExtra("taxrate");
         issj = getIntent().getBooleanExtra("issj", true);
-        parms = getIntent().getStringExtra("parms");
+        mParms = getIntent().getStringExtra("parms");
         mParmMap = new HashMap<String, Object>();
         mParmMap.put("pagesize", "10");
         mParmMap.put("dbname", ShareUserInfo.getDbName(mActivity));
@@ -177,17 +178,34 @@ public class JxcXzspActivity extends BaseActivity {
                 holder.tvGg.setText("规格：" + data.getSpecs());
                 holder.tvXh.setText("型号：" + data.getModel());
                 holder.tvKc.setText("库存：" + data.getOnhand() + data.getUnitname());
-                if (data.getSerialctrl().equals("T")) {
-                    LogUtils.e("严格序列商品");
-
-                    holder.slView.setVisibility(View.GONE);
-                    holder.tvSl.setVisibility(View.VISIBLE);
-                } else {
-                    holder.slView.setVisibility(View.VISIBLE);
-                    holder.tvSl.setVisibility(View.GONE);
+                switch (mParms) {
+                    case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）
+                    case "XSDD":
+                        holder.tvXlh.setVisibility(View.GONE);//隐藏序列号添加按钮
+                        holder.slView.setVisibility(View.VISIBLE);
+                        holder.tvSl.setVisibility(View.GONE);
+                        break;
+                    default:
+                        if (data.getSerialctrl().equals("T")) {//判断是否是严格序列号商品
+                            LogUtils.e("严格序列商品");
+                            holder.slView.setVisibility(View.GONE);
+                            holder.tvSl.setVisibility(View.VISIBLE);
+                        } else {
+                            holder.slView.setVisibility(View.VISIBLE);
+                            holder.tvSl.setVisibility(View.GONE);
+                        }
+                        break;
                 }
+
                 holder.slView.setSl(data.getNumber());
                 holder.tvSl.setText(data.getNumber() + "");
+                holder.slView.setOnValueChange(new SLViewValueChange() {
+                    @Override
+                    public void onValueChange(double sl) {
+                        data.setNumber(sl);
+                    }
+                });
+
                 //是批次商品的会显示批号、生产日期、有效日期
                 if (data.getBatchctrl().equals("T")) {
                     holder.llCpph.setVisibility(View.VISIBLE);
@@ -343,13 +361,13 @@ public class JxcXzspActivity extends BaseActivity {
                         if (data.getSerialctrl().equals("T")) {
                             LogUtils.e("严格序列商品");
                             startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
-                                    .putExtra("parms", parms)
+                                    .putExtra("parms", mParms)
                                     .putExtra("storeid", storeid)
                                     .putExtra("goodsid", data.getGoodsid() + "")
                                     .putExtra("refertype", "0")
                                     .putExtra("referitemno", "0"), 5);
                         } else {
-                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class),5);
+                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 5);
                         }
                     }
                 });
@@ -375,31 +393,38 @@ public class JxcXzspActivity extends BaseActivity {
                 for (int i = 0; i < list.size(); i++) {
                     KtXzspData ktXzspData = list.get(i);
                     if (ktXzspData.isCheck()) {
-                        if (ktXzspData.getBatchctrl().equals("T")) {
-                            if (TextUtils.isEmpty(ktXzspData.getCpph())) {
-                                showShortToast("选择的批号商品，必须填写批号信息");
-                                return;
-                            }
-                            if (TextUtils.isEmpty(ktXzspData.getScrq())||TextUtils.isEmpty(ktXzspData.getYxqz())) {
-                                showShortToast( "选择的批号商品，必须填写保质期");
-                                return;
-                            }
-                        }
-                        if (ktXzspData.getSerialctrl().equals("T")) {
-                            ArrayList<Serial> serials = (ArrayList<Serial>) ktXzspData.getMSerials();
-                            if(serials==null||serials.size()==0){
-                                showShortToast("商品数量不能为0");
-                                return;
-                            }
-                            if (serials.size() != ktXzspData.getNumber()) {
-                                showShortToast("商品序列号个数与数量不一致");
-                                return;
-                            }
+                        switch (mParms) {
+                            case "CGDD"://采购订单、销售订单不带序列号批号商品的批号和保质期选填
+                            case "XSDD":
+                                break;
+                            default:
+                                if (ktXzspData.getBatchctrl().equals("T")) {
+                                    if (TextUtils.isEmpty(ktXzspData.getCpph())) {
+                                        showShortToast("选择的批号商品，必须填写批号信息");
+                                        return;
+                                    }
+                                    if (TextUtils.isEmpty(ktXzspData.getScrq()) || TextUtils.isEmpty(ktXzspData.getYxqz())) {
+                                        showShortToast("选择的批号商品，必须填写保质期");
+                                        return;
+                                    }
+                                }
+                                if (ktXzspData.getSerialctrl().equals("T")) {
+                                    ArrayList<Serial> serials = (ArrayList<Serial>) ktXzspData.getMSerials();
+                                    if (serials == null || serials.size() == 0) {
+                                        showShortToast("商品数量不能为0");
+                                        return;
+                                    }
+                                    if (serials.size() != ktXzspData.getNumber()) {
+                                        showShortToast("商品序列号个数与数量不一致");
+                                        return;
+                                    }
+                                }
+                                break;
                         }
                         result.add(ktXzspData);
                     }
                 }
-                setResult(RESULT_OK, new Intent().putExtra("data",mPGson.toJson(result)));
+                setResult(RESULT_OK, new Intent().putExtra("data", mPGson.toJson(result)));
                 finish();
                 break;
         }
