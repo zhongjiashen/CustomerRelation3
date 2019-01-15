@@ -176,9 +176,13 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
+                String parms = "CGTH";
+                if (list.get(arg2).get("refertype") != null) {
+                    parms = "CGSH";
+                }
                 startActivityForResult(new Intent(activity, JxcSpbjActivity.class)
                         .putExtra("data",(Serializable) list.get(arg2))
-                        .putExtra("parms","CGTH")
+                        .putExtra("parms",parms)
                         .putExtra("storeid",rkckId)
                         .putExtra("issj", etFplx.getText().toString().equals("收据")), 4);
 //                Intent intent = new Intent();
