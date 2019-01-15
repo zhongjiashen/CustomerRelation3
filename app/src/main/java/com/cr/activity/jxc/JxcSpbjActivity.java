@@ -224,13 +224,28 @@ public class JxcSpbjActivity extends BaseActivity {
                 intent.putExtra("billid", "0");
                 intent.putExtra("serialinfo", mMap.get("serialinfo").toString());
                 intent.putExtra("serials", mPGson.toJson(mMap.get("serials")));
-                if (mMap.get("serialctrl").toString().equals("T")) {
-                    intent.putExtra("refertype", "0");
-                    intent.putExtra("referitemno", "0");
-                    xzxlh(intent);
-                } else {
-                    lrxlh(intent);
+                intent.putExtra("goodsid", mMap.get("goodsid").toString());
+                intent.putExtra("storeid", mStoreid);
+                switch (mParms) {
+                    case "XSKD"://销售开单、采购退货严格序列号商品序列号选择
+                    case "CGTH":
+                        if (mMap.get("serialctrl").toString().equals("T")) {
+                            LogUtils.e("严格序列商品");
+                            startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
+                                    .putExtra("parms", mParms)
+                                    .putExtra("refertype", "0")
+                                    .putExtra("referitemno", "0"), 5);
+                        } else {
+                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 5);
+                        }
+                        break;
+                    case "CGSH"://采购收货录入序列号需要查重
+                        intent.putExtra("rechecking", true);
+                    default:
+                        startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 5);
+                        break;
                 }
+
                 break;
             case R.id.ll_cpph:
                 Intent intent1 = new Intent();
@@ -312,25 +327,5 @@ public class JxcSpbjActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 选择序列号
-     *
-     * @param intent
-     */
-    private void xzxlh(Intent intent) {
-        startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
-                        .putExtra("parms", mParms)
-                        .putExtra("storeid", mStoreid)
-                        .putExtra("goodsid", mMap.get("goodsid").toString())
-                , 1);
-    }
 
-    /**
-     * 录入序列号
-     *
-     * @param intent
-     */
-    private void lrxlh(Intent intent) {
-        startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
-    }
 }

@@ -26,6 +26,7 @@ import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzyyActivity;
 import com.cr.activity.common.CommonXzzdActivity;
+import com.cr.activity.jxc.JxcXzspActivity;
 import com.cr.activity.jxc.cggl.KtCgglSpxqActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity;
@@ -308,14 +309,15 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                     showToastPromopt("请先选择仓库信息！");
                     return;
                 }
-
+                intent.putExtra("parms", "CGSH");//类型
                 intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                 intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("tabname", "tb_received");
                 intent.putExtra("sfjc", false);
                 intent.putExtra("type", "cgsh");
-                intent.setClass(this, JxcCgglCgddXzspActivity.class);
+                intent.setClass(this, JxcXzspActivity.class);
+//                intent.setClass(this, JxcCgglCgddXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.iv_scan://扫一扫选择商品

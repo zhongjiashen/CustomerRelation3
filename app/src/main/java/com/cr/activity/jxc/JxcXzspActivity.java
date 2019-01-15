@@ -358,17 +358,28 @@ public class JxcXzspActivity extends BaseActivity {
                         intent.putExtra("billid", "0");
                         intent.putExtra("serialinfo", data.getSerialinfo());
                         intent.putExtra("serials", new Gson().toJson(data.getMSerials()));
-                        if (data.getSerialctrl().equals("T")) {
-                            LogUtils.e("严格序列商品");
-                            startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
-                                    .putExtra("parms", mParms)
-                                    .putExtra("storeid", storeid)
-                                    .putExtra("goodsid", data.getGoodsid() + "")
-                                    .putExtra("refertype", "0")
-                                    .putExtra("referitemno", "0"), 5);
-                        } else {
-                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 5);
+                        intent.putExtra("goodsid", data.getGoodsid() + "");
+                        intent.putExtra("storeid", storeid);
+                        switch (mParms) {
+                            case "XSKD"://销售开单、采购退货严格序列号商品序列号选择
+                            case "CGTH":
+                                if (data.getSerialctrl().equals("T")) {
+                                    LogUtils.e("严格序列商品");
+                                    startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
+                                            .putExtra("parms", mParms)
+                                            .putExtra("refertype", "0")
+                                            .putExtra("referitemno", "0"), 5);
+                                } else {
+                                    startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 5);
+                                }
+                                break;
+                            case "CGSH"://采购收货录入序列号需要查重
+                                intent.putExtra("rechecking", true);
+                            default:
+                                startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 5);
+                                break;
                         }
+
                     }
                 });
             }

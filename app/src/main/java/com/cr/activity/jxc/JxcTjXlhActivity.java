@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.cr.tools.ServerURL;
+import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,7 +27,9 @@ import com.update.viewholder.ViewHolderFactory;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -46,17 +50,26 @@ public class JxcTjXlhActivity extends BaseActivity {
     private String mBillid;//主单id
     private String mSerialinfo;//序列号
 
-    private boolean mRechecking;
+    private boolean mRechecking;//是否查重
+    private Map<String, Object> mParmMap;
+
+    private String mSerialNumber;
 
     @Override
     protected void initVariables() {
-        mRechecking=getIntent().getBooleanExtra("rechecking",false);
+        mRechecking = getIntent().getBooleanExtra("rechecking", false);
         mPosition = getIntent().getIntExtra("position", 0);
         mBillid = getIntent().getStringExtra("billid");
         mSerialinfo = getIntent().getStringExtra("serialinfo");
         mSerials = new Gson().fromJson(getIntent().getStringExtra("serials"), new TypeToken<List<Serial>>() {
         }.getType());
-        presenter = new BaseP(this, this);
+        if (mRechecking) {
+            presenter = new BaseP(this, this);
+            mParmMap = new HashMap<String, Object>();
+            mParmMap.put("dbname", ShareUserInfo.getDbName(mActivity));
+            mParmMap.put("storeid", getIntent().getStringExtra("storeid"));//仓库ID
+            mParmMap.put("goodsid", getIntent().getStringExtra("goodsid"));//商品ID
+        }
     }
 
     @Override
@@ -154,20 +167,44 @@ public class JxcTjXlhActivity extends BaseActivity {
                 }
             }
         }
+        mSerialNumber = serial_number;
+        if (mRechecking) {
+            mParmMap.put("serno", serial_number);
+            presenter.post(0, "checksernoexists", mParmMap);
+        } else {
+            qrlr();
+        }
+
+
+    }
+
+    private void qrlr() {
         Serial serial = new Serial();
         serial.setBillid(mBillid);
         serial.setSerialinfo(mSerialinfo);
-        serial.setSerno(serial_number);
+        serial.setSerno(mSerialNumber);
 
         mSerials.add(serial);
         mAdapter.setList(mSerials);
         etSerialNumber.setText("");
-
     }
 
     @Override
     public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
         super.onMyActivityResult(requestCode, resultCode, data);
         addSerialNumber(data.getStringExtra("qr"));
+    }
+
+    @Override
+    public void returnData(int requestCode, Object data) {
+        super.returnData(requestCode, data);
+        switch (data.toString()){
+            case "F":
+                showShortToast("库中未录入该序列号！");
+                break;
+            case "T":
+                qrlr();
+                break;
+        }
     }
 }
