@@ -819,12 +819,13 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                         return;
                     }
                     Intent intent = new Intent();
+                    intent.putExtra("parms", "CGSH");//类型
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", rkckId);
                     intent.putExtra("barcode", data.getStringExtra("qr"));
                     intent.putExtra("tabname", "tb_received");
-                    intent.setClass(this, JxcCgglCgddXzspActivity.class);
+                    intent.setClass(this, JxcXzspActivity.class);
                     startActivityForResult(intent, 0);
 //                    Map<String, Object> parmMap = new HashMap<String, Object>();
 //                    parmMap.put("dbname", ShareUserInfo.getDbName(context));

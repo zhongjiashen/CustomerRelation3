@@ -26,6 +26,11 @@ import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXztklxActivity;
 import com.cr.activity.common.CommonXzyyActivity;
 import com.cr.activity.common.CommonXzzdActivity;
+import com.cr.activity.jxc.JxcSpbjActivity;
+import com.cr.activity.jxc.JxcXzspActivity;
+import com.cr.activity.jxc.JxcXzyydActivity;
+import com.cr.activity.jxc.KtXzYydMastData;
+import com.cr.activity.jxc.KtXzspData;
 import com.cr.activity.jxc.cggl.KtCgglSpxqActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity;
@@ -170,12 +175,21 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 selectIndex = arg2;
-                Intent intent = new Intent();
-                intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
-                intent.setClass(activity, KtCgglSpxqActivity.class);
-//                intent.setClass(activity, JxcCgglCgddXzspDetailActivity.class);
-                intent.putExtra("object", (Serializable) list.get(arg2));
-                startActivityForResult(intent, 4);
+                String parms = "XSTH";
+                if (list.get(arg2).get("refertype") != null) {
+                    parms = "XSKD";
+                }
+                startActivityForResult(new Intent(activity, JxcSpbjActivity.class)
+                        .putExtra("data", (Serializable) list.get(arg2))
+                        .putExtra("parms", parms)
+                        .putExtra("storeid", rkckId)
+                        .putExtra("issj", etFplx.getText().toString().equals("收据")), 4);
+//                Intent intent = new Intent();
+//                intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
+//                intent.setClass(activity, KtCgglSpxqActivity.class);
+////                intent.setClass(activity, JxcCgglCgddXzspDetailActivity.class);
+//                intent.putExtra("object", (Serializable) list.get(arg2));
+//                startActivityForResult(intent, 4);
             }
         });
 
@@ -245,6 +259,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                     showToastPromopt("请先选择仓库信息！");
                     return;
                 }
+                intent.putExtra("parms", "XSTH");//类型
                 intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                 intent.putExtra("taxrate", mTaxrate);
                 intent.putExtra("rkckId", rkckId);
@@ -314,7 +329,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 }
                 intent.putExtra("clientid", gys2Id);
                 intent.putExtra("reftypeid", "2");
-                intent.setClass(activity, CommonXzyyActivity.class);
+                intent.setClass(activity, JxcXzyydActivity.class);
                 startActivityForResult(intent, 5);
                 break;
             case R.id.rkck_edittext:
@@ -412,46 +427,82 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 0:// 选择商品
-                    // list.clear();
-                    List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
-                            .getSerializableExtra("object");
+                    List<KtXzspData> result = new Gson().fromJson(data.getStringExtra("data"), new TypeToken<List<KtXzspData>>() {
+                    }.getType());
                     double zje = 0;
-                    for (int i = 0; i < cpList.size(); i++) {
-                        Map<String, Object> map = cpList.get(i);
-                        if (map.get("isDetail").equals("0")) {
-                            if (map.get("ischecked").equals("1")) {
-                                Map<String, Object> map2 = cpList.get(i + 1);
-                                map.put("unitprice", map2.get("dj"));
-                                map.put("unitqty", map2.get("sl"));
-                                map.put("amount",
-                                        Double.parseDouble(map2.get("taxunitprice")
-                                                .toString())
-                                                * Double.parseDouble(map2.get("sl")
-                                                .toString()));
-                                map.put("disc", map2.get("zkl"));
-                                map.put("batchcode", map2.get("cpph"));
-                                map.put("produceddate", map2.get("scrq"));
-                                map.put("validdate", map2.get("yxqz"));
-
-                                map.put("taxrate", map2.get("taxrate"));//税率
-                                map.put("taxunitprice", map2.get("taxunitprice"));//含税单价
-                                map.put("serialinfo", map2.get("serialinfo").toString());
-                                map.put("serials", map2.get("serials"));
-                                map.put("batchrefid", map2.get("batchrefid"));//
-                                map.put("memo", map2.get("memo"));//
-                                list.add(map);
-                                // zje +=
-                                // Double.parseDouble(map.get("amount").toString());
-                            }
-                        }
-                    }
-                    for (Map<String, Object> m : list) {
-                        zje += Double.parseDouble(m.get("amount").toString());
+                    for (int i = 0; i < result.size(); i++) {
+                        KtXzspData ktXzspData = result.get(i);
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("goodsid", ktXzspData.getGoodsid() + "");
+                        map.put("code", ktXzspData.getCode());//编码
+                        map.put("name", ktXzspData.getName());//名称
+                        map.put("specs", ktXzspData.getSpecs());//规格
+                        map.put("model", ktXzspData.getModel());//型号
+                        map.put("onhand", ktXzspData.getOnhand());//库存
+                        map.put("unitprice", ktXzspData.getAprice() + "");//单价
+                        map.put("unitqty", ktXzspData.getNumber() + "");//数量
+                        map.put("unitname", ktXzspData.getUnitname());//单位
+                        map.put("unitid", ktXzspData.getUnitid());//单位id
+                        map.put("batchctrl", ktXzspData.getBatchctrl());//批次商品T
+                        map.put("serialctrl", ktXzspData.getSerialctrl());//严格序列商品T
+                        map.put("disc", "100");
+                        map.put("batchcode", ktXzspData.getCpph());//产品批号
+                        map.put("batchrefid", ktXzspData.getBatchrefid());//产品批号id
+                        map.put("produceddate", ktXzspData.getScrq());//生产日期
+                        map.put("validdate", ktXzspData.getYxqz());//有效期至
+                        map.put("memo", ktXzspData.getMemo());//备注
+                        map.put("taxrate", ktXzspData.getTaxrate());//税率
+                        map.put("taxunitprice", ktXzspData.getTaxunitprice());//含税单价
+                        map.put("amount", Double.parseDouble(ktXzspData.getTaxunitprice()) * ktXzspData.getNumber());
+                        map.put("serialinfo", ktXzspData.getSerialinfo());
+                        map.put("serials", ktXzspData.getMSerials());
+                        zje += Double.parseDouble(map.get("amount").toString());
+                        list.add(map);
                     }
                     xzspnumTextview.setText("共选择了" + list.size() + "商品");
-                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(zje + "")
-                            + "");
+
+                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(zje));
                     adapter.notifyDataSetChanged();
+                    // list.clear();
+//                    List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
+//                            .getSerializableExtra("object");
+//                    double zje = 0;
+//                    for (int i = 0; i < cpList.size(); i++) {
+//                        Map<String, Object> map = cpList.get(i);
+//                        if (map.get("isDetail").equals("0")) {
+//                            if (map.get("ischecked").equals("1")) {
+//                                Map<String, Object> map2 = cpList.get(i + 1);
+//                                map.put("unitprice", map2.get("dj"));
+//                                map.put("unitqty", map2.get("sl"));
+//                                map.put("amount",
+//                                        Double.parseDouble(map2.get("taxunitprice")
+//                                                .toString())
+//                                                * Double.parseDouble(map2.get("sl")
+//                                                .toString()));
+//                                map.put("disc", map2.get("zkl"));
+//                                map.put("batchcode", map2.get("cpph"));
+//                                map.put("produceddate", map2.get("scrq"));
+//                                map.put("validdate", map2.get("yxqz"));
+//
+//                                map.put("taxrate", map2.get("taxrate"));//税率
+//                                map.put("taxunitprice", map2.get("taxunitprice"));//含税单价
+//                                map.put("serialinfo", map2.get("serialinfo").toString());
+//                                map.put("serials", map2.get("serials"));
+//                                map.put("batchrefid", map2.get("batchrefid"));//
+//                                map.put("memo", map2.get("memo"));//
+//                                list.add(map);
+//                                // zje +=
+//                                // Double.parseDouble(map.get("amount").toString());
+//                            }
+//                        }
+//                    }
+//                    for (Map<String, Object> m : list) {
+//                        zje += Double.parseDouble(m.get("amount").toString());
+//                    }
+//                    xzspnumTextview.setText("共选择了" + list.size() + "商品");
+//                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(zje + "")
+//                            + "");
+//                    adapter.notifyDataSetChanged();
                     break;
                 case 1:
                     if (!gysEdittext.getText().toString().equals("")) {
@@ -479,13 +530,13 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                     jbrId = data.getExtras().getString("id");
                     break;
                 case 4:// 修改选中的商品的详情
-                    if (data.getExtras().getSerializable("object").toString()
+                    if (data.getExtras().getSerializable("data").toString()
                             .equals("")) {// 说明删除了
                         list.remove(selectIndex);
                         adapter.notifyDataSetChanged();
                     } else {
                         Map<String, Object> map = (Map<String, Object>) data
-                                .getExtras().getSerializable("object");
+                                .getExtras().getSerializable("data");
                         list.remove(selectIndex);
                         map.put("amount", Double.parseDouble(map.get("taxunitprice").toString())
                                 * Double.parseDouble(map.get("unitqty").toString()));
@@ -505,41 +556,87 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                     addScrollview.setVisibility(View.VISIBLE);// 隐藏关联销售单据的Linearlayout
                     gldjcgLinearlayout.setVisibility(View.GONE);// 显示展示详情的Linearlayout信息
                     mTogBtn.setChecked(false);
-                    list.clear();
-                    list.addAll((List<Map<String, Object>>) data.getExtras()
-                            .getSerializable("list"));
-                    yyList.clear();
-                    yyList.addAll((List<Map<String, Object>>) data.getExtras()
-                            .getSerializable("list")); if (list != null) {
-                    for (int i = 0; i < list.size(); i++) {
-                        if(list.get(i).get("serialinfo")==null||list.get(i).get("serialinfo").equals("")){
-                            UUID uuid = UUID.randomUUID();
-                            list.get(i).put("serialinfo", uuid.toString().toUpperCase());
-                            list.get(i).put("serials", new ArrayList<Serial>());//
-                        }else {
-                            List<Serial> serials = new Gson().fromJson(list.get(i).get("serials").toString(), new TypeToken<List<Serial>>() {
-                            }.getType());
-                            for (int l=0;l<serials.size();l++){
-                                serials.get(l).setBillid("0");
+                    //客户的送货地址、联系人、联系电话、项目、交货地址
+                    KtXzYydMastData ktXzYydMastData = new Gson().fromJson(data.getStringExtra("data"), new TypeToken<KtXzYydMastData>() {
+                    }.getType());
+                    if (ktXzYydMastData != null) {
+//                        lxrEdittext.setText(ktXzYydMastData.getContator());//联系人姓名
+//                        lxrId = ktXzYydMastData.getLinkmanid();//联系人Id
+//                        lxdhEdittext.setText(ktXzYydMastData.getPhone());//联系人电话
+                        etFplx.setText(ktXzYydMastData.getBilltypename());//发票类型名称
+                        billtypeid = ktXzYydMastData.getBilltypeid();//发票类型id
+                        mTaxrate = ktXzYydMastData.getTaxrate();//税率
+                        xmEdittext.setText(ktXzYydMastData.getProjectname());//项目名称
+                        xmId = ktXzYydMastData.getProjectid();//项目ID
+//                        jhdzEdittext.setText(ktXzYydMastData.getShipto());//交货地址
+                    }
+                    List<Map<String, Object>> maps = (List<Map<String, Object>>) data.getExtras().getSerializable("spData");
+                    if (maps != null) {
+                        list.clear();
+                        yyList.clear();
+                        for (int i = 0; i < maps.size(); i++) {
+                            Map<String, Object> map = maps.get(i);
+                            map.put("code", map.get("goodscode"));//编码
+                            map.put("name", map.get("goodsname"));//名称
+                            map.put("taxrate", mTaxrate);//税率
+                            Double csje = Double.parseDouble(map.get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+                            map.put("taxunitprice", FigureTools.sswrFigure(csje));//含税单价
+                            map.put("amount", Double.parseDouble(map.get("taxunitprice").toString()) * Double.parseDouble(map.get("unitqty").toString()));
+                            if (map.get("serialinfo") == null || TextUtils.isEmpty(map.get("serialinfo").toString())) {
+                                UUID uuid = UUID.randomUUID();
+                                map.put("serialinfo", uuid.toString().toUpperCase());
                             }
-                            list.get(i).put("serials", serials);//
+                            if (map.get("serials") == null || TextUtils.isEmpty(map.get("serials").toString())) {
+                                map.put("serials", new ArrayList<>());
+                            }
+                            list.add(map);
+                            yyList.add(map);
                         }
+                        double je = 0;
+                        for (Map<String, Object> m : list) {
+                            je += Double.parseDouble(m.get("amount").toString());
+                        }
+                        xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                        hjjeEdittext.setText("￥" + FigureTools.sswrFigure(je + "") + "");
+                        adapter.notifyDataSetChanged();
+                    }
 
-                        list.get(i).put("taxrate", mTaxrate);
-                        Double csje = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                        list.get(i).put("taxunitprice", FigureTools.sswrFigure(csje));
-                        String amount = (csje
-                                * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
-                        list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
-                    }
-                    double je = 0;
-                    for (Map<String, Object> m : list) {
-                        je += Double.parseDouble(m.get("amount").toString());
-                    }
-                    xzspnumTextview.setText("共选择了" + list.size() + "商品");
-                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(je + "") + "");
-                    adapter.notifyDataSetChanged();
-                }
+
+//                    list.clear();
+//                    list.addAll((List<Map<String, Object>>) data.getExtras()
+//                            .getSerializable("list"));
+//                    yyList.clear();
+//                    yyList.addAll((List<Map<String, Object>>) data.getExtras()
+//                            .getSerializable("list")); if (list != null) {
+//                    for (int i = 0; i < list.size(); i++) {
+//                        if(list.get(i).get("serialinfo")==null||list.get(i).get("serialinfo").equals("")){
+//                            UUID uuid = UUID.randomUUID();
+//                            list.get(i).put("serialinfo", uuid.toString().toUpperCase());
+//                            list.get(i).put("serials", new ArrayList<Serial>());//
+//                        }else {
+//                            List<Serial> serials = new Gson().fromJson(list.get(i).get("serials").toString(), new TypeToken<List<Serial>>() {
+//                            }.getType());
+//                            for (int l=0;l<serials.size();l++){
+//                                serials.get(l).setBillid("0");
+//                            }
+//                            list.get(i).put("serials", serials);//
+//                        }
+//
+//                        list.get(i).put("taxrate", mTaxrate);
+//                        Double csje = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
+//                        list.get(i).put("taxunitprice", FigureTools.sswrFigure(csje));
+//                        String amount = (csje
+//                                * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
+//                        list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
+//                    }
+//                    double je = 0;
+//                    for (Map<String, Object> m : list) {
+//                        je += Double.parseDouble(m.get("amount").toString());
+//                    }
+//                    xzspnumTextview.setText("共选择了" + list.size() + "商品");
+//                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(je + "") + "");
+//                    adapter.notifyDataSetChanged();
+//                }
                     break;
                 case 6:
                     if (!rkckEdittext.getText().toString()
@@ -641,13 +738,14 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                         return;
                     }
                     Intent intent = new Intent();
+                    intent.putExtra("parms", "XSTH");//类型
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", rkckId);
                     intent.putExtra("barcode", data.getStringExtra("qr"));
                     intent.putExtra("tabname", "tb_sreturn");
                     intent.putExtra("type", "xsth");
-                    intent.setClass(this, JxcCgglCgddXzspActivity.class);
+                    intent.setClass(this, JxcXzspActivity.class);
                     startActivityForResult(intent, 0);
 //                    Map<String, Object> parmMap = new HashMap<String, Object>();
 //                    parmMap.put("dbname", ShareUserInfo.getDbName(context));

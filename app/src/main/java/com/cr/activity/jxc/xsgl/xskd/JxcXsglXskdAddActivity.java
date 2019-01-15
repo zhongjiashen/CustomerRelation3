@@ -837,14 +837,16 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                         showToastPromopt("请先选择仓库信息！");
                         return;
                     }
+
                     Intent intent = new Intent();
+                    intent.putExtra("parms", "XSKD");//类型
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", ckckId);
                     intent.putExtra("tabname", "tb_invoice");
                     intent.putExtra("barcode", data.getStringExtra("qr"));
                     intent.putExtra("xskd", true);
-                    intent.setClass(this, JxcCgglCgddXzspActivity.class);
+                    intent.setClass(this, JxcXzspActivity.class);
                     startActivityForResult(intent, 0);
 //                    Map<String, Object> parmMap = new HashMap<String, Object>();
 //                    parmMap.put("dbname", ShareUserInfo.getDbName(context));

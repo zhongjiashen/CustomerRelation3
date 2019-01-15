@@ -758,13 +758,14 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                         return;
                     }
                     Intent intent = new Intent();
+                    intent.putExtra("parms","CGTH");//类型
                     intent.putExtra("issj", etFplx.getText().toString().equals("收据"));
                     intent.putExtra("taxrate", mTaxrate);
                     intent.putExtra("rkckId", rkckId);
                     intent.putExtra("barcode", data.getStringExtra("qr"));
                     intent.putExtra("tabname", "tb_preturn");
                     intent.putExtra("type", "cgth");
-                    intent.setClass(this, JxcCgglCgddXzspActivity.class);
+                    intent.setClass(this, JxcXzspActivity.class);
                     startActivityForResult(intent, 0);
 //                    Map<String, Object> parmMap = new HashMap<String, Object>();
 //                    parmMap.put("dbname", ShareUserInfo.getDbName(context));

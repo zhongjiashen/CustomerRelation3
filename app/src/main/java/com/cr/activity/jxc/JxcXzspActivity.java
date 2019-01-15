@@ -32,6 +32,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -399,6 +400,8 @@ public class JxcXzspActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_jxtj:
+                startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
+
                 break;
             case R.id.bt_view:
                 for (int i = 0; i < list.size(); i++) {
@@ -551,6 +554,11 @@ public class JxcXzspActivity extends BaseActivity {
                     list.get(data.getExtras().getInt("position")).setNumber(serials.size());
                 }
                 mAdapter.notifyDataSetChanged();
+                break;
+            case 18:
+                page_number = 0;
+                barcode = data.getStringExtra("qr");
+                http(1);
                 break;
         }
     }

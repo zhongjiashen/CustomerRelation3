@@ -402,11 +402,12 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                 //扫一扫选择商品
                     11->{
                         val intent = Intent()
+                        intent.putExtra("parms", "XSDD")//类型
                         intent.putExtra("issj", et_fplx.getText().toString() == "收据")
                         intent.putExtra("taxrate", mTaxrate)
                         intent.putExtra("barcode", data.getStringExtra("qr"))
                         intent.putExtra("tabname", "tb_sorder")
-                        intent.setClass(this, JxcCgglCgddXzsp2Activity::class.java)
+                        intent.setClass(this, JxcXzspActivity::class.java)
                         startActivityForResult(intent, 0)
 //                        val parmMap = java.util.HashMap<String, Any>()
 //                        parmMap["dbname"] = ShareUserInfo.getDbName(context)
