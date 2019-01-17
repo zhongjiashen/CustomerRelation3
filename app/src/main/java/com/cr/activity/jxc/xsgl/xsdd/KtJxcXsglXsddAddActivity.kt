@@ -251,7 +251,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                             map["memo"] = memo//备注
                             map["taxrate"] = taxrate//税率
                             map["taxunitprice"] = taxunitprice//含税单价
-                            map["amount"] = java.lang.Double.parseDouble(taxunitprice) * number
+                            map["amount"] = java.lang.Double.parseDouble(taxunitprice) * java.lang.Double.parseDouble(number)
                             map["serialinfo"] = serialinfo
                             map["serials"] = mSerials
                             zje += java.lang.Double.parseDouble(map["amount"].toString())

@@ -24,7 +24,7 @@ data class KtXzspData(
         @SerializedName("batchrefid") var batchrefid: String =  "",//产品编号id
         @SerializedName("scrq") var scrq: String =  "",//生产日期
         @SerializedName("yxqz") var yxqz: String =  "",//有效期至
-
+        @SerializedName("cbj") var cbj: String =  "",//成本价
         @SerializedName("number")var number:Double = 1.0,//数量
         @SerializedName("serialinfo") var serialinfo: String= "",//序列号
         @SerializedName("mSerials")var mSerials: List<Serial> = ArrayList(),//序列号临时保存集合

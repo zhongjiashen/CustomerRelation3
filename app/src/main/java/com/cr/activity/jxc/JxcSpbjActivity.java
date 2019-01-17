@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.SLView2;
-import com.cr.activity.common.CommonXzphActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.DateUtil;
@@ -73,6 +72,10 @@ public class JxcSpbjActivity extends BaseActivity {
     EditText etBz;
     @BindView(R.id.tv_serial_number)
     TextView tvSerialNumber;
+    @BindView(R.id.et_cbj)
+    EditText etCbj;
+    @BindView(R.id.ll_cbj)
+    LinearLayout llCbj;
 
 
     private Map<String, Object> mMap;
@@ -147,6 +150,15 @@ public class JxcSpbjActivity extends BaseActivity {
             etCpph.setText(mMap.get("batchcode").toString());
             etScrq.setText(mMap.get("produceddate").toString());
             etYxqz.setText(mMap.get("validdate").toString());
+            if (mParms.equals("XSTH")) {
+                if (TextUtils.isEmpty(mMap.get("cbj").toString())) {
+                    llCbj.setVisibility(View.GONE);
+                } else {
+                    llCbj.setVisibility(View.VISIBLE);
+                    etCbj.setText(mMap.get("cbj").toString());
+                }
+            }
+
         } else {
             llPcsp.setVisibility(View.GONE);
         }
@@ -249,10 +261,20 @@ public class JxcSpbjActivity extends BaseActivity {
                 break;
             case R.id.ll_cpph:
                 Intent intent1 = new Intent();
-                intent1.setClass(mActivity, CommonXzphActivity.class);
+                switch (mParms) {
+                    case "XSTH"://销售退货
+                        intent1.putExtra("iscbj", (int)mMap.get("inf_costingtypeid")==2);
+                    case "CGDD"://采购订单
+                    case "CGSH"://采购收货
+                        intent1.putExtra("isxz", true);
+                        break;
+                    default:
+                        break;
+                }
+                intent1.setClass(mActivity, JxcXzphActivity/*CommonXzphActivity*/.class);
                 intent1.putExtra("goodsid", mMap.get("goodsid").toString());
                 intent1.putExtra("storied", mStoreid);
-                intent1.putExtra("index", 0);
+                intent1.putExtra("position", 0);
                 startActivityForResult(intent1, 2);
                 break;
             case R.id.ll_scrq:
@@ -318,6 +340,13 @@ public class JxcSpbjActivity extends BaseActivity {
                 etScrq.setText(mMap.get("produceddate").toString());
                 mMap.put("validdate", data.getStringExtra("yxrq"));
                 etYxqz.setText(mMap.get("validdate").toString());
+                mMap.put("cbj", data.getStringExtra("cbj"));
+                if (TextUtils.isEmpty(mMap.get("cbj").toString())) {
+                    llCbj.setVisibility(View.GONE);
+                } else {
+                    llCbj.setVisibility(View.VISIBLE);
+                    etCbj.setText(mMap.get("cbj").toString());
+                }
                 break;
             case 3:
                 mMap.put("unitprice", data.getStringExtra("dj"));

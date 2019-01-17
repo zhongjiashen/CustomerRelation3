@@ -27,6 +27,7 @@ import com.cr.activity.common.CommonXztklxActivity;
 import com.cr.activity.common.CommonXzyyActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.JxcSpbjActivity;
+import com.cr.activity.jxc.JxcXzphActivity;
 import com.cr.activity.jxc.JxcXzspActivity;
 import com.cr.activity.jxc.JxcXzyydActivity;
 import com.cr.activity.jxc.KtXzYydMastData;
@@ -266,7 +267,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 intent.putExtra("tabname", "tb_sreturn");
                 intent.putExtra("type", "xsth");
                 intent.putExtra("sfjc",false);
-                intent.setClass(this, JxcCgglCgddXzspActivity.class);
+                intent.setClass(this, JxcXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.iv_scan://扫一扫选择商品
@@ -445,6 +446,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                         map.put("unitid", ktXzspData.getUnitid());//单位id
                         map.put("batchctrl", ktXzspData.getBatchctrl());//批次商品T
                         map.put("serialctrl", ktXzspData.getSerialctrl());//严格序列商品T
+                        map.put("inf_costingtypeid", ktXzspData.getInfCostingtypeid());//严格序列商品T
                         map.put("disc", "100");
                         map.put("batchcode", ktXzspData.getCpph());//产品批号
                         map.put("batchrefid", ktXzspData.getBatchrefid());//产品批号id
@@ -456,6 +458,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                         map.put("amount", Double.parseDouble(ktXzspData.getTaxunitprice()) * ktXzspData.getNumber());
                         map.put("serialinfo", ktXzspData.getSerialinfo());
                         map.put("serials", ktXzspData.getMSerials());
+                        map.put("cbj", ktXzspData.getCbj());
                         zje += Double.parseDouble(map.get("amount").toString());
                         list.add(map);
                     }
@@ -888,6 +891,10 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 jsonObject2.put("batchcode", map.get("batchcode").toString());
                 jsonObject2.put("produceddate", map.get("produceddate")
                         .toString());
+                if(map.get("cbj")!=null) {
+                    jsonObject2.put("refaprice", map.get("cbj")
+                            .toString());
+                }
                 jsonObject2.put("validdate", map.get("validdate").toString());
                 jsonObject2.put("ispresent", "");
                 jsonObject2.put("refertype", map.get("refertype") == null ? ""

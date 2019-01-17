@@ -19,6 +19,8 @@ import butterknife.ButterKnife;
 
 public class JxcXzspHolder {
 
+
+
     public static ViewHolder getViewHolder(Context context, ViewGroup parent) {
         return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_jxc_xzsp, parent, false));
     }
@@ -43,7 +45,7 @@ public class JxcXzspHolder {
         @BindView(R.id.sl_view)
         public SLView2 slView;
         @BindView(R.id.et_bz)
-        public  EditText etBz;
+        public EditText etBz;
         @BindView(R.id.ll_bz)
         public LinearLayout llBz;
         @BindView(R.id.et_cpph)
@@ -58,6 +60,10 @@ public class JxcXzspHolder {
         public EditText etYxqz;
         @BindView(R.id.ll_yxqz)
         public LinearLayout llYxqz;
+        @BindView(R.id.et_cbj)
+        public EditText etCbj;
+        @BindView(R.id.ll_cbj)
+        public LinearLayout llCbj;
         @BindView(R.id.et_dj)
         public EditText etDj;
         @BindView(R.id.iv_xzjg)
@@ -68,6 +74,7 @@ public class JxcXzspHolder {
         public TextView tvHsdj;
         @BindView(R.id.ll_bottom)
         public LinearLayout llBottom;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

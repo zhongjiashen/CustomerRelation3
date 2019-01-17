@@ -509,6 +509,11 @@
             android:name="com.cr.activity.common.CommonXzphActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 公用模块-选择批号 -->
+        <activity
+            android:name="com.cr.activity.jxc.JxcXzphActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 公用模块-选择机会 -->
         <activity
             android:name="com.cr.activity.common.CommonXzjhActivity"

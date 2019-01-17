@@ -215,10 +215,17 @@ public class JxcXzspActivity extends BaseActivity {
                     holder.etScrq.setText(data.getScrq());
                     holder.llYxqz.setVisibility(View.VISIBLE);
                     holder.etYxqz.setText(data.getYxqz());
+                    if(TextUtils.isEmpty(data.getCbj())){
+                        holder.llCbj.setVisibility(View.GONE);
+                    }else {
+                        holder.llCbj.setVisibility(View.VISIBLE);
+                        holder.etCbj.setText(data.getCbj());
+                    }
                 } else {
                     holder.llCpph.setVisibility(View.GONE);
                     holder.llScrq.setVisibility(View.GONE);
                     holder.llYxqz.setVisibility(View.GONE);
+                    holder.llCbj.setVisibility(View.GONE);
                 }
                 //单价
                 holder.etDj.setText(FigureTools.sswrFigure(data.getAprice()));
@@ -293,10 +300,22 @@ public class JxcXzspActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
-                        intent.setClass(mActivity, CommonXzphActivity.class);
+                        switch (mParms) {
+                            case "XSTH"://销售退货
+                                intent.putExtra("iscbj", data.getInfCostingtypeid()==2);
+                            case "CGDD"://采购订单
+                            case "CGSH"://采购收货
+                                intent.putExtra("isxz", true);
+                                break;
+                            default:
+                                break;
+                        }
+
+                        intent.setClass(mActivity, JxcXzphActivity.class);
                         intent.putExtra("goodsid", data.getGoodsid() + "");
                         intent.putExtra("storied", storeid);
-                        intent.putExtra("index", position);
+                        intent.putExtra("position", position);
+                        intent.putExtra("position", position);
                         startActivityForResult(intent, 1);
                     }
                 });
@@ -532,12 +551,12 @@ public class JxcXzspActivity extends BaseActivity {
         super.onMyActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
-                int index = Integer.parseInt(data.getExtras()
-                        .getString("index"));
+                int index = data.getIntExtra("position",0);
                 list.get(index).setCpph(data.getExtras().getString("name"));
                 list.get(index).setScrq(data.getExtras().getString("scrq"));
                 list.get(index).setYxqz(data.getExtras().getString("yxrq"));
                 list.get(index).setBatchrefid(data.getExtras().getString("id"));
+                list.get(index).setCbj(data.getExtras().getString("cbj"));
                 mAdapter.notifyDataSetChanged();
                 break;
             case 4://选择价格

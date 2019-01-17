@@ -138,7 +138,7 @@ public class InstallationDetailsActivity extends BaseActivity {
      */
     @Override
     protected void initVariables() {
-        firstSerial=true;
+        firstSerial = true;
         mDetail = new PerformSituationData();
         mFileChooseDatas = new ArrayList<>();
         serialList = new ArrayList<>();
@@ -274,7 +274,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                     tvDispatchDate.setText(mData.getBilldate());//派工日期
                     tvExecutionStatus.setText(mData.getZxjg());//执行状态
                     if (mData.getLb() == 1) {
-                        tvGoodsInformation.setText(mData.getGoodscode()+"    "+mData.getGoodsname()+"    "+mData.getSpecs()+"    "+mData.getModel());
+                        tvGoodsInformation.setText(mData.getGoodscode() + "    " + mData.getGoodsname() + "    " + mData.getSpecs() + "    " + mData.getModel());
                         tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
                     } else {
                         tvGoodsInformation.setText("概况信息");
@@ -311,7 +311,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                         new TypeToken<List<Attfiles>>() {
                         }.getType());
                 if (attfilesList != null && attfilesList.size() > 0) {
-                    LogUtils.e(attfilesList.size()+"");
+                    LogUtils.e(attfilesList.size() + "");
                     saveFile(attfilesList);
 
                 }
@@ -348,10 +348,11 @@ public class InstallationDetailsActivity extends BaseActivity {
                 LogUtils.e(data.toString());
                 if (data.toString().equals("")) {
                     presenter.post(0, ServerURL.BILLDETAIL, mParmMap);
-                    btBottom.setText("弃审");
-                    tvAuditStatus.setText("已审核");
-                    titlebar.setRightText("");
-                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+//                    btBottom.setText("弃审");
+//                    tvAuditStatus.setText("已审核");
+//                    mData.setJobshzt(1);
+//                    titlebar.setRightText("");
+//                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 } else
                     showShortToast("该单据已经最终审核，不能重复审核");
 
@@ -359,10 +360,11 @@ public class InstallationDetailsActivity extends BaseActivity {
             case 5:
                 if (data.toString().equals("")) {
                     presenter.post(0, ServerURL.BILLDETAIL, mParmMap);
-                    tvAuditStatus.setText("未审核");
-                    btBottom.setText("审核");
-                    titlebar.setRightText("保存");
-                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+//                    tvAuditStatus.setText("未审核");
+//                    btBottom.setText("审核");
+//                    titlebar.setRightText("保存");
+//                    mData.setJobshzt(0);
+//                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                 } else
                     showShortToast(data.toString());
 
@@ -422,7 +424,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                             mFileChooseDatas.add(fileChooseData);
 
                         }
-                       mFileChooseAdapter.setList(mFileChooseDatas);
+                        mFileChooseAdapter.setList(mFileChooseDatas);
 
                     }
 
@@ -453,7 +455,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                 if (mData.getLb() == 1)
                     startActivity(new Intent(InstallationDetailsActivity.this, ChooseGoodsDetailsActivity.class)
                             .putExtra("xlh", false)
-                            .putExtra("tabname","tb_installjob")
+                            .putExtra("tabname", "tb_installjob")
                             .putExtra("kind", 2)
                             .putExtra("DATA", mGson.toJson(mData)));
                 else
@@ -476,17 +478,17 @@ public class InstallationDetailsActivity extends BaseActivity {
                             kind = 1;
                         }
                         startActivityForResult(new Intent(InstallationDetailsActivity.this, EnterSerialNumberActivity.class)
-                                .putExtra("billid", mData.getBillid()+"")
+                                .putExtra("billid", mData.getBillid() + "")
                                 .putExtra("itemno", itemno)
                                 .putExtra("kind", kind)
-                                .putExtra("first",firstSerial)
+                                .putExtra("first", firstSerial)
                                 .putExtra("uuid", mDetail.getSerialinfo())
                                 .putExtra("tabname", "tb_installjob")
                                 .putExtra("DATA", mGson.toJson(serialList)), 13);
 
                     } else {
                         startActivity(new Intent(InstallationDetailsActivity.this, SerialNumberDetailsActivity.class)
-                                .putExtra("billid", mData.getBillid()+"")
+                                .putExtra("billid", mData.getBillid() + "")
                                 .putExtra("serialinfo", mDetail.getSerialinfo())
                                 .putExtra("tabname", "tb_installjob"));
                     }
@@ -550,7 +552,7 @@ public class InstallationDetailsActivity extends BaseActivity {
             case 13:
                 //处理返回的序列号信息
                 LogUtils.d(data.getStringExtra("DATA"));
-                firstSerial=false;
+                firstSerial = false;
                 serialList = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
                 }.getType());
                 break;
@@ -619,16 +621,16 @@ public class InstallationDetailsActivity extends BaseActivity {
 //        planinfo  安装措施
 //        serialinfo  序列号GUID
 //        opid      操作员ID
-        double yesqty=Double.parseDouble(etInstallationNumber.getText().toString());
-        double noqty=Double.parseDouble(etUnloaded.getText().toString());
-        double number=yesqty+noqty;
-        if(mData.getUnitqty()<number){
+        double yesqty = Double.parseDouble(etInstallationNumber.getText().toString());
+        double noqty = Double.parseDouble(etUnloaded.getText().toString());
+        double number = yesqty + noqty;
+        if (mData.getUnitqty() < number) {
             showShortToast("合计数量大于登记数量！");
             titlebar.setTvRightEnabled(true);
             return;
         }
-        mDetail.setYesqty( yesqty+ "");
-        mDetail.setNoqty(noqty  + "");
+        mDetail.setYesqty(yesqty + "");
+        mDetail.setNoqty(noqty + "");
         mDetail.setBillid(mData.getBillid() + "");
         mDetail.setItemno(mData.getItemno() + "");
         mDetail.setWxjgid(mData.getWxjgid() + "");
@@ -686,10 +688,11 @@ public class InstallationDetailsActivity extends BaseActivity {
         mFileChooseAdapter.setList(mFileChooseDatas);
 
     }
+
     @Override
     public void httpFinish(int requestCode) {
         super.httpFinish(requestCode);
-        switch (requestCode){
+        switch (requestCode) {
             case 2:
                 titlebar.setTvRightEnabled(true);
                 break;

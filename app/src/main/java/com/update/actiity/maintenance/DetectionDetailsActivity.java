@@ -355,10 +355,10 @@ public class DetectionDetailsActivity extends BaseActivity {
                 LogUtils.e(data.toString());
                 if (data.toString().equals("")) {
                     presenter.post(0, ServerURL.BILLDETAIL, mParmMap);
-                    btBottom.setText("弃审");
-                    tvAuditStatus.setText("已审核");
-                    titlebar.setRightText("");
-                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
+//                    btBottom.setText("弃审");
+//                    tvAuditStatus.setText("已审核");
+//                    titlebar.setRightText("");
+//                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
                 }else
                     showShortToast("该单据已经最终审核，不能重复审核");
 
@@ -366,10 +366,10 @@ public class DetectionDetailsActivity extends BaseActivity {
             case 5:
                 if (data.toString().equals("")) {
                     presenter.post(0, ServerURL.BILLDETAIL, mParmMap);
-                    tvAuditStatus.setText("未审核");
-                    btBottom.setText("审核");
-                    titlebar.setRightText("保存");
-                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
+//                    tvAuditStatus.setText("未审核");
+//                    btBottom.setText("审核");
+//                    titlebar.setRightText("保存");
+//                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                 }else
                     showShortToast(data.toString());
 

@@ -791,9 +791,9 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                     clientId = returnJsonId;
                     // setResult(RESULT_OK);
                     // finish();
-                    SaveLxrSave(clientId);
+//                    SaveLxrSave(clientId);
                     Log.v("dddd", ":;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
-                    if (this.getIntent().hasExtra("tel")) {// 如果是从新增来动中过来的话就保存联系方式进去
+                    if (this.getIntent().hasExtra("tel")&&clientId.equals("0")) {// 如果是从新增来动中过来的话就保存联系方式进去
                         searchDateSave();
                     }
                 } else {
