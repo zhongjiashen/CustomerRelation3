@@ -186,9 +186,9 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
                 String parms = "CGSH";
-                if (list.get(arg2).get("refertype") != null) {
-                    parms = "CGDD";
-                }
+//                if (list.get(arg2).get("refertype") != null) {
+//                    parms = "CGDD";
+//                }
                 startActivityForResult(new Intent(activity, JxcSpbjActivity.class)
                         .putExtra("data", (Serializable) list.get(arg2))
                         .putExtra("parms", parms)
@@ -658,6 +658,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                             if (map.get("serials") == null || TextUtils.isEmpty(map.get("serials").toString())) {
                                 map.put("serials", new ArrayList<>());
                             }
+                            map.put("memo","");//备注
                             list.add(map);
                             yyList.add(map);
                         }

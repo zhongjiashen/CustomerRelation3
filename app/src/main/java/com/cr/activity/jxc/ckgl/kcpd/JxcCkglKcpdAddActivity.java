@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzzdActivity;
+import com.cr.activity.jxc.JxcSpbjActivity;
+import com.cr.activity.jxc.KtXzspData;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
 import com.cr.adapter.jxc.ckgl.kcpd.JxcCkglKcpdAddAdapter;
 import com.cr.tools.CustomListView;
@@ -28,6 +30,7 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.update.actiity.WeChatCaptureActivity;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
@@ -99,6 +102,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
         addFHMethod();
         initActivity();
         // searchDate();
+        getMrck();
     }
 
     /**
@@ -110,10 +114,13 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 selectIndex = arg2;
-                Intent intent = new Intent();
-                intent.setClass(activity, JxcCkglKcpdXzspDetailActivity.class);
-                intent.putExtra("object", (Serializable) list.get(arg2));
-                startActivityForResult(intent, 4);
+                startActivityForResult(new Intent(activity, KcpdSpbjActivity.class)
+                        .putExtra("data", (Serializable) list.get(arg2))
+                        .putExtra("storeid", pdckId), 4);
+//                Intent intent = new Intent();
+//                intent.setClass(activity, JxcCkglKcpdXzspDetailActivity.class);
+//                intent.putExtra("object", (Serializable) list.get(arg2));
+//                startActivityForResult(intent, 4);
             }
         });
 
@@ -155,9 +162,6 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("zdbm", "STORE");
         findServiceData2(4, ServerURL.DATADICT, parmMap, false);
     }
-
-
-
     /**
      * 连接网络的操作(查询主表的内容)
      */
@@ -168,7 +172,6 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
     }
-
     /**
      * 连接网络的操作（查询从表的内容）
      */
@@ -218,9 +221,13 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("itemno", "0");//明细ID
                 jsonObject2.put("goodsid", map.get("goodsid").toString());//商品ID
                 jsonObject2.put("unitid", map.get("unitid").toString());//计量单位ID
-                jsonObject2.put("unitprice", FigureTools.sswrFigure(map.get("aprice").toString()));//单价
+                jsonObject2.put("unitprice", FigureTools.sswrFigure(map.get("unitprice").toString()));//单价
                 jsonObject2.put("unitqty", map.get("yksl").toString());//盈亏数量
                 jsonObject2.put("amount", map.get("amount").toString());//金额
+                if(map.get("cbj")!=null) {
+                    jsonObject2.put("refaprice", map.get("cbj")
+                            .toString());
+                }
                 amount += Double.parseDouble(map.get("amount").toString());//
                 jsonObject2.put("batchcode", map.get("batchcode").toString());//批号
                 jsonObject2.put("produceddate", map.get("produceddate").toString());//生产日期
@@ -252,32 +259,49 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-        if (returnSuccessType == 0) {
-            if (returnJson.equals("")) {
-                showToastPromopt("保存成功");
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                showToastPromopt("保存失败" + returnJson.substring(5));
-            }
-        } else if (returnSuccessType == 1) {//管理单据成功后把信息填到里面（主表）
-            if (returnJson.equals("")) {
-                return;
-            }
-            Map<String, Object> object = ((List<Map<String, Object>>) PaseJson
-                    .paseJsonToObject(returnJson)).get(0);
-            djrqEdittext.setText(object.get("billdate").toString());
-            jbrEdittext.setText(object.get("empname").toString());
-            bzxxEdittext.setText(object.get("memo").toString());
-            jbrId = object.get("empid").toString();
-            searchDate2();//查询订单中的商品
-        } else if (returnSuccessType == 2) {//管理单据成功后把信息填到里面（从表）
-            list = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
-            adapter = new JxcCgglCgddDetailAdapter(list, this);
-            xzspnumTextview.setText("共选择了" + list.size() + "商品");
-            xzspListview.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+        switch (returnSuccessType){
+            case 0:
+                if (returnJson.equals("")) {
+                    showToastPromopt("保存成功");
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    showToastPromopt("保存失败" + returnJson.substring(5));
+                }
+                break;
+            case 1://管理单据成功后把信息填到里面（主表）
+                if (returnJson.equals("")) {
+                    return;
+                }
+                Map<String, Object> object = ((List<Map<String, Object>>) PaseJson
+                        .paseJsonToObject(returnJson)).get(0);
+                djrqEdittext.setText(object.get("billdate").toString());
+                jbrEdittext.setText(object.get("empname").toString());
+                bzxxEdittext.setText(object.get("memo").toString());
+                jbrId = object.get("empid").toString();
+                searchDate2();//查询订单中的商品
+                break;
+            case 2://管理单据成功后把信息填到里面（从表）
+                list = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+                adapter = new JxcCgglCgddDetailAdapter(list, this);
+                xzspnumTextview.setText("共选择了" + list.size() + "商品");
+                xzspListview.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                break;
+            case 4://获取默认仓库信息
+                if (returnJson.equals("")) {
+                    showToastPromopt(2);
+                } else {
+                    List<Map<String, Object>> ckList = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+                    if (ckList.size() == 1) {
+                        pdckEdittext.setText(ckList.get(0).get("dictmc").toString());
+                        pdckId = ckList.get(0).get("id").toString();
+                    }
+
+                }
+                break;
         }
+
     }
 
     private long time;
@@ -292,8 +316,8 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                     showToastPromopt("请先选择盘点仓库");
                     return;
                 }
-                intent.putExtra("pdckId", pdckId);
-                intent.setClass(this, JxcCkglKcpdXzspActivity.class);
+                intent.putExtra("storeid", pdckId);
+                intent.setClass(this, KcpdXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.iv_scan:
@@ -353,48 +377,89 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 0) {// 选择商品
-//                list.clear();
-                List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
-                        .getSerializableExtra("object");
-                for (int i = 0; i < cpList.size(); i++) {
-                    Map<String, Object> map = cpList.get(i);
-                    if (map.get("isDetail").equals("0")) {
-                        if (map.get("ischecked").equals("1")) {
-                            Map<String, Object> map2 = cpList.get(i + 1);
-                            map.put("zmsl", map2.get("zmsl").toString());
-                            map.put("spsl", map2.get("spsl").toString());
-                            String yksl = (Double.parseDouble(map2.get("spsl")
-                                    .toString()) - Double.parseDouble(map2.get(
-                                    "zmsl").toString()))
-                                    + "";
-                            map.put("yksl", yksl);
-                            String amount = (Double.parseDouble(map2.get("aprice")
-                                    .toString()) * Double.parseDouble(yksl))
-                                    + "";
-                            map.put("amount",
-                                    FigureTools.sswrFigure(amount + ""));
-                            map.put("batchcode", map2.get("cpph"));
-                            map.put("produceddate", map2.get("scrq"));
-                            map.put("validdate", map2.get("yxqz"));
-                            map.put("serialinfo", map2.get("serialinfo").toString());
-                            map.put("serials", map2.get("serials"));
-                            map.put("memo", map2.get("memo"));
-                            list.add(map);
-                        }
-                    }
+                List<KtXzspData> result = new Gson().fromJson(data.getStringExtra("data"), new TypeToken<List<KtXzspData>>() {
+                }.getType());
+                for (int i = 0; i < result.size(); i++) {
+                    KtXzspData ktXzspData = result.get(i);
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("goodsid", ktXzspData.getGoodsid() + "");
+                    map.put("code", ktXzspData.getCode());//编码
+                    map.put("name", ktXzspData.getName());//名称
+                    map.put("specs", ktXzspData.getSpecs());//规格
+                    map.put("model", ktXzspData.getModel());//型号
+                    map.put("zmsl",  ktXzspData.getOnhand());
+                    map.put("spsl", ktXzspData.getNumber() + "");
+                    String yksl = ( ktXzspData.getNumber() -ktXzspData.getOnhand())
+                            + "";
+                    map.put("yksl", yksl);
+                    String amount = (ktXzspData.getAprice() * Double.parseDouble(yksl))
+                            + "";
+                    map.put("amount",
+                            FigureTools.sswrFigure(amount + ""));
+                    map.put("onhand", ktXzspData.getOnhand());//库存
+                    map.put("unitprice", ktXzspData.getAprice() + "");//单价
+                    map.put("unitqty", ktXzspData.getNumber() + "");//数量
+                    map.put("unitname", ktXzspData.getUnitname());//单位
+                    map.put("unitid", ktXzspData.getUnitid());//单位id
+                    map.put("batchctrl", ktXzspData.getBatchctrl());//批次商品T
+                    map.put("serialctrl", ktXzspData.getSerialctrl());//严格序列商品T
+                    map.put("inf_costingtypeid", ktXzspData.getInfCostingtypeid());//严格序列商品T
+                    map.put("disc", "100");
+                    map.put("batchcode", ktXzspData.getCpph());//产品批号
+                    map.put("batchrefid", ktXzspData.getBatchrefid());//产品批号id
+                    map.put("produceddate", ktXzspData.getScrq());//生产日期
+                    map.put("validdate", ktXzspData.getYxqz());//有效期至
+                    map.put("memo", ktXzspData.getMemo());//备注
+                    map.put("serialinfo", ktXzspData.getSerialinfo());
+                    map.put("serials", ktXzspData.getMSerials());
+                    map.put("cbj", ktXzspData.getCbj());
+                    list.add(map);
                 }
                 xzspnumTextview.setText("共选择了" + list.size() + "商品");
+
                 adapter.notifyDataSetChanged();
+//                list.clear();
+//                List<Map<String, Object>> cpList = (List<Map<String, Object>>) data
+//                        .getSerializableExtra("object");
+//                for (int i = 0; i < cpList.size(); i++) {
+//                    Map<String, Object> map = cpList.get(i);
+//                    if (map.get("isDetail").equals("0")) {
+//                        if (map.get("ischecked").equals("1")) {
+//                            Map<String, Object> map2 = cpList.get(i + 1);
+//                            map.put("zmsl", map2.get("zmsl").toString());
+//                            map.put("spsl", map2.get("spsl").toString());
+//                            String yksl = (Double.parseDouble(map2.get("spsl")
+//                                    .toString()) - Double.parseDouble(map2.get(
+//                                    "zmsl").toString()))
+//                                    + "";
+//                            map.put("yksl", yksl);
+//                            String amount = (Double.parseDouble(map2.get("aprice")
+//                                    .toString()) * Double.parseDouble(yksl))
+//                                    + "";
+//                            map.put("amount",
+//                                    FigureTools.sswrFigure(amount + ""));
+//                            map.put("batchcode", map2.get("cpph"));
+//                            map.put("produceddate", map2.get("scrq"));
+//                            map.put("validdate", map2.get("yxqz"));
+//                            map.put("serialinfo", map2.get("serialinfo").toString());
+//                            map.put("serials", map2.get("serials"));
+//                            map.put("memo", map2.get("memo"));
+//                            list.add(map);
+//                        }
+//                    }
+//                }
+//                xzspnumTextview.setText("共选择了" + list.size() + "商品");
+//                adapter.notifyDataSetChanged();
             } else if (requestCode == 3) {// 经办人
                 jbrEdittext.setText(data.getExtras().getString("name"));
                 jbrId = data.getExtras().getString("id");
             } else if (requestCode == 4) {//修改选中的商品的详情
-                if (data.getExtras().getSerializable("object").toString().equals("")) {//说明删除了
+                if (data.getExtras().getSerializable("data").toString().equals("")) {//说明删除了
                     list.remove(selectIndex);
                     adapter.notifyDataSetChanged();
                 } else {
                     Map<String, Object> map = (Map<String, Object>) data.getExtras()
-                            .getSerializable("object");
+                            .getSerializable("data");
                     list.remove(selectIndex);
                     list.add(selectIndex, map);
                     adapter.notifyDataSetChanged();

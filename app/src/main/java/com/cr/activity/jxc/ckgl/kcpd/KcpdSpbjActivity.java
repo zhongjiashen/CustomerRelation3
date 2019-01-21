@@ -1,18 +1,19 @@
-package com.cr.activity.jxc;
+package com.cr.activity.jxc.ckgl.kcpd;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.SLView2;
-import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
+import com.cr.activity.jxc.JxcTjXlhActivity;
+import com.cr.activity.jxc.JxcXzphActivity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.DateUtil;
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,8 +21,6 @@ import com.update.base.BaseActivity;
 import com.update.dialog.DateSelectDialog;
 import com.update.dialog.OnDialogClickInterface;
 import com.update.model.Serial;
-import com.update.utils.CustomTextWatcher;
-import com.update.utils.EditTextHelper;
 import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 
@@ -37,7 +36,7 @@ import butterknife.OnClick;
 /**
  * 商品修改
  */
-public class JxcSpbjActivity extends BaseActivity {
+public class KcpdSpbjActivity extends BaseActivity {
     @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.tv_spmc)
@@ -62,12 +61,8 @@ public class JxcSpbjActivity extends BaseActivity {
     EditText etYxqz;
     @BindView(R.id.ll_pcsp)
     LinearLayout llPcsp;
-    @BindView(R.id.et_dj)
-    EditText etDj;
-    @BindView(R.id.et_sl)
-    EditText etSl;
-    @BindView(R.id.tv_hsdj)
-    TextView tvHsdj;
+
+
     @BindView(R.id.et_bz)
     EditText etBz;
     @BindView(R.id.tv_serial_number)
@@ -76,24 +71,34 @@ public class JxcSpbjActivity extends BaseActivity {
     EditText etCbj;
     @BindView(R.id.ll_cbj)
     LinearLayout llCbj;
+    @BindView(R.id.tv_zmsl)
+    TextView tvZmsl;
+    @BindView(R.id.ll_cpph)
+    LinearLayout llCpph;
+    @BindView(R.id.ll_scrq)
+    LinearLayout llScrq;
+    @BindView(R.id.ll_yxqz)
+    LinearLayout llYxqz;
+    @BindView(R.id.bt_sc)
+    Button btSc;
 
 
     private Map<String, Object> mMap;
-    private String mParms;
-    private boolean mIssj;//发票类型是否是收据
+
+
     private String mStoreid;
 
     @Override
     protected void initVariables() {
         mMap = (Map<String, Object>) getIntent().getSerializableExtra("data");
-        mParms = getIntent().getStringExtra("parms");
+
         mStoreid = getIntent().getStringExtra("storeid");
-        mIssj = getIntent().getBooleanExtra("issj", true);
+
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_jxc_spbj;
+        return R.layout.activity_kcpd_spbj;
     }
 
     @Override
@@ -109,32 +114,23 @@ public class JxcSpbjActivity extends BaseActivity {
             tvSpkz.setVisibility(View.VISIBLE);
             tvSpkz.setText("库存：" + mMap.get("onhand").toString() + mMap.get("unitname").toString());
         }
-        switch (mParms) {
-            case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）
-            case "XSDD":
-                tvSerialNumber.setVisibility(View.GONE);
-                slvSl.setVisibility(View.VISIBLE);
-                tvSl.setVisibility(View.GONE);
-                slvSl.setSl(Double.parseDouble(mMap.get("unitqty").toString()));
-                break;
-            default:
-                //严格序列号商品处理
-                if (mMap.get("serialctrl").toString().equals("T")) {
-                    LogUtils.e("严格序列商品");
-                    slvSl.setVisibility(View.GONE);
-                    tvSl.setVisibility(View.VISIBLE);
-                    tvSl.setText(mMap.get("unitqty").toString());
-                } else {
-                    slvSl.setVisibility(View.VISIBLE);
-                    tvSl.setVisibility(View.GONE);
-                    slvSl.setSl(Double.parseDouble(mMap.get("unitqty").toString()));
-                }
-                break;
+        tvZmsl.setText(mMap.get("zmsl").toString());
+        //严格序列号商品处理
+        if (mMap.get("serialctrl").toString().equals("T")) {
+            LogUtils.e("严格序列商品");
+            slvSl.setVisibility(View.GONE);
+            tvSl.setVisibility(View.VISIBLE);
+            tvSl.setText(mMap.get("unitqty").toString());
+        } else {
+            slvSl.setVisibility(View.VISIBLE);
+            tvSl.setVisibility(View.GONE);
+            slvSl.setSl(Double.parseDouble(mMap.get("spsl").toString()));
         }
+
         slvSl.setOnValueChange(new SLViewValueChange() {
             @Override
             public void onValueChange(double sl) {
-                mMap.put("unitqty", sl + "");
+                mMap.put("spsl", sl + "");
             }
         });
 
@@ -150,46 +146,18 @@ public class JxcSpbjActivity extends BaseActivity {
             etCpph.setText(mMap.get("batchcode").toString());
             etScrq.setText(mMap.get("produceddate").toString());
             etYxqz.setText(mMap.get("validdate").toString());
-            if (mParms.equals("XSTH")) {
-                if (TextUtils.isEmpty(mMap.get("cbj").toString())) {
-                    llCbj.setVisibility(View.GONE);
-                } else {
-                    llCbj.setVisibility(View.VISIBLE);
-                    etCbj.setText(mMap.get("cbj").toString());
-                }
+            if (TextUtils.isEmpty(mMap.get("cbj").toString())) {
+                llCbj.setVisibility(View.GONE);
+            } else {
+                llCbj.setVisibility(View.VISIBLE);
+                etCbj.setText(mMap.get("cbj").toString());
             }
+
 
         } else {
             llPcsp.setVisibility(View.GONE);
         }
 
-        etDj.setText(mMap.get("unitprice").toString());//单价
-        etDj.addTextChangedListener(new CustomTextWatcher(new CustomTextWatcher.UpdateTextListener() {
-            @Override
-            public void updateText(String string) {
-                if (!TextUtils.isEmpty(string)) {
-                    mMap.put("unitprice", string);
-                    Double csje = Double.parseDouble(mMap.get("unitprice").toString()) * (Double.parseDouble(mMap.get("taxrate").toString()) + 100) / 100;
-                    mMap.put("taxunitprice", FigureTools.sswrFigure(csje));
-                    tvHsdj.setText(mMap.get("taxunitprice").toString());//含税单价
-                }
-            }
-        }));
-        etSl.setText(mMap.get("taxrate").toString());//税率
-        EditTextHelper.EditTextEnable(!mIssj, etSl);
-        etSl.addTextChangedListener(new CustomTextWatcher(new CustomTextWatcher.UpdateTextListener() {
-            @Override
-            public void updateText(String string) {
-                if (etSl.hasFocus() && !TextUtils.isEmpty(string)) {
-                    mMap.put("taxrate", string);
-                    Double csje = Double.parseDouble(mMap.get("unitprice").toString()) * (Double.parseDouble(mMap.get("taxrate").toString()) + 100) / 100;
-                    mMap.put("taxunitprice", FigureTools.sswrFigure(csje));
-                    tvHsdj.setText(mMap.get("taxunitprice").toString());//含税单价
-                }
-            }
-        }));
-
-        tvHsdj.setText(mMap.get("taxunitprice").toString());//含税单价
 
     }
 
@@ -202,22 +170,15 @@ public class JxcSpbjActivity extends BaseActivity {
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
-                switch (mParms) {
-                    case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）
-                    case "XSDD":
-                        break;
-                    default:
-                        //严格序列号商品处理
-                        if (mMap.get("serialctrl").toString().equals("T")) {
-                            ArrayList<Serial> serials = (ArrayList<Serial>) mMap.get("serials");
-                            if (serials == null || serials.size() == 0) {
-                                showShortToast("商品数量不能为0");
-                                return;
-                            }
-                        }
-                        break;
-                }
 
+                //严格序列号商品处理
+                if (mMap.get("serialctrl").toString().equals("T")) {
+                    ArrayList<Serial> serials = (ArrayList<Serial>) mMap.get("serials");
+                    if (serials == null || serials.size() == 0) {
+                        showShortToast("商品数量不能为0");
+                        return;
+                    }
+                }
                 mMap.put("memo", etBz.getText().toString());
                 setResult(Activity.RESULT_OK, new Intent()
                         .putExtra("data", (Serializable) mMap));
@@ -226,7 +187,7 @@ public class JxcSpbjActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_serial_number, R.id.ll_cpph, R.id.ll_scrq, R.id.ll_yxqz, R.id.xzjg_iv, R.id.bt_sc})
+    @OnClick({R.id.tv_serial_number, R.id.ll_cpph, R.id.ll_scrq, R.id.ll_yxqz,/* R.id.xzjg_iv,*/ R.id.bt_sc})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_serial_number:
@@ -238,39 +199,13 @@ public class JxcSpbjActivity extends BaseActivity {
                 intent.putExtra("serials", mPGson.toJson(mMap.get("serials")));
                 intent.putExtra("goodsid", mMap.get("goodsid").toString());
                 intent.putExtra("storeid", mStoreid);
-                switch (mParms) {
-                    case "XSKD"://销售开单、采购退货严格序列号商品序列号选择
-                    case "CGTH":
-                        if (mMap.get("serialctrl").toString().equals("T")) {
-                            LogUtils.e("严格序列商品");
-                            startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
-                                    .putExtra("parms", mParms)
-                                    .putExtra("refertype", "0")
-                                    .putExtra("referitemno", "0"), 1);
-                        } else {
-                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
-                        }
-                        break;
-                    case "CGSH"://采购收货录入序列号需要查重
-                        intent.putExtra("rechecking", true);
-                    default:
-                        startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
-                        break;
-                }
+                startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
 
                 break;
             case R.id.ll_cpph:
                 Intent intent1 = new Intent();
-                switch (mParms) {
-                    case "XSTH"://销售退货
-                        intent1.putExtra("iscbj", (int)mMap.get("inf_costingtypeid")==2);
-                    case "CGDD"://采购订单
-                    case "CGSH"://采购收货
-                        intent1.putExtra("isxz", true);
-                        break;
-                    default:
-                        break;
-                }
+                intent1.putExtra("iscbj", (int) mMap.get("inf_costingtypeid") == 2);
+                intent1.putExtra("isxz", true);
                 intent1.setClass(mActivity, JxcXzphActivity/*CommonXzphActivity*/.class);
                 intent1.putExtra("goodsid", mMap.get("goodsid").toString());
                 intent1.putExtra("storied", mStoreid);
@@ -299,22 +234,23 @@ public class JxcSpbjActivity extends BaseActivity {
                     }
                 }).show();
                 break;
-            case R.id.xzjg_iv:
-                Intent intent2 = new Intent();
-                intent2.setClass(mActivity, TjfxKcbbSpjg2Activity.class);
-                intent2.putExtra("goodsid", mMap.get("goodsid").toString());
-                intent2.putExtra("storied", mStoreid);
-                intent2.putExtra("unitid", mMap.get("unitid").toString());
-                intent2.putExtra("clientid", "0");
-                intent2.putExtra("index", "0");
-                startActivityForResult(intent2, 3);
-                break;
+//            case R.id.xzjg_iv:
+//                Intent intent2 = new Intent();
+//                intent2.setClass(mActivity, TjfxKcbbSpjg2Activity.class);
+//                intent2.putExtra("goodsid", mMap.get("goodsid").toString());
+//                intent2.putExtra("storied", mStoreid);
+//                intent2.putExtra("unitid", mMap.get("unitid").toString());
+//                intent2.putExtra("clientid", "0");
+//                intent2.putExtra("index", "0");
+//                startActivityForResult(intent2, 3);
+//                break;
             case R.id.bt_sc:
                 setResult(Activity.RESULT_OK, new Intent()
                         .putExtra("data", ""));
                 finish();
                 break;
         }
+
     }
 
     @Override
@@ -350,7 +286,7 @@ public class JxcSpbjActivity extends BaseActivity {
                 break;
             case 3:
                 mMap.put("unitprice", data.getStringExtra("dj"));
-                etDj.setText(mMap.get("unitprice").toString());//单价
+
                 break;
 
         }

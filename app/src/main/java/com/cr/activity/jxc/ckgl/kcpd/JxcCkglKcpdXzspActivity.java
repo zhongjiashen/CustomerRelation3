@@ -56,6 +56,7 @@ import butterknife.OnClick;
  *
  * @author Administrator
  */
+@Deprecated
 public class JxcCkglKcpdXzspActivity extends BaseActivity implements
         OnClickListener {
     @BindView(R.id.tv_jxtj)
@@ -218,7 +219,6 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
                 cllxList.add(map);
                 for (int i = 0; i < fenlinList.size(); i++) {
                     switch (fenlinList.get(i).get("lb").toString()) {
-
                         case "2":
                             lbList.add(fenlinList.get(i));
                             break;

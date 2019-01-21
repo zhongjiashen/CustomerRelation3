@@ -687,6 +687,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                             if (map.get("serials") == null || TextUtils.isEmpty(map.get("serials").toString())) {
                                 map.put("serials", new ArrayList<>());
                             }
+                            map.put("memo","");//备注
                             list.add(map);
                             yyList.add(map);
                         }

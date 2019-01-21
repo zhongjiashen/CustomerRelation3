@@ -30,6 +30,7 @@ import com.update.model.Serial;
  * @author Administrator
  * 
  */
+@Deprecated
 public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnClickListener {
     TextView            mcTextView;
     TextView            bhTextView;
@@ -44,12 +45,14 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
     LinearLayout cpphLayout;
 	LinearLayout scrqLayout;
 	LinearLayout yxrqLayout;
+    LinearLayout llCbj;
 	View cpphView;
 	View scrqView;
 	View yxrqView;
 	EditText cpphEditText;
 	EditText scrqEditText;
 	EditText yxqzEditText;
+    EditText etCbj;
     Map<String, Object> object = new HashMap<String, Object>();
     TextView tvSerialNumber;
     EditText etBz;
@@ -72,6 +75,8 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
 		scrqView=findViewById(R.id.scrq_view);
 		yxrqLayout=(LinearLayout) findViewById(R.id.yxrq_layout);
 		yxrqView=findViewById(R.id.yxrq_view);
+		llCbj=findViewById(R.id.ll_cbj);
+		etCbj=findViewById(R.id.et_cbj);
         mcTextView = (TextView) findViewById(R.id.mc_textview);
         bhTextView = (TextView) findViewById(R.id.bh_textview);
         ggTextView = (TextView) findViewById(R.id.gg_textview);
@@ -159,6 +164,12 @@ public class JxcCkglKcpdXzspDetailActivity extends BaseActivity implements OnCli
             	scrqView.setVisibility(View.VISIBLE);
             	yxrqLayout.setVisibility(View.VISIBLE);
             	yxrqView.setVisibility(View.VISIBLE);
+                if (TextUtils.isEmpty(object.get("cbj").toString())) {
+                    llCbj.setVisibility(View.GONE);
+                } else {
+                    llCbj.setVisibility(View.VISIBLE);
+                    etCbj.setText(object.get("cbj").toString());
+                }
             }else{
             	cpphLayout.setVisibility(View.GONE);
             	cpphView.setVisibility(View.GONE);

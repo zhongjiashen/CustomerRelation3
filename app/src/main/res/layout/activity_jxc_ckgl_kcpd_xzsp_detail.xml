@@ -245,6 +245,26 @@
                 </LinearLayout>
 
                 <View style="@style/underline" android:id="@+id/yxrq_view"/>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_cbj"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="成本价    " />
+
+                    <EditText
+                        android:id="@+id/et_cbj"
+                        style="@style/edittext_bj"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:focusable="false" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+                <View style="@style/underline" />
             </LinearLayout>
 
             <LinearLayout
