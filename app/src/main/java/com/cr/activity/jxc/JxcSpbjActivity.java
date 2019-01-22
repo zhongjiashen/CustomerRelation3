@@ -253,6 +253,7 @@ public class JxcSpbjActivity extends BaseActivity {
                         break;
                     case "CGSH"://采购收货录入序列号需要查重
                         intent.putExtra("rechecking", true);
+                        intent.putExtra("kind", 1);
                     default:
                         startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
                         break;

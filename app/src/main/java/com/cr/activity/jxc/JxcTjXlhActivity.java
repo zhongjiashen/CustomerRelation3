@@ -54,6 +54,7 @@ public class JxcTjXlhActivity extends BaseActivity {
     private Map<String, Object> mParmMap;
 
     private String mSerialNumber;
+    private int mKind;//是否查重
 
     @Override
     protected void initVariables() {
@@ -61,6 +62,7 @@ public class JxcTjXlhActivity extends BaseActivity {
         mPosition = getIntent().getIntExtra("position", 0);
         mBillid = getIntent().getStringExtra("billid");
         mSerialinfo = getIntent().getStringExtra("serialinfo");
+        mKind=getIntent().getIntExtra("kind",0);
         mSerials = new Gson().fromJson(getIntent().getStringExtra("serials"), new TypeToken<List<Serial>>() {
         }.getType());
         if (mRechecking) {
@@ -201,13 +203,29 @@ public class JxcTjXlhActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        switch (data.toString()) {
-            case "F":
-                showShortToast("库中未录入该序列号！");
+        switch (mKind){
+            case 0:
+                switch (data.toString()) {
+                    case "F":
+                        showShortToast("库中未录入该序列号！");
+                        break;
+                    case "T":
+                        qrlr();
+                        break;
+                }
                 break;
-            case "T":
-                qrlr();
+            case 1:
+                switch (data.toString()) {
+                    case "F":
+                        qrlr();
+                        break;
+                    case "T":
+                        showShortToast("库中未录入该序列号！");
+                        break;
+                }
                 break;
+
         }
+
     }
 }
