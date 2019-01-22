@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
-import com.cr.tools.FigureTools;
-import com.cr.tools.PaseJson;
-import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -20,16 +19,11 @@ import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.Serial;
-import com.update.utils.CustomTextWatcher;
-import com.update.utils.EditTextHelper;
-import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
-import com.update.viewholder.JxcXzspHolder;
 import com.update.viewholder.XzXlhHolder;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,11 +41,14 @@ public class XzXlhActivity extends BaseActivity {
     PullableRecyclerView pullRecycleView;
     @BindView(R.id.mFilterContentView)
     PullToRefreshLayout mFilterContentView;
+    @BindView(R.id.search)
+    EditText search;
 
     private Map<String, Object> mParmMap;
     private int page_number = 0;//页码
     List<KtXzXlhData> list = new ArrayList<KtXzXlhData>();
     List<Serial> mSerials;
+    List<Serial> mSerialsA;
     private int mPosition;
     private String mBillid;//主单id
     private String mSerialinfo;//序列号
@@ -67,12 +64,14 @@ public class XzXlhActivity extends BaseActivity {
         mParmMap.put("goodsid", getIntent().getStringExtra("goodsid"));//商品ID
         mParmMap.put("refertype", getIntent().getStringExtra("refertype"));// 引用类型 （采购退货有两种情况，一种手工录入商品时，传0或空；另一种是引用采购收货单时，传7 ；其他单据类型都传0或空）
         mParmMap.put("referitemno", getIntent().getStringExtra("referitemno"));//引用单明细ID（采购退货有两种情况，一种手工录入商品时，传0或空；另一种是引用采购收货单时，传引用明细的referitemno；其他单据类型都传0或空）
-        http(0);
-        mSerials = new Gson().fromJson(getIntent().getStringExtra("serials"), new TypeToken<List<Serial>>() {
+        mSerialsA = new Gson().fromJson(getIntent().getStringExtra("serials"), new TypeToken<List<Serial>>() {
         }.getType());
+        mSerials = new ArrayList<>();
+        mSerials.addAll(mSerialsA);
         mPosition = getIntent().getIntExtra("position", 0);
         mBillid = getIntent().getStringExtra("billid");
         mSerialinfo = getIntent().getStringExtra("serialinfo");
+        http(0);
     }
 
     @Override
@@ -83,11 +82,26 @@ public class XzXlhActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId,
+                                          KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+
+                    page_number = 0;
+                    mSerials.addAll(mSerialsA);
+                    http(0);
+                    return true;
+                }
+                return false;
+            }
+        });
         mFilterContentView.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-//                page_number = 0;
-////                http(0);
+                page_number = 0;
+                mSerials.addAll(mSerialsA);
+                http(0);
             }
 
             @Override
@@ -150,6 +164,8 @@ public class XzXlhActivity extends BaseActivity {
     }
 
     private void http(int requestCode) {
+        if (search != null)
+            mParmMap.put("serno", search.getText().toString());
         mParmMap.put("curpage", page_number + 1);//当前页
         presenter.post(requestCode, "selectcanserialinfo", mParmMap);
     }
