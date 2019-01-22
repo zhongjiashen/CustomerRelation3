@@ -141,7 +141,7 @@ public class InstallationDetailsActivity extends BaseActivity {
         firstSerial = true;
         mDetail = new PerformSituationData();
         mFileChooseDatas = new ArrayList<>();
-        serialList = new ArrayList<>();
+
         mGson = new GsonBuilder().disableHtmlEscaping().create();
         billid = getIntent().getStringExtra("billid");
         itemno = getIntent().getStringExtra("itemno");
@@ -477,7 +477,9 @@ public class InstallationDetailsActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(mData.getSerialinfo())) {
                             kind = 1;
                         }
-                        startActivityForResult(new Intent(InstallationDetailsActivity.this, EnterSerialNumberActivity.class)
+                        if (serialList == null)
+                            serialList = new ArrayList<>();
+                        startActivityForResult(new Intent(mActivity, EnterSerialNumberActivity.class)
                                 .putExtra("billid", mData.getBillid() + "")
                                 .putExtra("itemno", itemno)
                                 .putExtra("kind", kind)
@@ -487,7 +489,7 @@ public class InstallationDetailsActivity extends BaseActivity {
                                 .putExtra("DATA", mGson.toJson(serialList)), 13);
 
                     } else {
-                        startActivity(new Intent(InstallationDetailsActivity.this, SerialNumberDetailsActivity.class)
+                        startActivity(new Intent(mActivity, SerialNumberDetailsActivity.class)
                                 .putExtra("billid", mData.getBillid() + "")
                                 .putExtra("serialinfo", mDetail.getSerialinfo())
                                 .putExtra("tabname", "tb_installjob"));
@@ -672,7 +674,8 @@ public class InstallationDetailsActivity extends BaseActivity {
         map.put("parms", "AZZX");
         map.put("master", "");
         map.put("detail", mGson.toJson(list));
-        map.put("serialinfo", mGson.toJson(serialList));
+        if (serialList != null)//
+            map.put("serialinfo", mGson.toJson(serialList));
         map.put("attfiles", mGson.toJson(attfilesList));
         presenter.post(2, "billsavenew", map);
     }
