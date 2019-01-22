@@ -191,15 +191,17 @@ public class JxcXzspActivity extends BaseActivity {
                             LogUtils.e("严格序列商品");
                             holder.slView.setVisibility(View.GONE);
                             holder.tvSl.setVisibility(View.VISIBLE);
+                            data.setNumber(data.getMSerials().size());
+                            holder.tvSl.setText(data.getNumber() + "");
                         } else {
                             holder.slView.setVisibility(View.VISIBLE);
                             holder.tvSl.setVisibility(View.GONE);
+                            holder.slView.setSl(data.getNumber());
                         }
                         break;
                 }
 
-                holder.slView.setSl(data.getNumber());
-                holder.tvSl.setText(data.getNumber() + "");
+
                 holder.slView.setOnValueChange(new SLViewValueChange() {
                     @Override
                     public void onValueChange(double sl) {
@@ -215,9 +217,9 @@ public class JxcXzspActivity extends BaseActivity {
                     holder.etScrq.setText(data.getScrq());
                     holder.llYxqz.setVisibility(View.VISIBLE);
                     holder.etYxqz.setText(data.getYxqz());
-                    if(TextUtils.isEmpty(data.getCbj())){
+                    if (TextUtils.isEmpty(data.getCbj())) {
                         holder.llCbj.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         holder.llCbj.setVisibility(View.VISIBLE);
                         holder.etCbj.setText(data.getCbj());
                     }
@@ -302,7 +304,7 @@ public class JxcXzspActivity extends BaseActivity {
                         Intent intent = new Intent();
                         switch (mParms) {
                             case "XSTH"://销售退货
-                                intent.putExtra("iscbj", data.getInfCostingtypeid()==2);
+                                intent.putExtra("iscbj", data.getInfCostingtypeid() == 2);
                             case "CGDD"://采购订单
                             case "CGSH"://采购收货
                                 intent.putExtra("isxz", true);
@@ -551,7 +553,7 @@ public class JxcXzspActivity extends BaseActivity {
         super.onMyActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
-                int index = data.getIntExtra("position",0);
+                int index = data.getIntExtra("position", 0);
                 list.get(index).setCpph(data.getExtras().getString("name"));
                 list.get(index).setScrq(data.getExtras().getString("scrq"));
                 list.get(index).setYxqz(data.getExtras().getString("yxrq"));

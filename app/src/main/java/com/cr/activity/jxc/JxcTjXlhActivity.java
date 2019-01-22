@@ -126,11 +126,14 @@ public class JxcTjXlhActivity extends BaseActivity {
      * 标题头设置
      */
     private void setTitlebar() {
+
         titlebar.setTitleText(this, "录入序列号");
         titlebar.setRightText("保存");
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
+                if (mSerials == null)
+                    mSerials = new ArrayList<>();
                 setResult(Activity.RESULT_OK, new Intent()
                         .putExtra("position", mPosition)
                         .putExtra("data", mPGson.toJson(mSerials)));
@@ -198,7 +201,7 @@ public class JxcTjXlhActivity extends BaseActivity {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        switch (data.toString()){
+        switch (data.toString()) {
             case "F":
                 showShortToast("库中未录入该序列号！");
                 break;
