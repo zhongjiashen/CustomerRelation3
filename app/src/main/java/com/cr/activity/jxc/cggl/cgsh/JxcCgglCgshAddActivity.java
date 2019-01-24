@@ -183,7 +183,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
     private void initActivity() {
         xzspListview.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//相同
                 selectIndex = arg2;
                 String parms = "CGSH";
 //                if (list.get(arg2).get("refertype") != null) {

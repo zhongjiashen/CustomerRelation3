@@ -137,13 +137,14 @@ public class DetectionDetailsActivity extends BaseActivity {
     PerformSituationData mDetail;
     List<Serial> serialList;
     private boolean firstSerial;
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
-        firstSerial=true;
-        serialList = new ArrayList<>();
+        firstSerial = true;
+
         mDetail = new PerformSituationData();
         mFileChooseDatas = new ArrayList<>();
         mGson = new GsonBuilder().disableHtmlEscaping().create();
@@ -173,7 +174,7 @@ public class DetectionDetailsActivity extends BaseActivity {
     @Override
     protected void init() {
         setTitlebar();
- /* 选择文件集合信息处理 */
+        /* 选择文件集合信息处理 */
         rcvChooseFileList.setLayoutManager(new GridLayoutManager(this, 4));
         rcvChooseFileList.setAdapter(mFileChooseAdapter = new FileChooseAdapter(this) {
             @Override
@@ -240,7 +241,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                             tvAuditStatus.setText("未审核");
                             tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
                             btBottom.setText("审核");
-                             /*标题设置*/
+                            /*标题设置*/
                             titlebar.setRightText("保存");
                             titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
                                 @Override
@@ -279,7 +280,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                     tvDispatchDate.setText(mData.getBilldate());//派工日期
                     tvExecutionStatus.setText(mData.getZxjg());//执行状态
                     if (mData.getLb() == 1) {
-                        tvGoodsInformation.setText(mData.getGoodscode()+"    "+mData.getGoodsname()+"    "+mData.getSpecs()+"    "+mData.getModel());
+                        tvGoodsInformation.setText(mData.getGoodscode() + "    " + mData.getGoodsname() + "    " + mData.getSpecs() + "    " + mData.getModel());
                         tvRegistrationNumber.setText("登记数量：" + (mData.getYesqty() + mData.getNoqty() + mData.getDesqty()) + mData.getUnitname());
                     } else {
                         tvGoodsInformation.setText("概况信息");
@@ -318,7 +319,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                         new TypeToken<List<Attfiles>>() {
                         }.getType());
                 if (attfilesList != null && attfilesList.size() > 0) {
-                    LogUtils.e(attfilesList.size()+"");
+                    LogUtils.e(attfilesList.size() + "");
                     saveFile(attfilesList);
 
                 }
@@ -359,7 +360,7 @@ public class DetectionDetailsActivity extends BaseActivity {
 //                    tvAuditStatus.setText("已审核");
 //                    titlebar.setRightText("");
 //                    tvAuditStatus.setBackgroundColor(Color.parseColor("#0066FF"));
-                }else
+                } else
                     showShortToast("该单据已经最终审核，不能重复审核");
 
                 break;
@@ -370,13 +371,14 @@ public class DetectionDetailsActivity extends BaseActivity {
 //                    btBottom.setText("审核");
 //                    titlebar.setRightText("保存");
 //                    tvAuditStatus.setBackgroundColor(Color.parseColor("#FF6600"));
-                }else
+                } else
                     showShortToast(data.toString());
 
                 break;
         }
 
     }
+
     private void saveFile(final List<Attfiles> attfilesList) {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -447,6 +449,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                 });
 
     }
+
     @OnClick({R.id.bt_registration_details, R.id.rl_goods_information, R.id.ll_maintenance_results, R.id.ll_rework, R.id.iv_scan, R.id.ll_start_time, R.id.ll_end_time, R.id.bt_bottom})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -467,7 +470,7 @@ public class DetectionDetailsActivity extends BaseActivity {
 //                            .putExtra("tabname","tb_servicejob")
 //                            .putExtra("kind", 2)
 //                            .putExtra("DATA", mGson.toJson(mData)));
-                }else
+                } else
                     startActivity(new Intent(this, IncreaseOverviewActivity.class).putExtra("kind", 2)
                             .putExtra("DATA", mGson.toJson(mData)));
                 break;
@@ -486,11 +489,13 @@ public class DetectionDetailsActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(mData.getSerialinfo())) {
                             kind = 1;
                         }
+                        if (serialList == null)
+                            serialList = new ArrayList<>();
                         startActivityForResult(new Intent(DetectionDetailsActivity.this, EnterSerialNumberActivity.class)
                                 .putExtra("billid", billid)
                                 .putExtra("itemno", itemno)
                                 .putExtra("kind", kind)
-                                .putExtra("first",firstSerial)
+                                .putExtra("first", firstSerial)
                                 .putExtra("uuid", mData.getSerialinfo())
                                 .putExtra("tabname", "tb_servicejob")
                                 .putExtra("DATA", mGson.toJson(serialList)), 13);
@@ -519,7 +524,7 @@ public class DetectionDetailsActivity extends BaseActivity {
                 smap.put("dbname", ShareUserInfo.getDbName(this));
                 smap.put("tabname", "tb_servicejobdetail");
                 smap.put("pkvalue", itemno);
-                smap.put("levels",  "0");
+                smap.put("levels", "0");
                 smap.put("opid", ShareUserInfo.getUserId(this));
 
                 switch (tvAuditStatus.getText().toString()) {//审核状态设置,审核状态(0未审 1已审 2 审核中)
@@ -552,7 +557,7 @@ public class DetectionDetailsActivity extends BaseActivity {
             case 13:
                 //处理返回的序列号信息
                 LogUtils.d(data.getStringExtra("DATA"));
-                firstSerial=false;
+                firstSerial = false;
                 serialList = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<List<Serial>>() {
                 }.getType());
                 break;
@@ -616,10 +621,10 @@ public class DetectionDetailsActivity extends BaseActivity {
 //        serialinfo  序列号GUID
 //        opid      操作员ID
 
-        double yesqty=Double.parseDouble(etInstallationNumber.getText().toString());
-        double noqty=Double.parseDouble(etUnloaded.getText().toString());
-        double number=yesqty+noqty;
-        if(mData.getUnitqty()<number){
+        double yesqty = Double.parseDouble(etInstallationNumber.getText().toString());
+        double noqty = Double.parseDouble(etUnloaded.getText().toString());
+        double number = yesqty + noqty;
+        if (mData.getUnitqty() < number) {
             showShortToast("合计数量大于登记数量！");
             titlebar.setTvRightEnabled(true);
             return;
@@ -666,10 +671,12 @@ public class DetectionDetailsActivity extends BaseActivity {
         map.put("parms", "JCWX");
         map.put("master", "");
         map.put("detail", mGson.toJson(list));
-        map.put("serialinfo", mGson.toJson(serialList));
+        if (serialList != null)
+            map.put("serialinfo", mGson.toJson(serialList));
         map.put("attfiles", mGson.toJson(attfilesList));
         presenter.post(2, "billsavenew", map);
     }
+
     @Override
     public void takeSuccess(TResult result) {
         LogUtils.e(result.getImage().toString());
@@ -680,10 +687,11 @@ public class DetectionDetailsActivity extends BaseActivity {
         mFileChooseAdapter.setList(mFileChooseDatas);
 
     }
+
     @Override
     public void httpFinish(int requestCode) {
         super.httpFinish(requestCode);
-        switch (requestCode){
+        switch (requestCode) {
             case 2:
                 titlebar.setTvRightEnabled(true);
                 break;

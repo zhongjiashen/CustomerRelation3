@@ -176,6 +176,10 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 selectIndex = arg2;
+
+
+
+
                 String parms = "XSTH";
                 if (list.get(arg2).get("refertype") != null) {
                     parms = "XSKD";
