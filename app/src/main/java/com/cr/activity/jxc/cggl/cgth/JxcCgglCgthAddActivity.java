@@ -605,8 +605,24 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
                                 UUID uuid = UUID.randomUUID();
                                 map.put("serialinfo", uuid.toString().toUpperCase());
                             }
-                            if(map.get("serials")==null||TextUtils.isEmpty(map.get("serials").toString())){
+                            if(map.get("serialctrl").toString().equals("T")){
+                                List<Serial> serials=new ArrayList<>();
+                                List<Serial> serials1=new ArrayList<>();
+                                List<Map<String, String>> l = (List<Map<String, String>>) PaseJson.paseJsonToObject(map.get("serials").toString());
+                                for (int m=0;m<l.size();m++){
+                                    Serial serial=new Serial();
+                                    serial.setSerno(l.get(m).get("serno"));
+                                    serial.setBillid(l.get(m).get("referbillid"));
+                                    serial.setSerialinfo(l.get(m).get("serialinfo"));
+                                    serials.add(serial);
+                                    serials1.add(serial);
+                                }
+                                map.put("serials", serials);
+                                map.put("serials1", serials1);
+                                map.put("unitqty",  serials.size() + ".0");//数量
+                            }else {
                                 map.put("serials", new ArrayList<>());
+                                map.put("unitqty",  "1.0");//数量
                             }
                             map.put("memo","");//备注
                             list.add(map);

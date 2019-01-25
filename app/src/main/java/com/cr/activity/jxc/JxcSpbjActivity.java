@@ -240,16 +240,41 @@ public class JxcSpbjActivity extends BaseActivity {
                 intent.putExtra("storeid", mStoreid);
                 switch (mParms) {
                     case "XSKD"://销售开单、采购退货严格序列号商品序列号选择
-                    case "CGTH":
                         if (mMap.get("serialctrl").toString().equals("T")) {
                             LogUtils.e("严格序列商品");
+
                             startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
                                     .putExtra("parms", mParms)
                                     .putExtra("refertype", "0")
                                     .putExtra("referitemno", "0"), 1);
+
                         } else {
                             startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
                         }
+                    case "CGTH":
+                        if (mMap.get("serialctrl").toString().equals("T")) {
+                            LogUtils.e("严格序列商品");
+                            if (mMap.get("serials1") != null) {
+                                startActivityForResult(intent.setClass(mActivity, XzXlh1Activity.class)
+                                        .putExtra("serials", mPGson.toJson(mMap.get("serials")))
+                                        .putExtra("serials1", mPGson.toJson(mMap.get("serials1"))), 1);
+                            } else {
+                                startActivityForResult(intent.setClass(mActivity, XzXlhActivity.class)
+                                        .putExtra("parms", mParms)
+                                        .putExtra("refertype", "0")
+                                        .putExtra("referitemno", "0"), 1);
+                            }
+                        } else {
+                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
+                        }
+                        break;
+                    case "XSTH":
+                        if (mMap.get("serials1") != null) {
+                            startActivityForResult(intent.setClass(mActivity, XzXlh1Activity.class)
+                                    .putExtra("serials", mPGson.toJson(mMap.get("serials")))
+                                    .putExtra("serials1", mPGson.toJson(mMap.get("serials1"))), 1);
+                        } else
+                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
                         break;
                     case "CGSH"://采购收货录入序列号需要查重
                         intent.putExtra("rechecking", true);
@@ -264,7 +289,7 @@ public class JxcSpbjActivity extends BaseActivity {
                 Intent intent1 = new Intent();
                 switch (mParms) {
                     case "XSTH"://销售退货
-                        intent1.putExtra("iscbj", (int)mMap.get("inf_costingtypeid")==2);
+                        intent1.putExtra("iscbj", (int) mMap.get("inf_costingtypeid") == 2);
                     case "CGDD"://采购订单
                     case "CGSH"://采购收货
                         intent1.putExtra("isxz", true);
@@ -316,6 +341,7 @@ public class JxcSpbjActivity extends BaseActivity {
                 finish();
                 break;
         }
+
     }
 
     @Override

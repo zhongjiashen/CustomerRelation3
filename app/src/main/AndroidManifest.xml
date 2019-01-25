@@ -803,6 +803,11 @@
             android:name="com.cr.activity.jxc.XzXlhActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 进销存-采购管理-采购订单-选择商品-->
+        <activity
+            android:name="com.cr.activity.jxc.XzXlh1Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-选择商品（批号不是必填）-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzsp2Activity"
