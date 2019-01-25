@@ -1188,6 +1188,11 @@
             android:name="com.cr.activity.jxc.ckgl.kcpd.KcpdXzspActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 进销存-仓库管理-库存盘点-选择商品-->
+        <activity
+            android:name="com.cr.activity.jxc.ckgl.kcpd.KcpdXzXlhActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.ckgl.kcpd.KtJxcCkglKcpdXzspActivity"
             android:screenOrientation="portrait"

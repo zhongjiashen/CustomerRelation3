@@ -199,7 +199,15 @@ public class KcpdSpbjActivity extends BaseActivity {
                 intent.putExtra("serials", mPGson.toJson(mMap.get("serials")));
                 intent.putExtra("goodsid", mMap.get("goodsid").toString());
                 intent.putExtra("storeid", mStoreid);
-                startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
+                if (mMap.get("serialctrl").toString().equals("T")) {
+                    LogUtils.e("严格序列商品");
+                    startActivityForResult(intent.setClass(mActivity, KcpdXzXlhActivity.class)
+                            .putExtra("parms","KCPD")
+                            .putExtra("refertype", "0")
+                            .putExtra("referitemno", "0"), 1);
+                } else {
+                    startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
+                }
 
                 break;
             case R.id.ll_cpph:

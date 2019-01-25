@@ -22,6 +22,7 @@ import com.baiiu.filter.view.FilterCheckedTextView;
 import com.cr.activity.jxc.JxcTjXlhActivity;
 import com.cr.activity.jxc.JxcXzphActivity;
 import com.cr.activity.jxc.KtXzspData;
+import com.cr.activity.jxc.XzXlhActivity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.AppData;
 import com.cr.tools.DateUtil;
@@ -84,7 +85,7 @@ public class KcpdXzspActivity extends BaseActivity {
     private Map<String, Object> mParmMap;
     List<KtXzspData> list = new ArrayList<KtXzspData>();
     List<KtXzspData> result = new ArrayList<KtXzspData>();
-    private String mParms;
+
 
     @Override
     protected void initVariables() {
@@ -175,7 +176,7 @@ public class KcpdXzspActivity extends BaseActivity {
                 holder.tvGg.setText("规格：" + data.getSpecs());
                 holder.tvXh.setText("型号：" + data.getModel());
                 holder.tvKc.setText("库存：" + data.getOnhand() + data.getUnitname());
-               holder.tvZmsl.setText(data.getOnhand()+"");
+                holder.tvZmsl.setText(data.getOnhand() + "");
                 if (data.getSerialctrl().equals("T")) {//判断是否是严格序列号商品
                     LogUtils.e("严格序列商品");
                     holder.slView.setVisibility(View.GONE);
@@ -307,7 +308,20 @@ public class KcpdXzspActivity extends BaseActivity {
                         intent.putExtra("serials", new Gson().toJson(data.getMSerials()));
                         intent.putExtra("goodsid", data.getGoodsid() + "");
                         intent.putExtra("storeid", storeid);
-                        startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 5);
+
+                        if (data.getSerialctrl().equals("T")) {
+                            LogUtils.e("严格序列商品");
+                            startActivityForResult(intent.setClass(mActivity, KcpdXzXlhActivity.class)
+                                    .putExtra("parms","KCPD")
+                                    .putExtra("refertype", "0")
+                                    .putExtra("referitemno", "0"), 5);
+                        } else {
+                            startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 5);
+                        }
+//                        intent.putExtra("parms", "KCPD");
+//                        intent.putExtra("refertype", "0");
+//                        intent.putExtra("referitemno", "0");
+//                        startActivityForResult(intent.setClass(mActivity, KcpdXzXlhActivity.class), 5);
 
 
                     }
@@ -461,7 +475,7 @@ public class KcpdXzspActivity extends BaseActivity {
                 list.get(index).setYxqz(data.getExtras().getString("yxrq"));
                 list.get(index).setBatchrefid(data.getExtras().getString("id"));
                 list.get(index).setCbj(data.getExtras().getString("cbj"));
-                Double onhand=Double.parseDouble(data.getExtras().getString("onhand"));
+                Double onhand = Double.parseDouble(data.getExtras().getString("onhand"));
                 list.get(index).setOnhand(onhand);
                 list.get(index).setNumber(onhand);
                 mAdapter.notifyDataSetChanged();

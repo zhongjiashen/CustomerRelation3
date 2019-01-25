@@ -16,6 +16,22 @@ import com.update.base.BaseDialog;
  */
 public class DialogFactory {
     /**
+     * 获取添加序列号对话框
+     *
+     * @param context
+     * @param title
+     * @param mDialogClickInterface
+     * @return
+     */
+    public static BaseDialog getAddModifySerialNumberDialog(Context context,String title, OnDialogClickInterface mDialogClickInterface) {
+        ModifySerialNumberDialog numberDialog = new ModifySerialNumberDialog(context);
+        numberDialog.setTitle(title);
+        numberDialog.setDialogClickInterface(mDialogClickInterface);
+        return numberDialog;
+    }
+
+
+    /**
      * 获取修改序列号对话框
      *
      * @param context
@@ -29,6 +45,8 @@ public class DialogFactory {
         numberDialog.setDialogClickInterface(mDialogClickInterface);
         return numberDialog;
     }
+
+
 
     /**
      * 获选择文件对话框
