@@ -602,7 +602,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                                 for (int m=0;m<l.size();m++){
                                     Serial serial=new Serial();
                                     serial.setSerno(l.get(m).get("serno"));
-                                    serial.setBillid(l.get(m).get("referbillid"));
+                                    serial.setBillid("0");
                                     serial.setSerialinfo(l.get(m).get("serialinfo"));
                                     serials.add(serial);
                                     serials1.add(serial);

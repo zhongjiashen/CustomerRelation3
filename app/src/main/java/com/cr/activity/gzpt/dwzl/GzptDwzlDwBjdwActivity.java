@@ -8,6 +8,7 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -199,9 +200,9 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                 // Log.v("dddd", "onPageScrollStateChanged");
             }
         });
-        if(clientId.equals("0")){
+        if (clientId.equals("0")) {
             title.setText("新增单位");
-        }else {
+        } else {
             searchDateDwxx(0);
         }
     }
@@ -532,7 +533,20 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         parmMap.put("itemno", tel);
         findServiceData(4, ServerURL.LXFSSAVE, parmMap);
     }
+    /**
+     * 连接网络的操作(单位联系方式保存)
+     */
 
+    private void SaveLxrSave(String cid) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("id", "0");
+        parmMap.put("clientid", cid);
+        parmMap.put("lxrid", "0");
+        parmMap.put("lb", dhhm.length() == 11 ? "2" : "1");
+        parmMap.put("itemno", dhhm);
+        findServiceData2(10, ServerURL.LXFSSAVE, parmMap, false);
+    }
     /**
      * 监听事件
      */
@@ -708,19 +722,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
     }
 
 
-    /**
-     * 连接网络的操作(单位联系方式保存)
-     */
-    private void SaveLxrSave(String cid) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("id", "0");
-        parmMap.put("clientid", cid);
-        parmMap.put("lxrid", "0");
-        parmMap.put("lb", dhhm.length() == 11 ? "2" : "1");
-        parmMap.put("itemno", dhhm);
-        findServiceData2(10, ServerURL.LXFSSAVE, parmMap, false);
-    }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -791,11 +793,13 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                     clientId = returnJsonId;
                     // setResult(RESULT_OK);
                     // finish();
-//                    SaveLxrSave(clientId);
+                  SaveLxrSave(clientId);
                     Log.v("dddd", ":;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
-                    if (this.getIntent().hasExtra("tel")&&clientId.equals("0")) {// 如果是从新增来动中过来的话就保存联系方式进去
+                    if (!TextUtils.isEmpty(tel) ) {// 如果是从新增来动中过来的话就保存联系方式进去
                         searchDateSave();
+                        tel="";
                     }
+
                 } else {
                     showToastPromopt("保存失败" + returnJson.substring(6));
                 }

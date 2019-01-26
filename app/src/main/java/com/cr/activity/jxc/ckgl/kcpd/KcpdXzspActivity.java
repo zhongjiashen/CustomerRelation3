@@ -362,7 +362,7 @@ public class KcpdXzspActivity extends BaseActivity {
                         if (ktXzspData.getSerialctrl().equals("T")) {
                             ArrayList<Serial> serials = (ArrayList<Serial>) ktXzspData.getMSerials();
                             if (serials == null || serials.size() == 0) {
-                                showShortToast("商品数量不能为0");
+                                showShortToast("请选择序列号");
                                 return;
                             }
                             if (serials.size() != ktXzspData.getNumber()) {

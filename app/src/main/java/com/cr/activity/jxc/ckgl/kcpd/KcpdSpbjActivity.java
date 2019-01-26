@@ -175,7 +175,7 @@ public class KcpdSpbjActivity extends BaseActivity {
                 if (mMap.get("serialctrl").toString().equals("T")) {
                     ArrayList<Serial> serials = (ArrayList<Serial>) mMap.get("serials");
                     if (serials == null || serials.size() == 0) {
-                        showShortToast("商品数量不能为0");
+                        showShortToast("请选择序列号");
                         return;
                     }
                 }

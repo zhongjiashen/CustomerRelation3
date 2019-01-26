@@ -904,6 +904,12 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             showToastPromopt("收货日期不能早于单据日期");
             return;
         }
+        for (int i=0;i<list.size();i++){
+            if(list.get(i).get("serialctrl").equals("T")&& ((ArrayList<Serial>) list.get(i).get("serials")).size()==0){
+                showToastPromopt("严格商品请添加序列号！");
+                return;
+            }
+        }
         JSONArray arrayMaster = new JSONArray();
         JSONArray arrayDetail = new JSONArray();
         List<Serial> serialinfo = new ArrayList<Serial>();

@@ -130,7 +130,7 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
                     if (this.data["serialctrl"].toString().equals("T")) {
                         data["unitqty"] = tv_sl.text.toString()
                         if (data["unitqty"].toString().toInt() == 0) {
-                            showShortToast("商品数量不能为0")
+                            showShortToast("请选择序列号")
                             return@setTitleOnlicListener
                         }
 

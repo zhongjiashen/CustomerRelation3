@@ -220,7 +220,7 @@ public class JxcTjXlhActivity extends BaseActivity {
                         qrlr();
                         break;
                     case "T":
-                        showShortToast("库中未录入该序列号！");
+                        showShortToast("库中已存在该序列号！");
                         break;
                 }
                 break;

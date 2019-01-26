@@ -109,6 +109,32 @@ public class KcpdXzXlhActivity extends BaseActivity {
                     case 1:
                         holder.ivEditor.setVisibility(View.VISIBLE);
                         holder.ivDelete.setVisibility(View.VISIBLE);
+                        holder.ivEditor.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                DialogFactory.getModifySerialNumberDialog(mActivity, data.getSerno(), new OnDialogClickInterface() {
+                                    @Override
+                                    public void OnClick(int requestCode, Object object) {
+                                        data.setSerno((String) object);
+                                        holder.tvSerialNumber.setText(data.getSerno());
+                                    }
+                                }).show();
+                            }
+                        });
+                        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {//删除该序列号
+                                DialogFactory.getButtonDialog(mActivity, "确定删除该序列号吗？", new OnDialogClickInterface() {
+                                    @Override
+                                    public void OnClick(int requestCode, Object object) {
+                                        list.remove(holder.getLayoutPosition());
+                                        mAdapter.setList(list);
+                                    }
+
+
+                                }).show();
+                            }
+                        });
                         break;
                 }
 
@@ -220,6 +246,10 @@ public class KcpdXzXlhActivity extends BaseActivity {
                 serial.setSerno(list.get(l).getSerno());
                 mSerials.add(serial);
             }
+        }
+        if(mSerials.size()==0){
+            showShortToast("严格序列号商品序列号不能为空！");
+            return;
         }
         setResult(Activity.RESULT_OK, new Intent()
                 .putExtra("position", mPosition)

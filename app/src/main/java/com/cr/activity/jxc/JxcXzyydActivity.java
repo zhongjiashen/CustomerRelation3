@@ -98,7 +98,7 @@ public class JxcXzyydActivity extends BaseActivity {
             }
         });
         pullRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        pullRecycleView.setAdapter(mAdapter = new BaseRecycleAdapter<XzyydHolder.ViewHolder,KtXzYydMastData>(list) {
+        pullRecycleView.setAdapter(mAdapter = new BaseRecycleAdapter<XzyydHolder.ViewHolder, KtXzYydMastData>(list) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
@@ -113,7 +113,7 @@ public class JxcXzyydActivity extends BaseActivity {
                 holder.tvRq
                         .setText("日期：" + data.getBilldate());
 
-                    holder.cbView.setChecked(data.isCheck());
+                holder.cbView.setChecked(data.isCheck());
                 holder.cbView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -142,14 +142,14 @@ public class JxcXzyydActivity extends BaseActivity {
                 startActivityForResult(intent, 1);
                 break;
             case R.id.qr_textview:
-                mKtXzYydMastData=null;
+                mKtXzYydMastData = null;
                 String billids = "";
                 for (int i = 0; i < list.size(); i++) {
                     KtXzYydMastData ktXzYydMastData = list.get(i);
                     if (ktXzYydMastData.isCheck()) {
                         billids += "," + ktXzYydMastData.getBillid();
-                        if ( mKtXzYydMastData==null) {//判断是否已经获取第一个订单的信息
-                            mKtXzYydMastData=ktXzYydMastData;
+                        if (mKtXzYydMastData == null) {//判断是否已经获取第一个订单的信息
+                            mKtXzYydMastData = ktXzYydMastData;
                             //带入单位名称、联系人、联系电话、发票类型、项目、交货地址
 //                            mapMaster.put("dwmc", ktXzYydMastData.getCname());//单位名称
 //                            mapMaster.put("lxrId",ktXzYydMastData.getLinkmanid());//联系人Id
@@ -176,7 +176,8 @@ public class JxcXzyydActivity extends BaseActivity {
             case 1:
                 qsrq = data.getExtras().getString("qr");
                 jzrq = data.getExtras().getString("zr");
-                list.clear();
+                if (list != null)
+                    list.clear();
                 page_number = 1;
                 http(0);
                 break;
@@ -209,13 +210,13 @@ public class JxcXzyydActivity extends BaseActivity {
         switch (requestCode) {
             case 0:
                 LogUtils.e((String) data);
-                list =  mPGson.fromJson((String) data, new TypeToken<List<KtXzYydMastData>>() {
+                list = mPGson.fromJson((String) data, new TypeToken<List<KtXzYydMastData>>() {
                 }.getType());
 
                 mAdapter.setList(list);
                 break;
             case 1:
-                List<KtXzYydMastData> myList =  mPGson.fromJson((String) data, new TypeToken<List<KtXzYydMastData>>() {
+                List<KtXzYydMastData> myList = mPGson.fromJson((String) data, new TypeToken<List<KtXzYydMastData>>() {
                 }.getType());
                 if (myList == null || myList.size() == 0) {
                     showShortToast("没有更多内容");
@@ -228,7 +229,7 @@ public class JxcXzyydActivity extends BaseActivity {
             case 3:
                 List<Map<String, Object>> l = (List<Map<String, Object>>) PaseJson.paseJsonToObject((String) data);
                 Intent intent = new Intent();
-                intent.putExtra("data", mPGson.toJson(mKtXzYydMastData) );
+                intent.putExtra("data", mPGson.toJson(mKtXzYydMastData));
                 intent.putExtra("spData", (Serializable) l);
                 setResult(RESULT_OK, intent);
                 finish();
