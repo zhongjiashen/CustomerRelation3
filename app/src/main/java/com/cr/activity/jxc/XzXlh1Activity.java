@@ -36,7 +36,6 @@ public class XzXlh1Activity extends BaseActivity {
     RecyclerView rcvList;
 
 
-
     List<SerialData> mSerials;
     List<SerialData> mSerialsA;
     private int mPosition;
@@ -47,7 +46,7 @@ public class XzXlh1Activity extends BaseActivity {
 
         mSerials = new Gson().fromJson(getIntent().getStringExtra("serials"), new TypeToken<List<SerialData>>() {
         }.getType());
-        mSerialsA  = new Gson().fromJson(getIntent().getStringExtra("serials1"), new TypeToken<List<SerialData>>() {
+        mSerialsA = new Gson().fromJson(getIntent().getStringExtra("serials1"), new TypeToken<List<SerialData>>() {
         }.getType());
         processData();
 
@@ -97,14 +96,15 @@ public class XzXlh1Activity extends BaseActivity {
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
-                if (mSerials == null) {
-                    mSerials = new ArrayList<>();
-                }
-                for (int l=0;l<mSerialsA.size();l++){
-                    if(mSerialsA.get(l).isCheck())
+                mSerials = new ArrayList<>();
+                for (int l = 0; l < mSerialsA.size(); l++) {
+                    if (mSerialsA.get(l).isCheck())
                         mSerials.add(mSerialsA.get(l));
                 }
-
+                if (mSerials.size() == 0) {
+                    showShortToast("严格序列号商品序列号不能为空！");
+                    return;
+                }
                 setResult(Activity.RESULT_OK, new Intent()
                         .putExtra("position", mPosition)
                         .putExtra("data", mPGson.toJson(mSerials)));
@@ -112,7 +112,6 @@ public class XzXlh1Activity extends BaseActivity {
             }
         });
     }
-
 
 
     private void processData() {

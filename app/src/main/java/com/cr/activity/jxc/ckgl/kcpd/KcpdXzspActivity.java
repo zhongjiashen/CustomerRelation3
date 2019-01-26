@@ -312,7 +312,7 @@ public class KcpdXzspActivity extends BaseActivity {
                         if (data.getSerialctrl().equals("T")) {
                             LogUtils.e("严格序列商品");
                             startActivityForResult(intent.setClass(mActivity, KcpdXzXlhActivity.class)
-                                    .putExtra("parms","KCPD")
+                                    .putExtra("parms", "KCPD")
                                     .putExtra("refertype", "0")
                                     .putExtra("referitemno", "0"), 5);
                         } else {
@@ -430,7 +430,7 @@ public class KcpdXzspActivity extends BaseActivity {
 
                 } else {
                     page_number = page_number + 1;
-                    mAdapter.setList(list);
+                    mAdapter.setList( clsj(list));
                 }
                 break;
             case 2:
@@ -441,11 +441,20 @@ public class KcpdXzspActivity extends BaseActivity {
                     showShortToast("没有更多内容");
                 } else {
                     page_number = page_number + 1;
-                    list.addAll(myList);
+                    list.addAll( clsj(myList));
                     mAdapter.setList(list);
                 }
                 break;
         }
+    }
+
+    private List<KtXzspData> clsj(List<KtXzspData> list) {
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setNumber(list.get(i).getOnhand());
+            }
+        }
+        return list;
     }
 
     /**

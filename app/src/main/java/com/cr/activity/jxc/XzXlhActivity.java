@@ -143,9 +143,8 @@ public class XzXlhActivity extends BaseActivity {
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
-                if (mSerials == null) {
-                    mSerials = new ArrayList<>();
-                }
+
+                mSerials = new ArrayList<>();
                 for (int l = 0; l < list.size(); l++) {
                     if (list.get(l).isCheck()) {
                         Serial serial = new Serial();

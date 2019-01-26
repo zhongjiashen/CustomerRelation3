@@ -157,11 +157,11 @@ public class KcpdXzXlhActivity extends BaseActivity {
                     @Override
                     public void OnClick(int requestCode, Object object) {
 
-                        String serno=(String) object;
-                        for(int i=0;i<list.size();i++){
-                            if(list.get(i).getSerno().equals(serno)){
+                        String serno = (String) object;
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i).getSerno().equals(serno)) {
                                 showShortToast("该序列号已存在");
-                               return;
+                                return;
                             }
                         }
                         KtKcpdXzXlhData ktKcpdXzXlhData = new KtKcpdXzXlhData();
@@ -235,9 +235,8 @@ public class KcpdXzXlhActivity extends BaseActivity {
 
     @OnClick(R.id.bt_view)
     public void onClick() {
-        if (mSerials == null) {
-            mSerials = new ArrayList<>();
-        }
+
+        mSerials = new ArrayList<>();
         for (int l = 0; l < list.size(); l++) {
             if (list.get(l).isCheck()) {
                 Serial serial = new Serial();
@@ -247,7 +246,7 @@ public class KcpdXzXlhActivity extends BaseActivity {
                 mSerials.add(serial);
             }
         }
-        if(mSerials.size()==0){
+        if (mSerials.size() == 0) {
             showShortToast("严格序列号商品序列号不能为空！");
             return;
         }
