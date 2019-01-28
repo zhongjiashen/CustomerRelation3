@@ -15,6 +15,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.update.actiity.WeChatCaptureActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
@@ -24,12 +25,14 @@ import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
 import com.update.viewholder.XzXlhHolder;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 选择序列号
@@ -90,6 +93,7 @@ public class XzXlhActivity extends BaseActivity {
 
                     page_number = 0;
                     mSerials.addAll(mSerialsA);
+                    mParmMap.put("serno", search.getText().toString());
                     http(0);
                     return true;
                 }
@@ -101,6 +105,7 @@ public class XzXlhActivity extends BaseActivity {
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
                 page_number = 0;
                 mSerials.addAll(mSerialsA);
+
                 http(0);
             }
 
@@ -154,6 +159,10 @@ public class XzXlhActivity extends BaseActivity {
                         mSerials.add(serial);
                     }
                 }
+                if (mSerials.size() == 0) {
+                    showShortToast("严格序列号商品序列号不能为空！");
+                    return;
+                }
                 setResult(Activity.RESULT_OK, new Intent()
                         .putExtra("position", mPosition)
                         .putExtra("data", mPGson.toJson(mSerials)));
@@ -163,8 +172,7 @@ public class XzXlhActivity extends BaseActivity {
     }
 
     private void http(int requestCode) {
-        if (search != null)
-            mParmMap.put("serno", search.getText().toString());
+
         mParmMap.put("curpage", page_number + 1);//当前页
         presenter.post(requestCode, "selectcanserialinfo", mParmMap);
     }
@@ -238,4 +246,23 @@ public class XzXlhActivity extends BaseActivity {
     }
 
 
+    @OnClick(R.id.iv_scan)
+    public void onClick() {
+        startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 11);
+    }
+
+    @Override
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
+        super.onMyActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 11:
+                page_number = 0;
+                mSerials.addAll(mSerialsA);
+                mParmMap.put("serno",  data.getStringExtra("qr"));
+                http(0);
+                break;
+        }
+
+
+    }
 }

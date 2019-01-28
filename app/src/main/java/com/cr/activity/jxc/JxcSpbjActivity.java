@@ -251,6 +251,7 @@ public class JxcSpbjActivity extends BaseActivity {
                         } else {
                             startActivityForResult(intent.setClass(mActivity, JxcTjXlhActivity.class), 1);
                         }
+                        break;
                     case "CGTH":
                         if (mMap.get("serialctrl").toString().equals("T")) {
                             LogUtils.e("严格序列商品");
