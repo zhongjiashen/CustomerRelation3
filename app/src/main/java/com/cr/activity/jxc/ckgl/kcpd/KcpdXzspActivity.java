@@ -361,10 +361,10 @@ public class KcpdXzspActivity extends BaseActivity {
                         }
                         if (ktXzspData.getSerialctrl().equals("T")) {
                             ArrayList<Serial> serials = (ArrayList<Serial>) ktXzspData.getMSerials();
-                            if (serials == null || serials.size() == 0) {
-                                showShortToast("请选择序列号");
-                                return;
-                            }
+//                            if (serials == null || serials.size() == 0) {
+//                                showShortToast("请选择序列号");
+//                                return;
+//                            }
                             if (serials.size() != ktXzspData.getNumber()) {
                                 showShortToast("商品序列号个数与数量不一致");
                                 return;

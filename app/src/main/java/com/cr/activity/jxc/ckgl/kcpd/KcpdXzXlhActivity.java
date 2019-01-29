@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 import com.cr.activity.jxc.KtKcpdXzXlhData;
 import com.cr.tools.ShareUserInfo;
@@ -21,7 +22,6 @@ import com.update.dialog.OnDialogClickInterface;
 import com.update.model.Serial;
 import com.update.viewbar.TitleBar;
 import com.update.viewholder.KcpdXzXlhHolder;
-import com.update.viewholder.XzXlhHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +41,8 @@ public class KcpdXzXlhActivity extends BaseActivity {
     RecyclerView rcvList;
     @BindView(R.id.bt_view)
     Button btView;
+    @BindView(R.id.cb_view)
+    CheckBox cbView;
 
 
     private Map<String, Object> mParmMap;
@@ -81,6 +83,7 @@ public class KcpdXzXlhActivity extends BaseActivity {
     protected void init() {
         setTitlebar();
         btView.setVisibility(View.VISIBLE);
+        cbView.setVisibility(View.VISIBLE);
 
         rcvList.setLayoutManager(new LinearLayoutManager(this));
         rcvList.setAdapter(mAdapter = new BaseRecycleAdapter<KcpdXzXlhHolder.ViewHolder, KtKcpdXzXlhData>(list) {
@@ -190,11 +193,10 @@ public class KcpdXzXlhActivity extends BaseActivity {
 
                 } else {
                     if (mSerials == null || mSerials.size() == 0) {
-                        for (int i = 0; i < list.size(); i++) {
-                            list.get(i).setCheck(true);
-                        }
+
                     } else {
                         processData(list);
+
                     }
                     mAdapter.setList(list);
                 }
@@ -233,27 +235,40 @@ public class KcpdXzXlhActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.bt_view)
-    public void onClick() {
 
-        mSerials = new ArrayList<>();
-        for (int l = 0; l < list.size(); l++) {
-            if (list.get(l).isCheck()) {
-                Serial serial = new Serial();
-                serial.setBillid(mBillid);
-                serial.setSerialinfo(mSerialinfo);
-                serial.setSerno(list.get(l).getSerno());
-                mSerials.add(serial);
-            }
-        }
-        if (mSerials.size() == 0) {
-            showShortToast("严格序列号商品序列号不能为空！");
-            return;
-        }
-        setResult(Activity.RESULT_OK, new Intent()
-                .putExtra("position", mPosition)
-                .putExtra("data", mPGson.toJson(mSerials)));
-        finish();
 
+    @OnClick({R.id.cb_view, R.id.bt_view})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.cb_view:
+                for (int i = 0; i < list.size(); i++) {
+                    list.get(i).setCheck(cbView.isChecked());
+                }
+                if(!cbView.isChecked()){
+                    cbView.setText("    全部选中");
+                }else {
+                    cbView.setText("    取消全选");
+                }
+                mAdapter.setList(list);
+                break;
+            case R.id.bt_view:
+                mSerials = new ArrayList<>();
+                for (int l = 0; l < list.size(); l++) {
+                    if (list.get(l).isCheck()) {
+                        Serial serial = new Serial();
+                        serial.setBillid(mBillid);
+                        serial.setSerialinfo(mSerialinfo);
+                        serial.setSerno(list.get(l).getSerno());
+                        mSerials.add(serial);
+                    }
+                }
+
+                setResult(Activity.RESULT_OK, new Intent()
+                        .putExtra("position", mPosition)
+                        .putExtra("data", mPGson.toJson(mSerials)));
+                finish();
+
+                break;
+        }
     }
 }

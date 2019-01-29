@@ -172,13 +172,13 @@ public class KcpdSpbjActivity extends BaseActivity {
             public void onClick(int i) {
 
                 //严格序列号商品处理
-                if (mMap.get("serialctrl").toString().equals("T")) {
-                    ArrayList<Serial> serials = (ArrayList<Serial>) mMap.get("serials");
-                    if (serials == null || serials.size() == 0) {
-                        showShortToast("请选择序列号");
-                        return;
-                    }
-                }
+//                if (mMap.get("serialctrl").toString().equals("T")) {
+//                    ArrayList<Serial> serials = (ArrayList<Serial>) mMap.get("serials");
+//                    if (serials == null || serials.size() == 0) {
+//                        showShortToast("请选择序列号");
+//                        return;
+//                    }
+//                }
                 mMap.put("memo", etBz.getText().toString());
                 setResult(Activity.RESULT_OK, new Intent()
                         .putExtra("data", (Serializable) mMap));
