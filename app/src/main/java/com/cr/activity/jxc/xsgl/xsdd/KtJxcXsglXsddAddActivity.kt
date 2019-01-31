@@ -229,7 +229,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                         }.type)
                         var zje = 0.0
                         for (i in result.indices) {
-                            val (goodsid, code, name, specs, model, _, _, _, onhand, aprice, unitid, unitname, batchctrl, serialctrl, _, memo, cpph, batchrefid, scrq, yxqz, number, serialinfo, mSerials, taxrate, taxunitprice) = result[i]
+                            val (goodsid, code, name, specs, model, _, _, _, onhand, aprice, unitid, unitname, batchctrl, serialctrl, _, memo, cpph, batchrefid, scrq, yxqz, _, number, serialinfo, mSerials, taxrate, taxunitprice) = result[i]
                             val map = HashMap<String, Any?>()
                             map["goodsid"] = goodsid.toString() + ""
                             map["code"] = code//编码
@@ -251,7 +251,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                             map["memo"] = memo//备注
                             map["taxrate"] = taxrate//税率
                             map["taxunitprice"] = taxunitprice//含税单价
-                            map["amount"] = java.lang.Double.parseDouble(taxunitprice) * java.lang.Double.parseDouble(number)
+                            map["amount"] = java.lang.Double.parseDouble(taxunitprice) *number
                             map["serialinfo"] = serialinfo
                             map["serials"] = mSerials
                             zje += java.lang.Double.parseDouble(map["amount"].toString())
