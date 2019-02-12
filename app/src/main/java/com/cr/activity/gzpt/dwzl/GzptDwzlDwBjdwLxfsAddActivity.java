@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -91,6 +92,10 @@ public class GzptDwzlDwBjdwLxfsAddActivity extends BaseActivity implements OnCli
      * 连接网络的操作(单位联系方式保存)
      */
     private void searchDateSave() {
+        if(TextUtils.isEmpty(dhEditText.getText().toString())){
+            showToastPromopt("联系方式不能为空！");
+            return;
+        }
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("id", id.equals("")?"0":id);

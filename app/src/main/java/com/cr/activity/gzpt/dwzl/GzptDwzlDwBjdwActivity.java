@@ -119,7 +119,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
      */
     protected String mCurrentZipCode = "";
 
-    String dhhm = " ";
+    String dhhm = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -533,11 +533,15 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         parmMap.put("itemno", tel);
         findServiceData(4, ServerURL.LXFSSAVE, parmMap);
     }
+
     /**
      * 连接网络的操作(单位联系方式保存)
      */
 
     private void SaveLxrSave(String cid) {
+        if (TextUtils.isEmpty(dhhm)) {
+            return;
+        }
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("id", "0");
@@ -547,6 +551,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         parmMap.put("itemno", dhhm);
         findServiceData2(10, ServerURL.LXFSSAVE, parmMap, false);
     }
+
     /**
      * 监听事件
      */
@@ -722,8 +727,6 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
     }
 
 
-
-
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
@@ -793,11 +796,11 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                     clientId = returnJsonId;
                     // setResult(RESULT_OK);
                     // finish();
-                  SaveLxrSave(clientId);
+                    SaveLxrSave(clientId);
                     Log.v("dddd", ":;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
-                    if (!TextUtils.isEmpty(tel) ) {// 如果是从新增来动中过来的话就保存联系方式进去
+                    if (!TextUtils.isEmpty(tel)) {// 如果是从新增来动中过来的话就保存联系方式进去
                         searchDateSave();
-                        tel="";
+                        tel = "";
                     }
 
                 } else {
