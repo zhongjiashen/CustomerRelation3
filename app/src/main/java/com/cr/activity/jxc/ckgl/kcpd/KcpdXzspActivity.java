@@ -98,11 +98,7 @@ public class KcpdXzspActivity extends BaseActivity {
         if (this.getIntent().hasExtra("tabname")) {
             tabname = this.getIntent().getExtras().getString("tabname");
         }
-        //判断是否是扫一扫
-        if (this.getIntent().hasExtra("barcode")) {
-            barcode = this.getIntent().getExtras().getString("barcode");
-            btJxtj.setVisibility(View.VISIBLE);
-        }
+
 
 //        mParms = getIntent().getStringExtra("parms");
         mParmMap = new HashMap<String, Object>();
@@ -113,7 +109,7 @@ public class KcpdXzspActivity extends BaseActivity {
         mParmMap.put("goodscode", "");
         mParmMap.put("goodstype", mGoodstype);
         mParmMap.put("cartypeid", cartypeid);
-        mParmMap.put("barcode", barcode);//新增条码
+
     }
 
     @Override
@@ -138,7 +134,13 @@ public class KcpdXzspActivity extends BaseActivity {
             }
         });
 
+        //判断是否是扫一扫
+        if (this.getIntent().hasExtra("barcode")) {
+            barcode = this.getIntent().getExtras().getString("barcode");
+            btJxtj.setVisibility(View.VISIBLE);
 
+        }
+        mParmMap.put("barcode", barcode);//新增条码
         mFilterContentView.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {

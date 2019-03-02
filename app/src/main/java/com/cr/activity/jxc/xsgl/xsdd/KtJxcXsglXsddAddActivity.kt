@@ -504,6 +504,10 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
             showToastPromopt("请选择单据日期")
             return
         }
+        if (TextUtils.isEmpty(departmentid)) {
+            showToastPromopt("请先选择部门")
+            return
+        }
 //        if (jbr_edittext.getText().toString() == "") {
 //            showToastPromopt("请选择业务员")
 //            return

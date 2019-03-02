@@ -100,11 +100,7 @@ public class JxcXzspActivity extends BaseActivity {
         if (this.getIntent().hasExtra("tabname")) {
             tabname = this.getIntent().getExtras().getString("tabname");
         }
-        //判断是否是扫一扫
-        if (this.getIntent().hasExtra("barcode")) {
-            barcode = this.getIntent().getExtras().getString("barcode");
-            btJxtj.setVisibility(View.VISIBLE);
-        }
+
         mTaxrate = getIntent().getStringExtra("taxrate");
         issj = getIntent().getBooleanExtra("issj", true);
         mParms = getIntent().getStringExtra("parms");
@@ -116,7 +112,7 @@ public class JxcXzspActivity extends BaseActivity {
         mParmMap.put("goodscode", "");
         mParmMap.put("goodstype", code);
         mParmMap.put("cartypeid", cartypeid);
-        mParmMap.put("barcode", barcode);//新增条码
+
     }
 
     @Override
@@ -140,8 +136,12 @@ public class JxcXzspActivity extends BaseActivity {
                 return false;
             }
         });
-
-
+        //判断是否是扫一扫
+        if (this.getIntent().hasExtra("barcode")) {
+            barcode = this.getIntent().getExtras().getString("barcode");
+            btJxtj.setVisibility(View.VISIBLE);
+        }
+        mParmMap.put("barcode", barcode);//新增条码
         mFilterContentView.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {

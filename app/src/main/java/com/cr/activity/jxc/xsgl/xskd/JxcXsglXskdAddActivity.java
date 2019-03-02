@@ -933,6 +933,10 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 return;
             }
         }
+        if (TextUtils.isEmpty(mDepartmentid)){
+            showToastPromopt("请先选择部门");
+            return;
+        }
 //        if (jbrEdittext.getText().toString().equals("")) {
 //            showToastPromopt("请选择业务员");
 //            return;

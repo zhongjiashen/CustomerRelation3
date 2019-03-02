@@ -862,6 +862,10 @@ public class JxcCgglCgthAddActivity extends BaseActivity implements OnClickListe
             showToastPromopt("请选择单据日期");
             return;
         }
+        if (TextUtils.isEmpty(mDepartmentid)){
+            showToastPromopt("请先选择部门");
+            return;
+        }
 //        if (jbrEdittext.getText().toString().equals("")) {
 //            showToastPromopt("请选择业务员");
 //            return;

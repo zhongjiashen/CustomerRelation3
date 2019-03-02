@@ -148,7 +148,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
         mDepartmentid = ShareUserInfo.getKey(this, "departmentid");
         etBm.setText(ShareUserInfo.getKey(this, "depname"));
         jbrEdittext.setText(ShareUserInfo.getKey(this, "opname"));
-        jbrId =  ShareUserInfo.getKey(this, "empid");
+        jbrId = ShareUserInfo.getKey(this, "empid");
     }
 
     /**
@@ -180,17 +180,24 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
         if (ckckEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择出库仓库");
             return;
-        } else if (rkckEdittext.getText().toString().equals("")) {
+        }
+        if (rkckEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择入库仓库");
             return;
-        } else if (list.size() == 0) {
+        }
+        if (list.size() == 0) {
             showToastPromopt("请选择商品");
             return;
-        } else if (djrqEdittext.getText().toString().equals("")) {
+        }
+        if (djrqEdittext.getText().toString().equals("")) {
             showToastPromopt("请选择单据日期");
             return;
         } else if (rkckId.equals(ckckId)) {
             showToastPromopt("调出仓库和调入仓库不能相同！");
+            return;
+        }
+        if (TextUtils.isEmpty(mDepartmentid)) {
+            showToastPromopt("请先选择部门");
             return;
         }
 //        if (jbrEdittext.getText().toString().equals("")) {
@@ -435,7 +442,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
                 jbrEdittext.setText(data.getExtras().getString("CHOICE_RESULT_TEXT"));
                 jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
             } else if (requestCode == 18) {
-                Intent intent=new Intent();
+                Intent intent = new Intent();
                 intent.putExtra("storeid", ckckId);
                 intent.putExtra("barcode", data.getStringExtra("qr"));
                 intent.setClass(this, JxcCkglCkdbXzspActivity.class);

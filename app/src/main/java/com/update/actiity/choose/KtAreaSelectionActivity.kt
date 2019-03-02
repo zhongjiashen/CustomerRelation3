@@ -43,6 +43,7 @@ class KtAreaSelectionActivity : BaseActivity<BaseP>() {
     override fun init() {
         titlebar.setTitleText(this, "选择区域")
         rv_list.layoutManager = LinearLayoutManager(this)
+
         mAdapter = object : BaseRecycleAdapter<ViewHolderFactory.StateAuditChoiceHolder, KtAreaData>(mList) {
             override fun MyonCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
                 return ViewHolderFactory.getStateAuditChoiceHolder(mActivity, parent)

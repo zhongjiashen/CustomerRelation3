@@ -29,7 +29,6 @@ android {
 
     productFlavors {
 
-
 //        QPB {
 //            buildConfigField "int", "TYPE", "1"
 //            buildConfigField "String", "URL", "\"/crmcarserver/n_crmwebserver.asmx?WSDL\""
@@ -82,16 +81,15 @@ android {
 //            resValue("string", "hscrm", "恒视CRM_IT专业版")
 //            applicationId 'com.crenp.activity6'
 //        }
-
-       /* GMB {
-            buildConfigField "int", "TYPE", "3"
-            buildConfigField "String", "URL", "\"/crmerpserver/n_crmwebserver.asmx?WSDL\""
-            resValue("string", "app_name", "恒视CRM_工贸版")
-            resValue("string", "tgb", "工贸版V1.0")
-            resValue("string", "hscrm", "恒视CRM_工贸版")
-            applicationId 'com.crenp.activity8'
-
-        }*/
+//
+//        GMB {
+//            buildConfigField "int", "TYPE", "3"
+//            buildConfigField "String", "URL", "\"/crmerpserver/n_crmwebserver.asmx?WSDL\""
+//            resValue("string", "app_name", "恒视CRM_工贸版")
+//            resValue("string", "tgb", "工贸版V1.0")
+//            resValue("string", "hscrm", "恒视CRM_工贸版")
+//            applicationId 'com.crenp.activity8'
+//        }
 
     }
 }
