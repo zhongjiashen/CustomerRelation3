@@ -128,7 +128,8 @@ public class JxcXzspActivity extends BaseActivity {
                                           KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    list.clear();
+                    if (list != null)
+                        list.clear();
                     page_number = 0;
                     http(1);
                     return true;

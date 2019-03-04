@@ -14,6 +14,8 @@ public class ServerURL {
     public final static int    dkh               = 3011;
     //命名空间
     public final static String nameSpace         = "http://tempurl.org";
+    //命名空间
+//    public final static String nameSpace         = "http://123.14.250.132";
     //URL地址
     //endPoint通常是将WSDL地址末尾的"?wsdl"去除后剩余的部分；
     //soapAction通常为命名空间 + 调用的方法名称。
