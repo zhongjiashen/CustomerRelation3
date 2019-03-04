@@ -147,9 +147,9 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 holder.slView.setSl(data.getNumber());//设置数量
                 holder.etBz.setText(data.getMemo());
                 holder.etBz.setTag(position);
-                holder.etBz.addTextChangedListener(new CustomTextWatcher( new CustomTextWatcher.UpdateTextListener() {
+                holder.etBz.addTextChangedListener(new CustomTextWatcher(new CustomTextWatcher.UpdateTextListener() {
                     @Override
-                    public void updateText( String string) {
+                    public void updateText(String string) {
                         //关键点：1.给edittext设置tag，此tag用来与position做对比校验，验证当前选中的edittext是否为需要的控件;
 //                            2.焦点判断：只有当前有焦点的edittext才有更改数据的权限，否则会造成数据紊乱
 //                            3.edittext内数据变动直接直接更改datalist的数据值，以便滑动view时显示正确
@@ -411,7 +411,8 @@ public class ChooseGoodsActivity extends BaseActivity implements
                     public void onFilterDone(int position, Map map) {
                         dropDownMenu.setPositionIndicatorText(position, map.get("name").toString());
                         dropDownMenu.close();
-                        mList.clear();
+                        if (mList != null)
+                            mList.clear();
                         mParmMap.put("goodstype", map.get("lcode").toString());
                         mParmMap.put("curpage", page_number);
                         presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
