@@ -404,25 +404,8 @@ public class ChooseGoodsActivity extends BaseActivity implements
                 break;
             case 3:
                 presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
-//                String[] titleList = new String[]{"分类"};
-//                List[] contextList = new List[]{(List<Map<String, Object>>) PaseJson.paseJsonToObject(data.toString())};
-//                dropDownMenu.setMenuAdapter(new DropMenuAdapter(mActivity, titleList, contextList, new OnFilterDoneListener() {
-//                    @Override
-//                    public void onFilterDone(int position, Map map) {
-//                        dropDownMenu.setPositionIndicatorText(position, map.get("name").toString());
-//                        dropDownMenu.close();
-//                        if (mList != null)
-//                            mList.clear();
-//                        mParmMap.put("goodstype", map.get("lcode").toString());
-//                        mParmMap.put("curpage", page_number);
-//                        presenter.post(0, ServerURL.SELECTGOODS, mParmMap);
-//                    }
-//
-//
-//                }));
                 List<Map<String, Object>> fenlinList = (List<Map<String, Object>>) PaseJson
                         .paseJsonToObject(data.toString());
-
                 List<Map<String, Object>> lbList = new ArrayList<>();
                 List<Map<String, Object>> cllxList = new ArrayList<>();
                 Map<String, Object> map = new HashMap<>();
