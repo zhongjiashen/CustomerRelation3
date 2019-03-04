@@ -628,7 +628,8 @@ public class JxcXzspActivity extends BaseActivity {
 
                         }
                         page_number = 1;
-                        list.clear();
+                        if (list != null)
+                            list.clear();
                         http(1);
 
                     }

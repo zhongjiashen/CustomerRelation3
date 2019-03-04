@@ -74,6 +74,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
 
     DropDownMenu dropDownMenu;
     private String cartypeid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +100,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
         qsrq = sdf.format(new Date()) + "01";
         jzrq = sdf.format(new Date())
                 + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-       fenlei();
+        fenlei();
         mTaxrate = getIntent().getStringExtra("taxrate");
         issj = getIntent().getBooleanExtra("issj", true);
     }
@@ -119,7 +120,8 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
                                                   KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_SEARCH
                                 || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                            list.clear();
+                            if (list != null)
+                                list.clear();
                             currentPage = 1;
                             searchDate();
                             return true;
@@ -134,7 +136,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
      */
     private void initListView() {
         listView = (XListView) findViewById(R.id.mFilterContentView);
-        adapter = new JxcCgglCgddXzsp2Adapter(list, this, storeid,getIntent().getStringExtra("type"));
+        adapter = new JxcCgglCgddXzsp2Adapter(list, this, storeid, getIntent().getStringExtra("type"));
         listView.setAdapter(adapter);
         listView.setXListViewListener(xListViewListener);
         listView.setPullLoadEnable(true);
@@ -226,10 +228,10 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
 
                 List<Map<String, Object>> lbList = new ArrayList<>();
                 List<Map<String, Object>> cllxList = new ArrayList<>();
-                Map<String, Object> map=new HashMap<>();
-                map.put("name","全部");
-                map.put("id","0");
-                map.put("lcode","0");
+                Map<String, Object> map = new HashMap<>();
+                map.put("name", "全部");
+                map.put("id", "0");
+                map.put("lcode", "0");
                 lbList.add(map);
                 cllxList.add(map);
                 for (int i = 0; i < fenlinList.size(); i++) {
@@ -243,24 +245,26 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
                             break;
                     }
                 }
-                setMenu(lbList,cllxList);
+                setMenu(lbList, cllxList);
                 break;
         }
 
 
     }
-    private void setMenu( List<Map<String, Object>> lbList,List<Map<String, Object>> cllxList){
+
+    private void setMenu(List<Map<String, Object>> lbList, List<Map<String, Object>> cllxList) {
         String[] titleList;
-        List<View> views=new ArrayList<>();
-        views.add(createSingleListView(lbList,0));
-        if(AppData.AppType==1){//判断是否是汽配版
-            titleList = new String[]{"类别","车辆类别"};
-            views.add(createSingleListView(cllxList,1));
-        }else {
+        List<View> views = new ArrayList<>();
+        views.add(createSingleListView(lbList, 0));
+        if (AppData.AppType == 1) {//判断是否是汽配版
+            titleList = new String[]{"类别", "车辆类别"};
+            views.add(createSingleListView(cllxList, 1));
+        } else {
             titleList = new String[]{"类别"};
         }
         dropDownMenu.setMenuAdapter(new MyMenuAdapter(activity, titleList, views));
     }
+
     private View createSingleListView(List<Map<String, Object>> items, final int kind) {
         SingleListView<Map<String, Object>> singleListView = new SingleListView<Map<String, Object>>(activity)
                 .adapter(new SimpleTextAdapter<Map<String, Object>>(null, activity) {
@@ -279,18 +283,19 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
                     @Override
                     public void onItemClick(Map<String, Object> item) {
                         dropDownMenu.close();
-                        dropDownMenu.setPositionIndicatorText(kind,item.get("name").toString());
-                        switch (kind){
+                        dropDownMenu.setPositionIndicatorText(kind, item.get("name").toString());
+                        switch (kind) {
                             case 0://商品类别
-                                code=item.get("id").toString();
+                                code = item.get("id").toString();
                                 break;
                             case 1://车辆类别
-                                cartypeid=item.get("id").toString();
+                                cartypeid = item.get("id").toString();
                                 break;
 
                         }
-                        currentPage=1;
-                        list.clear();
+                        currentPage = 1;
+                        if (list != null)
+                            list.clear();
                         searchDate();
 
                     }
@@ -301,6 +306,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
 
         return singleListView;
     }
+
     @OnClick({R.id.fl, R.id.tv_jxtj, R.id.tv_qrxz})
     public void onClick(View view) {
         Intent intent = new Intent();

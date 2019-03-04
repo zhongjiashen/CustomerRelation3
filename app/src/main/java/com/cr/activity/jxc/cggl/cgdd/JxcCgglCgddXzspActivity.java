@@ -131,7 +131,8 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
                                                   KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_SEARCH
                                 || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                            list.clear();
+                            if (list != null)
+                                list.clear();
                             currentPage = 1;
                             searchDate();
                             return true;
@@ -307,7 +308,8 @@ public class JxcCgglCgddXzspActivity extends BaseActivity implements
 
                         }
                         currentPage = 1;
-                        list.clear();
+                        if (list != null)
+                            list.clear();
                         searchDate();
 
                     }

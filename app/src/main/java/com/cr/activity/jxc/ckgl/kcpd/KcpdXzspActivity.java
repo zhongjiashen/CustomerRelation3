@@ -125,6 +125,7 @@ public class KcpdXzspActivity extends BaseActivity {
                                           KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    if (list != null)
                     list.clear();
                     page_number = 0;
                     http(1);
@@ -556,6 +557,7 @@ public class KcpdXzspActivity extends BaseActivity {
 
                         }
                         page_number = 1;
+                        if (list != null)
                         list.clear();
                         http(1);
 
