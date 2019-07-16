@@ -242,7 +242,7 @@ public class KcpdXzspActivity extends BaseActivity {
                             data.setCheck(true);
                             holder.llBottom.setVisibility(View.VISIBLE);
                         } else {
-                            data.setCheck(true);
+                            data.setCheck(false);
                             holder.llBottom.setVisibility(View.GONE);
                         }
                     }
@@ -556,7 +556,7 @@ public class KcpdXzspActivity extends BaseActivity {
                                 break;
 
                         }
-                        page_number = 1;
+                        page_number = 0;
                         if (list != null)
                         list.clear();
                         http(1);

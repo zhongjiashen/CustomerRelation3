@@ -110,8 +110,7 @@ public class JxcXzspActivity extends BaseActivity {
         mParmMap.put("tabname", tabname);
         mParmMap.put("storeid", storeid);
         mParmMap.put("goodscode", "");
-        mParmMap.put("goodstype", code);
-        mParmMap.put("cartypeid", cartypeid);
+
 
     }
 
@@ -293,7 +292,7 @@ public class JxcXzspActivity extends BaseActivity {
                             data.setCheck(true);
                             holder.llBottom.setVisibility(View.VISIBLE);
                         } else {
-                            data.setCheck(true);
+                            data.setCheck(false);
                             holder.llBottom.setVisibility(View.GONE);
                         }
                     }
@@ -474,6 +473,8 @@ public class JxcXzspActivity extends BaseActivity {
     }
 
     private void http(int requestCode) {
+        mParmMap.put("goodstype", code);
+        mParmMap.put("cartypeid", cartypeid);
         mParmMap.put("goodsname", search.getText().toString());
         mParmMap.put("curpage", page_number + 1);//当前页
         presenter.post(requestCode, ServerURL.SELECTGOODS, mParmMap);
@@ -627,7 +628,7 @@ public class JxcXzspActivity extends BaseActivity {
                                 break;
 
                         }
-                        page_number = 1;
+                        page_number = 0;
                         if (list != null)
                             list.clear();
                         http(1);

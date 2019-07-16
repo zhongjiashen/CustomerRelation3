@@ -31,14 +31,14 @@ import java.util.TimeZone;
 import butterknife.ButterKnife;
 
 /**
- * Author:    申中佳
+ * Author:    巩文婷
  * Version    V1.0
  * Date:      2017/9/14 0014 下午 2:04
  * Description:
  * Modification  History:
  * Date         	Author        		Version        	Description
  * -----------------------------------------------------------------------------------
- * 2017/9/14 0014         申中佳               V1.0
+ * 2017/9/14 0014         巩文婷              V1.0
  */
 public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity implements BaseV, TakePhoto.TakeResultListener, InvokeListener {
     protected T presenter;
@@ -68,7 +68,7 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //取消所有正在进行的网络请求
+
 
     }
 

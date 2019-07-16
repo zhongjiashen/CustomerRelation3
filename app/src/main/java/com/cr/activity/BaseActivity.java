@@ -199,7 +199,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 			final Map<String, Object> params) {
 		// Log.v("dddd",
 		// SocThread.client.isConnected()+":"+SocThread.client.isClosed());
-		if (ShareUserInfo.getKey(context, "networklock").equals("true")) {
+        /**
+         * 关闭长链接判断
+         */
+		/*if (ShareUserInfo.getKey(context, "networklock").equals("true")) {
 			new AlertDialog.Builder(this)
 					.setTitle("提示信息")
 					.setMessage("与服务器断开连接,客户端程序将退出！")
@@ -213,7 +216,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 								}
 							}).show();
 			return;
-		}
+		}*/
 		this.isShowDialog = true;
 		this.returnSuccessType = returnSuccessType;
 		setInputManager(false);
@@ -249,6 +252,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 			boolean isShowDialog) {
 		// Log.v("dddd",
 		// SocThread.client.isConnected()+":"+SocThread.client.isClosed());
+
+		/**
+		 * 关闭长连接判断
+		 */
 		if (ShareUserInfo.getKey(context, "networklock").equals("true")) {
 			new AlertDialog.Builder(this)
 					.setTitle("提示信息")
