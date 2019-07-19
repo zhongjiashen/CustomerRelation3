@@ -521,8 +521,13 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                         map.put("amount", Double.parseDouble(ktXzspData.getTaxunitprice()) * ktXzspData.getNumber());
                         map.put("serialinfo", ktXzspData.getSerialinfo());
                         map.put("serials", ktXzspData.getMSerials());
-                        zje += Double.parseDouble(map.get("amount").toString());
                         list.add(map);
+                    }
+                    /**
+                     * 遍历list计算所有商品总金额
+                     */
+                    for (Map<String, Object> m : list) {
+                        zje += Double.parseDouble(m.get("amount").toString());
                     }
                     xzspnumTextview.setText("共选择了" + list.size() + "商品");
 
