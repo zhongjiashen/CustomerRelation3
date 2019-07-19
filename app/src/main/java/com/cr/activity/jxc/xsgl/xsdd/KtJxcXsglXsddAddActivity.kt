@@ -254,9 +254,13 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
                             map["amount"] = java.lang.Double.parseDouble(taxunitprice) *number
                             map["serialinfo"] = serialinfo
                             map["serials"] = mSerials
-                            zje += java.lang.Double.parseDouble(map["amount"].toString())
                             list.add(map)
                         }
+                        for (m in list) {
+                            LogUtils.e(m.toString())
+                            zje += java.lang.Double.parseDouble(m["amount"].toString())
+                        }
+
                         xzspnum_textview.setText("共选择了" + list.size + "商品")
 
                         hjje_edittext.setText("￥" + FigureTools.sswrFigure(zje))
