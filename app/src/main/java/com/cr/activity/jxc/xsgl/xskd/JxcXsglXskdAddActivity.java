@@ -552,8 +552,11 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                         map.put("amount", Double.parseDouble(ktXzspData.getTaxunitprice()) * ktXzspData.getNumber());
                         map.put("serialinfo", ktXzspData.getSerialinfo());
                         map.put("serials", ktXzspData.getMSerials());
-                        zje += Double.parseDouble(map.get("amount").toString());
+//                        zje += Double.parseDouble(map.get("amount").toString());
                         list.add(map);
+                    }
+                    for (Map<String, Object> m : list) {
+                        zje += Double.parseDouble(m.get("amount").toString());
                     }
                     xzspnumTextview.setText("共选择了" + list.size() + "商品");
 
