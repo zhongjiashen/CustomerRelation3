@@ -464,8 +464,10 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                         map.put("serialinfo", ktXzspData.getSerialinfo());
                         map.put("serials", ktXzspData.getMSerials());
                         map.put("cbj", ktXzspData.getCbj());
-                        zje += Double.parseDouble(map.get("amount").toString());
                         list.add(map);
+                    }
+                    for (Map<String, Object> m : list) {
+                        zje += Double.parseDouble(m.get("amount").toString());
                     }
                     xzspnumTextview.setText("共选择了" + list.size() + "商品");
 
