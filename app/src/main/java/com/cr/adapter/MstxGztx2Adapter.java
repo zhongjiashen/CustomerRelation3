@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class MstxGztx2Adapter extends BaseAdapter {
@@ -153,7 +154,7 @@ public class MstxGztx2Adapter extends BaseAdapter {
 			viewHolder.djbhView.setText("单据编号："+map.get("code").toString());
 			viewHolder.dwView.setText(map.get("cname").toString());
 			viewHolder.skjeView.setText("收款金额：");
-			viewHolder.skje2View.setText("￥"+map.get("je").toString());
+			viewHolder.skje2View.setText("￥"+FigureTools.sswrFigure(map.get("je").toString()));
 			viewHolder.skrqView.setText("限定日期：");
 			viewHolder.skrq2View.setText(map.get("rq").toString());
 		}else if(type.equals("5")){//超期订单
@@ -283,7 +284,7 @@ public class MstxGztx2Adapter extends BaseAdapter {
             viewHolder.djbhView.setText("单据编号："+map.get("code").toString());
 			viewHolder.dwView.setText(map.get("cname").toString());
 			viewHolder.skjeView.setText("付款金额：");
-			viewHolder.skje2View.setText("￥"+map.get("je").toString());
+			viewHolder.skje2View.setText("￥"+ FigureTools.sswrFigure(map.get("je").toString()));
 			viewHolder.skrqView.setText("限定日期：");
 			viewHolder.skrq2View.setText(map.get("rq").toString());
 		}

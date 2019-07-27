@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.cr.tools.FigureTools
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
@@ -82,8 +83,8 @@ class KtTjfxLrbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
                 if (holder != null) {
                     holder.tvMz.text = data.name
                     holder.tvJe.text = data.curbalance.toString()
-                    holder.tvQcye.text = "期初余额:" + data.inibalance.toString()
-                    holder.tvLjje.text = "累计金额:" + data.endbalance
+                    holder.tvQcye.text = "期初余额:" + FigureTools.sswrFigure(data.inibalance)
+                    holder.tvLjje.text = "累计金额:" + FigureTools.sswrFigure(data.endbalance)
 
                     holder.itemView.setOnClickListener {
                         if (data.flag == 1) {

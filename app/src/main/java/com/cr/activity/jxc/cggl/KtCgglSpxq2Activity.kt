@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import com.cr.activity.common.CommonXzphActivity
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity
+import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity
 import com.cr.tools.FigureTools
 import com.crcxj.activity.R
 import com.google.gson.Gson
@@ -145,7 +146,19 @@ class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
 //            intent.putExtra("DATA", Gson().toJson(data["serials"]))
 //            startActivityForResult(intent, 11)
 //        }
-
+        /**
+         * 选择价格
+         */
+        xzjg_iv.setOnClickListener {
+            val intent = Intent()
+            intent.setClass(mActivity, TjfxKcbbSpjg2Activity::class.java)
+            intent.putExtra("goodsid", data["goodsid"].toString())
+            intent.putExtra("storied", getIntent().getExtras().getString("rkckId"))
+            intent.putExtra("unitid", data["unitid"].toString())
+            intent.putExtra("clientid", "0")
+            intent.putExtra("index", "0")
+            startActivityForResult(intent, 3)
+        }
         //产品批号
         ll_cpph.setOnClickListener {
             val intent = Intent()
@@ -188,6 +201,10 @@ class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
                     et_scrq.setText(this.data["produceddate"].toString())
                     et_yxqz.setText(this.data["validdate"].toString())
 //                cpphId = data.getExtras()!!.getString("id")
+                }
+                3 -> {
+                    this.data["unitprice"] =FigureTools.sswrFigure(data.getExtras().getString("dj"))
+                    et_dj.setText(this.data["unitprice"].toString())//单价
                 }
                 11 -> {
                    this.data["serials"]= Gson().fromJson<Any>(data.extras!!.getString("DATA"), object : TypeToken<List<Serial>>() {

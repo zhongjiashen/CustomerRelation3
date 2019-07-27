@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzzdActivity;
-import com.cr.activity.jxc.JxcSpbjActivity;
 import com.cr.activity.jxc.KtXzspData;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
 import com.cr.adapter.jxc.ckgl.kcpd.JxcCkglKcpdAddAdapter;
@@ -228,7 +227,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("unitid", map.get("unitid").toString());//计量单位ID
                 jsonObject2.put("unitprice", FigureTools.sswrFigure(map.get("unitprice").toString()));//单价
                 jsonObject2.put("unitqty", map.get("yksl").toString());//盈亏数量
-                jsonObject2.put("amount", map.get("amount").toString());//金额
+                jsonObject2.put("amount", FigureTools.sswrFigure(map.get("amount").toString()));//金额
                 if(map.get("cbj")!=null) {
                     jsonObject2.put("refaprice", map.get("cbj")
                             .toString());
@@ -241,6 +240,8 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 jsonObject2.put("serialinfo", map.get("serialinfo").toString());//序列号GUID
                 jsonObject2.put("zmonhand", map.get("zmsl").toString());//账面数量
                 jsonObject2.put("sponhand", map.get("spsl").toString());//实盘数量
+                int yksl=(int)Double.parseDouble(map.get("spsl").toString())-(int)Double.parseDouble(map.get("zmsl").toString());
+                jsonObject2.put("unitqty",  yksl+"");//备注
                 jsonObject2.put("memo",  map.get("memo").toString());//备注
                 arrayDetail.put(jsonObject2);
                 serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
@@ -488,7 +489,7 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
                 jbrId = data.getExtras().getString("CHOICE_RESULT_ID");
             }else if (requestCode == 18) {
                 Intent intent = new Intent();
-                intent.putExtra("pdckId", pdckId);
+                intent.putExtra("storeid", pdckId);
                 intent.putExtra("barcode", data.getStringExtra("qr"));
                 intent.setClass(this,  KcpdXzspActivity.class);
                 startActivityForResult(intent, 0);

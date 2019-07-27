@@ -256,21 +256,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 		/**
 		 * 关闭长连接判断
 		 */
-		if (ShareUserInfo.getKey(context, "networklock").equals("true")) {
-			new AlertDialog.Builder(this)
-					.setTitle("提示信息")
-					.setMessage("与服务器断开连接,客户端程序将退出！")
-					.setNegativeButton("确定",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface arg0,
-										int arg1) {
-									MyApplication.getInstance().exit();
-								}
-							}).show();
-			return;
-		}
+//		if (ShareUserInfo.getKey(context, "networklock").equals("true")) {
+//			new AlertDialog.Builder(this)
+//					.setTitle("提示信息")
+//					.setMessage("与服务器断开连接,客户端程序将退出！")
+//					.setNegativeButton("确定",
+//							new DialogInterface.OnClickListener() {
+//
+//								@Override
+//								public void onClick(DialogInterface arg0,
+//										int arg1) {
+//									MyApplication.getInstance().exit();
+//								}
+//							}).show();
+//			return;
+//		}
 		this.isShowDialog = isShowDialog;
 		this.returnSuccessType = returnSuccessType;
 		setInputManager(false);

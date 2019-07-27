@@ -40,7 +40,7 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gzpt_dwzl_lxr_detail);
-        addZYMethod();
+//        addZYMethod();
         initActivity();
         if (this.getIntent().hasExtra("lxrid")) {
             lxrId = this.getIntent().getExtras().getString("lxrid");

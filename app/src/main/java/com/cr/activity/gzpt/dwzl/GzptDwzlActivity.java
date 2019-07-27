@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 工作平台-单位资料
+ * 工作平台-单位资料-呼叫中心
  *
  * @author Administrator
  */
@@ -362,6 +362,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.bjdw_textview:
                 intent.putExtra("clientid", clientId);// 单位ID为0，表示新增
+                intent.putExtra("types", types);// 单位ID为0，表示新增
                 intent.setClass(GzptDwzlActivity.this, GzptDwzlDwBjdwActivity.class);
                 startActivityForResult(intent, 1);
                 break;

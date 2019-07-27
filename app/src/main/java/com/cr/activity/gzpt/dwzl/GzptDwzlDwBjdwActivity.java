@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,6 +36,7 @@ import com.mrwujay.cascade.model.ProvinceModel;
 import com.mrwujay.cascade.service.XmlParserHandler;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +49,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 工作平台-单位资料-单位-编辑单位
+ * 工作平台-单位资料-单位-编辑单位/新增单位
  *
  * @author Administrator
  */
@@ -121,6 +123,14 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
 
     String dhhm = "";
 
+
+    /**
+     * 新增修改
+     */
+    private Button btYwlr;
+    private Button btXzlxr;
+    private String mTypes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +144,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                 dhhm = this.getIntent().getExtras().getString("dhhm");
             }
         }
+        mTypes = getIntent().getStringExtra("types");
         if (this.getIntent().hasExtra("tel")) {
             tel = this.getIntent().getExtras().getString("tel");
         }
@@ -155,6 +166,12 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         lxfsTextView.setOnClickListener(this);
         corsor1 = (ImageView) findViewById(R.id.corsor1);
         corsor2 = (ImageView) findViewById(R.id.corsor2);
+
+        btYwlr = findViewById(R.id.bt_ywlr);
+        btYwlr.setOnClickListener(this);
+        btXzlxr = findViewById(R.id.bt_xzlxr);
+        btXzlxr.setOnClickListener(this);
+
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         List<View> viewPage = new ArrayList<View>();
@@ -651,6 +668,27 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                 break;
             case R.id.dq_edittext:
                 setSheng();
+                break;
+            case R.id.bt_ywlr:
+                if (TextUtils.isEmpty(clientId) || clientId.equals("0")) {
+                    showToastPromopt("新增单位无权限！");
+                    return;
+                }
+                Map map = new HashMap();
+                map.put("clientid", clientId);
+                map.put("types", mTypes);
+                startActivity(new Intent(this, GzptDwzlActivity.class).putExtra("object", (Serializable) map));
+                break;
+            case R.id.bt_xzlxr:
+                if(TextUtils.isEmpty(clientId)||"0".equals(clientId)){
+                    showToastPromopt("请先保存数据");
+                    return;
+                }
+                intent.setClass(activity, GzptDwzlLxrBjlxrActivity.class);
+                intent.putExtra("lxrid", "0");
+                intent.putExtra("clientid", clientId);
+                startActivity(intent);
+
                 break;
             default:
                 break;

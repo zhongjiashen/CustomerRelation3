@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class TjfxYsyfAdapter extends BaseAdapter {
@@ -65,13 +66,13 @@ public class TjfxYsyfAdapter extends BaseAdapter {
         viewHolder.nameTextView.setText(objMap.get("cname").toString());
         if (objMap.get("types").toString().equals("1")
             || objMap.get("types").toString().equals("4")) {
-            viewHolder.ysTextView.setText("应收：" + objMap.get("balance").toString());
-            viewHolder.ys2TextView.setText("预收：" + objMap.get("suramt").toString());
+            viewHolder.ysTextView.setText("应收：" + FigureTools.sswrFigure(objMap.get("balance").toString()));
+            viewHolder.ys2TextView.setText("预收：" + FigureTools.sswrFigure(objMap.get("suramt").toString()));
         } else {
-            viewHolder.ysTextView.setText("应付：" + objMap.get("balance").toString());
-            viewHolder.ys2TextView.setText("预付：" + objMap.get("suramt").toString());
+            viewHolder.ysTextView.setText("应付：" + FigureTools.sswrFigure(objMap.get("balance").toString()));
+            viewHolder.ys2TextView.setText("预付：" + FigureTools.sswrFigure(objMap.get("suramt").toString()));
         }
-        viewHolder.qkTextView.setText("欠款：" + objMap.get("oweamt").toString());
+        viewHolder.qkTextView.setText("欠款：" + FigureTools.sswrFigure(objMap.get("oweamt").toString()));
         return convertView;
     }
 

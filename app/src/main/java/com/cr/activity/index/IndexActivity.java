@@ -446,7 +446,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                     break;
                 case 3:
                     im.setLogoId(R.drawable.index_khgl);
-                    im.setLogoName("自定义拜访");
+                    im.setLogoName("客户管理");
                     im.setIntent(new Intent(IndexActivity.this, GzptKhglActivity.class));
                     im.setKhzlname("khgl");
                     im.setMenuid("3003");

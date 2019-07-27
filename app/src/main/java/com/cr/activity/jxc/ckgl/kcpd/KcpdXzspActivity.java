@@ -22,7 +22,6 @@ import com.baiiu.filter.view.FilterCheckedTextView;
 import com.cr.activity.jxc.JxcTjXlhActivity;
 import com.cr.activity.jxc.JxcXzphActivity;
 import com.cr.activity.jxc.KtXzspData;
-import com.cr.activity.jxc.XzXlhActivity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.AppData;
 import com.cr.tools.DateUtil;
@@ -44,7 +43,6 @@ import com.update.utils.LogUtils;
 import com.update.viewbar.TitleBar;
 import com.update.viewbar.refresh.PullToRefreshLayout;
 import com.update.viewbar.refresh.PullableRecyclerView;
-import com.update.viewholder.JxcXzspHolder;
 import com.update.viewholder.KcpdXzspHolder;
 
 import java.net.URISyntaxException;
@@ -84,7 +82,6 @@ public class KcpdXzspActivity extends BaseActivity {
     private String tabname = "";
     private Map<String, Object> mParmMap;
     List<KtXzspData> list = new ArrayList<KtXzspData>();
-    List<KtXzspData> result = new ArrayList<KtXzspData>();
 
 
     @Override
@@ -98,7 +95,10 @@ public class KcpdXzspActivity extends BaseActivity {
         if (this.getIntent().hasExtra("tabname")) {
             tabname = this.getIntent().getExtras().getString("tabname");
         }
-
+        //判断是否是扫一扫
+        if (this.getIntent().hasExtra("barcode")) {
+            barcode = this.getIntent().getExtras().getString("barcode");
+        }
 
 //        mParms = getIntent().getStringExtra("parms");
         mParmMap = new HashMap<String, Object>();
@@ -107,8 +107,7 @@ public class KcpdXzspActivity extends BaseActivity {
 //        mParmMap.put("tabname", tabname);
         mParmMap.put("storeid", storeid);
         mParmMap.put("goodscode", "");
-        mParmMap.put("goodstype", mGoodstype);
-        mParmMap.put("cartypeid", cartypeid);
+
 
     }
 
@@ -126,7 +125,7 @@ public class KcpdXzspActivity extends BaseActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     if (list != null)
-                    list.clear();
+                        list.clear();
                     page_number = 0;
                     http(1);
                     return true;
@@ -137,11 +136,8 @@ public class KcpdXzspActivity extends BaseActivity {
 
         //判断是否是扫一扫
         if (this.getIntent().hasExtra("barcode")) {
-            barcode = this.getIntent().getExtras().getString("barcode");
             btJxtj.setVisibility(View.VISIBLE);
-
         }
-        mParmMap.put("barcode", barcode);//新增条码
         mFilterContentView.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
@@ -164,8 +160,7 @@ public class KcpdXzspActivity extends BaseActivity {
             }
 
             @Override
-            protected void MyonBindViewHolder(final KcpdXzspHolder.ViewHolder holder, final KtXzspData data) {
-                final int position = holder.getLayoutPosition();
+            protected void MyonBindViewHolder(final KcpdXzspHolder.ViewHolder holder, KtXzspData data) {
                 if (data.isCheck()) {
                     holder.cbView.setChecked(true);
                     holder.llBottom.setVisibility(View.VISIBLE);
@@ -193,7 +188,7 @@ public class KcpdXzspActivity extends BaseActivity {
                 holder.slView.setOnValueChange(new SLViewValueChange() {
                     @Override
                     public void onValueChange(double sl) {
-                        data.setNumber(sl);
+                        list.get(holder.getLayoutPosition()).setNumber(sl);
                     }
                 });
 
@@ -220,15 +215,15 @@ public class KcpdXzspActivity extends BaseActivity {
 
 
                 holder.etBz.setText(data.getMemo());
-                holder.etBz.setTag(position);
+                holder.etBz.setTag(holder.getLayoutPosition());
                 holder.etBz.addTextChangedListener(new CustomTextWatcher(new CustomTextWatcher.UpdateTextListener() {
                     @Override
                     public void updateText(String string) {
                         //关键点：1.给edittext设置tag，此tag用来与position做对比校验，验证当前选中的edittext是否为需要的控件;
 //                            2.焦点判断：只有当前有焦点的edittext才有更改数据的权限，否则会造成数据紊乱
 //                            3.edittext内数据变动直接直接更改datalist的数据值，以便滑动view时显示正确
-                        if ((Integer) holder.etBz.getTag() == position && holder.etBz.hasFocus()) {
-                            data.setMemo(string);
+                        if ((Integer) holder.etBz.getTag() == holder.getLayoutPosition() && holder.etBz.hasFocus()) {
+                            list.get(holder.getLayoutPosition()).setMemo(string);
                         }
                     }
                 }));
@@ -239,12 +234,13 @@ public class KcpdXzspActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         if (holder.cbView.isChecked()) {
-                            data.setCheck(true);
+                            list.get(holder.getLayoutPosition()).setCheck(true);
                             holder.llBottom.setVisibility(View.VISIBLE);
                         } else {
-                            data.setCheck(false);
+                            list.get(holder.getLayoutPosition()).setCheck(false);
                             holder.llBottom.setVisibility(View.GONE);
                         }
+                        LogUtils.e(list.get(holder.getLayoutPosition()).isCheck() + "");
                     }
                 });
                 //产品批号
@@ -252,13 +248,12 @@ public class KcpdXzspActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
-                        intent.putExtra("iscbj", data.getInfCostingtypeid() == 2);
+                        intent.putExtra("iscbj", list.get(holder.getLayoutPosition()).getInfCostingtypeid() == 2);
                         intent.putExtra("isxz", true);
                         intent.setClass(mActivity, JxcXzphActivity.class);
-                        intent.putExtra("goodsid", data.getGoodsid() + "");
-                        intent.putExtra("storied", storeid);
-                        intent.putExtra("position", position);
-                        intent.putExtra("position", position);
+                        intent.putExtra("goodsid", list.get(holder.getLayoutPosition()).getGoodsid() + "");
+                        intent.putExtra("storeid", storeid);
+                        intent.putExtra("position", holder.getLayoutPosition());
                         startActivityForResult(intent, 1);
                     }
                 });
@@ -270,8 +265,8 @@ public class KcpdXzspActivity extends BaseActivity {
                             @Override
                             public void OnClick(int requestCode, Object object) {
 
-                                data.setScrq((String) object);
-                                holder.etScrq.setText(data.getScrq());
+                                list.get(holder.getLayoutPosition()).setScrq((String) object);
+                                holder.etScrq.setText(list.get(holder.getLayoutPosition()).getScrq());
                             }
                         }).show();
 
@@ -281,15 +276,15 @@ public class KcpdXzspActivity extends BaseActivity {
                 holder.llYxqz.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (TextUtils.isEmpty(data.getScrq())) {
+                        if (TextUtils.isEmpty(list.get(holder.getLayoutPosition()).getScrq())) {
                             showShortToast("请先选择生产日期");
                             return;
                         }
-                        new DateSelectDialog(mActivity, DateUtil.StringTolongDate(data.getScrq(), "yyyy-MM-dd"), new OnDialogClickInterface() {
+                        new DateSelectDialog(mActivity, DateUtil.StringTolongDate(list.get(holder.getLayoutPosition()).getScrq(), "yyyy-MM-dd"), new OnDialogClickInterface() {
                             @Override
                             public void OnClick(int requestCode, Object object) {
-                                data.setYxqz((String) object);
-                                holder.etYxqz.setText(data.getYxqz());
+                                list.get(holder.getLayoutPosition()).setYxqz((String) object);
+                                holder.etYxqz.setText(list.get(holder.getLayoutPosition()).getYxqz());
                             }
                         }).show();
 
@@ -301,18 +296,18 @@ public class KcpdXzspActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
-                        if (TextUtils.isEmpty(data.getSerialinfo())) {
+                        if (TextUtils.isEmpty(list.get(holder.getLayoutPosition()).getSerialinfo())) {
                             UUID uuid = UUID.randomUUID();
-                            data.setSerialinfo(uuid.toString().toUpperCase());
+                            list.get(holder.getLayoutPosition()).setSerialinfo(uuid.toString().toUpperCase());
                         }
-                        intent.putExtra("position", position);
+                        intent.putExtra("position", holder.getLayoutPosition());
                         intent.putExtra("billid", "0");
-                        intent.putExtra("serialinfo", data.getSerialinfo());
-                        intent.putExtra("serials", new Gson().toJson(data.getMSerials()));
-                        intent.putExtra("goodsid", data.getGoodsid() + "");
+                        intent.putExtra("serialinfo", list.get(holder.getLayoutPosition()).getSerialinfo());
+                        intent.putExtra("serials", new Gson().toJson(list.get(holder.getLayoutPosition()).getMSerials()));
+                        intent.putExtra("goodsid", list.get(holder.getLayoutPosition()).getGoodsid() + "");
                         intent.putExtra("storeid", storeid);
 
-                        if (data.getSerialctrl().equals("T")) {
+                        if (list.get(holder.getLayoutPosition()).getSerialctrl().equals("T")) {
                             LogUtils.e("严格序列商品");
                             startActivityForResult(intent.setClass(mActivity, KcpdXzXlhActivity.class)
                                     .putExtra("parms", "KCPD")
@@ -349,6 +344,7 @@ public class KcpdXzspActivity extends BaseActivity {
                 startActivityForResult(new Intent(this, WeChatCaptureActivity.class), 18);
                 break;
             case R.id.bt_view:
+                List<KtXzspData> result = new ArrayList<KtXzspData>();
                 for (int i = 0; i < list.size(); i++) {
                     KtXzspData ktXzspData = list.get(i);
                     if (ktXzspData.isCheck()) {
@@ -391,9 +387,12 @@ public class KcpdXzspActivity extends BaseActivity {
     }
 
     private void http(int requestCode) {
+        mParmMap.put("barcode", barcode);//新增条码
+        mParmMap.put("goodstype", mGoodstype);
+        mParmMap.put("cartypeid", cartypeid);
         mParmMap.put("goodsname", search.getText().toString());
         mParmMap.put("curpage", page_number + 1);//当前页
-        presenter.post(requestCode, ServerURL.SELECTGOODS, mParmMap);
+        presenter.post(requestCode, ServerURL.SELECTGOODSKCPD, mParmMap);
     }
 
 
@@ -433,7 +432,7 @@ public class KcpdXzspActivity extends BaseActivity {
 
                 } else {
                     page_number = page_number + 1;
-                    mAdapter.setList( clsj(list));
+                    mAdapter.setList(clsj(list));
                 }
                 break;
             case 2:
@@ -444,7 +443,7 @@ public class KcpdXzspActivity extends BaseActivity {
                     showShortToast("没有更多内容");
                 } else {
                     page_number = page_number + 1;
-                    list.addAll( clsj(myList));
+                    list.addAll(clsj(myList));
                     mAdapter.setList(list);
                 }
                 break;
@@ -487,9 +486,9 @@ public class KcpdXzspActivity extends BaseActivity {
                 list.get(index).setYxqz(data.getExtras().getString("yxrq"));
                 list.get(index).setBatchrefid(data.getExtras().getString("id"));
                 list.get(index).setCbj(data.getExtras().getString("cbj"));
-                Double onhand = Double.parseDouble(data.getExtras().getString("onhand"));
-                list.get(index).setOnhand(onhand);
-                list.get(index).setNumber(onhand);
+                Double onhand = data.getDoubleExtra("onhand",0.0);/*Double.parseDouble(data.getExtras().getString("onhand"))*/
+                list.get(index).setNumber(onhand);//修改批号后 实盘数量默认=当前选择批号的账面数量
+                list.get(index).setOnhand(onhand);//
                 mAdapter.notifyDataSetChanged();
                 break;
             case 4://选择价格
@@ -510,7 +509,7 @@ public class KcpdXzspActivity extends BaseActivity {
             case 18:
                 page_number = 0;
                 barcode = data.getStringExtra("qr");
-                http(1);
+                http(2);
                 break;
         }
     }
@@ -558,7 +557,7 @@ public class KcpdXzspActivity extends BaseActivity {
                         }
                         page_number = 0;
                         if (list != null)
-                        list.clear();
+                            list.clear();
                         http(1);
 
                     }

@@ -1,13 +1,5 @@
 package com.cr.activity.jxc.ckgl.kcpd;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,19 +23,26 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 进销存-仓库管理-库存盘点
- * 
+ *
  * @author Administrator
- * 
  */
 public class JxcCkglKcpdActivity extends BaseActivity implements OnClickListener {
     private JxcCkglKcpdAdapter adapter;
-    private XListView          listView;
-    EditText                   searchEditText;
-    ImageButton                sxButton, xzButton;
-    List<Map<String, Object>>  list = new ArrayList<Map<String, Object>>();
-    String                     qsrq, jzrq, shzt = "0", cname;
+    private XListView listView;
+    EditText searchEditText;
+    ImageButton sxButton, xzButton;
+    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    String qsrq, jzrq, shzt = "0", cname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +75,7 @@ public class JxcCkglKcpdActivity extends BaseActivity implements OnClickListener
         searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
-                    || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                        || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     list.clear();
                     currentPage = 1;
                     searchDate();
@@ -105,13 +104,16 @@ public class JxcCkglKcpdActivity extends BaseActivity implements OnClickListener
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                if (list.size() == 0) {
+                    return;
+                }
                 Intent intent = new Intent(context, JxcCkglKcpdDetailActivity.class);
-                intent.putExtra("billid", list.get(arg2-1).get("billid").toString());
-                if(JxcCkglKcpdActivity.this.getIntent().hasExtra("select")){//如果是添加订单时候关联的操作
-                    setResult(RESULT_OK,intent);
+                intent.putExtra("billid", list.get(arg2 - 1).get("billid").toString());
+                if (JxcCkglKcpdActivity.this.getIntent().hasExtra("select")) {//如果是添加订单时候关联的操作
+                    setResult(RESULT_OK, intent);
                     finish();
-                }else{//否则就是正常情况的打开
-                    startActivityForResult(intent,1);
+                } else {//否则就是正常情况的打开
+                    startActivityForResult(intent, 1);
                     adapter.setSelectIndex(arg2);
                 }
             }
@@ -133,23 +135,23 @@ public class JxcCkglKcpdActivity extends BaseActivity implements OnClickListener
         parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
-        findServiceData2(0, ServerURL.BILLLIST, parmMap, false);
+        findServiceData2(0, ServerURL.BILLLIST, parmMap, true);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
-    	if(returnJson.equals("nmyqx")){
-    		Toast.makeText(this,"您没有该功能菜单的权限！请与管理员联系！", Toast.LENGTH_SHORT)
-			.show();
-    		new Handler().postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					finish();
-				}
-			}, 300);
-    		return;
-    	}
+        if (returnJson.equals("nmyqx")) {
+            Toast.makeText(this, "您没有该功能菜单的权限！请与管理员联系！", Toast.LENGTH_SHORT)
+                    .show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 300);
+            return;
+        }
         if (returnJson.equals("")) {
             showToastPromopt(2);
         } else {
@@ -185,28 +187,28 @@ public class JxcCkglKcpdActivity extends BaseActivity implements OnClickListener
      * 刷新
      */
     private IXListViewListener xListViewListener = new IXListViewListener() {
-                                                     @Override
-                                                     public void onRefresh() {
-                                                         handler.postDelayed(new Runnable() {// 实现延迟2秒加载刷新
-                                                                 @Override
-                                                                 public void run() {
-                                                                     // 不实现顶部刷新
-                                                                 }
-                                                             }, 2000);
-                                                     }
+        @Override
+        public void onRefresh() {
+            handler.postDelayed(new Runnable() {// 实现延迟2秒加载刷新
+                @Override
+                public void run() {
+                    // 不实现顶部刷新
+                }
+            }, 2000);
+        }
 
-                                                     @Override
-                                                     public void onLoadMore() {
-                                                         handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
-                                                                 @Override
-                                                                 public void run() {
-                                                                     currentPage++;
-                                                                     searchDate();
-                                                                     onLoad();
-                                                                 }
-                                                             }, 2000);
-                                                     }
-                                                 };
+        @Override
+        public void onLoadMore() {
+            handler.postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
+                @Override
+                public void run() {
+                    currentPage++;
+                    searchDate();
+                    onLoad();
+                }
+            }, 2000);
+        }
+    };
 
     @SuppressWarnings("deprecation")
     private void onLoad() {// 停止刷新和加载功能，并且显示时间

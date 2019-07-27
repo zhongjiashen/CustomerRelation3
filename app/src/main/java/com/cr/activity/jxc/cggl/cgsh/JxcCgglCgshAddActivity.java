@@ -624,7 +624,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                         Map<String, Object> map = list.get(i);
                         ze += Double.parseDouble(map.get("amount").toString());
                     }
-                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(ze + "") + "");
+                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(ze ));
                     break;
                 case 5://选中单据成功后返回
                     addScrollview.setVisibility(View.VISIBLE);//隐藏关联销售单据的Linearlayout

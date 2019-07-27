@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzphActivity;
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 /**
@@ -85,9 +86,9 @@ public class JxcCgglCgfkXzyyDetail2Activity extends BaseActivity implements OnCl
             }
             djbhTextView.setText("单据编号：" + object.get("code").toString());
             djrqTextView.setText("单据日期：" + object.get("billdate").toString());
-            zeTextView.setText("总额：￥" + object.get("total").toString());
-            yfTextView.setText("已付：￥" + object.get("totalrcvd").toString());
-            wfTextView.setText("未付：￥" + object.get("shouldpayamt").toString());
+            zeTextView.setText("总额：￥" + FigureTools.sswrFigure(object.get("total").toString()));
+            yfTextView.setText("已付：￥" + FigureTools.sswrFigure(object.get("totalrcvd").toString()));
+            wfTextView.setText("未付：￥" + FigureTools.sswrFigure(object.get("shouldpayamt").toString()));
             bcjsEditText.setText((object.get("amount")==null?object.get("bcjs").toString():object.get("amount").toString()));
 //            if(object.get("batchctrl")!=null&&object.get("batchctrl").toString().equals("T")){
 //            	cpphLayout.setVisibility(View.VISIBLE);

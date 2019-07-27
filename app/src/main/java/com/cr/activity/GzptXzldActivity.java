@@ -42,7 +42,7 @@ import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
 /**
- * 新增来电
+ * 来电录入
  *
  * @author Administrator
  */
@@ -211,10 +211,13 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
 //				intent.putExtra("lxrid", "0");// 单位ID为0，表示新增
 //				intent.putExtra("clientid", "0");// 单位ID为0，表示新增
 //				startActivity(intent);
+                    /**
+                     * 1、来电录入 另存为功能完善，增加联系人存储：新增联系人、另存已有联系人；
+                     */
                     new AlertDialog.Builder(activity)
                             .setTitle("无对应客户信息")
                             .setMultiChoiceItems(
-                                    new String[]{"新增单位", "保存至已有单位"}, null,
+                                    new String[]{"新增单位", "保存至已有单位", "新增联系人", "另存已有联系人"}, null,
                                     new OnMultiChoiceClickListener() {
                                         @Override
                                         public void onClick(DialogInterface arg0, int arg1,
@@ -238,7 +241,19 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                                                     startActivity(intent);
                                                     arg0.dismiss();
                                                     break;
-
+                                                case 2://新增联系人
+                                                    intent.setClass(activity, GzptDwzlLxrBjlxrActivity.class);
+                                                    intent.putExtra("lxrid", "0");
+                                                    intent.putExtra("tel", list.get(selectIndex).getTel());
+//                                                    intent.putExtra("clientid", clientId);
+                                                    startActivity(intent);
+                                                    arg0.dismiss();
+                                                    break;
+                                                case 3://另存已有联系人
+                                                    intent.setClass(activity, LxfsActivity.class);
+                                                    intent.putExtra("tel", list.get(selectIndex).getTel());
+                                                    startActivity(intent);
+                                                    break;
                                                 default:
                                                     break;
                                             }

@@ -84,6 +84,30 @@
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        >
-    </android.support.v4.view.ViewPager>
+        />
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<Button
+			android:id="@+id/bt_ywlr"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:background="@color/gray"
+			android:text="业务录入"
+			android:textColor="@color/colorPrimary"/>
+
+		<View
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@color/black_line_color"/>
+		<Button
+			android:id="@+id/bt_xzlxr"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:background="@color/gray"
+			android:text="新增联系人"
+			android:textColor="@color/colorPrimary"/>
+	</LinearLayout>
 </LinearLayout>

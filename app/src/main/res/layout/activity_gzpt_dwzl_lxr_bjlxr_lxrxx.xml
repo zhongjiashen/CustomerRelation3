@@ -10,6 +10,39 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <LinearLayout
+            android:id="@+id/ll_unit_name_choice"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/context_hight"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="单位名称"
+
+                android:textSize="@dimen/word_jmedium" />
+
+            <TextView
+                android:id="@+id/tv_unit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/word_small" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/xyb_jt" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
         <LinearLayout style="@style/detail_relativelayout" >
 
             <TextView

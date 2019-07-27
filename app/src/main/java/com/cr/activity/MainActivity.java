@@ -29,8 +29,14 @@ import com.permission.PermissionsChecker;
 
 import java.util.List;
 
+/**
+ * 起始页
+ */
 public class MainActivity extends BaseActivity implements OnClickListener {
 	private EditText ipEditText;
+	/**
+	 * 端口输入框
+	 */
 	private EditText dkEditText;
 	private ImageButton ljButton;
 	private ImageButton tcButton;
@@ -129,7 +135,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-	// 调用网络查询出特定接口的数据
+	/**
+	 * 调用网络查询出特定接口的数据
+	 */
 	private void saveDbData() {
 		new Thread(new Runnable() {
 			public void run() {
@@ -162,7 +170,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case R.id.main_lj:
+		case R.id.main_lj://链接按钮点击事件
 			// if(serviceIntent!=null){
 			// Log.v("dddd", "停止serice");
 			// stopService(serviceIntent);
@@ -175,7 +183,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 				return;
 			}
 			saveDbData();// 保存信息到服务器当中
-			serviceIntent = new Intent(this, SocketService.class);
+			/*serviceIntent = new Intent(this, SocketService.class);
 			String i = ipEditText.getText().toString();
 			i = i.replace("http://", "");
 			i = "http://" + i;
@@ -183,14 +191,16 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			startService(serviceIntent);
 			progressDialog = ProgressDialog.show(MainActivity.this, "请稍等...",
 					"连接服务器中......", false); // 打开进度条
-			progressDialog.setCancelable(true);
-			// intent = new Intent(MainActivity.this, LoginActivity.class);
-			// startActivity(intent);
+			progressDialog.setCancelable(true);*/
+
+			Intent intent2 = new Intent(this, LoginActivity.class);
+			intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent2);
 			break;
-		case R.id.main_tc:
+		case R.id.main_tc://退出按钮点击事件
 			finish();
 			break;
-		case R.id.sz_imagebutton:
+		case R.id.sz_imagebutton://设置按钮点击事件
 			final EditText editText=new EditText(this);
 			editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 			if(ShareUserInfo.getKey(context, "socketPort").equals("")){

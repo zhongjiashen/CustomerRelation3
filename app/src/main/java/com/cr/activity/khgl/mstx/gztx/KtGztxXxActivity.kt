@@ -13,6 +13,7 @@ import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity
 import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity
 import com.cr.model.GSGG
+import com.cr.tools.FigureTools
 import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
@@ -185,7 +186,7 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvC.visibility = View.VISIBLE
                             holder.tvC.text = data["cname"].toString()
                             holder.tvD.visibility = View.VISIBLE
-                            holder.tvD.text = "收款金额：￥" + data["je"].toString()
+                            holder.tvD.text = "收款金额：￥" + FigureTools.sswrFigure(data["je"].toString())
                             holder.tvE.visibility = View.VISIBLE
                             holder.tvE.text = "限定日期：" + data["rq"].toString()
                             holder.itemView.setOnClickListener {
@@ -203,7 +204,7 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvC.visibility = View.VISIBLE
                             holder.tvC.text = data["cname"].toString()
                             holder.tvD.visibility = View.VISIBLE
-                            holder.tvD.text = "付款金额：￥" + data["je"].toString()
+                            holder.tvD.text = "付款金额：￥" + FigureTools.sswrFigure(data["je"].toString())
                             holder.tvE.visibility = View.VISIBLE
                             holder.tvE.text = "限定日期：" + data["rq"].toString()
                             holder.itemView.setOnClickListener {

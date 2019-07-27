@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class JxcCgglCgshAdapter extends BaseAdapter {
@@ -62,7 +63,7 @@ public class JxcCgglCgshAdapter extends BaseAdapter {
 		viewHolder.rqTextView.setText(objMap.get("billdate").toString());
 		viewHolder.bhTextView.setText(objMap.get("code").toString());
 		viewHolder.nameTextView.setText(objMap.get("cname").toString());
-		viewHolder.moneyTextView.setText("￥"+objMap.get("amount").toString());
+		viewHolder.moneyTextView.setText("￥"+ FigureTools.sswrFigure(objMap.get("amount").toString()));
 		if(objMap.get("shzt").toString().equals("0")){
 		    viewHolder.shImageView.setBackgroundResource(R.drawable.wsh);
 		}else if(objMap.get("shzt").toString().equals("1")){

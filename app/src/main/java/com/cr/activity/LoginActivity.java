@@ -53,7 +53,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initActivity();
-        findServiceData3(0, ServerURL.ACCSET, null);// 查询帐套信息
+        if (getIntent().getBooleanExtra("isPublic", false)) {
+            Map map=new HashMap();
+            map.put("webuserid",getIntent().getStringExtra("webuserid"));
+            map.put("verregids",getIntent().getStringExtra("verregids"));
+            map.put("pass", "030728");
+            findServiceData3(0, "accsetsaas", map);// 查询帐套信息
+
+        } else {
+            findServiceData3(0, ServerURL.ACCSET, null);// 查询帐套信息
+        }
     }
 
     /**
@@ -160,8 +169,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                                 + userLogin.getOpname() + ","
                                 + ztSpinner.getSelectedItem().toString() + "," + dbName + ",1";
                         //					Log.v("dddd", s);
-                        SocketService.sendMsg(s);
-                        SocketService.keepAlive();
+//                        SocketService.sendMsg(s);
+//                        SocketService.keepAlive();
                         Intent intent = new Intent(this, IndexActivity.class);
                         startActivity(intent);
                         // Intent intent2=new Intent(this,TxService.class);
@@ -178,12 +187,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     public void onExecuteFh() {
         // TODO Auto-generated method stub
         super.onExecuteFh();
-        try {
-            SocThread.client.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        try {
+//            SocThread.client.close();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
 

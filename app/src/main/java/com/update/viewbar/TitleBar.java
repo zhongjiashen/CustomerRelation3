@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +91,15 @@ public class TitleBar extends RelativeLayout {
      * @param text
      */
     public void setRightText(String text) {
-        tvRight.setVisibility(VISIBLE);
+        /**
+         * 如果文本为空隐藏按钮
+         */
+        if (TextUtils.isEmpty(text)) {
+            tvRight.setVisibility(GONE);
+        } else {
+            tvRight.setVisibility(VISIBLE);
+
+        }
         tvRight.setText(text);
     }
 
@@ -145,11 +154,11 @@ public class TitleBar extends RelativeLayout {
                 mTitleOnlicListener.onClick(1);
                 break;
             case R.id.tv_right:
-                if(time==0||System.currentTimeMillis()-time>5000) {
+                if (time == 0 || System.currentTimeMillis() - time > 5000) {
                     mTitleOnlicListener.onClick(2);
-                    time=System.currentTimeMillis();
-                }else {
-                    Toast.makeText(mActivity,"请不要频繁点击，防止重复保存",Toast.LENGTH_SHORT).show();
+                    time = System.currentTimeMillis();
+                } else {
+                    Toast.makeText(mActivity, "请不要频繁点击，防止重复保存", Toast.LENGTH_SHORT).show();
                 }
 
                 break;

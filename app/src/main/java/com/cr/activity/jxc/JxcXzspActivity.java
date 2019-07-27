@@ -315,7 +315,7 @@ public class JxcXzspActivity extends BaseActivity {
 
                         intent.setClass(mActivity, JxcXzphActivity.class);
                         intent.putExtra("goodsid", data.getGoodsid() + "");
-                        intent.putExtra("storied", storeid);
+                        intent.putExtra("storeid", storeid);
                         intent.putExtra("position", position);
                         intent.putExtra("position", position);
                         startActivityForResult(intent, 1);

@@ -165,7 +165,7 @@
     <string name="khgl_jxsyjd">仅显示有项目进度</string>
     <string name="khgl_lx">类&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;型</string>
     <string name="khgl">客户管理</string>
-    <string name="jxsyjhjd">仅显示有机会阶段</string>
+    <string name="jxsyjhjd">拜访阶段</string>
     <string name="abf">按拜访</string>
     <string name="jsrq">结束日期</string>
     <string name="khgl_qb">全部</string>
@@ -206,7 +206,7 @@
 
     <!-- 新增来电 -->
     <string name="xzld">新增来电</string>
-    <string name="ldlr">来电录入</string>
+    <string name="ldlr"></string>
     <!-- 销售单 -->
     <string name="xsd_djbh">单据编号：</string>
     <string name="xsd_hkfs">回款方式：</string>

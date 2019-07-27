@@ -49,7 +49,7 @@ public class JxcCgglCgfkDetailAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.bhmcggTextView.setText(objMap.get("code").toString()+" / "+objMap.get("name").toString()+" / "+objMap.get("specs").toString()+" / "+objMap.get("model").toString());
-		viewHolder.djTextView.setText("￥"+objMap.get("unitprice").toString()+"*"+objMap.get("unitqty").toString()+""+objMap.get("unitname").toString());
+		viewHolder.djTextView.setText("￥"+FigureTools.sswrFigure(objMap.get("unitprice").toString())+"*"+objMap.get("unitqty").toString()+""+objMap.get("unitname").toString());
 //		viewHolder.zjTextView.setText("￥"+FigureTools.sswrFigure(Integer.parseInt(objMap.get("unitprice").toString())*Integer.parseInt(objMap.get("unitqty").toString()));
 		return convertView;
 	}
