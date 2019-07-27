@@ -65,14 +65,14 @@ android {
 //            applicationId 'com.crenp.activity4'
 //
 //        }
-        ITQYB {
-            buildConfigField "int", "TYPE", "5"
-            buildConfigField "String", "URL", "\"/crmenpserver/n_crmwebserver.asmx?WSDL\""
-            resValue("string", "app_name", "恒视CRM_IT企业版")
-            resValue("string", "tgb", "IT企业版V1.0")
-            resValue("string", "hscrm", "恒视CRM_IT企业版")
-            applicationId 'com.crenp.activity5'
-        }
+//        ITQYB {
+//            buildConfigField "int", "TYPE", "5"
+//            buildConfigField "String", "URL", "\"/crmenpserver/n_crmwebserver.asmx?WSDL\""
+//            resValue("string", "app_name", "恒视CRM_IT企业版")
+//            resValue("string", "tgb", "IT企业版V1.0")
+//            resValue("string", "hscrm", "恒视CRM_IT企业版")
+//            applicationId 'com.crenp.activity5'
+//        }
 //        ITZYB {
 //            buildConfigField "int", "TYPE", "6"
 //            buildConfigField "String", "URL", "\"/crmitserver/n_crmwebserver.asmx?WSDL\""
@@ -82,14 +82,14 @@ android {
 //            applicationId 'com.crenp.activity6'
 //        }
 //
-//        GMB {
-//            buildConfigField "int", "TYPE", "3"
-//            buildConfigField "String", "URL", "\"/crmerpserver/n_crmwebserver.asmx?WSDL\""
-//            resValue("string", "app_name", "恒视CRM_工贸版")
-//            resValue("string", "tgb", "工贸版V1.0")
-//            resValue("string", "hscrm", "恒视CRM_工贸版")
-//            applicationId 'com.crenp.activity8'
-//        }
+        GMB {
+            buildConfigField "int", "TYPE", "3"
+            buildConfigField "String", "URL", "\"/crmerpserver/n_crmwebserver.asmx?WSDL\""
+            resValue("string", "app_name", "恒视CRM_工贸版")
+            resValue("string", "tgb", "工贸版V1.0")
+            resValue("string", "hscrm", "恒视CRM_工贸版")
+            applicationId 'com.crenp.activity8'
+        }
 
     }
 }
@@ -109,14 +109,16 @@ dependencies {
     /*butterknife*/
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
-    compile project(':pickerview')
+
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.3'
-    compile project(':zxinglite')
+
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':filter-lib')
+    implementation project(':zxinglite')
+    implementation project(':pickerview')
 }
 repositories {
     mavenCentral()
