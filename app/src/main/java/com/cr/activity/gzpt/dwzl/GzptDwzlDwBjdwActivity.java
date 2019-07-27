@@ -458,117 +458,6 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         saveImageView.setOnClickListener(this);
     }
 
-    /**
-     * 连接网络的操作(查询单位信息)
-     */
-    private void searchDateDwxx(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("clientid", clientId);
-        findServiceData(type, ServerURL.CLIENTINFO, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(查询联系方式)
-     */
-    private void searchDateLxfs(int type) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        // parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("clientid", clientId);
-        parmMap.put("havelxr", "0");
-        findServiceData(type, ServerURL.CLIENTLXFSLIST, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(保存单位信息)
-     */
-    private void searchDateSaveDw(int type) {
-        if (khmcEditText.getText().toString().equals("")) {
-            showToastPromopt("单位不能为空！");
-            return;
-        } else if (khlbEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择客户类别！");
-            return;
-        } else if (khdjEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择客户等级！");
-            return;
-        }
-        // else if (khlxEditText.getText().toString().equals("")) {
-        // showToastPromopt("请选择客户类型！");
-        // return;
-        // }else if (hylxEditText.getText().toString().equals("")) {
-        // showToastPromopt("请选择行业类型！");
-        // return;
-        // }else if (khlyEditText.getText().toString().equals("")) {
-        // showToastPromopt("请选择客户来源！");
-        // return;
-        // }
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("clientid", clientId);
-        parmMap.put("types", khlbId);
-        parmMap.put("cname", khmcEditText.getText().toString());
-        String dq = mCurrentProviceName + "/" + mCurrentCityName + "/"
-                + mCurrentDistrictName;
-        parmMap.put("areafullname", dqEditText.getText().toString());
-        parmMap.put("areatypeid", "");
-        parmMap.put("typeid", khdjId);
-        parmMap.put("hytypeid", hylxId);
-        parmMap.put("csourceid", khlyId);
-        parmMap.put("khtypeid", khlxId);
-        parmMap.put("frdb", frdbEditText.getText().toString());
-        parmMap.put("cnet", wzEditText.getText().toString());
-        parmMap.put("fax", czEditText.getText().toString());
-        parmMap.put("address", dzEditText.getText().toString());
-        parmMap.put("memo", bzEditText.getText().toString());
-        findServiceData(type, ServerURL.CLIENTSAVE, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(删除联系方式)
-     */
-    private void searchDateDelLxfs(int type, String ids) {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        // parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("ids", ids);
-        parmMap.put("itemtype", "LXFS");
-        findServiceData(type, ServerURL.DELDATA, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(单位联系方式保存)
-     */
-    private void searchDateSave() {
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("id", "0");
-        parmMap.put("clientid", clientId);
-        parmMap.put("lxrid", "0");
-        parmMap.put("lb", tel.length() == 11 ? "2" : "1");
-        parmMap.put("itemno", tel);
-        findServiceData(4, ServerURL.LXFSSAVE, parmMap);
-    }
-
-    /**
-     * 连接网络的操作(单位联系方式保存)
-     */
-
-    private void SaveLxrSave(String cid) {
-        if (TextUtils.isEmpty(dhhm)) {
-            return;
-        }
-        Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("id", "0");
-        parmMap.put("clientid", cid);
-        parmMap.put("lxrid", "0");
-        parmMap.put("lb", dhhm.length() == 11 ? "2" : "1");
-        parmMap.put("itemno", dhhm);
-        findServiceData2(10, ServerURL.LXFSSAVE, parmMap, false);
-    }
 
     /**
      * 监听事件
@@ -681,13 +570,14 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                 startActivity(new Intent(this, GzptDwzlActivity.class).putExtra("object", (Serializable) map));
                 break;
             case R.id.bt_xzlxr:
-                if(TextUtils.isEmpty(clientId)||"0".equals(clientId)){
+                if (TextUtils.isEmpty(clientId) || "0".equals(clientId)) {
                     showToastPromopt("请先保存数据");
                     return;
                 }
                 intent.setClass(activity, GzptDwzlLxrBjlxrActivity.class);
                 intent.putExtra("lxrid", "0");
                 intent.putExtra("clientid", clientId);
+                intent.putExtra("clientname", khmcEditText.getText().toString());
                 startActivity(intent);
 
                 break;
@@ -695,6 +585,119 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                 break;
         }
     }
+    /**
+     * 连接网络的操作(查询单位信息)
+     */
+    private void searchDateDwxx(int type) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("clientid", clientId);
+        findServiceData(type, ServerURL.CLIENTINFO, parmMap);
+    }
+
+    /**
+     * 连接网络的操作(查询联系方式)
+     */
+    private void searchDateLxfs(int type) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        // parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("clientid", clientId);
+        parmMap.put("havelxr", "0");
+        findServiceData(type, ServerURL.CLIENTLXFSLIST, parmMap);
+    }
+
+    /**
+     * 连接网络的操作(保存单位信息)
+     */
+    private void searchDateSaveDw(int type) {
+        if (khmcEditText.getText().toString().equals("")) {
+            showToastPromopt("单位不能为空！");
+            return;
+        } else if (khlbEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择客户类别！");
+            return;
+        } else if (khdjEditText.getText().toString().equals("")) {
+            showToastPromopt("请选择客户等级！");
+            return;
+        }
+        // else if (khlxEditText.getText().toString().equals("")) {
+        // showToastPromopt("请选择客户类型！");
+        // return;
+        // }else if (hylxEditText.getText().toString().equals("")) {
+        // showToastPromopt("请选择行业类型！");
+        // return;
+        // }else if (khlyEditText.getText().toString().equals("")) {
+        // showToastPromopt("请选择客户来源！");
+        // return;
+        // }
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("clientid", clientId);
+        parmMap.put("types", khlbId);
+        parmMap.put("cname", khmcEditText.getText().toString());
+        String dq = mCurrentProviceName + "/" + mCurrentCityName + "/"
+                + mCurrentDistrictName;
+        parmMap.put("areafullname", dqEditText.getText().toString());
+        parmMap.put("areatypeid", "");
+        parmMap.put("typeid", khdjId);
+        parmMap.put("hytypeid", hylxId);
+        parmMap.put("csourceid", khlyId);
+        parmMap.put("khtypeid", khlxId);
+        parmMap.put("frdb", frdbEditText.getText().toString());
+        parmMap.put("cnet", wzEditText.getText().toString());
+        parmMap.put("fax", czEditText.getText().toString());
+        parmMap.put("address", dzEditText.getText().toString());
+        parmMap.put("memo", bzEditText.getText().toString());
+        findServiceData(type, ServerURL.CLIENTSAVE, parmMap);
+    }
+
+    /**
+     * 连接网络的操作(删除联系方式)
+     */
+    private void searchDateDelLxfs(int type, String ids) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        // parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("ids", ids);
+        parmMap.put("itemtype", "LXFS");
+        findServiceData(type, ServerURL.DELDATA, parmMap);
+    }
+
+    /**
+     * 连接网络的操作(单位联系方式保存)
+     */
+    private void searchDateSave() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("id", "0");
+        parmMap.put("clientid", clientId);
+        parmMap.put("lxrid", "0");
+        parmMap.put("lb", tel.length() == 11 ? "2" : "1");
+        parmMap.put("itemno", tel);
+        findServiceData(4, ServerURL.LXFSSAVE, parmMap);
+    }
+
+    /**
+     * 连接网络的操作(单位联系方式保存)
+     */
+
+    private void SaveLxrSave(String cid) {
+        if (TextUtils.isEmpty(dhhm)) {
+            return;
+        }
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("id", "0");
+        parmMap.put("clientid", cid);
+        parmMap.put("lxrid", "0");
+        parmMap.put("lb", dhhm.length() == 11 ? "2" : "1");
+        parmMap.put("itemno", dhhm);
+        findServiceData2(10, ServerURL.LXFSSAVE, parmMap, false);
+    }
+
+
 
     /**
      * 选择省

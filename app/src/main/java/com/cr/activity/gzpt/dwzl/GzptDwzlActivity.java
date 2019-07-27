@@ -378,6 +378,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 intent.setClass(this, GzptDwzlLxrBjlxrActivity.class);
                 intent.putExtra("lxrid", "0");
                 intent.putExtra("clientid", clientId);
+                intent.putExtra("clientname", khmc);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.bflr_textview:

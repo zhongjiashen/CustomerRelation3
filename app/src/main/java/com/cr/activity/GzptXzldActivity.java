@@ -228,7 +228,6 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                                                 case 0:/**新增单位*/
                                                     intent.putExtra("clientid", "0");
                                                     intent.putExtra("khlbid", "1");
-
                                                     intent.putExtra("tel", list.get(selectIndex).getTel());
                                                     intent.putExtra("dhmc", list.get(selectIndex).getName());
 //                                                    intent.setClass(activity, XzDwActivity.class);

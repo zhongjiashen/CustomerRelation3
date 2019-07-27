@@ -79,6 +79,7 @@ public class GzptXzldBclxfsActivity extends BaseActivity implements
         // findServiceData(xzrqEditText.getText().toString());//
         // 开启子线程获取特定接口的服务器数据用于更新页面
     }
+
     @Override
     public void onClick(View arg0) {
         Intent intent = new Intent();
@@ -100,6 +101,9 @@ public class GzptXzldBclxfsActivity extends BaseActivity implements
                 startActivityForResult(intent, 1);
                 break;
 
+            /**
+             * 业务录入按钮点击事件
+             */
             case R.id.bt_bottom:
                 /**
                  * 判断单据是否已经保存，保存过之后才能点击业务录入按钮
@@ -133,6 +137,7 @@ public class GzptXzldBclxfsActivity extends BaseActivity implements
             }
         }
     }
+
     // 调用网络查询出特定接口的数据
     private void findServiceData2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
@@ -163,8 +168,6 @@ public class GzptXzldBclxfsActivity extends BaseActivity implements
                 break;
         }
     }
-
-
 
 
 }

@@ -75,6 +75,7 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gzpt_dwzl_lxr_bjlxr);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mClientname=getIntent().getStringExtra("clientname");
         if (this.getIntent().hasExtra("lxrid")) {
             lxrId = this.getIntent().getExtras().getString("lxrid");
             mClientid = this.getIntent().getExtras().getString("clientid");
@@ -185,9 +186,9 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
         llUnitNameChoice = lxrxxView.findViewById(R.id.ll_unit_name_choice);
         llUnitNameChoice.setOnClickListener(this);
         tvUnitName = lxrxxView.findViewById(R.id.tv_unit_name);
+        tvUnitName.setText(mClientname);
 
-//        lxfsEditText=(EditText) findViewById(R.id.lxfs_edittext);
-//        lxfsEditText.setOnClickListener(this);
+
     }
 
     /**
@@ -229,7 +230,7 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.dwxx_textview:
+            case R.id.lxrxx_textview:
                 viewPager.setCurrentItem(0);
                 corsor1.setBackgroundResource(R.drawable.index_selectcorsor);
                 corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
