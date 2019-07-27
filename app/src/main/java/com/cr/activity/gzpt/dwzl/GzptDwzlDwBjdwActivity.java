@@ -522,6 +522,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         parmMap.put("cnet", wzEditText.getText().toString());
         parmMap.put("fax", czEditText.getText().toString());
         parmMap.put("address", dzEditText.getText().toString());
+        parmMap.put("memo", bzEditText.getText().toString());
         findServiceData(type, ServerURL.CLIENTSAVE, parmMap);
     }
 
