@@ -18,6 +18,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
@@ -313,9 +314,11 @@ public class JxcCkglKcbdAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 6);
                 break;
             case R.id.bdck_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "STORE");
+                intent.setClass(activity, CkxzActivity.class);
                 startActivityForResult(intent, 7);
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "STORE");
+//                startActivityForResult(intent, 7);
                 break;
 
 

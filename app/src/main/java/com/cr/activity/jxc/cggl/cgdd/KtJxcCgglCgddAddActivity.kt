@@ -12,6 +12,7 @@ import android.widget.BaseAdapter
 
 
 import com.cr.activity.BaseActivity
+import com.cr.activity.CkxzActivity
 import com.cr.activity.common.*
 import com.cr.activity.jxc.cggl.KtCgglSpxq2Activity
 import com.cr.activity.jxc.cggl.KtCgglSpxqActivity
@@ -172,9 +173,11 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         //关联单据仓库选择
         rkck_edittext.setOnClickListener {
             val intent = Intent()
-            intent.setClass(activity, CommonXzzdActivity::class.java)
-            intent.putExtra("type", "STORE")
+            intent.setClass(activity, CkxzActivity::class.java)
             startActivityForResult(intent, 6)
+//            intent.setClass(activity, CommonXzzdActivity::class.java)
+//            intent.putExtra("type", "STORE")
+//            startActivityForResult(intent, 6)
         }
         /**
          * 选择发票类型

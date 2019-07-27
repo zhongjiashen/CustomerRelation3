@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdjlxActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
@@ -331,9 +332,11 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 6);
                 break;
             case R.id.ck_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "STORE");
+                intent.setClass(activity, CkxzActivity.class);
                 startActivityForResult(intent, 7);
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "STORE");
+//                startActivityForResult(intent, 7);
                 break;
             case R.id.xzsp2_linearlayout:
             	if(ckEditText.getText().toString().equals("")){

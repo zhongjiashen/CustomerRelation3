@@ -18,6 +18,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.KtXzspData;
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter;
@@ -353,9 +354,11 @@ public class JxcCkglKcpdAddActivity extends BaseActivity implements OnClickListe
 //                startActivityForResult(intent, 3);
 //                break;
             case R.id.pdck_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "STORE");
+                intent.setClass(activity, CkxzActivity.class);
                 startActivityForResult(intent, 6);
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "STORE");
+//                startActivityForResult(intent, 6);
                 break;
             case R.id.save_imagebutton:
                 if (time == 0 || System.currentTimeMillis() - time > 5000) {

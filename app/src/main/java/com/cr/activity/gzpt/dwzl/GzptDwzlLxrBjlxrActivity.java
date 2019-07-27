@@ -223,6 +223,84 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
     }
 
     /**
+     * 监听事件
+     */
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.dwxx_textview:
+                viewPager.setCurrentItem(0);
+                corsor1.setBackgroundResource(R.drawable.index_selectcorsor);
+                corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
+                break;
+            case R.id.lxfs_textview:
+                if (lxrId.equals("0")) {
+                    showToastPromopt("请先保存联系人信息");
+                    return;
+                }
+                viewPager.setCurrentItem(1);
+                corsor2.setBackgroundResource(R.drawable.index_selectcorsor);
+                corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
+                if (!isLxfs) {
+                    lxfsList.clear();
+                    searchDateLxfs(1);
+                    isLxfs = true;
+                }
+                break;
+            case R.id.add_imageview:
+                intent.setClass(this, GzptDwzlLxrBjlxrLxfsAddActivity.class);
+                intent.putExtra("clientid", mClientid);
+                intent.putExtra("lxrid", lxrId);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.del_imageview:
+                String ids = "";
+                List<Map<String, Object>> maps = lxfsAdapter.getList();
+                for (int i = 0; i < maps.size(); i++) {
+                    Map<String, Object> map = maps.get(i);
+                    if (map.get("select") != null && map.get("select").toString().equals("true")) {
+                        ids += map.get("id") + ",";
+                    }
+                }
+                if (ids.equals("")) {
+                    showToastPromopt("请选择要删除的项！");
+                    return;
+                }
+                searchDateDelLxfs(2, ids.substring(0, ids.length() - 1));
+                break;
+            case R.id.save:
+                searchDateSaveDw(3);
+                break;
+            case R.id.csrq_edittext:
+                date_init(csrqEditText);
+                break;
+            case R.id.ll_unit_name_choice://单位选择
+                startActivityForResult(new Intent(this, CommonXzdwActivity.class)
+                        .putExtra("type", "0"), 11);
+                break;
+            case R.id.bt_ywlr:
+                if (TextUtils.isEmpty(mClientid)) {
+                    showToastPromopt("请选择单位！");
+                    return;
+                }
+                Map map = new HashMap();
+                map.put("clientid", mClientid);
+                map.put("types", mTypes);
+                startActivity(new Intent(this, GzptDwzlActivity.class).putExtra("object", (Serializable) map));
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onExecuteFh() {
+        setResult(RESULT_OK);
+        super.onExecuteFh();
+    }
+
+    /**
      * 连接网络的操作(查询联系人信息)
      */
     private void searchDateDwxx(int type) {
@@ -283,82 +361,20 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
     }
 
     /**
-     * 监听事件
+     * 连接网络的操作(单位联系方式保存)
      */
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent();
-        switch (view.getId()) {
-            case R.id.dwxx_textview:
-                viewPager.setCurrentItem(0);
-                corsor1.setBackgroundResource(R.drawable.index_selectcorsor);
-                corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
-                break;
-            case R.id.lxfs_textview:
-                if (lxrId.equals("0")) {
-                    showToastPromopt("请先保存联系人信息");
-                    return;
-                }
-                viewPager.setCurrentItem(1);
-                corsor2.setBackgroundResource(R.drawable.index_selectcorsor);
-                corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);
-                if (!isLxfs) {
-                    lxfsList.clear();
-                    searchDateLxfs(1);
-                    isLxfs = true;
-                }
-                break;
-            case R.id.add_imageview:
-                intent.setClass(this, GzptDwzlLxrBjlxrLxfsAddActivity.class);
-                intent.putExtra("clientid", mClientid);
-                intent.putExtra("lxrid", lxrId);
-                startActivityForResult(intent, 0);
-                break;
-            case R.id.del_imageview:
-                String ids = "";
-                List<Map<String, Object>> maps = lxfsAdapter.getList();
-                for (int i = 0; i < maps.size(); i++) {
-                    Map<String, Object> map = maps.get(i);
-                    if (map.get("select") != null && map.get("select").toString().equals("true")) {
-                        ids += map.get("id") + ",";
-                    }
-                }
-                if (ids.equals("")) {
-                    showToastPromopt("请选择要删除的项！");
-                    return;
-                }
-                searchDateDelLxfs(2, ids.substring(0, ids.length() - 1));
-                break;
-            case R.id.save:
-                searchDateSaveDw(3);
-                break;
-            case R.id.csrq_edittext:
-                date_init(csrqEditText);
-                break;
-            case R.id.ll_unit_name_choice://单位选择
-                startActivityForResult(new Intent(this, CommonXzdwActivity.class)
-                        .putExtra("type", "0"), 11);
-                break;
-            case R.id.bt_ywlr:
-                if(TextUtils.isEmpty(mClientid)){
-                    showToastPromopt("请选择单位！");
-                    return;
-                }
-                Map map = new HashMap();
-                map.put("clientid", mClientid);
-                map.put("types", mTypes);
-                startActivity(new Intent(this, GzptDwzlActivity.class).putExtra("object", (Serializable) map));
-                break;
-            default:
-                break;
-        }
+
+    private void SaveLxfs(String phone) {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("id", "0");
+        parmMap.put("clientid", mClientid);
+        parmMap.put("lxrid", lxrId);
+        parmMap.put("lb", phone.length() == 11 ? "2" : "1");
+        parmMap.put("itemno", phone);
+        findServiceData2(10, ServerURL.LXFSSAVE, parmMap, false);
     }
 
-    @Override
-    public void onExecuteFh() {
-        setResult(RESULT_OK);
-        super.onExecuteFh();
-    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -410,13 +426,21 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
                 break;
             case 3:
                 if (returnJson.equals("")) {
-                    showToastPromopt("操作成功");
                     lxrId = returnJsonId;
-//				setResult(RESULT_OK);
-//				finish();
+                    /**
+                     * 上一个界面传过来电话号码的时候，要先保存一下
+                     */
+                    if (!TextUtils.isEmpty(tel)) {
+                        SaveLxfs(tel);
+                    } else {
+                        showToastPromopt("操作成功");
+                    }
                 } else {
                     showToastPromopt("保存失败" + returnJson.substring(5));
                 }
+                break;
+            case 10:
+                showToastPromopt("操作成功");
                 break;
             default:
                 break;

@@ -257,11 +257,10 @@
                 android:id="@+id/bz_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:background="@null"
                 android:textColor="@color/defalult_font_color"
-                android:textSize="@dimen/jxc_cggl_cgdd"
-                android:layout_marginLeft="20dp"
-                android:text="465165156156156165165165155555555555555555555555555555555555555555555555555555555555555555555555555555555555555"/>
+                android:textSize="@dimen/jxc_cggl_cgdd" />
         </LinearLayout>
 
         <View style="@style/underline" />

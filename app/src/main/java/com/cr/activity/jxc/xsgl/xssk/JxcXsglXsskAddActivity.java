@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzkhActivity;
@@ -376,9 +377,11 @@ public class JxcXsglXsskAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 5);
                 break;
             case R.id.rkck_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "STORE");
+                intent.setClass(activity, CkxzActivity.class);
                 startActivityForResult(intent, 6);
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "STORE");
+//                startActivityForResult(intent, 6);
                 break;
             case R.id.fklx_edittext:
                 intent.setClass(activity, CommonXzsklxActivity.class);

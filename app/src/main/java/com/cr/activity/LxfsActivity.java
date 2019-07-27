@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cr.activity.common.CommonXzdwActivity;
@@ -38,8 +39,8 @@ public class LxfsActivity extends BaseActivity {
     TextView tvContacts;
     @BindView(R.id.tv_contacts_way)
     TextView tvContactsWay;
-    @BindView(R.id.tv_phone)
-    TextView tvPhone;
+    @BindView(R.id.et_phone)
+    EditText etPhone;
     @BindView(R.id.bt_bottom)
     Button btBottom;
 
@@ -87,7 +88,7 @@ public class LxfsActivity extends BaseActivity {
             tvContactsWay.setText("固定电话");
             mLxfsId = "1";
         }
-        tvPhone.setText(mTel);
+        etPhone.setText(mTel);
     }
 
     /**
@@ -122,6 +123,9 @@ public class LxfsActivity extends BaseActivity {
                         .putExtra("type", "LXFS"), 13);
                 break;
             case R.id.bt_bottom:
+                /**
+                 * 判断单据是否已经保存，保存过之后才能点击业务录入按钮
+                 */
                 if(isSave) {
                     Map map = new HashMap();
                     map.put("clientid", mClientid);
@@ -163,12 +167,17 @@ public class LxfsActivity extends BaseActivity {
             showShortToast("请选择单位");
             return;
         }
+        String phone=etPhone.getText().toString();
+        if(TextUtils.isEmpty(phone)) {
+            showShortToast("电话号码不能为空");
+            return;
+        }
         mParmMap.put("dbname", ShareUserInfo.getDbName(this));
         mParmMap.put("id", "0");
         mParmMap.put("clientid", mClientid);
         mParmMap.put("lxrid", mLxrid);
         mParmMap.put("lb", mLxfsId);
-        mParmMap.put("itemno", mTel);
+        mParmMap.put("itemno", phone);
         presenter.post(0, "lxfssave", mParmMap);
     }
 

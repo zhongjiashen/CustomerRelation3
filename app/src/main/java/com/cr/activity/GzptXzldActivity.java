@@ -224,7 +224,8 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                                                             boolean arg2) {
                                             Intent intent = new Intent();
                                             switch (arg1) {
-                                                case 0:
+
+                                                case 0:/**新增单位*/
                                                     intent.putExtra("clientid", "0");
                                                     intent.putExtra("khlbid", "1");
 
@@ -235,13 +236,13 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                                                     startActivity(intent);
                                                     arg0.dismiss();
                                                     break;
-                                                case 1:
+                                                case 1:/**保存至已有单位*/
                                                     intent.putExtra("dhhm", list.get(selectIndex).getTel());
                                                     intent.setClass(activity, GzptXzldBclxfsActivity.class);
                                                     startActivity(intent);
                                                     arg0.dismiss();
                                                     break;
-                                                case 2://新增联系人
+                                                case 2:/**新增联系人*/
                                                     intent.setClass(activity, GzptDwzlLxrBjlxrActivity.class);
                                                     intent.putExtra("lxrid", "0");
                                                     intent.putExtra("tel", list.get(selectIndex).getTel());
@@ -249,7 +250,7 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                                                     startActivity(intent);
                                                     arg0.dismiss();
                                                     break;
-                                                case 3://另存已有联系人
+                                                case 3:/**另存已有联系人*/
                                                     intent.setClass(activity, LxfsActivity.class);
                                                     intent.putExtra("tel", list.get(selectIndex).getTel());
                                                     startActivity(intent);

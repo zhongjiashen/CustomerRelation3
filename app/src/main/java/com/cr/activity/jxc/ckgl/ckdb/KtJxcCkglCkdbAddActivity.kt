@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import com.cr.activity.BaseActivity
+import com.cr.activity.CkxzActivity
 import com.cr.activity.common.CommonXzzdActivity
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
@@ -44,16 +45,20 @@ class KtJxcCkglCkdbAddActivity : BaseActivity() {
         //出库仓库
         ckck_edittext.setOnClickListener {
             var intent = Intent()
-            intent.setClass(activity, CommonXzzdActivity::class.java)
-            intent.putExtra("type", "STORE")
+            intent.setClass(activity, CkxzActivity::class.java)
             startActivityForResult(intent, 0)
+//            intent.setClass(activity, CommonXzzdActivity::class.java)
+//            intent.putExtra("type", "STORE")
+//            startActivityForResult(intent, 0)
         }
         //入库仓库
         rkck_edittext.setOnClickListener {
             var intent = Intent()
-            intent.setClass(activity, CommonXzzdActivity::class.java)
-            intent.putExtra("type", "STORE")
+            intent.setClass(activity, CkxzActivity::class.java)
             startActivityForResult(intent, 1)
+//            intent.setClass(activity, CommonXzzdActivity::class.java)
+//            intent.putExtra("type", "STORE")
+//            startActivityForResult(intent, 1)
         }
         //单据日期
         djrq_edittext.setOnClickListener {

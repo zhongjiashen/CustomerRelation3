@@ -3,29 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
     <RelativeLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="50dip"
-	    android:background="#0099cc">
-	    <ImageButton
-	        android:id="@+id/fh"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:background="@drawable/fh"
-	        android:layout_alignParentLeft="true"
-	        android:layout_marginLeft="10dip"
-	        android:layout_centerVertical="true"/>
-	    <TextView 
-	        android:id="@+id/jhname"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="23sp"
-	        android:text="@string/dw_lxfs"
-	        android:textColor="#ffffff"
-	        android:layout_centerHorizontal="true"
-	        android:layout_centerVertical="true"/>
-	    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc">
+
+        <ImageButton
+            android:id="@+id/fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:id="@+id/jhname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/dw_lxfs"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <ImageButton
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,120 +37,136 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:background="@drawable/save" />
-	</RelativeLayout>
-	<RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
-            android:paddingBottom="10dip"
-            android:paddingTop="10dip" >
+    </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dwmc"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/dwmc"
+                android:layout_width="200dip"
                 android:layout_height="wrap_content"
-                android:text="@string/dwmc"
+                android:layout_weight="1"
+                android:background="@null"
+                android:focusable="false"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textSize="@dimen/jxc_cggl_cgdd" />
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal" >
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/xyb_jt"></ImageView>
+        </LinearLayout>
 
-                <EditText
-                    android:id="@+id/dwmc"
-                    android:layout_width="200dip"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:focusable="false"
-                    android:textSize="@dimen/jxc_cggl_cgdd" />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:background="@drawable/xyb_jt" >
-                    </ImageView>
-            </LinearLayout>
-            
-        </RelativeLayout>
+    </RelativeLayout>
 
-        <View style="@style/underline" />
-        <RelativeLayout
-            android:layout_width="fill_parent"
+    <View style="@style/underline" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
-            android:paddingBottom="10dip"
-            android:paddingTop="10dip" >
+            android:text="@string/dw_lxfs"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
 
-            <TextView
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/lxfs"
+                android:layout_width="200dip"
                 android:layout_height="wrap_content"
-                android:text="@string/dw_lxfs"
+                android:layout_weight="1"
+                android:background="@null"
+                android:focusable="false"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textSize="@dimen/jxc_cggl_cgdd" />
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal" >
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/xyb_jt"></ImageView>
+        </LinearLayout>
 
-                <EditText
-                    android:id="@+id/lxfs"
-                    android:layout_width="200dip"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:focusable="false"
-                    android:textSize="@dimen/jxc_cggl_cgdd" />
-                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:background="@drawable/xyb_jt" >
-            </ImageView>
-            </LinearLayout>
-           
-        </RelativeLayout>
+    </RelativeLayout>
 
-        <View style="@style/underline" />
-        <RelativeLayout
-            android:layout_width="fill_parent"
+    <View style="@style/underline" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
-            android:paddingBottom="10dip"
-            android:paddingTop="10dip" >
+            android:text="@string/dhhm"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
 
-            <TextView
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/dhhm"
+                android:layout_width="220dip"
                 android:layout_height="wrap_content"
-                android:text="@string/dhhm"
+                android:layout_weight="1"
+                android:background="@null"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textSize="@dimen/jxc_cggl_cgdd" />
+        </LinearLayout>
+    </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal" >
+    <View style="@style/underline" />
 
-                <EditText
-                    android:id="@+id/dhhm"
-                    android:layout_width="220dip"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:textSize="@dimen/jxc_cggl_cgdd" />
-            </LinearLayout>
-        </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
 
-        <View style="@style/underline" />
+    <Button
+        android:id="@+id/bt_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:text="业务录入"
+        android:textColor="@color/colorPrimary" />
 </LinearLayout>

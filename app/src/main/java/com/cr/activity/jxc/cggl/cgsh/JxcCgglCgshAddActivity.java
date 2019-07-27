@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzyyActivity;
@@ -401,9 +402,11 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 startActivityForResult(intent, 5);
                 break;
             case R.id.rkck_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "STORE");
+                intent.setClass(activity, CkxzActivity.class);
                 startActivityForResult(intent, 6);
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "STORE");
+//                startActivityForResult(intent, 6);
                 break;
             case R.id.fklx_edittext:
                 intent.setClass(activity, CommonXzzdActivity.class);
@@ -421,9 +424,11 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 startActivityForResult(intent, 9);
                 break;
             case R.id.ck_edittext:
-                intent.setClass(activity, CommonXzzdActivity.class);
-                intent.putExtra("type", "STORE");
+                intent.setClass(activity, CkxzActivity.class);
                 startActivityForResult(intent, 11);
+//                intent.setClass(activity, CommonXzzdActivity.class);
+//                intent.putExtra("type", "STORE");
+//                startActivityForResult(intent, 11);
                 break;
             case R.id.xm_edittext:
                 if (gysId.equals("")) {
