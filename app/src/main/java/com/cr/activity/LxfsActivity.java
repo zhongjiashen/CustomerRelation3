@@ -168,6 +168,10 @@ public class LxfsActivity extends BaseActivity {
             showShortToast("请选择单位");
             return;
         }
+        if (TextUtils.isEmpty(mLxrid)) {
+            showShortToast("请选联系人");
+            return;
+        }
         String phone=etPhone.getText().toString();
         if(TextUtils.isEmpty(phone)) {
             showShortToast("电话号码不能为空");
