@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -180,7 +181,7 @@ public class InstallRegistrationDetailsActivity extends BaseActivity {
 
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, final InstallRegistrationScheduleData data) {
-                holder.tvRegistrationNumber.setText("登记数量：" + data.getUnitqty() + "个");
+                holder.tvRegistrationNumber.setText("登记数量：" + FigureTools.sswrFigure(data.getUnitqty()) + "个");
                 switch (data.getLb()) {//0 概况（goodsname记录内容） ,1 商品
                     case 0:
                         holder.tvGoodsInformation.setText("概况信息");

@@ -22,6 +22,7 @@ import com.cr.activity.SLView2;
 import com.cr.activity.common.CommonXzphActivity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class JxcCkglKcbdXzspAdapter extends BaseAdapter {
@@ -130,7 +131,7 @@ public class JxcCkglKcbdXzspAdapter extends BaseAdapter {
 			viewHolder.xhTextView.setText("型号："
 					+ objMap.get("model").toString());
 			viewHolder.kcTextView.setText("库存："
-					+ objMap.get("onhand").toString()
+					+ FigureTools.sswrFigure(objMap.get("onhand").toString())
 					+ objMap.get("unitname").toString());
 			return convertView;
 		} else {

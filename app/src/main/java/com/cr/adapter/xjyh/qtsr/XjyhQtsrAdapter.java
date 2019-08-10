@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class XjyhQtsrAdapter extends BaseAdapter {
@@ -66,9 +67,9 @@ public class XjyhQtsrAdapter extends BaseAdapter {
 		viewHolder.nameTextView.setText(objMap.get("cname").toString());
 		viewHolder.hjjeTextView.setText("合计金额：");
         viewHolder.fkjeTextView.setText("收款金额：");
-        viewHolder.hjje2TextView.setText("￥"+objMap.get("amount").toString());
-        viewHolder.fkje2TextView.setText("￥"+objMap.get("receipt").toString());
-		viewHolder.moneyTextView.setText("￥"+objMap.get("amount").toString());
+        viewHolder.hjje2TextView.setText("￥"+ FigureTools.sswrFigure(objMap.get("amount").toString()));
+        viewHolder.fkje2TextView.setText("￥"+FigureTools.sswrFigure(objMap.get("receipt").toString()));
+		viewHolder.moneyTextView.setText("￥"+FigureTools.sswrFigure(objMap.get("amount").toString()));
 		viewHolder.moneyTextView.setVisibility(View.GONE);
 		if(objMap.get("shzt").toString().equals("0")){
 		    viewHolder.shImageView.setBackgroundResource(R.drawable.wsh);

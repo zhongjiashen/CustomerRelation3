@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -329,7 +330,7 @@ public class LogisticsActivity extends BaseActivity {
             default:
                 break;
         }
-        etFreightAmount.setText(data.getAmount() + "");//运费金额
+        etFreightAmount.setText(FigureTools.sswrFigure(data.getAmount()));//运费金额
         switch (data.getIsproxy()) {
             case 0:
                 tvCollecting.setText("否");//是否代收
@@ -342,7 +343,7 @@ public class LogisticsActivity extends BaseActivity {
         }
 
         tvCollectingAccount.setText(data.getProxybankname());//代收账户
-        tvCollectingAmount.setText(data.getProxyamt() + "");//代收金额
+        tvCollectingAmount.setText(FigureTools.sswrFigure(data.getProxyamt()));//代收金额
         switch (data.getIsnotice()) {
             case 0:
                 tvRelease.setText("否");//通知放货

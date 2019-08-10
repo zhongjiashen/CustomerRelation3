@@ -40,6 +40,7 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.update.utils.LogUtils;
 
 /**
  * 来电录入
@@ -205,12 +206,6 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
         switch (returnSuccessType) {
             case 0:
                 if (returnJson.equals("")) {
-//				Intent intent = new Intent(GzptXzldActivity.this,
-//						GzptDwzlDwBjdwActivity.class);
-//				intent.putExtra("tel", list.get(selectIndex).getTel());
-//				intent.putExtra("lxrid", "0");// 单位ID为0，表示新增
-//				intent.putExtra("clientid", "0");// 单位ID为0，表示新增
-//				startActivity(intent);
                     /**
                      * 1、来电录入 另存为功能完善，增加联系人存储：新增联系人、另存已有联系人；
                      */
@@ -224,7 +219,6 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                                                             boolean arg2) {
                                             Intent intent = new Intent();
                                             switch (arg1) {
-
                                                 case 0:/**新增单位*/
                                                     intent.putExtra("clientid", "0");
                                                     intent.putExtra("khlbid", "1");
@@ -233,7 +227,7 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
 //                                                    intent.setClass(activity, XzDwActivity.class);
                                                     intent.setClass(activity, GzptDwzlDwBjdwActivity.class);
                                                     startActivity(intent);
-                                                    arg0.dismiss();
+
                                                     break;
                                                 case 1:/**保存至已有单位*/
                                                     intent.putExtra("dhhm", list.get(selectIndex).getTel());
@@ -242,12 +236,8 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                                                     arg0.dismiss();
                                                     break;
                                                 case 2:/**新增联系人*/
-                                                    intent.setClass(activity, GzptDwzlLxrBjlxrActivity.class);
-                                                    intent.putExtra("lxrid", "0");
-                                                    intent.putExtra("tel", list.get(selectIndex).getTel());
-//                                                    intent.putExtra("clientid", clientId);
-                                                    startActivity(intent);
-                                                    arg0.dismiss();
+                                                    startActivity(GzptDwzlLxrBjlxrActivity.getIntent(activity, list.get(selectIndex).getTel()));
+
                                                     break;
                                                 case 3:/**另存已有联系人*/
                                                     intent.setClass(activity, LxfsActivity.class);
@@ -257,9 +247,12 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                                                 default:
                                                     break;
                                             }
+                                            arg0.dismiss();
                                         }
+
                                     }).show();
                 } else {
+                    LogUtils.e(returnJson);
                     dataList.clear();
                     dataList.addAll((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
@@ -267,17 +260,23 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                     if (dataList.get(0).get("lxrid").toString().equals("0")) {
                         intent.setClass(GzptXzldActivity.this,
                                 GzptDwzlActivity.class);
+                        intent.putExtra("object", (Serializable) dataList.get(0));
+                        startActivity(intent);
                     } else {
-                        intent.setClass(GzptXzldActivity.this,
-                                GzptDwzlLxrDetailActivity.class);
-                        intent.putExtra("lxrid", dataList.get(0).get("lxrid")
-                                .toString());
-                        intent.putExtra("clientid", dataList.get(0).get("clientid")
-                                .toString());
-                        intent.putExtra("typesss", "1");
+//                        intent.setClass(GzptXzldActivity.this,
+//                                GzptDwzlLxrDetailActivity.class);
+//                        intent.putExtra("lxrid", dataList.get(0).get("lxrid")
+//                                .toString());
+//                        intent.putExtra("clientid", dataList.get(0).get("clientid")
+//                                .toString());
+//                        intent.putExtra("typesss", "1");
+                        startActivity(GzptDwzlLxrDetailActivity.getIntent(activity, dataList.get(0).get("clientid")
+                                .toString(), dataList.get(0).get("cname")
+                                .toString(), dataList.get(0).get("types")
+                                .toString(), dataList.get(0).get("lxrid")
+                                .toString()));
                     }
-                    intent.putExtra("object", (Serializable) dataList.get(0));
-                    startActivity(intent);
+
                 }
                 break;
             case 1:

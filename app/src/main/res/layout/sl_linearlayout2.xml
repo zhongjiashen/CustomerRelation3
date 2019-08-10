@@ -20,7 +20,6 @@
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
         android:text="1.0"
-        android:maxLength="6"
         android:layout_gravity="bottom"
         android:inputType="numberDecimal"
         android:gravity="center"

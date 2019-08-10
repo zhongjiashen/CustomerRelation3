@@ -38,6 +38,7 @@ import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.adapter.jxc.cggl.cgfk.JxcCgglCgfkAddAdapter;
 import com.cr.tools.CustomListView;
+import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -301,11 +302,11 @@ public class JxcCgglCgfkDetailActivity extends BaseActivity implements
 			}
 			jsfsEditText.setText(object.get("paytypename").toString());
 			zjzhEditText.setText(object.get("bankname").toString());
-			dqyfEditText.setText(object.get("suramt").toString());
-			dqyf2EditText.setText(object.get("balance").toString());
-			fkjeEditText.setText(object.get("amount").toString());
-			cyfjeEditText.setText(object.get("yufuje").toString());
-			sfjeEditText.setText(object.get("factamount").toString());
+			dqyfEditText.setText(FigureTools.sswrFigure(object.get("suramt").toString()));
+			dqyf2EditText.setText(FigureTools.sswrFigure(object.get("balance").toString()));
+			fkjeEditText.setText(FigureTools.sswrFigure(object.get("amount").toString()));
+			cyfjeEditText.setText(FigureTools.sswrFigure(object.get("yufuje").toString()));
+			sfjeEditText.setText(FigureTools.sswrFigure(object.get("factamount").toString()));
 			djrqEditText.setText(object.get("billdate").toString());
 
 			jbrEditText.setText(object.get("empname").toString());

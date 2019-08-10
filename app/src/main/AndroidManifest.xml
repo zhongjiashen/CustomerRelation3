@@ -92,7 +92,7 @@
         android:theme="@style/AppTheme">
         <!-- 设置页面 -->
         <activity
-            android:name="com.cr.activity.MainActivity1"
+            android:name="com.cr.activity.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -100,13 +100,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 登录页面 -->
+        <!--<activity
+            android:name="com.cr.activity.LoginActivity"
+            android:screenOrientation="portrait" />-->
         <activity
             android:name="com.permission.PermissionsActivity"
             android:screenOrientation="portrait" />
-        <!-- 登录页面 -->
-        <activity
-            android:name="com.cr.activity.LoginActivity"
-            android:screenOrientation="portrait" />
+
 
         <!-- 主用户页面 -->
         <activity

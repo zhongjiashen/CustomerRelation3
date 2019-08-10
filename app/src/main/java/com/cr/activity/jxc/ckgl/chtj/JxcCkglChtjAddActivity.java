@@ -37,6 +37,7 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.utils.LogUtils;
 
 /**
  * 进销存-仓库管理-存货调价-增加
@@ -290,6 +291,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
                             Map<String, Object> map2 = cpList.get(i + 1);
                             map.put("dw", map2.get("dw").toString());
                             map.put("sl", map2.get("sl"));
+                            LogUtils.e(map2.get("sl").toString());
                             map.put("tqdj", map2.get("tqdj").toString());
                             map.put("thdj", map2.get("thdj").toString());
                             map.put("memo", map2.get("memo").toString());

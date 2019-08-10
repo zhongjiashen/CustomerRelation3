@@ -1083,7 +1083,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             lxrEdittext.setText(object.get("lxrname").toString());
             lxdhEdittext.setText(object.get("phone").toString());
             jhdzEdittext.setText(object.get("billto").toString());
-            hjjeEdittext.setText(object.get("amount").toString());
+            hjjeEdittext.setText(FigureTools.sswrFigure(object.get("amount").toString()));
             djrqEdittext.setText(object.get("billdate").toString());
             jbrEdittext.setText(object.get("empname").toString());
             bzxxEdittext.setText(object.get("memo").toString());

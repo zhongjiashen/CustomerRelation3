@@ -148,7 +148,8 @@ public class XzXlhActivity extends BaseActivity {
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
-                if(list==null|list.size()==0){
+                if(list==null||list.size()==0){
+                    showShortToast("请选择序列号");
                     return;
                 }
 

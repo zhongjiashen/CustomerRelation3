@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -149,7 +150,7 @@ public class XjyhYhcqDetailActivity extends BaseActivity implements
             zrzhEditText.setText(object.get("inbankname").toString());
             zrzhId = object.get("inbankid").toString();
             djrqEditText.setText(object.get("billdate").toString());
-            jeEditText.setText(object.get("amount").toString());
+            jeEditText.setText(FigureTools.sswrFigure(object.get("amount").toString()));
             showZdr(object);
         } else if (returnSuccessType == 2) {
             if (returnJson.equals("")) {

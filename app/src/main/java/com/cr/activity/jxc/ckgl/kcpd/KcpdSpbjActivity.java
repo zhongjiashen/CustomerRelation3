@@ -14,6 +14,7 @@ import com.cr.activity.jxc.JxcTjXlhActivity;
 import com.cr.activity.jxc.JxcXzphActivity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.DateUtil;
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -111,9 +112,9 @@ public class KcpdSpbjActivity extends BaseActivity {
             tvSpkz.setVisibility(View.GONE);
         } else {
             tvSpkz.setVisibility(View.VISIBLE);
-            tvSpkz.setText("库存：" + mMap.get("onhand").toString() + mMap.get("unitname").toString());
+            tvSpkz.setText("库存：" + FigureTools.sswrFigure(mMap.get("onhand").toString()) + mMap.get("unitname").toString());
         }
-        tvZmsl.setText(mMap.get("zmsl").toString());
+        tvZmsl.setText(FigureTools.sswrFigure(mMap.get("zmsl").toString()));
         //严格序列号商品处理
         if (mMap.get("serialctrl").toString().equals("T")) {
             LogUtils.e("严格序列商品");
@@ -293,7 +294,7 @@ public class KcpdSpbjActivity extends BaseActivity {
                 Double onhand = data.getDoubleExtra("onhand",0.0);/*Double.parseDouble(data.getExtras().getString("onhand"))*/
                 mMap.put("onhand",onhand);
                 tvSpkz.setVisibility(View.VISIBLE);
-                tvSpkz.setText("库存：" + mMap.get("onhand").toString() + mMap.get("unitname").toString());
+                tvSpkz.setText("库存：" + FigureTools.sswrFigure(mMap.get("onhand").toString()) + mMap.get("unitname").toString());
                 mMap.put("zmsl",onhand);
                 tvZmsl.setText(mMap.get("zmsl").toString());
                 mMap.put("spsl",onhand);

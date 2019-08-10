@@ -214,7 +214,7 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
             lxdhEditText.setText(object.get("phone").toString());
             jhdzEditText.setText(object.get("shipto").toString());
             hjjeEditText.setText(FigureTools.sswrFigure(object.get("totalamt").toString()));
-            skjeEditText.setText(object.get("receipt").toString());
+            skjeEditText.setText(FigureTools.sswrFigure(object.get("receipt").toString()));
             djrqEditText.setText(object.get("billdate").toString());
             etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
@@ -262,7 +262,7 @@ public class JxcXsglXskdDetailActivity extends BaseActivity implements OnClickLi
                 mWlxxData.setBeartype(object.get("beartype").toString());///运费承担 0我方 1对方
                 mWlxxData.setLogisticispp(object.get("logisticispp").toString());//物流单号
                 mWlxxData.setLogisticbankaccount(object.get("logisticbankname").toString());//付款账户
-                mWlxxData.setAmount(object.get("amount").toString());//运费
+                mWlxxData.setAmount(FigureTools.sswrFigure(object.get("amount").toString()));//运费
                 mWlxxData.setIsnotice(object.get("isnotice").toString());//通知放货 0否 1是
 
             }

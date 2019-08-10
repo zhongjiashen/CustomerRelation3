@@ -132,7 +132,7 @@ public class LxfsActivity extends BaseActivity {
                     map.put("types", mTypes);
                     startActivity(new Intent(this, GzptDwzlActivity.class).putExtra("object", (Serializable) map));
                 }else {
-                    showShortToast("请先保存单据");
+                    showShortToast("请先保存数据");
                 }
                 break;
         }
@@ -145,6 +145,7 @@ public class LxfsActivity extends BaseActivity {
                 mClientname = data.getStringExtra("name");
                 mTypes = data.getStringExtra("types");
                 mTypesname = data.getStringExtra("typesname");
+                mLxrid= data.getStringExtra("lxrid");
                 tvUnitName.setText(mClientname);
                 tvContacts.setText(data.getStringExtra("lxrname"));
 //                etContactNumber.setText(data.getStringExtra("phone"));
@@ -192,5 +193,6 @@ public class LxfsActivity extends BaseActivity {
         super.returnData(requestCode, data);
         isSave=true;
         titlebar.setRightText("");
+        showShortToast("保存成功!");
     }
 }

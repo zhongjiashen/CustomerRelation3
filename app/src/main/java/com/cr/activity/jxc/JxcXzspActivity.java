@@ -59,7 +59,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 选择商品（销售开单、采购退货、仓库调拨选择商品界面）
+ * 选择商品（采购收货、采购退货、销售订单、销售开单、销售退货仓库调拨选择商品界面）
  */
 public class JxcXzspActivity extends BaseActivity {
     @BindView(R.id.titlebar)
@@ -110,7 +110,10 @@ public class JxcXzspActivity extends BaseActivity {
         mParmMap.put("tabname", tabname);
         mParmMap.put("storeid", storeid);
         mParmMap.put("goodscode", "");
-
+//判断是否是扫一扫
+        if (this.getIntent().hasExtra("barcode")) {
+            barcode = this.getIntent().getExtras().getString("barcode");
+        }
 
     }
 
@@ -138,10 +141,9 @@ public class JxcXzspActivity extends BaseActivity {
         });
         //判断是否是扫一扫
         if (this.getIntent().hasExtra("barcode")) {
-            barcode = this.getIntent().getExtras().getString("barcode");
             btJxtj.setVisibility(View.VISIBLE);
         }
-        mParmMap.put("barcode", barcode);//新增条码
+
         mFilterContentView.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
@@ -178,7 +180,7 @@ public class JxcXzspActivity extends BaseActivity {
                 holder.tvBh.setText("编号：" + data.getCode());
                 holder.tvGg.setText("规格：" + data.getSpecs());
                 holder.tvXh.setText("型号：" + data.getModel());
-                holder.tvKc.setText("库存：" + data.getOnhand() + data.getUnitname());
+                holder.tvKc.setText("库存：" + FigureTools.sswrFigure(data.getOnhand()) + data.getUnitname());
                 switch (mParms) {
                     case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）
                     case "XSDD":
@@ -426,6 +428,7 @@ public class JxcXzspActivity extends BaseActivity {
 
                 break;
             case R.id.bt_view:
+                result.clear();
                 for (int i = 0; i < list.size(); i++) {
                     KtXzspData ktXzspData = list.get(i);
                     if (ktXzspData.isCheck()) {
@@ -473,6 +476,7 @@ public class JxcXzspActivity extends BaseActivity {
     }
 
     private void http(int requestCode) {
+        mParmMap.put("barcode", barcode);//新增条码
         mParmMap.put("goodstype", code);
         mParmMap.put("cartypeid", cartypeid);
         mParmMap.put("goodsname", search.getText().toString());
@@ -557,11 +561,11 @@ public class JxcXzspActivity extends BaseActivity {
         switch (requestCode) {
             case 1:
                 int index = data.getIntExtra("position", 0);
-                list.get(index).setCpph(data.getExtras().getString("name"));
-                list.get(index).setScrq(data.getExtras().getString("scrq"));
-                list.get(index).setYxqz(data.getExtras().getString("yxrq"));
-                list.get(index).setBatchrefid(data.getExtras().getString("id"));
-                list.get(index).setCbj(data.getExtras().getString("cbj"));
+                list.get(index).setCpph(data.getStringExtra("name"));
+                list.get(index).setScrq(data.getStringExtra("scrq"));
+                list.get(index).setYxqz(data.getStringExtra("yxrq"));
+                list.get(index).setBatchrefid(data.getStringExtra("id"));
+                list.get(index).setCbj(data.getStringExtra("cbj"));
                 mAdapter.notifyDataSetChanged();
                 break;
             case 4://选择价格
@@ -582,7 +586,7 @@ public class JxcXzspActivity extends BaseActivity {
             case 18:
                 page_number = 0;
                 barcode = data.getStringExtra("qr");
-                http(1);
+                http(2);
                 break;
         }
     }

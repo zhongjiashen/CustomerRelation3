@@ -82,7 +82,7 @@ class KtTjfxLrbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
             override fun MyonBindViewHolder(holder: ViewHolderFactory.LrbHolder?, data: KtLrbData) {
                 if (holder != null) {
                     holder.tvMz.text = data.name
-                    holder.tvJe.text = data.curbalance.toString()
+                    holder.tvJe.text = FigureTools.sswrFigure(data.curbalance.toString())
                     holder.tvQcye.text = "期初余额:" + FigureTools.sswrFigure(data.inibalance)
                     holder.tvLjje.text = "累计金额:" + FigureTools.sswrFigure(data.endbalance)
 

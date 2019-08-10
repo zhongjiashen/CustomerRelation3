@@ -1,9 +1,5 @@
 package com.cr.activity.jxc.ckgl.ckdb;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,13 +12,14 @@ import android.widget.TextView;
 import com.cr.activity.BaseActivity;
 import com.cr.activity.SLView2;
 import com.cr.activity.common.CommonXzphActivity;
-import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
-import com.cr.tools.ServerURL;
-import com.cr.tools.ShareUserInfo;
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
-import com.google.gson.Gson;
 import com.update.actiity.SerialNumberDetailsActivity;
-import com.update.actiity.installation.ChooseGoodsDetailsActivity;
+import com.update.utils.LogUtils;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 进销存-仓库管理-仓库调拨-选择商品-选择的商品的详细信息
@@ -56,14 +53,22 @@ public class JxcCkglCkdbXzspDetail2Activity extends BaseActivity implements
     Map<String, Object> object = new HashMap<String, Object>();
     TextView tvSerialNumber;
     EditText etBz;
+    /**
+     * 1
+     */
+    private TextView tvSl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jxc_ckgl_ckdb_xzsp_detail);
+        initView();
         addFHMethod();
         initActivity();
     }
-
+    private void initView() {
+        tvSl = (TextView) findViewById(R.id.tv_sl);
+    }
     /**
      * 初始化Activity
      */
@@ -107,7 +112,7 @@ public class JxcCkglCkdbXzspDetail2Activity extends BaseActivity implements
 //					+ (int) Double.parseDouble(object.get("onhand").toString())
 //					+ object.get("unitname").toString());
             dwEditText.setText(object.get("unitname").toString());
-            djEditText.setText(object.get("unitprice").toString());
+            djEditText.setText(FigureTools.sswrFigure(object.get("unitprice").toString()));
 //			zklEditText.setText(object.get("disc").toString());
 //			zjEditText.setText(object.get("amount").toString());
             cpphLayout = (LinearLayout) findViewById(R.id.cpph_layout);
@@ -120,8 +125,11 @@ public class JxcCkglCkdbXzspDetail2Activity extends BaseActivity implements
             cpphEditText.setText(object.get("batchcode").toString());
             scrqEditText.setText(object.get("produceddate").toString());
             yxqzEditText.setText(object.get("validdate").toString());
+            LogUtils.e(object.get("unitqty")
+                    .toString());
             slView.setSl((int) Double.parseDouble(object.get("unitqty")
                     .toString()));
+            tvSl.setText(FigureTools.sswrFigure(object.get("unitqty").toString()));
             etBz.setText(object.get("memo").toString());
             if (object.get("batchctrl").toString().equals("T")) {
                 cpphLayout.setVisibility(View.VISIBLE);
@@ -230,4 +238,6 @@ public class JxcCkglCkdbXzspDetail2Activity extends BaseActivity implements
             }
         }
     }
+
+
 }

@@ -85,6 +85,7 @@ public class GzptXzldBclxfsActivity extends BaseActivity implements
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.save:
+
                 if (dwmcEditText.getText().toString().equals("")) {
                     showToastPromopt("单位名称不能为空！");
                     return;
@@ -114,7 +115,7 @@ public class GzptXzldBclxfsActivity extends BaseActivity implements
                     map.put("types", mTypes);
                     startActivity(new Intent(this, GzptDwzlActivity.class).putExtra("object", (Serializable) map));
                 } else {
-                    showToastPromopt("请先保存单据");
+                    showToastPromopt("请先保存数据");
                 }
                 break;
             default:
@@ -159,6 +160,7 @@ public class GzptXzldBclxfsActivity extends BaseActivity implements
                 if (returnJson.equals("")) {
                     showToastPromopt("保存成功！");
                     isSave = true;
+                    saveButton.setVisibility(View.GONE);
 //                    finish();
                 } else {
                     showToastPromopt("保存失败；" + returnJson.substring(5));

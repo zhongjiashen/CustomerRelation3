@@ -210,13 +210,13 @@ public class XjyhQtsrDetailActivity extends BaseActivity implements OnClickListe
             zjzhId = object.get("bankid").toString();
             fkfsEditText.setText(object.get("paytypename").toString());
             fkfsId = object.get("paytypeid").toString();
-            fkjeEditText.setText(object.get("receipt").toString());
+            fkjeEditText.setText(FigureTools.sswrFigure(object.get("receipt").toString()));
             djrqEditText.setText(object.get("billdate").toString());
             etBm.setText(object.get("depname").toString());
             jbrEditText.setText(object.get("empname").toString());
             jbrId = object.get("empid").toString();
             bzxxEditText.setText(object.get("memo").toString());
-            hjjeEditText.setText(object.get("amount").toString());
+            hjjeEditText.setText(FigureTools.sswrFigure(object.get("amount").toString()));
             xmEditText.setText(object.get("projectname").toString());
             showZdr(object);
             searchDate2();// 查询从表信息

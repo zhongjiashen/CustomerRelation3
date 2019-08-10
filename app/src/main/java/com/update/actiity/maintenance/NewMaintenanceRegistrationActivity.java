@@ -20,6 +20,7 @@ import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -200,7 +201,7 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
 
             @Override
             protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, ChooseGoodsData data) {
-                holder.tvRegistrationNumber.setText("登记数量：" + data.getNumber() + "个");
+                holder.tvRegistrationNumber.setText("登记数量：" + FigureTools.sswrFigure(data.getNumber()) + "个");
                 holder.tvGoodsInformation.setText(data.getCode() + "    " + data.getName() + "    " + data.getSpecs() + "    " + data.getModel());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -407,14 +408,14 @@ public class NewMaintenanceRegistrationActivity extends BaseActivity {
                 mOverviewData = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
                 }.getType());
                 rlProfileInformation.setVisibility(View.VISIBLE);
-                tvRegistrationNumber.setText("登记数量：" + mOverviewData.getUnitqty() + "个");
+                tvRegistrationNumber.setText("登记数量：" + FigureTools.sswrFigure(mOverviewData.getUnitqty()) + "个");
                 break;
             case 20://概况详情查看结果处理
                 switch (data.getIntExtra("KIND", 0)) {
                     case 0://修改处理结果
                         mOverviewData = mGson.fromJson(data.getStringExtra("DATA"), new TypeToken<GoodsOrOverviewData>() {
                         }.getType());
-                        tvRegistrationNumber.setText("登记数量：" + mOverviewData.getUnitqty() + "个");
+                        tvRegistrationNumber.setText("登记数量：" + FigureTools.sswrFigure(mOverviewData.getUnitqty()) + "个");
                         break;
                     case 1://删除处理结果
                         rlProfileInformation.setVisibility(View.GONE);

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -187,9 +188,9 @@ public class XjyhSkdDetailActivity extends BaseActivity implements
             shzt = object.get("shzt").toString();
             zjzhEditText.setText(object.get("bankname").toString());
             zjzhId = object.get("bankid").toString();
-            dqyfEditText.setText(object.get("suramt").toString());
-            dqyf2EditText.setText(object.get("balance").toString());
-            fkjeEditText.setText(object.get("amount").toString());
+            dqyfEditText.setText(FigureTools.sswrFigure(object.get("suramt").toString()));
+            dqyf2EditText.setText(FigureTools.sswrFigure(object.get("balance").toString()));
+            fkjeEditText.setText(FigureTools.sswrFigure(object.get("amount").toString()));
             showZdr(object);
 //			searchDate2();// 查询订单中的商品
         } else if (returnSuccessType == 1) {

@@ -159,7 +159,6 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
      * 初始化Activity
      */
     private void initActivity() {
-
         dwxxTextView = (TextView) findViewById(R.id.dwxx_textview);
         dwxxTextView.setOnClickListener(this);
         lxfsTextView = (TextView) findViewById(R.id.lxfs_textview);
@@ -397,6 +396,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                     View.VISIBLE);
             dwxxView.findViewById(R.id.khbh_view).setVisibility(View.VISIBLE);
         }
+
         if (this.getIntent().hasExtra("khlbid")) {
             // khdjId=this.getIntent().getExtras().getString("khdjid");
             // khdjEditText.setText(this.getIntent().getExtras().getString("khdjname"));
@@ -561,12 +561,12 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
                 break;
             case R.id.bt_ywlr:
                 if (TextUtils.isEmpty(clientId) || clientId.equals("0")) {
-                    showToastPromopt("新增单位无权限！");
+                    showToastPromopt("请先保存数据！");
                     return;
                 }
                 Map map = new HashMap();
                 map.put("clientid", clientId);
-                map.put("types", mTypes);
+                map.put("types", khlbId);
                 startActivity(new Intent(this, GzptDwzlActivity.class).putExtra("object", (Serializable) map));
                 break;
             case R.id.bt_xzlxr:

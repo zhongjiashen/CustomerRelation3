@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -158,7 +159,7 @@ public class ChoiceContractActivity extends BaseActivity implements
 
                 holder.tvPhase.setText("阶段：" + data.getGmmc());
                 holder.tvProjectName.setText(data.getTitle());//项目名称
-                holder.tvMoney.setText("合同金额：￥" + data.getAmount());
+                holder.tvMoney.setText("合同金额：￥" + FigureTools.sswrFigure(data.getAmount()));
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

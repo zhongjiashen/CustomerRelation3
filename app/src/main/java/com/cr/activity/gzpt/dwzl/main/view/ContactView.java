@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.cr.activity.gzpt.dwzl.GzptDwzlLxrBjlxrActivity;
 import com.cr.activity.gzpt.dwzl.GzptDwzlLxrDetailActivity;
 import com.cr.adapter.gzpt.dwzl.GzptDwzlLxrAdapter;
 import com.cr.common.XListView;
@@ -82,10 +83,11 @@ public class ContactView extends BaseView {
         xListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent(activity, GzptDwzlLxrDetailActivity.class);
-                intent.putExtra("lxrid", lxrList.get(arg2 - 1).get("id").toString());
-                intent.putExtra("clientid", activity.clientId);
-                activity.startActivity(intent);
+//                Intent intent = new Intent(activity, GzptDwzlLxrDetailActivity.class);
+//                intent.putExtra("lxrid", lxrList.get(arg2 - 1).get("id").toString());
+//                intent.putExtra("clientid", activity.clientId);
+//                activity.startActivity(intent);
+                activity.startActivity( GzptDwzlLxrDetailActivity.getIntent(activity,activity.clientId,activity.khmc,activity.types,lxrList.get(arg2 - 1).get("id").toString()));
             }
         });
         xListView.setPullLoadEnable(true);

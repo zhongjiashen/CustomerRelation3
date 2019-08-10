@@ -124,11 +124,11 @@ public class JxcCkglChtjXzspDetail2Activity extends BaseActivity implements OnCl
             }
 //            slView.setSl((int)sl);
             slEditText.setText(sl + "");
-            tqdjEditText.setText(FigureTools.sswrFigure(tqdj + ""));
-            tqjeEditText.setText(FigureTools.sswrFigure((tqdj * sl) + ""));
-            thdjEditText.setText(FigureTools.sswrFigure(thdj + ""));
-            thjeEditText.setText(FigureTools.sswrFigure((thdj * sl) + ""));
-            tzjeEditText.setText(FigureTools.sswrFigure((tqdj * sl - thdj * sl) + ""));
+            tqdjEditText.setText(FigureTools.sswrFigure(tqdj ));
+            tqjeEditText.setText(FigureTools.sswrFigure((tqdj * sl)));
+            thdjEditText.setText(FigureTools.sswrFigure(thdj ));
+            thjeEditText.setText(FigureTools.sswrFigure((thdj * sl)));
+            tzjeEditText.setText(FigureTools.sswrFigure((tqdj * sl - thdj * sl)));
         }
     }
 

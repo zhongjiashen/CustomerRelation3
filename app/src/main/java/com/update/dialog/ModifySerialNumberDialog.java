@@ -38,7 +38,7 @@ public class ModifySerialNumberDialog extends BaseDialog {
      * 初始化
      */
     @Override
-    protected void init() {
+    protected void initView() {
         setContentView(R.layout.dialog_modify_serial_number);
 
     }

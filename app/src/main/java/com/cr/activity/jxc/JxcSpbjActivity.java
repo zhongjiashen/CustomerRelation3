@@ -107,7 +107,7 @@ public class JxcSpbjActivity extends BaseActivity {
             tvSpkz.setVisibility(View.GONE);
         } else {
             tvSpkz.setVisibility(View.VISIBLE);
-            tvSpkz.setText("库存：" + mMap.get("onhand").toString() + mMap.get("unitname").toString());
+            tvSpkz.setText("库存：" + FigureTools.sswrFigure(mMap.get("onhand").toString()) + mMap.get("unitname").toString());
         }
         switch (mParms) {
             case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）

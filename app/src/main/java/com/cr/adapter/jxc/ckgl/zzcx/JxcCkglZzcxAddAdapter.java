@@ -50,7 +50,7 @@ public class JxcCkglZzcxAddAdapter extends BaseAdapter {
 		}
 		viewHolder.bhmcggTextView.setText(objMap.get("goodsname")==null?objMap.get("name").toString():objMap.get("goodsname").toString());
 	    viewHolder.djTextView.setText("单价：￥"+FigureTools.sswrFigure((objMap.get("dj")==null? FigureTools.sswrFigure(objMap.get("unitprice").toString()):FigureTools.sswrFigure(objMap.get("dj").toString()))));
-		viewHolder.slTextView.setText("数量："+(objMap.get("sl")==null?objMap.get("unitqty").toString():objMap.get("sl").toString()));
+		viewHolder.slTextView.setText("数量："+FigureTools.sswrFigure(objMap.get("sl")==null?objMap.get("unitqty").toString():objMap.get("sl").toString()));
 		return convertView;
 	}
 

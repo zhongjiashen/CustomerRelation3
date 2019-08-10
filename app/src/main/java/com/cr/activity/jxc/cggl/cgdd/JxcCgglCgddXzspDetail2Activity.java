@@ -118,7 +118,7 @@ public class JxcCgglCgddXzspDetail2Activity extends BaseActivity implements OnCl
                         + object.get("unitname").toString());
             }
             dwEditText.setText(object.get("unitname").toString());
-            djEditText.setText(object.get("unitprice").toString());
+            djEditText.setText(FigureTools.sswrFigure(object.get("unitprice").toString()));
             zklEditText.setText(object.get("disc").toString());
             zjEditText.setText(object.get("amount").toString());
             cpphEditText.setText(object.get("batchcode").toString());

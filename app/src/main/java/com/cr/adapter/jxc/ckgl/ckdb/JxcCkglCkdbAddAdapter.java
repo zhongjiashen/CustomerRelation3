@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class JxcCkglCkdbAddAdapter extends BaseAdapter {
@@ -48,7 +49,7 @@ public class JxcCkglCkdbAddAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.bhmcggTextView.setText((objMap.get("name")==null?objMap.get("goodsname").toString():objMap.get("name").toString()));
-		viewHolder.djTextView.setText("调拨数量："+(objMap.get("unitqty")==null?objMap.get("sl").toString():objMap.get("unitqty").toString()));
+		viewHolder.djTextView.setText("调拨数量："+ FigureTools.sswrFigure(objMap.get("unitqty")==null?objMap.get("sl").toString():objMap.get("unitqty").toString()));
 //		viewHolder.zjTextView.setText("￥"+Integer.parseInt(objMap.get("unitprice").toString())*Integer.parseInt(objMap.get("unitqty").toString()));
 		viewHolder.zjTextView.setVisibility(View.GONE);
 		return convertView;

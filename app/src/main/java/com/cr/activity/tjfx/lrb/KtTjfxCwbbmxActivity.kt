@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import com.cr.tools.FigureTools
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
@@ -91,8 +92,8 @@ class KtTjfxCwbbmxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefres
                         holder.tvWldw.visibility = View.VISIBLE
                         holder.tvWldw.text = data.cname
                     }
-                    holder.tvJe.text = "开单金额："+data.amount.toString()
-                    holder.tvFtje.text = "分摊金额："+data.purappamt.toString()
+                    holder.tvJe.text = "开单金额："+FigureTools.sswrFigure(data.amount.toString())
+                    holder.tvFtje.text = "分摊金额："+FigureTools.sswrFigure(data.purappamt.toString())
 
                 }
             }

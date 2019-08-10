@@ -145,7 +145,8 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
     private void fenlei() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        findServiceData2(1, "multitype", parmMap, false);
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        findServiceData2(1, "multitypestore", parmMap, false);
     }
 
 

@@ -205,7 +205,7 @@ public class MstxGztx2Adapter extends BaseAdapter {
 			viewHolder.skjeView.setText("生成日期:"+map.get("crq").toString());
 			viewHolder.skje2View.setText("有效日期:"+map.get("yxrq").toString());
 			viewHolder.skrqView.setText("仓库："+map.get("storename").toString());
-			viewHolder.kcslView.setText("库存数量："+map.get("onhand").toString());
+			viewHolder.kcslView.setText("库存数量："+FigureTools.sswrFigure(map.get("onhand").toString()));
 		}else if (type.equals("10")){  //库存报警
 			ViewHolderKcbj viewHolder = null;
 			if(convertView==null){

@@ -30,6 +30,8 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
+import com.google.gson.Gson;
+import com.update.utils.LogUtils;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -165,7 +167,9 @@ public class JxcCkglChtjXzspActivity extends BaseActivity implements
                         obj2.put("isDetail", "1");
                         obj2.put("dw", "个");
                         obj2.put("memo", "");
-                        obj2.put("sl", obj.get("onhand").toString());
+                        obj2.put("sl", FigureTools.sswrFigure(obj.get("onhand").toString()));
+                        LogUtils.e(obj.get("onhand").toString());
+                        LogUtils.e(obj2.get("sl").toString());
                         obj2.put("tqdj", FigureTools.sswrFigure(obj.get("aprice").toString()));
                         obj2.put("thdj", "");
                         list.add(obj2);
@@ -273,6 +277,7 @@ public class JxcCkglChtjXzspActivity extends BaseActivity implements
                         }
                     }
                 }
+                LogUtils.e(new Gson().toJson(list));
                 intent.putExtra("object", (Serializable) list);
                 setResult(RESULT_OK, intent);
                 finish();

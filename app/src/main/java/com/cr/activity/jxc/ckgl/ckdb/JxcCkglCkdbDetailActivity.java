@@ -84,6 +84,8 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
         djbhTextView = (TextView) findViewById(R.id.djbh_textview);
         shImageView = (ImageView) findViewById(R.id.sh_imageview);
         listview = (CustomListView) findViewById(R.id.xzsp_listview);
+        adapter = new JxcCkglCkdbAddAdapter(list, this);
+        listview.setAdapter(adapter);
         listview.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -119,8 +121,7 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
         shButton.setOnClickListener(this);
         sdButton = (Button) findViewById(R.id.sd_button);
         sdButton.setOnClickListener(this);
-        adapter = new JxcCkglCkdbAddAdapter(list, this);
-        listview.setAdapter(adapter);
+
     }
 
     /**

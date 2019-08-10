@@ -25,6 +25,7 @@ import com.cr.activity.common.CommonXzphActivity;
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
+import com.cr.tools.FigureTools;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -137,7 +138,7 @@ public class JxcCkglKcpdXzspAdapter extends BaseAdapter {
             viewHolder.xhTextView.setText("型号："
                     + objMap.get("model").toString());
             viewHolder.kcTextView.setText("库存："
-                    + objMap.get("onhand").toString()
+                    + FigureTools.sswrFigure(objMap.get("onhand").toString())
                     + objMap.get("unitname").toString());
             return convertView;
         } else {

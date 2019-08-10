@@ -291,7 +291,7 @@ public class JxcCgglCgddAddActivity extends BaseActivity implements OnClickListe
             lxrEditText.setText(object.get("lxrname").toString());
             lxdhEditText.setText(object.get("phone").toString());
             jhdzEditText.setText(object.get("billto").toString());
-            hjjeEditText.setText(object.get("amount").toString());
+            hjjeEditText.setText(FigureTools.sswrFigure(object.get("amount").toString()));
             djrqEditText.setText(object.get("billdate").toString());
             jbrEditText.setText(object.get("empname").toString());
             bzxxEditText.setText(object.get("memo").toString());

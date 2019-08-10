@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.cr.activity.BaseActivity;
 import com.cr.common.XListView;
 import com.cr.common.XListView.IXListViewListener;
+import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -75,23 +76,23 @@ public class TjfxXsskhzb2Activity extends BaseActivity implements
 				break;
 			case 2:
 				m.put("name", "销售金额");
-				m.put("value", "￥"+map.get("saleamt").toString());
+				m.put("value", "￥"+ FigureTools.sswrFigure(map.get("saleamt").toString()));
 				break;
 			case 3:
 				m.put("name", "退款金额");
-				m.put("value", "￥"+map.get("returnamt").toString());
+				m.put("value", "￥"+FigureTools.sswrFigure(map.get("returnamt").toString()));
 				break;
 			case 4:
 				m.put("name", "销售净额");
-				m.put("value", "￥"+map.get("chargefact").toString());
+				m.put("value", "￥"+FigureTools.sswrFigure(map.get("chargefact").toString()));
 				break;
 			case 5:
 				m.put("name", "已收回金额");
-				m.put("value", "￥"+map.get("chargeamt").toString());
+				m.put("value", "￥"+FigureTools.sswrFigure(map.get("chargeamt").toString()));
 				break;
 			case 6:
 				m.put("name", "未收回金额");
-				m.put("value", "￥"+map.get("unrecvamt").toString());
+				m.put("value", "￥"+FigureTools.sswrFigure(map.get("unrecvamt").toString()));
 				break;
 			default:
 				break;

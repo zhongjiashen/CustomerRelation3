@@ -56,23 +56,18 @@ public class JxcCgglCgshAddAdapter extends BaseAdapter {
                                           + (objMap.get("goodsname") == null ? objMap.get("name")
                                               .toString() : objMap.get("goodsname").toString())
                                           + " "
-                                          + (objMap.get("specs") == null ? objMap.get("specs")
-                                              .toString() : objMap.get("specs").toString())
+                                          +  objMap.get("specs").toString()
                                           + " "
-                                          + (objMap.get("model") == null ? objMap.get("model")
-                                              .toString() : objMap.get("model").toString()));
+                                          +  objMap.get("model").toString());
         viewHolder.djTextView.setText("￥"
                                       + FigureTools.sswrFigure((objMap.get("taxunitprice") == null ? objMap.get("goodscode")
                                           .toString() : objMap.get("taxunitprice").toString()))
                                       + "*"
-                                      + (objMap.get("unitqty") == null ? objMap.get("unitqty")
-                                          .toString() : objMap.get("unitqty").toString())
+                                      +  objMap.get("unitqty").toString()
                                       + ""
-                                      + (objMap.get("unitname") == null ? objMap.get("unitname")
-                                          .toString() : objMap.get("unitname").toString()));
+                                      + objMap.get("unitname").toString());
         viewHolder.zjTextView.setText("￥"
-                +FigureTools.sswrFigure( (objMap.get("amount") == null ? objMap.get("amount")
-                                          .toString() : objMap.get("amount").toString())));
+                +FigureTools.sswrFigure( objMap.get("amount").toString()));
         return convertView;
 	}
 

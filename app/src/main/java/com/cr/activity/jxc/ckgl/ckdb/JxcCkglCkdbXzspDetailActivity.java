@@ -23,6 +23,7 @@ import com.cr.activity.common.CommonXzphActivity;
 import com.cr.activity.jxc.JxcTjXlhActivity;
 import com.cr.activity.jxc.XzXlhActivity;
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -136,7 +137,8 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
 //					+ (int) Double.parseDouble(object.get("onhand").toString())
 //					+ object.get("unitname").toString());
             dwEditText.setText(object.get("unitname").toString());
-            djEditText.setText(object.get("unitprice").toString());
+            if (!TextUtils.isEmpty(object.get("unitprice").toString()))
+                djEditText.setText(FigureTools.sswrFigure(object.get("unitprice").toString()));
 //			zklEditText.setText(object.get("disc").toString());
 //			zjEditText.setText(object.get("amount").toString());
             cpphEditText.setText(object.get("batchcode").toString());
@@ -241,18 +243,18 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
                 Intent intent1 = new Intent();
                 intent1.putExtra("position", 0);
                 intent1.putExtra("billid", "0");
-                intent1.putExtra("serialinfo",object.get("serialinfo").toString());
-                intent1.putExtra("serials",  new Gson().toJson(object.get("serials")));
+                intent1.putExtra("serialinfo", object.get("serialinfo").toString());
+                intent1.putExtra("serials", new Gson().toJson(object.get("serials")));
                 if (object.get("serialctrl").toString().equals("T")) {
                     intent1.putExtra("refertype", "0");
                     intent1.putExtra("referitemno", "0");
                     startActivityForResult(intent1.setClass(activity, XzXlhActivity.class)
                                     .putExtra("parms", "CKDB")
                                     .putExtra("storeid", getIntent().getStringExtra("rkckId"))
-                                    .putExtra("goodsid",object.get("goodsid").toString())
+                                    .putExtra("goodsid", object.get("goodsid").toString())
                             , 11);
-                }else {
-                    startActivityForResult(intent1.setClass(activity, JxcTjXlhActivity.class),11);
+                } else {
+                    startActivityForResult(intent1.setClass(activity, JxcTjXlhActivity.class), 11);
                 }
 //                startActivityForResult(new Intent(activity, KtSerialNumberAddActivity.class)
 //                        .putExtra("itemno", "0")

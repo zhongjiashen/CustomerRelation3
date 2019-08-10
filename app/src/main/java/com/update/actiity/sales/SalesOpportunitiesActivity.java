@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -243,7 +244,7 @@ public class SalesOpportunitiesActivity extends BaseActivity {
         tvContacts.setText(data.getLxrname());//联系人
         etContactNumber.setText(data.getPhone());//联系电话
         etOpportunitiesName.setText(data.getTitle());//机会名称
-        etExpectedIncome.setText(data.getAmount() + "");//预计收入
+        etExpectedIncome.setText(FigureTools.sswrFigure(data.getAmount()) );//预计收入
         tvCurrentStage.setText(data.getGmmc());//当前阶段
         tvStartTime.setText(data.getQsrq());//开始时间
         tvEndTime.setText(data.getPreselldate());//预计成交日期

@@ -25,6 +25,7 @@ import com.cr.activity.jxc.KtXzspData;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.tools.AppData;
 import com.cr.tools.DateUtil;
+import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -56,7 +57,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 库存盘点选择商品
+ * 选择商品
  */
 public class KcpdXzspActivity extends BaseActivity {
     @BindView(R.id.titlebar)
@@ -173,8 +174,8 @@ public class KcpdXzspActivity extends BaseActivity {
                 holder.tvBh.setText("编号：" + data.getCode());
                 holder.tvGg.setText("规格：" + data.getSpecs());
                 holder.tvXh.setText("型号：" + data.getModel());
-                holder.tvKc.setText("库存：" + data.getOnhand() + data.getUnitname());
-                holder.tvZmsl.setText(data.getOnhand() + "");
+                holder.tvKc.setText("库存：" + FigureTools.sswrFigure(data.getOnhand()) + data.getUnitname());
+                holder.tvZmsl.setText(FigureTools.sswrFigure(data.getOnhand()));//账面数量
                 if (data.getSerialctrl().equals("T")) {//判断是否是严格序列号商品
                     LogUtils.e("严格序列商品");
                     holder.slView.setVisibility(View.GONE);
@@ -184,7 +185,7 @@ public class KcpdXzspActivity extends BaseActivity {
                     holder.tvSl.setVisibility(View.GONE);
                 }
                 holder.slView.setSl(data.getNumber());
-                holder.tvSl.setText(data.getNumber() + "");
+                holder.tvSl.setText(FigureTools.sswrFigure(data.getNumber()));
                 holder.slView.setOnValueChange(new SLViewValueChange() {
                     @Override
                     public void onValueChange(double sl) {

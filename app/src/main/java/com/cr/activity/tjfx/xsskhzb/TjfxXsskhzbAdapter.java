@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class TjfxXsskhzbAdapter extends BaseAdapter {
@@ -61,7 +62,7 @@ public class TjfxXsskhzbAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.nameTextView.setText(objMap.get("depname").toString()+"  "+objMap.get("empname").toString());
-        viewHolder.valueTextView.setText("￥"+objMap.get("saleamt").toString());
+        viewHolder.valueTextView.setText("￥"+ FigureTools.sswrFigure(objMap.get("saleamt").toString()));
         return convertView;
     }
 

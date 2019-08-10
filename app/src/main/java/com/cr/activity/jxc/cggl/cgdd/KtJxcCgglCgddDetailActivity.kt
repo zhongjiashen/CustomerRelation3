@@ -11,6 +11,7 @@ import android.view.View
 import com.cr.activity.BaseActivity
 import com.cr.activity.jxc.cggl.KtCgglSpxqCk2Activity
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
+import com.cr.tools.FigureTools
 import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
@@ -134,7 +135,7 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
             et_fplx.setText(data.get("billtypename").toString())//发票类型
             et_xgxm.setText(data.get("projectname").toString())//相关项目
             et_jhrq.setText(data.get("revdate").toString())//交货日期
-            hjje_edittext.setText(data.get("amount").toString())
+            hjje_edittext.setText(FigureTools.sswrFigure(data.get("amount").toString()))
             djrq_edittext.setText(data.get("billdate").toString())
             et_bm.setText(data.get("depname").toString())//部门
             jbr_edittext.setText(data.get("empname").toString())

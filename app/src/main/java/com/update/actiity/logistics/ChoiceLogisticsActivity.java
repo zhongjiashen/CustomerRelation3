@@ -12,6 +12,7 @@ import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthAddActivity;
 import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdAddActivity;
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdAddActivity;
 import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthAddActivity;
+import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -132,7 +133,7 @@ public class ChoiceLogisticsActivity extends BaseActivity implements
 
                 holder.tvMoney.setText("单据日期：" + data.getBilldate());
                 holder.tvProjectName.setVisibility(View.GONE);
-                holder.tvPhase.setText("单据金额：￥" + data.getTotalamt());
+                holder.tvPhase.setText("单据金额：￥" + FigureTools.sswrFigure( data.getTotalamt()));
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

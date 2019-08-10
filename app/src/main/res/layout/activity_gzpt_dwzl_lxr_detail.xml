@@ -50,6 +50,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:paddingTop="10dip"
+                android:paddingBottom="10dip">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dwmc"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+
+                <TextView
+                    android:id="@+id/tv_dwmc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="亨视"/>
+
+
+            </RelativeLayout>
+
+            <View style="@style/underline" />
             <LinearLayout style="@style/detail_relativelayout" >
 
                 <TextView
@@ -217,18 +242,27 @@
         </LinearLayout>
     </ScrollView>
 	<LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/cgdd_search_bg"
-        android:orientation="vertical"
-        android:paddingTop="10dip"
-        android:paddingBottom="10dip" >
-
+        >
         <TextView
-            android:id="@+id/bjlxr_textview"
+            android:id="@+id/tv_ywlr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="业务录入"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+        <TextView
+            android:id="@+id/tv_bjlxr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/bjlxr"
             android:textColor="@color/black_color"
             android:textSize="@dimen/jxc_cggl_cgdd" />

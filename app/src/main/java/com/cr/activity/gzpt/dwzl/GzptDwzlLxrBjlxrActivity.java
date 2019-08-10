@@ -45,6 +45,52 @@ import com.crcxj.activity.R;
  */
 public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
         OnClickListener {
+
+    /**
+     * 获取Intent
+     *
+     * @param packageContext
+     * @param tel
+     * @return
+     */
+    public static Intent getIntent(Context packageContext, String tel) {
+        Intent intent = new Intent(packageContext, GzptDwzlLxrBjlxrActivity.class);
+        intent.putExtra("tel", tel);
+        return intent;
+    }
+
+    public static Intent getIntent(Context packageContext, String clientid, String clientname, String types) {
+        Intent intent = new Intent(packageContext, GzptDwzlLxrBjlxrActivity.class);
+        intent.putExtra("clientid", clientid);
+        intent.putExtra("clientname", clientname);
+        intent.putExtra("types", types);
+        return intent;
+    }
+
+    public static Intent getIntent(Context packageContext, String clientid, String clientname, String types, String lxrid) {
+        Intent intent = new Intent(packageContext, GzptDwzlLxrBjlxrActivity.class);
+        intent.putExtra("clientid", clientid);
+        intent.putExtra("clientname", clientname);
+        intent.putExtra("types", types);
+        intent.putExtra("lxrid", lxrid);
+        return intent;
+    }
+
+    private String mClientid = "";// 单位id
+    private String mClientname;// 单位名称
+    private String mTypes;//单位类型
+    private String lxrId = "";//联系人的ID
+    private String tel = ""; // 电话
+
+    private void getIntentData() {
+        mClientid = getIntent().getStringExtra("clientid");
+        mClientname = getIntent().getStringExtra("clientname");
+        mTypes = getIntent().getStringExtra("types");
+        tel = getIntent().getStringExtra("tel");
+        lxrId = getIntent().getStringExtra("lxrid");
+    }
+
+
     private TextView lxrxxTextView, lxfsTextView;
     private ViewPager viewPager;
     private LayoutInflater inflater;
@@ -58,15 +104,14 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
     private Spinner xbSpinner;
     private CheckBox zlxrCheckBox;
     private ImageView corsor1, corsor2;
-    private String lxrId = "", tel = ""; // 联系人的ID
+
     private ImageView addImageView, delImageView, saveImageView;
 
 
     private LinearLayout llUnitNameChoice;
     private TextView tvUnitName;
-    private String mClientid = "";// 单位名称
-    private String mClientname;// 单位名称
-    private String mTypes;
+
+
     private Button btYwlr;
     private Button btXzlxr;
 
@@ -75,17 +120,17 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gzpt_dwzl_lxr_bjlxr);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mClientname=getIntent().getStringExtra("clientname");
-        if (this.getIntent().hasExtra("lxrid")) {
-            lxrId = this.getIntent().getExtras().getString("lxrid");
-            mClientid = this.getIntent().getExtras().getString("clientid");
-            tel = this.getIntent().getExtras().getString("tel");
-        }
+        getIntentData();
         initActivity();
         initLxrxxListView();
         initLxfsListView();
         addFHMethod();
-        searchDateDwxx(0);
+        /**
+         * 判断联系人id是否为空，不为空，查询联系人信息
+         */
+        if (!TextUtils.isEmpty(lxrId)) {
+            queryLxrxx(0);
+        }
     }
 
     /**
@@ -236,7 +281,7 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
                 corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
                 break;
             case R.id.lxfs_textview:
-                if (lxrId.equals("0")) {
+                if (TextUtils.isEmpty(lxrId) || "0".equals(lxrId)) {
                     showToastPromopt("请先保存联系人信息");
                     return;
                 }
@@ -271,7 +316,7 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
                 searchDateDelLxfs(2, ids.substring(0, ids.length() - 1));
                 break;
             case R.id.save:
-                searchDateSaveDw(3);
+                saveLxrxxHttp(3);
                 break;
             case R.id.csrq_edittext:
                 date_init(csrqEditText);
@@ -283,6 +328,10 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
             case R.id.bt_ywlr:
                 if (TextUtils.isEmpty(mClientid)) {
                     showToastPromopt("请选择单位！");
+                    return;
+                }
+                if (TextUtils.isEmpty(lxrId) || "0".equals(lxrId)) {
+                    showToastPromopt("请选保存联系人信息！");
                     return;
                 }
                 Map map = new HashMap();
@@ -301,15 +350,59 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
         super.onExecuteFh();
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 0:// 编辑联系人
+                    // viewPager.setCurrentItem(0);
+                    lxfsList.clear();
+                    searchDateLxfs(1);
+                    break;
+                case 11://单位选择结果处理
+                    mClientid = data.getStringExtra("id");
+                    mClientname = data.getStringExtra("name");
+                    mTypes = data.getStringExtra("types");
+//                    lxrid = data.getStringExtra("lxrid");
+//                    mTypesname = data.getStringExtra("typesname");
+                    tvUnitName.setText(mClientname);
+//                    tvContacts.setText(data.getStringExtra("lxrname"));
+//                    etContactNumber.setText(data.getStringExtra("phone"));
+//                    etCustomerAddress.setText(data.getStringExtra("shipto"));
+                    break;
+            }
+//            if (requestCode == 0) {// 编辑联系人
+//                // viewPager.setCurrentItem(0);
+//                lxfsList.clear();
+//                searchDateLxfs(1);
+//            }
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            setResult(RESULT_OK);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     /**
-     * 连接网络的操作(查询联系人信息)
+     * 查询联系人信息
+     *
+     * @param rusquestCode 请求码
      */
-    private void searchDateDwxx(int type) {
+    private void queryLxrxx(int rusquestCode) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
         parmMap.put("dbname", ShareUserInfo.getDbName(context));
 //        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("lxrid", lxrId);
-        findServiceData2(type, ServerURL.LXRINFO, parmMap, true);
+        findServiceData2(rusquestCode, ServerURL.LXRINFO, parmMap, true);
     }
 
     /**
@@ -324,10 +417,17 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
         findServiceData(type, ServerURL.LXRLXFSLIST, parmMap);
     }
 
+
     /**
-     * 连接网络的操作(保存单位信息)
+     * 保存联系人信息信息
+     *
+     * @param resquestCode
      */
-    private void searchDateSaveDw(int type) {
+    private void saveLxrxxHttp(int resquestCode) {
+        if (TextUtils.isEmpty(mClientid)) {
+            showToastPromopt("单位名称不能为空！");
+            return;
+        }
         if (xmEditText.getText().toString().equals("")) {
             showToastPromopt("姓名不能为空！");
             return;
@@ -346,7 +446,7 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
         parmMap.put("jtaddress", jtzzEditText.getText().toString());
         parmMap.put("grah", grahEditText.getText().toString());
         parmMap.put("memo", bzEditText.getText().toString());
-        findServiceData(type, ServerURL.LXRSAVE, parmMap);
+        findServiceData(resquestCode, ServerURL.LXRSAVE, parmMap);
     }
 
     /**
@@ -376,7 +476,9 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
         findServiceData2(10, ServerURL.LXFSSAVE, parmMap, false);
     }
 
-
+    /**
+     * 网络请求返回数据
+     */
     @SuppressWarnings("unchecked")
     @Override
     public void executeSuccess() {
@@ -425,7 +527,7 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
                     showToastPromopt("操作失败" + returnJson.substring(5));
                 }
                 break;
-            case 3:
+            case 3://保存联系人信息
                 if (returnJson.equals("")) {
                     lxrId = returnJsonId;
                     /**
@@ -442,50 +544,10 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
                 break;
             case 10:
                 showToastPromopt("操作成功");
+                tel = "";
                 break;
             default:
                 break;
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case 0:// 编辑联系人
-                    // viewPager.setCurrentItem(0);
-                    lxfsList.clear();
-                    searchDateLxfs(1);
-                    break;
-                case 11://单位选择结果处理
-                    mClientid = data.getStringExtra("id");
-                    mClientname = data.getStringExtra("name");
-                    mTypes = data.getStringExtra("types");
-//                    lxrid = data.getStringExtra("lxrid");
-//                    mTypesname = data.getStringExtra("typesname");
-                    tvUnitName.setText(mClientname);
-//                    tvContacts.setText(data.getStringExtra("lxrname"));
-//                    etContactNumber.setText(data.getStringExtra("phone"));
-//                    etCustomerAddress.setText(data.getStringExtra("shipto"));
-                    break;
-            }
-//            if (requestCode == 0) {// 编辑联系人
-//                // viewPager.setCurrentItem(0);
-//                lxfsList.clear();
-//                searchDateLxfs(1);
-//            }
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN) {
-            setResult(RESULT_OK);
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

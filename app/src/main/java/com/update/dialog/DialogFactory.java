@@ -73,4 +73,17 @@ public class DialogFactory {
         dialog.setDialogClickInterface(mDialogClickInterface);
         return dialog;
     }
+
+    /**
+     * 获取公有云私有云对话框
+     *
+     * @param context
+     * @param mDialogClickInterface
+     * @return
+     */
+    public static BaseDialog getLinkSetDialog(Context context, OnDialogClickInterface mDialogClickInterface) {
+        LinkSetDialog dialog = new LinkSetDialog(context);
+        dialog.setDialogClickInterface(mDialogClickInterface);
+        return dialog;
+    }
 }
