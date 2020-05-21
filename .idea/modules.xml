@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CustomerRelation3.iml" filepath="$PROJECT_DIR$/CustomerRelation3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/filter-lib/filter-lib.iml" filepath="$PROJECT_DIR$/filter-lib/filter-lib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zxinglite/zxinglite.iml" filepath="$PROJECT_DIR$/zxinglite/zxinglite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CustomerRelation3.iml" filepath="$PROJECT_DIR$/CustomerRelation3.iml" group="CustomerRelation3" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="CustomerRelation3/app" />
+      <module fileurl="file://$PROJECT_DIR$/filter-lib/filter-lib.iml" filepath="$PROJECT_DIR$/filter-lib/filter-lib.iml" group="CustomerRelation3/filter-lib" />
+      <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" group="CustomerRelation3/pickerview" />
+      <module fileurl="file://$PROJECT_DIR$/zxinglite/zxinglite.iml" filepath="$PROJECT_DIR$/zxinglite/zxinglite.iml" group="CustomerRelation3/zxinglite" />
     </modules>
   </component>
 </project>

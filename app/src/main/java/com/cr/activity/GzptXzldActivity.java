@@ -87,7 +87,7 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
      */
     private void initListView() {
 
-        adapter = new GzptXzldAdapter(list, context, this);
+        adapter = new GzptXzldAdapter(list, mContext, this);
         xzldListView.setAdapter(adapter);
         xzldListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -144,7 +144,7 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
             public void run() {
                 try {
                     returnSuccessType = 1;
-                    TelDao telDao = new TelDao(context);
+                    TelDao telDao = new TelDao(mContext);
                     list.clear();
                     list.addAll(telDao.findTel(time));
                     if (list.size() == 0) {
@@ -163,7 +163,7 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
     // 调用网络查询出特定接口的数据
     private void findServiceData2(final String phone) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("phone", phone);
         findServiceData(0, ServerURL.LXRINFOOFPHONE, parmMap);
     }

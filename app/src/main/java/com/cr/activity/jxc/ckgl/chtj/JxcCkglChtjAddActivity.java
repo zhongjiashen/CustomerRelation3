@@ -129,7 +129,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
@@ -140,7 +140,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -176,7 +176,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
             double tzce=0;
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
@@ -200,7 +200,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("tabname", "tb_adjap");
         parmMap.put("parms", "CHTJ");
         parmMap.put("master", arrayMaster.toString());

@@ -99,8 +99,8 @@ public class XmActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("clientid",clientid);
 		parmMap.put("qsrq", qsrq);
 		parmMap.put("zzrq", jzrq);
@@ -139,7 +139,7 @@ public class XmActivity extends BaseActivity implements OnClickListener {
 		Intent intent = new Intent();
 		switch (arg0.getId()) {
 		case R.id.sx:
-			intent.setClass(context, XmSearchActivity.class);
+			intent.setClass(mContext, XmSearchActivity.class);
 			intent.putExtra("qsrq", qsrq);
 			intent.putExtra("jzrq", jzrq);
 			intent.putExtra("dwmc", dwmc);
@@ -147,7 +147,7 @@ public class XmActivity extends BaseActivity implements OnClickListener {
 			startActivityForResult(intent, 0);
 			break;
 		case R.id.xz:
-			intent.setClass(context, XzxmActivity.class);
+			intent.setClass(mContext, XzxmActivity.class);
 //			intent.putExtra("dwmc",dw);
 //			intent.putExtra("jzrq", jzrq);
 			startActivityForResult(intent, 1);

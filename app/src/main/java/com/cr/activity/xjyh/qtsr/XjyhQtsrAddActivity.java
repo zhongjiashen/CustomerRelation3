@@ -500,7 +500,7 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
             jsonObject.put("departmentid ", mDepartmentid);
             jsonObject.put("empid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
             jsonObject.put("projectid", xmId);
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
@@ -517,7 +517,7 @@ public class XjyhQtsrAddActivity extends BaseActivity implements
             e.printStackTrace();
         }// 代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_income");
         parmMap.put("parms", "QTSR");

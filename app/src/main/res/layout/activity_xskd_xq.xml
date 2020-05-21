@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.update.viewbar.TitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:paddingTop="10dip"
+                android:paddingBottom="10dip">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/djbh"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_djbh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/jxc_cggl_cgdd" />
+
+                    <ImageView
+                        android:id="@+id/iv_shzt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:background="@drawable/wsh" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_ckck_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/ckck" />
+
+                <TextView
+                    android:id="@+id/tv_ckck"
+                    style="@style/tv_wgight_right"
+                    android:text="@string/lxr" />
+
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_kh_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/kh" />
+
+                <TextView
+                    android:id="@+id/tv_kh"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_lxr_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxr" />
+
+                <TextView
+                    android:id="@+id/tv_lxr"
+                    style="@style/tv_wgight_right"
+                    android:text="@string/lxr" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/lxdh" />
+
+                <EditText
+                    android:id="@+id/et_lxdh"
+                    style="@style/edittext_bj"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_fplx_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/fplx" />
+
+                <TextView
+                    android:id="@+id/tv_fplx"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView
+                    style="@style/imageview_jt"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_skrq_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="收款日期" />
+
+                <TextView
+                    android:id="@+id/tv_skrq"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView
+                    style="@style/imageview_jt"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_xm_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/xm" />
+
+                <TextView
+                    android:id="@+id/tv_xm"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/jhdz" />
+
+                <EditText
+                    android:id="@+id/et_jhdz"
+                    style="@style/edittext_bj" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:id="@+id/ll_sp_xz"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:orientation="horizontal"
+                android:paddingTop="10dip"
+                android:paddingBottom="10dip">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/xzsp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xzsp"
+                    android:textColor="@color/black_color"
+                    android:textSize="@dimen/jxc_cggl_cgdd" />
+
+                <TextView
+                    android:id="@+id/tv_xzspsl"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <com.cr.tools.CustomListView
+                android:id="@+id/xzsp_listview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="@null"
+                android:dividerHeight="0dip"
+                android:listSelector="@android:color/transparent"></com.cr.tools.CustomListView>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="15dip"
+                android:background="@color/cgdd_search_bg"></LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/khqk" />
+
+                <EditText
+                    android:id="@+id/et_khqk"
+                    style="@style/edittext_bj"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/hjje" />
+
+                <EditText
+                    android:id="@+id/et_hjje"
+                    style="@style/edittext_bj2"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/skje" />
+
+                <EditText
+                    android:id="@+id/et_skje"
+                    style="@style/edittext_bj"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_sklx_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/sklx" />
+
+                <TextView
+                    android:id="@+id/tv_sklx"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                style="@style/detail_relativelayout"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/jsfs" />
+
+                <EditText
+                    android:id="@+id/jsfs_edittext"
+                    style="@style/edittext_bj2" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View
+                style="@style/underline"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_zjzh_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/zjzh" />
+
+                <TextView
+                    android:id="@+id/tv_zjzh"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_wlgs_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="物流公司" />
+
+                <TextView
+                    android:id="@+id/tv_wlgs"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_dszh_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="代收账户" />
+
+                <TextView
+                    android:id="@+id/tv_dszh"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="代收金额" />
+
+                <EditText
+                    android:id="@+id/et_dsje"
+                    style="@style/edittext_bj"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="收款合计" />
+
+                <EditText
+                    android:id="@+id/et_skhj"
+                    style="@style/edittext_bj"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_djrq_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/djrq" />
+
+                <TextView
+                    android:id="@+id/tv_djrq"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_bm_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="部门" />
+
+                <TextView
+                    android:id="@+id/tv_bm"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout
+                android:id="@+id/ll_ywy_xz"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/jbr" />
+
+                <TextView
+                    android:id="@+id/tv_ywy"
+                    style="@style/tv_wgight_right" />
+
+                <ImageView style="@style/imageview_jt" />
+            </LinearLayout>
+
+            <View style="@style/underline" />
+
+            <LinearLayout style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/zdr" />
+
+                <TextView
+                    android:id="@+id/tv_zdr"
+                    style="@style/tv_wgight_right" />
+
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_bzxx"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="@string/bzxx"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_sh"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sh"
+                    android:textColor="#ff0000"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/bd_sd"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sd"
+                    android:textColor="#ff0000"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

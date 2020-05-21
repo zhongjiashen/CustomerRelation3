@@ -2,6 +2,7 @@ package com.cr.tools;
 
 import android.content.Context;
 
+import com.alibaba.fastjson.JSON;
 import com.update.utils.LogUtils;
 
 import org.ksoap2.SoapEnvelope;
@@ -247,6 +248,7 @@ public class ServerRequest {
 		String soapAction = ServerURL.nameSpace + "/" + methodName;
 		LogUtils.e( "调用接口："+soapAction);
 		LogUtils.e( "调用接口："+methodName);
+		LogUtils.e( "请求参数："+ JSON.toJSONString(params));
 		// 指定WebService的命名空间和调用的方法名
 		SoapObject rpc = new SoapObject(nameSpace, methodName);
 		String result = "";

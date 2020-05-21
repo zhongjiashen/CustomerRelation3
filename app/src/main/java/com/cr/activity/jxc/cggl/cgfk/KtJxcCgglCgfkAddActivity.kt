@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.MotionEvent
 import android.view.View
-import android.widget.BaseAdapter
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.CommonXzdwActivity
 import com.cr.activity.common.CommonXzfklx2Activity
@@ -301,7 +300,7 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
             jsonObject.put("exemanid", jbrId)//经办人
             jsonObject.put("amount", fkje_edittext.getText().toString())
             jsonObject.put("memo", bzxx_edittext.getText().toString())
-            jsonObject.put("opid", ShareUserInfo.getUserId(context))
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext))
             arrayMaster.put(jsonObject)
             for (map in list) {
                 val jsonObject2 = JSONObject()
@@ -317,7 +316,7 @@ class KtJxcCgglCgfkAddActivity : BaseActivity() {
         }
         // 代表新增
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap["tabname"] = "tb_pay"
         parmMap["parms"] = "CGFK"

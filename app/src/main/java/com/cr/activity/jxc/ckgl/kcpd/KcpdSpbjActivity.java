@@ -216,7 +216,7 @@ public class KcpdSpbjActivity extends BaseActivity {
                 intent1.putExtra("isxz", true);
                 intent1.setClass(mActivity, JxcXzphActivity/*CommonXzphActivity*/.class);
                 intent1.putExtra("goodsid", mMap.get("goodsid").toString());
-                intent1.putExtra("storied", mStoreid);
+                intent1.putExtra("storeid", mStoreid);
                 intent1.putExtra("position", 0);
                 startActivityForResult(intent1, 2);
                 break;

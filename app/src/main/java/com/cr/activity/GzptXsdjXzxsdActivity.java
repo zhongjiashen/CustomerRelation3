@@ -143,8 +143,8 @@ import com.crcxj.activity.R;
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("saleid",xsdlb==null?"0":xsdlb.getSaleid());
 		parmMap.put("billdate",djrqEditText.getText().toString());
 		parmMap.put("clientid",dwid);
@@ -185,7 +185,7 @@ import com.crcxj.activity.R;
      */
     private void searchDateLxr(String lxrid){
         Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("lxrid",lxrid);
         findServiceData(4,ServerURL.LXRINFO,parmMap);
     }
@@ -194,7 +194,7 @@ import com.crcxj.activity.R;
 	 */
 	private void searchHkfsDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("zdbm","ZFFS");
 		findServiceData2(3,ServerURL.DATADICT,parmMap,true);
 	}

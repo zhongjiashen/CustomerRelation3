@@ -89,7 +89,7 @@ public class CommonXzzdActivity extends BaseActivity implements OnClickListener 
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("zdbm", type);
         findServiceData2(0, ServerURL.DATADICT, parmMap, false);
     }

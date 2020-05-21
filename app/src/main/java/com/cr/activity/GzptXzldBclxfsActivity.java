@@ -142,7 +142,7 @@ public class GzptXzldBclxfsActivity extends BaseActivity implements
     // 调用网络查询出特定接口的数据
     private void findServiceData2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("id", "0");
         parmMap.put("clientid", dwmcId);
         parmMap.put("cname", dwmcEditText.getText().toString());

@@ -116,7 +116,7 @@ public class JxcCkglZzcxXzsp2Activity extends BaseActivity implements
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("tabname", "tb_combin");
 		parmMap.put("goodscode", "");
 		parmMap.put("goodstype", code);

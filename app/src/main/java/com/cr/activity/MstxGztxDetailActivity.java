@@ -48,8 +48,8 @@ public class MstxGztxDetailActivity extends BaseActivity {
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("title", title);
 		findServiceData(0,ServerURL.BROADCASTPROMPTXX,parmMap);
 	}
@@ -67,11 +67,11 @@ public class MstxGztxDetailActivity extends BaseActivity {
 	                    if(gztx.getTypes().equals("5")){
 	                        Intent intent=new Intent();
 	                        intent.setClass(MstxGztxDetailActivity.this, GzptKhglActivity.class);
-	                        ShareUserInfo.setKey(context, "khzlname","yybf");
+	                        ShareUserInfo.setKey(mContext, "khzlname","yybf");
 	                        intent.putExtra("cname", gztx.getCname());
 	                        startActivity(intent);
 	                    }else if(gztx.getTypes().equals("6")){
-	                    	ShareUserInfo.setKey(context, "khzlname","yybf");
+	                    	ShareUserInfo.setKey(mContext, "khzlname","yybf");
 	                        Intent intent=new Intent(MstxGztxDetailActivity.this,GzptHjzxKhzlActivity.class);
 	                        GSLXRChild child=new GSLXRChild();
 	                        child.setLxrid(gztx.getId());

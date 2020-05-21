@@ -277,7 +277,7 @@ public class XjyhSkdAddActivity extends BaseActivity implements OnClickListener 
             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("paytypeid", jsfsId);
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
             jsonObject.put("bankid", zjzhId);
             jsonObject.put("amount", fkjeEditText.getText().toString());
             jsonObject.put("factamount", fkjeEditText.getText().toString());
@@ -287,7 +287,7 @@ public class XjyhSkdAddActivity extends BaseActivity implements OnClickListener 
             e.printStackTrace();
         }// 代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_charge_skd");
         parmMap.put("parms", "SKD");

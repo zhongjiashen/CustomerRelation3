@@ -70,7 +70,7 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 	 * 初始化ListView
 	 */
 	private void initListView(){
-		adapter=new JhzjJhxmAdapter(jhxmList, context, this);
+		adapter=new JhzjJhxmAdapter(jhxmList, mContext, this);
 		jhxmListView.setAdapter(adapter);
 		jhxmListView.setXListViewListener(xListViewListener);
 		jhxmListView.setPullLoadEnable(true);
@@ -80,12 +80,12 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 				JHRW jhrw2=jhxmList.get(arg2-1);
 				if(jhrw2.getLx().equals("0")){
-					Intent intent = new Intent(context, KtKhglJhzjXmzxActivity/*JhzjXzxmZxActivity*/.class);
+					Intent intent = new Intent(mContext, KtKhglJhzjXmzxActivity/*JhzjXzxmZxActivity*/.class);
 					intent.putExtra("jhid", jhrw.getId());
 					intent.putExtra("object",jhrw2);
 					startActivityForResult(intent,0);
 				}else{
-					Intent intent = new Intent(context,KtKhglJhzjXmCkActivity/*JhzjXzxmZxCkActivity*/.class);
+					Intent intent = new Intent(mContext,KtKhglJhzjXmCkActivity/*JhzjXzxmZxCkActivity*/.class);
 					intent.putExtra("jhid", jhrw.getId());
 					intent.putExtra("object",jhrw2);
 					startActivity(intent);
@@ -99,7 +99,7 @@ public class JhzjJhxmActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("jhid", jhrw.getId());
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);

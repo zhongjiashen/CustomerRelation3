@@ -252,8 +252,8 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("types", mTypes);
 
         parmMap.put("typeid", typeid);
@@ -282,7 +282,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
 
     private void getAddressData(String levels, String parentid, int returnSuccessType) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("levels", levels);
         parmMap.put("parentid", parentid);
         findServiceData(returnSuccessType, ServerURL.AREALIST, parmMap);
@@ -482,7 +482,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
      */
     private void searchXmjdDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("zdbm", "XMGM");
         findServiceData2(4, ServerURL.DATADICT, parmMap, false);
     }

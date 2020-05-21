@@ -93,7 +93,7 @@ public class GzptXsdjXsdActivity extends BaseActivity implements OnClickListener
      */
     private void initListView() {
         cpmxListView = (ListView) findViewById(R.id.cpmx_listview);
-        adapter = new GzptXsdjXsdAdapter(cpmxList, context);
+        adapter = new GzptXsdjXsdAdapter(cpmxList, mContext);
         cpmxListView.setAdapter(adapter);
     }
 
@@ -102,7 +102,7 @@ public class GzptXsdjXsdActivity extends BaseActivity implements OnClickListener
      */
     private void searchZdDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("saleid", xsdlb.getSaleid());
         findServiceData(0, ServerURL.SALEMASTER, parmMap);
     }
@@ -112,7 +112,7 @@ public class GzptXsdjXsdActivity extends BaseActivity implements OnClickListener
      */
     private void searchCpmxDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("saleid", xsdlb.getSaleid());
         findServiceData(1, ServerURL.SALEDETAIL, parmMap);
     }
@@ -122,7 +122,7 @@ public class GzptXsdjXsdActivity extends BaseActivity implements OnClickListener
      */
     private void searchDate2(String ids) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("ids", ids);
         parmMap.put("itemtype", "SALED");
         findServiceData2(2, ServerURL.DELDATA, parmMap, true);
@@ -133,7 +133,7 @@ public class GzptXsdjXsdActivity extends BaseActivity implements OnClickListener
      */
     private void searchDate3(String ids) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("ids", ids);
         parmMap.put("itemtype", "SALEM");
         findServiceData2(3, ServerURL.DELDATA, parmMap, true);

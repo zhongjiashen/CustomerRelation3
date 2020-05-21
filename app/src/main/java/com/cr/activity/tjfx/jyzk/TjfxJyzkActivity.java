@@ -87,10 +87,10 @@ public class TjfxJyzkActivity extends BaseActivity implements OnClickListener {
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("qsrq", qsrq);
         parmMap.put("zzrq", jzrq);
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 //        parmMap.put("curpage", currentPage);
 //        parmMap.put("pagesize", pageSize);
         findServiceData2(0, ServerURL.ENTERPRISEWORKRPT, parmMap, false);
@@ -123,7 +123,7 @@ public class TjfxJyzkActivity extends BaseActivity implements OnClickListener {
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.sx:
-                intent.setClass(context, TjfxJyzkSearchActivity.class);
+                intent.setClass(mContext, TjfxJyzkSearchActivity.class);
                 intent.putExtra("qr", qsrq);
                 intent.putExtra("zr", jzrq);
 //                intent.putExtra("kh", cname);

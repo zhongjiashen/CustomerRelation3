@@ -117,13 +117,13 @@ public class CommonXzyyActivity extends BaseActivity implements OnClickListener 
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("parms", this.getIntent().getExtras().getString("type"));
 		parmMap.put("clientid",
 				this.getIntent().getExtras().getString("clientid"));
 		parmMap.put("qsrq", qsrq);
 		parmMap.put("zzrq", jzrq);
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
 		findServiceData2(0, ServerURL.REFBILLMASTER, parmMap, false);
@@ -134,7 +134,7 @@ public class CommonXzyyActivity extends BaseActivity implements OnClickListener 
 	 */
 	private void searchDate2(String billid) {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("reftypeid", this.getIntent().getExtras().getString("reftypeid"));
 		parmMap.put("billid",billid);
 		findServiceData2(1, ServerURL.REFBILLDETAIL, parmMap, false);

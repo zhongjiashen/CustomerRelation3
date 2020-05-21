@@ -90,8 +90,8 @@ public class TjfxYsyfActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("types",lxid);
 		parmMap.put("cname", mc);
 		parmMap.put("qkflag",qkflag);
@@ -128,7 +128,7 @@ public class TjfxYsyfActivity extends BaseActivity implements OnClickListener {
 		Intent intent = new Intent();
 		switch (arg0.getId()) {
 		case R.id.sx:
-			intent.setClass(context, TjfxYsyfSearchActivity.class);
+			intent.setClass(mContext, TjfxYsyfSearchActivity.class);
 			intent.putExtra("lxid", lxid);
 			intent.putExtra("lxname", lxname);
 			intent.putExtra("mc", mc);

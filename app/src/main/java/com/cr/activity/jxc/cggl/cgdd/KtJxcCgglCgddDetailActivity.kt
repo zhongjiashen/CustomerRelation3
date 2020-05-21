@@ -92,7 +92,7 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
      */
     private fun searchDate() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         parmMap["parms"] = "CGDD"
         parmMap["billid"] = this.intent.extras!!.getString("billid")
         findServiceData2(0, ServerURL.BILLMASTER, parmMap, false)
@@ -103,7 +103,7 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
      */
     private fun searchDate2() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         parmMap["parms"] = "CGDD"
         parmMap["billid"] = this.intent.extras!!.getString("billid")
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false)
@@ -114,8 +114,8 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
      */
     private fun searchDateSd() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
-        parmMap["opid"] = ShareUserInfo.getUserId(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["opid"] = ShareUserInfo.getUserId(mContext)
         parmMap["tabname"] = "tb_porder"
         parmMap["pkvalue"] = this.intent.extras!!.getString("billid")
         findServiceData2(2, ServerURL.BILLDELMASTER, parmMap, false)

@@ -14,10 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baiiu.filter.DropDownMenu;
-import com.baiiu.filter.adapter.DropMenuAdapter;
 import com.baiiu.filter.adapter.MyMenuAdapter;
 import com.baiiu.filter.adapter.SimpleTextAdapter;
-import com.baiiu.filter.interfaces.OnFilterDoneListener;
 import com.baiiu.filter.interfaces.OnFilterItemClickListener;
 import com.baiiu.filter.typeview.SingleListView;
 import com.baiiu.filter.util.UIUtil;
@@ -151,7 +149,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
 
     private void fenlei() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         findServiceData2(1, "multitype", parmMap, false);
     }
 
@@ -160,7 +158,7 @@ public class JxcCkglCkdbXzspActivity extends BaseActivity implements
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("tabname", "tb_allot");
         parmMap.put("goodscode", "");
         parmMap.put("goodstype", code);

@@ -57,7 +57,6 @@ class KtCgglSpxq2Activity : BaseActivity<BaseP>() {
 
             //是批次商品的会显示批号、生产日期、有效日期
             if (data["batchctrl"].toString().equals("T")) {
-                ll_pcsp.visibility = View.VISIBLE
 //                tv_sl.visibility = View.VISIBLE
                 ll_pcsp.visibility = View.VISIBLE
                 et_cpph.setText(data["batchcode"].toString())

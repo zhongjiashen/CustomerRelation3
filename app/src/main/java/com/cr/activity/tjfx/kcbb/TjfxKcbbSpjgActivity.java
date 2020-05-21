@@ -84,9 +84,9 @@ public class TjfxKcbbSpjgActivity extends BaseActivity implements OnClickListene
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context)); 
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("clientid","0");
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("storeid","0");
 		parmMap.put("goodsid", map.get("goodsid").toString());
 		parmMap.put("unitid", map.get("unitid").toString());

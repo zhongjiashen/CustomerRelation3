@@ -9,7 +9,6 @@ import android.view.MotionEvent
 import android.view.View
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.CommonXzdwActivity
-import com.cr.activity.common.CommonXzyyActivity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspActivity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity
 
@@ -121,7 +120,7 @@ class KtJxcCgglCgshAddActivity: BaseActivity() {
             //            String hjje = hjje_edittext.getText().toString();
             //            jsonObject.put("amount", hjje.replace("￥", ""));
             jsonObject.put("memo", bzxx_edittext.getText().toString())
-            jsonObject.put("opid", ShareUserInfo.getUserId(context))
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext))
             arrayMaster.put(jsonObject)
             for (map in list) {
                 val jsonObject2 = JSONObject()
@@ -148,7 +147,7 @@ class KtJxcCgglCgshAddActivity: BaseActivity() {
         }
         //代表新增
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap["tabname"] = "tb_received"
         parmMap["parms"] = "CGSH"

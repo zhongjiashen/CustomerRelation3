@@ -97,7 +97,7 @@ public class JhzjZjhActivity extends BaseActivity implements OnClickListener {
 	 * 初始化ListView
 	 */
 	private void initListView() {
-		adapter = new JhzjZjhAdapter(xzjhList, context, this);
+		adapter = new JhzjZjhAdapter(xzjhList, mContext, this);
 		rjhListView.setAdapter(adapter);
 		rjhListView.setXListViewListener(xListViewListener);
 		rjhListView.setPullLoadEnable(true);
@@ -106,7 +106,7 @@ public class JhzjZjhActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent intent = new Intent(context, JhzjJhxmActivity.class);
+				Intent intent = new Intent(mContext, JhzjJhxmActivity.class);
 				JHRW jhrw = xzjhList.get(arg2 - 1);
 				intent.putExtra("object", jhrw);
 				startActivity(intent);
@@ -119,8 +119,8 @@ public class JhzjZjhActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("years", ksrqEditText.getText().toString());
 		parmMap.put("weekno", qnCheckBox.isChecked()?"0":zhou);
 		parmMap.put("curpage", currentPage);
@@ -132,8 +132,8 @@ public class JhzjZjhActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void searchDate2(){
 	    Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("years", ksrqEditText.getText().toString());
         parmMap.put("istoday", "1");
 //        parmMap.put("empname",searchEditText.getText().toString());

@@ -3,13 +3,11 @@ package com.cr.activity.jxc.xsgl.xsdd
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import com.cr.activity.BaseActivity
 import com.cr.activity.jxc.cggl.KtCgglSpxqCk2Activity
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity
-import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetail2Activity
 import com.cr.adapter.jxc.xsgl.xsdd.JxcXsglXsddDetailAdapter
 import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
@@ -88,7 +86,7 @@ class KtJxcXsglXsddDetailActivity: BaseActivity() {
      */
     private fun searchDate() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         parmMap["parms"] = "XSDD"
         parmMap["billid"] = this.intent.extras!!.getString("billid")
         findServiceData2(0, ServerURL.BILLMASTER, parmMap, false)
@@ -99,7 +97,7 @@ class KtJxcXsglXsddDetailActivity: BaseActivity() {
      */
     private fun searchDate2() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         parmMap["parms"] = "XSDD"
         parmMap["billid"] = this.intent.extras!!.getString("billid")
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false)
@@ -110,8 +108,8 @@ class KtJxcXsglXsddDetailActivity: BaseActivity() {
      */
     private fun searchDateSd() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
-        parmMap["opid"] = ShareUserInfo.getUserId(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["opid"] = ShareUserInfo.getUserId(mContext)
         parmMap["tabname"] = "tb_sorder"
         parmMap["pkvalue"] = this.intent.extras!!.getString("billid")
         findServiceData2(2, ServerURL.BILLDELMASTER, parmMap, false)

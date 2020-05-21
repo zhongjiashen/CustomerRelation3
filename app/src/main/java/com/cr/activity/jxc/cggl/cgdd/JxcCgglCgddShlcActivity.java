@@ -87,7 +87,7 @@ public class JxcCgglCgddShlcActivity extends BaseActivity implements OnClickList
             return ;
         }
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("tabname", tableName);
         parmMap.put("pkvalue",billid);
         parmMap.put("levels", adapter.getShjb());
@@ -101,7 +101,7 @@ public class JxcCgglCgddShlcActivity extends BaseActivity implements OnClickList
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("tabname", tableName);
         parmMap.put("pkvalue", billid);
         findServiceData2(0, ServerURL.BILLSHLIST, parmMap, false);

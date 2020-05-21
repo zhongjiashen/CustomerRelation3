@@ -123,7 +123,7 @@ public class KhfwXzspActivity extends BaseActivity implements
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("tabname", "");
 		parmMap.put("goodstype", code);
         parmMap.put("goodsname", searchEditText.getText().toString());

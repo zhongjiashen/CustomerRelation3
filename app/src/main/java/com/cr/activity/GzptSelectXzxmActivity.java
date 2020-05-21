@@ -60,7 +60,7 @@ public class GzptSelectXzxmActivity extends BaseActivity implements OnClickListe
 	 * 初始化ListView
 	 */
 	private void initListView(){
-		adapter=new GzptSelectXzxmAdapter(lxrList, context, this);
+		adapter=new GzptSelectXzxmAdapter(lxrList, mContext, this);
 		xzdwListView.setAdapter(adapter);
 		xzdwListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -82,7 +82,7 @@ public class GzptSelectXzxmActivity extends BaseActivity implements OnClickListe
 	 */
 	private void searchDate(){
 	    Map<String, Object> parmMap=new HashMap<String, Object>();
-	    parmMap.put("dbname", ShareUserInfo.getDbName(context));
+	    parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("clientid", clientId);
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);

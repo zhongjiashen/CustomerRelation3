@@ -590,7 +590,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
      */
     private void searchDateDwxx(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("clientid", clientId);
         findServiceData(type, ServerURL.CLIENTINFO, parmMap);
     }
@@ -600,7 +600,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
      */
     private void searchDateLxfs(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("clientid", clientId);
         parmMap.put("havelxr", "0");
@@ -632,8 +632,8 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         // return;
         // }
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("clientid", clientId);
         parmMap.put("types", khlbId);
         parmMap.put("cname", khmcEditText.getText().toString());
@@ -658,7 +658,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
      */
     private void searchDateDelLxfs(int type, String ids) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("ids", ids);
         parmMap.put("itemtype", "LXFS");
@@ -670,7 +670,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
      */
     private void searchDateSave() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("id", "0");
         parmMap.put("clientid", clientId);
         parmMap.put("lxrid", "0");
@@ -688,7 +688,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
             return;
         }
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("id", "0");
         parmMap.put("clientid", cid);
         parmMap.put("lxrid", "0");

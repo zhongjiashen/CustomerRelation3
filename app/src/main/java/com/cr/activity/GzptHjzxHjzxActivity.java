@@ -90,7 +90,7 @@ public class GzptHjzxHjzxActivity extends BaseActivity implements
         xListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent(context, GzptDwzlActivity.class);
+                Intent intent = new Intent(mContext, GzptDwzlActivity.class);
                 intent.putExtra("object", (Serializable)list.get(arg2-1));
                 startActivityForResult(intent,1);
                 adapter.setSelectIndex(arg2);
@@ -103,8 +103,8 @@ public class GzptHjzxHjzxActivity extends BaseActivity implements
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("jhbid", jhrw.getId());
 		parmMap.put("rq", xzrqEditText.getText().toString());
 		parmMap.put("zt", wbfRadioButton.isChecked() ? "0" : "1");

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import com.cr.activity.BaseActivity
 import com.cr.activity.CkxzActivity
-import com.cr.activity.common.CommonXzzdActivity
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.update.actiity.choose.SelectSalesmanActivity
@@ -171,7 +170,7 @@ class KtJxcCkglCkdbAddActivity : BaseActivity() {
             jsonObject.put("departmentid", mDepartmentid)
             jsonObject.put("exemanid", jbrId)
             jsonObject.put("memo", bzxx_edittext.getText().toString())
-            jsonObject.put("opid", ShareUserInfo.getUserId(context))
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext))
             arrayMaster.put(jsonObject)
             for (data in mList) {
                 val jsonObject2 = JSONObject()
@@ -194,7 +193,7 @@ class KtJxcCkglCkdbAddActivity : BaseActivity() {
         }
         //代表新增
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap["tabname"] = "tb_allot"
         parmMap["parms"] = "CKDB"

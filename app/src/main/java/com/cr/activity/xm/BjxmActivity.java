@@ -94,8 +94,8 @@ public class BjxmActivity extends BaseActivity implements
 	private void saveXsjhDate() {
 		// Log.v("dddd", this.getIntent().getExtras().getString("jhbid"));
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("projectid", this.getIntent().getExtras().getString("xmid"));
 		parmMap.put("billdate", djrqEditText.getText().toString());
 		parmMap.put("title", xmmcEditText.getText().toString());
@@ -120,7 +120,7 @@ public class BjxmActivity extends BaseActivity implements
 	private void searchXmDate() {
 		// Log.v("dddd", this.getIntent().getExtras().getString("jhbid"));
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("projectid", this.getIntent().getExtras().getString("xmid"));
 		findServiceData2(2, ServerURL.PROJECTINFO, parmMap, false);
 	}
@@ -129,8 +129,8 @@ public class BjxmActivity extends BaseActivity implements
 	 */
 	private void deleteXmDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("tabname", "tb_project");
 		parmMap.put("pkvalue", this.getIntent().getExtras().getString("xmid"));
 		findServiceData2(4, ServerURL.BILLDELMASTER, parmMap, false);

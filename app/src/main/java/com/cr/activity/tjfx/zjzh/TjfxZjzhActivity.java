@@ -71,8 +71,8 @@ public class TjfxZjzhActivity extends BaseActivity implements OnClickListener {
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         findServiceData2(0, ServerURL.BANKRPT, parmMap, false);
     }
 

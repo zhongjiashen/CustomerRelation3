@@ -64,12 +64,15 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
     TextView tvSerialNumber;
     EditText etBz;
 
+    private String mStoreid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jxc_ckgl_ckdb_xzsp_detail);
         addFHMethod();
         initActivity();
+        mStoreid=getIntent().getStringExtra("storeid");
     }
 
     /**
@@ -236,6 +239,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
                 Intent intent = new Intent();
                 intent.setClass(activity, CommonXzphActivity.class);
                 intent.putExtra("goodsid", object.get("goodsid").toString());
+                intent.putExtra("storeid", mStoreid);
                 activity.startActivityForResult(intent, 0);
                 break;
             case R.id.tv_serial_number:
@@ -250,7 +254,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
                     intent1.putExtra("referitemno", "0");
                     startActivityForResult(intent1.setClass(activity, XzXlhActivity.class)
                                     .putExtra("parms", "CKDB")
-                                    .putExtra("storeid", getIntent().getStringExtra("rkckId"))
+                                    .putExtra("storeid", mStoreid)
                                     .putExtra("goodsid", object.get("goodsid").toString())
                             , 11);
                 } else {

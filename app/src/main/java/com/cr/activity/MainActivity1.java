@@ -125,7 +125,7 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
                         mLlName.setVisibility(View.VISIBLE);
                         mLlIp.setVisibility(View.GONE);
                         mLlDk.setVisibility(View.GONE);
-                        mEtName.setText(ShareUserInfo.getKey(context, "usercode"));
+                        mEtName.setText(ShareUserInfo.getKey(mContext, "usercode"));
                         break;
                 }
             }
@@ -135,7 +135,7 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
 
             }
         });
-        if (ShareUserInfo.getKey(context, "isPublic").equals("true")) {
+        if (ShareUserInfo.getKey(mContext, "isPublic").equals("true")) {
             mSpinnerLjfs.setSelection(1);
         } else {
             mSpinnerLjfs.setSelection(0);
@@ -148,10 +148,10 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
      */
     private void searchDBFroIp() {
 
-        String msg = ShareUserInfo.getIP(context).replace("http://", "") + ":"
-                + ShareUserInfo.getDK(context);
+        String msg = ShareUserInfo.getIP(mContext).replace("http://", "") + ":"
+                + ShareUserInfo.getDK(mContext);
         int index = 0;
-        ClientIPDao clientIPDao = new ClientIPDao(context);
+        ClientIPDao clientIPDao = new ClientIPDao(mContext);
         ipList = clientIPDao.findAllIP();
         if (ipList.size() == 0) {
             for (int j = 0; j < 2; j++) {
@@ -162,7 +162,7 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
                 } else if (j == 1) {
                     ip.setIp("hengvideocrm.oicp.net");
                 }
-                ClientIPDao cipdao = new ClientIPDao(context);
+                ClientIPDao cipdao = new ClientIPDao(mContext);
                 cipdao.add(ip);
                 ipList.add(ip);
             }
@@ -230,14 +230,14 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
             case R.id.ibt_lj:
                 Map map = new HashMap();
                 map.put("imei", getImei());
-                ShareUserInfo.setKey(context, "isPublic", isPublic + "");
+                ShareUserInfo.setKey(mContext, "isPublic", isPublic + "");
                 if (isPublic) {
                     String name = mEtName.getText().toString();
                     if (TextUtils.isEmpty(name)) {
                         showToastPromopt("用户名不能为空！");
                         return;
                     }
-                    ShareUserInfo.setKey(context, "usercode", name);
+                    ShareUserInfo.setKey(mContext, "usercode", name);
                     map.put("usercode", name);
                     map.put("vertype", "crmerp");
                     String url = "http://139.155.112.251:8088/Client/GetMobileClientRegInfo";
@@ -254,8 +254,8 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
                         return;
                     }
                     saveDbData(ip, dk);
-                    ShareUserInfo.setDK(context, dk);
-                    ShareUserInfo.setIP(context, "http://" + ip);
+                    ShareUserInfo.setDK(mContext, dk);
+                    ShareUserInfo.setIP(mContext, "http://" + ip);
                     map.put("pass", "030728");
                     findServiceData3(0, "getmboileclientreginfo", map);// 查询帐套信息
                 }
@@ -301,8 +301,8 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
     }
 
     public String getImei() {
-        TelephonyManager tm = (TelephonyManager) this.context
-                .getSystemService(this.context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) this.mContext
+                .getSystemService(this.mContext.TELEPHONY_SERVICE);
         @SuppressLint("MissingPermission") String Imei = tm.getDeviceId();
         return Imei;
     }
@@ -314,7 +314,7 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    ClientIPDao cipdao = new ClientIPDao(context);
+                    ClientIPDao cipdao = new ClientIPDao(mContext);
                     ClientIP clientIP = new ClientIP();
                     clientIP.setIp(ip);
                     clientIP.setDk(dk);
@@ -337,8 +337,8 @@ public class MainActivity1 extends BaseActivity implements OnClickListener {
                     @Override
                     public void run() {
                         if (data.getStatus().equals("yes")) {
-                            ShareUserInfo.setIP(context, "http://" + data.getIpaddress());
-                            ShareUserInfo.setDK(context, "8031");
+                            ShareUserInfo.setIP(mContext, "http://" + data.getIpaddress());
+                            ShareUserInfo.setDK(mContext, "8031");
                             Intent intent = new Intent(activity, LoginActivity.class);
                             intent.putExtra("isPublic", true);
                             intent.putExtra("webuserid", data.getWebuserid());

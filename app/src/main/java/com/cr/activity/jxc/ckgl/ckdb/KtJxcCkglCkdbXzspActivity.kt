@@ -15,8 +15,6 @@ import android.widget.Toast
 import com.cr.activity.BaseActivity
 import com.cr.activity.common.CommonXzphActivity
 import com.cr.activity.common.CommonXzsplbActivity
-import com.cr.common.XListView
-import com.cr.myinterface.SLViewValueChange
 import com.cr.tools.FigureTools
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
@@ -24,15 +22,12 @@ import com.crcxj.activity.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.update.base.BaseRecycleAdapter
-import com.update.model.KtFplxData
-import com.update.utils.LogUtils
 import com.update.viewbar.refresh.PullToRefreshLayout
 import com.update.viewholder.ViewHolderFactory
 
 import kotlinx.android.synthetic.main.activity_jxc_ckgl_kcpd_xzsp.*
 import java.io.Serializable
 
-import java.text.SimpleDateFormat
 import java.util.*
 @Deprecated("")
 class KtJxcCkglCkdbXzspActivity : BaseActivity(), PullToRefreshLayout.OnRefreshListener {
@@ -197,7 +192,7 @@ class KtJxcCkglCkdbXzspActivity : BaseActivity(), PullToRefreshLayout.OnRefreshL
      */
     private fun searchDate() {
         val parmMap = HashMap<String, Any?>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         parmMap["tabname"] = "tb_allot"
         parmMap["goodscode"] = ""
         parmMap["goodstype"] = code

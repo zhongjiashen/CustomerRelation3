@@ -84,9 +84,9 @@ public class TjfxKcbbSpjg2Activity extends BaseActivity implements OnClickListen
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context)); 
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("clientid",this.getIntent().getExtras().getString("clientid"));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("storeid",this.getIntent().getExtras().getString("storeid"));
 		parmMap.put("goodsid", this.getIntent().getExtras().getString("goodsid"));
 		parmMap.put("unitid", this.getIntent().getExtras().getString("unitid"));

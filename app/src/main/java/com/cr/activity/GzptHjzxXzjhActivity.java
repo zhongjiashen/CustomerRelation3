@@ -67,7 +67,7 @@ public class GzptHjzxXzjhActivity extends BaseActivity implements OnClickListene
 	 * 初始化ListView
 	 */
 	private void initListView(){
-		adapter=new GzptHjzxXzjhAdapter(xzjhList, context, this);
+		adapter=new GzptHjzxXzjhAdapter(xzjhList, mContext, this);
 		yybfListView.setAdapter(adapter);
 		yybfListView.setXListViewListener(xListViewListener);
 		yybfListView.setPullLoadEnable(true);
@@ -75,7 +75,7 @@ public class GzptHjzxXzjhActivity extends BaseActivity implements OnClickListene
 		yybfListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-				Intent intent = new Intent(context,GzptHjzxHjzxActivity.class);
+				Intent intent = new Intent(mContext,GzptHjzxHjzxActivity.class);
 				JHRW jhrw=xzjhList.get(arg2-1);
 				intent.putExtra("object",jhrw);
 				startActivity(intent);
@@ -87,8 +87,8 @@ public class GzptHjzxXzjhActivity extends BaseActivity implements OnClickListene
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("qsrq", ksrqEditText.getText().toString());
 		parmMap.put("zzrq", jsrqEditText.getText().toString());
 		parmMap.put("curpage", currentPage);

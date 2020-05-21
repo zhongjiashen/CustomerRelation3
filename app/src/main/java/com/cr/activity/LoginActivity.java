@@ -10,9 +10,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.util.ArrayMap;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -118,13 +123,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
      * 查询帐套信息
      */
     private void cxztxx() {
-        if ("true".equals(ShareUserInfo.getKey(context, "isPublic", "false"))) {
+        if ("true".equals(ShareUserInfo.getKey(mContext, "isPublic", "false"))) {
             isPublic = true;
             Map map = new HashMap();
-            map.put("imei", getImei());
-            map.put("usercode", ShareUserInfo.getKey(context, "usercode"));
+            map.put("imei", getIMEI(mContext));
+            map.put("usercode", ShareUserInfo.getKey(mContext, "usercode"));
             map.put("vertype", BuildConfig.vertype);
-            String url = "http://" + ShareUserInfo.getKey(context, "publicIp", "saas.hengshicrm.com") + ":8088/Client/GetMobileClientRegInfo";
+            String url = "http://" + ShareUserInfo.getKey(mContext, "publicIp", "saas.hengshicrm.com") + ":8088/Client/GetMobileClientRegInfo";
             httpPost(url, map);
         } else {
             isPublic = false;
@@ -139,13 +144,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         ztSpinner = (Spinner) findViewById(R.id.zt_spinner);
         bhEditText = (EditText) findViewById(R.id.login_bh);
 //        bhEditText.setText(ShareUserInfo.getKey(context, "bh"));
-        bhId = ShareUserInfo.getKey(context, "bhId");
+        bhId = ShareUserInfo.getKey(mContext, "bhId");
         bhEditText.setText(bhId);
         bhEditText.setOnClickListener(this);
         mmEditText = (EditText) findViewById(R.id.login_mm);
-        mmEditText.setText(ShareUserInfo.getKey(context, "mm"));
+        mmEditText.setText(ShareUserInfo.getKey(mContext, "mm"));
         saveMsgCheckBox = (CheckBox) findViewById(R.id.login_savemsg);
-        if (ShareUserInfo.getKey(context, "zt").equals("")) {
+        if (ShareUserInfo.getKey(mContext, "zt").equals("")) {
             saveMsgCheckBox.setChecked(false);
         } else {
             saveMsgCheckBox.setChecked(true);
@@ -158,12 +163,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 dbName = ztList.get(arg2).getDbName();
-                if (!dbName.equals(ShareUserInfo.getDbName(context))) {
+                if (!dbName.equals(ShareUserInfo.getDbName(mContext))) {
                     bhEditText.setText("");
                     mmEditText.setText("");
-                    ShareUserInfo.setKey(context, "bh", "");
-                    ShareUserInfo.setKey(context, "mm", "");
-                    ShareUserInfo.setKey(context, "bhId", "");
+                    ShareUserInfo.setKey(mContext, "bh", "");
+                    ShareUserInfo.setKey(mContext, "mm", "");
+                    ShareUserInfo.setKey(mContext, "bhId", "");
                 }
             }
 
@@ -230,13 +235,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             case R.id.login_login:
                 if (validDataMsg()) {
                     if (saveMsgCheckBox.isChecked()) {
-                        ShareUserInfo.setKey(context, "bh", bhEditText.getText().toString());
-                        ShareUserInfo.setKey(context, "mm", mmEditText.getText().toString());
-                        ShareUserInfo.setKey(context, "zt", "1");
+                        ShareUserInfo.setKey(mContext, "bh", bhEditText.getText().toString());
+                        ShareUserInfo.setKey(mContext, "mm", mmEditText.getText().toString());
+                        ShareUserInfo.setKey(mContext, "zt", "1");
                     } else {
-                        ShareUserInfo.setKey(context, "bh", "");
-                        ShareUserInfo.setKey(context, "mm", "");
-                        ShareUserInfo.setKey(context, "zt", "");
+                        ShareUserInfo.setKey(mContext, "bh", "");
+                        ShareUserInfo.setKey(mContext, "mm", "");
+                        ShareUserInfo.setKey(mContext, "zt", "");
                     }
 
                     if (!isPublic) {
@@ -244,7 +249,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                          * 当链接方式为私有云且ip为saas.hengshicrm.com时，
                          * 点击登录时不判断手机IMEI是否注册，可直接登录。
                          */
-                        if ("http://saas.hengshicrm.com".equals(ShareUserInfo.getIP(context))) {
+                        if ("http://saas.hengshicrm.com".equals(ShareUserInfo.getIP(mContext))) {
                             Map<String, Object> params = new HashMap<String, Object>();
                             params.put("dbname", dbName);
                             /* params.put("usercode", bhId);*/
@@ -253,7 +258,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                             findServiceData3(2, "login", params);
                         } else {
                             Map map = new HashMap();
-                            map.put("imei", getImei());
+                            map.put("imei", getIMEI(mContext));
                             map.put("pass", "030728");
                             findServiceData3(1, "getmboileclientreginfo", map);
                         }
@@ -311,8 +316,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                             return;
                         }
                         if ("yes".equals(data.getStatus())) {
-                            ShareUserInfo.setIP(context, "http://" + data.getIpaddress());
-                            ShareUserInfo.setDK(context, "8031");
+                            ShareUserInfo.setIP(mContext, "http://" + data.getIpaddress());
+                            ShareUserInfo.setDK(mContext, "8031");
 
                             Map map = new HashMap();
                             map.put("webuserid", data.getWebuserid());
@@ -343,11 +348,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 int index = 0;
                 LogUtils.e(returnJson);
                 ztList = ZT.paseJsonToObject(returnJson);
-                LogUtils.e(ShareUserInfo.getKey(context, "zt"));
+                LogUtils.e(ShareUserInfo.getKey(mContext, "zt"));
                 String[] ztString = new String[ztList.size()];
                 for (int i = 0; i < ztList.size(); i++) {
                     ztString[i] = ztList.get(i).getName();
-                    if (ztList.get(i).getName().equals(ShareUserInfo.getKey(context, "zt"))) {
+                    if (ztList.get(i).getName().equals(ShareUserInfo.getKey(mContext, "zt"))) {
                         index = i;
                     }
                 }
@@ -380,25 +385,25 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     if (userLogin == null) {
                         showToastPromopt("编号或密码错误！");
                     } else {
-                        ShareUserInfo.setUserId(context, userLogin.getId());
-                        ShareUserInfo.setUserName(context, userLogin.getOpname());
-                        ShareUserInfo.setKey(context, "bhId", bhEditText.getText().toString());
-                        ShareUserInfo.setKey(context, "zt", ztSpinner.getSelectedItem().toString());
-                        ShareUserInfo.setDbName(context, dbName);
+                        ShareUserInfo.setUserId(mContext, userLogin.getId());
+                        ShareUserInfo.setUserName(mContext, userLogin.getOpname());
+                        ShareUserInfo.setKey(mContext, "bhId", bhEditText.getText().toString());
+                        ShareUserInfo.setKey(mContext, "zt", ztSpinner.getSelectedItem().toString());
+                        ShareUserInfo.setDbName(mContext, dbName);
 
 
                         if (userLogin.getId().equals("1")) {//是系统管理员
-                            ShareUserInfo.setKey(context, "empid", "");//
-                            ShareUserInfo.setKey(context, "empname", "");//
-                            ShareUserInfo.setKey(context, "opname", "");//
-                            ShareUserInfo.setKey(context, "departmentid", "");//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
-                            ShareUserInfo.setKey(context, "depname", "");//设置empid，报表的时候使用
+                            ShareUserInfo.setKey(mContext, "empid", "");//
+                            ShareUserInfo.setKey(mContext, "empname", "");//
+                            ShareUserInfo.setKey(mContext, "opname", "");//
+                            ShareUserInfo.setKey(mContext, "departmentid", "");//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
+                            ShareUserInfo.setKey(mContext, "depname", "");//设置empid，报表的时候使用
                         } else {
-                            ShareUserInfo.setKey(context, "empid", userLogin.getEmpid());//
-                            ShareUserInfo.setKey(context, "empname", userLogin.getOpname());//
-                            ShareUserInfo.setKey(context, "opname", userLogin.getOpname());//
-                            ShareUserInfo.setKey(context, "departmentid", userLogin.getDepartmentid());//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
-                            ShareUserInfo.setKey(context, "depname", userLogin.getDepname());//设置empid，报表的时候使用
+                            ShareUserInfo.setKey(mContext, "empid", userLogin.getEmpid());//
+                            ShareUserInfo.setKey(mContext, "empname", userLogin.getOpname());//
+                            ShareUserInfo.setKey(mContext, "opname", userLogin.getOpname());//
+                            ShareUserInfo.setKey(mContext, "departmentid", userLogin.getDepartmentid());//设置departmentid，安装登记、维修登记单据的部门业务员没有带过来
+                            ShareUserInfo.setKey(mContext, "depname", userLogin.getDepname());//设置empid，报表的时候使用
                         }
                         String s = "#loguserinfo#" + userLogin.getId() + ","
                                 + userLogin.getOpname() + ","
@@ -495,9 +500,27 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     }
 
     public String getImei() {
-        TelephonyManager tm = (TelephonyManager) this.context
-                .getSystemService(this.context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) this.mContext
+                .getSystemService(this.mContext.TELEPHONY_SERVICE);
         @SuppressLint("MissingPermission") String Imei = tm.getDeviceId();
         return Imei;
     }
+
+    public static String getIMEI(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+        @SuppressLint("MissingPermission") String deviceId = telephonyManager.getDeviceId();
+        //android 10以上已经获取不了imei了 用 android id代替
+        if(TextUtils.isEmpty(deviceId)){
+            deviceId = Settings.System.getString(
+                    context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        }
+        return  deviceId;
+    }
+
+
+
+
+
+
+
 }

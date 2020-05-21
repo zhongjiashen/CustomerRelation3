@@ -295,7 +295,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
         khgxbb();//客户关系报表
         cwtj();//财务统计
 
-        String category = ShareUserInfo.getKey(context, "zt");
+        String category = ShareUserInfo.getKey(mContext, "zt");
 //        租赁企业版、IT企业版、IT专业版这三个版屏蔽客户服务(标准专业版版\汽配版等保留)，统计分析中客户服务统计也给屏蔽了
 //        if (category.equals("租赁企业版") || category.equals("IT企业版") || category.equals("IT专业版")) {
 //            gzptIndexModelList.remove(6);//屏蔽
@@ -377,12 +377,12 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             mstxIndexModelList.add(im);
         }
-        mstxGridView.setAdapter(new IndexAdapter(context, mstxIndexModelList));
+        mstxGridView.setAdapter(new IndexAdapter(mContext, mstxIndexModelList));
         mstxGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "mstx");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "cpphType", "mstx");//判断是否是采购订单
                 switch (mstxIndexModelList.get(arg2).getLogoName()) {
 
                     case "个人日程":
@@ -505,13 +505,13 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             gzptIndexModelList.add(im);
         }
-        wdgzGridView.setAdapter(new IndexAdapter(context, gzptIndexModelList));
+        wdgzGridView.setAdapter(new IndexAdapter(mContext, gzptIndexModelList));
         wdgzGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
-                ShareUserInfo.setKey(context, "khzlname", gzptIndexModelList.get(arg2).getKhzlname());
+                ShareUserInfo.setKey(mContext, "cpphType", "wdgz");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "khzlname", gzptIndexModelList.get(arg2).getKhzlname());
 //                switch (gzptIndexModelList.get(arg2).getLogoName()) {
 //                    case "客户拜访统计":
 //                    case "客户服务统计":
@@ -573,13 +573,13 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             azwxIndexModelList.add(im);
         }
-        azwxGridView.setAdapter(new IndexAdapter(context, azwxIndexModelList));
+        azwxGridView.setAdapter(new IndexAdapter(mContext, azwxIndexModelList));
         azwxGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
 //				ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
-                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "cpphType", "ckgl");//判断是否是采购订单
                 CheckOperPriv(azwxIndexModelList.get(arg2).getMenuid());
                 mIntent = azwxIndexModelList.get(arg2).getIntent();
 //                Intent intent = new Intent();
@@ -638,12 +638,12 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             jhzjIndexModelList.add(im);
         }
-        jhzjGridView.setAdapter(new IndexAdapter(context, jhzjIndexModelList));
+        jhzjGridView.setAdapter(new IndexAdapter(mContext, jhzjIndexModelList));
         jhzjGridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "jhzj");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "cpphType", "jhzj");//判断是否是采购订单
                 Intent intent = new Intent();
                 switch (arg2) {
                     case 0:
@@ -712,15 +712,15 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             cgglIndexModelList.add(im);
         }
-        cgglGridView.setAdapter(new IndexAdapter(context, cgglIndexModelList));
+        cgglGridView.setAdapter(new IndexAdapter(mContext, cgglIndexModelList));
         cgglGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "cpphType", "wdgz");//判断是否是采购订单
                 if (TextUtils.isEmpty(cgglIndexModelList.get(arg2).getKhzlname())) {
-                    ShareUserInfo.setKey(context, "khzlname", cgglIndexModelList.get(arg2).getKhzlname());
+                    ShareUserInfo.setKey(mContext, "khzlname", cgglIndexModelList.get(arg2).getKhzlname());
                 }
                 CheckOperPriv(cgglIndexModelList.get(arg2).getMenuid());
                 mIntent = cgglIndexModelList.get(arg2).getIntent();
@@ -794,15 +794,15 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             xsglIndexModelList.add(im);
         }
-        xsglGridView.setAdapter(new IndexAdapter(context, xsglIndexModelList));
+        xsglGridView.setAdapter(new IndexAdapter(mContext, xsglIndexModelList));
         xsglGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "wdgz");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "cpphType", "wdgz");//判断是否是采购订单
                 if (TextUtils.isEmpty(xsglIndexModelList.get(arg2).getKhzlname())) {
-                    ShareUserInfo.setKey(context, "khzlname", xsglIndexModelList.get(arg2).getKhzlname());
+                    ShareUserInfo.setKey(mContext, "khzlname", xsglIndexModelList.get(arg2).getKhzlname());
                 }
                 CheckOperPriv(xsglIndexModelList.get(arg2).getMenuid());
                 mIntent = xsglIndexModelList.get(arg2).getIntent();
@@ -886,13 +886,13 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             ckglIndexModelList.add(im);
         }
-        ckglGridView.setAdapter(new IndexAdapter(context, ckglIndexModelList));
+        ckglGridView.setAdapter(new IndexAdapter(mContext, ckglIndexModelList));
         ckglGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "ckgl");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "cpphType", "ckgl");//判断是否是采购订单
                 CheckOperPriv(ckglIndexModelList.get(arg2).getMenuid());
                 mIntent = ckglIndexModelList.get(arg2).getIntent();
 //                startActivity(ckglIndexModelList.get(arg2).getIntent());
@@ -948,13 +948,13 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             xjyhIndexModelList.add(im);
         }
-        xjyhGridView.setAdapter(new IndexAdapter(context, xjyhIndexModelList));
+        xjyhGridView.setAdapter(new IndexAdapter(mContext, xjyhIndexModelList));
         xjyhGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "xjyh");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "cpphType", "xjyh");//判断是否是采购订单
                 CheckOperPriv(xjyhIndexModelList.get(arg2).getMenuid());
                 mIntent = xjyhIndexModelList.get(arg2).getIntent();
 //                startActivity(xjyhIndexModelList.get(arg2).getIntent());
@@ -1015,7 +1015,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             khgxbbIndexModelList.add(im);
         }
-        khgxbbGridView.setAdapter(new IndexAdapter(context, khgxbbIndexModelList));
+        khgxbbGridView.setAdapter(new IndexAdapter(mContext, khgxbbIndexModelList));
         khgxbbGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -1103,13 +1103,13 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
             }
             tjfxIndexModelList.add(im);
         }
-        tjfxGridView.setAdapter(new IndexAdapter(context, tjfxIndexModelList));
+        tjfxGridView.setAdapter(new IndexAdapter(mContext, tjfxIndexModelList));
         tjfxGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ShareUserInfo.setKey(context, "cpphType", "tjfx");//判断是否是采购订单
+                ShareUserInfo.setKey(mContext, "cpphType", "tjfx");//判断是否是采购订单
                 switch (tjfxIndexModelList.get(arg2).getLogoName()) {
                     case "经营状况":
                         startActivity(tjfxIndexModelList.get(arg2).getIntent());
@@ -1284,8 +1284,8 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
      */
     public void saveQdMsg() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("jd", lng);
         parmMap.put("wd", lat);
         findServiceData2(0, ServerURL.REGISTERWRITE, parmMap, false);

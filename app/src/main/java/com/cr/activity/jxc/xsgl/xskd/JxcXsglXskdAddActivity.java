@@ -880,7 +880,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
      */
     private void getMrck() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("zdbm", "STORE");
         findServiceData2(4, ServerURL.DATADICT, parmMap, false);
     }
@@ -891,7 +891,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "XSKD");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -975,7 +975,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             jsonObject.put("shipto", jhdzEdittext.getText().toString());
             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
             jsonObject.put("memo", bzxxEdittext.getText().toString());
             jsonObject.put("projectid", xmId);
 
@@ -1027,7 +1027,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_invoice");
         parmMap.put("parms", "XSKD");

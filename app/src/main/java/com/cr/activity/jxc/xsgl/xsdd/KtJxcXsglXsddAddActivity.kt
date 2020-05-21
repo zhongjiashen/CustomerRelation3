@@ -11,10 +11,6 @@ import com.cr.activity.common.*
 import com.cr.activity.jxc.JxcSpbjActivity
 import com.cr.activity.jxc.JxcXzspActivity
 import com.cr.activity.jxc.KtXzspData
-import com.cr.activity.jxc.cggl.KtCgglSpxq2Activity
-import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzsp2Activity
-import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetailActivity
-import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
 import com.cr.adapter.jxc.xsgl.xsdd.JxcXsglXsddDetailAdapter
 import com.cr.tools.*
 import com.crcxj.activity.R
@@ -538,7 +534,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
             jsonObject.put("shipto", jhdz_edittext.getText().toString())
             jsonObject.put("amount", hjje_edittext.getText().toString().replace("￥", ""))
             jsonObject.put("memo", bzxx_edittext.getText().toString())
-            jsonObject.put("opid", ShareUserInfo.getUserId(context))
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext))
             arrayMaster.put(jsonObject)
             for (map in list) {
                 val jsonObject2 = JSONObject()
@@ -568,7 +564,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
         }
         //代表新增
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         parmMap["tabname"] = "tb_sorder"
         parmMap["parms"] = "XSDD"
         parmMap["master"] = arrayMaster.toString()
@@ -581,7 +577,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
      */
     private fun searchDate() {
         val parmMap = HashMap<String, Any?>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
         parmMap["parms"] = "CGDD"
         parmMap["billid"] = billid
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false)

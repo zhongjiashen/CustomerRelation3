@@ -54,8 +54,8 @@ public class JhzjXzyjhActivity extends BaseActivity implements OnClickListener{
 		String time=ksrqEditText.getText().toString();
 		String[]times=time.split("-");
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("jhid", "0");
 		parmMap.put("years",times[0]);
 		parmMap.put("months",times[1]);

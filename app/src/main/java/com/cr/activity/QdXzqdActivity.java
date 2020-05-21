@@ -275,8 +275,8 @@ public class QdXzqdActivity extends BaseActivity implements OnClickListener, Tak
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("jd", lng);
         parmMap.put("wd", lat);
         parmMap.put("types", qdType);

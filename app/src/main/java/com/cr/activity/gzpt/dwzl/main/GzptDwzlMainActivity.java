@@ -235,7 +235,7 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
      */
     public void searchDateDw(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("clientid", clientId);
         findServiceData(type, ServerURL.CLIENTINFO, parmMap);
     }
@@ -245,7 +245,7 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
      */
     public void searchDateLxr(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("clientid", clientId);
         parmMap.put("lxrname", "");
@@ -259,8 +259,8 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
      */
     public void searchDateBf(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("clientid ", clientId);
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
@@ -272,7 +272,7 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
      */
     public void searchDateJh(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("clientid", clientId);
         parmMap.put("curpage", currentPage);
         parmMap.put("pagesize", pageSize);
@@ -284,7 +284,7 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
      */
     public void searchDateFw(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("clientid ", clientId);
         parmMap.put("qsrq", "");
         parmMap.put("zzrq", "");
@@ -302,8 +302,8 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
      */
     public void searchDateDd(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("tabname", "tb_sorder");
         parmMap.put("qsrq", "1901-01-01");
         parmMap.put("zzrq", "3000-01-01");
@@ -320,8 +320,8 @@ public class GzptDwzlMainActivity extends BaseActivity implements OnClickListene
      */
     public void searchDateXm(int type) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("clientid", clientId);
         parmMap.put("qsrq", "1901-01-01");
         parmMap.put("zzrq", "3000-01-01");

@@ -44,7 +44,7 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
     private CommonXzphAdapter adapter;
     private XListView listView;
     private EditText searchEditText;
-    private String storied = "0";                                 //仓库ID 23
+    private String storeid = "0";                                 //仓库ID 23
     //    private String            goodsid = "2396";                              //商品ID 2396
     private String index;
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -59,8 +59,8 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
         initActivity();
         initListView();
         list.clear();
-        if (this.getIntent().hasExtra("storied")) {
-            storied = this.getIntent().getExtras().getString("storied");
+        if (this.getIntent().hasExtra("storeid")) {
+            storeid = this.getIntent().getExtras().getString("storeid");
         }
         //		if(this.getIntent().hasExtra("goodsid")){
         //		    goodsid=this.getIntent().getExtras().getString("goodsid");
@@ -151,9 +151,9 @@ public class CommonXzphActivity extends BaseActivity implements OnClickListener 
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         //        parmMap.put("opid", ShareUserInfo.getUserId(context));
-        parmMap.put("storeid", storied.equals("") ? "0" : storied);
+        parmMap.put("storeid", storeid.equals("") ? "0" : storeid);
         parmMap.put("goodsid", this.getIntent().getExtras().getString("goodsid"));
 //        parmMap.put("index", index);
         //        parmMap.put("curpage",currentPage);

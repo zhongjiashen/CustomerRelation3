@@ -153,7 +153,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
@@ -164,7 +164,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -176,7 +176,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
         list2.clear();
         adapter2.notifyDataSetChanged();
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("goodsid", goodsid);
         findServiceData2(2, ServerURL.SELECTGOODSCMB, parmMap, false);
     }
@@ -212,7 +212,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
              jsonObject.put("totalamt", "");
              jsonObject.put("exemanid", jbrId);
              jsonObject.put("memo", bzxxEditText.getText().toString());
-             jsonObject.put("opid", ShareUserInfo.getUserId(context));
+             jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
              Map<String, Object> myMap=list.get(0);
              jsonObject.put("goodsid", myMap.get("goodsid").toString());
              jsonObject.put("unitid", myMap.get("unitid").toString());
@@ -259,7 +259,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("tabname", "tb_combin");
         parmMap.put("parms", "ZZCX");
         parmMap.put("master", arrayMaster.toString());

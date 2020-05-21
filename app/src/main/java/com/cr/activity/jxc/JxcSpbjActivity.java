@@ -35,7 +35,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 商品修改
+ * 商品编辑修改（采购收货、采购退货、销售开单、销售退货）
  */
 public class JxcSpbjActivity extends BaseActivity {
     @BindView(R.id.titlebar)
@@ -302,7 +302,7 @@ public class JxcSpbjActivity extends BaseActivity {
                 }
                 intent1.setClass(mActivity, JxcXzphActivity/*CommonXzphActivity*/.class);
                 intent1.putExtra("goodsid", mMap.get("goodsid").toString());
-                intent1.putExtra("storied", mStoreid);
+                intent1.putExtra("storeid", mStoreid);
                 intent1.putExtra("position", 0);
                 startActivityForResult(intent1, 2);
                 break;

@@ -89,8 +89,8 @@ public class GzptDwzlJhXzxsjhActivity extends BaseActivity implements
 	private void saveXsjhDate() {
 		// Log.v("dddd", this.getIntent().getExtras().getString("jhbid"));
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("chanceid", chanceid);
 		parmMap.put("billdate", kssjEditText.getText().toString());
 		parmMap.put("clientid", clientId);
@@ -110,7 +110,7 @@ public class GzptDwzlJhXzxsjhActivity extends BaseActivity implements
 	private void searchXsjhDate() {
 		// Log.v("dddd", this.getIntent().getExtras().getString("jhbid"));
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("chanceid", chanceid);
 		findServiceData2(2, ServerURL.ITEMINFO, parmMap, false);
 	}

@@ -117,15 +117,15 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 		khzlTextView=(TextView) findViewById(R.id.khzlname);
 		bottomLayout=(LinearLayout) findViewById(R.id.bottomLayout);
 //		Log.v("dddd", ShareUserInfo.getKey(context, "khzlname"+"::"));
-		if(ShareUserInfo.getKey(context, "khzlname").equals("hjzx")){
+		if(ShareUserInfo.getKey(mContext, "khzlname").equals("hjzx")){
 		    khzlTextView.setText("呼叫中心");
-		}else if(ShareUserInfo.getKey(context, "khzlname").equals("yybf")){
+		}else if(ShareUserInfo.getKey(mContext, "khzlname").equals("yybf")){
             khzlTextView.setText("预约拜访");
-        }else if(ShareUserInfo.getKey(context, "khzlname").equals("shhf")){
+        }else if(ShareUserInfo.getKey(mContext, "khzlname").equals("shhf")){
             khzlTextView.setText("售后回访");
-        }else if(ShareUserInfo.getKey(context, "khzlname").equals("khgl")){
+        }else if(ShareUserInfo.getKey(mContext, "khzlname").equals("khgl")){
             khzlTextView.setText("客户管理");
-        }else if(ShareUserInfo.getKey(context, "khzlname").equals("xzld")){
+        }else if(ShareUserInfo.getKey(mContext, "khzlname").equals("xzld")){
             khzlTextView.setText("新增来电");
         }
 		
@@ -301,7 +301,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void initZjListView(){
 		zjListView=(XListView) zjView.findViewById(R.id.zj_listview);
-		zjAdapter=new GzptHjzxKhzlZjAdapter(zjList, context);
+		zjAdapter=new GzptHjzxKhzlZjAdapter(zjList, mContext);
 		zjListView.setXListViewListener(xListViewListenerZj);
 		zjListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -320,7 +320,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void initXmListView(){
 		xmListView=(XListView) xmView.findViewById(R.id.xm_listview);
-		xmAdapter=new GzptHjzxKhzlXmAdapter(xmList, context);
+		xmAdapter=new GzptHjzxKhzlXmAdapter(xmList, mContext);
 		xmListView.setXListViewListener(xListViewListenerXm);
 		xmListView.setPullLoadEnable(true);
 		xmListView.setPullRefreshEnable(false);
@@ -331,7 +331,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void initWhListView(){
 		whListView=(XListView) whView.findViewById(R.id.wh_listview);
-		whAdapter=new GzptHjzxKhzlWhAdapter(whList, context);
+		whAdapter=new GzptHjzxKhzlWhAdapter(whList, mContext);
 		whListView.setXListViewListener(xListViewListenerWh);
 		whListView.setPullLoadEnable(true);
 		whListView.setPullRefreshEnable(false);
@@ -342,7 +342,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void initCjListView(){
 		cjListView=(XListView) cjView.findViewById(R.id.cjjl_listview);
-		cjAdapter=new GzptHjzxKhzlCjAdapter(cjList, context);
+		cjAdapter=new GzptHjzxKhzlCjAdapter(cjList, mContext);
 		cjListView.setXListViewListener(xListViewListenerCj);
 		cjListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -362,7 +362,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void searchDateBf(int type){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("lxrid",child.getLxrid());
 		findServiceData(type,ServerURL.LXRINFO,parmMap);
 	}
@@ -371,8 +371,8 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void searchDateZj(int type){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("lxrid",child.getLxrid());
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
@@ -383,7 +383,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void searchDateXm(int type){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("clientid ",child.getClientid());
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
@@ -394,7 +394,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void searchDateWh(int type){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("clientid ",child.getClientid());
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
@@ -405,7 +405,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 	 */
 	private void searchDateCj(int type){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("clientid ",child.getClientid());
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
@@ -612,7 +612,7 @@ public class GzptHjzxKhzlActivity extends BaseActivity implements OnClickListene
 			yx2EditText.setText(gslxrDetail.getSremail2().equals("null")?"":gslxrDetail.getSremail2());
 			dwzzEditText.setText(gslxrDetail.getDwzz().equals("null")?"":gslxrDetail.getDwzz());
 			jtzzEditText.setText(gslxrDetail.getJtzz().equals("null")?"":gslxrDetail.getJtzz());
-			ShareUserInfo.setKey(context, "clientid", gslxrDetail.getClientid());
+			ShareUserInfo.setKey(mContext, "clientid", gslxrDetail.getClientid());
 			break;
 		case 1:
 //			zjList.clear();

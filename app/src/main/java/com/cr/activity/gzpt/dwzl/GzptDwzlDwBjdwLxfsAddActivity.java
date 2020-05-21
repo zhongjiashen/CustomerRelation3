@@ -97,7 +97,7 @@ public class GzptDwzlDwBjdwLxfsAddActivity extends BaseActivity implements OnCli
             return;
         }
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("id", id.equals("")?"0":id);
         parmMap.put("clientid", clientId);
         parmMap.put("lxrid", "0");
@@ -110,7 +110,7 @@ public class GzptDwzlDwBjdwLxfsAddActivity extends BaseActivity implements OnCli
      */
     private void searchLxfsDate(){
         Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("zdbm","LXFS");
         findServiceData2(1,ServerURL.DATADICT,parmMap,false);
     }

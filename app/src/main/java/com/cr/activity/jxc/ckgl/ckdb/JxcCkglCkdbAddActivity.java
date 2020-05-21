@@ -117,7 +117,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
 //
                 Intent intent = new Intent();
                 intent.setClass(activity, JxcCkglCkdbXzspDetailActivity.class);
-                intent.putExtra("rkckId", ckckId);
+                intent.putExtra("storeid", ckckId);
                 intent.putExtra("object", (Serializable) list.get(arg2));
                 startActivityForResult(intent, 4);
             }
@@ -157,7 +157,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "CKDB");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
@@ -168,7 +168,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "CKDB");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -219,7 +219,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEdittext.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(context));
+            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
@@ -243,7 +243,7 @@ public class JxcCkglCkdbAddActivity extends BaseActivity implements OnClickListe
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_allot");
         parmMap.put("parms", "CKDB");

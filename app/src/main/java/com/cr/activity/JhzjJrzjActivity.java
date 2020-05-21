@@ -68,7 +68,7 @@ public class JhzjJrzjActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 //		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("jhid", jhid);
 		parmMap.put("zwzj",nrEditText.getText().toString());
@@ -79,7 +79,7 @@ public class JhzjJrzjActivity extends BaseActivity implements OnClickListener{
      */
     private void searchDate2(){
         Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 //        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("jhid", jhid);
         findServiceData(1,ServerURL.JHRWGZZJZWZJREAD,parmMap);

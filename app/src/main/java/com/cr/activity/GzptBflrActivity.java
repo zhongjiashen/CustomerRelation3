@@ -135,7 +135,7 @@ public class GzptBflrActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchBffsDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("zdbm","BFLX");
 		findServiceData2(1,ServerURL.DATADICT,parmMap,false);
 	}
@@ -144,7 +144,7 @@ public class GzptBflrActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchXmjdDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("zdbm","XMGM");
 		findServiceData2(2,ServerURL.DATADICT,parmMap,false);
 	}
@@ -154,8 +154,8 @@ public class GzptBflrActivity extends BaseActivity implements OnClickListener{
 	private void saveBflrDate(){
 //		Log.v("dddd", this.getIntent().getExtras().getString("jhbid"));
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("id","0");
 		parmMap.put("jhbid",this.getIntent().getExtras().getString("jhbid"));
 		parmMap.put("lxrid",gslxrDetail.getId());

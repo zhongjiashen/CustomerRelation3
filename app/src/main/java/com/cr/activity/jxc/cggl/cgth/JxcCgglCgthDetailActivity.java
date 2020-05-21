@@ -165,7 +165,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "CGTH");
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(0, ServerURL.BILLMASTER, parmMap, false);
@@ -176,7 +176,7 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("parms", "CGTH");
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false);
@@ -187,8 +187,8 @@ public class JxcCgglCgthDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDateSd() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
-        parmMap.put("opid", ShareUserInfo.getUserId(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
         parmMap.put("tabname", "tb_preturn");
         parmMap.put("pkvalue", this.getIntent().getExtras().getString("billid"));
         findServiceData2(2, ServerURL.BILLDELMASTER, parmMap, false);

@@ -96,8 +96,8 @@ public class XzxmActivity extends BaseActivity implements
 		Toast.makeText(this,"保存",Toast.LENGTH_SHORT).show();
 		// Log.v("dddd", this.getIntent().getExtras().getString("jhbid"));
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("projectid", "0");
 		parmMap.put("billdate", djrqEditText.getText().toString());
 		parmMap.put("title", xmmcEditText.getText().toString());

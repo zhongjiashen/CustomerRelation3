@@ -291,7 +291,7 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
                     intent.setClass(activity, CommonXzphActivity.class);
                     intent.putExtra("goodsid", objMap2.get("goodsid")
                             .toString());
-                    intent.putExtra("storied", storeid);
+                    intent.putExtra("storeid", storeid);
                     intent.putExtra("index", position);
                     activity.startActivityForResult(intent, 0);
                 }

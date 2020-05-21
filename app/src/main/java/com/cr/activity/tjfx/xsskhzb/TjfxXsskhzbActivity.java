@@ -59,8 +59,8 @@ public class TjfxXsskhzbActivity extends BaseActivity implements
 		zr = sdf.format(new Date())
 				+ calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-		ywyid = ShareUserInfo.getKey(context, "empid");
-		ywy = ShareUserInfo.getKey(context, "empname");
+		ywyid = ShareUserInfo.getKey(mContext, "empid");
+		ywy = ShareUserInfo.getKey(mContext, "empname");
 		searchDate();
 	}
 
@@ -113,8 +113,8 @@ public class TjfxXsskhzbActivity extends BaseActivity implements
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid", ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
 		parmMap.put("qsrq", qr);
 		parmMap.put("zzrq", zr);
 		parmMap.put("selempid", ywyid);
@@ -151,7 +151,7 @@ public class TjfxXsskhzbActivity extends BaseActivity implements
 		Intent intent = new Intent();
 		switch (arg0.getId()) {
 		case R.id.sx:
-			intent.setClass(context, TjfxXsskhzbSearchActivity.class);
+			intent.setClass(mContext, TjfxXsskhzbSearchActivity.class);
 			intent.putExtra("qr", qr);
 			intent.putExtra("zr", zr);
 			intent.putExtra("ywy", ywy);

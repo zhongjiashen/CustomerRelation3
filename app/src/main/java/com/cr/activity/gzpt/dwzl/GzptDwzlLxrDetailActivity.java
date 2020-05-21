@@ -136,7 +136,7 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         //        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("lxrid", lxrId);
         findServiceData2(0, ServerURL.LXRINFO, parmMap, true);

@@ -83,7 +83,7 @@ public class GzptDwzlLxrBjlxrLxfsAddActivity extends BaseActivity implements OnC
      */
     private void searchDateSave() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("id", id.equals("")?"0":id);
         parmMap.put("clientid", clientId);
         parmMap.put("lxrid", lxrId);
@@ -96,7 +96,7 @@ public class GzptDwzlLxrBjlxrLxfsAddActivity extends BaseActivity implements OnC
      */
     private void searchLxfsDate(){
         Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
         parmMap.put("zdbm","LXFS");
         findServiceData2(1,ServerURL.DATADICT,parmMap,false);
     }

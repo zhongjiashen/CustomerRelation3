@@ -83,7 +83,7 @@ public class GzptXsdjXsdXzcpActivity extends BaseActivity implements OnClickList
 	 */
 	private void initListView(){
 		cpmxListView=(XListView) findViewById(R.id.xzcp_listview);
-		cpmxAdapter=new GzptXsdjXsdXzcpAdapter(cpmxList, context);
+		cpmxAdapter=new GzptXsdjXsdXzcpAdapter(cpmxList, mContext);
 		cpmxListView.setPullRefreshEnable(false);
 		cpmxListView.setPullLoadEnable(true);
 		cpmxListView.setXListViewListener(xListViewListener);
@@ -111,7 +111,7 @@ public class GzptXsdjXsdXzcpActivity extends BaseActivity implements OnClickList
 	 */
 	private void searchCPDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		parmMap.put("typecode",lmid);
 		parmMap.put("filter",searchEditText.getText().toString());
 		parmMap.put("curpage",currentPage);
@@ -123,8 +123,8 @@ public class GzptXsdjXsdXzcpActivity extends BaseActivity implements OnClickList
 	 */
 	private void searchSaveCpDate(CPMX cpmx){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
-		parmMap.put("opid",ShareUserInfo.getUserId(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("opid",ShareUserInfo.getUserId(mContext));
 		parmMap.put("id","0");
 		parmMap.put("saleid",xsdlb.getSaleid());
 		parmMap.put("goodsid",cpmx.getId());
@@ -137,7 +137,7 @@ public class GzptXsdjXsdXzcpActivity extends BaseActivity implements OnClickList
 	 */
 	private void searchLmDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
 		findServiceData(1,ServerURL.GOODSTYPE,parmMap);
 	}
 	/**

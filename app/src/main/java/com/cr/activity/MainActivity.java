@@ -114,8 +114,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				ipEditText.setText(ShareUserInfo.getIP(context));
-				dkEditText.setText(ShareUserInfo.getDK(context));
+				ipEditText.setText(ShareUserInfo.getIP(mContext));
+				dkEditText.setText(ShareUserInfo.getDK(mContext));
 			}
 		});
 		// String ip = ShareUserInfo.getIP(context);
@@ -142,19 +142,19 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					ClientIPDao cipdao = new ClientIPDao(context);
+					ClientIPDao cipdao = new ClientIPDao(mContext);
 					ClientIP ip = new ClientIP();
 					String i = ipEditText.getText().toString();
 					i = i.replace("http://", "");
 					i = "http://" + i;
 					ip.setIp(i);
 					// Log.v("dddd", i);
-					if(ShareUserInfo.getKey(context, "socketPort").equals("")){
-						ShareUserInfo.setKey(context, "socketPort", "3010");
+					if(ShareUserInfo.getKey(mContext, "socketPort").equals("")){
+						ShareUserInfo.setKey(mContext, "socketPort", "3010");
 					}
 					ip.setDk(dkEditText.getText().toString());
-					ShareUserInfo.setIP(context, i);
-					ShareUserInfo.setDK(context, ip.getDk());
+					ShareUserInfo.setIP(mContext, i);
+					ShareUserInfo.setDK(mContext, ip.getDk());
 					ip.setIp(i.replace("http://", ""));
 					cipdao.add(ip);
 				} catch (Exception e) {
@@ -203,10 +203,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		case R.id.sz_imagebutton://设置按钮点击事件
 			final EditText editText=new EditText(this);
 			editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-			if(ShareUserInfo.getKey(context, "socketPort").equals("")){
-				ShareUserInfo.setKey(context, "socketPort", "3010");
+			if(ShareUserInfo.getKey(mContext, "socketPort").equals("")){
+				ShareUserInfo.setKey(mContext, "socketPort", "3010");
 			}
-			editText.setText(ShareUserInfo.getKey(context, "socketPort"));
+			editText.setText(ShareUserInfo.getKey(mContext, "socketPort"));
 			new AlertDialog.Builder(activity)
 				.setTitle("设置通讯端口")
 				.setView(editText)
@@ -219,7 +219,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 							showToastPromopt("请输入端口号!");
 							return;
 						}
-						ShareUserInfo.setKey(context, "socketPort", editText.getText().toString());
+						ShareUserInfo.setKey(mContext, "socketPort", editText.getText().toString());
 						showToastPromopt("保存成功!");
 					}
 				})
@@ -249,10 +249,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	 * 查询数据库中的IP信息
 	 */
 	private void searchDBFroIp() {
-		String msg = ShareUserInfo.getIP(context).replace("http://", "") + ":"
-				+ ShareUserInfo.getDK(context);
+		String msg = ShareUserInfo.getIP(mContext).replace("http://", "") + ":"
+				+ ShareUserInfo.getDK(mContext);
 		int index = 0;
-		ClientIPDao clientIPDao = new ClientIPDao(context);
+		ClientIPDao clientIPDao = new ClientIPDao(mContext);
 		ipList = clientIPDao.findAllIP();
 		if (ipList.size() == 0) {
 			for (int j = 0; j < 2; j++) {
@@ -263,7 +263,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 				} else if (j == 1) {
 					ip.setIp("hengvideocrm.oicp.net");
 				}
-				ClientIPDao cipdao = new ClientIPDao(context);
+				ClientIPDao cipdao = new ClientIPDao(mContext);
 				cipdao.add(ip);
 				ipList.add(ip);
 			}
