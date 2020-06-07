@@ -169,11 +169,12 @@ public class GzptDwzlLxrBjlxrActivity extends BaseActivity implements
                     corsor1.setBackgroundResource(R.drawable.index_selectcorsor);
                     corsor2.setBackgroundResource(R.drawable.index_unselectcorsor);
                 } else if (arg0 == 1) {
-                    if (lxrId.equals("0")) {
+                    if (TextUtils.isEmpty(lxrId) || "0".equals(lxrId)) {
                         showToastPromopt("请先保存联系人信息");
                         viewPager.setCurrentItem(0);
                         return;
                     }
+
                     viewPager.setCurrentItem(1);
                     corsor2.setBackgroundResource(R.drawable.index_selectcorsor);
                     corsor1.setBackgroundResource(R.drawable.index_unselectcorsor);

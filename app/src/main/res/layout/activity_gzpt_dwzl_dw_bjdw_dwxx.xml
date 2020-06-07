@@ -238,6 +238,19 @@
 
             <TextView
                 style="@style/font_default"
+                android:text="@string/dw_shdz" />
+
+            <EditText
+                android:id="@+id/et_shdz"
+                style="@style/edittext_bj" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+
+        <LinearLayout style="@style/detail_relativelayout">
+
+            <TextView
+                style="@style/font_default"
                 android:text="@string/dw_wz" />
 
             <EditText

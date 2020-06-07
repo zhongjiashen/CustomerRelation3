@@ -130,7 +130,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
     private Button btYwlr;
     private Button btXzlxr;
     private String mTypes;
-
+    private EditText etShdz;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -387,6 +387,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         dzEditText = (EditText) dwxxView.findViewById(R.id.dz_edittext);
         wzEditText = (EditText) dwxxView.findViewById(R.id.wz_edittext);
         bzEditText = (EditText) dwxxView.findViewById(R.id.bz_edittext);
+        etShdz= dwxxView.findViewById(R.id.et_shdz);
         if (clientId.equals("0")) {
             dwxxView.findViewById(R.id.khbh_linearlayout).setVisibility(
                     View.GONE);
@@ -614,13 +615,15 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         if (khmcEditText.getText().toString().equals("")) {
             showToastPromopt("单位不能为空！");
             return;
-        } else if (khlbEditText.getText().toString().equals("")) {
+        }
+        if (khlbEditText.getText().toString().equals("")) {
             showToastPromopt("请选择客户类别！");
             return;
-        } else if (khdjEditText.getText().toString().equals("")) {
-            showToastPromopt("请选择客户等级！");
-            return;
         }
+//        if (khdjEditText.getText().toString().equals("")) {
+//            showToastPromopt("请选择客户等级！");
+//            return;
+//        }
         // else if (khlxEditText.getText().toString().equals("")) {
         // showToastPromopt("请选择客户类型！");
         // return;
@@ -649,6 +652,7 @@ public class GzptDwzlDwBjdwActivity extends BaseActivity implements
         parmMap.put("cnet", wzEditText.getText().toString());
         parmMap.put("fax", czEditText.getText().toString());
         parmMap.put("address", dzEditText.getText().toString());
+        parmMap.put("shipto", etShdz.getText().toString());
         parmMap.put("memo", bzEditText.getText().toString());
         findServiceData(type, ServerURL.CLIENTSAVE, parmMap);
     }

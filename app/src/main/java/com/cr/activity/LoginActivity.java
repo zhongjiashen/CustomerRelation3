@@ -71,6 +71,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private boolean isPublic;//false表示连接的私有云否则为共有云
 
 
+    private String mWebuserid;
+    private String mVerregid;
+
     // 所需的全部权限
     private static final String[] PERMISSIONS = new String[]{
             Manifest.permission.READ_PHONE_STATE,
@@ -263,12 +266,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                             findServiceData3(1, "getmboileclientreginfo", map);
                         }
                     } else {
-                        Map<String, Object> params = new HashMap<String, Object>();
-                        params.put("dbname", dbName);
-                        /* params.put("usercode", bhId);*/
-                        params.put("usercode", bhEditText.getText().toString());
-                        params.put("pwd", mmEditText.getText().toString());
-                        findServiceData3(2, "login", params);
+                        String url = "http://hengvideocrm.oicp.net:8088/Client/RegMboileImei?webuserid="+mWebuserid+"&verregid="+mVerregid+"&imei="+getIMEI(mContext);
+                        httpGet(url);
+//                        Map<String, Object> params = new HashMap<String, Object>();
+//                        params.put("dbname", dbName);
+//                        /* params.put("usercode", bhId);*/
+//                        params.put("usercode", bhEditText.getText().toString());
+//                        params.put("pwd", mmEditText.getText().toString());
+//                        findServiceData3(2, "login", params);
                     }
                 }
                 break;
@@ -300,6 +305,39 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
     }
 
+    private void httpGet(final String url) {
+        new Thread(new Runnable() {
+            public void run() {
+                String result = ServerRequest.sendGet(url);
+                final BaseResponseData data = new Gson().fromJson(result,
+                        new TypeToken<BaseResponseData>() {
+                        }.getType());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (data == null || data.getStatus() == null) {
+                            activity.showToastPromopt("没有找到该产品！");
+                            return;
+                        }
+                        if ("yes".equals(data.getStatus())) {
+                            Map<String, Object> params = new HashMap<String, Object>();
+                            params.put("dbname", dbName);
+                            /* params.put("usercode", bhId);*/
+                            params.put("usercode", bhEditText.getText().toString());
+                            params.put("pwd", mmEditText.getText().toString());
+                            findServiceData3(2, "login", params);
+                        } else {
+                            activity.showToastPromopt(data.getMsg());
+                        }
+
+                    }
+                });
+                LogUtils.e(result);
+            }
+        }).start();
+    }
+
+
     private void httpPost(final String baseUrl, final Map<String, String> params) {
         new Thread(new Runnable() {
             public void run() {
@@ -310,7 +348,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(data==null||data.getStatus()==null){
+                        if (data == null || data.getStatus() == null) {
                             activity.showToastPromopt("IP设置失败，请重新设置！");
                             showLinkSetDialog();
                             return;
@@ -318,10 +356,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                         if ("yes".equals(data.getStatus())) {
                             ShareUserInfo.setIP(mContext, "http://" + data.getIpaddress());
                             ShareUserInfo.setDK(mContext, "8031");
-
+                            mWebuserid=data.getWebuserid();
+                            mVerregid=data.getVerregids();
                             Map map = new HashMap();
-                            map.put("webuserid", data.getWebuserid());
-                            map.put("verregids", data.getVerregids());
+                            map.put("webuserid", mWebuserid);
+                            map.put("verregids", mVerregid);
                             map.put("pass", "030728");
                             findServiceData3(0, "accsetsaas", map);// 查询帐套信息
                         } else {
@@ -510,17 +549,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
         @SuppressLint("MissingPermission") String deviceId = telephonyManager.getDeviceId();
         //android 10以上已经获取不了imei了 用 android id代替
-        if(TextUtils.isEmpty(deviceId)){
+        if (TextUtils.isEmpty(deviceId)) {
             deviceId = Settings.System.getString(
                     context.getContentResolver(), Settings.Secure.ANDROID_ID);
         }
-        return  deviceId;
+        return deviceId;
     }
-
-
-
-
-
 
 
 }

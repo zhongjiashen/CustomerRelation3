@@ -466,7 +466,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
                 android:gravity="right"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageButton
                     android:id="@+id/cx_but"
@@ -486,7 +487,6 @@
         android:layout_alignParentBottom="true"
         android:background="@color/cgdd_search_bg"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/xzdw_textview"
             android:layout_width="wrap_content"
@@ -498,5 +498,32 @@
             android:textColor="@color/black_color"
             android:textSize="18sp" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/bt_cx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:text="查询"
+            android:textColor="@color/colorPrimary"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/black_line_color"/>
+        <Button
+            android:id="@+id/bt_xzdw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:text="@string/xzdw"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

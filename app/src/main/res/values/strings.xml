@@ -466,7 +466,7 @@
     <string name="dw_dq">地&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;区</string>
     <string name="dw_frdb">法人代表</string>
     <string name="dw_cz">传&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;真</string>
-    <string name="dw_dz">地&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;址</string>
+    <string name="dw_dz">公司地址</string>
     <string name="dw_wz">网&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;站</string>
     <string name="dw_bz">备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注</string>
     <string name="dw_lxfs">联系方式</string>
@@ -565,4 +565,5 @@
     <string name="xgxm">相关项目</string>
     <string name="csje">初始金额</string>
     <string name="jshj">价税合计</string>
+    <string name="dw_shdz">送货地址</string>
 </resources>
