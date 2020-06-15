@@ -2,9 +2,11 @@ package com.update.actiity.choose
 
 
 import android.app.Activity
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.cr.activity.common.CommonXzlxrActivity
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.google.gson.Gson
@@ -12,21 +14,25 @@ import com.google.gson.reflect.TypeToken
 import com.update.base.BaseActivity
 import com.update.base.BaseP
 import com.update.base.BaseRecycleAdapter
-
-
 import com.update.model.KtFplxData
 import com.update.utils.LogUtils
-import com.update.viewbar.refresh.PullToRefreshLayout
 import com.update.viewholder.ViewHolderFactory
 import kotlinx.android.synthetic.main.activity_state_audit_choice.*
-
 import java.util.*
 import kotlin.collections.ArrayList
 
 /**
  * 选择发票类型
  */
-class KtXzfplxActivity : BaseActivity<BaseP>(){
+class KtXzfplxActivity : BaseActivity<BaseP>() {
+    companion object {
+        // 包裹范围内 属于静态方法
+        fun getMyIntent(activity: Activity?, djlx: String?): Intent  {
+            val intent = Intent(activity, KtXzfplxActivity::class.java)
+            intent.putExtra("djlx", djlx)
+            return intent
+        }
+    }
 
     var mParmMap = TreeMap<String, Any>()
     var mList = ArrayList<KtFplxData>()

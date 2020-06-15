@@ -37,7 +37,7 @@ import com.crcxj.activity.R;
  * @author Administrator
  * 
  */
-public class JxcXsglXsddActivity extends BaseActivity implements OnClickListener {
+public class JxcXsglXsddListActivity extends BaseActivity implements OnClickListener {
     private JxcXsglXsddAdapter adapter;
     private XListView          listView;
     EditText                   searchEditText;
@@ -105,13 +105,14 @@ public class JxcXsglXsddActivity extends BaseActivity implements OnClickListener
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent(mContext, KtJxcXsglXsddDetailActivity.class);
-                intent.putExtra("billid", list.get(arg2-1).get("billid").toString());
-                if(JxcXsglXsddActivity.this.getIntent().hasExtra("select")){//如果是添加订单时候关联的操作
+                String billid=list.get(arg2-1).get("billid").toString();
+                if(JxcXsglXsddListActivity.this.getIntent().hasExtra("select")){//如果是添加订单时候关联的操作
+                    Intent intent = new Intent();
+                    intent.putExtra("billid", billid);
                     setResult(RESULT_OK,intent);
                     finish();
                 }else{//否则就是正常情况的打开
-                    startActivityForResult(intent,1);
+                    startActivityForResult(XsddActivity.getMyIntent(JxcXsglXsddListActivity.this,billid),1);
                     adapter.setSelectIndex(arg2);
                 }
             }
@@ -163,19 +164,23 @@ public class JxcXsglXsddActivity extends BaseActivity implements OnClickListener
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.sx:
-                intent.setClass(mContext, JxcXsglXsddSearchActivity.class);
-                intent.putExtra("qr", qsrq);
-                intent.putExtra("zr", jzrq);
-                intent.putExtra("kh", cname);
-                intent.putExtra("sh", shzt);
-                startActivityForResult(intent, 0);
+//                intent.setClass(mContext, JxcXsglXsddSearchActivity.class);
+//                intent.putExtra("qr", qsrq);
+//                intent.putExtra("zr", jzrq);
+//                intent.putExtra("kh", cname);
+//                intent.putExtra("sh", shzt);
+//                startActivityForResult(intent, 0);
+//                intent.setClass(mContext, KtJxcXsglXsddAddActivity.class);
+                intent.setClass(mContext, KtJxcXsglXsddAddActivity.class);
+                startActivityForResult(intent, 1);
                 break;
             case R.id.xz:
                 if (!ShareUserInfo.getKey(activity, "xz").equals("1")) {
                     showToastPromopt("你没有该权限，请向管理员申请权限！");
                     return;
                 }
-                intent.setClass(mContext, KtJxcXsglXsddAddActivity.class);
+//                intent.setClass(mContext, KtJxcXsglXsddAddActivity.class);
+                intent.setClass(mContext, XsddActivity.class);
                 startActivityForResult(intent, 1);
                 break;
         }

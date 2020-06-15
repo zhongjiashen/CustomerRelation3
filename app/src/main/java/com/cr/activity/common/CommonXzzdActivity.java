@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,13 @@ import com.crcxj.activity.R;
  * @version $Id: CommonXzdwActivity.java, v 0.1 2015-3-12 下午3:46:54 caiyanfei Exp $
  */
 public class CommonXzzdActivity extends BaseActivity implements OnClickListener {
+
+    public static Intent getMyIntent(Activity activity, String type){
+        Intent intent=new Intent(activity,CommonXzzdActivity.class);
+        intent.putExtra("type",type);
+        return intent;
+    }
+
     private CommonXzzdAdapter adapter;
     private ListView listView;
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

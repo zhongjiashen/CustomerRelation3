@@ -1,5 +1,6 @@
 package com.update.actiity.choose;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +40,21 @@ import butterknife.BindView;
  * 2018/3/6 0006         申中佳               V1.0
  */
 public class SelectSalesmanActivity extends BaseActivity {
+    /**
+     *
+     * @param activity
+     * @param depid 部门id –0表示全部
+     * @return
+     */
+    public static Intent getMyIntent(Activity activity,String depid){
+        Intent intent=new Intent(activity, SelectSalesmanActivity.class);
+        intent.putExtra("depid",depid);
+        return intent;
+    }
+
+
+
+
     @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.search)

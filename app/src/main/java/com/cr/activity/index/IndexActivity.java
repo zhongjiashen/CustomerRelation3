@@ -50,7 +50,7 @@ import com.cr.activity.MstxGrrcActivity;
 import com.cr.activity.MstxGsggActivity;
 import com.cr.activity.khgl.mstx.gztx.MstxGztxActivity;
 import com.cr.activity.QdXzqdActivity;
-import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddActivity;
+import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddListActivity;
 import com.cr.activity.jxc.cggl.cgfk.JxcCgglCgfkActivity;
 import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshActivity;
 import com.cr.activity.jxc.cggl.cgth.JxcCgglCgthActivity;
@@ -59,7 +59,7 @@ import com.cr.activity.jxc.ckgl.ckdb.JxcCkglCkdbActivity;
 import com.cr.activity.jxc.ckgl.kcbd.JxcCkglKcbdActivity;
 import com.cr.activity.jxc.ckgl.kcpd.JxcCkglKcpdActivity;
 import com.cr.activity.jxc.ckgl.zzcx.JxcCkglZzcxActivity;
-import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddActivity;
+import com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddListActivity;
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdActivity;
 import com.cr.activity.jxc.xsgl.xssk.JxcXsglXsskActivity;
 import com.cr.activity.jxc.xsgl.xsth.JxcXsglXsthActivity;
@@ -682,7 +682,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 case 1:
                     im.setLogoId(R.drawable.menu_cgdd);
                     im.setLogoName("采购订单");
-                    im.setIntent(new Intent(IndexActivity.this, JxcCgglCgddActivity.class));
+                    im.setIntent(new Intent(IndexActivity.this, JxcCgglCgddListActivity.class));
                     im.setKhzlname("");
                     im.setMenuid("400101");
                     break;
@@ -764,7 +764,7 @@ public class IndexActivity extends BaseActivity implements OnClickListener {
                 case 1:
                     im.setLogoId(R.drawable.menu_xsdd);
                     im.setLogoName("销售订单");
-                    im.setIntent(new Intent(IndexActivity.this, JxcXsglXsddActivity.class));
+                    im.setIntent(new Intent(IndexActivity.this, JxcXsglXsddListActivity.class));
                     im.setKhzlname("");
                     im.setMenuid("400201");
                     break;

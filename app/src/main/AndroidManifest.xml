@@ -753,7 +753,7 @@
 
         <!-- 进销存-采购管理-采购订单-->
         <activity
-            android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddActivity"
+            android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-查询-->
@@ -777,6 +777,10 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.KtJxcCgglCgddAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name="com.cr.activity.jxc.cggl.cgdd.CgddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-选择商品-->
@@ -947,7 +951,7 @@
 
         <!-- 进销存-销售管理-销售订单-->
         <activity
-            android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddActivity"
+            android:name="com.cr.activity.jxc.xsgl.xsdd.JxcXsglXsddListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售订单-查询-->
@@ -972,6 +976,11 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name="com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name="com.cr.activity.jxc.xsgl.xsdd.XsddActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-销售管理-销售开单-->

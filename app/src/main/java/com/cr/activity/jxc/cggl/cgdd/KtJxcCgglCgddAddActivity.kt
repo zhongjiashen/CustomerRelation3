@@ -47,9 +47,14 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
 
     //发票类型ID
     var billtypeid: String? = ""
-    var mTaxrate: String? = ""//税率
+    //税率
+    var mTaxrate: String? = ""
     //项目ID
     var projectid: String? = ""
+    /**
+     * 资金账户ID
+     */
+    var bankid: String? = ""
     private var time: Long = 0
     internal var billid: String? = null                                  //选择完关联的单据后返回的单据的ID
     var list = ArrayList<MutableMap<String, Any?>>()
@@ -102,6 +107,8 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
                 gldjcg_linearlayout.setVisibility(View.GONE)
             }
         }
+
+
 
         /**
          * 选择商品
@@ -235,6 +242,16 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
          */
         iv_scan.setOnClickListener {
             startActivityForResult(Intent(this, WeChatCaptureActivity::class.java), 11)
+        }
+
+        /**
+         * 资金账户
+         */
+        et_zjzh.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra("type", "BANK")
+            intent.setClass(this, CommonXzzdActivity::class.java)
+            startActivityForResult(intent, 12)
         }
     }
 
@@ -422,6 +439,14 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
 //                        findServiceData2(3, ServerURL.SELECTGOODS, parmMap, false)
                     }
 
+                    /**
+                     * 资金账户
+                     */
+                    12 -> {
+                        bankid= data.getStringExtra("id")
+                        et_zjzh.setText(data.getStringExtra("dictmc"))
+                    }
+
                 }
             }
         }
@@ -480,6 +505,9 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
             jsonObject.put("exemanid", jbrId)//经办人
             jsonObject.put("memo", bzxx_edittext.getText().toString())
             jsonObject.put("opid", ShareUserInfo.getUserId(mContext))
+            jsonObject.put("memo", bzxx_edittext.getText().toString())
+            jsonObject.put("bankid", bankid)
+            jsonObject.put("suramt", et_yfje.text.toString())
             arrayMaster.put(jsonObject)
             for (map in list) {
                 val jsonObject2 = JSONObject()
@@ -520,7 +548,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         parmMap["parms"] = "CGDD"
         parmMap["master"] = arrayMaster.toString()
         parmMap["detail"] = arrayDetail.toString()
-        findServiceData2(0, ServerURL.BILLSAVE, parmMap, false)
+        findServiceData2(0, ServerURL.BILLSAVENEW, parmMap, false)
     }
 
     /**

@@ -149,7 +149,7 @@ class KtJxcXsglXsddAddActivity : BaseActivity() {
         }
         xzxsdd_linearlayout.setOnClickListener {
             val intent = Intent()
-            intent.setClass(activity, JxcXsglXsddActivity::class.java)
+            intent.setClass(activity, JxcXsglXsddListActivity::class.java)
             intent.putExtra("select", "true")
             startActivityForResult(intent, 5)
         }

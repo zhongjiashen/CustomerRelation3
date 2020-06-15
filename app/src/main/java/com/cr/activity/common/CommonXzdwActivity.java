@@ -1,5 +1,6 @@
 package com.cr.activity.common;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -40,11 +41,27 @@ import butterknife.OnClick;
  * @version $Id: CommonXzdwActivity.java, v 0.1 2015-3-12 下午3:46:54 caiyanfei Exp $
  */
 public class CommonXzdwActivity extends BaseActivity implements OnClickListener {
+    /**
+     *
+     * @param activity
+     * @param type 单位的类型 客户：types=1（）,供应商types=2,竞争对手types=3,渠道types=4,员工types=5
+     * @return
+     */
+    public static Intent getMyIntent(Activity activity,String type){
+        Intent intent=new Intent(activity,CommonXzdwActivity.class);
+        intent.putExtra("type",type);
+        return intent;
+
+    }
+
+
     private CommonXzdwAdapter adapter;
     private XListView listView;
     private EditText searchEditText;
     private String type = "0";//单位的类型 客户：types=1（）,供应商types=2,竞争对手types=3,渠道types=4,员工types=5
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -222,7 +222,7 @@ public class MyAuditListActivity extends BaseActivity implements
                             showShortToast("该单据不能在手机上审核！");
                         }else {
                             switch (data.getParms()){
-                                case "CGDD"://采购订单
+                                case "CGDD"://String
                                     startActivityForResult(new Intent(mActivity, JxcCgglCgddDetailActivity.class)
                                             .putExtra("billid", data.getBillid() + ""), DATA_REFERSH);
                                     break;

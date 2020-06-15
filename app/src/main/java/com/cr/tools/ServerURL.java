@@ -201,7 +201,10 @@ public class ServerURL {
     //选择供应商
     public static String       CLIENTLIST2       = "clientlist2";
     //单据保存
+    @Deprecated
     public static String       BILLSAVE          = "billsave";
+    //单据保存
+    public static String       BILLSAVENEW          = "billsavenew";
     //审核流程
     public static String       BILLSHLIST        = "billshlist";
     //选择客户

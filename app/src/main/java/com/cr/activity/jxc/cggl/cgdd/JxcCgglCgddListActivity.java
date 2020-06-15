@@ -37,7 +37,7 @@ import com.crcxj.activity.R;
  * @author Administrator
  * 
  */
-public class JxcCgglCgddActivity extends BaseActivity implements OnClickListener {
+public class JxcCgglCgddListActivity extends BaseActivity implements OnClickListener {
     private JxcCgglCgddAdapter adapter;
     private XListView          listView;
     EditText                   searchEditText;
@@ -99,7 +99,7 @@ public class JxcCgglCgddActivity extends BaseActivity implements OnClickListener
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Intent intent = new Intent(mContext, KtJxcCgglCgddDetailActivity.class);
                 intent.putExtra("billid", list.get(arg2-1).get("billid").toString());
-                if(JxcCgglCgddActivity.this.getIntent().hasExtra("select")){//如果是添加订单时候关联的操作
+                if(JxcCgglCgddListActivity.this.getIntent().hasExtra("select")){//如果是添加订单时候关联的操作
                     setResult(RESULT_OK,intent);
                     finish();
                 }else{//否则就是正常情况的打开

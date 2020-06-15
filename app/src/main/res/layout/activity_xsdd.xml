@@ -11,7 +11,7 @@
         android:background="#0099cc">
 
         <ImageButton
-            android:id="@+id/fh"
+            android:id="@+id/ib_fh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -24,104 +24,23 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/cgdd"
+            android:text="@string/xsdd"
             android:textColor="#ffffff"
             android:textSize="23sp" />
 
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/ib_bc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/save_imagebutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/save" />
-        </LinearLayout>
+            android:background="@drawable/save" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/gldjcg"
-            android:textSize="@dimen/jxc_cggl_cgdd" />
-
-        <ToggleButton
-            android:id="@+id/mTogBtn"
-            android:layout_width="40dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/transparent"
-            android:button="@drawable/toggle_btn"
-            android:checked="false"
-            android:text=""
-            android:textOff=""
-            android:textOn="" />
-    </LinearLayout>
-
-    <View style="@style/underline2" />
-
-    <LinearLayout
-        android:id="@+id/gldjcg_linearlayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="10dip"
-            android:background="@color/cgdd_search_bg"></LinearLayout>
-
-        <LinearLayout style="@style/detail_relativelayout">
-
-            <TextView
-                style="@style/font_default"
-                android:text="@string/ck" />
-
-            <EditText
-                android:id="@+id/rkck_edittext"
-                style="@style/edittext_bj2" />
-
-            <ImageView style="@style/imageview_jt" />
-        </LinearLayout>
-
-        <View style="@style/underline" />
-
-        <View style="@style/underline2" />
-
-        <LinearLayout
-            android:id="@+id/xzxsdd_linearlayout"
-            style="@style/detail_relativelayout">
-
-            <TextView
-                style="@style/font_default"
-                android:layout_weight="1"
-                android:text="@string/xzxsdd"
-                android:textColor="@color/title_color" />
-
-            <ImageView style="@style/imageview_jt" />
-        </LinearLayout>
-
-        <View style="@style/underline" />
-    </LinearLayout>
 
     <ScrollView
-        android:id="@+id/add_scrollview"
+        android:id="@+id/sv_add"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
@@ -131,14 +50,39 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/ll_bh"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/djbh" />
+
+                <EditText
+                    android:id="@+id/et_bh"
+                    style="@style/edittext_bj2" />
+
+                <ImageView
+                    android:id="@+id/iv_shzt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:background="@drawable/wsh" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v_bh"
+                style="@style/underline" />
+
+
             <LinearLayout style="@style/detail_relativelayout">
 
                 <TextView
                     style="@style/font_default"
-                    android:text="@string/gys" />
+                    android:text="@string/kh" />
 
                 <EditText
-                    android:id="@+id/gys_edittext"
+                    android:id="@+id/et_kh"
                     style="@style/edittext_bj2" />
 
                 <ImageView style="@style/imageview_jt" />
@@ -153,7 +97,7 @@
                     android:text="@string/lxr" />
 
                 <EditText
-                    android:id="@+id/lxr_edittext"
+                    android:id="@+id/et_lxr"
                     style="@style/edittext_bj2" />
 
                 <ImageView style="@style/imageview_jt" />
@@ -168,7 +112,7 @@
                     android:text="@string/lxdh" />
 
                 <EditText
-                    android:id="@+id/lxdh_edittext"
+                    android:id="@+id/et_lxdh"
                     style="@style/edittext_bj"
                     android:inputType="phone" />
             </LinearLayout>
@@ -182,7 +126,7 @@
                     android:text="@string/jhdz" />
 
                 <EditText
-                    android:id="@+id/jhdz_edittext"
+                    android:id="@+id/et_jhdz"
                     style="@style/edittext_bj" />
             </LinearLayout>
 
@@ -237,7 +181,7 @@
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
 
-            <View style="@style/underline" />
+            <View style="@style/underline2" />
 
             <LinearLayout style="@style/detail_relativelayout">
 
@@ -260,12 +204,12 @@
 
                 <TextView
                     style="@style/font_default"
-                    android:text="预付金额" />
+                    android:text="预收金额" />
 
                 <EditText
-                    android:id="@+id/et_yfje"
+                    android:id="@+id/et_ysje"
                     style="@style/edittext_bj"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal" />
 
 
             </LinearLayout>
@@ -284,7 +228,7 @@
                     android:layout_marginLeft="10dip"
                     android:paddingTop="10dip"
                     android:paddingBottom="10dip"
-                    android:text="@string/jhsp"
+                    android:text="@string/xzsp"
                     android:textColor="@color/black_color"
                     android:textSize="@dimen/jxc_cggl_cgdd" />
             </LinearLayout>
@@ -292,7 +236,7 @@
             <View style="@style/underline2" />
 
             <LinearLayout
-                android:id="@+id/xzsp_linearlayout"
+                android:id="@+id/ll_xzsp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
@@ -315,7 +259,7 @@
                     android:textSize="@dimen/jxc_cggl_cgdd" />
 
                 <TextView
-                    android:id="@+id/xzspnum_textview"
+                    android:id="@+id/tv_spsl"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -327,20 +271,16 @@
                     android:layout_height="40dp"
                     android:src="@mipmap/scan" />
 
-                <ImageView
-                    style="@style/imageview_jt"
-                    android:layout_gravity="center_vertical" />
+                <ImageView style="@style/imageview_jt" />
             </LinearLayout>
 
             <View style="@style/underline2" />
 
-            <com.cr.tools.CustomListView
-                android:id="@+id/xzsp_listview"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:divider="@null"
-                android:dividerHeight="0dip"
-                android:listSelector="@android:color/transparent"></com.cr.tools.CustomListView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_xzsp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_white" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -356,14 +296,13 @@
                     android:text="@string/hjje" />
 
                 <EditText
-                    android:id="@+id/hjje_edittext"
-                    style="@style/edittext_bj"
-                    android:editable="false"
-                    android:focusable="false"
+                    android:id="@+id/et_hjje"
+                    style="@style/edittext_bj2"
                     android:inputType="numberDecimal" />
             </LinearLayout>
 
             <View style="@style/underline" />
+
 
             <LinearLayout style="@style/detail_relativelayout">
 
@@ -372,7 +311,7 @@
                     android:text="@string/djrq" />
 
                 <EditText
-                    android:id="@+id/djrq_edittext"
+                    android:id="@+id/et_djrq"
                     style="@style/edittext_bj2" />
 
                 <ImageView style="@style/imageview_jt" />
@@ -402,7 +341,7 @@
                     android:text="@string/jbr" />
 
                 <EditText
-                    android:id="@+id/jbr_edittext"
+                    android:id="@+id/et_ywy"
                     style="@style/edittext_bj2" />
 
                 <ImageView style="@style/imageview_jt" />
@@ -423,7 +362,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/bzxx_edittext"
+                    android:id="@+id/et_bzxx"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"

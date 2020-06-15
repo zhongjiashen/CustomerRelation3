@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -33,11 +34,21 @@ import com.crcxj.activity.R;
  * @version $Id: CommonXzdwActivity.java, v 0.1 2015-3-12 下午3:46:54 caiyanfei Exp $
  */
 public class CommonXzlxrActivity extends BaseActivity implements OnClickListener {
+
+	public static Intent getMyIntent(Activity activity,String clientid){
+		Intent intent=new Intent(activity,CommonXzlxrActivity.class);
+		intent.putExtra("clientid",clientid);
+		return intent;
+	}
+
+
 	private CommonXzlxrAdapter adapter;
 	private XListView listView;
 	private EditText searchEditText;
 	private String clientid="";//单位的id 140
 	List<Map<String, Object>>list=new ArrayList<Map<String, Object>>();
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -328,7 +328,7 @@ public class JxcXsglXsddAddActivity extends BaseActivity implements OnClickListe
                 }
                 break;
             case R.id.xzxsdd_linearlayout://选择销售订单
-                intent.setClass(activity, JxcXsglXsddActivity.class);
+                intent.setClass(activity, JxcXsglXsddListActivity.class);
                 intent.putExtra("select", "true");
                 startActivityForResult(intent,5);
                 break;

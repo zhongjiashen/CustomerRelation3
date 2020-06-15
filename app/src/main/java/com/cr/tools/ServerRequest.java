@@ -305,7 +305,7 @@ public class ServerRequest {
             e.printStackTrace();
             return null;
         }
-        return result;
+        return result.replace("null", "\"\"");
     }
 
     private void aa() {

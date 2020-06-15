@@ -1,5 +1,6 @@
 package com.update.actiity.choose;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
@@ -39,6 +41,14 @@ import butterknife.BindView;
  * 2018/3/6 0006         申中佳               V1.0
  */
 public class ChooseDepartmentActivity extends BaseActivity {
+    public static Intent getMyIntent(Activity activity){
+        Intent intent=new Intent(activity, ChooseDepartmentActivity.class);
+        return intent;
+    }
+
+
+
+
     @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.search)

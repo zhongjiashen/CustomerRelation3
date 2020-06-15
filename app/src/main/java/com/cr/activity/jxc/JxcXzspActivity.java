@@ -1,5 +1,6 @@
 package com.cr.activity.jxc;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.baiiu.filter.interfaces.OnFilterItemClickListener;
 import com.baiiu.filter.typeview.SingleListView;
 import com.baiiu.filter.util.UIUtil;
 import com.baiiu.filter.view.FilterCheckedTextView;
+import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzphActivity;
 import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
 import com.cr.myinterface.SLViewValueChange;
@@ -62,6 +64,31 @@ import butterknife.OnClick;
  * 选择商品（采购收货、采购退货、销售订单、销售开单、销售退货仓库调拨选择商品界面）
  */
 public class JxcXzspActivity extends BaseActivity {
+
+    /**
+     *
+     * @param activity
+     * @param djlx
+     * @param ckid
+     * @param issj
+     * @param taxrate
+     * @param tabname
+     * @return
+     */
+    public static Intent getMyIntent(Activity activity, String djlx, String ckid,boolean issj,String taxrate,String tabname){
+        Intent intent=new Intent(activity, JxcXzspActivity.class);
+        intent.putExtra("parms",djlx);
+        intent.putExtra("rkckId",ckid);
+        intent.putExtra("issj",issj);
+        intent.putExtra("taxrate",taxrate);
+        intent.putExtra("tabname",tabname);
+        return intent;
+
+    }
+
+
+
+
     @BindView(R.id.titlebar)
     TitleBar titlebar;
     @BindView(R.id.search)
