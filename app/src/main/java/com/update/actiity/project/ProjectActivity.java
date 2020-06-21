@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
-import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -255,7 +254,7 @@ public class ProjectActivity extends BaseActivity {
         tvRelatedContract.setText(data.getContractname());
         tvProjectType.setText(data.getXmlxname());
         tvProjectSource.setText(data.getXmlyname());
-        etBudgetAmount.setText(FigureTools.sswrFigure(data.getAmount()));
+        etBudgetAmount.setText(data.getAmount() + "");
         tvStartTime.setText(data.getQsrq());
         tvEndTime.setText(data.getZzrq());
         tvDocumentDate.setText(data.getBilldate());

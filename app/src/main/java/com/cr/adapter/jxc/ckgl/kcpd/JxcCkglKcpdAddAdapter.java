@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class JxcCkglKcpdAddAdapter extends BaseAdapter {
@@ -50,8 +49,8 @@ public class JxcCkglKcpdAddAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.bhmcggTextView.setText(objMap.get("goodsname")==null?objMap.get("name").toString():objMap.get("goodsname").toString());
-	    viewHolder.zmslTextView.setText("账面数量："+ FigureTools.sswrFigure(objMap.get("zmsl")==null?objMap.get("zmonhand").toString():objMap.get("zmsl").toString()));
-		viewHolder.spslTextView.setText("实盘数量："+FigureTools.sswrFigure(objMap.get("spsl")==null?objMap.get("sponhand").toString():objMap.get("spsl").toString()));
+	    viewHolder.zmslTextView.setText("账面数量："+(objMap.get("zmsl")==null?objMap.get("zmonhand").toString():objMap.get("zmsl").toString()));
+		viewHolder.spslTextView.setText("实盘数量："+(objMap.get("spsl")==null?objMap.get("sponhand").toString():objMap.get("spsl").toString()));
 		int yksl=0;
 		if(objMap.get("zmsl")==null){
 			yksl=(int)Double.parseDouble(objMap.get("sponhand").toString())-(int)Double.parseDouble(objMap.get("zmonhand").toString());

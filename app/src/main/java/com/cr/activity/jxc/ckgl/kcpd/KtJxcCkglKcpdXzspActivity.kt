@@ -51,7 +51,7 @@ class KtJxcCkglKcpdXzspActivity:BaseActivity(){
      */
     private fun searchDate() {
         val parmMap = HashMap<String, Any?>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
 
         parmMap["storeid"] = pdckId
         parmMap["goodscode"] = ""

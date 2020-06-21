@@ -279,7 +279,7 @@ public class XjyhFkdAddActivity extends BaseActivity implements
             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("paytypeid", jsfsId);
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             jsonObject.put("bankid", zjzhId);
             jsonObject.put("amount", fkjeEditText.getText().toString());
             jsonObject.put("factamount", fkjeEditText.getText().toString());
@@ -289,7 +289,7 @@ public class XjyhFkdAddActivity extends BaseActivity implements
             e.printStackTrace();
         }// 代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_pay_fkd");
         parmMap.put("parms", "FKD");

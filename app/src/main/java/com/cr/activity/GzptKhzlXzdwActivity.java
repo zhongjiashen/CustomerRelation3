@@ -109,7 +109,7 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void searchDqSDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("levels", "2");
 		parmMap.put("parentid", "0");
 		findServiceData2(1, ServerURL.AREALIST, parmMap, false);
@@ -120,7 +120,7 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void searchDqS2Date() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("levels", "3");
 		parmMap.put("parentid", dqsid);
 		findServiceData2(6, ServerURL.AREALIST, parmMap, false);
@@ -131,7 +131,7 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void searchDqqDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("levels", "4");
 		parmMap.put("parentid", dqs2id);
 		findServiceData2(7, ServerURL.AREALIST, parmMap, false);
@@ -142,7 +142,7 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void searchKhdjDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("zdbm", "KHDJ");
 		findServiceData2(2, ServerURL.DATADICT, parmMap, false);
 	}
@@ -152,7 +152,7 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void searchHylxDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("zdbm", "HYLX");
 		findServiceData2(3, ServerURL.DATADICT, parmMap, false);
 	}
@@ -162,7 +162,7 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void searchKhlyDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("zdbm", "KHLY");
 		findServiceData2(4, ServerURL.DATADICT, parmMap, false);
 	}
@@ -172,7 +172,7 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void searchKhlxDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("zdbm", "KHLX");
 		findServiceData2(5, ServerURL.DATADICT, parmMap, false);
 	}
@@ -182,8 +182,8 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void saveDwDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		if(this.getIntent().hasExtra("object")){
 			parmMap.put("clientid", dwMap.get("id").toString());
 		}else{
@@ -211,7 +211,7 @@ public class GzptKhzlXzdwActivity extends BaseActivity implements
 	 */
 	private void searchDwDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("clientid", gslxrDetail.getClientid());
 		findServiceData2(9, ServerURL.CLIENTINFO, parmMap, false);
 	}

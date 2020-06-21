@@ -1,55 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/margin"
     android:paddingTop="@dimen/margin"
-    android:paddingRight="@dimen/margin">
-
+    android:paddingRight="@dimen/margin"
+    android:paddingLeft="@dimen/margin">
     <TextView
         android:id="@+id/tv_mz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="河南恒视软件科技有限公司"
         android:textColor="@color/text_black"
-        android:textSize="@dimen/word_small" />
-
+        android:textSize="@dimen/word_small"/>
     <TextView
         android:id="@+id/tv_je"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="1000"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
-        android:text="1000"
         android:textColor="@color/text_black"
-        android:textSize="@dimen/word_small" />
+        android:textSize="@dimen/word_small"/>
 
-    <LinearLayout
-        android:id="@+id/ll"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/tv_qcye"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_mz"
-        android:layout_marginTop="@dimen/margin">
-
-        <TextView
-            android:id="@+id/tv_qcye"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:text="河南恒视软件科技有限公司河南恒视软件科技有限公司"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/word_small" />
-
-        <TextView
-            android:id="@+id/tv_ljje"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="1000"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/word_small" />
-    </LinearLayout>
+        android:layout_marginTop="@dimen/margin"
+        android:text="河南恒视软件科技有限公司"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/word_small"/>
+    <TextView
+        android:id="@+id/tv_ljje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_mz"
+        android:layout_marginTop="@dimen/margin"
+        android:text="1000"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/word_small"/>
 
     <ImageView
         android:id="@+id/iv_arrow"
@@ -57,12 +50,11 @@
         android:layout_height="15dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/xyb_jt" />
-
+        android:src="@drawable/xyb_jt"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/ll"
+        android:layout_below="@+id/tv_ljje"
         android:layout_marginTop="@dimen/margin"
-        android:background="@color/black_line_color" />
+        android:background="@color/black_line_color"/>
 </RelativeLayout>

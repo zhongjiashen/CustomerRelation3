@@ -94,8 +94,8 @@ public class CommonXzywyActivity extends BaseActivity implements OnClickListener
 	 */
 	private void searchDate(){
 	    Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
 //        parmMap.put("empname",searchEditText.getText().toString());
         parmMap.put("curpage",currentPage);
         parmMap.put("pagesize",pageSize);

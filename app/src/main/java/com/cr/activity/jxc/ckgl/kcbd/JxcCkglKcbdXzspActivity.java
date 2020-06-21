@@ -131,7 +131,7 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("storeid", this.getIntent().getExtras().getString("storeId"));
         parmMap.put("goodscode", "");
         parmMap.put("goodstype", code);
@@ -149,7 +149,7 @@ public class JxcCkglKcbdXzspActivity extends BaseActivity implements
      */
     private void fenleiDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
 
         findServiceData2(1, ServerURL.GOODSTYPE, parmMap, true);
     }

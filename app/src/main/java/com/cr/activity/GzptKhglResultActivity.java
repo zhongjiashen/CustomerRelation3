@@ -65,7 +65,7 @@ public class GzptKhglResultActivity extends BaseActivity implements OnClickListe
         xListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent(mContext, GzptDwzlActivity.class);
+                Intent intent = new Intent(context, GzptDwzlActivity.class);
                 intent.putExtra("object", (Serializable) list.get(arg2 - 1));
                 startActivityForResult(intent, 1);
                 adapter.setSelectIndex(arg2);

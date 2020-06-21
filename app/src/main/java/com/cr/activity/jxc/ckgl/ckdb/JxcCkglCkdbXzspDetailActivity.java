@@ -23,7 +23,6 @@ import com.cr.activity.common.CommonXzphActivity;
 import com.cr.activity.jxc.JxcTjXlhActivity;
 import com.cr.activity.jxc.XzXlhActivity;
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -64,15 +63,12 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
     TextView tvSerialNumber;
     EditText etBz;
 
-    private String mStoreid;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jxc_ckgl_ckdb_xzsp_detail);
         addFHMethod();
         initActivity();
-        mStoreid=getIntent().getStringExtra("storeid");
     }
 
     /**
@@ -140,8 +136,7 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
 //					+ (int) Double.parseDouble(object.get("onhand").toString())
 //					+ object.get("unitname").toString());
             dwEditText.setText(object.get("unitname").toString());
-            if (!TextUtils.isEmpty(object.get("unitprice").toString()))
-                djEditText.setText(FigureTools.sswrFigure(object.get("unitprice").toString()));
+            djEditText.setText(object.get("unitprice").toString());
 //			zklEditText.setText(object.get("disc").toString());
 //			zjEditText.setText(object.get("amount").toString());
             cpphEditText.setText(object.get("batchcode").toString());
@@ -239,7 +234,6 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
                 Intent intent = new Intent();
                 intent.setClass(activity, CommonXzphActivity.class);
                 intent.putExtra("goodsid", object.get("goodsid").toString());
-                intent.putExtra("storeid", mStoreid);
                 activity.startActivityForResult(intent, 0);
                 break;
             case R.id.tv_serial_number:
@@ -247,18 +241,18 @@ public class JxcCkglCkdbXzspDetailActivity extends BaseActivity implements
                 Intent intent1 = new Intent();
                 intent1.putExtra("position", 0);
                 intent1.putExtra("billid", "0");
-                intent1.putExtra("serialinfo", object.get("serialinfo").toString());
-                intent1.putExtra("serials", new Gson().toJson(object.get("serials")));
+                intent1.putExtra("serialinfo",object.get("serialinfo").toString());
+                intent1.putExtra("serials",  new Gson().toJson(object.get("serials")));
                 if (object.get("serialctrl").toString().equals("T")) {
                     intent1.putExtra("refertype", "0");
                     intent1.putExtra("referitemno", "0");
                     startActivityForResult(intent1.setClass(activity, XzXlhActivity.class)
                                     .putExtra("parms", "CKDB")
-                                    .putExtra("storeid", mStoreid)
-                                    .putExtra("goodsid", object.get("goodsid").toString())
+                                    .putExtra("storeid", getIntent().getStringExtra("rkckId"))
+                                    .putExtra("goodsid",object.get("goodsid").toString())
                             , 11);
-                } else {
-                    startActivityForResult(intent1.setClass(activity, JxcTjXlhActivity.class), 11);
+                }else {
+                    startActivityForResult(intent1.setClass(activity, JxcTjXlhActivity.class),11);
                 }
 //                startActivityForResult(new Intent(activity, KtSerialNumberAddActivity.class)
 //                        .putExtra("itemno", "0")

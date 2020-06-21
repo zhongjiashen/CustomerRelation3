@@ -19,7 +19,6 @@ import com.cr.activity.BaseActivity;
 import com.cr.activity.common.CommonXzphActivity;
 import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
-import com.update.utils.LogUtils;
 
 /**
  * 进销存-仓库管理-存货调价-选择商品-选择的商品的详细信息
@@ -135,7 +134,6 @@ public class JxcCkglChtjXzspDetailActivity extends BaseActivity implements OnCli
             double thdj=0;
             double sl=0;
             if (object.get("tqdj") != null) {
-                LogUtils.e(object.get("sl").toString());
                 tqdj = Double.parseDouble(object.get("tqdj").toString().equals("")?"0":object.get("tqdj").toString());
                 thdj=  Double.parseDouble(object.get("thdj").toString().equals("")?"0":object.get("thdj").toString());
                 sl=Double.parseDouble(object.get("sl").toString());
@@ -145,7 +143,7 @@ public class JxcCkglChtjXzspDetailActivity extends BaseActivity implements OnCli
                 sl=Double.parseDouble(object.get("unitqty").toString());
             }
 //            slView.setSl((int)sl);
-            slEditText.setText(FigureTools.sswrFigure(sl));
+            slEditText.setText(sl+"");
             tqdjEditText.setText(FigureTools.sswrFigure(tqdj+""));
             tqjeEditText.setText(FigureTools.sswrFigure((tqdj*sl)+""));
             thdjEditText.setText(FigureTools.sswrFigure(thdj+""));

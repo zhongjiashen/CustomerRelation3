@@ -155,7 +155,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "ZZCX");
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(0, ServerURL.BILLMASTER, parmMap, false);
@@ -166,7 +166,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "ZZCX");
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false);
@@ -179,7 +179,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
         list2.clear();
         adapter2.notifyDataSetChanged();
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("goodsid", goodsid);
         findServiceData2(1, ServerURL.SELECTGOODSCMB, parmMap, false);
     }
@@ -189,8 +189,8 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDateSd() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_combin");
         parmMap.put("pkvalue", this.getIntent().getExtras().getString("billid"));
         findServiceData2(2, ServerURL.BILLDELMASTER, parmMap, false);
@@ -293,7 +293,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
             jsonObject.put("totalamt", "");
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             Map<String, Object> myMap = list.get(0);
             jsonObject.put("goodsid", myMap.get("goodsid").toString());
             jsonObject.put("unitid", myMap.get("unitid").toString());
@@ -351,7 +351,7 @@ public class JxcCkglZzcxDetailActivity extends BaseActivity implements OnClickLi
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         //      parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_combin");
         parmMap.put("parms", "ZZCX");

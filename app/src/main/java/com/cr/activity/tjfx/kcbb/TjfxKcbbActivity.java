@@ -111,7 +111,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                Intent intent = new Intent(mContext,
+                Intent intent = new Intent(context,
                         XjyhFkdDetailActivity.class);
 //				intent.putExtra("billid", list.get(arg2 - 1).get("billid")
 //						.toString());
@@ -128,8 +128,8 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
 
         parmMap.put("barcode", barcode);//新增条码
         parmMap.put("storeid", storeid.equals("") ? "0" : storeid);
@@ -144,9 +144,8 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
 
     private void fenlei() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
-        findServiceData2(1, "multitypestore", parmMap, false);
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        findServiceData2(1, "multitype", parmMap, false);
     }
 
 
@@ -304,7 +303,7 @@ public class TjfxKcbbActivity extends BaseActivity implements OnClickListener {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.sx://筛选
-                intent.setClass(mContext, TjfxKcbbSearchActivity.class);
+                intent.setClass(context, TjfxKcbbSearchActivity.class);
                 intent.putExtra("storeid", storeid);
                 intent.putExtra("storename", storename);
                 intent.putExtra("goodsname", goodsname);

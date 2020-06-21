@@ -4,7 +4,6 @@ package com.cr.activity.jxc.cggl
 import android.content.Intent
 
 import android.view.View
-import com.cr.tools.FigureTools
 
 import com.crcxj.activity.R
 
@@ -41,7 +40,7 @@ class KtCgglSpxqCk2Activity : BaseActivity<BaseP>() {
             tv_spxh.text = "型号：" + data["model"].toString()
             et_bz.setText(data["memo"].toString())
             if (data["onhand"] != null) {
-                tv_spkz.text = "库存：" + FigureTools.sswrFigure(data["onhand"].toString().toDouble()) + data["unitname"].toString()
+                tv_spkz.text = "库存：" + data["onhand"].toString().toDouble() + data["unitname"].toString()
             } else {
                 tv_spkz.visibility = View.GONE
             }
@@ -55,10 +54,10 @@ class KtCgglSpxqCk2Activity : BaseActivity<BaseP>() {
                 ll_pcsp.visibility = View.GONE
             }
             slv_sl.sl = data["unitqty"].toString().toDouble()
-            et_dj.setText(FigureTools.sswrFigure(data["unitprice"].toString()))//单价
-            et_sl.setText(FigureTools.sswrFigure(data["taxrate"].toString()))//税率
+            et_dj.setText(data["unitprice"].toString())//单价
+            et_sl.setText(data["taxrate"].toString())//税率
             EditTextHelper.EditTextEnable(false, et_sl)
-            tv_hsdj.setText(FigureTools.sswrFigure(data["taxunitprice"].toString()))//含税单价
+            tv_hsdj.setText(data["taxunitprice"].toString())//含税单价
         }
 
         titlebar.setTitleText(mActivity, "商品详情")

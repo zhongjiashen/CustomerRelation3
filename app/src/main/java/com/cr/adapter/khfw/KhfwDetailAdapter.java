@@ -49,7 +49,7 @@ public class KhfwDetailAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.bhmcggTextView.setText(objMap.get("goodscode").toString()+" "+objMap.get("goodsname").toString()+" "+objMap.get("specs").toString()+" "+objMap.get("model").toString());
-		viewHolder.djTextView.setText("￥"+FigureTools.sswrFigure(objMap.get("unitprice").toString())+"*"+objMap.get("unitqty").toString()+""+objMap.get("unitname").toString());
+		viewHolder.djTextView.setText("￥"+objMap.get("unitprice").toString()+"*"+objMap.get("unitqty").toString()+""+objMap.get("unitname").toString());
 		viewHolder.zjTextView.setText("￥"+FigureTools.sswrFigure(objMap.get("amount").toString()));
 		return convertView;
 	}

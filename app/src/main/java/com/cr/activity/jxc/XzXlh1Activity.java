@@ -96,10 +96,6 @@ public class XzXlh1Activity extends BaseActivity {
         titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
             @Override
             public void onClick(int i) {
-                if(mSerialsA==null|mSerialsA.size()==0){
-                    return;
-                }
-
                 mSerials = new ArrayList<>();
                 for (int l = 0; l < mSerialsA.size(); l++) {
                     if (mSerialsA.get(l).isCheck())

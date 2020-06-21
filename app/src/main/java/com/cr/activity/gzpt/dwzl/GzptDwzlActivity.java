@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 工作平台-单位资料-呼叫中心（单位详情）
+ * 工作平台-单位资料
  *
  * @author Administrator
  */
@@ -60,7 +60,7 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
 
 
     public String clientId = "", khdjid = "", khmc = "";                                                          // 单位的ID
-    public String types = "";                                                     //客户的类型
+    private String types = "";                                                     //客户的类型
     private Map<String, Object> object = new HashMap<String, Object>();
     private Map<String, Object> dwObject = new HashMap<String, Object>();
     TabLayout tabLayout;
@@ -362,7 +362,6 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.bjdw_textview:
                 intent.putExtra("clientid", clientId);// 单位ID为0，表示新增
-                intent.putExtra("types", types);// 单位ID为0，表示新增
                 intent.setClass(GzptDwzlActivity.this, GzptDwzlDwBjdwActivity.class);
                 startActivityForResult(intent, 1);
                 break;
@@ -375,11 +374,10 @@ public class GzptDwzlActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(intent, 2);
                 break;
             case R.id.xzlxr_textview:// 新增联系人
-//                intent.setClass(this, GzptDwzlLxrBjlxrActivity.class);
-//                intent.putExtra("lxrid", "0");
-//                intent.putExtra("clientid", clientId);
-//                intent.putExtra("clientname", khmc);
-                startActivityForResult(GzptDwzlLxrBjlxrActivity.getIntent(activity,clientId,khmc,types), 0);
+                intent.setClass(this, GzptDwzlLxrBjlxrActivity.class);
+                intent.putExtra("lxrid", "0");
+                intent.putExtra("clientid", clientId);
+                startActivityForResult(intent, 0);
                 break;
             case R.id.bflr_textview:
                 intent.setClass(this, GzptDwzlBfBflrActivity.class);

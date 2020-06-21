@@ -2,242 +2,201 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:background="@android:color/white" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_khbm" />
-
+                android:text="@string/dw_khbm"
+                />
             <TextView
                 android:id="@+id/khbh_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_khmc" />
-
+                android:text="@string/dw_khmc"
+                />
             <TextView
                 android:id="@+id/khmc_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_khdj" />
-
+                android:text="@string/dw_khdj"
+                />
             <TextView
                 android:id="@+id/khdj_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_khlx" />
-
+                android:text="@string/dw_khlx"
+                />
             <TextView
                 android:id="@+id/khlx_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_hylx" />
-
+                android:text="@string/dw_hylx"
+                />
             <TextView
                 android:id="@+id/hylx_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_khly" />
-
+                android:text="@string/dw_khly"
+                />
             <TextView
                 android:id="@+id/khly_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_dq" />
-
+                android:text="@string/dw_dq"
+                />
             <TextView
                 android:id="@+id/dq_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_frdb" />
-
+                android:text="@string/dw_frdb"
+                />
             <TextView
                 android:id="@+id/frdb_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_cz" />
-
+                android:text="@string/dw_cz"
+                />
             <TextView
                 android:id="@+id/cz_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_dz" />
-
+                android:text="@string/dw_dz"
+                />
             <TextView
                 android:id="@+id/dz_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
-
         <View style="@style/underline" />
-
-        <LinearLayout style="@style/detail_relativelayout">
-
-            <TextView
-                style="@style/font_default"
-                android:text="@string/dw_shdz" />
-
-            <EditText
-                android:id="@+id/et_shdz"
-                style="@style/edittext_bj" />
-        </LinearLayout>
-
-        <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_wz" />
-
+                android:text="@string/dw_wz"
+                />
             <TextView
                 android:id="@+id/wz_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
 
         <View style="@style/underline" />
-
         <RelativeLayout style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_bz" />
-
+                android:text="@string/dw_bz"
+                />
             <TextView
                 android:id="@+id/bz_textview"
-                style="@style/font_default2" />
+                style="@style/font_default2"
+                />
         </RelativeLayout>
 
         <View style="@style/underline2" />
-
-        <LinearLayout
+        <LinearLayout 
             android:layout_width="fill_parent"
             android:layout_height="10dip"
-            android:background="@color/cgdd_search_bg"></LinearLayout>
-
+            android:background="@color/cgdd_search_bg">
+        </LinearLayout>
         <View style="@style/underline2" />
-
-        <RelativeLayout
+        <RelativeLayout 
             android:id="@+id/lxfs_relativelayout"
             style="@style/detail_relativelayout">
-
             <TextView
                 style="@style/font_default"
-                android:text="@string/dw_lxfs" />
-
-            <ImageView
+                android:text="@string/dw_lxfs"
+                />
+            <ImageView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/xyb_jt"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:background="@drawable/xyb_jt" />
+                android:layout_marginRight="10dip"/>
         </RelativeLayout>
 
         <View style="@style/underline2" />
-
-        <LinearLayout
+        <LinearLayout 
             android:layout_width="fill_parent"
             android:layout_height="10dip"
-            android:background="@color/cgdd_search_bg"></LinearLayout>
-
+            android:background="@color/cgdd_search_bg">
+        </LinearLayout>
         <View style="@style/underline2" />
-
-        <LinearLayout
+        <LinearLayout 
             android:id="@+id/bjdw_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cgdd_search_bg"
-            android:paddingBottom="10dip">
-
-            <TextView
+            android:paddingBottom="10dip"
+            android:background="@color/cgdd_search_bg">
+            <TextView 
                 android:id="@+id/bjdw_textview"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
                 android:text="@string/bjdw"
-                android:textColor="@color/black_color"
-                android:textSize="@dimen/jxc_cggl_cgdd" />
-
-            <TextView
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:textSize="@dimen/jxc_cggl_cgdd"
+                android:textColor="@color/black_color"/>
+            <TextView 
                 android:id="@+id/xzdw_textview"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="@string/xzdw"
-                android:textColor="@color/black_color"
-                android:textSize="@dimen/jxc_cggl_cgdd" />
+                android:textSize="@dimen/jxc_cggl_cgdd"
+                android:textColor="@color/black_color"/>
         </LinearLayout>
     </LinearLayout>
 

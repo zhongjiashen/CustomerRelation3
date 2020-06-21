@@ -59,10 +59,10 @@ public class MstxGztxActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Intent intent;
                 if (gztxList.get(arg2).get("typecode").toString().equals("MYSH")) {//我的审核列表
-                    intent = new Intent(mContext, MyAuditListActivity.class);
+                    intent = new Intent(context, MyAuditListActivity.class);
                     startActivity(intent);
                 } else {
-                    mIntent = new Intent(mContext, KtGztxXxActivity.class);
+                    mIntent = new Intent(context, KtGztxXxActivity.class);
                     mIntent.putExtra("typecode", gztxList.get(arg2).get("typecode").toString());
                     mIntent.putExtra("title", gztxList.get(arg2).get("typename").toString());
                     switch (gztxList.get(arg2).get("typecode").toString()) {
@@ -86,8 +86,8 @@ public class MstxGztxActivity extends BaseActivity {
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         findServiceData2(0, ServerURL.BROADCASTPROMPT, parmMap, false);
     }
 

@@ -2,7 +2,6 @@ package com.cr.activity.gzpt.dwzl.main.view;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,27 +19,22 @@ import java.util.Map;
  * 单位资料
  */
 
-public class UnitView extends BaseView {
-    private TextView khbhTextView, khmcTextView, khdjTextView, khlxTextView,
+public class UnitView extends BaseView{
+    private TextView            khbhTextView, khmcTextView, khdjTextView, khlxTextView,
             hylxTextView, khlyTextView, dqTextView, frdbTextView, czTextView, dzTextView,
             wzTextView, bzTextView;
-    private RelativeLayout lxfsRelativeLayout;
-    private TextView bjdwTextView, xzdwTextView;
-    private LinearLayout bjdwLayout;
-
-    private EditText etShdz;
-
+    private RelativeLayout      lxfsRelativeLayout;
+    private TextView            bjdwTextView, xzdwTextView;
+    private LinearLayout        bjdwLayout;
     public UnitView(Activity activity) {
         super(activity);
     }
-
-    public void Visibility() {
+    public void Visibility(){
         bjdwLayout.setVisibility(View.GONE);
     }
-
     @Override
     protected void initViews() {
-        view = View.inflate(activity, R.layout.activity_gzpt_dwzl_dw, null);
+        view=  View.inflate(activity, R.layout.activity_gzpt_dwzl_dw, null);
         khbhTextView = (TextView) view.findViewById(R.id.khbh_textview);
         khmcTextView = (TextView) view.findViewById(R.id.khmc_textview);
         khdjTextView = (TextView) view.findViewById(R.id.khdj_textview);
@@ -61,20 +55,17 @@ public class UnitView extends BaseView {
         xzdwTextView = (TextView) view.findViewById(R.id.xzdw_textview);
         xzdwTextView.setOnClickListener(activity);
         bjdwLayout = (LinearLayout) view.findViewById(R.id.bjdw_layout);
-
-        etShdz=view.findViewById(R.id.et_shdz);
-
     }
 
     @Override
     public void initData() {
         searchDateDw(0);
-        isFirst = true;
+        isFirst=true;
     }
 
     @Override
-    public void setData(List<Map<String, Object>> list) {
-        if (list != null) {
+    public  void setData(List<Map<String, Object>> list) {
+        if(list!=null) {
             khbhTextView.setText(list.get(0).get("code").toString());
             khmcTextView.setText(list.get(0).get("cname").toString());
             khdjTextView.setText(list.get(0).get("typename").toString());
@@ -87,10 +78,8 @@ public class UnitView extends BaseView {
             dzTextView.setText(list.get(0).get("address").toString());
             wzTextView.setText(list.get(0).get("cnet").toString());
             bzTextView.setText(list.get(0).get("memo").toString());
-            etShdz.setText(list.get(0).get("shipto").toString());//收货地址
         }
     }
-
     /**
      * 连接网络的操作(单位)
      */

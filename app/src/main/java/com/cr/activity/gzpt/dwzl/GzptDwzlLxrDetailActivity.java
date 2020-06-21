@@ -1,6 +1,10 @@
 package com.cr.activity.gzpt.dwzl;
 
-import android.content.Context;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -9,79 +13,39 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cr.activity.BaseActivity;
+import com.cr.activity.MainActivity;
+import com.cr.service.SocketService;
+import com.cr.tools.MyApplication;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * 工作平台-单位资料-联系人-联系人详情
- *
+ * 
  * @author caiyanfei
  * @version $Id: CommonXzdwActivity.java, v 0.1 2015-3-12 下午3:46:54 caiyanfei Exp $
  */
 public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickListener {
-
-    /**
-     * 业务录入
-     */
-    private TextView tvYwlr;
-    /**
-     * 编辑联系人
-     */
-    private TextView tvBjlxr;
-
-    /**
-     * @param packageContext
-     * @param clientid
-     * @param clientname
-     * @param types
-     * @param lxrid
-     * @return
-     */
-    public static Intent getIntent(Context packageContext, String clientid, String clientname, String types, String lxrid) {
-        Intent intent = new Intent(packageContext, GzptDwzlLxrDetailActivity.class);
-        intent.putExtra("clientid", clientid);
-        intent.putExtra("clientname", clientname);
-        intent.putExtra("types", types);
-        intent.putExtra("lxrid", lxrid);
-        return intent;
-    }
-
-    private String lxrId;
-    private String mClientId = "";// 单位id
-    private String mClientname;// 单位名称
-    private String mTypes;//单位类型
-
-    private void getIntentData() {
-        mClientId = getIntent().getStringExtra("clientid");
-        mClientname = getIntent().getStringExtra("clientname");
-        mTypes = getIntent().getStringExtra("types");
-        lxrId = getIntent().getStringExtra("lxrid");
-    }
-
+    private String lxrId, clientId;
     private EditText xmEditText, xbEditText, bmEditText, zwEditText, csrqEditText, zlxrEditText,
             jtzzEditText, grahEditText, bzEditText, lxfsEditText;
-
-    /**
-     * 亨视
-     */
-    private TextView tvDwmc;
+    private TextView bjlxrTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gzpt_dwzl_lxr_detail);
-        getIntentData();
-        initView();
-        initData();
+        addZYMethod();
+        initActivity();
+        if (this.getIntent().hasExtra("lxrid")) {
+            lxrId = this.getIntent().getExtras().getString("lxrid");
+            clientId = this.getIntent().getExtras().getString("clientid");
+        }
         if (this.getIntent().hasExtra("typesss")) {
             ImageButton imageButton = (ImageButton) findViewById(R.id.fh);
             imageButton.setOnClickListener(new OnClickListener() {
@@ -89,7 +53,7 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
                 public void onClick(View arg0) {
                     Map<String, Object> object = new HashMap<String, Object>();
                     object.put("lxrid", lxrId);
-                    object.put("clientid", mClientId);
+                    object.put("clientid", clientId);
                     object.put("types", "");
                     Intent intent = new Intent();
                     intent.setClass(activity, GzptDwzlActivity.class);
@@ -104,8 +68,10 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
         searchDate();
     }
 
-    private void initView() {
-        tvDwmc = (TextView) findViewById(R.id.tv_dwmc);
+    /**
+     * 初始化Activity
+     */
+    private void initActivity() {
         xmEditText = (EditText) findViewById(R.id.xm_edittext);
         xbEditText = (EditText) findViewById(R.id.xb_edittext);
         bmEditText = (EditText) findViewById(R.id.bm_edittext);
@@ -117,26 +83,16 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
         bzEditText = (EditText) findViewById(R.id.bz_edittext);
         lxfsEditText = (EditText) findViewById(R.id.lxfs_edittext);
         lxfsEditText.setOnClickListener(this);
-        tvYwlr = (TextView) findViewById(R.id.tv_ywlr);
-        tvYwlr.setOnClickListener(this);
-        tvBjlxr = (TextView) findViewById(R.id.tv_bjlxr);
-        tvBjlxr.setOnClickListener(this);
+        bjlxrTextView = (TextView) findViewById(R.id.bjlxr_textview);
+        bjlxrTextView.setOnClickListener(this);
     }
-
-    /**
-     * 加载界面数据
-     */
-    private void initData() {
-        tvDwmc.setText(mClientname);
-    }
-
 
     /**
      * 连接网络的操作
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         //        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("lxrid", lxrId);
         findServiceData2(0, ServerURL.LXRINFO, parmMap, true);
@@ -150,7 +106,7 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
                 showToastPromopt(2);
             } else {
                 Map<String, Object> object = ((List<Map<String, Object>>) PaseJson
-                        .paseJsonToObject(returnJson)).get(0);
+                    .paseJsonToObject(returnJson)).get(0);
                 xmEditText.setText(object.get("lxrname").toString());
                 xbEditText.setText(object.get("xb").toString().equals("0") ? "女" : "男");
                 bmEditText.setText(object.get("depname").toString());
@@ -173,19 +129,11 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
                 intent.putExtra("lxrid", lxrId);
                 startActivity(intent);
                 break;
-            case R.id.tv_ywlr:
-                Map map = new HashMap();
-                map.put("clientid", mClientId);
-                map.put("types", mTypes);
-                startActivity(new Intent(this, GzptDwzlActivity.class).putExtra("object", (Serializable) map));
-
-                break;
-            case R.id.tv_bjlxr:
+            case R.id.bjlxr_textview:
                 intent.setClass(this, GzptDwzlLxrBjlxrActivity.class);
-//                intent.putExtra("lxrid", lxrId);
-//                intent.putExtra("clientid", mClientId);
-//                startActivityForResult(intent, 0);
-                startActivityForResult(GzptDwzlLxrBjlxrActivity.getIntent(activity, mClientId, mClientname, mTypes, lxrId), 0);
+                intent.putExtra("lxrid", lxrId);
+                intent.putExtra("clientid", clientId);
+                startActivityForResult(intent, 0);
                 break;
             default:
                 break;
@@ -208,7 +156,7 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
             if (this.getIntent().hasExtra("typesss")) {
                 Map<String, Object> object = new HashMap<String, Object>();
                 object.put("lxrid", lxrId);
-                object.put("clientid", mClientId);
+                object.put("clientid", clientId);
                 object.put("types", "");
                 Intent intent = new Intent();
                 intent.setClass(activity, GzptDwzlActivity.class);
@@ -222,6 +170,4 @@ public class GzptDwzlLxrDetailActivity extends BaseActivity implements OnClickLi
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 }

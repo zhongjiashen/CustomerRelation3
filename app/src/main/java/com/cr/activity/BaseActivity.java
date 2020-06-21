@@ -58,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	public ProgressDialog progressDialog;// 弹出框进度条
 	public Handler handler;//
 	public NetworkInfo networkInfo = null;
-	public Context mContext;
+	public Context context;
 	public BaseActivity activity;
 	public boolean isShowDialog = true;
 
@@ -75,9 +75,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		MyApplication.getInstance().addActivity(this);// 将当前创建的Activity对象封装起来，用于退出的时候统一释放
-		mContext = this.getApplicationContext();
+		context = this.getApplicationContext();
 		activity = this;
 		networkInfo = NetworkCheck.check(BaseActivity.this);// 检测当前网络的状态
 		updateUIProgressHandle();
@@ -122,10 +123,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 						List<KtQxpdData> list = new Gson().fromJson(returnJson, new TypeToken<List<KtQxpdData>>() {
 						}.getType());
 						if(list.size()>0){
-							ShareUserInfo.setKey(mContext, "ll", list.get(0).getNExplore()+"");//
-							ShareUserInfo.setKey(mContext, "xz", list.get(0).getNInsert()+"");//
-							ShareUserInfo.setKey(mContext, "bj", list.get(0).getNUpdate()+"");//
-							ShareUserInfo.setKey(mContext, "sc", list.get(0).getNDelete()+"");//
+							ShareUserInfo.setKey(context, "ll", list.get(0).getNExplore()+"");//
+							ShareUserInfo.setKey(context, "xz", list.get(0).getNInsert()+"");//
+							ShareUserInfo.setKey(context, "bj", list.get(0).getNUpdate()+"");//
+							ShareUserInfo.setKey(context, "sc", list.get(0).getNDelete()+"");//
 							UserPermissionsCallBack();
 						}
 					}else {
@@ -187,8 +188,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 	public void CheckOperPriv(String menuid){
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("menuid", menuid);
 		findServiceData2(9, "checkoperpriv", parmMap, true);
 	}
@@ -226,7 +227,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 			public void run() {
 				try {
 					returnJson = ServerRequest.webServicePost(methodName,
-							params, mContext);
+							params, context);
 					if (returnJson.length() > 0
 							&& Character.isDigit(returnJson.charAt(0))) {
 						returnJsonId = returnJson;
@@ -255,21 +256,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 		/**
 		 * 关闭长连接判断
 		 */
-//		if (ShareUserInfo.getKey(context, "networklock").equals("true")) {
-//			new AlertDialog.Builder(this)
-//					.setTitle("提示信息")
-//					.setMessage("与服务器断开连接,客户端程序将退出！")
-//					.setNegativeButton("确定",
-//							new DialogInterface.OnClickListener() {
-//
-//								@Override
-//								public void onClick(DialogInterface arg0,
-//										int arg1) {
-//									MyApplication.getInstance().exit();
-//								}
-//							}).show();
-//			return;
-//		}
+		if (ShareUserInfo.getKey(context, "networklock").equals("true")) {
+			new AlertDialog.Builder(this)
+					.setTitle("提示信息")
+					.setMessage("与服务器断开连接,客户端程序将退出！")
+					.setNegativeButton("确定",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface arg0,
+										int arg1) {
+									MyApplication.getInstance().exit();
+								}
+							}).show();
+			return;
+		}
 		this.isShowDialog = isShowDialog;
 		this.returnSuccessType = returnSuccessType;
 		setInputManager(false);
@@ -280,7 +281,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 			public void run() {
 				try {
 					returnJson = ServerRequest.webServicePost(methodName,
-							params, mContext);
+							params, context);
 					if (returnJson.length() > 0
 							&& Character.isDigit(returnJson.charAt(0))) {
 						returnJsonId = returnJson;
@@ -312,7 +313,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 			public void run() {
 				try {
 					returnJson = ServerRequest.webServicePost(methodName,
-							params, mContext);
+							params, context);
 
 					if (returnJson.length() > 0
 							&& Character.isDigit(returnJson.charAt(0))) {

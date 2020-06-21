@@ -105,10 +105,10 @@ public class GzptBflrXzxmActivity extends BaseActivity implements OnClickListene
 	 */
 	private void saveBflrDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("itemid","0");
-		parmMap.put("clientid",ShareUserInfo.getKey(mContext, "clientid"));
+		parmMap.put("clientid",ShareUserInfo.getKey(context, "clientid"));
 		parmMap.put("title",jhxmEditText.getText().toString());
 		String zq = null;
 		String itemValue=zqSpinner.getSelectedItem().toString();

@@ -54,7 +54,7 @@ public class GzptDwzlLxrLxfsActivity extends BaseActivity implements OnClickList
 	 */
 	private void searchDate(){
 	    Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
 //        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("lxrid",lxrId);
 //        parmMap.put("Havelxr","0");

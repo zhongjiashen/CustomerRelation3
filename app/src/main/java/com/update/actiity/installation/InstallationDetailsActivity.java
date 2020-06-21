@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
-import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -276,18 +275,18 @@ public class InstallationDetailsActivity extends BaseActivity {
                     tvExecutionStatus.setText(mData.getZxjg());//执行状态
                     if (mData.getLb() == 1) {
                         tvGoodsInformation.setText(mData.getGoodscode() + "    " + mData.getGoodsname() + "    " + mData.getSpecs() + "    " + mData.getModel());
-                        tvRegistrationNumber.setText("登记数量：" + FigureTools.sswrFigure(mData.getUnitqty()) + mData.getUnitname());
+                        tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + mData.getUnitname());
                     } else {
                         tvGoodsInformation.setText("概况信息");
-                        tvRegistrationNumber.setText("登记数量：" + FigureTools.sswrFigure(mData.getUnitqty()) + "个");
+                        tvRegistrationNumber.setText("登记数量：" + mData.getUnitqty() + "个");
                     }
                     tvInstalledResults.setText(mData.getWxjgname());//安装结果设置
                     if (mData.getIsreturn() == 1)//是否重新派工
                         tvRework.setText("是");
                     else
                         tvRework.setText("否");
-                    etInstallationNumber.setText(FigureTools.sswrFigure(mData.getYesqty()));//安装数量
-                    etUnloaded.setText(FigureTools.sswrFigure(mData.getNoqty()));//未装数量
+                    etInstallationNumber.setText(mData.getYesqty() + "");//安装数量
+                    etUnloaded.setText(mData.getNoqty() + "");//未装数量
                     tvStartTime.setText(mData.getBegindate());
                     tvEndTime.setText(mData.getEnddate());
                     etInstallationMeasures.setText(mData.getPlaninfo());

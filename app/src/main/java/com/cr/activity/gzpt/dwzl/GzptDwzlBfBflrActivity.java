@@ -82,27 +82,27 @@ public class GzptDwzlBfBflrActivity extends BaseActivity implements OnClickListe
     private void saveBflrDate() {
     	Map<String, Object> parmMap = new HashMap<String, Object>();
         String lb="";
-        if(ShareUserInfo.getKey(mContext, "khzlname").equals("hjzx")){
+        if(ShareUserInfo.getKey(context, "khzlname").equals("hjzx")){
             lb="1";
             parmMap.put("referid", object.get("id").toString());
-        }else if(ShareUserInfo.getKey(mContext, "khzlname").equals("yybf")){
+        }else if(ShareUserInfo.getKey(context, "khzlname").equals("yybf")){
             lb="2";
             parmMap.put("referid", object.get("id").toString());
-        }else if(ShareUserInfo.getKey(mContext, "khzlname").equals("shhf")){
+        }else if(ShareUserInfo.getKey(context, "khzlname").equals("shhf")){
             lb="3";
             parmMap.put("referid", object.get("id").toString());
-        }else if(ShareUserInfo.getKey(mContext, "khzlname").equals("xzld")){
+        }else if(ShareUserInfo.getKey(context, "khzlname").equals("xzld")){
             lb="4";
             parmMap.put("referid", clientId);
-        }else if(ShareUserInfo.getKey(mContext, "khzlname").equals("khgl")){
+        }else if(ShareUserInfo.getKey(context, "khzlname").equals("khgl")){
            lb="5" ;
            parmMap.put("referid", clientId);
         }
         //		Log.v("dddd", this.getIntent().getExtras().getString("jhbid"));
         parmMap.put("lb", lb);
         
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("id", "0");
         parmMap.put("clientid", clientId);
         parmMap.put("lxrid", lxrId);

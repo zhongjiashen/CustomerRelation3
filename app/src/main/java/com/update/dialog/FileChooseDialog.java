@@ -29,7 +29,7 @@ public class FileChooseDialog extends BaseDialog {
      * 初始化
      */
     @Override
-    protected void initView() {
+    protected void init() {
         setContentView(R.layout.dialog_file_choose);
     }
 

@@ -118,8 +118,8 @@ public class JhzjXzxmZxCkActivity extends BaseActivity {
 	 */
 	private void searchDate2() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("itemid", jhrw.getId());
 		findServiceData2(2, ServerURL.JHRWGZZJITEMXX, parmMap, true);
 		
@@ -275,7 +275,7 @@ public class JhzjXzxmZxCkActivity extends BaseActivity {
 	 */
 	private void searchZxjgDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("zdbm", "ZXJG");
 		findServiceData2(1, ServerURL.DATADICT, parmMap, false);
 	}

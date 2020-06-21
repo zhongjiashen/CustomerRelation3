@@ -220,13 +220,13 @@ public class XjyhYhcqAddActivity extends BaseActivity implements
             jsonObject.put("departmentid ", mDepartmentid);
             jsonObject.put("empid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             arrayMaster.put(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }// 代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_movemoney");
         parmMap.put("parms", "YHCQ");

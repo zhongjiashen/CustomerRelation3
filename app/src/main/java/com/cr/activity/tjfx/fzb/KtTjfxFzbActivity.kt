@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.cr.activity.tjfx.lrb.KtTjfxCwbbmxActivity
-import com.cr.tools.FigureTools
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
@@ -81,9 +80,9 @@ class KtTjfxFzbActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLi
             override fun MyonBindViewHolder(holder: ViewHolderFactory.LrbHolder?, data: KtLrbData) {
                 if (holder != null) {
                     holder.tvMz.text = data.name
-                    holder.tvJe.text = FigureTools.sswrFigure(data.curbalance.toString())
-                    holder.tvQcye.text = "期初余额:" + FigureTools.sswrFigure(data.inibalance.toString())
-                    holder.tvLjje.text = "累计金额:" + FigureTools.sswrFigure(data.endbalance.toString())
+                    holder.tvJe.text = data.curbalance.toString()
+                    holder.tvQcye.text = "期初余额:" + data.inibalance.toString()
+                    holder.tvLjje.text = "累计金额:" + data.endbalance
 
                     holder.itemView.setOnClickListener {
                         if(data.flag==1) {

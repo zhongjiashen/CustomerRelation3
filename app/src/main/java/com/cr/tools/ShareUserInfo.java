@@ -94,7 +94,7 @@ public class ShareUserInfo {
 		SharedPreferences sp = context.getSharedPreferences("CRInfo",
 				Context.MODE_PRIVATE);
 		//默认是1
-		return sp.getString("ip", "http://saas.hengshicrm.com");
+		return sp.getString("ip", "");
 	}
 	//保存当前用户链接的IP
 	public static void setDK(Context context, String ip) {
@@ -107,7 +107,7 @@ public class ShareUserInfo {
 		SharedPreferences sp = context.getSharedPreferences("CRInfo",
 				Context.MODE_PRIVATE);
 		//默认是1
-		return sp.getString("DK", "8031");
+		return sp.getString("DK", "");
 	}
 	//存值
 	public static void setKey(Context context,String key,String value){
@@ -120,11 +120,5 @@ public class ShareUserInfo {
 		SharedPreferences sp = context.getSharedPreferences("CRInfo",Context.MODE_PRIVATE);
 		//默认是1
 		return sp.getString(key, "");
-	}
-	//读值
-	public static String getKey(Context context,String key,String defValue){
-		SharedPreferences sp = context.getSharedPreferences("CRInfo",Context.MODE_PRIVATE);
-		//默认是1
-		return sp.getString(key, defValue);
 	}
 }

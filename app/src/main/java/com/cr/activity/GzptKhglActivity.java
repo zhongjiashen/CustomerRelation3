@@ -29,7 +29,9 @@ import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.KtAreaSelectionActivity;
+import com.update.actiity.choose.KtRegionMainActivity;
 import com.update.actiity.choose.NetworkDataSingleOptionActivity;
+import com.update.model.DataDictionaryData;
 import com.update.model.KtRegionData;
 
 import java.io.Serializable;
@@ -250,8 +252,8 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("types", mTypes);
 
         parmMap.put("typeid", typeid);
@@ -280,7 +282,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
 
     private void getAddressData(String levels, String parentid, int returnSuccessType) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("levels", levels);
         parmMap.put("parentid", parentid);
         findServiceData(returnSuccessType, ServerURL.AREALIST, parmMap);
@@ -298,22 +300,22 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                 mProvinceDatas = gson.fromJson(returnJson,
                         new TypeToken<List<KtRegionData>>() {
                         }.getType());
-                mProvinceDatas.add(0, new KtRegionData("0", "全部"));
-                showAddressDialog("选择省", mProvinceDatas, 0);
+                mProvinceDatas.add(0,new KtRegionData("0","全部"));
+                showAddressDialog("选择省",mProvinceDatas,0);
                 break;
             case 1:
                 mCityDatas = gson.fromJson(returnJson,
                         new TypeToken<List<KtRegionData>>() {
                         }.getType());
-                mCityDatas.add(0, new KtRegionData("0", "全部"));
-                showAddressDialog("选择市", mCityDatas, 1);
+                mCityDatas.add(0,new KtRegionData("0","全部"));
+                showAddressDialog("选择市", mCityDatas,1);
                 break;
             case 2:
                 mAreaDatas = gson.fromJson(returnJson,
                         new TypeToken<List<KtRegionData>>() {
                         }.getType());
-                mAreaDatas.add(0, new KtRegionData("0", "全部"));
-                showAddressDialog("选择区（县）", mAreaDatas, 2);
+                mAreaDatas.add(0,new KtRegionData("0","全部"));
+                showAddressDialog("选择区（县）",mAreaDatas,2);
                 break;
         }
 
@@ -350,7 +352,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.ll_dq://地区选择
 //                if(mProvinceDatas==null||mProvinceDatas.size()==0) {
-                getAddressData("2", "0", 0);
+                    getAddressData("2", "0", 0);
 //                }else {
 //
 //                }
@@ -359,6 +361,55 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    @Override
+    public void onClick(View arg0) {
+        Intent intent = new Intent();
+        switch (arg0.getId()) {
+            case R.id.cx_but:
+                if (xmjdCheckBox.isChecked()) {
+                    if (jdId.equals("")) {
+                        showToastPromopt("请选择项目进度");
+                        return;
+                    }
+                }
+                searchDate();
+                break;
+            case R.id.xzdw_textview:
+                intent.setClass(GzptKhglActivity.this, GzptDwzlDwBjdwActivity.class);
+                intent.putExtra("clientid", "0");// 单位ID为0，表示新增
+                startActivity(intent);
+                break;
+            case R.id.ksrq_edit:
+                date_init(ksrqEditText);
+                break;
+            case R.id.jsrq_edit:
+                date_init(jsrqEditText);
+                break;
+            case R.id.wbf:
+                bf = "0";
+                flag = "1";
+                break;
+            case R.id.ybf:
+                bf = "1";
+                flag = "1";
+                break;
+            case R.id.qbbf:
+                flag = "0";
+                break;
+            case R.id.lx_edit://客户类型选择
+                intent.setClass(GzptKhglActivity.this, CommonXzkhlxActivity.class);
+                startActivityForResult(intent, 1);
+                break;
+            case R.id.jd_edit:
+                intent.setClass(GzptKhglActivity.this, CommonXzzdActivity.class);
+                intent.putExtra("type", "*XMGM");
+                startActivityForResult(intent, 2);
+                break;
+            default:
+                break;
+        }
+
+    }
 
     /**
      * 创建日期及时间选择对话框
@@ -431,7 +482,7 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
      */
     private void searchXmjdDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("zdbm", "XMGM");
         findServiceData2(4, ServerURL.DATADICT, parmMap, false);
     }
@@ -512,24 +563,24 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
                             tvDq.setText("全部");
                             cityid = "0";
                             countyid = "0";
-                        } else {
+                        }else {
                             tvDq.setText(list.get(which).getCname());
-                            getAddressData("3", areaid, 1);
+                            getAddressData("3",areaid,1);
                         }
                         break;
                     case 1:
                         cityid = list.get(which).getId();
-                        if (cityid.equals("0")) {
-                            tvDq.setText(tvDq.getText().toString() + "-" + list.get(which).getCname());
+                        if (cityid .equals("0")) {
+                            tvDq.setText(tvDq.getText().toString()+"-"+list.get(which).getCname());
                             countyid = "0";
-                        } else {
-                            tvDq.setText(tvDq.getText().toString() + "-" + list.get(which).getCname());
-                            getAddressData("4", areaid, 2);
+                        }else {
+                            tvDq.setText(tvDq.getText().toString()+"-"+list.get(which).getCname());
+                            getAddressData("4",areaid,2);
                         }
                         break;
                     case 2:
                         countyid = list.get(which).getId();
-                        tvDq.setText(tvDq.getText().toString() + "-" + list.get(which).getCname());
+                        tvDq.setText(tvDq.getText().toString()+"-"+list.get(which).getCname());
 
                         break;
                 }
@@ -538,100 +589,4 @@ public class GzptKhglActivity extends BaseActivity implements OnClickListener {
         builder.show();
     }
 
-    @OnClick({R.id.ksrq_edit, R.id.jsrq_edit, R.id.wbf, R.id.ybf,  R.id.lx_edit, R.id.jd_edit, R.id.bt_cx, R.id.bt_xzdw})
-    public void onClick(View view) {
-        Intent intent = new Intent();
-        switch (view.getId()) {
-            case R.id.ksrq_edit:
-                date_init(ksrqEditText);
-                break;
-            case R.id.jsrq_edit:
-                date_init(jsrqEditText);
-                break;
-            case R.id.wbf:
-                bf = "0";
-                flag = "1";
-                break;
-            case R.id.ybf:
-                bf = "1";
-                flag = "1";
-                break;
-            case R.id.qbbf:
-                flag = "0";
-                break;
-            case R.id.lx_edit://客户类型选择
-                intent.setClass(GzptKhglActivity.this, CommonXzkhlxActivity.class);
-                startActivityForResult(intent, 1);
-                break;
-            case R.id.jd_edit:
-                intent.setClass(GzptKhglActivity.this, CommonXzzdActivity.class);
-                intent.putExtra("type", "*XMGM");
-                startActivityForResult(intent, 2);
-                break;
-            case R.id.bt_cx:
-                if (xmjdCheckBox.isChecked()) {
-                    if (jdId.equals("")) {
-                        showToastPromopt("请选择项目进度");
-                        return;
-                    }
-                }
-                searchDate();
-                break;
-            case R.id.bt_xzdw:
-                intent.setClass(GzptKhglActivity.this, GzptDwzlDwBjdwActivity.class);
-                intent.putExtra("clientid", "0");// 单位ID为0，表示新增
-                startActivity(intent);
-                break;
-        }
-    }
-
-//    @Override
-//    public void onClick(View arg0) {
-//        Intent intent = new Intent();
-//        switch (arg0.getId()) {
-//            case R.id.cx_but:
-//                if (xmjdCheckBox.isChecked()) {
-//                    if (jdId.equals("")) {
-//                        showToastPromopt("请选择项目进度");
-//                        return;
-//                    }
-//                }
-//                searchDate();
-//                break;
-//            case R.id.xzdw_textview:
-//                intent.setClass(GzptKhglActivity.this, GzptDwzlDwBjdwActivity.class);
-//                intent.putExtra("clientid", "0");// 单位ID为0，表示新增
-//                startActivity(intent);
-//                break;
-//            case R.id.ksrq_edit:
-//                date_init(ksrqEditText);
-//                break;
-//            case R.id.jsrq_edit:
-//                date_init(jsrqEditText);
-//                break;
-//            case R.id.wbf:
-//                bf = "0";
-//                flag = "1";
-//                break;
-//            case R.id.ybf:
-//                bf = "1";
-//                flag = "1";
-//                break;
-//            case R.id.qbbf:
-//                flag = "0";
-//                break;
-//            case R.id.lx_edit://客户类型选择
-//                intent.setClass(GzptKhglActivity.this, CommonXzkhlxActivity.class);
-//                startActivityForResult(intent, 1);
-//                break;
-//            case R.id.jd_edit:
-//                intent.setClass(GzptKhglActivity.this, CommonXzzdActivity.class);
-//                intent.putExtra("type", "*XMGM");
-//                startActivityForResult(intent, 2);
-//                break;
-//            default:
-//                break;
-//        }
-//
-//    }
 }

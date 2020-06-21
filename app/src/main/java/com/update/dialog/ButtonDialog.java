@@ -34,7 +34,7 @@ public class ButtonDialog extends BaseDialog {
      * 初始化
      */
     @Override
-    protected void initView() {
+    protected void init() {
         setContentView(R.layout.dialog_button);
     }
 

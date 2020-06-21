@@ -158,7 +158,7 @@ public class KhfwAddActivity extends BaseActivity implements OnClickListener {
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -197,7 +197,7 @@ public class KhfwAddActivity extends BaseActivity implements OnClickListener {
             jsonObject.put("sxfs", fwfsEditText.getText().toString());
             jsonObject.put("empid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             
             double amount=0;
             for (Map<String, Object> map : list) {
@@ -233,7 +233,7 @@ public class KhfwAddActivity extends BaseActivity implements OnClickListener {
         }//代表新增
         
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
 //        parmMap.put("tabname", "tb_porder");
         parmMap.put("parms", "KHFW");

@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
-import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -112,7 +111,7 @@ public class XjyhSkdDetailActivity extends BaseActivity implements
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "SKD");
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(0, ServerURL.BILLMASTER, parmMap, false);
@@ -134,8 +133,8 @@ public class XjyhSkdDetailActivity extends BaseActivity implements
 //	 */
     private void searchDateSd() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_charge_skd");
         parmMap.put("pkvalue", this.getIntent().getExtras().getString("billid"));
         findServiceData2(2, ServerURL.BILLDELMASTER, parmMap, false);
@@ -188,9 +187,9 @@ public class XjyhSkdDetailActivity extends BaseActivity implements
             shzt = object.get("shzt").toString();
             zjzhEditText.setText(object.get("bankname").toString());
             zjzhId = object.get("bankid").toString();
-            dqyfEditText.setText(FigureTools.sswrFigure(object.get("suramt").toString()));
-            dqyf2EditText.setText(FigureTools.sswrFigure(object.get("balance").toString()));
-            fkjeEditText.setText(FigureTools.sswrFigure(object.get("amount").toString()));
+            dqyfEditText.setText(object.get("suramt").toString());
+            dqyf2EditText.setText(object.get("balance").toString());
+            fkjeEditText.setText(object.get("amount").toString());
             showZdr(object);
 //			searchDate2();// 查询订单中的商品
         } else if (returnSuccessType == 1) {
@@ -263,7 +262,7 @@ public class XjyhSkdDetailActivity extends BaseActivity implements
             jsonObject.put("clientid", wldwId);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("paytypeid", jsfsId);
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             jsonObject.put("bankid", zjzhId);
             jsonObject.put("amount", fkjeEditText.getText().toString());
             jsonObject.put("factamount", fkjeEditText.getText().toString());
@@ -273,7 +272,7 @@ public class XjyhSkdDetailActivity extends BaseActivity implements
             e.printStackTrace();
         }// 代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_charge_skd");
         parmMap.put("parms", "SKD");

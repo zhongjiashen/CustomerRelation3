@@ -75,8 +75,8 @@ public class JhzjXzzjhActivity extends BaseActivity implements OnClickListener{
 			return;
 		}
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("jhid", "0");
 		parmMap.put("years", ksrqEditText.getText().toString());
 		parmMap.put("weekno", zhou);
@@ -105,8 +105,8 @@ public class JhzjXzzjhActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDate2(){
 	    Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("years", ksrqEditText.getText().toString());
         parmMap.put("istoday", "1");
 //        parmMap.put("empname",searchEditText.getText().toString());

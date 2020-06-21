@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import com.cr.activity.BaseActivity
-import com.cr.activity.CkxzActivity
+import com.cr.activity.common.CommonXzzdActivity
 import com.cr.tools.ShareUserInfo
 import com.crcxj.activity.R
 import com.update.actiity.choose.SelectSalesmanActivity
@@ -44,20 +44,16 @@ class KtJxcCkglCkdbAddActivity : BaseActivity() {
         //出库仓库
         ckck_edittext.setOnClickListener {
             var intent = Intent()
-            intent.setClass(activity, CkxzActivity::class.java)
+            intent.setClass(activity, CommonXzzdActivity::class.java)
+            intent.putExtra("type", "STORE")
             startActivityForResult(intent, 0)
-//            intent.setClass(activity, CommonXzzdActivity::class.java)
-//            intent.putExtra("type", "STORE")
-//            startActivityForResult(intent, 0)
         }
         //入库仓库
         rkck_edittext.setOnClickListener {
             var intent = Intent()
-            intent.setClass(activity, CkxzActivity::class.java)
+            intent.setClass(activity, CommonXzzdActivity::class.java)
+            intent.putExtra("type", "STORE")
             startActivityForResult(intent, 1)
-//            intent.setClass(activity, CommonXzzdActivity::class.java)
-//            intent.putExtra("type", "STORE")
-//            startActivityForResult(intent, 1)
         }
         //单据日期
         djrq_edittext.setOnClickListener {
@@ -170,7 +166,7 @@ class KtJxcCkglCkdbAddActivity : BaseActivity() {
             jsonObject.put("departmentid", mDepartmentid)
             jsonObject.put("exemanid", jbrId)
             jsonObject.put("memo", bzxx_edittext.getText().toString())
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext))
+            jsonObject.put("opid", ShareUserInfo.getUserId(context))
             arrayMaster.put(jsonObject)
             for (data in mList) {
                 val jsonObject2 = JSONObject()
@@ -193,7 +189,7 @@ class KtJxcCkglCkdbAddActivity : BaseActivity() {
         }
         //代表新增
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap["tabname"] = "tb_allot"
         parmMap["parms"] = "CKDB"

@@ -11,7 +11,6 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.crcxj.activity.R;
 import com.update.dialog.OnDialogClickInterface;
@@ -39,9 +38,8 @@ public abstract class BaseDialog extends Dialog {
     public BaseDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
         this.mContext = context;
-        initView();
-        ButterKnife.bind(this);
         init();
+        ButterKnife.bind(this);
 
     }
 
@@ -90,19 +88,8 @@ public abstract class BaseDialog extends Dialog {
         dialogWindow.setAttributes(lp);
     }
 
-
-    protected abstract void initView();
     /**
      * 初始化
      */
-    protected void init(){
-
-    }
-
-    /**
-     * 显示用户给定的提示信息
-     */
-    protected void showToastPromopt(String showText) {
-        Toast.makeText(mContext, showText, Toast.LENGTH_SHORT).show();
-    }
+    protected abstract void init();
 }

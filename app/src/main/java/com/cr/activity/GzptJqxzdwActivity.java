@@ -90,7 +90,7 @@ public class GzptJqxzdwActivity extends BaseActivity implements OnClickListener{
         xListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent(mContext, GzptDwzlActivity.class);
+                Intent intent = new Intent(context, GzptDwzlActivity.class);
                 intent.putExtra("object", (Serializable)list.get(arg2-1));
                 startActivityForResult(intent,1);
                 adapter.setSelectIndex(arg2);
@@ -102,8 +102,8 @@ public class GzptJqxzdwActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("qsrq",ksrqEditText.getText().toString());
 		parmMap.put("zzrq",jsrqEditText.getText().toString());
 //		parmMap.put("zt",bf);

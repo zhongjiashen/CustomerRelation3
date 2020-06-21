@@ -13,7 +13,6 @@ import com.cr.activity.jxc.cggl.cgsh.JxcCgglCgshDetailActivity
 import com.cr.activity.jxc.xsgl.xsdd.KtJxcXsglXsddDetailActivity
 import com.cr.activity.jxc.xsgl.xskd.JxcXsglXskdDetailActivity
 import com.cr.model.GSGG
-import com.cr.tools.FigureTools
 import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
@@ -186,7 +185,7 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvC.visibility = View.VISIBLE
                             holder.tvC.text = data["cname"].toString()
                             holder.tvD.visibility = View.VISIBLE
-                            holder.tvD.text = "收款金额：￥" + FigureTools.sswrFigure(data["je"].toString())
+                            holder.tvD.text = "收款金额：￥" + data["je"].toString()
                             holder.tvE.visibility = View.VISIBLE
                             holder.tvE.text = "限定日期：" + data["rq"].toString()
                             holder.itemView.setOnClickListener {
@@ -204,7 +203,7 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvC.visibility = View.VISIBLE
                             holder.tvC.text = data["cname"].toString()
                             holder.tvD.visibility = View.VISIBLE
-                            holder.tvD.text = "付款金额：￥" + FigureTools.sswrFigure(data["je"].toString())
+                            holder.tvD.text = "付款金额：￥" + data["je"].toString()
                             holder.tvE.visibility = View.VISIBLE
                             holder.tvE.text = "限定日期：" + data["rq"].toString()
                             holder.itemView.setOnClickListener {
@@ -249,11 +248,11 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvC.visibility = View.VISIBLE
                             holder.tvC.text = "规格：" + data["specs"].toString()
                             holder.tvD.visibility = View.VISIBLE
-                            holder.tvD.text = "库存下限: " + FigureTools.sswrFigure(data["downonhand"].toString())
+                            holder.tvD.text = "库存下限: " + data["downonhand"].toString()
                             holder.tvE.visibility = View.VISIBLE
-                            holder.tvE.text = "当前库存: " + FigureTools.sswrFigure(data["onhand"].toString())
+                            holder.tvE.text = "当前库存: " + data["onhand"].toString()
                             holder.tvF.visibility = View.VISIBLE
-                            holder.tvF.text = "库存上限：" + FigureTools.sswrFigure(data["uponhand"].toString())
+                            holder.tvF.text = "库存上限：" + data["uponhand"].toString()
                         }
                     //库存报警
                         "KCBJ" -> {
@@ -264,11 +263,11 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvC.visibility = View.VISIBLE
                             holder.tvC.text = "规格：" + data["specs"].toString()
                             holder.tvD.visibility = View.VISIBLE
-                            holder.tvD.text = "库存下限: " + FigureTools.sswrFigure(data["downonhand"].toString())
+                            holder.tvD.text = "库存下限: " + data["downonhand"].toString()
                             holder.tvE.visibility = View.VISIBLE
-                            holder.tvE.text = "当前库存: " + FigureTools.sswrFigure(data["onhand"].toString())
+                            holder.tvE.text = "当前库存: " + data["onhand"].toString()
                             holder.tvF.visibility = View.VISIBLE
-                            holder.tvF.text = "库存上限：" + FigureTools.sswrFigure(data["uponhand"].toString())
+                            holder.tvF.text = "库存上限：" + data["uponhand"].toString()
                         }
                     //零销售商品
                         "ZERO" -> {
@@ -281,7 +280,7 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvD.visibility = View.VISIBLE
                             holder.tvD.text = "型号:" + data["model"].toString()
                             holder.tvE.visibility = View.VISIBLE
-                            holder.tvE.text = "库存：" + FigureTools.sswrFigure(data["onhand"].toString())
+                            holder.tvE.text = "库存：" + data["onhand"].toString()
                         }
                     //预期库存报警
                         "PEBJ" -> {
@@ -294,9 +293,9 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvD.visibility = View.VISIBLE
                             holder.tvD.text = "型号:" + data["model"].toString()
                             holder.tvE.visibility = View.VISIBLE
-                            holder.tvE.text = "实际库存：" + FigureTools.sswrFigure(data["onhand"].toString())
+                            holder.tvE.text = "实际库存：" + data["onhand"].toString()
                             holder.tvF.visibility = View.VISIBLE
-                            holder.tvF.text = "预期库存：" + FigureTools.sswrFigure(data["uponhand"].toString())
+                            holder.tvF.text = "预期库存：" + data["uponhand"].toString()
                         }
                     //发票提醒
                         "FPTX" -> {
@@ -311,7 +310,7 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvE.visibility = View.VISIBLE
                             holder.tvE.text = "票号：" + data["checkno"].toString()
                             holder.tvF.visibility = View.VISIBLE
-                            holder.tvF.text = "开票金额：" + FigureTools.sswrFigure(data["totalamt"].toString())
+                            holder.tvF.text = "开票金额：" + data["totalamt"].toString()
                         }
                     //信誉额度
                         "XYED" -> {
@@ -324,9 +323,9 @@ class KtGztxXxActivity : BaseActivity<BaseP>(), PullToRefreshLayout.OnRefreshLis
                             holder.tvD.visibility = View.VISIBLE
                             holder.tvD.text = "等级:" + data["typename"].toString()
                             holder.tvE.visibility = View.VISIBLE
-                            holder.tvE.text = "欠款：" + FigureTools.sswrFigure(data["oweamt"].toString())
+                            holder.tvE.text = "欠款：" + data["oweamt"].toString()
                             holder.tvF.visibility = View.VISIBLE
-                            holder.tvF.text = "信誉额度：" + FigureTools.sswrFigure(data["xyed"].toString())
+                            holder.tvF.text = "信誉额度：" + data["xyed"].toString()
                             holder.itemView.setOnClickListener {
                                 val map = HashMap<String, Any>()
                                 map["clientid"] = data["id"].toString()

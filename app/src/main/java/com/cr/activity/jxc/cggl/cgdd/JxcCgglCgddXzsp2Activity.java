@@ -49,7 +49,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 进销存-采购管理-采购订单-选择商品(批号不是必填)（采购订单）
+ * 进销存-采购管理-采购订单-选择商品(批号不是必填)（采购订单、销售订单）
  *
  * @author Administrator
  */
@@ -160,7 +160,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("tabname", tabname);
         parmMap.put("storeid", storeid);
         parmMap.put("goodscode", "");
@@ -179,7 +179,7 @@ public class JxcCgglCgddXzsp2Activity extends BaseActivity implements
      */
     private void fenlei() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         findServiceData2(1, "multitype", parmMap, false);
     }
 

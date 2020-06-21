@@ -53,7 +53,7 @@ public class GzptXzdwActivity extends BaseActivity implements OnClickListener {
 	 * 初始化ListView
 	 */
 	private void initListView(){
-		adapter=new GzptXzdwAdapter(dwList, mContext, this);
+		adapter=new GzptXzdwAdapter(dwList, context, this);
 		xzdwListView.setAdapter(adapter);
 		xzdwListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -75,8 +75,8 @@ public class GzptXzdwActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void searchDate(){
 	    Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("filter",searchEditText.getText().toString());
         parmMap.put("curpage",currentPage);
         parmMap.put("pagesize",pageSize);

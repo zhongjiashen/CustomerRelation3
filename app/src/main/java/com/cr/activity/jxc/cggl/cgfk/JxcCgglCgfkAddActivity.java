@@ -28,7 +28,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzfklx2Activity;
 import com.cr.activity.common.CommonXzjbrActivity;
@@ -159,7 +158,7 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGFK");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
@@ -170,7 +169,7 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGFK");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -229,7 +228,7 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("amount", fkjeEditText.getText().toString());
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
@@ -244,7 +243,7 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
             e.printStackTrace();
         }// 代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_pay");
         parmMap.put("parms", "CGFK");
@@ -345,11 +344,9 @@ public class JxcCgglCgfkAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 5);
                 break;
             case R.id.rkck_edittext:
-                intent.setClass(activity, CkxzActivity.class);
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 6);
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 6);
                 break;
             case R.id.fklx_edittext:
                 intent.setClass(activity, CommonXzfklx2Activity.class);

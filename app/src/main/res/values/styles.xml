@@ -53,20 +53,6 @@
     </style>
 
     <!-- 编辑框的靠右对齐样式 -->
-    <style name="tv_wgight_right">
-        <item name="android:layout_width">0dip</item>
-        <item name="android:gravity">right</item>
-        <item name="android:inputType">text</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">20dip</item>
-        <item name="android:background">@null</item>
-        <item name="android:textColor">@color/defalult_font_color</item>
-        <item name="android:textSize">@dimen/jxc_cggl_cgdd</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-
-    <!-- 编辑框的靠右对齐样式 -->
     <style name="edittext_bj">
         <item name="android:layout_width">0dip</item>
         <item name="android:gravity">right</item>

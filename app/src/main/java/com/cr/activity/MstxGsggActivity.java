@@ -50,12 +50,12 @@ public class MstxGsggActivity extends BaseActivity {
 	 * 初始化ListView
 	 */
 	private void initListView(){
-		adapter=new MstxGsggAdapter(gsggList, mContext, this);
+		adapter=new MstxGsggAdapter(gsggList, context, this);
 		gsggListView.setAdapter(adapter);
 		gsggListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-				Intent intent = new Intent(mContext,MstxGsggDetailActivity.class);
+				Intent intent = new Intent(context,MstxGsggDetailActivity.class);
 				GSGG gsgg=gsggList.get(arg2-1);
 				intent.putExtra("object",gsgg);
 				startActivity(intent);
@@ -67,7 +67,7 @@ public class MstxGsggActivity extends BaseActivity {
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("curpage",currentPage);
 		parmMap.put("pagesize", pageSize);
 		findServiceData(0,ServerURL.BROADCAST,parmMap);

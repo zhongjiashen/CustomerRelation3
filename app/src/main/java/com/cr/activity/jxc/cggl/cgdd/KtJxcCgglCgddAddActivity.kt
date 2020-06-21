@@ -12,9 +12,9 @@ import android.widget.BaseAdapter
 
 
 import com.cr.activity.BaseActivity
-import com.cr.activity.CkxzActivity
 import com.cr.activity.common.*
 import com.cr.activity.jxc.cggl.KtCgglSpxq2Activity
+import com.cr.activity.jxc.cggl.KtCgglSpxqActivity
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddAddAdapter
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
 import com.cr.tools.*
@@ -24,6 +24,7 @@ import com.update.actiity.choose.ChooseDepartmentActivity
 import com.update.actiity.choose.KtXzfplxActivity
 import com.update.actiity.choose.SelectSalesmanActivity
 import com.update.actiity.project.ChoiceProjectActivity
+import com.update.model.Serial
 import com.update.utils.LogUtils
 
 import kotlinx.android.synthetic.main.activity_jxc_cggl_cgdd_add.*
@@ -171,11 +172,9 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         //关联单据仓库选择
         rkck_edittext.setOnClickListener {
             val intent = Intent()
-            intent.setClass(activity, CkxzActivity::class.java)
+            intent.setClass(activity, CommonXzzdActivity::class.java)
+            intent.putExtra("type", "STORE")
             startActivityForResult(intent, 6)
-//            intent.setClass(activity, CommonXzzdActivity::class.java)
-//            intent.putExtra("type", "STORE")
-//            startActivityForResult(intent, 6)
         }
         /**
          * 选择发票类型
@@ -479,7 +478,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
             jsonObject.put("departmentid", departmentid)//部门ID
             jsonObject.put("exemanid", jbrId)//经办人
             jsonObject.put("memo", bzxx_edittext.getText().toString())
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext))
+            jsonObject.put("opid", ShareUserInfo.getUserId(context))
             arrayMaster.put(jsonObject)
             for (map in list) {
                 val jsonObject2 = JSONObject()
@@ -514,7 +513,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
         }
         //代表新增
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap["tabname"] = "tb_porder"
         parmMap["parms"] = "CGDD"
@@ -528,7 +527,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
      */
     private fun getMrck() {
         val parmMap = java.util.HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
         parmMap["zdbm"] = "STORE"
         findServiceData2(4, ServerURL.DATADICT, parmMap, false)
     }
@@ -612,7 +611,7 @@ class KtJxcCgglCgddAddActivity : BaseActivity() {
      */
     private fun searchDate2() {
         val parmMap = HashMap<String, Any?>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
         parmMap["parms"] = "CGDD"
         parmMap["billid"] = billid
         findServiceData2(2, ServerURL.REFBILLDETAIL, parmMap, false)

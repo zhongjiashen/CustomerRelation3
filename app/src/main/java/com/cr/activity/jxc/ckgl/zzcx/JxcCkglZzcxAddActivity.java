@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdjlxActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
@@ -153,7 +152,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
@@ -164,7 +163,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -176,7 +175,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
         list2.clear();
         adapter2.notifyDataSetChanged();
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("goodsid", goodsid);
         findServiceData2(2, ServerURL.SELECTGOODSCMB, parmMap, false);
     }
@@ -212,7 +211,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
              jsonObject.put("totalamt", "");
              jsonObject.put("exemanid", jbrId);
              jsonObject.put("memo", bzxxEditText.getText().toString());
-             jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+             jsonObject.put("opid", ShareUserInfo.getUserId(context));
              Map<String, Object> myMap=list.get(0);
              jsonObject.put("goodsid", myMap.get("goodsid").toString());
              jsonObject.put("unitid", myMap.get("unitid").toString());
@@ -259,7 +258,7 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("tabname", "tb_combin");
         parmMap.put("parms", "ZZCX");
         parmMap.put("master", arrayMaster.toString());
@@ -332,11 +331,9 @@ public class JxcCkglZzcxAddActivity extends BaseActivity implements OnClickListe
                 startActivityForResult(intent, 6);
                 break;
             case R.id.ck_edittext:
-                intent.setClass(activity, CkxzActivity.class);
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 7);
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 7);
                 break;
             case R.id.xzsp2_linearlayout:
             	if(ckEditText.getText().toString().equals("")){

@@ -102,7 +102,7 @@ public class XjyhQtsrActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent intent = new Intent(mContext,
+				Intent intent = new Intent(context,
 						XjyhQtsrDetailActivity.class);
 				intent.putExtra("billid", list.get(arg2 - 1).get("billid")
 						.toString());
@@ -122,14 +122,14 @@ public class XjyhQtsrActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("tabname", "tb_income");
 		parmMap.put("qsrq", qsrq);
 		parmMap.put("zzrq", jzrq);
 		parmMap.put("shzt", shzt);// 默认未审核
 		parmMap.put("billcode", searchEditText.getText().toString());
 		parmMap.put("cname", cname);
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
 		findServiceData2(0, ServerURL.BILLLIST, parmMap, false);
@@ -163,7 +163,7 @@ public class XjyhQtsrActivity extends BaseActivity implements OnClickListener {
 		Intent intent = new Intent();
 		switch (arg0.getId()) {
 		case R.id.sx:
-			intent.setClass(mContext, XjyhQtsrSearchActivity.class);
+			intent.setClass(context, XjyhQtsrSearchActivity.class);
 			intent.putExtra("qr", qsrq);
 			intent.putExtra("zr", jzrq);
 			intent.putExtra("kh", cname);
@@ -175,7 +175,7 @@ public class XjyhQtsrActivity extends BaseActivity implements OnClickListener {
 				showToastPromopt("你没有该权限，请向管理员申请权限！");
 				return;
 			}
-			intent.setClass(mContext, XjyhQtsrAddActivity.class);
+			intent.setClass(context, XjyhQtsrAddActivity.class);
 			startActivityForResult(intent, 1);
 			break;
 		}

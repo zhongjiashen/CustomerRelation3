@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.text.TextUtils
 import com.cr.activity.common.CommonXzzdActivity
-import com.cr.tools.FigureTools
 import com.crcxj.activity.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -114,7 +113,7 @@ class KtWlxxActivity : BaseActivity<BaseP>() {
                 "1"->tvFklx.text="现款结算"
             }
             tvFkzh.text=wlxxData.logisticbankaccount
-            etYfje.setText(FigureTools.sswrFigure(wlxxData.amount))
+            etYfje.setText(wlxxData.amount)
             when(wlxxData.isnotice){
                 "0"->tvTzfh.text="否"
                 "1"->tvTzfh.text="是"

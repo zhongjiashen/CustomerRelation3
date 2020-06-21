@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class KhfwAdapter extends BaseAdapter {
@@ -70,7 +69,7 @@ public class KhfwAdapter extends BaseAdapter {
         viewHolder.rqTextView.setText(objMap.get("billdate").toString());
         viewHolder.bhTextView.setText(objMap.get("code").toString());
         viewHolder.nameTextView.setText(objMap.get("cname").toString());
-        viewHolder.moneyTextView.setText("￥" + FigureTools.sswrFigure(objMap.get("amount").toString()));
+        viewHolder.moneyTextView.setText("￥" + objMap.get("amount").toString());
         if (objMap.get("finished").toString().equals("F")) {
             viewHolder.djlxImageView.setBackgroundResource(R.drawable.wwc);
         } else {

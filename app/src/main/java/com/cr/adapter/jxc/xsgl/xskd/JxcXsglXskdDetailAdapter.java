@@ -60,7 +60,7 @@ public class JxcXsglXskdDetailAdapter extends BaseAdapter {
                         (objMap.get("specs") == null ? objMap.get("specs").toString() : objMap.get("specs").toString()) + " " +
                         (objMap.get("model") == null ? objMap.get("model").toString() : objMap.get("model").toString()));
         viewHolder.djTextView.setText("￥" +
-                FigureTools.sswrFigure((objMap.get("unitprice") == null ? objMap.get("aprice").toString() : objMap.get("unitprice").toString())) + "*" +
+                (objMap.get("unitprice") == null ? objMap.get("aprice").toString() : objMap.get("unitprice").toString()) + "*" +
                 (objMap.get("unitqty") == null ? objMap.get("unitid").toString() : objMap.get("unitqty").toString()) + "" +
                 (objMap.get("unitname") == null ? objMap.get("unitname").toString() : objMap.get("unitname").toString()));
         viewHolder.zjTextView.setText("￥" + FigureTools.sswrFigure(objMap.get("amount").toString()));

@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class XjyhYhcqAdapter extends BaseAdapter {
@@ -63,7 +62,7 @@ public class XjyhYhcqAdapter extends BaseAdapter {
 		viewHolder.bhTextView.setText(objMap.get("code").toString());
 		viewHolder.zczhTextView.setText(objMap.get("outbankname").toString());
 		viewHolder.zrzhTextView.setText(objMap.get("inbankname").toString());
-		viewHolder.moneyTextView.setText("￥"+ FigureTools.sswrFigure(objMap.get("amount").toString()));
+		viewHolder.moneyTextView.setText("￥"+objMap.get("amount").toString());
 		if(objMap.get("shzt").toString().equals("0")){
 		    viewHolder.shImageView.setBackgroundResource(R.drawable.wsh);
 		}else if(objMap.get("shzt").toString().equals("1")){

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class JxcCkglKcpdDetailAdapter extends BaseAdapter {
@@ -50,9 +49,9 @@ public class JxcCkglKcpdDetailAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.bhmcggTextView.setText(objMap.get("goodsname")==null?objMap.get("name").toString():objMap.get("goodsname").toString());
-	    viewHolder.zmslTextView.setText("账面数量："+ FigureTools.sswrFigure(objMap.get("zmsl")==null?objMap.get("zmonhand").toString():objMap.get("zmsl").toString()));
+	    viewHolder.zmslTextView.setText("账面数量："+(objMap.get("zmsl")==null?objMap.get("zmonhand").toString():objMap.get("zmsl").toString()));
 	    viewHolder.zmslTextView.setVisibility(View.GONE);
-	    viewHolder.spslTextView.setText("实盘数量："+FigureTools.sswrFigure(objMap.get("spsl")==null?objMap.get("sponhand").toString():objMap.get("spsl").toString()));
+	    viewHolder.spslTextView.setText("实盘数量："+(objMap.get("spsl")==null?objMap.get("sponhand").toString():objMap.get("spsl").toString()));
 		viewHolder.spslTextView.setVisibility(View.GONE);
 	    int yksl=0;
 		if(objMap.get("zmsl")==null){
@@ -60,7 +59,7 @@ public class JxcCkglKcpdDetailAdapter extends BaseAdapter {
 		}else{
 			yksl=(int)Double.parseDouble(objMap.get("spsl").toString())-(int)Double.parseDouble(objMap.get("zmsl").toString());
 		}
-		viewHolder.ykslTextView.setText("盈亏数量："+FigureTools.sswrFigure(objMap.get("unitqty").toString()));
+		viewHolder.ykslTextView.setText("盈亏数量："+objMap.get("unitqty").toString());
 		return convertView;
 	}
 

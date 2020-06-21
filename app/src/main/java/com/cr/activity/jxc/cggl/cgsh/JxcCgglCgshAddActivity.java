@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzyyActivity;
@@ -402,11 +401,9 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 startActivityForResult(intent, 5);
                 break;
             case R.id.rkck_edittext:
-                intent.setClass(activity, CkxzActivity.class);
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 6);
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 6);
                 break;
             case R.id.fklx_edittext:
                 intent.setClass(activity, CommonXzzdActivity.class);
@@ -424,11 +421,9 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                 startActivityForResult(intent, 9);
                 break;
             case R.id.ck_edittext:
-                intent.setClass(activity, CkxzActivity.class);
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 11);
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 11);
                 break;
             case R.id.xm_edittext:
                 if (gysId.equals("")) {
@@ -629,7 +624,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
                         Map<String, Object> map = list.get(i);
                         ze += Double.parseDouble(map.get("amount").toString());
                     }
-                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(ze ));
+                    hjjeEdittext.setText("￥" + FigureTools.sswrFigure(ze + "") + "");
                     break;
                 case 5://选中单据成功后返回
                     addScrollview.setVisibility(View.VISIBLE);//隐藏关联销售单据的Linearlayout
@@ -863,7 +858,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
      */
     private void getMrck() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("zdbm", "STORE");
         findServiceData2(4, ServerURL.DATADICT, parmMap, false);
     }
@@ -951,7 +946,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
 //            String hjje = hjjeEditText.getText().toString();
 //            jsonObject.put("amount", hjje.replace("￥", ""));
             jsonObject.put("memo", bzxxEdittext.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
 
 
             jsonObject.put("billtypeid", billtypeid);//发票类型ID
@@ -1000,7 +995,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_received");
         parmMap.put("parms", "CGSH");
@@ -1015,7 +1010,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -1083,7 +1078,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
             lxrEdittext.setText(object.get("lxrname").toString());
             lxdhEdittext.setText(object.get("phone").toString());
             jhdzEdittext.setText(object.get("billto").toString());
-            hjjeEdittext.setText(FigureTools.sswrFigure(object.get("amount").toString()));
+            hjjeEdittext.setText(object.get("amount").toString());
             djrqEdittext.setText(object.get("billdate").toString());
             jbrEdittext.setText(object.get("empname").toString());
             bzxxEdittext.setText(object.get("memo").toString());
@@ -1105,7 +1100,7 @@ public class JxcCgglCgshAddActivity extends BaseActivity {
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);

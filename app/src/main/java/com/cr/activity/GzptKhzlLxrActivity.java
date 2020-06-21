@@ -264,7 +264,7 @@ public class GzptKhzlLxrActivity extends BaseActivity implements OnClickListener
      */
     private void searchDwDate(String id){
         Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("clientid",id);
         findServiceData2(9,ServerURL.CLIENTINFO,parmMap,false);
     }
@@ -273,8 +273,8 @@ public class GzptKhzlLxrActivity extends BaseActivity implements OnClickListener
 	 */
 	private void savelxrDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid",ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid",ShareUserInfo.getUserId(context));
 		parmMap.put("lxrid",gslxrDetail==null?0:gslxrDetail.getId());
 		parmMap.put("lxrname",lxrEditText.getText().toString());
 		parmMap.put("clientid",dwmcid);

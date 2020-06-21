@@ -27,7 +27,6 @@ import com.cr.activity.jxc.XzXlhActivity;
 import com.cr.activity.jxc.ckgl.kcpd.KtSerialNumberAddActivity;
 import com.cr.myinterface.SLViewValueChange;
 import com.cr.myinterface.SelectValueChange;
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.update.utils.LogUtils;
@@ -140,7 +139,7 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
             viewHolder.xhTextView.setText("型号："
                     + objMap.get("model").toString());
             viewHolder.kcTextView.setText("库存："
-                    + FigureTools.sswrFigure(objMap.get("onhand").toString())
+                    + objMap.get("onhand").toString()
                     + objMap.get("unitname").toString());
             return convertView;
         } else {
@@ -291,7 +290,7 @@ public class JxcCkglCkdbXzspAdapter extends BaseAdapter {
                     intent.setClass(activity, CommonXzphActivity.class);
                     intent.putExtra("goodsid", objMap2.get("goodsid")
                             .toString());
-                    intent.putExtra("storeid", storeid);
+                    intent.putExtra("storied", storeid);
                     intent.putExtra("index", position);
                     activity.startActivityForResult(intent, 0);
                 }

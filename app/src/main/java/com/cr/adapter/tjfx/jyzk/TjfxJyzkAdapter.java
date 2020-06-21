@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class TjfxJyzkAdapter extends BaseAdapter {
@@ -56,7 +55,7 @@ public class TjfxJyzkAdapter extends BaseAdapter {
 		}
 		viewHolder.nameTextView.setText(objMap.get("purchaseitem").toString());
 		if(!objMap.get("purchaseitem").toString().equals("")){
-			viewHolder.moneyTextView.setText("￥"+ FigureTools.sswrFigure(objMap.get("purchaseamt").toString()));
+			viewHolder.moneyTextView.setText("￥"+objMap.get("purchaseamt").toString());
 		}else{
 		    viewHolder.moneyTextView.setText(objMap.get("purchaseamt").toString());
 		}

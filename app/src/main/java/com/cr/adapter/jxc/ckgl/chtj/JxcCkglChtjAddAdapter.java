@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class JxcCkglChtjAddAdapter extends BaseAdapter {
@@ -49,8 +48,8 @@ public class JxcCkglChtjAddAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.bhmcggTextView.setText(objMap.get("goodsname")==null?objMap.get("name").toString():objMap.get("goodsname").toString());
-	    viewHolder.djTextView.setText("调前单价：￥"+ FigureTools.sswrFigure((objMap.get("tqdj")==null?objMap.get("aoprice").toString():objMap.get("tqdj").toString())));
-		viewHolder.zjTextView.setText("调后单价：￥"+FigureTools.sswrFigure((objMap.get("thdj")==null?objMap.get("anprice").toString():objMap.get("thdj").toString())));
+	    viewHolder.djTextView.setText("调前单价：￥"+(objMap.get("tqdj")==null?objMap.get("aoprice").toString():objMap.get("tqdj").toString()));
+		viewHolder.zjTextView.setText("调后单价：￥"+(objMap.get("thdj")==null?objMap.get("anprice").toString():objMap.get("thdj").toString()));
 		return convertView;
 	}
 

@@ -165,7 +165,7 @@
     <string name="khgl_jxsyjd">仅显示有项目进度</string>
     <string name="khgl_lx">类&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;型</string>
     <string name="khgl">客户管理</string>
-    <string name="jxsyjhjd">拜访阶段</string>
+    <string name="jxsyjhjd">仅显示有机会阶段</string>
     <string name="abf">按拜访</string>
     <string name="jsrq">结束日期</string>
     <string name="khgl_qb">全部</string>
@@ -206,7 +206,7 @@
 
     <!-- 新增来电 -->
     <string name="xzld">新增来电</string>
-    <string name="ldlr"></string>
+    <string name="ldlr">来电录入</string>
     <!-- 销售单 -->
     <string name="xsd_djbh">单据编号：</string>
     <string name="xsd_hkfs">回款方式：</string>
@@ -466,7 +466,7 @@
     <string name="dw_dq">地&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;区</string>
     <string name="dw_frdb">法人代表</string>
     <string name="dw_cz">传&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;真</string>
-    <string name="dw_dz">公司地址</string>
+    <string name="dw_dz">地&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;址</string>
     <string name="dw_wz">网&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;站</string>
     <string name="dw_bz">备&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;注</string>
     <string name="dw_lxfs">联系方式</string>
@@ -565,5 +565,4 @@
     <string name="xgxm">相关项目</string>
     <string name="csje">初始金额</string>
     <string name="jshj">价税合计</string>
-    <string name="dw_shdz">送货地址</string>
 </resources>

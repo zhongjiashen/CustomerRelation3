@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class TjfxZjzhAdapter extends BaseAdapter {
@@ -55,7 +54,7 @@ public class TjfxZjzhAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.nameTextView.setText(objMap.get("bankname").toString());
-		viewHolder.moneyTextView.setText("￥"+ FigureTools.sswrFigure(objMap.get("balance").toString()));
+		viewHolder.moneyTextView.setText("￥"+objMap.get("balance").toString());
 		return convertView;
 	}
 

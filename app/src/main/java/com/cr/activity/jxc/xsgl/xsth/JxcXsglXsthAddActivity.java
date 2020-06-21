@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzjbrActivity;
 import com.cr.activity.common.CommonXzkhActivity;
@@ -180,6 +179,8 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 selectIndex = arg2;
 
 
+
+
                 String parms = "XSTH";
 //                if (list.get(arg2).get("refertype") != null) {
 //                    parms = "XSKD";
@@ -255,7 +256,6 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
 
         getMrck();
     }
-
     @OnClick({R.id.iv_scan, R.id.save_imagebutton, R.id.mTogBtn, R.id.gys2_edittext, R.id.ck_edittext, R.id.xzxsdd_linearlayout, R.id.gldjcg_linearlayout, R.id.rkck_edittext, R.id.gys_edittext, R.id.et_fplx, R.id.xm_edittext, R.id.xzspnum_textview, R.id.xzsp_linearlayout, R.id.hjje_edittext, R.id.tkje_edittext, R.id.fklx_edittext, R.id.jsfs_edittext, R.id.zjzh_edittext, R.id.et_wlgs, R.id.djrq_edittext, R.id.et_bm, R.id.jbr_edittext, R.id.bzxx_edittext})
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -271,7 +271,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 intent.putExtra("rkckId", rkckId);
                 intent.putExtra("tabname", "tb_sreturn");
                 intent.putExtra("type", "xsth");
-                intent.putExtra("sfjc", false);
+                intent.putExtra("sfjc",false);
                 intent.setClass(this, JxcXzspActivity.class);
                 startActivityForResult(intent, 0);
                 break;
@@ -284,13 +284,13 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 break;
             case R.id.gys_edittext:
                 intent.setClass(this, CommonXzdwActivity.class);
-                intent.putExtra("type", "1");
+                intent.putExtra("type","1");
 //                intent.setClass(this, CommonXzkhActivity.class);
                 startActivityForResult(intent, 1);
                 break;
             case R.id.gys2_edittext:
                 intent.setClass(this, CommonXzdwActivity.class);
-                intent.putExtra("type", "1");
+                intent.putExtra("type","1");
 //                intent.setClass(this, CommonXzkhActivity.class);
                 startActivityForResult(intent, 10);
                 break;
@@ -339,11 +339,9 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 startActivityForResult(intent, 5);
                 break;
             case R.id.rkck_edittext:
-                intent.setClass(activity, CkxzActivity.class);
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 6);
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 6);
                 break;
             case R.id.fklx_edittext://退款类型
                 intent.setClass(activity, CommonXztklxActivity.class);
@@ -361,11 +359,9 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 startActivityForResult(intent, 9);
                 break;
             case R.id.ck_edittext:
-                intent.setClass(activity, CkxzActivity.class);
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 11);
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 11);
                 break;
             case R.id.xm_edittext:
                 if (gysId.equals("")) {
@@ -601,12 +597,12 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                                 UUID uuid = UUID.randomUUID();
                                 map.put("serialinfo", uuid.toString().toUpperCase());
                             }
-                            if (map.get("serialctrl").toString().equals("T")) {
-                                List<Serial> serials = new ArrayList<>();
-                                List<Serial> serials1 = new ArrayList<>();
+                            if(map.get("serialctrl").toString().equals("T")){
+                                List<Serial> serials=new ArrayList<>();
+                                List<Serial> serials1=new ArrayList<>();
                                 List<Map<String, String>> l = (List<Map<String, String>>) PaseJson.paseJsonToObject(map.get("serials").toString());
-                                for (int m = 0; m < l.size(); m++) {
-                                    Serial serial = new Serial();
+                                for (int m=0;m<l.size();m++){
+                                    Serial serial=new Serial();
                                     serial.setSerno(l.get(m).get("serno"));
                                     serial.setBillid("0");
                                     serial.setSerialinfo(l.get(m).get("serialinfo"));
@@ -615,13 +611,13 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                                 }
                                 map.put("serials", serials);
                                 map.put("serials1", serials1);
-                                map.put("unitqty", serials.size() + ".0");//数量
-                            } else {
+                                map.put("unitqty",  serials.size() + ".0");//数量
+                            }else {
                                 map.put("serials", new ArrayList<>());
-                                map.put("unitqty", "1.0");//数量
+                                map.put("unitqty",  "1.0");//数量
                             }
 
-                            map.put("memo", "");//备注
+                            map.put("memo","");//备注
                             list.add(map);
                             yyList.add(map);
                         }
@@ -733,7 +729,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                         for (int i = 0; i < list.size(); i++) {
                             list.get(i).put("taxrate", mTaxrate);
                             Double csje = Double.parseDouble(list.get(i).get("unitprice").toString()) * (Double.parseDouble(mTaxrate) + 100) / 100;
-                            list.get(i).put("taxunitprice", FigureTools.sswrFigure(csje));
+                            list.get(i).put("taxunitprice",FigureTools.sswrFigure( csje ));
                             String amount = (csje
                                     * Double.parseDouble(list.get(i).get("unitqty").toString())) + "";
                             list.get(i).put("amount", FigureTools.sswrFigure(amount + ""));
@@ -798,27 +794,27 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
 
         }
     }
-
     /**
      * 获取默认仓库信息
      */
     private void getMrck() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("zdbm", "STORE");
         findServiceData2(4, ServerURL.DATADICT, parmMap, false);
     }
-
     /**
      * 连接网络的操作(查询主表的内容)
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "XSTH");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
     }
+
+
 
 
     /**
@@ -826,7 +822,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "XSTH");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -863,7 +859,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
             showToastPromopt("请选择单据日期");
             return;
         }
-        if (TextUtils.isEmpty(mDepartmentid)) {
+        if (TextUtils.isEmpty(mDepartmentid)){
             showToastPromopt("请先选择部门");
             return;
         }
@@ -896,7 +892,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
             jsonObject.put("exemanid", jbrId);
             // String hjje = hjjeEditText.getText().toString();
             // jsonObject.put("amount", fkjeEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             jsonObject.put("memo", bzxxEdittext.getText().toString());
 
             jsonObject.put("billtypeid", billtypeid);//发票类型ID
@@ -925,7 +921,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 jsonObject2.put("batchcode", map.get("batchcode").toString());
                 jsonObject2.put("produceddate", map.get("produceddate")
                         .toString());
-                if (map.get("cbj") != null) {
+                if(map.get("cbj")!=null) {
                     jsonObject2.put("refaprice", map.get("cbj")
                             .toString());
                 }
@@ -941,7 +937,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 jsonObject2.put("serialinfo", map.get("serialinfo").toString());//
                 jsonObject2.put("taxrate", map.get("taxrate").toString());//税率%
                 jsonObject2.put("taxunitprice", map.get("taxunitprice").toString());//含税单价
-                jsonObject2.put("memo", map.get("memo").toString());//备注
+                jsonObject2.put("memo",  map.get("memo").toString());//备注
                 arrayDetail.put(jsonObject2);
                 serialinfo.addAll((ArrayList<Serial>) map.get("serials"));
             }
@@ -949,7 +945,7 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
             e.printStackTrace();
         }// 代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         // parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_sreturn");
         parmMap.put("parms", "XSTH");
@@ -999,12 +995,12 @@ public class JxcXsglXsthAddActivity extends BaseActivity {
                 if (returnJson.equals("")) {
                     showToastPromopt(2);
                 } else {
-                    List<Map<String, Object>> ckList = (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
-                    if (ckList.size() == 1) {
+                    List<Map<String, Object>> ckList= (List<Map<String, Object>>) PaseJson.paseJsonToObject(returnJson);
+                    if(ckList.size()==1){
                         rkckEdittext.setText(ckList.get(0).get("dictmc").toString());
-                        rkckId = ckList.get(0).get("id").toString();
+                        rkckId =  ckList.get(0).get("id").toString();
                         ckEdittext.setText(ckList.get(0).get("dictmc").toString());
-                        ckId = ckList.get(0).get("id").toString();
+                        ckId =  ckList.get(0).get("id").toString();
 
                     }
 

@@ -3,6 +3,7 @@ package com.cr.activity.jxc.cggl.cgfk
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -98,7 +99,7 @@ class KtJxcCgglCgfkDetailActivity:BaseActivity(){
      */
     private fun searchDate() {
         val parmMap = HashMap<String, Any?>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
         parmMap["parms"] = "CGFK"
         parmMap["billid"] = billid
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false)
@@ -109,7 +110,7 @@ class KtJxcCgglCgfkDetailActivity:BaseActivity(){
      */
     private fun searchDate2() {
         val parmMap = HashMap<String, Any?>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
         parmMap["parms"] = "CGFK"
         parmMap["billid"] = billid
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false)
@@ -120,8 +121,8 @@ class KtJxcCgglCgfkDetailActivity:BaseActivity(){
      */
     private fun searchDateSd() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
-        parmMap["opid"] = ShareUserInfo.getUserId(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["opid"] = ShareUserInfo.getUserId(context)
         parmMap["tabname"] = "tb_pay"
         parmMap["pkvalue"] = this.intent.extras!!.getString("billid")
         findServiceData2(3, ServerURL.BILLDELMASTER, parmMap, false)

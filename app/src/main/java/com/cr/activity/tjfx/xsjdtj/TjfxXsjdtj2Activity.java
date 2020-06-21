@@ -55,8 +55,8 @@ public class TjfxXsjdtj2Activity extends BaseActivity implements OnClickListener
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		qr = sdf.format(new Date());
 		zr = sdf.format(new Date());
-		ywyid=ShareUserInfo.getKey(mContext, "empid");
-		ywy=ShareUserInfo.getKey(mContext, "empname");
+		ywyid=ShareUserInfo.getKey(context, "empid");
+		ywy=ShareUserInfo.getKey(context, "empname");
 		searchDate();
 	}
 
@@ -106,8 +106,8 @@ public class TjfxXsjdtj2Activity extends BaseActivity implements OnClickListener
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 //		parmMap.put("qsrq",qr);
 //		parmMap.put("zrrq", zr);
 		parmMap.put("selopid", ywyid);
@@ -145,7 +145,7 @@ public class TjfxXsjdtj2Activity extends BaseActivity implements OnClickListener
 		Intent intent = new Intent();
 		switch (arg0.getId()) {
 		case R.id.sx:
-			intent.setClass(mContext, TjfxXsjdtjSearchActivity.class);
+			intent.setClass(context, TjfxXsjdtjSearchActivity.class);
 			intent.putExtra("qr", qr);
 			intent.putExtra("zr", zr);
 			intent.putExtra("ywy", ywy);

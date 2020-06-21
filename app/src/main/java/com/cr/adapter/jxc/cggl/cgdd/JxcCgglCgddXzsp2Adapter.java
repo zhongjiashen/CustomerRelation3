@@ -139,7 +139,7 @@ public class JxcCgglCgddXzsp2Adapter extends BaseAdapter {
             viewHolder.xhTextview.setText("型号："
                     + objMap.get("model").toString());
             viewHolder.kcTextview.setText("库存："
-                    + FigureTools.sswrFigure(objMap.get("onhand").toString())
+                    + objMap.get("onhand").toString()
                     + objMap.get("unitname").toString());
             return convertView;
         } else {

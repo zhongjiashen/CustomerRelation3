@@ -620,6 +620,7 @@ public class AddInstallRegistrationActivity extends BaseActivity {
      *
      * @param base64Code 编码后的字串
      * @param savePath   文件保存路径
+     * @throws Exception
      * @author guhaizhou@126.com
      * @since JDK 1.6
      */

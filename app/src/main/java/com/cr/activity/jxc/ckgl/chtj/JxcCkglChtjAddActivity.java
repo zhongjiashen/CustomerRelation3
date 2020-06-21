@@ -37,7 +37,6 @@ import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
 import com.update.actiity.choose.SelectSalesmanActivity;
-import com.update.utils.LogUtils;
 
 /**
  * 进销存-仓库管理-存货调价-增加
@@ -129,7 +128,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
@@ -140,7 +139,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGDD");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -176,7 +175,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             double tzce=0;
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
@@ -200,7 +199,7 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("tabname", "tb_adjap");
         parmMap.put("parms", "CHTJ");
         parmMap.put("master", arrayMaster.toString());
@@ -291,7 +290,6 @@ public class JxcCkglChtjAddActivity extends BaseActivity implements OnClickListe
                             Map<String, Object> map2 = cpList.get(i + 1);
                             map.put("dw", map2.get("dw").toString());
                             map.put("sl", map2.get("sl"));
-                            LogUtils.e(map2.get("sl").toString());
                             map.put("tqdj", map2.get("tqdj").toString());
                             map.put("thdj", map2.get("thdj").toString());
                             map.put("memo", map2.get("memo").toString());

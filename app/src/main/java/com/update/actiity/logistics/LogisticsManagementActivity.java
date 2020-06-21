@@ -14,7 +14,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -174,7 +173,7 @@ public class LogisticsManagementActivity extends BaseActivity implements
                 }
                 holder.tvProjectName.setText(data.getShipcname());
                 holder.tvPhase .setVisibility(View.GONE);
-                holder.tvMoney.setText("￥" + FigureTools.sswrFigure(data.getAmount()));
+                holder.tvMoney.setText("￥" + data.getAmount());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -103,7 +103,7 @@ public class KhfwActivity extends BaseActivity implements OnClickListener {
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Intent intent = new Intent(mContext, KhfwDetailActivity.class);
+                Intent intent = new Intent(context, KhfwDetailActivity.class);
                 intent.putExtra("billid", list.get(arg2-1).get("id").toString());
                 if(KhfwActivity.this.getIntent().hasExtra("select")){//如果是添加订单时候关联的操作
                     setResult(RESULT_OK,intent);
@@ -121,7 +121,7 @@ public class KhfwActivity extends BaseActivity implements OnClickListener {
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("clientid", "");
         parmMap.put("qsrq", qsrq);
         parmMap.put("zzrq", jzrq);
@@ -169,7 +169,7 @@ public class KhfwActivity extends BaseActivity implements OnClickListener {
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.sx:
-                intent.setClass(mContext, KhfwSearchActivity.class);
+                intent.setClass(context, KhfwSearchActivity.class);
                 intent.putExtra("qr", qsrq);
                 intent.putExtra("zr", jzrq);
                 intent.putExtra("dwmc", dwmc);
@@ -184,7 +184,7 @@ public class KhfwActivity extends BaseActivity implements OnClickListener {
             	if(this.getIntent().hasExtra("dwObject")){
             		intent.putExtra("dwObject", this.getIntent().getExtras().getSerializable("dwObject"));
             	}
-                intent.setClass(mContext, KhfwAddActivity.class);
+                intent.setClass(context, KhfwAddActivity.class);
                 startActivityForResult(intent, 1);
                 break;
         }

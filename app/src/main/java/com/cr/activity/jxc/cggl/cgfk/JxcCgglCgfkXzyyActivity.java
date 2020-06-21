@@ -118,12 +118,12 @@ public class JxcCgglCgfkXzyyActivity extends BaseActivity implements
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("parms", this.getIntent().getExtras().getString("type"));
 		parmMap.put("clientid", this.getIntent().getExtras().getString("clientid"));
 		parmMap.put("qsrq", qsrq);
 		parmMap.put("zzrq", jzrq);
-		 parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		 parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
 		findServiceData2(0, ServerURL.REFBILLMASTER, parmMap, false);
@@ -163,7 +163,7 @@ public class JxcCgglCgfkXzyyActivity extends BaseActivity implements
                     if (map.get("ischecked").equals("1")) {
                         Map<String, Object> map2 = list.get(i + 1);
                         if(map2.get("bcjs").toString().equals("")){
-                            Toast.makeText(mContext, "请填写本次结算金额！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "请填写本次结算金额！", Toast.LENGTH_SHORT).show();
                             return;
                         }
 

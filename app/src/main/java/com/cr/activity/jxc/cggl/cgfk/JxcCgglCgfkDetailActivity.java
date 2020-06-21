@@ -38,7 +38,6 @@ import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.adapter.jxc.cggl.cgfk.JxcCgglCgfkAddAdapter;
 import com.cr.tools.CustomListView;
-import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -157,7 +156,7 @@ public class JxcCgglCgfkDetailActivity extends BaseActivity implements
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("parms", "CGFK");
 		parmMap.put("billid", billid);
 		findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
@@ -168,7 +167,7 @@ public class JxcCgglCgfkDetailActivity extends BaseActivity implements
 	 */
 	private void searchDate2() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("parms", "CGFK");
 		parmMap.put("billid", billid);
 		findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -179,8 +178,8 @@ public class JxcCgglCgfkDetailActivity extends BaseActivity implements
 	 */
 	private void searchDateSd() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("tabname", "tb_pay");
 		parmMap.put("pkvalue", this.getIntent().getExtras().getString("billid"));
 		findServiceData2(3, ServerURL.BILLDELMASTER, parmMap, false);
@@ -238,7 +237,7 @@ public class JxcCgglCgfkDetailActivity extends BaseActivity implements
 			jsonObject.put("exemanid", jbrId);
 			jsonObject.put("amount", fkjeEditText.getText().toString());
 			jsonObject.put("memo", bzxxEditText.getText().toString());
-			jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+			jsonObject.put("opid", ShareUserInfo.getUserId(context));
 			arrayMaster.put(jsonObject);
 			for (Map<String, Object> map : list) {
 				JSONObject jsonObject2 = new JSONObject();
@@ -261,7 +260,7 @@ public class JxcCgglCgfkDetailActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("tabname", "tb_pay");
 		parmMap.put("parms", "CGFK");
 		parmMap.put("master", arrayMaster.toString());
@@ -302,11 +301,11 @@ public class JxcCgglCgfkDetailActivity extends BaseActivity implements
 			}
 			jsfsEditText.setText(object.get("paytypename").toString());
 			zjzhEditText.setText(object.get("bankname").toString());
-			dqyfEditText.setText(FigureTools.sswrFigure(object.get("suramt").toString()));
-			dqyf2EditText.setText(FigureTools.sswrFigure(object.get("balance").toString()));
-			fkjeEditText.setText(FigureTools.sswrFigure(object.get("amount").toString()));
-			cyfjeEditText.setText(FigureTools.sswrFigure(object.get("yufuje").toString()));
-			sfjeEditText.setText(FigureTools.sswrFigure(object.get("factamount").toString()));
+			dqyfEditText.setText(object.get("suramt").toString());
+			dqyf2EditText.setText(object.get("balance").toString());
+			fkjeEditText.setText(object.get("amount").toString());
+			cyfjeEditText.setText(object.get("yufuje").toString());
+			sfjeEditText.setText(object.get("factamount").toString());
 			djrqEditText.setText(object.get("billdate").toString());
 
 			jbrEditText.setText(object.get("empname").toString());

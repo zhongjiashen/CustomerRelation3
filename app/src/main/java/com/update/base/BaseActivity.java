@@ -57,7 +57,6 @@ public abstract class BaseActivity<T extends BaseP> extends AppCompatActivity im
         super.onCreate(savedInstanceState);
         mActivity=this;
         mPGson=new Gson();
-
         initVariables();
         setContentView(getLayout());
 

@@ -172,7 +172,7 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGSH");
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(0, ServerURL.BILLMASTER, parmMap, false);
@@ -183,7 +183,7 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CGSH");
         parmMap.put("billid", this.getIntent().getStringExtra("billid"));
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false);
@@ -195,8 +195,8 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDateSd() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_received");
         parmMap.put("pkvalue", this.getIntent().getExtras().getString("billid"));
         findServiceData2(3, ServerURL.BILLDELMASTER, parmMap, false);
@@ -216,8 +216,8 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
                 lxrEditText.setText(object.get("contator").toString());
                 lxdhEditText.setText(object.get("phone").toString());
 //            jhdzEditText.setText(object.get("billto").toString());
-                hjjeEditText.setText(FigureTools.sswrFigure(object.get("totalamt").toString()));
-                fkjeEditText.setText(FigureTools.sswrFigure(object.get("receipt").toString()));
+                hjjeEditText.setText(object.get("totalamt").toString());
+                fkjeEditText.setText(object.get("receipt").toString());
                 djrqEditText.setText(object.get("billdate").toString());
                 etBm.setText(object.get("depname").toString());
                 jbrEditText.setText(object.get("empname").toString());
@@ -266,13 +266,13 @@ public class JxcCgglCgshDetailActivity extends BaseActivity implements OnClickLi
                     mWlxxData.setBeartype(object.get("beartype").toString());///运费承担 0我方 1对方
                     mWlxxData.setLogisticispp(object.get("logisticispp").toString());//物流单号
                     mWlxxData.setLogisticbankaccount(object.get("logisticbankname").toString());//付款账户
-                    mWlxxData.setAmount(FigureTools.sswrFigure(object.get("amount").toString()));//运费
+                    mWlxxData.setAmount(object.get("amount").toString());//运费
                     mWlxxData.setIsnotice(object.get("isnotice").toString());//通知放货 0否 1是
 
                 }
-                etSkhj.setText(FigureTools.sswrFigure(object.get("sumamt").toString()));//收款合计
+                etSkhj.setText(object.get("sumamt").toString());//收款合计
                 etDszh.setText(object.get("proxybankname").toString());//代收账户
-                etDsje.setText(FigureTools.sswrFigure(object.get("proxyamt").toString()));//代收金额
+                etDsje.setText(object.get("proxyamt").toString());//代收金额
                 showZdr(object);
                 searchDate2();//查询订单中的商品
                 break;

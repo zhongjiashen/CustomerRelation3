@@ -141,8 +141,8 @@ public class JhzjXzxmZxActivity extends BaseActivity implements OnClickListener 
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("jhid", jhid);
 		parmMap.put("itemid",jhrw.getId());
 		parmMap.put("items",nameEditText.getText().toString());
@@ -212,8 +212,8 @@ public class JhzjXzxmZxActivity extends BaseActivity implements OnClickListener 
 	 */
 	private void searchDate2() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("itemid", jhrw.getId());
 		findServiceData2(2, ServerURL.JHRWGZZJITEMXX, parmMap, true);
 		
@@ -474,7 +474,7 @@ public class JhzjXzxmZxActivity extends BaseActivity implements OnClickListener 
 	 */
 	private void searchZxjgDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("zdbm", "ZXJG");
 		findServiceData2(1, ServerURL.DATADICT, parmMap, false);
 	}

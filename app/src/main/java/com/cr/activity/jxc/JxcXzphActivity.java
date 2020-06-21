@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -74,15 +73,15 @@ public class JxcXzphActivity extends BaseActivity {
                 holder.tvPh.setText("批号：" + data.getBatchcode());
                 holder.tvScrq.setText("生产日期：" + data.getProduceddate());
                 holder.tvYxrq.setText("有效日期：" + data.getValiddate());
-                holder.tvKysl.setText("可用数量：" + FigureTools.sswrFigure(data.getOnhand()));
+                holder.tvKysl.setText("可用数量：" + data.getOnhand());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
                         intent.putExtra("id", data.getId()+"");
                         intent.putExtra("name", data.getBatchcode());
-                        intent.putExtra("scrq", data.getProduceddate()==null?"": data.getProduceddate());
-                        intent.putExtra("yxrq", data.getValiddate()==null?"":data.getValiddate());
+                        intent.putExtra("scrq", data.getProduceddate());
+                        intent.putExtra("yxrq", data.getValiddate());
                         intent.putExtra("onhand", data.getOnhand());
                         intent.putExtra("position", mPosition);
                         intent.putExtra("cbj","");

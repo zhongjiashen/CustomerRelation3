@@ -24,14 +24,6 @@
 	        android:text="@string/hscrm"
 	        android:layout_centerHorizontal="true"
 	        android:layout_centerVertical="true"/>
-		<ImageView
-			android:id="@+id/iv_sz"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:padding="10dp"
-			android:src="@drawable/sz"
-			android:layout_centerVertical="true"
-			android:layout_alignParentRight="true"/>
 	</RelativeLayout>
      <LinearLayout 
          android:layout_width="wrap_content"

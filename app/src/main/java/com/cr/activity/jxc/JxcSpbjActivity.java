@@ -35,7 +35,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 商品编辑修改（采购收货、采购退货、销售开单、销售退货）
+ * 商品修改
  */
 public class JxcSpbjActivity extends BaseActivity {
     @BindView(R.id.titlebar)
@@ -107,7 +107,7 @@ public class JxcSpbjActivity extends BaseActivity {
             tvSpkz.setVisibility(View.GONE);
         } else {
             tvSpkz.setVisibility(View.VISIBLE);
-            tvSpkz.setText("库存：" + FigureTools.sswrFigure(mMap.get("onhand").toString()) + mMap.get("unitname").toString());
+            tvSpkz.setText("库存：" + mMap.get("onhand").toString() + mMap.get("unitname").toString());
         }
         switch (mParms) {
             case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）
@@ -302,7 +302,7 @@ public class JxcSpbjActivity extends BaseActivity {
                 }
                 intent1.setClass(mActivity, JxcXzphActivity/*CommonXzphActivity*/.class);
                 intent1.putExtra("goodsid", mMap.get("goodsid").toString());
-                intent1.putExtra("storeid", mStoreid);
+                intent1.putExtra("storied", mStoreid);
                 intent1.putExtra("position", 0);
                 startActivityForResult(intent1, 2);
                 break;

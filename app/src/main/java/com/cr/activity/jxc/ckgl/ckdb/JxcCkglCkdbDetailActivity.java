@@ -84,8 +84,6 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
         djbhTextView = (TextView) findViewById(R.id.djbh_textview);
         shImageView = (ImageView) findViewById(R.id.sh_imageview);
         listview = (CustomListView) findViewById(R.id.xzsp_listview);
-        adapter = new JxcCkglCkdbAddAdapter(list, this);
-        listview.setAdapter(adapter);
         listview.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -121,7 +119,8 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
         shButton.setOnClickListener(this);
         sdButton = (Button) findViewById(R.id.sd_button);
         sdButton.setOnClickListener(this);
-
+        adapter = new JxcCkglCkdbAddAdapter(list, this);
+        listview.setAdapter(adapter);
     }
 
     /**
@@ -129,7 +128,7 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CKDB");
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(0, ServerURL.BILLMASTER, parmMap, false);
@@ -140,7 +139,7 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "CKDB");
         parmMap.put("billid", this.getIntent().getExtras().getString("billid"));
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false);
@@ -151,8 +150,8 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDateSd() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_allot");
         parmMap.put("pkvalue", this.getIntent().getExtras().getString("billid"));
         findServiceData2(2, ServerURL.BILLDELMASTER, parmMap, false);
@@ -258,7 +257,7 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
             jsonObject.put("totalamt", "0");
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
@@ -279,7 +278,7 @@ public class JxcCkglCkdbDetailActivity extends BaseActivity implements OnClickLi
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         //      parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_allot");
         parmMap.put("parms", "CKDB");

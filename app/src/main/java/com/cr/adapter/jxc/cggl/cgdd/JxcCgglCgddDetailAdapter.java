@@ -57,7 +57,7 @@ public class JxcCgglCgddDetailAdapter extends BaseAdapter {
                                           + (objMap.get("goodsname")==null?objMap.get("name").toString():objMap.get("goodsname").toString()) + " "
                                           + (objMap.get("specs")==null?objMap.get("specs").toString():objMap.get("specs").toString()) + " "
                                           + (objMap.get("model")==null?objMap.get("model").toString():objMap.get("model").toString()));
-        viewHolder.djTextView.setText("￥" +  FigureTools.sswrFigure(objMap.get("taxunitprice").toString()) + "*"
+        viewHolder.djTextView.setText("￥" +  objMap.get("taxunitprice").toString() + "*"
                                       + (objMap.get("sl")==null?objMap.get("unitqty").toString():objMap.get("sl").toString()) + ""
                                       +( objMap.get("unitname")==null?objMap.get("unitname").toString():objMap.get("unitname").toString()));
         viewHolder.zjTextView.setText("￥" + FigureTools.sswrFigure((objMap.get("amount")==null?objMap.get("amount").toString():objMap.get("amount").toString())));

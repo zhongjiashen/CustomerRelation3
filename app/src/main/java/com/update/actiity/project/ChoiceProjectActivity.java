@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -143,7 +142,7 @@ public class ChoiceProjectActivity extends BaseActivity implements
                 holder.tvCompanyName.setText(data.getCname());//公司名称设置
                 holder.tvPhase.setText("阶段：" + data.getGmmc());
                 holder.tvProjectName.setText(data.getTitle());//项目名称
-                holder.tvMoney.setText("预算金额：￥" + FigureTools.sswrFigure(data.getAmount()));
+                holder.tvMoney.setText("预算金额：￥" + data.getAmount());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

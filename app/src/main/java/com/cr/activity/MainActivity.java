@@ -29,14 +29,8 @@ import com.permission.PermissionsChecker;
 
 import java.util.List;
 
-/**
- * 起始页
- */
 public class MainActivity extends BaseActivity implements OnClickListener {
 	private EditText ipEditText;
-	/**
-	 * 端口输入框
-	 */
 	private EditText dkEditText;
 	private ImageButton ljButton;
 	private ImageButton tcButton;
@@ -114,8 +108,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				ipEditText.setText(ShareUserInfo.getIP(mContext));
-				dkEditText.setText(ShareUserInfo.getDK(mContext));
+				ipEditText.setText(ShareUserInfo.getIP(context));
+				dkEditText.setText(ShareUserInfo.getDK(context));
 			}
 		});
 		// String ip = ShareUserInfo.getIP(context);
@@ -135,26 +129,24 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-	/**
-	 * 调用网络查询出特定接口的数据
-	 */
+	// 调用网络查询出特定接口的数据
 	private void saveDbData() {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					ClientIPDao cipdao = new ClientIPDao(mContext);
+					ClientIPDao cipdao = new ClientIPDao(context);
 					ClientIP ip = new ClientIP();
 					String i = ipEditText.getText().toString();
 					i = i.replace("http://", "");
 					i = "http://" + i;
 					ip.setIp(i);
 					// Log.v("dddd", i);
-					if(ShareUserInfo.getKey(mContext, "socketPort").equals("")){
-						ShareUserInfo.setKey(mContext, "socketPort", "3010");
+					if(ShareUserInfo.getKey(context, "socketPort").equals("")){
+						ShareUserInfo.setKey(context, "socketPort", "3010");
 					}
 					ip.setDk(dkEditText.getText().toString());
-					ShareUserInfo.setIP(mContext, i);
-					ShareUserInfo.setDK(mContext, ip.getDk());
+					ShareUserInfo.setIP(context, i);
+					ShareUserInfo.setDK(context, ip.getDk());
 					ip.setIp(i.replace("http://", ""));
 					cipdao.add(ip);
 				} catch (Exception e) {
@@ -170,7 +162,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case R.id.main_lj://链接按钮点击事件
+		case R.id.main_lj:
 			// if(serviceIntent!=null){
 			// Log.v("dddd", "停止serice");
 			// stopService(serviceIntent);
@@ -183,7 +175,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 				return;
 			}
 			saveDbData();// 保存信息到服务器当中
-			/*serviceIntent = new Intent(this, SocketService.class);
+			serviceIntent = new Intent(this, SocketService.class);
 			String i = ipEditText.getText().toString();
 			i = i.replace("http://", "");
 			i = "http://" + i;
@@ -191,22 +183,20 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			startService(serviceIntent);
 			progressDialog = ProgressDialog.show(MainActivity.this, "请稍等...",
 					"连接服务器中......", false); // 打开进度条
-			progressDialog.setCancelable(true);*/
-
-			Intent intent2 = new Intent(this, LoginActivity.class);
-			intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent2);
+			progressDialog.setCancelable(true);
+			// intent = new Intent(MainActivity.this, LoginActivity.class);
+			// startActivity(intent);
 			break;
-		case R.id.main_tc://退出按钮点击事件
+		case R.id.main_tc:
 			finish();
 			break;
-		case R.id.sz_imagebutton://设置按钮点击事件
+		case R.id.sz_imagebutton:
 			final EditText editText=new EditText(this);
 			editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-			if(ShareUserInfo.getKey(mContext, "socketPort").equals("")){
-				ShareUserInfo.setKey(mContext, "socketPort", "3010");
+			if(ShareUserInfo.getKey(context, "socketPort").equals("")){
+				ShareUserInfo.setKey(context, "socketPort", "3010");
 			}
-			editText.setText(ShareUserInfo.getKey(mContext, "socketPort"));
+			editText.setText(ShareUserInfo.getKey(context, "socketPort"));
 			new AlertDialog.Builder(activity)
 				.setTitle("设置通讯端口")
 				.setView(editText)
@@ -219,7 +209,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 							showToastPromopt("请输入端口号!");
 							return;
 						}
-						ShareUserInfo.setKey(mContext, "socketPort", editText.getText().toString());
+						ShareUserInfo.setKey(context, "socketPort", editText.getText().toString());
 						showToastPromopt("保存成功!");
 					}
 				})
@@ -249,10 +239,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	 * 查询数据库中的IP信息
 	 */
 	private void searchDBFroIp() {
-		String msg = ShareUserInfo.getIP(mContext).replace("http://", "") + ":"
-				+ ShareUserInfo.getDK(mContext);
+		String msg = ShareUserInfo.getIP(context).replace("http://", "") + ":"
+				+ ShareUserInfo.getDK(context);
 		int index = 0;
-		ClientIPDao clientIPDao = new ClientIPDao(mContext);
+		ClientIPDao clientIPDao = new ClientIPDao(context);
 		ipList = clientIPDao.findAllIP();
 		if (ipList.size() == 0) {
 			for (int j = 0; j < 2; j++) {
@@ -263,7 +253,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 				} else if (j == 1) {
 					ip.setIp("hengvideocrm.oicp.net");
 				}
-				ClientIPDao cipdao = new ClientIPDao(mContext);
+				ClientIPDao cipdao = new ClientIPDao(context);
 				cipdao.add(ip);
 				ipList.add(ip);
 			}

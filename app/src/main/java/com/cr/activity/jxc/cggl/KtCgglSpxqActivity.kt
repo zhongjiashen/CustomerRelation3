@@ -52,7 +52,7 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
             tv_spgg.text = "规格：" + data["specs"].toString()
             tv_spxh.text = "型号：" + data["model"].toString()
             if (data["onhand"] != null) {
-                tv_spkz.text = "库存：" + FigureTools.sswrFigure(data["onhand"]!!.toString().toDouble()) + data["unitname"].toString()
+                tv_spkz.text = "库存：" + data["onhand"]!!.toString().toDouble() + data["unitname"].toString()
             }
             //是批次商品的会显示批号、生产日期、有效日期
             if (data["batchctrl"].toString().equals("T")) {
@@ -72,12 +72,12 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
                 slv_sl.visibility = View.VISIBLE
                 tv_sl.visibility = View.GONE
             }
-            tv_sl.text = FigureTools.sswrFigure(data["unitqty"].toString())
+            tv_sl.text = data["unitqty"].toString()
             slv_sl.sl = data["unitqty"].toString().toDouble()
-            et_dj.setText(FigureTools.sswrFigure(data["unitprice"].toString()))//单价
-            et_sl.setText(FigureTools.sswrFigure(data["taxrate"].toString()))//税率
+            et_dj.setText(data["unitprice"].toString())//单价
+            et_sl.setText(data["taxrate"].toString())//税率
             EditTextHelper.EditTextEnable(!intent.getBooleanExtra("issj", true), et_sl)
-            tv_hsdj.setText(FigureTools.sswrFigure(data["taxunitprice"].toString()))//含税单价
+            tv_hsdj.setText(data["taxunitprice"].toString())//含税单价
         }
         et_dj.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -106,7 +106,7 @@ class KtCgglSpxqActivity : BaseActivity<BaseP>() {
                     data["taxrate"] = s.toString()
 
                     val csje = data["unitprice"].toString().toDouble() * (s.toString().toDouble() + 100) / 100
-                    data["taxunitprice"] = FigureTools.sswrFigure(csje.toString())
+                    data["taxunitprice"] = csje.toString()
                     tv_hsdj.setText(data["taxunitprice"].toString())//含税单价
                 }
             }

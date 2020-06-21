@@ -112,60 +112,60 @@ public class MstxGztx2Activity extends BaseActivity {
 					gsgg.setId(gztxList.get(arg2-1).get("id").toString());
 					gsgg.setTitle(gztxList.get(arg2-1).get("title").toString());
 					gsgg.setOpdate("");
-					Intent intent = new Intent(mContext,MstxGsggDetailActivity.class);
+					Intent intent = new Intent(context,MstxGsggDetailActivity.class);
 					intent.putExtra("object",gsgg);
 					startActivity(intent);
 				}else if(typecode.equals("KHSR")){
 					Map<String, Object> map=new HashMap<String, Object>();
 					map.put("clientid", gztxList.get(arg2-1).get("clientid").toString());
 					map.put("types","1");
-					Intent intent = new Intent(mContext,GzptDwzlActivity.class);
+					Intent intent = new Intent(context,GzptDwzlActivity.class);
 					intent.putExtra("object",(Serializable)map);
 					startActivity(intent);
 				}else if(typecode.equals("YGSR")){
 					Map<String, Object> map=new HashMap<String, Object>();
 					map.put("clientid", gztxList.get(arg2-1).get("clientid").toString());
 					map.put("types","5");
-					Intent intent = new Intent(mContext,GzptDwzlActivity.class);
+					Intent intent = new Intent(context,GzptDwzlActivity.class);
 					intent.putExtra("object",(Serializable)map);
 					startActivity(intent);
 				}else if(typecode.equals("SSXM")){
 					Map<String, Object> map=new HashMap<String, Object>();
 					map.put("clientid", gztxList.get(arg2-1).get("clientid").toString());
 					map.put("types","1");
-					Intent intent = new Intent(mContext,GzptDwzlActivity.class);
+					Intent intent = new Intent(context,GzptDwzlActivity.class);
 					intent.putExtra("object",(Serializable)map);
 					startActivity(intent);
 				}else if(typecode.equals("YYBF")){
 					Map<String, Object> map=new HashMap<String, Object>();
 					map.put("clientid", gztxList.get(arg2-1).get("clientid").toString());
-					Intent intent = new Intent(mContext,GzptDwzlActivity.class);
+					Intent intent = new Intent(context,GzptDwzlActivity.class);
 					map.put("types","");
 					intent.putExtra("object",(Serializable)map);
 					startActivity(intent);
 				}else if(typecode.equals("SHHF")){
 					Map<String, Object> map=new HashMap<String, Object>();
 					map.put("clientid", gztxList.get(arg2-1).get("clientid").toString());
-					Intent intent = new Intent(mContext,GzptDwzlActivity.class);
+					Intent intent = new Intent(context,GzptDwzlActivity.class);
 					map.put("types","");
 					intent.putExtra("object",(Serializable)map);
 					startActivity(intent);
 				}else if(typecode.equals("CQYS")){
-					Intent intent = new Intent(mContext,JxcXsglXskdDetailActivity.class);
+					Intent intent = new Intent(context,JxcXsglXskdDetailActivity.class);
 					intent.putExtra("billid",gztxList.get(arg2-1).get("id").toString());
 					startActivity(intent);
 				}else if(typecode.equals("CQYF")){
-					Intent intent = new Intent(mContext,JxcCgglCgshDetailActivity.class);
+					Intent intent = new Intent(context,JxcCgglCgshDetailActivity.class);
 					intent.putExtra("billid",gztxList.get(arg2-1).get("id").toString());
 					startActivity(intent);
 				}else if(typecode.equals("CQDD")){
 				    String billtype=gztxList.get(arg2-1).get("billtype").toString();
 					if(billtype.equals("22")){
-						Intent intent = new Intent(mContext,JxcCgglCgddDetailActivity.class);
+						Intent intent = new Intent(context,JxcCgglCgddDetailActivity.class);
 						intent.putExtra("billid",gztxList.get(arg2-1).get("id").toString());
 						startActivity(intent);
 					}else if(billtype.equals("21")){
-						Intent intent = new Intent(mContext,KtJxcXsglXsddDetailActivity.class);
+						Intent intent = new Intent(context,KtJxcXsglXsddDetailActivity.class);
 						intent.putExtra("billid",gztxList.get(arg2-1).get("id").toString());
 						startActivity(intent);
 					}
@@ -175,7 +175,7 @@ public class MstxGztx2Activity extends BaseActivity {
 					Map<String, Object> map=new HashMap<String, Object>();
 					map.put("clientid", gztxList.get(arg2-1).get("clientid").toString());
 					map.put("types","1");
-					Intent intent = new Intent(mContext,GzptDwzlActivity.class);
+					Intent intent = new Intent(context,GzptDwzlActivity.class);
 					intent.putExtra("object",(Serializable)map);
 					startActivity(intent);
 				}else if (typecode.equals("KCBJ")){
@@ -189,8 +189,8 @@ public class MstxGztx2Activity extends BaseActivity {
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("typecode ", this.getIntent().getExtras().get("typecode").toString());
 		parmMap.put("curpage",currentPage);
         parmMap.put("pagesize", pageSize);

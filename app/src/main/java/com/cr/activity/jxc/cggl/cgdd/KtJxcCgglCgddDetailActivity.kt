@@ -11,7 +11,6 @@ import android.view.View
 import com.cr.activity.BaseActivity
 import com.cr.activity.jxc.cggl.KtCgglSpxqCk2Activity
 import com.cr.adapter.jxc.cggl.cgdd.JxcCgglCgddDetailAdapter
-import com.cr.tools.FigureTools
 import com.cr.tools.PaseJson
 import com.cr.tools.ServerURL
 import com.cr.tools.ShareUserInfo
@@ -92,7 +91,7 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
      */
     private fun searchDate() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
         parmMap["parms"] = "CGDD"
         parmMap["billid"] = this.intent.extras!!.getString("billid")
         findServiceData2(0, ServerURL.BILLMASTER, parmMap, false)
@@ -103,7 +102,7 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
      */
     private fun searchDate2() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
         parmMap["parms"] = "CGDD"
         parmMap["billid"] = this.intent.extras!!.getString("billid")
         findServiceData2(1, ServerURL.BILLDETAIL, parmMap, false)
@@ -114,8 +113,8 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
      */
     private fun searchDateSd() {
         val parmMap = HashMap<String, Any>()
-        parmMap["dbname"] = ShareUserInfo.getDbName(mContext)
-        parmMap["opid"] = ShareUserInfo.getUserId(mContext)
+        parmMap["dbname"] = ShareUserInfo.getDbName(context)
+        parmMap["opid"] = ShareUserInfo.getUserId(context)
         parmMap["tabname"] = "tb_porder"
         parmMap["pkvalue"] = this.intent.extras!!.getString("billid")
         findServiceData2(2, ServerURL.BILLDELMASTER, parmMap, false)
@@ -135,7 +134,7 @@ class KtJxcCgglCgddDetailActivity : BaseActivity() {
             et_fplx.setText(data.get("billtypename").toString())//发票类型
             et_xgxm.setText(data.get("projectname").toString())//相关项目
             et_jhrq.setText(data.get("revdate").toString())//交货日期
-            hjje_edittext.setText(FigureTools.sswrFigure(data.get("amount").toString()))
+            hjje_edittext.setText(data.get("amount").toString())
             djrq_edittext.setText(data.get("billdate").toString())
             et_bm.setText(data.get("depname").toString())//部门
             jbr_edittext.setText(data.get("empname").toString())

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 import java.util.List;
@@ -57,7 +56,7 @@ public class GzptDwzlDdAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.bhTextView.setText(sb.get("code").toString());
-		viewHolder.moneyTextView.setText("￥"+ FigureTools.sswrFigure(sb.get("amount").toString()));
+		viewHolder.moneyTextView.setText("￥"+sb.get("amount").toString());
 		viewHolder.timeTextView.setText(sb.get("billdate").toString());
 		return convertView;
 	}

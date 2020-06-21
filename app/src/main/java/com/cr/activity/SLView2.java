@@ -12,9 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.cr.myinterface.SLViewValueChange;
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
-import com.update.utils.LogUtils;
 
 /**
  * 自定义数量加减的控件
@@ -40,8 +38,7 @@ public class SLView2 extends LinearLayout implements OnClickListener{
     }
     public void setSl(double sl) {
         this.sl = sl;
-        LogUtils.e(FigureTools.sswrFigure(sl));
-        slEditText.setText(FigureTools.sswrFigure(sl));
+        slEditText.setText(sl+"");
     }
     public void setOnValueChange(SLViewValueChange slViewValueChange){
     	this.change=slViewValueChange;
@@ -72,16 +69,15 @@ public class SLView2 extends LinearLayout implements OnClickListener{
             
             @Override
             public void afterTextChanged(Editable arg0) {
-                LogUtils.e(FigureTools.sswrFigure(slEditText.getText().toString()));
             	try {
-            		sl=Double.parseDouble(slEditText.getText().toString().equals("")?"0":FigureTools.sswrFigure(slEditText.getText().toString()));
+            		sl=Double.parseDouble(slEditText.getText().toString().equals("")?"0":slEditText.getText().toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 					sl=0;
 				}
-                if(change!=null){
-                    change.onValueChange(sl);
-                }
+//                if(change!=null){
+//                    change.onValueChange(sl);
+//                }
             }
         });
     }

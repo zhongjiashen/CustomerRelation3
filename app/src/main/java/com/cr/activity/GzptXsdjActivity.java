@@ -45,7 +45,7 @@ public class GzptXsdjActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void initActivity(){
 		xsdjListView=(XListView) findViewById(R.id.xsdj_listview);
-		xsdjAdapter=new GzptXsdjAdapter(xsdjList, mContext);
+		xsdjAdapter=new GzptXsdjAdapter(xsdjList, context);
 		xsdjListView.setAdapter(xsdjAdapter);
 		xsdjListView.setXListViewListener(xListViewListener);
 		xsdjListView.setPullLoadEnable(true);
@@ -71,8 +71,8 @@ public class GzptXsdjActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDateXsdj(int type){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
 		findServiceData(type,ServerURL.SALELISTOPER,parmMap);
@@ -82,7 +82,7 @@ public class GzptXsdjActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDate2(String ids){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("ids", ids);
 		parmMap.put("itemtype", "SALEM");
 		findServiceData2(1,ServerURL.DELDATA,parmMap,true);

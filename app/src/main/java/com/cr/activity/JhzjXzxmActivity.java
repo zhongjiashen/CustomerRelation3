@@ -119,8 +119,8 @@ public class JhzjXzxmActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("jhid", jhid);
 		parmMap.put("itemid","0");
 		parmMap.put("items",nameEditText.getText().toString());

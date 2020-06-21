@@ -45,11 +45,11 @@ public class GzptXzxmActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void saveXmDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("itemid","0");
-		parmMap.put("clientid",ShareUserInfo.getKey(mContext, "clientid"));
+		parmMap.put("clientid",ShareUserInfo.getKey(context, "clientid"));
 		parmMap.put("title",xmmcEditText.getText().toString());
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		findServiceData2(0,ServerURL.ITEMSAVE,parmMap,true);
 	}
 	@Override

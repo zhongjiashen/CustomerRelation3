@@ -146,7 +146,7 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
 
     private void fenlei() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         findServiceData2(1, "multitype", parmMap, false);
     }
 
@@ -155,7 +155,7 @@ public class JxcCkglKcpdXzspActivity extends BaseActivity implements
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
 
         parmMap.put("storeid", pdckId);
         parmMap.put("goodscode", "");

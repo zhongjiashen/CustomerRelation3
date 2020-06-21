@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.cr.activity.BaseActivity;
-import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzkhActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
@@ -425,11 +424,9 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 startActivityForResult(intent, 5);
                 break;
             case R.id.ckck_edittext:
-                intent.setClass(activity, CkxzActivity.class);
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 6);
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 6);
                 break;
             case R.id.sklx_edittext:
                 intent.setClass(activity, CommonXzzdActivity.class);
@@ -447,11 +444,9 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
                 startActivityForResult(intent, 9);
                 break;
             case R.id.ck_edittext:
-                intent.setClass(activity, CkxzActivity.class);
+                intent.setClass(activity, CommonXzzdActivity.class);
+                intent.putExtra("type", "STORE");
                 startActivityForResult(intent, 11);
-//                intent.setClass(activity, CommonXzzdActivity.class);
-//                intent.putExtra("type", "STORE");
-//                startActivityForResult(intent, 11);
                 break;
             case R.id.xm_edittext:
                 if (gysId.equals("")) {
@@ -880,7 +875,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
      */
     private void getMrck() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("zdbm", "STORE");
         findServiceData2(4, ServerURL.DATADICT, parmMap, false);
     }
@@ -891,7 +886,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "XSKD");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -975,7 +970,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             jsonObject.put("shipto", jhdzEdittext.getText().toString());
             jsonObject.put("departmentid", mDepartmentid);
             jsonObject.put("exemanid", jbrId);
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             jsonObject.put("memo", bzxxEdittext.getText().toString());
             jsonObject.put("projectid", xmId);
 
@@ -1027,7 +1022,7 @@ public class JxcXsglXskdAddActivity extends BaseActivity {
             e.printStackTrace();
         }//代表新增
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         //		parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_invoice");
         parmMap.put("parms", "XSKD");

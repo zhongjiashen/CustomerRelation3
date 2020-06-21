@@ -13,7 +13,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
@@ -176,7 +175,7 @@ public class ContractManagementActivity extends BaseActivity implements
                     holder.tvPhase.setText("阶段：" + data.getGmmc());
                 }
                 holder.tvProjectName.setText(data.getTitle());//项目名称
-                holder.tvMoney.setText("合同金额：￥" + FigureTools.sswrFigure(data.getAmount()));
+                holder.tvMoney.setText("合同金额：￥" + data.getAmount());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

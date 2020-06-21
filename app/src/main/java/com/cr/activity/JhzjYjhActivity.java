@@ -79,7 +79,7 @@ public class JhzjYjhActivity extends BaseActivity implements OnClickListener{
 	 * 初始化ListView
 	 */
 	private void initListView(){
-		adapter=new JhzjYjhAdapter(xzjhList, mContext, this);
+		adapter=new JhzjYjhAdapter(xzjhList, context, this);
 		rjhListView.setXListViewListener(xListViewListener);
 		rjhListView.setPullLoadEnable(true);
 		rjhListView.setPullRefreshEnable(false);
@@ -87,7 +87,7 @@ public class JhzjYjhActivity extends BaseActivity implements OnClickListener{
 		rjhListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-				Intent intent = new Intent(mContext,JhzjJhxmActivity.class);
+				Intent intent = new Intent(context,JhzjJhxmActivity.class);
 				JHRW jhrw=xzjhList.get(arg2-1);
 				intent.putExtra("object",jhrw);
 				startActivity(intent);
@@ -109,8 +109,8 @@ public class JhzjYjhActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		String time=ksrqEditText.getText().toString();
 		String []times=time.split("-");
 		parmMap.put("years",times[0] );

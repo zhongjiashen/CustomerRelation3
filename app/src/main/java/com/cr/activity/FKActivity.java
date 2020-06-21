@@ -71,8 +71,8 @@ public class FKActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opname", ShareUserInfo.getUserName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opname", ShareUserInfo.getUserName(context));
 //		Log.v("dddd", spinner.getSelectedItem().toString()+"");
 //		Log.v("dddd", itemName.equals("建议")?"1":"2"+":值");
 		parmMap.put("lb", itemName.equals("建议")?"1":"2");

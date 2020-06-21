@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class TjfxKcbbAdapter extends BaseAdapter {
@@ -62,7 +61,7 @@ public class TjfxKcbbAdapter extends BaseAdapter {
 		viewHolder.mcTextView.setText("名称："+objMap.get("goodsname").toString());
 		viewHolder.ggTextView.setText("规格："+objMap.get("specs").toString());
 		viewHolder.xhTextView.setText("型号："+objMap.get("model").toString());
-		viewHolder.kcTextView.setText("库存："+ FigureTools.sswrFigure(objMap.get("onhand").toString())+" "+
+		viewHolder.kcTextView.setText("库存："+objMap.get("onhand").toString()+" "+
 				objMap.get("unitname").toString());
 		String sl=objMap.get("onhand").toString();
 		if(Double.parseDouble(sl)<0){

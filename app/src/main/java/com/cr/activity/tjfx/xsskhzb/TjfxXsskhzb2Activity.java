@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.cr.activity.BaseActivity;
 import com.cr.common.XListView;
 import com.cr.common.XListView.IXListViewListener;
-import com.cr.tools.FigureTools;
 import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
@@ -57,8 +56,8 @@ public class TjfxXsskhzb2Activity extends BaseActivity implements
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		qr = sdf.format(new Date());
 		zr = sdf.format(new Date());
-		ywyid = ShareUserInfo.getKey(mContext, "empid");
-		ywy = ShareUserInfo.getKey(mContext, "empname");
+		ywyid = ShareUserInfo.getKey(context, "empid");
+		ywy = ShareUserInfo.getKey(context, "empname");
 		// searchDate();
 		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>) this.getIntent()
@@ -76,23 +75,23 @@ public class TjfxXsskhzb2Activity extends BaseActivity implements
 				break;
 			case 2:
 				m.put("name", "销售金额");
-				m.put("value", "￥"+ FigureTools.sswrFigure(map.get("saleamt").toString()));
+				m.put("value", "￥"+map.get("saleamt").toString());
 				break;
 			case 3:
 				m.put("name", "退款金额");
-				m.put("value", "￥"+FigureTools.sswrFigure(map.get("returnamt").toString()));
+				m.put("value", "￥"+map.get("returnamt").toString());
 				break;
 			case 4:
 				m.put("name", "销售净额");
-				m.put("value", "￥"+FigureTools.sswrFigure(map.get("chargefact").toString()));
+				m.put("value", "￥"+map.get("chargefact").toString());
 				break;
 			case 5:
 				m.put("name", "已收回金额");
-				m.put("value", "￥"+FigureTools.sswrFigure(map.get("chargeamt").toString()));
+				m.put("value", "￥"+map.get("chargeamt").toString());
 				break;
 			case 6:
 				m.put("name", "未收回金额");
-				m.put("value", "￥"+FigureTools.sswrFigure(map.get("unrecvamt").toString()));
+				m.put("value", "￥"+map.get("unrecvamt").toString());
 				break;
 			default:
 				break;
@@ -148,8 +147,8 @@ public class TjfxXsskhzb2Activity extends BaseActivity implements
 	 */
 	private void searchDate() {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		// parmMap.put("qsrq",qr);
 		// parmMap.put("zrrq", zr);
 		parmMap.put("selopid", ywyid);
@@ -187,7 +186,7 @@ public class TjfxXsskhzb2Activity extends BaseActivity implements
 		Intent intent = new Intent();
 		switch (arg0.getId()) {
 		case R.id.sx:
-			intent.setClass(mContext, TjfxXsskhzbSearchActivity.class);
+			intent.setClass(context, TjfxXsskhzbSearchActivity.class);
 			intent.putExtra("qr", qr);
 			intent.putExtra("zr", zr);
 			intent.putExtra("ywy", ywy);

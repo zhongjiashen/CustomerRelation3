@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class JxcCkglZzcxAddAdapter extends BaseAdapter {
@@ -49,8 +48,8 @@ public class JxcCkglZzcxAddAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		viewHolder.bhmcggTextView.setText(objMap.get("goodsname")==null?objMap.get("name").toString():objMap.get("goodsname").toString());
-	    viewHolder.djTextView.setText("单价：￥"+FigureTools.sswrFigure((objMap.get("dj")==null? FigureTools.sswrFigure(objMap.get("unitprice").toString()):FigureTools.sswrFigure(objMap.get("dj").toString()))));
-		viewHolder.slTextView.setText("数量："+FigureTools.sswrFigure(objMap.get("sl")==null?objMap.get("unitqty").toString():objMap.get("sl").toString()));
+	    viewHolder.djTextView.setText("单价：￥"+(objMap.get("dj")==null?objMap.get("unitprice").toString():objMap.get("dj").toString()));
+		viewHolder.slTextView.setText("数量："+(objMap.get("sl")==null?objMap.get("unitqty").toString():objMap.get("sl").toString()));
 		return convertView;
 	}
 

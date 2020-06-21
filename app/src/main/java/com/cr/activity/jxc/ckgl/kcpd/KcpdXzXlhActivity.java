@@ -190,7 +190,7 @@ public class KcpdXzXlhActivity extends BaseActivity {
                         new TypeToken<List<KtKcpdXzXlhData>>() {
                         }.getType());
                 if (list == null || list.size() == 0) {
-                    list=new ArrayList<>();
+
                 } else {
                     if (mSerials == null || mSerials.size() == 0) {
 
@@ -241,10 +241,6 @@ public class KcpdXzXlhActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.cb_view:
-                if(list==null){
-                    showShortToast("序列号为空，请添加序列号！");
-                    return;
-                }
                 for (int i = 0; i < list.size(); i++) {
                     list.get(i).setCheck(cbView.isChecked());
                 }
@@ -256,10 +252,6 @@ public class KcpdXzXlhActivity extends BaseActivity {
                 mAdapter.setList(list);
                 break;
             case R.id.bt_view:
-                if(list==null){
-                    showShortToast("序列号为空，请添加序列号！");
-                    return;
-                }
                 mSerials = new ArrayList<>();
                 for (int l = 0; l < list.size(); l++) {
                     if (list.get(l).isCheck()) {

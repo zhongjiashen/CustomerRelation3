@@ -40,10 +40,9 @@ import com.cr.tools.PaseJson;
 import com.cr.tools.ServerURL;
 import com.cr.tools.ShareUserInfo;
 import com.crcxj.activity.R;
-import com.update.utils.LogUtils;
 
 /**
- * 来电录入
+ * 新增来电
  *
  * @author Administrator
  */
@@ -87,7 +86,7 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
      */
     private void initListView() {
 
-        adapter = new GzptXzldAdapter(list, mContext, this);
+        adapter = new GzptXzldAdapter(list, context, this);
         xzldListView.setAdapter(adapter);
         xzldListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -144,7 +143,7 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
             public void run() {
                 try {
                     returnSuccessType = 1;
-                    TelDao telDao = new TelDao(mContext);
+                    TelDao telDao = new TelDao(context);
                     list.clear();
                     list.addAll(telDao.findTel(time));
                     if (list.size() == 0) {
@@ -163,7 +162,7 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
     // 调用网络查询出特定接口的数据
     private void findServiceData2(final String phone) {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("phone", phone);
         findServiceData(0, ServerURL.LXRINFOOFPHONE, parmMap);
     }
@@ -206,53 +205,46 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
         switch (returnSuccessType) {
             case 0:
                 if (returnJson.equals("")) {
-                    /**
-                     * 1、来电录入 另存为功能完善，增加联系人存储：新增联系人、另存已有联系人；
-                     */
+//				Intent intent = new Intent(GzptXzldActivity.this,
+//						GzptDwzlDwBjdwActivity.class);
+//				intent.putExtra("tel", list.get(selectIndex).getTel());
+//				intent.putExtra("lxrid", "0");// 单位ID为0，表示新增
+//				intent.putExtra("clientid", "0");// 单位ID为0，表示新增
+//				startActivity(intent);
                     new AlertDialog.Builder(activity)
                             .setTitle("无对应客户信息")
                             .setMultiChoiceItems(
-                                    new String[]{"新增单位", "保存至已有单位", "新增联系人", "另存已有联系人"}, null,
+                                    new String[]{"新增单位", "保存至已有单位"}, null,
                                     new OnMultiChoiceClickListener() {
                                         @Override
                                         public void onClick(DialogInterface arg0, int arg1,
                                                             boolean arg2) {
                                             Intent intent = new Intent();
                                             switch (arg1) {
-                                                case 0:/**新增单位*/
+                                                case 0:
                                                     intent.putExtra("clientid", "0");
                                                     intent.putExtra("khlbid", "1");
+
                                                     intent.putExtra("tel", list.get(selectIndex).getTel());
                                                     intent.putExtra("dhmc", list.get(selectIndex).getName());
 //                                                    intent.setClass(activity, XzDwActivity.class);
                                                     intent.setClass(activity, GzptDwzlDwBjdwActivity.class);
                                                     startActivity(intent);
-
+                                                    arg0.dismiss();
                                                     break;
-                                                case 1:/**保存至已有单位*/
+                                                case 1:
                                                     intent.putExtra("dhhm", list.get(selectIndex).getTel());
                                                     intent.setClass(activity, GzptXzldBclxfsActivity.class);
                                                     startActivity(intent);
                                                     arg0.dismiss();
                                                     break;
-                                                case 2:/**新增联系人*/
-                                                    startActivity(GzptDwzlLxrBjlxrActivity.getIntent(activity, list.get(selectIndex).getTel()));
 
-                                                    break;
-                                                case 3:/**另存已有联系人*/
-                                                    intent.setClass(activity, LxfsActivity.class);
-                                                    intent.putExtra("tel", list.get(selectIndex).getTel());
-                                                    startActivity(intent);
-                                                    break;
                                                 default:
                                                     break;
                                             }
-                                            arg0.dismiss();
                                         }
-
                                     }).show();
                 } else {
-                    LogUtils.e(returnJson);
                     dataList.clear();
                     dataList.addAll((List<Map<String, Object>>) PaseJson
                             .paseJsonToObject(returnJson));
@@ -260,23 +252,17 @@ public class GzptXzldActivity extends BaseActivity implements OnClickListener {
                     if (dataList.get(0).get("lxrid").toString().equals("0")) {
                         intent.setClass(GzptXzldActivity.this,
                                 GzptDwzlActivity.class);
-                        intent.putExtra("object", (Serializable) dataList.get(0));
-                        startActivity(intent);
                     } else {
-//                        intent.setClass(GzptXzldActivity.this,
-//                                GzptDwzlLxrDetailActivity.class);
-//                        intent.putExtra("lxrid", dataList.get(0).get("lxrid")
-//                                .toString());
-//                        intent.putExtra("clientid", dataList.get(0).get("clientid")
-//                                .toString());
-//                        intent.putExtra("typesss", "1");
-                        startActivity(GzptDwzlLxrDetailActivity.getIntent(activity, dataList.get(0).get("clientid")
-                                .toString(), dataList.get(0).get("cname")
-                                .toString(), dataList.get(0).get("types")
-                                .toString(), dataList.get(0).get("lxrid")
-                                .toString()));
+                        intent.setClass(GzptXzldActivity.this,
+                                GzptDwzlLxrDetailActivity.class);
+                        intent.putExtra("lxrid", dataList.get(0).get("lxrid")
+                                .toString());
+                        intent.putExtra("clientid", dataList.get(0).get("clientid")
+                                .toString());
+                        intent.putExtra("typesss", "1");
                     }
-
+                    intent.putExtra("object", (Serializable) dataList.get(0));
+                    startActivity(intent);
                 }
                 break;
             case 1:

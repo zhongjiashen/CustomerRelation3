@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 
 public class CommonXzphAdapter extends BaseAdapter {
@@ -57,7 +56,7 @@ public class CommonXzphAdapter extends BaseAdapter {
 		viewHolder.bhTextView.setText("批号："+sb.get("batchcode").toString());
 		viewHolder.time1TextView.setText("生产日期："+sb.get("produceddate").toString());
 		viewHolder.time2TextView.setText("有效日期："+sb.get("validdate").toString());
-		viewHolder.kyslTextView.setText("可用数量："+ FigureTools.sswrFigure(sb.get("onhand").toString()));
+		viewHolder.kyslTextView.setText("可用数量："+sb.get("onhand").toString());
 		return convertView;
 	}
 

@@ -153,7 +153,7 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "XSSK");
         parmMap.put("billid", billid);
         findServiceData2(1, ServerURL.BILLMASTER, parmMap, false);
@@ -164,7 +164,7 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDate2() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("parms", "XSSK");
         parmMap.put("billid", billid);
         findServiceData2(2, ServerURL.BILLDETAIL, parmMap, false);
@@ -175,8 +175,8 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
      */
     private void searchDateSd() {
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("tabname", "tb_charge");
         parmMap.put("pkvalue", this.getIntent().getExtras().getString("billid"));
         findServiceData2(3, ServerURL.BILLDELMASTER, parmMap, false);
@@ -488,7 +488,7 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
             jsonObject.put("exemanid", jbrId);
             jsonObject.put("amount", fkjeEditText.getText().toString());
             jsonObject.put("memo", bzxxEditText.getText().toString());
-            jsonObject.put("opid", ShareUserInfo.getUserId(mContext));
+            jsonObject.put("opid", ShareUserInfo.getUserId(context));
             arrayMaster.put(jsonObject);
             for (Map<String, Object> map : list) {
                 JSONObject jsonObject2 = new JSONObject();
@@ -506,7 +506,7 @@ public class JxcXsglXsskDetailActivity extends BaseActivity implements OnClickLi
             e.printStackTrace();
         }
         Map<String, Object> parmMap = new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
         parmMap.put("tabname", "tb_charge");
         parmMap.put("parms", "XSSK");
         parmMap.put("master", arrayMaster.toString());

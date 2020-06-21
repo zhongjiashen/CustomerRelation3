@@ -62,12 +62,12 @@ public class MstxGrrcActivity extends BaseActivity implements OnClickListener {
 	 * 初始化ListView
 	 */
 	private void initListView(){
-		adapter=new MstxGrrcAdapter(grrcList, mContext, this);
+		adapter=new MstxGrrcAdapter(grrcList, context, this);
 		grrcListView.setAdapter(adapter);
 		grrcListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-				Intent intent = new Intent(mContext,MstxGrrcDetailActivity.class);
+				Intent intent = new Intent(context,MstxGrrcDetailActivity.class);
 				GRRC grrc=grrcList.get(arg2-1);
 				intent.putExtra("object",grrc);
 				startActivityForResult(intent, 0);
@@ -84,8 +84,8 @@ public class MstxGrrcActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void searchDate(){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-		parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
+		parmMap.put("opid", ShareUserInfo.getUserId(context));
 		parmMap.put("curpage", currentPage);
 		parmMap.put("pagesize", pageSize);
 //		Log.v("dddd", currentPage+":::");
@@ -96,7 +96,7 @@ public class MstxGrrcActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void searchDate2(String ids){
 		Map<String, Object> parmMap=new HashMap<String, Object>();
-		parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
+		parmMap.put("dbname", ShareUserInfo.getDbName(context));
 		parmMap.put("ids", ids);
 		parmMap.put("itemtype", "GRRC");
 		findServiceData2(1,ServerURL.DELDATA,parmMap,true);
@@ -123,7 +123,7 @@ public class MstxGrrcActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.add:
-		    Intent intent = new Intent(mContext,MstxGrrcDetailActivity.class);
+		    Intent intent = new Intent(context,MstxGrrcDetailActivity.class);
 //            GRRC grrc=grrcList.get(arg2);
             intent.putExtra("object","");
 //            startActivity(intent);

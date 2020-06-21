@@ -97,8 +97,8 @@ public class CommonXzzjhActivity extends BaseActivity implements OnClickListener
 	 */
 	private void searchDate(){
 	    Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("years", this.getIntent().getExtras().getString("year"));
         parmMap.put("istoday", "0");
 //        parmMap.put("empname",searchEditText.getText().toString());
@@ -112,8 +112,8 @@ public class CommonXzzjhActivity extends BaseActivity implements OnClickListener
 	 */
 	private void searchDate2(){
 	    Map<String, Object> parmMap=new HashMap<String, Object>();
-        parmMap.put("dbname", ShareUserInfo.getDbName(mContext));
-        parmMap.put("opid", ShareUserInfo.getUserId(mContext));
+        parmMap.put("dbname", ShareUserInfo.getDbName(context));
+        parmMap.put("opid", ShareUserInfo.getUserId(context));
         parmMap.put("years", this.getIntent().getExtras().getString("year"));
         parmMap.put("istoday", "1");
 //        parmMap.put("empname",searchEditText.getText().toString());
