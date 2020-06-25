@@ -851,6 +851,11 @@
             android:name="com.cr.activity.jxc.cggl.KtCgglSpxqCk2Activity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name="com.cr.activity.jxc.SpxqCkActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!-- 进销存-采购管理-采购订单-选中产品的详细信息-->
         <activity
             android:name="com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddXzspDetail2Activity"

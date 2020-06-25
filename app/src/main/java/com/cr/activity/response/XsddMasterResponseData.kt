@@ -7,7 +7,7 @@ data class XsddMasterResponseData(
         @SerializedName("amount")
         var amount: Double = 0.0,
         @SerializedName("bankid")
-        var bankid: Int = 0,
+        var bankid: String = "",
         @SerializedName("bankname")
         var bankname: String = "",
         @SerializedName("billdate")
@@ -56,6 +56,10 @@ data class XsddMasterResponseData(
         var sorderid: Int = 0,
         @SerializedName("suramt")
         var suramt: Double = 0.0,
+        @SerializedName("taxrate")
+        var taxrate: String = "",
         @SerializedName("takedate")
         var takedate: String = ""
+
+
 )

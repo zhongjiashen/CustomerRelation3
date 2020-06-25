@@ -39,7 +39,7 @@
     </RelativeLayout>
 
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/sv_add"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -374,6 +374,6 @@
                     android:paddingRight="10dip" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

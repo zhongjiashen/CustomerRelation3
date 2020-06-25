@@ -2,6 +2,7 @@ package com.cr.activity.jxc.xsgl.xsdd;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,8 +22,10 @@ import com.cr.activity.common.CommonXzlxrActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.JxcXzspActivity;
 import com.cr.activity.jxc.KtXzspData;
+import com.cr.activity.jxc.SpxqCkActivity;
 import com.cr.activity.request.XsddDetailRequestData;
 import com.cr.activity.request.XsddMasterRequestData;
+import com.cr.activity.response.XsddDetailResponseData;
 import com.cr.activity.response.XsddMasterResponseData;
 import com.cr.tools.FigureTools;
 import com.cr.tools.ServerURL;
@@ -58,7 +61,7 @@ import butterknife.OnClick;
 public class XsddActivity extends BaseActivity {
 
     @BindView(R.id.sv_add)
-    ScrollView svAdd;
+    NestedScrollView svAdd;
 
     public static Intent getMyIntent(Activity activity, String billid) {
         Intent intent = new Intent(activity, XsddActivity.class);
@@ -119,7 +122,8 @@ public class XsddActivity extends BaseActivity {
 
     XsddMasterRequestData mMasterRequestData;
     List<XsddDetailRequestData> mDetailRequestDataList;
-    List<KtXzspData> mXzspDataList;
+
+    List<XsddDetailResponseData> mXsddDetailResponseData;
     /**
      * 税率
      */
@@ -165,7 +169,7 @@ public class XsddActivity extends BaseActivity {
         }
         /* 选择商品集合信息处理 */
         rcvXzsp.setLayoutManager(new LinearLayoutManager(this));
-        rcvXzsp.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, KtXzspData>(mXzspDataList, false) {
+        rcvXzsp.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, XsddDetailResponseData>(mDetailRequestDataList, false) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
@@ -173,16 +177,20 @@ public class XsddActivity extends BaseActivity {
             }
 
             @Override
-            protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, KtXzspData data) {
+            protected void MyonBindViewHolder(final ViewHolderFactory.ChooseGoodsResultHolder holder, final XsddDetailResponseData data) {
 
-                holder.tvGoodsInformation.setText(data.getCode() + "  " + data.getName() + "  " + data.getSpecs() + "  " + data.getModel());
+                holder.tvGoodsInformation.setText(data.getGoodscode() + "  " + data.getGoodsname() + "  " + data.getSpecs() + "  " + data.getModel());
                 holder.tvRegistrationNumber.setText("￥：" + FigureTools.sswrFigure(data.getTaxunitprice())
-                        + "*" + data.getNumber() + data.getUnitname()
-                        + "        " + "￥" + FigureTools.sswrFigure(Double.parseDouble(data.getTaxunitprice()) * data.getNumber()));
+                        + "*" + data.getUnitqty() + data.getUnitname()
+                        + "        " + "￥" + FigureTools.sswrFigure(Double.parseDouble(data.getAmount())));
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (TextUtils.isEmpty(mMasterRequestData.getReadonly()) || mMasterRequestData.getReadonly().equals("0")) {
+                            startActivity(new Intent(mActivity, SpxqCkActivity.class).putExtra("data", new Gson().toJson(data)));
+                        } else {
 
+                        }
                     }
                 });
 
@@ -285,9 +293,17 @@ public class XsddActivity extends BaseActivity {
                 break;
             case 16://选择商品
                 LogUtils.e(data.getStringExtra("data"));
-                mXzspDataList = new Gson().fromJson(data.getExtras().getString("data"), new TypeToken<List<KtXzspData>>() {
+                List<KtXzspData> mXzspDataList = new Gson().fromJson(data.getExtras().getString("data"), new TypeToken<List<KtXzspData>>() {
                 }.getType());
-                mAdapter.setList(mXzspDataList);
+                if (mXsddDetailResponseData == null) {
+                    mXsddDetailResponseData = new ArrayList<>();
+                }
+                for (int i = 0; i < mXzspDataList.size(); i++) {
+                    XsddDetailResponseData xsddDetailRequestData = new XsddDetailResponseData(mXzspDataList.get(i));
+                    mXsddDetailResponseData.add(xsddDetailRequestData);
+                }
+                mAdapter.setList(mXsddDetailResponseData);
+
 
                 break;
             case 18://选择部门
@@ -339,7 +355,7 @@ public class XsddActivity extends BaseActivity {
             showShortToast("请选择客户");
             return;
         }
-        if (mXzspDataList == null || mXzspDataList.size() == 0) {
+        if (mXsddDetailResponseData == null || mXsddDetailResponseData.size() == 0) {
             showShortToast("请选择商品");
             return;
         }
@@ -364,24 +380,28 @@ public class XsddActivity extends BaseActivity {
 
         List<XsddMasterRequestData> masterRequestDataList = new ArrayList<>();
         masterRequestDataList.add(mMasterRequestData);
-
-        mDetailRequestDataList = new ArrayList<>();
-        for (int i = 0; i < mXzspDataList.size(); i++) {
-            XsddDetailRequestData xsddDetailRequestData = new XsddDetailRequestData();
-            xsddDetailRequestData.setGoodsid(mXzspDataList.get(i).getGoodsid() + "");
-            xsddDetailRequestData.setUnitid(mXzspDataList.get(i).getUnitid() + "");
-            xsddDetailRequestData.setUnitprice(mXzspDataList.get(i).getAprice() + "");
-            xsddDetailRequestData.setUnitqty(mXzspDataList.get(i).getNumber() + "");
-            xsddDetailRequestData.setAmount((Double.parseDouble(mXzspDataList.get(i).getTaxunitprice()) * mXzspDataList.get(i).getNumber()) + "");
-            xsddDetailRequestData.setBatchcode(mXzspDataList.get(i).getCpph());
-            xsddDetailRequestData.setProduceddate(mXzspDataList.get(i).getScrq());
-            xsddDetailRequestData.setValiddate(mXzspDataList.get(i).getYxqz());
-            xsddDetailRequestData.setBatchrefid(mXzspDataList.get(i).getBatchrefid());
-            xsddDetailRequestData.setTaxrate(mXzspDataList.get(i).getTaxrate());
-            xsddDetailRequestData.setTaxunitprice(mXzspDataList.get(i).getTaxunitprice());
-            xsddDetailRequestData.setMemo(mXzspDataList.get(i).getMemo());
+        mDetailRequestDataList=new ArrayList<>();
+        for (int i = 0; i < mXsddDetailResponseData.size(); i++) {
+            XsddDetailRequestData xsddDetailRequestData = new XsddDetailRequestData(mXsddDetailResponseData.get(i));
             mDetailRequestDataList.add(xsddDetailRequestData);
         }
+//        mDetailRequestDataList = new ArrayList<>();
+//        for (int i = 0; i < mXzspDataList.size(); i++) {
+//            XsddDetailRequestData xsddDetailRequestData = new XsddDetailRequestData();
+//            xsddDetailRequestData.setGoodsid(mXzspDataList.get(i).getGoodsid() + "");
+//            xsddDetailRequestData.setUnitid(mXzspDataList.get(i).getUnitid() + "");
+//            xsddDetailRequestData.setUnitprice(mXzspDataList.get(i).getAprice() + "");
+//            xsddDetailRequestData.setUnitqty(mXzspDataList.get(i).getNumber() + "");
+//            xsddDetailRequestData.setAmount((Double.parseDouble(mXzspDataList.get(i).getTaxunitprice()) * mXzspDataList.get(i).getNumber()) + "");
+//            xsddDetailRequestData.setBatchcode(mXzspDataList.get(i).getCpph());
+//            xsddDetailRequestData.setProduceddate(mXzspDataList.get(i).getScrq());
+//            xsddDetailRequestData.setValiddate(mXzspDataList.get(i).getYxqz());
+//            xsddDetailRequestData.setBatchrefid(mXzspDataList.get(i).getBatchrefid());
+//            xsddDetailRequestData.setTaxrate(mXzspDataList.get(i).getTaxrate());
+//            xsddDetailRequestData.setTaxunitprice(mXzspDataList.get(i).getTaxunitprice());
+//            xsddDetailRequestData.setMemo(mXzspDataList.get(i).getMemo());
+//            mDetailRequestDataList.add(xsddDetailRequestData);
+//        }
 
 
         Map<String, Object> parmMap = new HashMap<String, Object>();
@@ -402,6 +422,16 @@ public class XsddActivity extends BaseActivity {
         presenter.post(1, ServerURL.BILLMASTER, parmMap);
     }
 
+    /**
+     * 获取从表内容
+     */
+    private void getBillDetail() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(mActivity));
+        parmMap.put("parms", "XSDD");
+        parmMap.put("billid", getIntent().getStringExtra("billid"));
+        presenter.post(2, ServerURL.BILLDETAIL, parmMap);
+    }
 
     /**
      * 网路请求返回数据
@@ -418,6 +448,7 @@ public class XsddActivity extends BaseActivity {
             case 0:
                 break;
             case 1:
+                getBillDetail();
                 List<XsddMasterResponseData> list = new Gson().fromJson(result, new TypeToken<List<XsddMasterResponseData>>() {
                 }.getType());
                 XsddMasterResponseData xsddMasterResponseData = list.get(0);
@@ -445,6 +476,7 @@ public class XsddActivity extends BaseActivity {
                 etJhdz.setText(xsddMasterResponseData.getShipto());
                 mMasterRequestData.setBilltypeid(xsddMasterResponseData.getBilltypeid() + "");
                 etFplx.setText(xsddMasterResponseData.getBilltypename());
+                mTaxrate = xsddMasterResponseData.getTaxrate();//设置税率
                 mMasterRequestData.setProjectid(xsddMasterResponseData.getProjectid());
                 etXgxm.setText(xsddMasterResponseData.getProjectname());
                 mMasterRequestData.setTakedate(xsddMasterResponseData.getTakedate());
@@ -464,8 +496,21 @@ public class XsddActivity extends BaseActivity {
                 mMasterRequestData.setMemo(xsddMasterResponseData.getMemo());
                 etBzxx.setText(xsddMasterResponseData.getMemo());
                 mMasterRequestData.setOpid(xsddMasterResponseData.getOpid() + "");
-
-
+                switch (mMasterRequestData.getReadonly()) {
+                    case "0":
+                        ibBc.setVisibility(View.VISIBLE);
+                        break;
+                    case "1":
+                        ibBc.setVisibility(View.GONE);
+                        break;
+                }
+                break;
+            case 2:
+                LogUtils.e(result);
+                mXsddDetailResponseData = new Gson().fromJson(result, new TypeToken<List<XsddDetailResponseData>>() {
+                }.getType());
+                LogUtils.e(JSON.toJSONString(mXsddDetailResponseData));
+                mAdapter.setList(mXsddDetailResponseData);
                 break;
         }
 //        if (result.equals("false")) {

@@ -266,7 +266,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                             findServiceData3(1, "getmboileclientreginfo", map);
                         }
                     } else {
-                        String url = "http://hengvideocrm.oicp.net:8088/Client/RegMboileImei?webuserid="+mWebuserid+"&verregid="+mVerregid+"&imei="+getIMEI(mContext);
+                        String url = "http://" + ShareUserInfo.getKey(mContext, "publicIp", "saas.hengshicrm.com") + ":8088/Client/RegMboileImei?webuserid="+mWebuserid+"&verregid="+mVerregid+"&imei="+getIMEI(mContext);
                         httpGet(url);
 //                        Map<String, Object> params = new HashMap<String, Object>();
 //                        params.put("dbname", dbName);

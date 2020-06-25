@@ -1,5 +1,7 @@
 package com.cr.activity.request
 
+import com.cr.activity.jxc.KtXzspData
+import com.cr.activity.response.XsddDetailResponseData
 import com.google.gson.annotations.SerializedName
 
 data class XsddDetailRequestData(
@@ -24,4 +26,23 @@ data class XsddDetailRequestData(
         @SerializedName("taxrate") var taxrate: String = "",
         @SerializedName("taxunitprice ") var taxunitprice: String = "",
         @SerializedName("memo") var memo: String = ""
-)
+) {
+
+        constructor(detailResponseData: XsddDetailResponseData) : this() {
+                goodsid=detailResponseData.goodsid
+                unitid=detailResponseData.unitid
+                unitprice=detailResponseData.unitprice
+                unitqty = detailResponseData.unitqty
+                amount = detailResponseData.amount
+                batchcode = detailResponseData.batchcode
+                produceddate = detailResponseData.produceddate
+                validdate = detailResponseData.validdate
+                batchrefid = detailResponseData.batchrefid
+                taxrate = detailResponseData.taxrate
+                taxunitprice = detailResponseData.taxunitprice
+                memo = detailResponseData.memo
+
+        }
+
+
+}
