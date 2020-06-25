@@ -120,6 +120,11 @@ public class XsddActivity extends BaseActivity {
     EditText etBzxx;
 
 
+    /**
+     * 是否可编辑
+     */
+    private boolean isCanEdit;
+
     XsddMasterRequestData mMasterRequestData;
     List<XsddDetailRequestData> mDetailRequestDataList;
 
@@ -134,6 +139,10 @@ public class XsddActivity extends BaseActivity {
      */
     @Override
     protected void initVariables() {
+        /**
+         * 默认可编辑
+         */
+        isCanEdit=true;
         mMasterRequestData = new XsddMasterRequestData();
         presenter = new BaseP(this, this);
 
@@ -186,7 +195,7 @@ public class XsddActivity extends BaseActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (TextUtils.isEmpty(mMasterRequestData.getReadonly()) || mMasterRequestData.getReadonly().equals("0")) {
+                        if (isCanEdit) {
                             startActivity(new Intent(mActivity, SpxqCkActivity.class).putExtra("data", new Gson().toJson(data)));
                         } else {
 
@@ -496,12 +505,14 @@ public class XsddActivity extends BaseActivity {
                 mMasterRequestData.setMemo(xsddMasterResponseData.getMemo());
                 etBzxx.setText(xsddMasterResponseData.getMemo());
                 mMasterRequestData.setOpid(xsddMasterResponseData.getOpid() + "");
-                switch (mMasterRequestData.getReadonly()) {
-                    case "0":
+                switch (xsddMasterResponseData.getReadonly()) {
+                    case 0:
                         ibBc.setVisibility(View.VISIBLE);
+                        isCanEdit=true;
                         break;
-                    case "1":
+                    case 1:
                         ibBc.setVisibility(View.GONE);
+                        isCanEdit=false;
                         break;
                 }
                 break;

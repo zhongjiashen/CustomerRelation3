@@ -51,6 +51,6 @@ data class XsddMasterRequestData(
 
 
         @SerializedName("memo") var memo: String = "",
-        @SerializedName("opid") var opid: String = "",
-        @SerializedName("readonly") var readonly: String = ""
+        @SerializedName("opid") var opid: String = ""
+
 )
