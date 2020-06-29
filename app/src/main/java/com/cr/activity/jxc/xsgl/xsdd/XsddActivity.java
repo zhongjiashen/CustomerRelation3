@@ -23,6 +23,7 @@ import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.JxcXzspActivity;
 import com.cr.activity.jxc.KtXzspData;
 import com.cr.activity.jxc.SpxqCkActivity;
+import com.cr.activity.jxc.spxq.SpxqActivity;
 import com.cr.activity.request.XsddDetailRequestData;
 import com.cr.activity.request.XsddMasterRequestData;
 import com.cr.activity.response.XsddDetailResponseData;
@@ -142,7 +143,7 @@ public class XsddActivity extends BaseActivity {
         /**
          * 默认可编辑
          */
-        isCanEdit=true;
+        isCanEdit = true;
         mMasterRequestData = new XsddMasterRequestData();
         presenter = new BaseP(this, this);
 
@@ -178,7 +179,7 @@ public class XsddActivity extends BaseActivity {
         }
         /* 选择商品集合信息处理 */
         rcvXzsp.setLayoutManager(new LinearLayoutManager(this));
-        rcvXzsp.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, XsddDetailResponseData>(mDetailRequestDataList, false) {
+        rcvXzsp.setAdapter(mAdapter = new BaseRecycleAdapter<ViewHolderFactory.ChooseGoodsResultHolder, XsddDetailResponseData>(mXsddDetailResponseData, false) {
 
             @Override
             protected RecyclerView.ViewHolder MyonCreateViewHolder(ViewGroup parent) {
@@ -196,9 +197,9 @@ public class XsddActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         if (isCanEdit) {
-                            startActivity(new Intent(mActivity, SpxqCkActivity.class).putExtra("data", new Gson().toJson(data)));
+                            startActivityForResult(SpxqActivity.getMyIntent(mActivity, new Gson().toJson(data), etFplx.getText().toString(), holder.getLayoutPosition()), 17);
                         } else {
-
+                            startActivity(new Intent(mActivity, SpxqCkActivity.class).putExtra("data", new Gson().toJson(data)));
                         }
                     }
                 });
@@ -278,8 +279,8 @@ public class XsddActivity extends BaseActivity {
                 /**
                  * 更换客户，商品需要重新选择
                  */
-                if (mDetailRequestDataList != null) {
-                    mDetailRequestDataList.clear();
+                if (mXsddDetailResponseData != null) {
+                    mXsddDetailResponseData.clear();
                 }
                 etKh.setText(data.getStringExtra("name"));
                 mMasterRequestData.setClientid(data.getStringExtra("id"));
@@ -312,8 +313,19 @@ public class XsddActivity extends BaseActivity {
                     mXsddDetailResponseData.add(xsddDetailRequestData);
                 }
                 mAdapter.setList(mXsddDetailResponseData);
-
-
+                calculationTotalAmount();
+                break;
+            case 17://商品编辑
+                String gson = data.getStringExtra("data");
+                int position = data.getIntExtra("position", 0);
+                mXsddDetailResponseData.remove(position);
+                if (!TextUtils.isEmpty(gson)) {
+                    XsddDetailResponseData xsddDetailRequestData = new Gson().fromJson(data.getExtras().getString("data"), new TypeToken<XsddDetailResponseData>() {
+                    }.getType());
+                    mXsddDetailResponseData.add(position, xsddDetailRequestData);
+                }
+                mAdapter.setList(mXsddDetailResponseData);
+                calculationTotalAmount();
                 break;
             case 18://选择部门
                 mMasterRequestData.setDepartmentid(data.getStringExtra("CHOICE_RESULT_ID"));
@@ -326,6 +338,19 @@ public class XsddActivity extends BaseActivity {
                 etYwy.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
         }
+    }
+
+    /**
+     * 计算合计金额
+     */
+    private void calculationTotalAmount() {
+        double zje = 0.0;
+        for (int i = 0; i < mXsddDetailResponseData.size(); i++) {
+            zje += Double.parseDouble(mXsddDetailResponseData.get(i).getAmount());
+        }
+        etHjje.setText("￥" + FigureTools.sswrFigure(zje));
+        tvSpsl.setText("共选择了" + mXsddDetailResponseData.size() + "商品");
+
     }
 
     /**
@@ -383,13 +408,13 @@ public class XsddActivity extends BaseActivity {
         mMasterRequestData.setPhone(etLxdh.getText().toString());
         mMasterRequestData.setShipto(etJhdz.getText().toString());
         mMasterRequestData.setSuramt(etYsje.getText().toString());
-        mMasterRequestData.setAmount(etHjje.getText().toString());
+        mMasterRequestData.setAmount(etHjje.getText().toString().replace("￥",""));
         mMasterRequestData.setMemo(etBzxx.getText().toString());
         mMasterRequestData.setOpid(ShareUserInfo.getUserId(mActivity));
 
         List<XsddMasterRequestData> masterRequestDataList = new ArrayList<>();
         masterRequestDataList.add(mMasterRequestData);
-        mDetailRequestDataList=new ArrayList<>();
+        mDetailRequestDataList = new ArrayList<>();
         for (int i = 0; i < mXsddDetailResponseData.size(); i++) {
             XsddDetailRequestData xsddDetailRequestData = new XsddDetailRequestData(mXsddDetailResponseData.get(i));
             mDetailRequestDataList.add(xsddDetailRequestData);
@@ -455,6 +480,7 @@ public class XsddActivity extends BaseActivity {
         LogUtils.e(result);
         switch (requestCode) {
             case 0:
+                showShortToast("保存成功");
                 break;
             case 1:
                 getBillDetail();
@@ -508,11 +534,11 @@ public class XsddActivity extends BaseActivity {
                 switch (xsddMasterResponseData.getReadonly()) {
                     case 0:
                         ibBc.setVisibility(View.VISIBLE);
-                        isCanEdit=true;
+                        isCanEdit = true;
                         break;
                     case 1:
                         ibBc.setVisibility(View.GONE);
-                        isCanEdit=false;
+                        isCanEdit = false;
                         break;
                 }
                 break;
@@ -522,6 +548,10 @@ public class XsddActivity extends BaseActivity {
                 }.getType());
                 LogUtils.e(JSON.toJSONString(mXsddDetailResponseData));
                 mAdapter.setList(mXsddDetailResponseData);
+
+                if (mXsddDetailResponseData != null) {
+                    tvSpsl.setText("共选择了" + mXsddDetailResponseData.size() + "商品");
+                }
                 break;
         }
 //        if (result.equals("false")) {

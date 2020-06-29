@@ -164,15 +164,13 @@ public class JxcXsglXsddListActivity extends BaseActivity implements OnClickList
         Intent intent = new Intent();
         switch (arg0.getId()) {
             case R.id.sx:
-//                intent.setClass(mContext, JxcXsglXsddSearchActivity.class);
-//                intent.putExtra("qr", qsrq);
-//                intent.putExtra("zr", jzrq);
-//                intent.putExtra("kh", cname);
-//                intent.putExtra("sh", shzt);
-//                startActivityForResult(intent, 0);
-//                intent.setClass(mContext, KtJxcXsglXsddAddActivity.class);
+                intent.setClass(mContext, JxcXsglXsddSearchActivity.class);
+                intent.putExtra("qr", qsrq);
+                intent.putExtra("zr", jzrq);
+                intent.putExtra("kh", cname);
+                intent.putExtra("sh", shzt);
+                startActivityForResult(intent, 0);
                 intent.setClass(mContext, KtJxcXsglXsddAddActivity.class);
-                startActivityForResult(intent, 1);
                 break;
             case R.id.xz:
                 if (!ShareUserInfo.getKey(activity, "xz").equals("1")) {

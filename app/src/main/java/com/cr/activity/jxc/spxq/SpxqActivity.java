@@ -2,19 +2,33 @@ package com.cr.activity.jxc.spxq;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cr.activity.SLView2;
 import com.cr.activity.response.XsddDetailResponseData;
+import com.cr.activity.tjfx.kcbb.TjfxKcbbSpjg2Activity;
+import com.cr.myinterface.SLViewValueChange;
+import com.cr.tools.FigureTools;
 import com.crcxj.activity.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.update.base.BaseActivity;
+import com.update.model.Serial;
+import com.update.utils.CustomTextWatcher;
+import com.update.utils.EditTextHelper;
 import com.update.viewbar.TitleBar;
 
+import java.io.Serializable;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @ProjectName: CustomerRelation3
@@ -29,9 +43,22 @@ import butterknife.BindView;
  * @Version: 1.0
  */
 public class SpxqActivity extends BaseActivity {
-    public static Intent getMyIntent(Activity activity, String data) {
+    private XsddDetailResponseData mXsddDetailResponseData;
+
+    private Boolean mIsRateEditor;
+    private int mPosition;
+
+    /**
+     * @param activity
+     * @param data
+     * @param billtypename //发票类型名称
+     * @return
+     */
+    public static Intent getMyIntent(Activity activity, String data, String billtypename, int position) {
         Intent intent = new Intent(activity, SpxqActivity.class);
         intent.putExtra("data", data);
+        intent.putExtra("billtypename", billtypename);
+        intent.putExtra("position", position);
         return intent;
     }
 
@@ -76,16 +103,25 @@ public class SpxqActivity extends BaseActivity {
     LinearLayout llCbj;
 
 
-
-    private XsddDetailResponseData mXsddDetailResponseData;
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
      */
     @Override
     protected void initVariables() {
-        mXsddDetailResponseData= new Gson().fromJson(getIntent().getStringExtra("data"), new TypeToken<XsddDetailResponseData>() {
+        mXsddDetailResponseData = new Gson().fromJson(getIntent().getStringExtra("data"), new TypeToken<XsddDetailResponseData>() {
         }.getType());
 
+        String billtypename = getIntent().getStringExtra("billtypename");
+        switch (billtypename) {
+            case "收据":
+                mIsRateEditor = false;
+                break;
+            default:
+                mIsRateEditor = true;
+                break;
+        }
+
+        mPosition = getIntent().getIntExtra("position", 0);
     }
 
     /**
@@ -103,9 +139,116 @@ public class SpxqActivity extends BaseActivity {
      */
     @Override
     protected void init() {
+
+        setTitlebar();
+        tvSerialNumber.setVisibility(View.GONE);
+        slvSl.setVisibility(View.VISIBLE);
+        tvSl.setVisibility(View.GONE);
+        llPcsp.setVisibility(View.GONE);
+
         tvSpmc.setText("名称：" + mXsddDetailResponseData.getGoodsname());
-        tvSpbm.setText( "编码：" +mXsddDetailResponseData.getGoodscode());
+        tvSpbm.setText("编码：" + mXsddDetailResponseData.getGoodscode());
         tvSpgg.setText("规格：" + mXsddDetailResponseData.getSpecs());
-        tvSpxh.setText("型号：" +mXsddDetailResponseData.getModel());
+        tvSpxh.setText("型号：" + mXsddDetailResponseData.getModel());
+        slvSl.setSl(Double.parseDouble(mXsddDetailResponseData.getUnitqty()));
+        etBz.setText(mXsddDetailResponseData.getMemo());
+        etDj.setText(mXsddDetailResponseData.getUnitprice());//单价
+        etSl.setText(mXsddDetailResponseData.getTaxrate());//税率
+        EditTextHelper.EditTextEnable(mIsRateEditor, etSl);
+        tvHsdj.setText(mXsddDetailResponseData.getTaxunitprice());//含税单价
+
+        slvSl.setOnValueChange(new SLViewValueChange() {
+            @Override
+            public void onValueChange(double sl) {
+                mXsddDetailResponseData.setUnitqty(sl + "");
+                double amount = Double.parseDouble(mXsddDetailResponseData.getTaxunitprice()) * sl;
+                mXsddDetailResponseData.setAmount(amount + "");
+            }
+        });
+
+        etSl.addTextChangedListener(new CustomTextWatcher(new CustomTextWatcher.UpdateTextListener() {
+            @Override
+            public void updateText(String string) {
+                if (etSl.hasFocus() && !TextUtils.isEmpty(string)) {
+                    mXsddDetailResponseData.setTaxrate(string);
+                    Double csje = Double.parseDouble(mXsddDetailResponseData.getUnitprice()) * (Double.parseDouble(mXsddDetailResponseData.getTaxrate()) + 100) / 100;
+                    mXsddDetailResponseData.setTaxunitprice(FigureTools.sswrFigure(csje));
+                    tvHsdj.setText(mXsddDetailResponseData.getTaxunitprice());//含税单价
+                    double amount = Double.parseDouble(mXsddDetailResponseData.getTaxunitprice()) * slvSl.getSl();
+                    mXsddDetailResponseData.setAmount(amount + "");
+                }
+            }
+        }));
+
+        etDj.addTextChangedListener(new CustomTextWatcher(new CustomTextWatcher.UpdateTextListener() {
+            @Override
+            public void updateText(String string) {
+                if (!TextUtils.isEmpty(string)) {
+                    mXsddDetailResponseData.setUnitprice(string);
+                    Double csje = Double.parseDouble(mXsddDetailResponseData.getUnitprice()) * (Double.parseDouble(mXsddDetailResponseData.getTaxrate()) + 100) / 100;
+                    mXsddDetailResponseData.setTaxunitprice(FigureTools.sswrFigure(csje));
+                    tvHsdj.setText(mXsddDetailResponseData.getTaxunitprice());//含税单价
+                    double amount = Double.parseDouble(mXsddDetailResponseData.getTaxunitprice()) * slvSl.getSl();
+                    mXsddDetailResponseData.setAmount(amount + "");
+                }
+            }
+        }));
+
+
+    }
+
+    /**
+     * 标题头设置
+     */
+    private void setTitlebar() {
+        titlebar.setTitleText(this, "商品详情");
+        titlebar.setRightText("完成");
+        titlebar.setTitleOnlicListener(new TitleBar.TitleOnlicListener() {
+            @Override
+            public void onClick(int i) {
+
+                mXsddDetailResponseData.setMemo(etBz.getText().toString());
+                setResult(Activity.RESULT_OK, new Intent()
+                        .putExtra("position", mPosition)
+                        .putExtra("data", new Gson().toJson(mXsddDetailResponseData)));
+                finish();
+            }
+        });
+    }
+
+
+    @OnClick({R.id.xzjg_iv, R.id.bt_sc})
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.xzjg_iv:
+                Intent intent2 = new Intent();
+                intent2.setClass(mActivity, TjfxKcbbSpjg2Activity.class);
+                intent2.putExtra("goodsid", mXsddDetailResponseData.getGoodsid());
+                intent2.putExtra("storied", mXsddDetailResponseData.getSorderid());
+                intent2.putExtra("unitid", mXsddDetailResponseData.getUnitid());
+                intent2.putExtra("clientid", "0");
+                intent2.putExtra("index", "0");
+                startActivityForResult(intent2, 3);
+                break;
+            case R.id.bt_sc:
+                setResult(Activity.RESULT_OK, new Intent()
+                        .putExtra("position", mPosition)
+                        .putExtra("data", ""));
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onMyActivityResult(int requestCode, int resultCode, Intent data) throws URISyntaxException {
+        super.onMyActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 3:
+                mXsddDetailResponseData.setUnitprice(data.getStringExtra("dj"));
+                etDj.setText(mXsddDetailResponseData.getUnitprice());//单价
+                break;
+
+        }
     }
 }

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="#0099cc">
+
+        <ImageButton
+            android:id="@+id/ib_fh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/fh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/cgdd"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ib_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/save"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_gldj"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/gldjcg"
+            android:textSize="@dimen/jxc_cggl_cgdd" />
+
+        <ToggleButton
+            android:id="@+id/tb_gldj"
+            android:layout_width="40dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:button="@drawable/toggle_btn"
+            android:checked="false"
+            android:text=""
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_gldj_xx"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dip"
+            android:background="@color/cgdd_search_bg"></View>
+
+        <LinearLayout
+            android:id="@+id/ll_ck"
+            style="@style/detail_relativelayout">
+
+            <TextView
+                style="@style/font_default"
+                android:text="@string/ck" />
+
+            <EditText
+                android:id="@+id/et_ck"
+                style="@style/edittext_bj2" />
+
+            <ImageView style="@style/imageview_jt" />
+        </LinearLayout>
+
+
+        <View style="@style/underline2" />
+
+        <LinearLayout
+            android:id="@+id/ll_xzxsdd"
+            style="@style/detail_relativelayout">
+
+            <TextView
+                style="@style/font_default"
+                android:layout_weight="1"
+                android:text="@string/xzxsdd"
+                android:textColor="@color/title_color" />
+
+            <ImageView style="@style/imageview_jt" />
+        </LinearLayout>
+
+        <View style="@style/underline" />
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_bh"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/djbh" />
+
+                <EditText
+                    android:id="@+id/et_bh"
+                    style="@style/edittext_bj2" />
+
+                <ImageView
+                    android:id="@+id/iv_shzt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:background="@drawable/wsh" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v_bh"
+                style="@style/underline" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_gys"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/gys" />
+
+                    <EditText
+                        android:id="@+id/et_gys"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout
+                    android:id="@+id/ll_lxr"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/lxr" />
+
+                    <EditText
+                        android:id="@+id/et_lxr"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/lxdh" />
+
+                    <EditText
+                        android:id="@+id/et_lxdh"
+                        style="@style/edittext_bj"
+                        android:inputType="phone" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/jhdz" />
+
+                    <EditText
+                        android:id="@+id/et_jhdz"
+                        style="@style/edittext_bj" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout
+                    android:id="@+id/ll_fplx_xz"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/fplx" />
+
+                    <EditText
+                        android:id="@+id/et_fplx"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView
+                        style="@style/imageview_jt"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout
+                    android:id="@+id/ll_xgxm"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/xgxm" />
+
+                    <EditText
+                        android:id="@+id/et_xgxm"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView
+                        style="@style/imageview_jt"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout
+                    android:id="@+id/ll_jhrq"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="交货日期" />
+
+                    <EditText
+                        android:id="@+id/et_jhrq"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView
+                        style="@style/imageview_jt"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <View style="@style/underline2" />
+
+                <LinearLayout
+                    android:id="@+id/ll_zjzh_xz"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="资金账户" />
+
+                    <EditText
+                        android:id="@+id/et_zjzh"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView
+                        style="@style/imageview_jt"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="预付金额" />
+
+                    <EditText
+                        android:id="@+id/et_yfje"
+                        style="@style/edittext_bj"
+                        android:inputType="numberDecimal" />
+
+
+                </LinearLayout>
+
+                <View style="@style/underline2" />
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/cgdd_search_bg"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:paddingTop="10dip"
+                        android:paddingBottom="10dip"
+                        android:text="@string/jhsp"
+                        android:textColor="@color/black_color"
+                        android:textSize="@dimen/jxc_cggl_cgdd" />
+                </LinearLayout>
+
+                <View style="@style/underline2" />
+
+                <LinearLayout
+                    android:id="@+id/ll_xzsp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dip"
+                    android:paddingBottom="10dip">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/xzsp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xzsp"
+                        android:textColor="@color/black_color"
+                        android:textSize="@dimen/jxc_cggl_cgdd" />
+
+                    <TextView
+                        android:id="@+id/tv_xzspsl"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <View style="@style/underline2" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_xzsp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_white" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="15dip"
+                    android:background="@color/cgdd_search_bg"></LinearLayout>
+
+                <View style="@style/underline2" />
+
+                <LinearLayout style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/hjje" />
+
+                    <EditText
+                        android:id="@+id/et_hjje"
+                        style="@style/edittext_bj"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:inputType="numberDecimal" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout
+                    android:id="@+id/ll_djrq_xz"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/djrq" />
+
+                    <EditText
+                        android:id="@+id/et_djrq"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout
+                    android:id="@+id/ll_bm_xz"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="部门" />
+
+                    <EditText
+                        android:id="@+id/et_bm"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <View style="@style/underline" />
+
+                <LinearLayout
+                    android:id="@+id/ll_jbr"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/jbr" />
+
+                    <EditText
+                        android:id="@+id/et_jbr"
+                        style="@style/edittext_bj2" />
+
+                    <ImageView style="@style/imageview_jt" />
+                </LinearLayout>
+
+                <include layout="@layout/activity_include_zdr" />
+
+                <View style="@style/underline2" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="15dip"
+                    android:background="@color/cgdd_search_bg"></LinearLayout>
+
+                <View style="@style/underline2" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/et_bzxx"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="top"
+                        android:hint="@string/bzxx"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:paddingLeft="10dip"
+                        android:paddingRight="10dip" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:id="@+id/ll_sh_sd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_sh"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sh"
+                    android:textColor="#ff0000"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/bt_sd"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sd"
+                    android:textColor="#ff0000"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
