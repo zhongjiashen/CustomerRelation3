@@ -66,7 +66,6 @@ import butterknife.OnClick;
 public class JxcXzspActivity extends BaseActivity {
 
     /**
-     *
      * @param activity
      * @param djlx
      * @param ckid
@@ -75,18 +74,16 @@ public class JxcXzspActivity extends BaseActivity {
      * @param tabname
      * @return
      */
-    public static Intent getMyIntent(Activity activity, String djlx, String ckid,boolean issj,String taxrate,String tabname){
-        Intent intent=new Intent(activity, JxcXzspActivity.class);
-        intent.putExtra("parms",djlx);
-        intent.putExtra("rkckId",ckid);
-        intent.putExtra("issj",issj);
-        intent.putExtra("taxrate",taxrate);
-        intent.putExtra("tabname",tabname);
+    public static Intent getMyIntent(Activity activity, String djlx, String ckid, boolean issj, String taxrate, String tabname) {
+        Intent intent = new Intent(activity, JxcXzspActivity.class);
+        intent.putExtra("parms", djlx);
+        intent.putExtra("rkckId", ckid);
+        intent.putExtra("issj", issj);
+        intent.putExtra("taxrate", taxrate);
+        intent.putExtra("tabname", tabname);
         return intent;
 
     }
-
-
 
 
     @BindView(R.id.titlebar)
@@ -208,6 +205,7 @@ public class JxcXzspActivity extends BaseActivity {
                 holder.tvGg.setText("规格：" + data.getSpecs());
                 holder.tvXh.setText("型号：" + data.getModel());
                 holder.tvKc.setText("库存：" + FigureTools.sswrFigure(data.getOnhand()) + data.getUnitname());
+
                 switch (mParms) {
                     case "CGDD"://采购订单、销售订单不带序列号（没有严格序列号商品、有批次商品）
                     case "XSDD":
@@ -230,11 +228,14 @@ public class JxcXzspActivity extends BaseActivity {
                         break;
                 }
 
-
+                holder.slView.setTag(position);
+                holder.slView.setSl(data.getNumber());
                 holder.slView.setOnValueChange(new SLViewValueChange() {
                     @Override
                     public void onValueChange(double sl) {
-                        data.setNumber(sl);
+                        if ((Integer) holder.slView.getTag() == position ) {
+                            data.setNumber(sl);
+                        }
                     }
                 });
 

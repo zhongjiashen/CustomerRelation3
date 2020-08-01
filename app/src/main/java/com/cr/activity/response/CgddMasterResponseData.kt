@@ -30,8 +30,8 @@ data class CgddMasterResponseData(
         var depname: String = "",
         @SerializedName("empname")
         var empname: String = "",
-        @SerializedName("exemanid")
-        var exemanid: Int = 0,
+        @SerializedName("empid")
+        var empid: Int = 0,
         @SerializedName("linkmanid")
         var linkmanid: String = "",
         @SerializedName("memo")

@@ -40,8 +40,7 @@
                 android:id="@+id/ib_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/save"
-                />
+                android:background="@drawable/save" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -307,6 +306,8 @@
                     <EditText
                         android:id="@+id/et_yfje"
                         style="@style/edittext_bj"
+                        android:digits="0.123456789"
+                        android:hint="请先选择资金账户再填写"
                         android:inputType="numberDecimal" />
 
 
@@ -446,7 +447,21 @@
                     <ImageView style="@style/imageview_jt" />
                 </LinearLayout>
 
-                <include layout="@layout/activity_include_zdr" />
+                <View style="@style/underline2" />
+
+                <LinearLayout
+                    android:id="@+id/ll_zdr"
+                    style="@style/detail_relativelayout">
+
+                    <TextView
+                        style="@style/font_default"
+                        android:text="@string/zdr" />
+
+                    <EditText
+                        android:id="@+id/et_zdr"
+                        style="@style/edittext_bj2" />
+
+                </LinearLayout>
 
                 <View style="@style/underline2" />
 

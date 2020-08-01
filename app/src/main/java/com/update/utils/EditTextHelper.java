@@ -11,7 +11,7 @@ public class EditTextHelper {
         editText.setEnabled(enable);
         editText.setFocusableInTouchMode(enable);
         editText.setLongClickable(enable);
-        editText.setInputType(enable ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
+//        editText.setInputType(enable ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL);
     }
 }
 

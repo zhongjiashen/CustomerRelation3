@@ -1,6 +1,8 @@
 package com.cr.activity.jxc.xsgl.xsdd;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.JxcXzspActivity;
 import com.cr.activity.jxc.KtXzspData;
 import com.cr.activity.jxc.SpxqCkActivity;
+import com.cr.activity.jxc.cggl.cgdd.JxcCgglCgddShlcActivity;
 import com.cr.activity.jxc.spxq.SpxqActivity;
 import com.cr.activity.request.XsddDetailRequestData;
 import com.cr.activity.request.XsddMasterRequestData;
@@ -37,15 +40,18 @@ import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.KtXzfplxActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.model.ChooseGoodsData;
 import com.update.utils.DateUtil;
+import com.update.utils.EditTextHelper;
 import com.update.utils.LogUtils;
 import com.update.viewholder.ViewHolderFactory;
 
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -117,9 +123,14 @@ public class XsddActivity extends BaseActivity {
     EditText etBm;
     @BindView(R.id.et_ywy)
     EditText etYwy;
+    @BindView(R.id.et_zdr)
+    EditText etZdr;
+    @BindView(R.id.ll_zdr)
+    LinearLayout llZdr;
     @BindView(R.id.et_bzxx)
     EditText etBzxx;
-
+    @BindView(R.id.ll_sh_sd)
+    LinearLayout llShSd;
 
     /**
      * 是否可编辑
@@ -134,6 +145,10 @@ public class XsddActivity extends BaseActivity {
      * 税率
      */
     private String mTaxrate;
+    /**
+     * 单位类型名称
+     */
+    private String mUnityTypename;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -172,9 +187,13 @@ public class XsddActivity extends BaseActivity {
             getBillMaster();
             llBh.setVisibility(View.VISIBLE);
             vBh.setVisibility(View.VISIBLE);
+            llZdr.setVisibility(View.VISIBLE);
+            llShSd.setVisibility(View.VISIBLE);
         } else {
             llBh.setVisibility(View.GONE);
             vBh.setVisibility(View.GONE);
+            llZdr.setVisibility(View.GONE);
+            llShSd.setVisibility(View.GONE);
             setDefaultData();
         }
         /* 选择商品集合信息处理 */
@@ -218,9 +237,18 @@ public class XsddActivity extends BaseActivity {
         mMasterRequestData.setBilltypeid("1");
         etFplx.setText("收据");
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        etDjrq.setText(simpleDateFormat.format(new Date()));
+        mMasterRequestData.setDepartmentid(ShareUserInfo.getKey(this, "departmentid"));
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        mMasterRequestData.setExemanid(ShareUserInfo.getKey(this, "empid"));
+        etYwy.setText(ShareUserInfo.getKey(this, "opname"));
+
+        EditTextHelper.EditTextEnable(false, etYsje);
+
     }
 
-    @OnClick({R.id.ib_fh, R.id.ib_bc, R.id.et_kh, R.id.et_lxr, R.id.et_fplx, R.id.et_xgxm, R.id.et_jhrq, R.id.et_zjzh, R.id.iv_scan, R.id.ll_xzsp, R.id.et_djrq, R.id.et_bm, R.id.et_ywy})
+    @OnClick({R.id.ib_fh, R.id.ib_bc, R.id.et_kh, R.id.et_lxr, R.id.et_fplx, R.id.et_xgxm, R.id.et_jhrq, R.id.et_zjzh, R.id.iv_scan, R.id.ll_xzsp, R.id.et_djrq, R.id.et_bm, R.id.et_ywy, R.id.bt_sh, R.id.bt_sd})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ib_fh:
@@ -243,15 +271,25 @@ public class XsddActivity extends BaseActivity {
                 startActivityForResult(KtXzfplxActivity.Companion.getMyIntent(mActivity, "1"), 13);
                 break;
             case R.id.et_xgxm:
+                if (TextUtils.isEmpty(mMasterRequestData.getClientid())) {
+                    showShortToast("请先选择客户信息");
+                    return;
+                }
+                startActivityForResult(new Intent(mActivity, ChoiceProjectActivity.class)
+                        .putExtra("clientid", mMasterRequestData.getClientid())
+                        .putExtra("clientname", etKh.getText().toString())
+                        .putExtra("dwmc", true)
+                        .putExtra("typesname", mUnityTypename), 23);
+
                 break;
             case R.id.et_jhrq:
                 selectTime("jhrq");
                 break;
             case R.id.et_zjzh:
-                startActivityForResult(CommonXzzdActivity.getMyIntent(mActivity, "BANK"), 15);
+                startActivityForResult(CommonXzzdActivity.getMyIntent(mActivity, "BANK", true), 15);
                 break;
             case R.id.ll_xzsp:
-                startActivityForResult(JxcXzspActivity.getMyIntent(mActivity, "XSDD", "0", etFplx.getText().toString() == "收据", mTaxrate, "tb_sorder"), 16);
+                startActivityForResult(JxcXzspActivity.getMyIntent(mActivity, "XSDD", "0", etFplx.getText().toString().equals("收据"), mTaxrate, "tb_sorder"), 16);
                 break;
             case R.id.iv_scan:
                 break;
@@ -268,6 +306,32 @@ public class XsddActivity extends BaseActivity {
                 }
                 startActivityForResult(SelectSalesmanActivity.getMyIntent(mActivity, mMasterRequestData.getDepartmentid()), 19);
                 break;
+            case R.id.bt_sh:
+                Intent intent = new Intent();
+                intent.putExtra("tb", "tb_sorder");
+                intent.putExtra("opid", mMasterRequestData.getOpid());
+                intent.putExtra("billid", mMasterRequestData.getBillid());
+                intent.setClass(mActivity, JxcCgglCgddShlcActivity.class);
+                startActivityForResult(intent, 20);
+                break;
+            case R.id.bt_sd:
+                if (!ShareUserInfo.getKey(mActivity, "sc").equals("1")) {
+                    showShortToast("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
+                new AlertDialog.Builder(mActivity)
+                        .setTitle("确定要删除当前记录吗？")
+                        .setNegativeButton("删除",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface arg0,
+                                                        int arg1) {
+                                        delete();
+                                    }
+                                }).setPositiveButton("取消", null).show();
+
+                break;
         }
     }
 
@@ -279,11 +343,14 @@ public class XsddActivity extends BaseActivity {
                 /**
                  * 更换客户，商品需要重新选择
                  */
-                if (mXsddDetailResponseData != null) {
-                    mXsddDetailResponseData.clear();
-                }
+//                if (mXsddDetailResponseData != null) {
+//                    mXsddDetailResponseData.clear();
+//                    mAdapter.setList(mXsddDetailResponseData);
+//                    calculationTotalAmount();
+//                }
                 etKh.setText(data.getStringExtra("name"));
                 mMasterRequestData.setClientid(data.getStringExtra("id"));
+                mUnityTypename = (data.getStringExtra("typesname"));
                 etLxr.setText(data.getStringExtra("lxrname"));
                 mMasterRequestData.setLinkmanid(data.getStringExtra("lxrid"));
                 etLxdh.setText(data.getStringExtra("phone"));
@@ -296,10 +363,31 @@ public class XsddActivity extends BaseActivity {
             case 13://选择发票类型
                 mMasterRequestData.setBilltypeid(data.getStringExtra("id"));
                 etFplx.setText(data.getStringExtra("name"));
+                mTaxrate = data.getStringExtra("taxrate");
+                if (mXsddDetailResponseData != null) {
+                    for (int i = 0; i < mXsddDetailResponseData.size(); i++) {
+                        mXsddDetailResponseData.get(i).setTaxrate(mTaxrate);
+                        double taxunitprice = Double.parseDouble(mXsddDetailResponseData.get(i).getUnitprice()) * (Double.parseDouble(mXsddDetailResponseData.get(i).getTaxrate()) / 100 + 1);
+                        double amount = taxunitprice * Double.parseDouble(mXsddDetailResponseData.get(i).getUnitqty());
+                        mXsddDetailResponseData.get(i).setTaxunitprice(FigureTools.sswrFigure(taxunitprice));
+                        mXsddDetailResponseData.get(i).setAmount(FigureTools.sswrFigure(amount));
+                    }
+                    mAdapter.setList(mXsddDetailResponseData);
+                    calculationTotalAmount();
+                }
                 break;
             case 15://选择资金账户
-                mMasterRequestData.setBankid(data.getStringExtra("id"));
-                etZjzh.setText(data.getStringExtra("dictmc"));
+                String bankid = data.getStringExtra("id");
+                if ("-1".equals(bankid)) {
+                    mMasterRequestData.setBankid("");
+                    etZjzh.setText("");
+                    etYsje.setText("");
+                    EditTextHelper.EditTextEnable(false, etYsje);
+                } else {
+                    mMasterRequestData.setBankid(bankid);
+                    etZjzh.setText(data.getStringExtra("dictmc"));
+                    EditTextHelper.EditTextEnable(true, etYsje);
+                }
                 break;
             case 16://选择商品
                 LogUtils.e(data.getStringExtra("data"));
@@ -337,7 +425,16 @@ public class XsddActivity extends BaseActivity {
                 mMasterRequestData.setExemanid(data.getStringExtra("CHOICE_RESULT_ID"));
                 etYwy.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
+            case 20:
+                getBillMaster();
+                setResult(Activity.RESULT_OK);
+                break;
+            case 23://相关项目选择
+                etXgxm.setText(data.getStringExtra("title"));
+                mMasterRequestData.setProjectid(data.getStringExtra("projectid"));
+                break;
         }
+
     }
 
     /**
@@ -405,10 +502,19 @@ public class XsddActivity extends BaseActivity {
             showShortToast("交货日期不能早于单据日期");
             return;
         }
+
+        if (!TextUtils.isEmpty(mMasterRequestData.getBankid()) && TextUtils.isEmpty(etYsje.getText().toString())) {
+            showShortToast("预收金额不能为空");
+            return;
+        }
+        if (!TextUtils.isEmpty(mMasterRequestData.getBankid()) && Double.parseDouble(etYsje.getText().toString()) <= 0) {
+            showShortToast("预收金额不能小于0");
+            return;
+        }
         mMasterRequestData.setPhone(etLxdh.getText().toString());
         mMasterRequestData.setShipto(etJhdz.getText().toString());
         mMasterRequestData.setSuramt(etYsje.getText().toString());
-        mMasterRequestData.setAmount(etHjje.getText().toString().replace("￥",""));
+        mMasterRequestData.setAmount(etHjje.getText().toString().replace("￥", ""));
         mMasterRequestData.setMemo(etBzxx.getText().toString());
         mMasterRequestData.setOpid(ShareUserInfo.getUserId(mActivity));
 
@@ -467,6 +573,16 @@ public class XsddActivity extends BaseActivity {
         presenter.post(2, ServerURL.BILLDETAIL, parmMap);
     }
 
+
+    private void delete() {
+        Map<String, Object> parmMap = new HashMap<String, Object>();
+        parmMap.put("dbname", ShareUserInfo.getDbName(mActivity));
+        parmMap.put("opid", ShareUserInfo.getUserId(mActivity));
+        parmMap.put("tabname", "tb_porder");
+        parmMap.put("pkvalue", getIntent().getStringExtra("billid"));
+        presenter.post(3, ServerURL.BILLDELMASTER, parmMap);
+    }
+
     /**
      * 网路请求返回数据
      *
@@ -480,7 +596,11 @@ public class XsddActivity extends BaseActivity {
         LogUtils.e(result);
         switch (requestCode) {
             case 0:
-                showShortToast("保存成功");
+                if (!TextUtils.isEmpty(result) && result.contains("false")) {
+                    showShortToast("保存失败" + result);
+                } else {
+                    showShortToast("保存成功");
+                }
                 break;
             case 1:
                 getBillDetail();
@@ -489,13 +609,16 @@ public class XsddActivity extends BaseActivity {
                 XsddMasterResponseData xsddMasterResponseData = list.get(0);
                 switch (xsddMasterResponseData.getShzt()) {
                     case 0:
-                        ivScan.setBackgroundResource(R.drawable.wsh);
+                        ivShzt.setBackgroundResource(R.drawable.wsh);
+                        ibBc.setVisibility(View.VISIBLE);
                         break;
                     case 1:
-                        ivScan.setBackgroundResource(R.drawable.ysh);
+                        ivShzt.setBackgroundResource(R.drawable.ysh);
+                        ibBc.setVisibility(View.GONE);
                         break;
                     case 2:
-                        ivScan.setBackgroundResource(R.drawable.shz);
+                        ivShzt.setBackgroundResource(R.drawable.shz);
+                        ibBc.setVisibility(View.VISIBLE);
                         break;
                 }
                 mMasterRequestData.setBillid(xsddMasterResponseData.getSorderid() + "");
@@ -519,7 +642,11 @@ public class XsddActivity extends BaseActivity {
                 mMasterRequestData.setBankid(xsddMasterResponseData.getBankid() + "");
                 etZjzh.setText(xsddMasterResponseData.getBankname());
                 mMasterRequestData.setSuramt(xsddMasterResponseData.getSuramt() + "");
-                etYsje.setText(xsddMasterResponseData.getSuramt() + "");
+                if (TextUtils.isEmpty(mMasterRequestData.getBankid())) {
+                    EditTextHelper.EditTextEnable(false, etYsje);
+                } else {
+                    etYsje.setText(xsddMasterResponseData.getSuramt() + "");
+                }
                 mMasterRequestData.setAmount(xsddMasterResponseData.getAmount() + "");
                 etHjje.setText(xsddMasterResponseData.getAmount() + "");
                 mMasterRequestData.setBilldate(xsddMasterResponseData.getBilldate());
@@ -528,6 +655,7 @@ public class XsddActivity extends BaseActivity {
                 etBm.setText(xsddMasterResponseData.getDepname());
                 mMasterRequestData.setExemanid(xsddMasterResponseData.getExemanid() + "");
                 etYwy.setText(xsddMasterResponseData.getEmpname());
+                etZdr.setText(xsddMasterResponseData.getOpname());
                 mMasterRequestData.setMemo(xsddMasterResponseData.getMemo());
                 etBzxx.setText(xsddMasterResponseData.getMemo());
                 mMasterRequestData.setOpid(xsddMasterResponseData.getOpid() + "");
@@ -553,16 +681,17 @@ public class XsddActivity extends BaseActivity {
                     tvSpsl.setText("共选择了" + mXsddDetailResponseData.size() + "商品");
                 }
                 break;
+            case 3://删单
+                if (TextUtils.isEmpty(result)) {
+                    showShortToast("操作成功");
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                } else {
+                    showShortToast("操作失败" + result.substring(5));
+                }
+                break;
         }
-//        if (result.equals("false")) {
-//            LogUtils.e("失败");
-//            titlebar.setTvRightEnabled(true);
-//            showShortToast(data.toString());
-//        } else {
-//            LogUtils.e("失败");
-//            showShortToast("添加成功");
-//            finish();
-//        }
+
     }
 
 }

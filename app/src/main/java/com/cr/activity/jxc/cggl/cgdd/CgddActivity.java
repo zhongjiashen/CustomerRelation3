@@ -1,6 +1,8 @@
 package com.cr.activity.jxc.cggl.cgdd;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,8 +20,10 @@ import android.widget.ToggleButton;
 
 import com.airsaid.pickerviewlibrary.TimePickerView;
 import com.alibaba.fastjson.JSON;
+import com.cr.activity.CkxzActivity;
 import com.cr.activity.common.CommonXzdwActivity;
 import com.cr.activity.common.CommonXzlxrActivity;
+import com.cr.activity.common.CommonXzyyActivity;
 import com.cr.activity.common.CommonXzzdActivity;
 import com.cr.activity.jxc.JxcXzspActivity;
 import com.cr.activity.jxc.KtXzspData;
@@ -27,8 +31,6 @@ import com.cr.activity.jxc.SpxqCkActivity;
 import com.cr.activity.jxc.spxq.SpxqActivity;
 import com.cr.activity.request.CgddDetailRequestData;
 import com.cr.activity.request.CgddMasterRequestData;
-import com.cr.activity.request.XsddDetailRequestData;
-import com.cr.activity.request.XsddMasterRequestData;
 import com.cr.activity.response.CgddDetailResponseData;
 import com.cr.activity.response.CgddMasterResponseData;
 import com.cr.tools.FigureTools;
@@ -40,14 +42,17 @@ import com.google.gson.reflect.TypeToken;
 import com.update.actiity.choose.ChooseDepartmentActivity;
 import com.update.actiity.choose.KtXzfplxActivity;
 import com.update.actiity.choose.SelectSalesmanActivity;
+import com.update.actiity.project.ChoiceProjectActivity;
 import com.update.base.BaseActivity;
 import com.update.base.BaseP;
 import com.update.base.BaseRecycleAdapter;
 import com.update.utils.DateUtil;
+import com.update.utils.EditTextHelper;
 import com.update.utils.LogUtils;
 import com.update.viewholder.ViewHolderFactory;
 
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,11 +67,6 @@ import butterknife.OnClick;
  */
 public class CgddActivity extends BaseActivity {
 
-
-    @BindView(R.id.ll_gldj_xx)
-    LinearLayout llGldjXx;
-    @BindView(R.id.nsv_view)
-    NestedScrollView nsvView;
 
     public static Intent getMyIntent(Activity activity, String billid) {
         Intent intent = new Intent(activity, CgddActivity.class);
@@ -119,13 +119,21 @@ public class CgddActivity extends BaseActivity {
     EditText etBm;
     @BindView(R.id.et_jbr)
     EditText etJbr;
-    @BindView(R.id.zdr_edittext)
-    EditText zdrEdittext;
+
     @BindView(R.id.et_bzxx)
     EditText etBzxx;
     @BindView(R.id.ll_sh_sd)
     LinearLayout llShSd;
-
+    @BindView(R.id.ll_gldj_xx)
+    LinearLayout llGldjXx;
+    @BindView(R.id.nsv_view)
+    NestedScrollView nsvView;
+    @BindView(R.id.et_ck)
+    EditText etCk;
+    @BindView(R.id.et_zdr)
+    EditText etZdr;
+    @BindView(R.id.ll_zdr)
+    LinearLayout llZdr;
 
     CgddMasterRequestData mMasterRequestData;
     /**
@@ -138,6 +146,10 @@ public class CgddActivity extends BaseActivity {
     private boolean isCanEdit;
 
     List<CgddDetailResponseData> mDetailResponseDataList;
+    /**
+     * 单位类型名称
+     */
+    private String mUnityTypename;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量。
@@ -177,10 +189,14 @@ public class CgddActivity extends BaseActivity {
             llBh.setVisibility(View.VISIBLE);
             vBh.setVisibility(View.VISIBLE);
             llGldj.setVisibility(View.GONE);
+            llZdr.setVisibility(View.VISIBLE);
+            llShSd.setVisibility(View.VISIBLE);
         } else {
             llBh.setVisibility(View.GONE);
             vBh.setVisibility(View.GONE);
             llGldj.setVisibility(View.VISIBLE);
+            llZdr.setVisibility(View.GONE);
+            llShSd.setVisibility(View.GONE);
             setDefaultData();
         }
 
@@ -228,9 +244,22 @@ public class CgddActivity extends BaseActivity {
      * 设置默认数据
      */
     private void setDefaultData() {
+
+
         mTaxrate = "0";
         mMasterRequestData.setBilltypeid("1");
         etFplx.setText("收据");
+
+
+        EditTextHelper.EditTextEnable(false, etYfje);
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        etDjrq.setText(simpleDateFormat.format(new Date()));
+        mMasterRequestData.setDepartmentid(ShareUserInfo.getKey(this, "departmentid"));
+        etBm.setText(ShareUserInfo.getKey(this, "depname"));
+        mMasterRequestData.setExemanid(ShareUserInfo.getKey(this, "empid"));
+        etJbr.setText(ShareUserInfo.getKey(this, "opname"));
 
     }
 
@@ -245,8 +274,19 @@ public class CgddActivity extends BaseActivity {
                 save();
                 break;
             case R.id.ll_ck:
+                startActivityForResult(new Intent(mActivity, CkxzActivity.class), 20);
                 break;
             case R.id.ll_xzxsdd:
+
+                if (TextUtils.isEmpty(etCk.getText().toString())) {
+                    showShortToast("请先选择仓库");
+
+                } else {
+                    startActivityForResult(new Intent(mActivity, CommonXzyyActivity.class)
+                            .putExtra("type", "CGDD_XSDD")
+                            .putExtra("clientid", "0")
+                            .putExtra("reftypeid", "1"), 21);
+                }
                 break;
             case R.id.ll_gys:
                 startActivityForResult(CommonXzdwActivity.getMyIntent(mActivity, "2"), 11);
@@ -264,16 +304,26 @@ public class CgddActivity extends BaseActivity {
 
                 break;
             case R.id.ll_xgxm:
+                if (TextUtils.isEmpty(mMasterRequestData.getClientid())) {
+                    showShortToast("请先选择客户信息");
+                    return;
+                }
+                startActivityForResult(new Intent(mActivity, ChoiceProjectActivity.class)
+                        .putExtra("clientid", mMasterRequestData.getClientid())
+                        .putExtra("clientname", etGys.getText().toString())
+                        .putExtra("dwmc", true)
+                        .putExtra("typesname", mUnityTypename), 23);
+
                 break;
             case R.id.ll_jhrq:
                 selectTime("jhrq");
                 break;
             case R.id.ll_zjzh_xz:
-                startActivityForResult(CommonXzzdActivity.getMyIntent(mActivity, "BANK"), 15);
+                startActivityForResult(CommonXzzdActivity.getMyIntent(mActivity, "BANK", true), 15);
 
                 break;
             case R.id.ll_xzsp:
-                startActivityForResult(JxcXzspActivity.getMyIntent(mActivity, "CGDD", "0", etFplx.getText().toString() == "收据", mTaxrate, "tb_sorder"), 16);
+                startActivityForResult(JxcXzspActivity.getMyIntent(mActivity, "CGDD", "0", etFplx.getText().toString().equals("收据"), mTaxrate, "tb_sorder"), 16);
 
                 break;
             case R.id.ll_djrq_xz:
@@ -292,9 +342,31 @@ public class CgddActivity extends BaseActivity {
 
                 break;
             case R.id.bt_sh:
+                Intent intent = new Intent();
+                intent.putExtra("tb", "tb_sorder");
+                intent.putExtra("opid", mMasterRequestData.getOpid());
+                intent.putExtra("billid", mMasterRequestData.getBillid());
+                intent.setClass(mActivity, JxcCgglCgddShlcActivity.class);
+                startActivityForResult(intent, 22);
+
                 break;
             case R.id.bt_sd:
-                delete();
+                if (!ShareUserInfo.getKey(mActivity, "sc").equals("1")) {
+                    showShortToast("你没有该权限，请向管理员申请权限！");
+                    return;
+                }
+                new AlertDialog.Builder(mActivity)
+                        .setTitle("确定要删除当前记录吗？")
+                        .setNegativeButton("删除",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface arg0,
+                                                        int arg1) {
+                                        delete();
+                                    }
+                                }).setPositiveButton("取消", null).show();
+
                 break;
         }
 
@@ -306,17 +378,18 @@ public class CgddActivity extends BaseActivity {
         super.onMyActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 11://客户
-                /**
-                 * 更换客户，商品需要重新选择
-                 */
+                /* *//**
+             * 更换客户，商品需要重新选择
+             *//*
                 if (mDetailResponseDataList != null) {
                     mDetailResponseDataList.clear();
-                }
+                }*/
                 etGys.setText(data.getStringExtra("name"));
                 mMasterRequestData.setClientid(data.getStringExtra("id"));
                 etLxr.setText(data.getStringExtra("lxrname"));
                 mMasterRequestData.setLinkmanid(data.getStringExtra("lxrid"));
                 etLxdh.setText(data.getStringExtra("phone"));
+                mUnityTypename = (data.getStringExtra("typesname"));
                 break;
             case 12://选择联系人
                 etLxr.setText(data.getStringExtra("name"));
@@ -324,12 +397,34 @@ public class CgddActivity extends BaseActivity {
                 etLxdh.setText(data.getStringExtra("phone"));
                 break;
             case 13://选择发票类型
+
                 mMasterRequestData.setBilltypeid(data.getStringExtra("id"));
                 etFplx.setText(data.getStringExtra("name"));
+                mTaxrate = data.getStringExtra("taxrate");
+                if (mDetailResponseDataList != null) {
+                    for (int i = 0; i < mDetailResponseDataList.size(); i++) {
+                        mDetailResponseDataList.get(i).setTaxrate(mTaxrate);
+                        double taxunitprice = Double.parseDouble(mDetailResponseDataList.get(i).getUnitprice()) * (Double.parseDouble(mDetailResponseDataList.get(i).getTaxrate()) / 100 + 1);
+                        double amount = taxunitprice * Double.parseDouble(mDetailResponseDataList.get(i).getUnitqty());
+                        mDetailResponseDataList.get(i).setTaxunitprice(FigureTools.sswrFigure(taxunitprice));
+                        mDetailResponseDataList.get(i).setAmount(FigureTools.sswrFigure(amount));
+                    }
+                    mAdapter.setList(mDetailResponseDataList);
+                    calculationTotalAmount();
+                }
                 break;
             case 15://选择资金账户
-                mMasterRequestData.setBankid(data.getStringExtra("id"));
-                etZjzh.setText(data.getStringExtra("dictmc"));
+                String bankid = data.getStringExtra("id");
+                if ("-1".equals(bankid)) {
+                    mMasterRequestData.setBankid("");
+                    etZjzh.setText("");
+                    etYfje.setText("");
+                    EditTextHelper.EditTextEnable(false, etYfje);
+                } else {
+                    mMasterRequestData.setBankid(data.getStringExtra("id"));
+                    etZjzh.setText(data.getStringExtra("dictmc"));
+                    EditTextHelper.EditTextEnable(true, etYfje);
+                }
                 break;
             case 16://选择商品
                 LogUtils.e(data.getStringExtra("data"));
@@ -349,13 +444,13 @@ public class CgddActivity extends BaseActivity {
                 String gson = data.getStringExtra("data");
                 int position = data.getIntExtra("position", 0);
                 mDetailResponseDataList.remove(position);
-//                if (!TextUtils.isEmpty(gson)) {
-//                    XsddDetailResponseData xsddDetailRequestData = new Gson().fromJson(data.getExtras().getString("data"), new TypeToken<XsddDetailResponseData>() {
-//                    }.getType());
-//                    mXsddDetailResponseData.add(position, xsddDetailRequestData);
-//                }
+                if (!TextUtils.isEmpty(gson)) {
+                    CgddDetailResponseData xsddDetailRequestData = new Gson().fromJson(data.getExtras().getString("data"), new TypeToken<CgddDetailResponseData>() {
+                    }.getType());
+                    mDetailResponseDataList.add(position, xsddDetailRequestData);
+                }
                 mAdapter.setList(mDetailResponseDataList);
-//                calculationTotalAmount();
+                calculationTotalAmount();
                 break;
             case 18://选择部门
                 mMasterRequestData.setDepartmentid(data.getStringExtra("CHOICE_RESULT_ID"));
@@ -367,8 +462,41 @@ public class CgddActivity extends BaseActivity {
                 mMasterRequestData.setExemanid(data.getStringExtra("CHOICE_RESULT_ID"));
                 etJbr.setText(data.getStringExtra("CHOICE_RESULT_TEXT"));
                 break;
+            case 20:
+                etCk.setText(data.getStringExtra("dictmc"));
+                break;
+            case 21:
+                nsvView.setVisibility(View.VISIBLE);//隐藏关联销售单据的Linearlayout
+                llGldj.setVisibility(View.GONE);//显示展示详情的Linearlayout信息
+                tbGldj.setSelected(false);
+                tbGldj.setChecked(false);
+                if (mDetailResponseDataList == null) {
+                    mDetailResponseDataList = new ArrayList<>();
+                } else {
+                    mDetailResponseDataList.clear();
+                }
+                List<Map<String, Object>> list = (List<Map<String, Object>>) data.getExtras().getSerializable("list");
+                LogUtils.e(JSON.toJSONString(list));
+
+                for (int i = 0; i < list.size(); i++) {
+                    CgddDetailResponseData xsddDetailRequestData = new CgddDetailResponseData(list.get(i));
+                    mDetailResponseDataList.add(xsddDetailRequestData);
+                }
+                mAdapter.setList(mDetailResponseDataList);
+                calculationTotalAmount();
+                break;
+
+            case 22:
+                getBillMaster();
+                setResult(Activity.RESULT_OK);
+                break;
+            case 23://相关项目选择
+                etXgxm.setText(data.getStringExtra("title"));
+                mMasterRequestData.setProjectid(data.getStringExtra("projectid"));
+                break;
         }
     }
+
     /**
      * 计算合计金额
      */
@@ -388,7 +516,7 @@ public class CgddActivity extends BaseActivity {
      */
     private void save() {
         if (TextUtils.isEmpty(etGys.getText().toString())) {
-            showShortToast("请选择客户");
+            showShortToast("请选择供应商");
             return;
         }
         if (mDetailResponseDataList == null || mDetailResponseDataList.size() == 0) {
@@ -407,10 +535,18 @@ public class CgddActivity extends BaseActivity {
             showShortToast("交货日期不能早于单据日期");
             return;
         }
+        if (!TextUtils.isEmpty(mMasterRequestData.getBankid()) && TextUtils.isEmpty(etYfje.getText().toString())) {
+            showShortToast("预付金额不能为空");
+            return;
+        }
+        if (!TextUtils.isEmpty(mMasterRequestData.getBankid()) && Double.parseDouble(etYfje.getText().toString()) <= 0) {
+            showShortToast("预付金额不能小于0");
+            return;
+        }
         mMasterRequestData.setPhone(etLxdh.getText().toString());
         mMasterRequestData.setBillto(etJhdz.getText().toString());
         mMasterRequestData.setSuramt(etYfje.getText().toString());
-        mMasterRequestData.setAmount(etHjje.getText().toString().replace("￥",""));
+        mMasterRequestData.setAmount(etHjje.getText().toString().replace("￥", ""));
         mMasterRequestData.setMemo(etBzxx.getText().toString());
         mMasterRequestData.setOpid(ShareUserInfo.getUserId(mActivity));
 
@@ -501,7 +637,11 @@ public class CgddActivity extends BaseActivity {
         LogUtils.e(result);
         switch (requestCode) {
             case 0:
-                showShortToast("保存成功");
+                if(!TextUtils.isEmpty(result)&&result.contains("false")){
+                    showShortToast("保存失败" + result);
+                }else {
+                    showShortToast("保存成功");
+                }
                 break;
             case 1:
                 getBillDetail();
@@ -511,12 +651,15 @@ public class CgddActivity extends BaseActivity {
                 switch (masterResponseData.getShzt()) {
                     case 0:
                         ivShzt.setBackgroundResource(R.drawable.wsh);
+                        ibSave.setVisibility(View.VISIBLE);
                         break;
                     case 1:
                         ivShzt.setBackgroundResource(R.drawable.ysh);
+                        ibSave.setVisibility(View.GONE);
                         break;
                     case 2:
                         ivShzt.setBackgroundResource(R.drawable.shz);
+                        ibSave.setVisibility(View.VISIBLE);
                         break;
                 }
                 mMasterRequestData.setBillid(masterResponseData.getOrderid() + "");
@@ -540,16 +683,21 @@ public class CgddActivity extends BaseActivity {
                 mMasterRequestData.setBankid(masterResponseData.getBankid() + "");
                 etZjzh.setText(masterResponseData.getBankname());
                 mMasterRequestData.setSuramt(masterResponseData.getSuramt() + "");
-                etYfje.setText(masterResponseData.getSuramt() + "");
+                if (TextUtils.isEmpty(mMasterRequestData.getBankid())) {
+                    EditTextHelper.EditTextEnable(false, etYfje);
+                } else {
+                    etYfje.setText(masterResponseData.getSuramt() + "");
+                }
+
                 mMasterRequestData.setAmount(masterResponseData.getAmount() + "");
                 etHjje.setText(masterResponseData.getAmount() + "");
                 mMasterRequestData.setBilldate(masterResponseData.getBilldate());
                 etDjrq.setText(masterResponseData.getBilldate());
                 mMasterRequestData.setDepartmentid(masterResponseData.getDepartmentid() + "");
                 etBm.setText(masterResponseData.getDepname());
-                mMasterRequestData.setExemanid(masterResponseData.getExemanid() + "");
+                mMasterRequestData.setExemanid(masterResponseData.getEmpid() + "");
                 etJbr.setText(masterResponseData.getEmpname());
-                zdrEdittext.setText(masterResponseData.getOpname());
+                etZdr.setText(masterResponseData.getOpname());
                 mMasterRequestData.setMemo(masterResponseData.getMemo());
                 etBzxx.setText(masterResponseData.getMemo());
                 mMasterRequestData.setOpid(masterResponseData.getOpid() + "");

@@ -209,6 +209,8 @@
                 <EditText
                     android:id="@+id/et_ysje"
                     style="@style/edittext_bj"
+                    android:digits="0.123456789"
+                    android:hint="请先选择资金账户在填写"
                     android:inputType="numberDecimal" />
 
 
@@ -350,9 +352,26 @@
             <View style="@style/underline2" />
 
             <LinearLayout
+                android:id="@+id/ll_zdr"
+                style="@style/detail_relativelayout">
+
+                <TextView
+                    style="@style/font_default"
+                    android:text="@string/zdr" />
+
+                <EditText
+                    android:id="@+id/et_zdr"
+                    style="@style/edittext_bj2" />
+
+            </LinearLayout>
+
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="15dip"
-                android:background="@color/cgdd_search_bg"></LinearLayout>
+                android:background="@color/cgdd_search_bg" />
 
             <View style="@style/underline2" />
 
@@ -372,6 +391,33 @@
                     android:lines="3"
                     android:paddingLeft="10dip"
                     android:paddingRight="10dip" />
+            </LinearLayout>
+
+            <View style="@style/underline2" />
+
+            <LinearLayout
+                android:id="@+id/ll_sh_sd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_sh"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sh"
+                    android:textColor="#ff0000"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/bt_sd"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sd"
+                    android:textColor="#ff0000"
+                    android:textSize="17sp" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

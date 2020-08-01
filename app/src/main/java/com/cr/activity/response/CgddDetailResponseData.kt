@@ -2,6 +2,7 @@ package com.cr.activity.response
 
 
 import com.cr.activity.jxc.KtXzspData
+import com.cr.tools.FigureTools
 import com.google.gson.annotations.SerializedName
 
 data class CgddDetailResponseData(
@@ -82,4 +83,24 @@ data class CgddDetailResponseData(
         memo = ktXzspData.memo
     }
 
+    constructor(ktXzspData: MutableMap<String, Any?>) : this() {
+        goodscode=ktXzspData["goodscode"].toString()
+        goodsname=ktXzspData["goodsname"].toString()
+        specs=ktXzspData["specs"].toString()
+        model=ktXzspData["model"].toString()
+        goodsid = ktXzspData["goodsid"].toString()
+        unitid = ktXzspData["unitid"].toString()
+        unitprice = ktXzspData["unitprice"].toString()
+        unitqty = ktXzspData["unitqty"].toString()
+        unitname=ktXzspData["unitname"].toString()
+        amount = ktXzspData["amount"].toString()
+        batchcode =ktXzspData["batchcode"].toString()
+        produceddate = ktXzspData["produceddate"].toString()
+        validdate = ktXzspData["validdate"].toString()
+        batchrefid = ktXzspData["batchrefid"].toString()
+        taxrate = ktXzspData["taxrate"].toString()
+        val csje = ktXzspData["unitprice"].toString().toDouble() * (ktXzspData["taxrate"].toString().toDouble() + 100) / 100
+        taxunitprice =FigureTools.sswrFigure(csje)
+        memo = ktXzspData["memo"].toString()
+    }
 }

@@ -29,9 +29,10 @@ import com.crcxj.activity.R;
  */
 public class CommonXzzdActivity extends BaseActivity implements OnClickListener {
 
-    public static Intent getMyIntent(Activity activity, String type){
-        Intent intent=new Intent(activity,CommonXzzdActivity.class);
-        intent.putExtra("type",type);
+    public static Intent getMyIntent(Activity activity, String type, boolean isNullable) {
+        Intent intent = new Intent(activity, CommonXzzdActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("isNullable", isNullable);
         return intent;
     }
 
@@ -73,14 +74,14 @@ public class CommonXzzdActivity extends BaseActivity implements OnClickListener 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 Map<String, Object> map = list.get(arg2);
-                String dictmc= map.get("dictmc").toString();
-                if(type.equals("ZCLB")||type.equals("SRLB")){
-                   String c = String.valueOf(dictmc.charAt(0));
-                    if(!c.equals("|")){
+                String dictmc = map.get("dictmc").toString();
+                if (type.equals("ZCLB") || type.equals("SRLB")) {
+                    String c = String.valueOf(dictmc.charAt(0));
+                    if (!c.equals("|")) {
                         showToastPromopt("必须选到最低级别");
                         return;
                     }
-                    dictmc .replace("|", "");
+                    dictmc.replace("|", "");
                 }
 
                 Intent intent = new Intent();
@@ -117,6 +118,15 @@ public class CommonXzzdActivity extends BaseActivity implements OnClickListener 
 
                     }
 
+                }
+                /**
+                 * 判断是否可为空
+                 */
+                if (getIntent().getBooleanExtra("isNullable", false)) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("id", "-1");
+                    map.put("dictmc", "不选择");
+                    list.add(map);
                 }
                 adapter.notifyDataSetChanged();
             }
